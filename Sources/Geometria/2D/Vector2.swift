@@ -1,10 +1,13 @@
 import simd
 import RealModule
 
-/// Represents a 2D point with `Double` coordinate domains
+/// Represents a 2D point with two double-precision, floating-point components
 public typealias Vector2D = Vector2<Double>
 
-/// Represents a 2D point with `Int` coordinate domains
+/// Represents a 2D point with two floating-point components
+public typealias Vector2F = Vector2<Float>
+
+/// Represents a 2D point with two `Int` components
 public typealias Vector2i = Vector2<Int>
 
 /// Alias for `Vector2D`
@@ -14,7 +17,7 @@ public typealias Size = Vector2D
 public typealias VectorScalar = Comparable & Numeric & SIMDScalar
 
 /// Represents a 2D vector
-public struct Vector2<Scalar: VectorScalar>: Equatable, Codable, CustomStringConvertible {
+public struct Vector2<Scalar: VectorScalar>: Hashable, Codable, CustomStringConvertible {
     /// Used to match `Scalar`'s native type
     public typealias NativeVectorType = SIMD2<Scalar>
     
@@ -61,7 +64,7 @@ public struct Vector2<Scalar: VectorScalar>: Equatable, Codable, CustomStringCon
     }
     
     @inlinable
-    init(_ vector: NativeVectorType) {
+    public init(_ vector: NativeVectorType) {
         theVector = vector
     }
     
@@ -91,7 +94,8 @@ public extension Vector2 {
         return lhs.theVector == rhs.theVector
     }
     
-    /// Compares two vectors and returns if `lhs` is greater than `rhs`.
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than `rhs`.
     ///
     /// Performs `lhs.x > rhs.x && lhs.y > rhs.y`
     @inlinable
@@ -99,8 +103,8 @@ public extension Vector2 {
         return lhs.theVector.x > rhs.theVector.x && lhs.theVector.y > rhs.theVector.y
     }
     
-    /// Compares two vectors and returns if `lhs` is greater than or equal to
-    /// `rhs`.
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than or equal to `rhs`.
     ///
     /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y`
     @inlinable
@@ -108,7 +112,8 @@ public extension Vector2 {
         return lhs.theVector.x >= rhs.theVector.x && lhs.theVector.y >= rhs.theVector.y
     }
     
-    /// Compares two vectors and returns if `lhs` is less than `rhs`.
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// less than `rhs`.
     ///
     /// Performs `lhs.x < rhs.x && lhs.y < rhs.y`
     @inlinable
@@ -116,7 +121,8 @@ public extension Vector2 {
         return lhs.theVector.x < rhs.theVector.x && lhs.theVector.y < rhs.theVector.y
     }
     
-    /// Compares two vectors and returns if `lhs` is less than or equal to `rhs`.
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// less than or equal to `rhs`.
     ///
     /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y`
     @inlinable
@@ -295,18 +301,6 @@ public extension Vector2 where Scalar: SignedNumeric {
     @inlinable
     static prefix func - (lhs: Vector2) -> Vector2 {
         return Vector2(x: -lhs.x, y: -lhs.y)
-    }
-}
-
-public extension Vector2 where Scalar: BinaryInteger {
-    @inlinable
-    static func / (lhs: Vector2, rhs: Vector2) -> Vector2 {
-        return Vector2(x: lhs.x / rhs.x, y: lhs.y / rhs.y)
-    }
-    
-    @inlinable
-    static func / (lhs: Vector2, rhs: Scalar) -> Vector2 {
-        return Vector2(x: lhs.x / rhs, y: lhs.y / rhs)
     }
 }
 
