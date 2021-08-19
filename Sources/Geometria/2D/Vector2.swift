@@ -2,7 +2,7 @@ import RealModule
 import simd
 
 /// A typealias for a scalar that can specialize a `Vector2` instance
-public typealias VectorScalar = SIMDScalar & Comparable & Numeric
+public typealias VectorScalar = SIMDScalar & Numeric
 
 /// A two-component vector type
 public typealias Vector2<T: VectorScalar> = SIMD2<T>
@@ -28,7 +28,9 @@ public extension Vector2 {
     static var unit: Vector2 {
         return Vector2(x: 1, y: 1)
     }
-        
+}
+
+public extension Vector2 where Scalar: Comparable {
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than `rhs`.
     ///
@@ -164,7 +166,7 @@ public extension Vector2 where Scalar: Numeric {
     /// - Parameter start: Start point.
     /// - Parameter end: End point.
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
-    static func smoothStep(start: Vector2, end: Vector2, amount: Scalar) -> Vector2 {
+    static func smoothStep(start: Vector2, end: Vector2, amount: Scalar) -> Vector2 where Scalar: Comparable {
         let amount = smoothStep(amount)
         
         return lerp(start: start, end: end, amount: amount)
@@ -174,7 +176,7 @@ public extension Vector2 where Scalar: Numeric {
     /// - Remarks:
     /// See https://en.wikipedia.org/wiki/Smoothstep
     /// - Parameter amount: Value between 0 and 1 indicating interpolation amount.
-    private static func smoothStep(_ amount: Scalar) -> Scalar {
+    private static func smoothStep(_ amount: Scalar) -> Scalar where Scalar: Comparable {
         return amount <= 0 ? 0
             : amount >= 1 ? 1
             : amount * amount * (3 - 2 * amount)
@@ -416,11 +418,11 @@ public extension Collection {
     }
 }
 
-public func min<T: VectorScalar>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
+public func min<T: VectorScalar & Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
     return Vector2(min(vec1.x, vec2.x), min(vec1.y, vec2.y))
 }
 
-public func max<T: VectorScalar>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
+public func max<T: VectorScalar & Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
     return Vector2(max(vec1.x, vec2.x), max(vec1.y, vec2.y))
 }
 
@@ -456,6 +458,6 @@ public func floor<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
 ///
 /// Equivalent to calling C's abs() function on each component.
 @inlinable
-public func abs<T: SignedNumeric>(_ x: Vector2<T>) -> Vector2<T> {
+public func abs<T: Comparable & SignedNumeric>(_ x: Vector2<T>) -> Vector2<T> {
     return Vector2(x: abs(x.x), y: abs(x.y))
 }

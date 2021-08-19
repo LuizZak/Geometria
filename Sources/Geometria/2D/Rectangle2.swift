@@ -148,15 +148,6 @@ public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
         size = .zero
     }
     
-    /// Initializes a Rectangle containing the minimum area capable of containing
-    /// all supplied points.
-    ///
-    /// If no points are supplied, an empty Rectangle is created instead.
-    @inlinable
-    public init(of points: Vector2<Scalar>...) {
-        self = Rectangle2(points: points)
-    }
-    
     /// Initializes a Rectangle instance out of the given minimum and maximum
     /// coordinates.
     /// The coordinates are not checked for ordering, and will be directly
@@ -185,69 +176,6 @@ public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
     @inlinable
     public init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         self.init(x: left, y: top, width: right - left, height: bottom - top)
-    }
-    
-    /// Initializes a Rectangle out of a set of points, expanding to the
-    /// smallest bounding box capable of fitting each point.
-    public init<C: Collection>(points: C) where C.Element == Vector2<Scalar> {
-        guard let first = points.first else {
-            location = .zero
-            size = .zero
-            return
-        }
-        
-        location = first
-        size = .zero
-        
-        expand(toInclude: points)
-    }
-    
-    /// Expands the bounding box of this Rectangle to include the given point.
-    public mutating func expand(toInclude point: Vector2<Scalar>) {
-        minimum = min(minimum, point)
-        maximum = max(maximum, point)
-    }
-    
-    /// Expands the bounding box of this Rectangle to include the given set of
-    /// points.
-    ///
-    /// Same as calling `expand(toInclude:Vector2D)` over each point.
-    /// If the array is empty, nothing is done.
-    public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector2<Scalar> {
-        for p in points {
-            expand(toInclude: p)
-        }
-    }
-    
-    /// Returns whether a given point is contained within this bounding box.
-    /// The check is inclusive, so the edges of the bounding box are considered
-    /// to contain the point as well.
-    @inlinable
-    public func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector2<Scalar>(x: x, y: y))
-    }
-    
-    /// Returns whether a given point is contained within this bounding box.
-    /// The check is inclusive, so the edges of the bounding box are considered
-    /// to contain the point as well.
-    @inlinable
-    public func contains(_ point: Vector2<Scalar>) -> Bool {
-        return point >= minimum && point <= maximum
-    }
-    
-    /// Returns whether a given Rectangle rests completely inside the boundaries
-    /// of this Rectangle.
-    @inlinable
-    public func contains(rectangle: Rectangle2) -> Bool {
-        return rectangle.minimum >= minimum && rectangle.maximum <= maximum
-    }
-    
-    /// Returns whether this Rectangle intersects the given Rectangle instance.
-    /// This check is inclusive, so the edges of the bounding box are considered
-    /// to intersect the other bounding box's edges as well.
-    @inlinable
-    public func intersects(_ box: Rectangle2) -> Bool {
-        return minimum <= box.maximum && maximum >= box.minimum
     }
     
     /// Returns a Rectangle that matches this Rectangle's size with a new location
@@ -300,22 +228,6 @@ public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
     @inlinable
     public func offsetBy(x: Scalar, y: Scalar) -> Rectangle2 {
         return offsetBy(Vector2<Scalar>(x: x, y: y))
-    }
-    
-    /// Returns a Rectangle which is the minimum Rectangle that can fit this
-    /// Rectangle with another given Rectangle.
-    @inlinable
-    public func union(_ other: Rectangle2) -> Rectangle2 {
-        return Rectangle2.union(self, other)
-    }
-    
-    /// Returns an `Rectangle` that is the intersection between this and another
-    /// `Rectangle` instance.
-    ///
-    /// Result is an empty Rectangle if the two rectangles do not intersect
-    @inlinable
-    public func intersection(_ other: Rectangle2) -> Rectangle2 {
-        return Rectangle2.intersect(self, other)
     }
     
     /// Insets this Rectangle with a given set of edge inset values.
@@ -373,11 +285,101 @@ public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
     public func stretchingRight(to value: Scalar) -> Rectangle2 {
         return Rectangle2(left: left, top: top, right: value, bottom: bottom)
     }
+}
+
+public extension Rectangle2 where Scalar: Comparable {
+    /// Initializes a Rectangle containing the minimum area capable of containing
+    /// all supplied points.
+    ///
+    /// If no points are supplied, an empty Rectangle is created instead.
+    @inlinable
+    init(of points: Vector2<Scalar>...) {
+        self = Rectangle2(points: points)
+    }
+    
+    /// Initializes a Rectangle out of a set of points, expanding to the
+    /// smallest bounding box capable of fitting each point.
+    init<C: Collection>(points: C) where C.Element == Vector2<Scalar> {
+        guard let first = points.first else {
+            location = .zero
+            size = .zero
+            return
+        }
+        
+        location = first
+        size = .zero
+        
+        expand(toInclude: points)
+    }
+    
+    /// Expands the bounding box of this Rectangle to include the given point.
+    mutating func expand(toInclude point: Vector2<Scalar>) {
+        minimum = min(minimum, point)
+        maximum = max(maximum, point)
+    }
+    
+    /// Expands the bounding box of this Rectangle to include the given set of
+    /// points.
+    ///
+    /// Same as calling `expand(toInclude:Vector2D)` over each point.
+    /// If the array is empty, nothing is done.
+    mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector2<Scalar> {
+        for p in points {
+            expand(toInclude: p)
+        }
+    }
+    
+    /// Returns whether a given point is contained within this bounding box.
+    /// The check is inclusive, so the edges of the bounding box are considered
+    /// to contain the point as well.
+    @inlinable
+    func contains(x: Scalar, y: Scalar) -> Bool {
+        return contains(Vector2<Scalar>(x: x, y: y))
+    }
+    
+    /// Returns whether a given point is contained within this bounding box.
+    /// The check is inclusive, so the edges of the bounding box are considered
+    /// to contain the point as well.
+    @inlinable
+    func contains(_ point: Vector2<Scalar>) -> Bool {
+        return point >= minimum && point <= maximum
+    }
+    
+    /// Returns whether a given Rectangle rests completely inside the boundaries
+    /// of this Rectangle.
+    @inlinable
+    func contains(rectangle: Rectangle2) -> Bool {
+        return rectangle.minimum >= minimum && rectangle.maximum <= maximum
+    }
+    
+    /// Returns whether this Rectangle intersects the given Rectangle instance.
+    /// This check is inclusive, so the edges of the bounding box are considered
+    /// to intersect the other bounding box's edges as well.
+    @inlinable
+    func intersects(_ box: Rectangle2) -> Bool {
+        return minimum <= box.maximum && maximum >= box.minimum
+    }
+    
+    /// Returns a Rectangle which is the minimum Rectangle that can fit this
+    /// Rectangle with another given Rectangle.
+    @inlinable
+    func union(_ other: Rectangle2) -> Rectangle2 {
+        return Rectangle2.union(self, other)
+    }
+    
+    /// Returns an `Rectangle` that is the intersection between this and another
+    /// `Rectangle` instance.
+    ///
+    /// Result is an empty Rectangle if the two rectangles do not intersect
+    @inlinable
+    func intersection(_ other: Rectangle2) -> Rectangle2 {
+        return Rectangle2.intersect(self, other)
+    }
     
     /// Returns a Rectangle which is the minimum Rectangle that can fit two
     /// given Rectangles.
     @inlinable
-    public static func union(_ left: Rectangle2, _ right: Rectangle2) -> Rectangle2 {
+    static func union(_ left: Rectangle2, _ right: Rectangle2) -> Rectangle2 {
         return Rectangle2(min: min(left.minimum, right.minimum), max: max(left.maximum, right.maximum))
     }
     
@@ -386,7 +388,7 @@ public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
     ///
     /// Return is `zero`, if they do not intersect.
     @inlinable
-    public static func intersect(_ a: Rectangle2, _ b: Rectangle2) -> Rectangle2 {
+    static func intersect(_ a: Rectangle2, _ b: Rectangle2) -> Rectangle2 {
         let x1 = max(a.left, b.left)
         let x2 = min(a.right, b.right)
         let y1 = max(a.top, b.top)

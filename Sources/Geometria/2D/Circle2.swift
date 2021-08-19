@@ -20,17 +20,21 @@ public struct Circle2<Scalar: VectorScalar>: Equatable, Codable {
     public func expanded(by value: Scalar) -> Circle2 {
         return Circle2(center: center, radius: radius + value)
     }
-    
+}
+
+public extension Circle2 where Scalar: Comparable {
+    /// Returns `true` if this circle's area contains a given point.
     @inlinable
-    public func contains(x: Scalar, y: Scalar) -> Bool {
+    func contains(x: Scalar, y: Scalar) -> Bool {
         let dx = x - center.x
         let dy = y - center.y
         
         return dx * dx + dy * dy < radius * radius
     }
     
+    /// Returns `true` if this circle's area contains a given point.
     @inlinable
-    public func contains(_ point: Vector2<Scalar>) -> Bool {
+    func contains(_ point: Vector2<Scalar>) -> Bool {
         return contains(x: point.x, y: point.y)
     }
 }
