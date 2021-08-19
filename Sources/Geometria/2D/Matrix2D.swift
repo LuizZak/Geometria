@@ -329,7 +329,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     ///
     /// - Parameter scale: Scaling factor for both axes.
     public static func scaling(scale: Vector2D) -> Matrix2D {
-        return scaling(x: Double(scale.x), y: Double(scale.y))
+        return scaling(x: scale.x, y: scale.y)
     }
 
     /// Creates a matrix that scales along the x-axis and y-axis.
@@ -418,7 +418,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter result: When the method completes, contains the created
     /// translation matrix.
     public static func translation(_ value: Vector2D) -> Matrix2D {
-        return translation(x: Double(value.x), y: Double(value.y))
+        return translation(x: value.x, y: value.y)
     }
 
     /// Creates a translation matrix using the specified offsets.
