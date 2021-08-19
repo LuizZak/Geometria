@@ -1,5 +1,11 @@
-import simd
 import RealModule
+import simd
+
+/// A typealias for a scalar that can specialize a `Vector2` instance
+public typealias VectorScalar = SIMDScalar & Comparable & Numeric
+
+/// A two-component `Vector` type
+public typealias Vector2<T: VectorScalar> = SIMD2<T>
 
 /// Represents a 2D point with two double-precision, floating-point components
 public typealias Vector2D = Vector2<Double>
@@ -10,97 +16,26 @@ public typealias Vector2F = Vector2<Float>
 /// Represents a 2D point with two `Int` components
 public typealias Vector2i = Vector2<Int>
 
-/// Alias for `Vector2D`
-public typealias Size = Vector2D
-
-/// A typealias for a scalar that can specialize a `VectorT` instance
-public typealias VectorScalar = Comparable & Numeric & SIMDScalar
-
-/// Represents a 2D vector
-public struct Vector2<Scalar: VectorScalar>: Hashable, Codable, CustomStringConvertible {
-    /// Used to match `Scalar`'s native type
-    public typealias NativeVectorType = SIMD2<Scalar>
-    
-    /// This is used during affine transformation
-    public typealias HomogenousVectorType = SIMD3<Scalar>
-    
-    /// A zeroed-value Vector
-    public static var zero: Vector2 { Vector2(NativeVectorType()) }
-    
-    /// An unit-valued Vector
-    public static var unit: Vector2 { Vector2(x: 1, y: 1) }
-    
-    /// An unit-valued Vector.
-    /// Aliast for 'unit'.
-    public static var one: Vector2 { unit }
-    
-    /// The underlying SIMD vector type
-    @usableFromInline
-    var theVector: NativeVectorType
-    
-    @inlinable
-    public var x: Scalar {
-        get {
-            return theVector.x
-        }
-        set {
-            theVector.x = newValue
-        }
-    }
-    
-    @inlinable
-    public var y: Scalar {
-        get {
-            return theVector.y
-        }
-        set {
-            theVector.y = newValue
-        }
-    }
-    
-    /// Textual representation of this vector's coordinates
-    public var description: String {
-        return "\(type(of: self))(x: \(self.x), y: \(self.y))"
-    }
-    
-    @inlinable
-    public init(_ vector: NativeVectorType) {
-        theVector = vector
-    }
-    
-    /// Inits a Vector
-    @inlinable
-    public init(x: Scalar, y: Scalar) {
-        theVector = NativeVectorType(x, y)
-    }
-    
-    /// Inits a Vector where both components have the same given value
-    @inlinable
-    public init(_ xy: Scalar) {
-        theVector = NativeVectorType(xy, xy)
-    }
-    
-    /// Inits a 0-valued Vector
-    @inlinable
-    public init() {
-        theVector = NativeVectorType(repeating: Scalar.zero)
-    }
-}
-
-// MARK: Operators
 public extension Vector2 {
-    @inlinable
-    static func == (lhs: Vector2, rhs: Vector2) -> Bool {
-        return lhs.theVector == rhs.theVector
+    /// A zero-value `Vector2` value where each component corresponds to its
+    /// representation of `0`.
+    static var zero: Vector2 {
+        return Vector2(x: .zero, y: .zero)
     }
     
+    /// A unit-value `Vector2` value where each component corresponds to its
+    /// representation of `1`.
+    static var unit: Vector2 {
+        return Vector2(x: 1, y: 1)
+    }
+        
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than `rhs`.
     ///
     /// Performs `lhs.x > rhs.x && lhs.y > rhs.y`
     @inlinable
     static func > (lhs: Vector2, rhs: Vector2) -> Bool {
-        return lhs.theVector.x > rhs.theVector.x && lhs.theVector.y > rhs.theVector.y
+        return lhs.x > rhs.x && lhs.y > rhs.y
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -109,7 +44,7 @@ public extension Vector2 {
     /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y`
     @inlinable
     static func >= (lhs: Vector2, rhs: Vector2) -> Bool {
-        return lhs.theVector.x >= rhs.theVector.x && lhs.theVector.y >= rhs.theVector.y
+        return lhs.x >= rhs.x && lhs.y >= rhs.y
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -118,7 +53,7 @@ public extension Vector2 {
     /// Performs `lhs.x < rhs.x && lhs.y < rhs.y`
     @inlinable
     static func < (lhs: Vector2, rhs: Vector2) -> Bool {
-        return lhs.theVector.x < rhs.theVector.x && lhs.theVector.y < rhs.theVector.y
+        return lhs.x < rhs.x && lhs.y < rhs.y
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -127,7 +62,7 @@ public extension Vector2 {
     /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y`
     @inlinable
     static func <= (lhs: Vector2, rhs: Vector2) -> Bool {
-        return lhs.theVector.x <= rhs.theVector.x && lhs.theVector.y <= rhs.theVector.y
+        return lhs.x <= rhs.x && lhs.y <= rhs.y
     }
 }
 
@@ -173,26 +108,14 @@ public extension Vector2 where Scalar: AdditiveArithmetic {
     }
 }
 
-public extension Vector2 where Scalar: DivisibleArithmetic {
-    @inlinable
-    static func / (lhs: Vector2, rhs: Vector2) -> Vector2 {
-        return Vector2(x: lhs.x / rhs.x, y: lhs.y / rhs.y)
-    }
-    
-    @inlinable
-    static func / (lhs: Vector2, rhs: Scalar) -> Vector2 {
-        return Vector2(x: lhs.x / rhs, y: lhs.y / rhs)
-    }
-}
-
 public extension Vector2 where Scalar: Numeric {
-    /// Returns the squared length of this Vector relative to the origin (0, 0)
+    /// Returns the length squared of this `Vector2`
     @inlinable
     var lengthSquared: Scalar {
         return x * x + y * y
     }
     
-    /// Returns the distance squared between this Vector and another Vector
+    /// Returns the distance squared between this `Vector2` and another `Vector2`
     @inlinable
     func distanceSquared(to vec: Vector2) -> Scalar {
         let d = self - vec
@@ -200,7 +123,7 @@ public extension Vector2 where Scalar: Numeric {
         return d.x * d.x + d.y * d.y
     }
     
-    /// Calculates the dot product between this and another provided Vector
+    /// Calculates the dot product between this and another provided `Vector2`
     @inlinable
     func dot(_ other: Vector2) -> Scalar {
         return x * other.x + y * other.y
@@ -328,23 +251,21 @@ public extension Vector2 where Scalar: SignedNumeric {
     }
 }
 
-public extension Vector2 where Scalar: FloatingPoint {
-    /// Creates a new Vector, with each coordinate rounded to the closest
-    /// possible representation.
-    ///
-    /// If two representable values are equally close, the result is the value
-    /// with more trailing zeros in its significand bit pattern.
-    ///
-    /// - parameter vector: The integer vector to convert to a floating-point vector.
+public extension Vector2 where Scalar: DivisibleArithmetic {
     @inlinable
-    init<U>(_ vector: Vector2<U>) where U: BinaryInteger {
-        self.init(x: Scalar.init(vector.x), y: Scalar.init(vector.y))
+    static func / (lhs: Vector2, rhs: Vector2) -> Vector2 {
+        return Vector2(x: lhs.x / rhs.x, y: lhs.y / rhs.y)
     }
-    
-    /// A vector formed by rounding each component of this vector to an integral
-    /// value according to the specified rounding rule.
-    func rounded(_ rule: FloatingPointRoundingRule) -> Vector2 {
-        return Vector2(theVector.rounded(rule))
+
+    @inlinable
+    static func / (lhs: Vector2, rhs: Scalar) -> Vector2 {
+        return Vector2(x: lhs.x / rhs, y: lhs.y / rhs)
+    }
+}
+
+public extension Vector2 where Scalar: FloatingPoint {
+    init<B: BinaryInteger>(_ vec: Vector2<B>) {
+        self.init(Scalar(vec.x), Scalar(vec.y))
     }
     
     @inlinable
@@ -360,63 +281,45 @@ public extension Vector2 where Scalar: FloatingPoint {
     }
     
     @inlinable
-    static func / (lhs: Vector2, rhs: Vector2) -> Vector2 {
-        return Vector2(x: lhs.x / rhs.x, y: lhs.y / rhs.y)
-    }
-    
-    @inlinable
-    static func / (lhs: Scalar, rhs: Vector2) -> Vector2 {
-        return Vector2(x: lhs / rhs.x, y: lhs / rhs.y)
-    }
-    
-    @inlinable
-    static func / (lhs: Vector2, rhs: Scalar) -> Vector2 {
-        return Vector2(x: lhs.x / rhs, y: lhs.y / rhs)
-    }
-}
-
-/// BinaryInteger - FloatingPoint operations
-public extension Vector2 where Scalar: FloatingPoint {
-    @inlinable
     static func + <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs + Vector2(rhs)
     }
-    
+        
     @inlinable
     static func - <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs - Vector2(rhs)
     }
-    
+        
     @inlinable
     static func * <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs * Vector2(rhs)
     }
-    
+        
     @inlinable
     static func / <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs / Vector2(rhs)
     }
-    
+        
     @inlinable
     static func + <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) + rhs
     }
-    
+        
     @inlinable
     static func - <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) - rhs
     }
-    
+        
     @inlinable
     static func * <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) * rhs
     }
-    
+        
     @inlinable
     static func / <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) / rhs
     }
-    
+        
     @inlinable
     static func += <B: BinaryInteger>(lhs: inout Vector2, rhs: Vector2<B>) {
         lhs = lhs + Vector2(rhs)
@@ -432,23 +335,6 @@ public extension Vector2 where Scalar: FloatingPoint {
     @inlinable
     static func /= <B: BinaryInteger>(lhs: inout Vector2, rhs: Vector2<B>) {
         lhs = lhs / Vector2(rhs)
-    }
-}
-
-// MARK: - Rotation and angle
-public extension Vector2 where Scalar: Real {
-    /// Returns the angle in radians of the line formed by tracing from the
-    /// origin (0, 0) to this Vector.
-    @inlinable
-    var angle: Scalar {
-        return Scalar.atan2(y: y, x: x)
-    }
-    
-    /// Returns the magnitude (or square root of the squared length) of this
-    /// Vector
-    @inlinable
-    var length: Scalar {
-        return Scalar.sqrt(x * x + y * y)
     }
 }
 
@@ -482,95 +368,77 @@ public extension Vector2 where Scalar: ElementaryFunctions {
     }
 }
 
+public extension Vector2 where Scalar: Real {
+    /// Returns the angle in radians of the line formed by tracing from the
+    /// origin (0, 0) to this `Vector2`.
+    @inlinable
+    var angle: Scalar {
+        return Scalar.atan2(y: y, x: x)
+    }
+    
+    /// Returns the magnitude (or square root of the squared length) of this
+    /// `Vector2`
+    @inlinable
+    var length: Scalar {
+        return Scalar.sqrt(x * x + y * y)
+    }
+}
+
 public extension Collection {
-    /// Averages this collection of vectors into one Vector point as the mean
+    /// Averages this collection of vectors into one `Vector2` point as the mean
     /// location of each vector.
     ///
-    /// Returns a zero Vector, if the collection is empty.
+    /// Returns a zero `Vector2`, if the collection is empty.
     @inlinable
-    func averageVector<T: FloatingPoint>() -> Vector2<T> where Element == Vector2<T> {
+    func averageVector<Scalar: FloatingPoint>() -> Vector2<Scalar> where Element == Vector2<Scalar> {
         if isEmpty {
             return .zero
         }
         
-        return reduce(into: .zero) { $0 += $1 } / T(count)
+        return reduce(into: .zero) { $0 += $1 } / Scalar(count)
     }
 }
 
-/// Returns a Vector that represents the minimum coordinates between two
-/// Vector objects
-@inlinable
-public func min<T>(_ a: Vector2<T>, _ b: Vector2<T>) -> Vector2<T> {
-    return Vector2(x: min(a.theVector.x, b.theVector.x), y: min(a.theVector.y, b.theVector.y))
+public func min<T: VectorScalar>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
+    return Vector2(min(vec1.x, vec2.x), min(vec1.y, vec2.y))
 }
 
-/// Returns a Vector that represents the maximum coordinates between two
-/// Vector objects
-@inlinable
-public func max<T>(_ a: Vector2<T>, _ b: Vector2<T>) -> Vector2<T> {
-    return Vector2(x: max(a.theVector.x, b.theVector.x), y: max(a.theVector.y, b.theVector.y))
+public func max<T: VectorScalar>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
+    return Vector2(max(vec1.x, vec2.x), max(vec1.y, vec2.y))
 }
 
-////////
-//// Define the operations to be performed on the Vector
-////////
-
-// This • character is available as 'Option-8' combination on Mac keyboards
-infix operator • : MultiplicationPrecedence
-infix operator =/ : MultiplicationPrecedence
-
-/// Rounds the components of a given Vector2 using
+/// Rounds the components of a given `Vector2` using
 /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
 ///
 /// Equivalent to calling C's round() function on each component.
 @inlinable
 public func round<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
-    return Vector2(x.theVector.rounded(.toNearestOrAwayFromZero))
+    return x.rounded(.toNearestOrAwayFromZero)
 }
 
-/// Rounds up the components of a given Vector2 using
+/// Rounds up the components of a given `Vector2` using
 /// `FloatingPointRoundingRule.up`.
 ///
 /// Equivalent to calling C's ceil() function on each component.
 @inlinable
 public func ceil<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
-    return Vector2(x.theVector.rounded(.up))
+    return x.rounded(.up)
 }
 
-/// Rounds down the components of a given Vector2 using
+/// Rounds down the components of a given `Vector2` using
 /// `FloatingPointRoundingRule.down`.
 ///
 /// Equivalent to calling C's floor() function on each component.
 @inlinable
 public func floor<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
-    return Vector2(x.theVector.rounded(.down))
+    return x.rounded(.down)
 }
 
-/// Returns a Vector2 with each component as the absolute value of the components
-/// of a given Vector2.
+/// Returns a `Vector2` with each component as the absolute value of the components
+/// of a given `Vector2`.
 ///
 /// Equivalent to calling C's abs() function on each component.
 @inlinable
 public func abs<T: SignedNumeric>(_ x: Vector2<T>) -> Vector2<T> {
-    return Vector2(x: abs(x.theVector.x), y: abs(x.theVector.y))
-}
-
-extension Vector2.NativeMatrixType: Codable {
-    public init(from decoder: Decoder) throws {
-        var container = try decoder.unkeyedContainer()
-        
-        try self.init([
-            container.decode(Vector2.HomogenousVectorType.self),
-            container.decode(Vector2.HomogenousVectorType.self),
-            container.decode(Vector2.HomogenousVectorType.self)
-        ])
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.unkeyedContainer()
-        
-        try container.encode(self.columns.0)
-        try container.encode(self.columns.1)
-        try container.encode(self.columns.2)
-    }
+    return Vector2(x: abs(x.x), y: abs(x.y))
 }

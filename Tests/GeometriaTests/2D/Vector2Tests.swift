@@ -21,9 +21,9 @@ class Vector2Tests: XCTestCase {
     
     func testDescription() {
         XCTAssertEqual(Vector2<Int>(x: 0, y: 1).description,
-                       "Vector2<Int>(x: 0, y: 1)")
+                       "SIMD2<Int>(0, 1)")
         XCTAssertEqual(Vector2<Double>(x: 0, y: 1).description,
-                       "Vector2<Double>(x: 0.0, y: 1.0)")
+                       "SIMD2<Double>(0.0, 1.0)")
     }
     
     func testInitZero() {
@@ -37,13 +37,6 @@ class Vector2Tests: XCTestCase {
         let sut = Vector(x: 0, y: 1)
         
         XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 1)
-    }
-    
-    func testInitXy() {
-        let sut = Vector(1)
-        
-        XCTAssertEqual(sut.x, 1)
         XCTAssertEqual(sut.y, 1)
     }
     

@@ -443,6 +443,16 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
 
         return Vector2D(x: x, y: y)
     }
+    
+    /// Transforms a vector by this matrix.
+    ///
+    /// - Parameter matrix: The matrix to use as a transformation matrix.
+    /// - Parameter point: The original vector to apply the transformation.
+    /// - Returns: The result of the transformation for the input vector.
+    @inlinable
+    public static func transformPoint(matrix: Matrix2D, point: Vector2F) -> Vector2F {
+        return Vector2F(transformPoint(matrix: matrix, point: Vector2D(point)))
+    }
 
     /// Calculates the inverse of this matrix instance.
     public func inverted() -> Matrix2D {
