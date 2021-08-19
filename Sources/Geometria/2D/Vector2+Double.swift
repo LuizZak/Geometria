@@ -1,6 +1,11 @@
 import simd
 
 public extension Vector2D {
+    /// Returns a normalized version of this vector.
+    func normalized() -> Self {
+        return simd.normalize(self)
+    }
+    
     /// Returns the distance between this `Vector2` and another `Vector2`
     @inlinable
     func distance(to vec: Self) -> Scalar {
@@ -18,6 +23,15 @@ public extension Vector2D {
     @inlinable
     func dot(_ other: Self) -> Scalar {
         return simd.dot(self, other)
+    }
+    
+    /// Calculates the cross product between this and another provided Vector.
+    /// The resulting scalar would match the 'z' axis of the cross product
+    /// between 3d vectors matching the x and y coordinates of the operands, with
+    /// the 'z' coordinate being 0.
+    @inlinable
+    func cross(_ other: Self) -> Scalar {
+        return simd.cross(self, other).z
     }
     
     /// Creates a matrix that when multiplied with a Vector object applies the

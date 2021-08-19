@@ -131,6 +131,15 @@ public extension Vector2 where Scalar: Numeric {
         return x * other.x + y * other.y
     }
     
+    /// Calculates the cross product between this and another provided Vector.
+    /// The resulting scalar would match the 'z' axis of the cross product
+    /// between 3d vectors matching the x and y coordinates of the operands, with
+    /// the 'z' coordinate being 0.
+    @inlinable
+    func cross(_ other: Vector2) -> Scalar {
+        return (x * other.y) - (y * other.x)
+    }
+    
     /// Returns the vector that lies within this and another vector's ratio line
     /// projected at a specified ratio along the line created by the vectors.
     ///
@@ -374,6 +383,28 @@ public extension Vector2 where Scalar: ElementaryFunctions {
         let s = Scalar.sin(angleInRadians)
         
         return Vector2(x: (c * vec.x) - (s * vec.y), y: (c * vec.y) + (s * vec.x))
+    }
+}
+
+public extension Vector2 where Scalar: Comparable & ElementaryFunctions & DivisibleArithmetic {
+    /// Normalizes this Vector instance.
+    ///
+    /// Returns `Vector2.zero` if the vector has `length == 0`.
+    @inlinable
+    mutating func normalized() {
+        self = normalized()
+    }
+    
+    /// Returns a normalized version of this vector.
+    ///
+    /// Returns `Vector2.zero` if the vector has `length == 0`.
+    func normalized() -> Vector2 {
+        let l = length
+        if l <= 0 {
+            return .zero
+        }
+        
+        return self / length
     }
 }
 
