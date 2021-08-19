@@ -100,19 +100,4 @@ public extension Vector2D {
         
         return Self(x: transformed.x, y: transformed.y)
     }
-    
-    @inlinable
-    static func * (lhs: Self, rhs: Matrix2D) -> Self {
-        return Matrix2D.transformPoint(matrix: rhs, point: lhs)
-    }
-    
-    @inlinable
-    static func * (lhs: Matrix2D, rhs: Self) -> Self {
-        return Matrix2D.transformPoint(matrix: lhs, point: rhs)
-    }
-    
-    @inlinable
-    static func *= (lhs: inout Self, rhs: Matrix2D) {
-        lhs = Matrix2D.transformPoint(matrix: rhs, point: lhs)
-    }
 }

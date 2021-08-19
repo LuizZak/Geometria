@@ -339,6 +339,13 @@ public extension Vector2 where Scalar: FloatingPoint {
 }
 
 public extension Vector2 where Scalar: ElementaryFunctions {
+    /// Returns the magnitude (or square root of the squared length) of this
+    /// `Vector2`
+    @inlinable
+    var length: Scalar {
+        return Scalar.sqrt(x * x + y * y)
+    }
+    
     /// Returns a rotated version of this vector, rotated around by a given
     /// angle in radians
     @inlinable
@@ -368,19 +375,29 @@ public extension Vector2 where Scalar: ElementaryFunctions {
     }
 }
 
+public extension Vector2 where Scalar: FloatingPoint & ElementaryFunctions {
+    @inlinable
+    static func * (lhs: Self, rhs: Matrix2<Scalar>) -> Self {
+        return Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
+    }
+    
+    @inlinable
+    static func * (lhs: Matrix2<Scalar>, rhs: Self) -> Self {
+        return Matrix2<Scalar>.transformPoint(matrix: lhs, point: rhs)
+    }
+    
+    @inlinable
+    static func *= (lhs: inout Self, rhs: Matrix2<Scalar>) {
+        lhs = Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
+    }
+}
+
 public extension Vector2 where Scalar: Real {
     /// Returns the angle in radians of the line formed by tracing from the
     /// origin (0, 0) to this `Vector2`.
     @inlinable
     var angle: Scalar {
         return Scalar.atan2(y: y, x: x)
-    }
-    
-    /// Returns the magnitude (or square root of the squared length) of this
-    /// `Vector2`
-    @inlinable
-    var length: Scalar {
-        return Scalar.sqrt(x * x + y * y)
     }
 }
 

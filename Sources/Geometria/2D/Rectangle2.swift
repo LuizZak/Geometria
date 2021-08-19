@@ -1,3 +1,4 @@
+import RealModule
 /// Describes a double-precision floating-point 2D rectangle
 public typealias Rectangle2D = Rectangle2<Double>
 
@@ -481,10 +482,10 @@ public extension Rectangle2 where Scalar: FloatingPoint {
     }
 }
 
-public extension Rectangle2 where Scalar == Double {
+public extension Rectangle2 where Scalar: Real {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
-    func transformedBounds(_ matrix: Matrix2D) -> Rectangle2D {
+    func transformedBounds(_ matrix: Matrix2<Scalar>) -> Rectangle2<Scalar> {
         return matrix.transform(self)
     }
 }

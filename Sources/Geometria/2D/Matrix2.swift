@@ -1,3 +1,4 @@
+import RealModule
 import Foundation
 
 // This source code is partially based on SharpDX's Matrix3x2.cs & MathUtils.cs
@@ -48,60 +49,65 @@ import Foundation
 * THE SOFTWARE.
 */
 
-/// Plain Matrix3x2.
-public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
+/// Plain Matrix3x2 with double-precision floating-point components.
+public typealias Matrix2D = Matrix2<Double>
+
+/// Plain Matrix3x2 with floating-point components.
+public struct Matrix2<Scalar: SIMDScalar & FloatingPoint & ElementaryFunctions>: Hashable, Codable, CustomStringConvertible {
+    public typealias Vector = Vector2<Scalar>
+    
     /// Gets the identity matrix.
-    public static let identity = Matrix2D(m11: 1, m12: 0, m21: 0, m22: 1, m31: 0, m32: 0)
+    public static var identity: Self { Self(m11: 1, m12: 0, m21: 0, m22: 1, m31: 0, m32: 0) }
 
     /// Element (1,1)
-    public let m11: Double
+    public let m11: Scalar
 
     /// Element (1,2)
-    public let m12: Double
+    public let m12: Scalar
 
     /// Element (2,1)
-    public let m21: Double
+    public let m21: Scalar
 
     /// Element (2,2)
-    public let m22: Double
+    public let m22: Scalar
 
     /// Element (3,1)
-    public let m31: Double
+    public let m31: Scalar
 
     /// Element (3,2)
-    public let m32: Double
+    public let m32: Scalar
 
     /// Gets the first row in the matrix; that is M11 and M12.
-    public var row1: Vector2D { Vector2D(x: m11, y: m12) }
+    public var row1: Vector { Vector(x: m11, y: m12) }
 
     /// Gets the second row in the matrix; that is M21 and M22.
-    public var row2: Vector2D { Vector2D(x: m21, y: m22) }
+    public var row2: Vector { Vector(x: m21, y: m22) }
 
     /// Gets the third row in the matrix; that is M31 and M32.
-    public var row3: Vector2D { Vector2D(x: m31, y: m32) }
+    public var row3: Vector { Vector(x: m31, y: m32) }
 
     /// Gets the first column in the matrix; that is M11, M21, and M31.
-    public var column1: [Double] { [m11, m21, m31] }
+    public var column1: [Scalar] { [m11, m21, m31] }
 
     /// Gets the second column in the matrix; that is M12, M22, and M32.
-    public var column2: [Double] { [m12, m22, m32] }
+    public var column2: [Scalar] { [m12, m22, m32] }
 
     /// Gets the translation of the matrix; that is M31 and M32.
-    public var translationVector: Vector2D { Vector2D(x: m31, y: m32) }
+    public var translationVector: Vector { Vector(x: m31, y: m32) }
 
     /// Gets the scale of the matrix; that is M11 and M22.
-    public var scaleVector: Vector2D { Vector2D(x: m11, y: m22) }
+    public var scaleVector: Vector { Vector(x: m11, y: m22) }
 
     /// Gets a value indicating whether this instance is an identity matrix.
     ///
     /// `true` if this instance is an identity matrix; otherwise, `false`.
-    public var isIdentity: Bool { Matrix2D.identity == self }
+    public var isIdentity: Bool { Matrix2.identity == self }
 
     /// Gets or sets the component at the specified index.
     ///
     /// - Parameter index: The zero-based index of the component to access.
     /// - Returns: The value of the component at the specified index.
-    public subscript(index index: Int) -> Double {
+    public subscript(index index: Int) -> Scalar {
         switch index {
             case 0: return m11
             case 1: return m12
@@ -118,7 +124,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter row: The row of the matrix to access.
     /// - Parameter column: The column of the matrix to access.
     /// - Returns: The value of the component at the specified index.
-    public subscript(row row: Int, column: Int) -> Double {
+    public subscript(row row: Int, column: Int) -> Scalar {
         if row < 0 || row > 2 {
             fatalError("Rows and columns for matrices run from 0 to 2, inclusive.")
         }
@@ -134,10 +140,10 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         return "[M11:\(m11) M12:\(m12)] [M21:\(m21) M22:\(m22)] [M31:\(m31) M32:\(m32)]"
     }
 
-    /// Initializes a new instance of the `Matrix2D` struct.
+    /// Initializes a new instance of the `Matrix2` struct.
     ///
     /// - Parameter value: The value that will be assigned to all components.
-    public init(value: Double) {
+    public init(value: Scalar) {
         m11 = value
         m12 = value
         m21 = value
@@ -146,7 +152,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         m32 = value
     }
 
-    /// Initializes a new instance of the `Matrix2D` struct.
+    /// Initializes a new instance of the `Matrix2` struct.
     ///
     /// - Parameter m11: The value to assign at row 1 column 1 of the matrix.
     /// - Parameter m12: The value to assign at row 1 column 2 of the matrix.
@@ -154,7 +160,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter m22: The value to assign at row 2 column 2 of the matrix.
     /// - Parameter m31: The value to assign at row 3 column 1 of the matrix.
     /// - Parameter m32: The value to assign at row 3 column 2 of the matrix.
-    public init(m11: Double, m12: Double, m21: Double, m22: Double, m31: Double, m32: Double) {
+    public init(m11: Scalar, m12: Scalar, m21: Scalar, m22: Scalar, m31: Scalar, m32: Scalar) {
         self.m11 = m11
         self.m12 = m12
         self.m21 = m21
@@ -163,11 +169,11 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         self.m32 = m32
     }
 
-    /// Initializes a new instance of the `Matrix2D` struct.
+    /// Initializes a new instance of the `Matrix2` struct.
     ///
     /// - Parameter values: The values to assign to the components of the matrix.
     /// This must be an array with six elements, otherwise a runtime error is thrown
-    public init(values: [Double]) {
+    public init(values: [Scalar]) {
         if values.count != 6 {
             fatalError("There must be six input values for Matrix3x2.")
         }
@@ -185,7 +191,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// Creates an array containing the elements of the matrix.
     ///
     /// - Returns: A six-element array containing the components of the matrix.
-    public func toArray() -> [Double] {
+    public func toArray() -> [Scalar] {
         return [m11, m12, m21, m22, m31, m32]
     }
 
@@ -193,7 +199,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     ///
     /// - Parameter left: The first matrix to add.
     /// - Parameter right: The second matrix to add.
-    public static func add(_ left: Matrix2D, _ right: Matrix2D) -> Matrix2D {
+    public static func add(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
         let m11 = left.m11 + right.m11
         let m12 = left.m12 + right.m12
         let m21 = left.m21 + right.m21
@@ -201,14 +207,14 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = left.m31 + right.m31
         let m32 = left.m32 + right.m32
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Determines the difference between two matrices.
     ///
     /// - Parameter left: The first matrix to subtract.
     /// - Parameter right: The second matrix to subtract.
-    public static func subtract(_ left: Matrix2D, _ right: Matrix2D) -> Matrix2D {
+    public static func subtract(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
         let m11 = left.m11 - right.m11
         let m12 = left.m12 - right.m12
         let m21 = left.m21 - right.m21
@@ -216,14 +222,14 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = left.m31 - right.m31
         let m32 = left.m32 - right.m32
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Scales a matrix by the given value.
     ///
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale.
-    public static func multiply(_ left: Matrix2D, _ right: Double) -> Matrix2D {
+    public static func multiply(_ left: Matrix2, _ right: Scalar) -> Matrix2 {
         let m11 = left.m11 * right
         let m12 = left.m12 * right
         let m21 = left.m21 * right
@@ -231,14 +237,14 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = left.m31 * right
         let m32 = left.m32 * right
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Determines the product of two matrices.
     ///
     /// - Parameter left: The first matrix to multiply.
     /// - Parameter right: The second matrix to multiply.
-    public static func multiply(_ left: Matrix2D, _ right: Matrix2D) -> Matrix2D {
+    public static func multiply(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
         let m11 = left.m11 * right.m11 + left.m12 * right.m21
         let m12 = left.m11 * right.m12 + left.m12 * right.m22
         let m21 = left.m21 * right.m11 + left.m22 * right.m21
@@ -246,15 +252,15 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = left.m31 * right.m11 + left.m32 * right.m21 + right.m31
         let m32 = left.m31 * right.m12 + left.m32 * right.m22 + right.m32
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Scales a matrix by the given value.
     ///
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale. Must be greater than zero
-    public static func divide(_ left: Matrix2D, _ right: Double) -> Matrix2D {
-        let inv = 1.0 / right
+    public static func divide(_ left: Matrix2, _ right: Scalar) -> Matrix2 {
+        let inv = Scalar(1) / right
 
         let m11 = left.m11 * inv
         let m12 = left.m12 * inv
@@ -263,14 +269,14 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = left.m31 * inv
         let m32 = left.m32 * inv
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Determines the quotient of two matrices.
     ///
     /// - Parameter left: The first matrix to divide.
     /// - Parameter right: The second matrix to divide.
-    public static func divide(_ left: Matrix2D, _ right: Matrix2D) -> Matrix2D {
+    public static func divide(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
         let m11 = left.m11 / right.m11
         let m12 = left.m12 / right.m12
         let m21 = left.m21 / right.m21
@@ -278,13 +284,13 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = left.m31 / right.m31
         let m32 = left.m32 / right.m32
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Negates a matrix.
     ///
     /// - Parameter value: The matrix to be negated.
-    public static func negate(_ value: Matrix2D) -> Matrix2D {
+    public static func negate(_ value: Matrix2) -> Matrix2 {
         let m11 = -value.m11
         let m12 = -value.m12
         let m21 = -value.m21
@@ -292,7 +298,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
         let m31 = -value.m31
         let m32 = -value.m32
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Performs a linear interpolation between two matrices.
@@ -303,15 +309,15 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter start: Start matrix.
     /// - Parameter end: End matrix.
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
-    public static func lerp(start: Matrix2D, end: Matrix2D, amount: Double) -> Matrix2D {
-        let m11 = Matrix2D.lerp(from: start.m11, to: end.m11, amount: amount)
-        let m12 = Matrix2D.lerp(from: start.m12, to: end.m12, amount: amount)
-        let m21 = Matrix2D.lerp(from: start.m21, to: end.m21, amount: amount)
-        let m22 = Matrix2D.lerp(from: start.m22, to: end.m22, amount: amount)
-        let m31 = Matrix2D.lerp(from: start.m31, to: end.m31, amount: amount)
-        let m32 = Matrix2D.lerp(from: start.m32, to: end.m32, amount: amount)
+    public static func lerp(start: Matrix2, end: Matrix2, amount: Scalar) -> Matrix2 {
+        let m11 = Matrix2.lerp(from: start.m11, to: end.m11, amount: amount)
+        let m12 = Matrix2.lerp(from: start.m12, to: end.m12, amount: amount)
+        let m21 = Matrix2.lerp(from: start.m21, to: end.m21, amount: amount)
+        let m22 = Matrix2.lerp(from: start.m22, to: end.m22, amount: amount)
+        let m31 = Matrix2.lerp(from: start.m31, to: end.m31, amount: amount)
+        let m32 = Matrix2.lerp(from: start.m32, to: end.m32, amount: amount)
 
-        return Matrix2D(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
 
     /// Performs a cubic interpolation between two matrices.
@@ -319,7 +325,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter start: Start matrix.
     /// - Parameter end: End matrix.
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
-    public static func smoothStep(start: Matrix2D, end: Matrix2D, amount: Double) -> Matrix2D {
+    public static func smoothStep(start: Matrix2, end: Matrix2, amount: Scalar) -> Matrix2 {
         let amount = smoothStep(amount)
 
         return lerp(start: start, end: end, amount: amount)
@@ -328,7 +334,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// Creates a matrix that scales along the x-axis and y-axis.
     ///
     /// - Parameter scale: Scaling factor for both axes.
-    public static func scaling(scale: Vector2D) -> Matrix2D {
+    public static func scaling(scale: Vector) -> Matrix2 {
         return scaling(x: scale.x, y: scale.y)
     }
 
@@ -336,8 +342,8 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     ///
     /// - Parameter x: Scaling factor that is applied along the x-axis.
     /// - Parameter y: Scaling factor that is applied along the y-axis.
-    public static func scaling(x: Double, y: Double) -> Matrix2D {
-        return Matrix2D(m11: x, m12: 0,
+    public static func scaling(x: Scalar, y: Scalar) -> Matrix2 {
+        return Matrix2(m11: x, m12: 0,
                         m21: 0, m22: y,
                         m31: 0, m32: 0)
     }
@@ -345,8 +351,8 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// Creates a matrix that uniformly scales along both axes.
     ///
     /// - Parameter scale: The uniform scale that is applied along both axes.
-    public static func scaling(scale: Double) -> Matrix2D {
-        return Matrix2D(m11: scale, m12: 0,
+    public static func scaling(scale: Scalar) -> Matrix2 {
+        return Matrix2(m11: scale, m12: 0,
                         m21: 0, m22: scale,
                         m31: 0, m32: 0)
     }
@@ -356,8 +362,8 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter x: Scaling factor that is applied along the x-axis.
     /// - Parameter y: Scaling factor that is applied along the y-axis.
     /// - Parameter center: The center of the scaling.
-    public static func scaling(x: Double, y: Double, center: Vector2D) -> Matrix2D {
-        return Matrix2D(m11: x, m12: 0,
+    public static func scaling(x: Scalar, y: Scalar, center: Vector) -> Matrix2 {
+        return Matrix2(m11: x, m12: 0,
                         m21: 0, m22: y,
                         m31: center.x - x * center.x, m32: center.y - y * center.y)
     }
@@ -365,7 +371,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// Calculates the determinant of this matrix.
     ///
     /// - Returns: Result of the determinant.
-    public func determinant() -> Double {
+    public func determinant() -> Scalar {
         return m11 * m22 - m12 * m21
     }
 
@@ -375,11 +381,11 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// clockwise when looking along the rotation axis.
     /// - Parameter result: When the method completes, contains the created
     /// rotation matrix.
-    public static func rotation(angle: Double) -> Matrix2D {
-        let cosAngle = cos(angle)
-        let sinAngle = sin(angle)
+    public static func rotation(angle: Scalar) -> Matrix2 {
+        let cosAngle = Scalar.cos(angle)
+        let sinAngle = Scalar.sin(angle)
 
-        return Matrix2D(m11: cosAngle, m12: sinAngle,
+        return Matrix2(m11: cosAngle, m12: sinAngle,
                         m21: -sinAngle, m22: cosAngle,
                         m31: 0, m32: 0)
     }
@@ -389,7 +395,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter angle: Angle of rotation in radians. Angles are measured
     /// clockwise when looking along the rotation axis.
     /// - Parameter center: The center of the rotation.
-    public static func rotation(angle: Double, center: Vector2D) -> Matrix2D {
+    public static func rotation(angle: Scalar, center: Vector) -> Matrix2 {
         return translation(-center) * rotation(angle: angle) * translation(center)
     }
 
@@ -401,11 +407,11 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// clockwise when looking along the rotation axis.
     /// - Parameter xOffset: X-coordinate offset.
     /// - Parameter yOffset: Y-coordinate offset.
-    public static func transformation(xScale: Double,
-                                      yScale: Double,
-                                      angle: Double,
-                                      xOffset: Double,
-                                      yOffset: Double) -> Matrix2D {
+    public static func transformation(xScale: Scalar,
+                                      yScale: Scalar,
+                                      angle: Scalar,
+                                      xOffset: Scalar,
+                                      yOffset: Scalar) -> Matrix2 {
 
         return scaling(x: xScale, y: yScale)
             * rotation(angle: angle)
@@ -417,7 +423,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter value: The offset for both coordinate planes.
     /// - Parameter result: When the method completes, contains the created
     /// translation matrix.
-    public static func translation(_ value: Vector2D) -> Matrix2D {
+    public static func translation(_ value: Vector) -> Matrix2 {
         return translation(x: value.x, y: value.y)
     }
 
@@ -425,23 +431,10 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     ///
     /// - Parameter x: X-coordinate offset.
     /// - Parameter y: Y-coordinate offset.
-    public static func translation(x: Double, y: Double) -> Matrix2D {
-        return Matrix2D(m11: 1, m12: 0,
+    public static func translation(x: Scalar, y: Scalar) -> Matrix2 {
+        return Matrix2(m11: 1, m12: 0,
                         m21: 0, m22: 1,
                         m31: x, m32: y)
-    }
-
-    /// Transforms a vector by this matrix.
-    ///
-    /// - Parameter matrix: The matrix to use as a transformation matrix.
-    /// - Parameter point: The original vector to apply the transformation.
-    /// - Returns: The result of the transformation for the input vector.
-    @inlinable
-    public static func transformPoint(matrix: Matrix2D, point: Vector2D) -> Vector2D {
-        let x = point.x * matrix.m11 + point.y * matrix.m21 + matrix.m31
-        let y = point.x * matrix.m12 + point.y * matrix.m22 + matrix.m32
-
-        return Vector2D(x: x, y: y)
     }
     
     /// Transforms a vector by this matrix.
@@ -450,41 +443,44 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter point: The original vector to apply the transformation.
     /// - Returns: The result of the transformation for the input vector.
     @inlinable
-    public static func transformPoint(matrix: Matrix2D, point: Vector2F) -> Vector2F {
-        return Vector2F(transformPoint(matrix: matrix, point: Vector2D(point)))
+    public static func transformPoint(matrix: Matrix2, point: Vector) -> Vector {
+        let x = point.x * matrix.m11 + point.y * matrix.m21 + matrix.m31
+        let y = point.x * matrix.m12 + point.y * matrix.m22 + matrix.m32
+        
+        return Vector(x: x, y: y)
     }
-
+    
     /// Calculates the inverse of this matrix instance.
-    public func inverted() -> Matrix2D {
-        return Matrix2D.invert(self)
+    public func inverted() -> Matrix2 {
+        return Matrix2.invert(self)
     }
 
     /// Creates a skew matrix.
     ///
     /// - Parameter angleX: Angle of skew along the X-axis in radians.
     /// - Parameter angleY: Angle of skew along the Y-axis in radians.
-    public static func skew(angleX: Double, angleY: Double) -> Matrix2D {
-        return Matrix2D(m11: 1, m12: tan(angleX),
-                        m21: tan(angleY), m22: 1,
-                        m31: 0, m32: 0)
+    public static func skew(angleX: Scalar, angleY: Scalar) -> Matrix2 {
+        return Matrix2(m11: 1, m12: Scalar.tan(angleX),
+                       m21: Scalar.tan(angleY), m22: 1,
+                       m31: 0, m32: 0)
     }
 
     /// Calculates the inverse of the specified matrix.
     ///
     /// - Parameter value: The matrix whose inverse is to be calculated.
     /// - Parameter result: When the method completes, contains the inverse of the specified matrix.
-    public static func invert(_ value: Matrix2D) -> Matrix2D {
+    public static func invert(_ value: Matrix2) -> Matrix2 {
         let determinant = value.determinant()
-
-        if Matrix2D.isZero(determinant) {
+        
+        if Matrix2.isZero(determinant) {
             return identity
         }
-
-        let invdet = 1.0 / determinant
+        
+        let invdet = Scalar(1) / determinant
         let offsetX = value.m31
         let offsetY = value.m32
-
-        return Matrix2D(
+        
+        return Matrix2(
             m11: value.m22 * invdet,
             m12: -value.m12 * invdet,
             m21: -value.m21 * invdet,
@@ -498,7 +494,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter left: The first matrix to add.
     /// - Parameter right: The second matrix to add.
     /// - Returns: The sum of the two matrices.
-    public static func + (left: Matrix2D, right: Matrix2D) -> Matrix2D {
+    public static func + (left: Matrix2, right: Matrix2) -> Matrix2 {
         return add(left, right)
     }
 
@@ -506,7 +502,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     ///
     /// - Parameter value: The matrix to assert (unchanged).
     /// - Returns: The asserted (unchanged) matrix.
-    public static prefix func + (value: Matrix2D) -> Matrix2D {
+    public static prefix func + (value: Matrix2) -> Matrix2 {
         return value
     }
 
@@ -515,7 +511,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter left: The first matrix to subtract.
     /// - Parameter right: The second matrix to subtract.
     /// - Returns: The difference between the two matrices.
-    public static func - (left: Matrix2D, right: Matrix2D) -> Matrix2D {
+    public static func - (left: Matrix2, right: Matrix2) -> Matrix2 {
         return subtract(left, right)
     }
 
@@ -523,7 +519,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     ///
     /// - Parameter value: The matrix to negate.
     /// - Returns: The negated matrix.
-    public static prefix func - (value: Matrix2D) -> Matrix2D {
+    public static prefix func - (value: Matrix2) -> Matrix2 {
         return negate(value)
     }
 
@@ -532,7 +528,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter right: The matrix to scale.
     /// - Parameter left: The amount by which to scale.
     /// - Returns: The scaled matrix.
-    public static func * (left: Double, right: Matrix2D) -> Matrix2D {
+    public static func * (left: Scalar, right: Matrix2) -> Matrix2 {
         return multiply(right, left)
     }
 
@@ -541,7 +537,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale.
     /// - Returns: The scaled matrix.
-    public static func * (left: Matrix2D, right: Double) -> Matrix2D {
+    public static func * (left: Matrix2, right: Scalar) -> Matrix2 {
         return multiply(left, right)
     }
 
@@ -550,7 +546,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter left: The first matrix to multiply.
     /// - Parameter right: The second matrix to multiply.
     /// - Returns: The product of the two matrices.
-    public static func * (left: Matrix2D, right: Matrix2D) -> Matrix2D {
+    public static func * (left: Matrix2, right: Matrix2) -> Matrix2 {
         return multiply(left, right)
     }
 
@@ -559,7 +555,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale.
     /// - Returns: The scaled matrix.
-    public static func / (left: Matrix2D, right: Double) -> Matrix2D {
+    public static func / (left: Matrix2, right: Scalar) -> Matrix2 {
         return divide(left, right)
     }
 
@@ -567,7 +563,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter left: The first matrix to divide.
     /// - Parameter right: The second matrix to divide.
     /// - Returns: The quotient of the two matrices.
-    public static func / (left: Matrix2D, right: Matrix2D) -> Matrix2D {
+    public static func / (left: Matrix2, right: Matrix2) -> Matrix2 {
         return divide(left, right)
     }
 
@@ -581,34 +577,35 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
     /// - Parameter to: Value to interpolate to.
     /// - Parameter amount: Interpolation amount.
     /// - Returns: The result of linear interpolation of values based on the amount.
-    private static func lerp(from: Double, to: Double, amount: Double) -> Double {
+    private static func lerp(from: Scalar, to: Scalar, amount: Scalar) -> Scalar {
         return (1 - amount) * from + amount * to
     }
-
+    
     /// Performs smooth (cubic Hermite) interpolation between 0 and 1.
     /// - Remarks:
     /// See https://en.wikipedia.org/wiki/Smoothstep
     /// - Parameter amount: Value between 0 and 1 indicating interpolation amount.
-    private static func smoothStep(_ amount: Double) -> Double {
+    private static func smoothStep(_ amount: Scalar) -> Scalar {
         return amount <= 0 ? 0
             : amount >= 1 ? 1
             : amount * amount * (3 - 2 * amount)
     }
-
+    
     /// Determines whether the specified value is close to zero (0.0f).
     /// - Parameter a: The floating value.
     /// - Returns: `true` if the specified value is close to zero (0.0f);
     /// otherwise, `false`.
-    private static func isZero(_ a: Double) -> Bool {
-        let zeroTolerance = 1e-6
-
+    private static func isZero(_ a: Scalar) -> Bool {
+        let zeroTolerance = Scalar.leastNonzeroMagnitude
+        
         return abs(a) < zeroTolerance
     }
 }
 
-public extension Matrix2D {
+/// Geometry transformation
+public extension Matrix2 {
     @inlinable
-    func transform(_ rect: Rectangle2D) -> Rectangle2D {
+    func transform(_ rect: Rectangle2<Scalar>) -> Rectangle2<Scalar> {
         var minimum = min(transform(rect.topLeft), transform(rect.topRight))
         minimum = min(minimum, transform(rect.bottomLeft))
         minimum = min(minimum, transform(rect.bottomRight))
@@ -617,16 +614,16 @@ public extension Matrix2D {
         maximum = max(maximum, transform(rect.bottomLeft))
         maximum = max(maximum, transform(rect.bottomRight))
 
-        return Rectangle2D(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
+        return Rectangle2(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
     }
 
     @inlinable
-    func transform(_ point: Vector2D) -> Vector2D {
-        return point * self
+    func transform(_ point: Vector2<Scalar>) -> Vector2<Scalar> {
+        return Self.transformPoint(matrix: self, point: point)
     }
 
     @inlinable
-    func transform(points: [Vector2D]) -> [Vector2D] {
-        return points.map { $0 * self }
+    func transform(points: [Vector2<Scalar>]) -> [Vector2<Scalar>] {
+        return points.map(transform(_:))
     }
 }
