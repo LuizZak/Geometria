@@ -4,7 +4,7 @@ import simd
 /// A typealias for a scalar that can specialize a `Vector2` instance
 public typealias VectorScalar = SIMDScalar & Comparable & Numeric
 
-/// A two-component `Vector` type
+/// A two-component vector type
 public typealias Vector2<T: VectorScalar> = SIMD2<T>
 
 /// Represents a 2D point with two double-precision, floating-point components

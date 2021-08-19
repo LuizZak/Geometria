@@ -26,52 +26,6 @@ class Vector2Tests: XCTestCase {
                        "SIMD2<Double>(0.0, 1.0)")
     }
     
-    func testInitZero() {
-        let sut = Vector()
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 0)
-    }
-    
-    func testInit() {
-        let sut = Vector(x: 0, y: 1)
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 1)
-    }
-    
-    func testSetX() {
-        var sut = Vector.zero
-        
-        sut.x = 1
-        
-        XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 0)
-    }
-    
-    func testSetY() {
-        var sut = Vector.zero
-        
-        sut.y = 1
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 1)
-    }
-    
-    func testEquatable() {
-        XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
-        XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))
-        XCTAssertNotEqual(Vector(x: 1, y: 0), Vector(x: 0, y: 1))
-        XCTAssertNotEqual(Vector(x: 0, y: 0), Vector(x: 0, y: 1))
-    }
-    
-    func testHashable() {
-        XCTAssertEqual(Vector(x: 0, y: 1).hashValue, Vector(x: 0, y: 1).hashValue)
-        XCTAssertNotEqual(Vector(x: 1, y: 1).hashValue, Vector(x: 0, y: 1).hashValue)
-        XCTAssertNotEqual(Vector(x: 1, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
-        XCTAssertNotEqual(Vector(x: 0, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
-    }
-    
     func testGreaterThan() {
         XCTAssertTrue(Vector(x: 1, y: 1) > Vector(x: 0, y: 0))
         XCTAssertFalse(Vector(x: 0, y: 1) > Vector(x: 0, y: 0))

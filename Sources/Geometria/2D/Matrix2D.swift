@@ -608,7 +608,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
 
 public extension Matrix2D {
     @inlinable
-    func transform(_ rect: Rectangle) -> Rectangle {
+    func transform(_ rect: Rectangle2D) -> Rectangle2D {
         var minimum = min(transform(rect.topLeft), transform(rect.topRight))
         minimum = min(minimum, transform(rect.bottomLeft))
         minimum = min(minimum, transform(rect.bottomRight))
@@ -617,7 +617,7 @@ public extension Matrix2D {
         maximum = max(maximum, transform(rect.bottomLeft))
         maximum = max(maximum, transform(rect.bottomRight))
 
-        return Rectangle(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
+        return Rectangle2D(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
     }
 
     @inlinable

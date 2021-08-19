@@ -1,9 +1,12 @@
-/// Describes an edge inset with double-precision, floating-point parameters
-public typealias EdgeInsets = EdgeInsetsT<Double>
+/// Describes a 2D edge inset with double-precision floating-point parameters
+public typealias EdgeInsets2D = EdgeInsets2<Double>
 
-/// Describes an edge inset
-public struct EdgeInsetsT<Scalar: VectorScalar>: Equatable {
-    public static var zero: Self { EdgeInsetsT(top: 0, left: 0, bottom: 0, right: 0) }
+/// Describes a 2D edge inset with single-precision floating-point parameters
+public typealias EdgeInsets2F = EdgeInsets2<Float>
+
+/// Describes a 2D edge inset
+public struct EdgeInsets2<Scalar: VectorScalar>: Equatable {
+    public static var zero: Self { EdgeInsets2(top: 0, left: 0, bottom: 0, right: 0) }
 
     public var top: Scalar
     public var left: Scalar
@@ -28,7 +31,7 @@ public struct EdgeInsetsT<Scalar: VectorScalar>: Equatable {
         right = value
     }
 
-    public func inset(rectangle: RectangleT<Scalar>) -> RectangleT<Scalar> {
+    public func inset(rectangle: Rectangle2<Scalar>) -> Rectangle2<Scalar> {
         return rectangle.inset(self)
     }
 }

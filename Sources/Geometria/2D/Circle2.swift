@@ -1,9 +1,13 @@
-/// Describes a circle with a double-precision, floating-point center point and
+/// Describes a 2D circle with a double-precision floating-point center point and
 /// radius parameters
-public typealias Circle = CircleT<Double>
+public typealias Circle2D = Circle2<Double>
 
-/// Describes a circle with a center point and radius
-public struct CircleT<Scalar: VectorScalar>: Equatable, Codable {
+/// Describes a 2D circle with a single-precision floating-point center point and
+/// radius parameters
+public typealias Circle2F = Circle2<Float>
+
+/// Describes a 2D circle with a center point and radius
+public struct Circle2<Scalar: VectorScalar>: Equatable, Codable {
     public var center: Vector2<Scalar>
     public var radius: Scalar
     
@@ -13,8 +17,8 @@ public struct CircleT<Scalar: VectorScalar>: Equatable, Codable {
     }
     
     @inlinable
-    public func expanded(by value: Scalar) -> CircleT {
-        return CircleT(center: center, radius: radius + value)
+    public func expanded(by value: Scalar) -> Circle2 {
+        return Circle2(center: center, radius: radius + value)
     }
     
     @inlinable
