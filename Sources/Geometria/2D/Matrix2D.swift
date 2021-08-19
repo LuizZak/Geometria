@@ -184,7 +184,7 @@ public struct Matrix2D: Hashable, Codable, CustomStringConvertible {
 
     /// Creates an array containing the elements of the matrix.
     ///
-    /// - Returns: A sixteen-element array containing the components of the matrix.
+    /// - Returns: A six-element array containing the components of the matrix.
     public func toArray() -> [Double] {
         return [m11, m12, m21, m22, m31, m32]
     }
