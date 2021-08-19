@@ -186,6 +186,12 @@ public extension Vector2 where Scalar: DivisibleArithmetic {
 }
 
 public extension Vector2 where Scalar: Numeric {
+    /// Returns the squared length of this Vector relative to the origin (0, 0)
+    @inlinable
+    var lengthSquared: Scalar {
+        return x * x + y * y
+    }
+    
     /// Returns the distance squared between this Vector and another Vector
     @inlinable
     func distanceSquared(to vec: Vector2) -> Scalar {
@@ -262,6 +268,11 @@ public extension Vector2 where Scalar: Numeric {
     }
     
     @inlinable
+    static func *= (lhs: inout Vector2, rhs: Vector2) {
+        lhs = lhs * rhs
+    }
+    
+    @inlinable
     static func *= (lhs: inout Vector2, rhs: Scalar) {
         lhs = lhs * rhs
     }
@@ -270,11 +281,10 @@ public extension Vector2 where Scalar: Numeric {
 public extension Vector2 where Scalar: SignedNumeric {
     /// Makes this Vector perpendicular to its current position relative to the
     /// origin.
-    /// This alters the vector instance
+    /// This alters the vector instance.
     @inlinable
-    mutating func formPerpendicular() -> Vector2 {
+    mutating func formPerpendicular() {
         self = perpendicular()
-        return self
     }
     
     /// Returns a Vector perpendicular to this Vector relative to the origin
@@ -290,11 +300,25 @@ public extension Vector2 where Scalar: SignedNumeric {
         return Vector2(x: -y, y: x)
     }
     
+    /// Rotates this vector 90º counter clockwise relative to the origin.
+    /// This alters the vector instance.
+    @inlinable
+    mutating func formLeftRotated() {
+        self = leftRotated()
+    }
+    
     /// Returns a vector that represents this vector's point, rotated 90º clockwise
     /// clockwise relative to the origin.
     @inlinable
     func rightRotated() -> Vector2 {
         return Vector2(x: y, y: -x)
+    }
+    
+    /// Rotates this vector 90º clockwise relative to the origin.
+    /// This alters the vector instance.
+    @inlinable
+    mutating func formRightRotated() {
+        self = rightRotated()
     }
     
     /// Negates this Vector
@@ -315,6 +339,12 @@ public extension Vector2 where Scalar: FloatingPoint {
     @inlinable
     init<U>(_ vector: Vector2<U>) where U: BinaryInteger {
         self.init(x: Scalar.init(vector.x), y: Scalar.init(vector.y))
+    }
+    
+    /// A vector formed by rounding each component of this vector to an integral
+    /// value according to the specified rounding rule.
+    func rounded(_ rule: FloatingPointRoundingRule) -> Vector2 {
+        return Vector2(theVector.rounded(rule))
     }
     
     @inlinable
@@ -407,16 +437,11 @@ public extension Vector2 where Scalar: FloatingPoint {
 
 // MARK: - Rotation and angle
 public extension Vector2 where Scalar: Real {
-    /// Returns the angle in radians of this Vector relative to the origin (0, 0).
+    /// Returns the angle in radians of the line formed by tracing from the
+    /// origin (0, 0) to this Vector.
     @inlinable
     var angle: Scalar {
         return Scalar.atan2(y: y, x: x)
-    }
-    
-    /// Returns the squared length of this Vector
-    @inlinable
-    var lengthSquared: Scalar {
-        return x * x + y * y
     }
     
     /// Returns the magnitude (or square root of the squared length) of this
@@ -437,9 +462,14 @@ public extension Vector2 where Scalar: ElementaryFunctions {
     
     /// Rotates this vector around by a given angle in radians
     @inlinable
-    mutating func rotate(by angleInRadians: Scalar) -> Vector2 {
+    mutating func rotate(by angleInRadians: Scalar) {
         self = rotated(by: angleInRadians)
-        return self
+    }
+    
+    /// Rotates this vector around a given pivot by a given angle in radians
+    @inlinable
+    func rotated(by angleInRadians: Scalar, around pivot: Vector2) -> Vector2 {
+        return (self - pivot).rotated(by: angleInRadians) + pivot
     }
     
     /// Rotates a given vector by an angle in radians
@@ -489,21 +519,37 @@ public func max<T>(_ a: Vector2<T>, _ b: Vector2<T>) -> Vector2<T> {
 infix operator • : MultiplicationPrecedence
 infix operator =/ : MultiplicationPrecedence
 
+/// Rounds the components of a given Vector2 using
+/// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
+///
+/// Equivalent to calling C's round() function on each component.
 @inlinable
 public func round<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
     return Vector2(x.theVector.rounded(.toNearestOrAwayFromZero))
 }
 
+/// Rounds up the components of a given Vector2 using
+/// `FloatingPointRoundingRule.up`.
+///
+/// Equivalent to calling C's ceil() function on each component.
 @inlinable
 public func ceil<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
     return Vector2(x.theVector.rounded(.up))
 }
 
+/// Rounds down the components of a given Vector2 using
+/// `FloatingPointRoundingRule.down`.
+///
+/// Equivalent to calling C's floor() function on each component.
 @inlinable
 public func floor<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
     return Vector2(x.theVector.rounded(.down))
 }
 
+/// Returns a Vector2 with each component as the absolute value of the components
+/// of a given Vector2.
+///
+/// Equivalent to calling C's abs() function on each component.
 @inlinable
 public func abs<T: SignedNumeric>(_ x: Vector2<T>) -> Vector2<T> {
     return Vector2(x: abs(x.theVector.x), y: abs(x.theVector.y))
