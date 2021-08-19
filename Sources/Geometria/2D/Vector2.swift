@@ -418,12 +418,21 @@ public extension Collection {
     }
 }
 
-public func min<T: VectorScalar & Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
+public func min<T: Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
     return Vector2(min(vec1.x, vec2.x), min(vec1.y, vec2.y))
 }
 
-public func max<T: VectorScalar & Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
+public func max<T: Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
     return Vector2(max(vec1.x, vec2.x), max(vec1.y, vec2.y))
+}
+
+/// Returns a `Vector2` with each component as the absolute value of the components
+/// of a given `Vector2`.
+///
+/// Equivalent to calling C's abs() function on each component.
+@inlinable
+public func abs<T: Comparable & SignedNumeric>(_ x: Vector2<T>) -> Vector2<T> {
+    return Vector2(x: abs(x.x), y: abs(x.y))
 }
 
 /// Rounds the components of a given `Vector2` using
@@ -451,13 +460,4 @@ public func ceil<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
 @inlinable
 public func floor<T: FloatingPoint>(_ x: Vector2<T>) -> Vector2<T> {
     return x.rounded(.down)
-}
-
-/// Returns a `Vector2` with each component as the absolute value of the components
-/// of a given `Vector2`.
-///
-/// Equivalent to calling C's abs() function on each component.
-@inlinable
-public func abs<T: Comparable & SignedNumeric>(_ x: Vector2<T>) -> Vector2<T> {
-    return Vector2(x: abs(x.x), y: abs(x.y))
 }
