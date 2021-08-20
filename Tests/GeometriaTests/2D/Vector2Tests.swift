@@ -276,6 +276,13 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(v1.dot(v2), 1100)
     }
     
+    func testCross() {
+        let v1 = Vector(x: 10, y: 20)
+        let v2 = Vector(x: 30, y: 40)
+        
+        XCTAssertEqual(v1.cross(v2), -200)
+    }
+    
     func testRatio() {
         let v1 = Vector2D(x: 10, y: 20)
         let v2 = Vector2D(x: 30, y: 40)

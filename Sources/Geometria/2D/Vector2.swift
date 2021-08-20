@@ -357,14 +357,14 @@ public extension Vector2 where Scalar: ElementaryFunctions {
         return Scalar.sqrt(lengthSquared)
     }
     
-    /// Returns a rotated version of this vector, rotated around by a given
-    /// angle in radians
+    /// Returns a rotated version of this vector, rotated around the origin by a
+    /// given angle in radians
     @inlinable
     func rotated(by angleInRadians: Scalar) -> Vector2 {
         return Vector2.rotate(self, by: angleInRadians)
     }
     
-    /// Rotates this vector around by a given angle in radians
+    /// Rotates this vector around the origin by a given angle in radians
     @inlinable
     mutating func rotate(by angleInRadians: Scalar) {
         self = rotated(by: angleInRadians)
@@ -376,7 +376,7 @@ public extension Vector2 where Scalar: ElementaryFunctions {
         return (self - pivot).rotated(by: angleInRadians) + pivot
     }
     
-    /// Rotates a given vector by an angle in radians
+    /// Rotates a given vector around the origin by an angle in radians
     @inlinable
     static func rotate(_ vec: Vector2, by angleInRadians: Scalar) -> Vector2 {
         let c = Scalar.cos(angleInRadians)
@@ -438,7 +438,7 @@ public extension Collection {
     /// Averages this collection of vectors into one `Vector2` point as the mean
     /// location of each vector.
     ///
-    /// Returns a zero `Vector2`, if the collection is empty.
+    /// Returns `Vector2.zero`, if the collection is empty.
     @inlinable
     func averageVector<Scalar: FloatingPoint>() -> Vector2<Scalar> where Element == Vector2<Scalar> {
         if isEmpty {
