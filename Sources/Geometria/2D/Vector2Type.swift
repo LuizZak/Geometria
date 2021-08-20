@@ -196,8 +196,8 @@ public extension Vector2Type where Scalar: Numeric {
     /// - Parameter amount: Value between 0 and 1 indicating interpolation amount.
     private static func smoothStep(_ amount: Scalar) -> Scalar where Scalar: Comparable {
         return amount <= 0 ? 0
-            : amount >= 1 ? 1
-            : amount * amount * (3 - 2 * amount)
+        : amount >= 1 ? 1
+        : amount * amount * (3 - 2 * amount)
     }
     
     @inlinable
@@ -276,7 +276,7 @@ public extension Vector2Type where Scalar: DivisibleArithmetic {
     static func / (lhs: Self, rhs: Self) -> Self {
         return Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y)
     }
-
+    
     @inlinable
     static func / (lhs: Self, rhs: Scalar) -> Self {
         return Self(x: lhs.x / rhs, y: lhs.y / rhs)
@@ -335,13 +335,13 @@ public extension Vector2Type where Scalar: FloatingPoint {
     @inlinable
     static func % (lhs: Self, rhs: Self) -> Self {
         return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                       y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
+                    y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
     }
     
     @inlinable
     static func % (lhs: Self, rhs: Scalar) -> Self {
         return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                       y: lhs.y.truncatingRemainder(dividingBy: rhs))
+                    y: lhs.y.truncatingRemainder(dividingBy: rhs))
     }
     
     @inlinable
