@@ -13,12 +13,15 @@ public typealias Box2i = Box2<Int>
 /// Represents a 2D box with two vectors that describe the minimal and maximal
 /// coordinates of the box's opposite corners.
 public struct Box2<Scalar> {
-    /// The minimal coordinate of this box
+    /// The minimal coordinate of this
+    /// Must be `<= maximum`
     public var minimum: Vector2<Scalar>
     
-    /// The maximal coordinate of this box
+    /// The maximal coordinate of this box.
+    /// Must be `>= minimum`.
     public var maximum: Vector2<Scalar>
     
+    @inlinable
     public init(minimum: Vector2<Scalar>, maximum: Vector2<Scalar>) {
         self.minimum = minimum
         self.maximum = maximum
@@ -30,7 +33,21 @@ extension Box2: Hashable where Scalar: Hashable { }
 extension Box2: Encodable where Scalar: Encodable { }
 extension Box2: Decodable where Scalar: Decodable { }
 
+public extension Box2 where Scalar: Equatable {
+    /// Returns `true` if the area of this box is zero.
+    @inlinable
+    var isAreaZero: Bool {
+        minimum == maximum
+    }
+}
+
 public extension Box2 where Scalar: Comparable {
+    /// Returns `true` if `minimum <= maximum`.
+    @inlinable
+    var isValid: Bool {
+        minimum <= maximum
+    }
+    
     /// Expands this box to include the given point.
     @inlinable
     mutating func expand(toInclude point: Vector2<Scalar>) {
@@ -83,8 +100,8 @@ public extension Box2 where Scalar: Comparable {
         return minimum <= box.maximum && maximum >= box.minimum
     }
     
-    /// Returns a Rectangle which is the minimum Rectangle that can fit this
-    /// Rectangle with another given Rectangle.
+    /// Returns a box which is the minimum area that can fit `self` and the given
+    /// box.
     @inlinable
     func union(_ other: Box2) -> Box2 {
         return Box2.union(self, other)
@@ -97,18 +114,36 @@ public extension Box2 where Scalar: Comparable {
     }
 }
 
+public extension Box2 where Scalar: AdditiveArithmetic {
+    /// Returns a box with all coordinates set to zero.
+    @inlinable
+    static var zero: Self { Self(minimum: .zero, maximum: .zero) }
+    
+    /// Returns `true` if this box is a `Box2.zero` instance.
+    @inlinable
+    var isZero: Bool {
+        minimum == .zero && maximum == .zero
+    }
+    
+    /// Returns this `Box2` represented as a `Rectangle2`
+    @inlinable
+    var asRectangle2: Rectangle2<Scalar> {
+        Rectangle2(minimum: minimum, maximum: maximum)
+    }
+}
+
 public extension Box2 where Scalar: AdditiveArithmetic & Comparable {
-    /// Initializes a Rectangle containing the minimum area capable of containing
-    /// all supplied points.
+    /// Initializes a box containing the minimum area capable of containing all
+    /// supplied points.
     ///
-    /// If no points are supplied, an empty Rectangle is created instead.
+    /// If no points are supplied, an empty box is created, instead.
     @inlinable
     init(of points: Vector2<Scalar>...) {
         self = Box2(points: points)
     }
     
-    /// Initializes a Rectangle out of a set of points, expanding to the
-    /// smallest bounding box capable of fitting each point.
+    /// Initializes a box out of a set of points, expanding to the smallest
+    /// area capable of fitting each point.
     @inlinable
     init<C: Collection>(points: C) where C.Element == Vector2<Scalar> {
         guard let first = points.first else {

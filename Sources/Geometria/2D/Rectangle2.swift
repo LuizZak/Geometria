@@ -13,6 +13,7 @@ public struct Rectangle2<Scalar> {
     public var location: Vector2<Scalar>
     
     /// The size of this rectangle.
+    /// Must be `>= Vector2.zero`
     public var size: Vector2<Scalar>
     
     /// Gets the X position of this Rectangle.
@@ -216,13 +217,18 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
         return [topLeft, topRight, bottomRight, bottomLeft]
     }
     
+    /// Returns this `Rectangle2` represented as a `Box2`
+    var asBox2: Box2<Scalar> {
+        Box2(minimum: minimum, maximum: maximum)
+    }
+    
     /// Initializes a Rectangle instance out of the given minimum and maximum
     /// coordinates.
     /// The coordinates are not checked for ordering, and will be directly
     /// assigned to `minimum` and `maximum` properties.
     @inlinable
-    init(min: Vector2<Scalar>, max: Vector2<Scalar>) {
-        self.init(location: min, size: max - min)
+    init(minimum: Vector2<Scalar>, maximum: Vector2<Scalar>) {
+        self.init(location: minimum, size: maximum - minimum)
     }
     
     /// Initializes a Rectangle with the corners of a rectangle.
@@ -417,7 +423,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     /// given Rectangles.
     @inlinable
     static func union(_ left: Rectangle2, _ right: Rectangle2) -> Rectangle2 {
-        return Rectangle2(min: min(left.minimum, right.minimum), max: max(left.maximum, right.maximum))
+        return Rectangle2(minimum: min(left.minimum, right.minimum), maximum: max(left.maximum, right.maximum))
     }
 }
 
@@ -453,7 +459,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
             return self
         }
         
-        return Rectangle2(min: minimum - size / 2, max: maximum + size / 2)
+        return Rectangle2(minimum: minimum - size / 2, maximum: maximum + size / 2)
     }
     
     /// Returns a Rectangle which is an inflated version of this Rectangle
@@ -471,7 +477,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
             return self
         }
         
-        return Rectangle2(min: minimum + size / 2, max: maximum - size / 2)
+        return Rectangle2(minimum: minimum + size / 2, maximum: maximum - size / 2)
     }
     
     /// Returns a Rectangle which is an inset version of this Rectangle
@@ -493,7 +499,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     /// instance, where the center of the boundaries lay on `center`.
     @inlinable
     func movingCenter(to center: Vector2<Scalar>) -> Rectangle2 {
-        return Rectangle2(min: center - size / 2, max: center + size / 2)
+        return Rectangle2(minimum: center - size / 2, maximum: center + size / 2)
     }
 }
 
