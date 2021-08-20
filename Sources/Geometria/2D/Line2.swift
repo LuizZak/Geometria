@@ -36,7 +36,7 @@ extension Line2: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line2: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-extension Line2 where Scalar: Numeric {
+extension Line2 where Vector: VectorMultiplicative {
     /// Returns the squared length of this line
     @inlinable
     public var lengthSquared: Scalar {
@@ -44,7 +44,7 @@ extension Line2 where Scalar: Numeric {
     }
 }
 
-extension Line2 where Scalar: Real {
+extension Line2 where Vector: Vector2Real {
     /// Returns the angle of this line, in radians
     @inlinable
     public var angle: Scalar {

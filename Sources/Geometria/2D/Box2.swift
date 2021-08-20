@@ -102,7 +102,7 @@ public extension Box2 where Vector: Equatable {
     }
 }
 
-public extension Box2 where Scalar: Comparable {
+public extension Box2 where Vector: VectorComparable, Scalar: Comparable {
     /// Returns `true` if `minimum <= maximum`.
     @inlinable
     var isValid: Bool {
@@ -177,7 +177,7 @@ public extension Box2 where Scalar: Comparable {
     }
 }
 
-public extension Box2 where Vector: Equatable, Scalar: AdditiveArithmetic {
+public extension Box2 where Vector: VectorMultiplicative {
     /// Returns a box with all coordinates set to zero.
     @inlinable
     static var zero: Self { Self(minimum: .zero, maximum: .zero) }
@@ -222,7 +222,7 @@ public extension Box2 where Vector: Equatable, Scalar: AdditiveArithmetic {
     }
 }
 
-public extension Box2 where Scalar: AdditiveArithmetic & Comparable {
+public extension Box2 where Vector: VectorAdditive & VectorComparable, Scalar: Comparable {
     /// Initializes a box containing the minimum area capable of containing all
     /// supplied points.
     ///

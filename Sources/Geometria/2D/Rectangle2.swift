@@ -161,15 +161,13 @@ extension Rectangle2: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Rectangle2: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Rectangle2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Rectangle2 where Vector: Equatable, Scalar: AdditiveArithmetic {
+public extension Rectangle2 where Vector: VectorAdditive {
     /// Returns `true` if the area of this rectangle is zero.
     @inlinable
     var isAreaZero: Bool {
         size == .zero
     }
-}
-
-public extension Rectangle2 where Scalar: AdditiveArithmetic {
+    
     /// Minimum point for this rectangle.
     @inlinable
     var minimum: Vector {
@@ -318,7 +316,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     }
 }
 
-public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
+public extension Rectangle2 where Vector: VectorAdditive & VectorComparable, Scalar: Comparable {
     /// Returns `true` if `size >= .zero`.
     @inlinable
     var isValid: Bool {
@@ -416,7 +414,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     }
 }
 
-public extension Rectangle2 where Scalar: Numeric {
+public extension Rectangle2 where Vector: VectorMultiplicative {
     /// Returns an empty rectangle
     @inlinable
     static var zero: Rectangle2 { Rectangle2(x: .zero, y: .zero, width: .zero, height: .zero) }
@@ -449,7 +447,7 @@ public extension Rectangle2 where Scalar: Numeric {
     }
 }
 
-public extension Rectangle2 where Scalar: DivisibleArithmetic {
+public extension Rectangle2 where Vector: VectorDivisible {
     /// Gets the center X position of this Rectangle.
     @inlinable
     var centerX: Scalar {
@@ -517,7 +515,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     }
 }
 
-public extension Rectangle2 where Scalar: Numeric & Comparable {
+public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparable {
     /// Returns an `Rectangle` that is the intersection between this and another
     /// `Rectangle` instance.
     ///
@@ -526,7 +524,6 @@ public extension Rectangle2 where Scalar: Numeric & Comparable {
     func intersection(_ other: Rectangle2) -> Rectangle2 {
         return Rectangle2.intersect(self, other)
     }
-    
     
     /// Returns an `Rectangle` that is the intersection between two rectangle
     /// instances.
@@ -555,7 +552,7 @@ public extension Rectangle2 where Scalar: FloatingPoint {
     }
 }
 
-public extension Rectangle2 where Scalar: Real {
+public extension Rectangle2 where Vector: VectorAdditive, Scalar: Real {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
     func transformedBounds(_ matrix: Matrix2<Scalar>) -> Rectangle2<Vector> {

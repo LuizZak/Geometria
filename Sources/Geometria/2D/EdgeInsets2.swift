@@ -41,7 +41,7 @@ extension EdgeInsets2: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension EdgeInsets2: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension EdgeInsets2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension EdgeInsets2 where Scalar: AdditiveArithmetic {
+public extension EdgeInsets2 where Vector: VectorAdditive {
     @inlinable
     static var zero: Self {
         EdgeInsets2(top: .zero, left: .zero, bottom: .zero, right: .zero)
