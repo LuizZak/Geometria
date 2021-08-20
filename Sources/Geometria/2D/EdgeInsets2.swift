@@ -1,10 +1,11 @@
-/// Describes a 2D edge inset with double-precision floating-point parameters
+/// Represents a 2D edge inset with double-precision floating-point parameters.
 public typealias EdgeInsets2D = EdgeInsets2<Double>
 
-/// Describes a 2D edge inset with single-precision floating-point parameters
+/// Represents a 2D edge inset with single-precision floating-point parameters.
 public typealias EdgeInsets2F = EdgeInsets2<Float>
 
-/// Describes a 2D edge inset
+/// Represents a 2D edge inset as relative inset values for each of the four
+/// edges of a rectangular 2D perimeter.
 public struct EdgeInsets2<Scalar> {
     public var top: Scalar
     public var left: Scalar

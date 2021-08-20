@@ -1,11 +1,13 @@
 import RealModule
-/// Describes a double-precision floating-point 2D rectangle.
+
+/// Represents a double-precision floating-point 2D rectangle.
 public typealias Rectangle2D = Rectangle2<Double>
 
-/// Describes a single-precision floating-point 2D rectangle.
+/// Represents a single-precision floating-point 2D rectangle.
 public typealias Rectangle2F = Rectangle2<Float>
 
-/// Describes a 2D rectangle.
+/// Represents a 2D rectangle with a vector describing its origin and a size
+/// vector that describes the span of the rectangle.
 public struct Rectangle2<Scalar> {
     /// The top-left location of this rectangle.
     public var location: Vector2<Scalar>

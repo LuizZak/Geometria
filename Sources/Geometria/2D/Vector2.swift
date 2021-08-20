@@ -490,6 +490,25 @@ public extension Vector2 where Scalar: Comparable & ElementaryFunctions & Divisi
 }
 
 public extension Vector2 where Scalar: FloatingPoint & ElementaryFunctions {
+    /// Creates a matrix that when multiplied with a Vector object applies the
+    /// given set of transformations.
+    ///
+    /// If all default values are set, an identity matrix is created, which does
+    /// not alter a Vector's coordinates once applied.
+    ///
+    /// The order of operations are: scaling -> rotation -> translation
+    @inlinable
+    static func matrix(scale: Self = .unit,
+                       rotate angle: Scalar = 0,
+                       translate: Self = .zero) -> Matrix2<Scalar> {
+        
+        return Matrix2<Scalar>.transformation(xScale: scale.x,
+                                              yScale: scale.y,
+                                              angle: angle,
+                                              xOffset: translate.x,
+                                              yOffset: translate.y)
+    }
+    
     @inlinable
     static func * (lhs: Self, rhs: Matrix2<Scalar>) -> Self {
         return Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)

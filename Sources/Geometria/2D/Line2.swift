@@ -1,14 +1,14 @@
 import RealModule
 
-/// Describes a line as a pair of double-precision floating-point start and end
-/// vectors
+/// Represents a 2D line as a pair of double-precision floating-point start and
+/// end vectors.
 public typealias Line2D = Line2<Double>
 
-/// Describes a line as a pair of single-precision floating-point start and end
-/// vectors
+/// Represents a 2D line as a pair of single-precision floating-point start and
+/// end vectors.
 public typealias Line2F = Line2<Float>
 
-/// Describes a line as a pair of start and end positions
+/// Represents a 2D line as a pair of start and end vectors.
 public struct Line2<Scalar> {
     public var start: Vector2<Scalar>
     public var end: Vector2<Scalar>

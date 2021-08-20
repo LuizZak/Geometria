@@ -1,12 +1,12 @@
-/// Describes a 2D circle with a double-precision floating-point center point and
-/// radius parameters
+/// Represents a 2D circle with a double-precision floating-point center point
+/// and radius parameters.
 public typealias Circle2D = Circle2<Double>
 
-/// Describes a 2D circle with a single-precision floating-point center point and
-/// radius parameters
+/// Represents a 2D circle with a single-precision floating-point center point
+/// and radius parameters.
 public typealias Circle2F = Circle2<Float>
 
-/// Describes a 2D circle with a center point and radius
+/// Represents a 2D circle with a center point and radius.
 public struct Circle2<Scalar> {
     public var center: Vector2<Scalar>
     public var radius: Scalar

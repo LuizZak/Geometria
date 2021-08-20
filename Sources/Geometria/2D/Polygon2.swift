@@ -1,12 +1,12 @@
-/// Describes a 2D polygon as a series of connected double-precision floating-point
-/// 2D vertices
+/// Represents a 2D polygon as a series of connected double-precision
+/// floating-point 2D vertices.
 public typealias Polygon2D = Polygon2<Double>
 
-/// Describes a 2D polygon as a series of connected single-precision floating-point
-/// 2D vertices
+/// Represents a 2D polygon as a series of connected single-precision
+/// floating-point 2D vertices.
 public typealias Polygon2F = Polygon2<Float>
 
-/// Describes a 2D polygon as a series of connected 2D vertices
+/// Represents a 2D polygon as a series of connected 2D vertices.
 public struct Polygon2<Scalar> {
     public var vertices: [Vector2<Scalar>]
     
