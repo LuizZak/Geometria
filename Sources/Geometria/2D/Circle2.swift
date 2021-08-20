@@ -24,7 +24,7 @@ extension Circle2: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Circle2: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Circle2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Circle2 where Scalar: Numeric {
+public extension Circle2 where Scalar: AdditiveArithmetic {
     @inlinable
     func expanded(by value: Scalar) -> Circle2 {
         return Circle2(center: center, radius: radius + value)

@@ -1,10 +1,10 @@
 import RealModule
 import simd
 
-/// Represents a 2D point with two double-precision, floating-point components
+/// Represents a 2D point with two double-precision floating-point components
 public typealias Vector2D = Vector2<Double>
 
-/// Represents a 2D point with two floating-point components
+/// Represents a 2D point with two single-precision floating-point components
 public typealias Vector2F = Vector2<Float>
 
 /// Represents a 2D point with two `Int` components
