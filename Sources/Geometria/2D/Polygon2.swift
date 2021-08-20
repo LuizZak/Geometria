@@ -7,7 +7,7 @@ public typealias Polygon2D = Polygon2<Double>
 public typealias Polygon2F = Polygon2<Float>
 
 /// Describes a 2D polygon as a series of connected 2D vertices
-public struct Polygon2<Scalar: VectorScalar> {
+public struct Polygon2<Scalar> {
     public var vertices: [Vector2<Scalar>]
     
     public init() {

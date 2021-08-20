@@ -5,9 +5,7 @@ public typealias EdgeInsets2D = EdgeInsets2<Double>
 public typealias EdgeInsets2F = EdgeInsets2<Float>
 
 /// Describes a 2D edge inset
-public struct EdgeInsets2<Scalar: VectorScalar>: Equatable {
-    public static var zero: Self { EdgeInsets2(top: 0, left: 0, bottom: 0, right: 0) }
-
+public struct EdgeInsets2<Scalar> {
     public var top: Scalar
     public var left: Scalar
     public var bottom: Scalar
@@ -30,8 +28,20 @@ public struct EdgeInsets2<Scalar: VectorScalar>: Equatable {
         bottom = value
         right = value
     }
+}
 
+extension EdgeInsets2: Equatable where Scalar: Equatable { }
+extension EdgeInsets2: Hashable where Scalar: Hashable { }
+extension EdgeInsets2: Encodable where Scalar: Encodable { }
+extension EdgeInsets2: Decodable where Scalar: Decodable { }
+
+extension EdgeInsets2 where Scalar: AdditiveArithmetic {
     public func inset(rectangle: Rectangle2<Scalar>) -> Rectangle2<Scalar> {
         return rectangle.inset(self)
     }
+}
+
+extension EdgeInsets2 where Scalar: Numeric {
+    @inlinable
+    static var zero: Self { EdgeInsets2(top: 0, left: 0, bottom: 0, right: 0) }
 }

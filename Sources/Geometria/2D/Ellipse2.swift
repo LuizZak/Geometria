@@ -7,7 +7,7 @@ public typealias Ellipse2D = Ellipse2<Double>
 public typealias Ellipse2F = Ellipse2<Float>
 
 /// Describes an ellipse as a center with X and Y radii
-public struct Ellipse2<Scalar: VectorScalar> {
+public struct Ellipse2<Scalar> {
     public var center: Vector2<Scalar>
     public var radiusX: Scalar
     public var radiusY: Scalar

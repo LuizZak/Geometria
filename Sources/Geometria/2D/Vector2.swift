@@ -1,10 +1,6 @@
 import RealModule
 import simd
 
-/// A typealias for a scalar that can specialize a `Vector2` instance to form
-/// a 2D point.
-public typealias VectorScalar = Numeric
-
 /// Represents a 2D point with two double-precision, floating-point components
 public typealias Vector2D = Vector2<Double>
 

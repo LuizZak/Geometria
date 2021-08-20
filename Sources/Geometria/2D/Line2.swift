@@ -9,7 +9,7 @@ public typealias Line2D = Line2<Double>
 public typealias Line2F = Line2<Float>
 
 /// Describes a line as a pair of start and end positions
-public struct Line2<Scalar: VectorScalar> {
+public struct Line2<Scalar> {
     public var start: Vector2<Scalar>
     public var end: Vector2<Scalar>
     

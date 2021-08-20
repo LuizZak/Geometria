@@ -7,7 +7,7 @@ public typealias RoundRectangle2D = RoundRectangle2<Double>
 public typealias RoundRectangle2F = RoundRectangle2<Float>
 
 /// Represents a 2D rounded rectangle with bounds and X and Y radius
-public struct RoundRectangle2<Scalar: VectorScalar> {
+public struct RoundRectangle2<Scalar> {
     public var bounds: Rectangle2<Scalar>
     public var radius: Vector2<Scalar>
     
