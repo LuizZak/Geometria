@@ -47,7 +47,7 @@ public extension EdgeInsets2 where Vector: VectorAdditive {
         EdgeInsets2(top: .zero, left: .zero, bottom: .zero, right: .zero)
     }
     
-    func inset(rectangle: Rectangle2<Vector>) -> Rectangle2<Vector> {
+    func inset(rectangle: Rectangle<Vector>) -> Rectangle<Vector> {
         return rectangle.inset(self)
     }
 }

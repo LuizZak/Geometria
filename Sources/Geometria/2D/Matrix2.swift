@@ -624,16 +624,16 @@ extension Matrix2: Decodable where Scalar: Decodable { }
 
 public extension Matrix2 {
     @inlinable
-    func transform<V: Vector2Type & VectorAdditive>(_ rect: Rectangle2<V>) -> Rectangle2<V> where V.Scalar == Scalar {
-        var minimum = min(transform(rect.topLeft), transform(rect.topRight))
-        minimum = min(minimum, transform(rect.bottomLeft))
-        minimum = min(minimum, transform(rect.bottomRight))
+    func transform<V: Vector2Type & VectorAdditive & VectorComparable>(_ rect: Rectangle<V>) -> Rectangle<V> where V.Scalar == Scalar {
+        var minimum = V.pointwiseMin(transform(rect.topLeft), transform(rect.topRight))
+        minimum = V.pointwiseMin(minimum, transform(rect.bottomLeft))
+        minimum = V.pointwiseMin(minimum, transform(rect.bottomRight))
         
-        var maximum = max(transform(rect.topLeft), transform(rect.topRight))
-        maximum = max(maximum, transform(rect.bottomLeft))
-        maximum = max(maximum, transform(rect.bottomRight))
+        var maximum = V.pointwiseMax(transform(rect.topLeft), transform(rect.topRight))
+        maximum = V.pointwiseMax(maximum, transform(rect.bottomLeft))
+        maximum = V.pointwiseMax(maximum, transform(rect.bottomRight))
         
-        return Rectangle2(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
+        return Rectangle(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
     }
     
     @inlinable

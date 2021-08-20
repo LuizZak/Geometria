@@ -28,6 +28,12 @@ public struct Vector2<Scalar>: Vector2Type {
         self.x = x
         self.y = y
     }
+    
+    /// Creates a new `Vector2` with the given scalar on all coordinates
+    @inlinable
+    public init(repeating scalar: Scalar) {
+        self.init(x: scalar, y: scalar)
+    }
 }
 
 extension Vector2: Equatable where Scalar: Equatable { }
@@ -36,6 +42,18 @@ extension Vector2: Encodable where Scalar: Encodable { }
 extension Vector2: Decodable where Scalar: Decodable { }
 
 extension Vector2: VectorComparable where Scalar: Comparable {
+    /// Returns the pointwise minimal Vector where each component is the minimal
+    /// scalar value at each index for both vectors.
+    public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
+        return Self(x: min(lhs.x, rhs.x), y: min(lhs.y, rhs.y))
+    }
+    
+    /// Returns the pointwise maximal Vector where each component is the maximal
+    /// scalar value at each index for both vectors.
+    public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
+        return Self(x: max(lhs.x, rhs.x), y: max(lhs.y, rhs.y))
+    }
+    
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than `rhs`.
     ///

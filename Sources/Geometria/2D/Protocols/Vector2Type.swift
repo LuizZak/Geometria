@@ -10,22 +10,10 @@ public protocol Vector2Type: VectorType {
     
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar)
-}
-
-public extension Vector2Type {
+    
     /// Creates a new `Vector2Type` with the given scalar on all coordinates
     @inlinable
-    init(repeating scalar: Scalar) {
-        self.init(x: scalar, y: scalar)
-    }
-}
-
-public func min<V: Vector2Type>(_ vec1: V, _ vec2: V) -> V where V.Scalar: Comparable {
-    return V(x: min(vec1.x, vec2.x), y: min(vec1.y, vec2.y))
-}
-
-public func max<V: Vector2Type>(_ vec1: V, _ vec2: V) -> V where V.Scalar: Comparable {
-    return V(x: max(vec1.x, vec2.x), y: max(vec1.y, vec2.y))
+    init(repeating scalar: Scalar)
 }
 
 /// Returns a `VectorSigned` with each component as the absolute value of the

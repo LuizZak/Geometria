@@ -58,6 +58,20 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(sut.y, 1)
     }
     
+    func testPointwiseMin() {
+        let vec1 = Vector2i(x: 2, y: -3)
+        let vec2 = Vector2i(x: -1, y: 4)
+        
+        XCTAssertEqual(Vector2i.pointwiseMin(vec1, vec2), Vector2i(x: -1, y: -3))
+    }
+    
+    func testPointwiseMax() {
+        let vec1 = Vector2i(x: 2, y: -3)
+        let vec2 = Vector2i(x: -1, y: 4)
+        
+        XCTAssertEqual(Vector2i.pointwiseMax(vec1, vec2), Vector2i(x: 2, y: 4))
+    }
+    
     func testGreaterThan() {
         XCTAssertTrue(Vector(x: 1, y: 1) > Vector(x: 0, y: 0))
         XCTAssertFalse(Vector(x: 0, y: 1) > Vector(x: 0, y: 0))
@@ -604,20 +618,6 @@ class Vector2Tests: XCTestCase {
         let list: [Vector2D] = []
         
         XCTAssertEqual(list.averageVector(), Vector2D.zero)
-    }
-    
-    func testMin() {
-        let vec1 = Vector2i(x: 2, y: -3)
-        let vec2 = Vector2i(x: -1, y: 4)
-        
-        XCTAssertEqual(min(vec1, vec2), Vector2i(x: -1, y: -3))
-    }
-    
-    func testMax() {
-        let vec1 = Vector2i(x: 2, y: -3)
-        let vec2 = Vector2i(x: -1, y: 4)
-        
-        XCTAssertEqual(max(vec1, vec2), Vector2i(x: 2, y: 4))
     }
     
     func testRound() {
