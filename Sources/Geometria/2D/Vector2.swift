@@ -122,7 +122,7 @@ public extension Vector2 where Scalar: Numeric {
     func distanceSquared(to vec: Vector2) -> Scalar {
         let d = self - vec
         
-        return d.x * d.x + d.y * d.y
+        return d.lengthSquared
     }
     
     /// Calculates the dot product between this and another provided `Vector2`
@@ -350,11 +350,11 @@ public extension Vector2 where Scalar: FloatingPoint {
 }
 
 public extension Vector2 where Scalar: ElementaryFunctions {
-    /// Returns the magnitude (or square root of the squared length) of this
+    /// Returns the Euclidean norm (square root of the squared length) of this
     /// `Vector2`
     @inlinable
     var length: Scalar {
-        return Scalar.sqrt(x * x + y * y)
+        return Scalar.sqrt(lengthSquared)
     }
     
     /// Returns a rotated version of this vector, rotated around by a given
@@ -404,7 +404,7 @@ public extension Vector2 where Scalar: Comparable & ElementaryFunctions & Divisi
             return .zero
         }
         
-        return self / length
+        return self / l
     }
 }
 
