@@ -1,11 +1,9 @@
 import RealModule
 import simd
 
-/// A typealias for a scalar that can specialize a `Vector2` instance
-public typealias VectorScalar = SIMDScalar & Numeric
-
-/// A two-component vector type
-public typealias Vector2<T: VectorScalar> = SIMD2<T>
+/// A typealias for a scalar that can specialize a `Vector2` instance to form
+/// a 2D point.
+public typealias VectorScalar = Numeric
 
 /// Represents a 2D point with two double-precision, floating-point components
 public typealias Vector2D = Vector2<Double>
@@ -16,19 +14,35 @@ public typealias Vector2F = Vector2<Float>
 /// Represents a 2D point with two `Int` components
 public typealias Vector2i = Vector2<Int>
 
-public extension Vector2 {
-    /// A zero-value `Vector2` value where each component corresponds to its
-    /// representation of `0`.
-    static var zero: Vector2 {
-        return Vector2(x: .zero, y: .zero)
+/// A two-component vector type
+public struct Vector2<Scalar> {
+    /// X coordinate of this vector
+    public var x: Scalar
+    
+    /// Y coordinate of this vector
+    public var y: Scalar
+    
+    /// Textual representation of this `Vector2`
+    public var description: String {
+        return "\(type(of: self))(x: \(self.x), y: \(self.y))"
     }
     
-    /// A unit-value `Vector2` value where each component corresponds to its
-    /// representation of `1`.
-    static var unit: Vector2 {
-        return Vector2(x: 1, y: 1)
+    /// Creates a new `Vector2` with the given coordinates
+    public init(x: Scalar, y: Scalar) {
+        self.x = x
+        self.y = y
+    }
+    
+    /// Creates a new `Vector2` with the given scalar on all coordinates
+    public init(repeating scalar: Scalar) {
+        self.init(x: scalar, y: scalar)
     }
 }
+
+extension Vector2: Equatable where Scalar: Equatable { }
+extension Vector2: Hashable where Scalar: Hashable { }
+extension Vector2: Encodable where Scalar: Encodable { }
+extension Vector2: Decodable where Scalar: Decodable { }
 
 public extension Vector2 where Scalar: Comparable {
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -69,6 +83,17 @@ public extension Vector2 where Scalar: Comparable {
 }
 
 public extension Vector2 where Scalar: AdditiveArithmetic {
+    /// Initializes a zero-valued `Vector2`
+    init() {
+        self = .zero
+    }
+    
+    /// A zero-value `Vector2` value where each component corresponds to its
+    /// representation of `0`.
+    static var zero: Vector2 {
+        return Vector2(x: .zero, y: .zero)
+    }
+    
     @inlinable
     static func + (lhs: Vector2, rhs: Vector2) -> Vector2 {
         return Vector2(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
@@ -111,6 +136,12 @@ public extension Vector2 where Scalar: AdditiveArithmetic {
 }
 
 public extension Vector2 where Scalar: Numeric {
+    /// A unit-value `Vector2` value where each component corresponds to its
+    /// representation of `1`.
+    static var unit: Vector2 {
+        return Vector2(x: 1, y: 1)
+    }
+    
     /// Returns the length squared of this `Vector2`
     @inlinable
     var lengthSquared: Scalar {
@@ -274,9 +305,53 @@ public extension Vector2 where Scalar: DivisibleArithmetic {
     }
 }
 
+public extension Vector2 where Scalar: Comparable & SignedNumeric {
+    /// Returns a `Vector2` where each component is the absolute value of the
+    /// components of this `Vector2`.
+    var absolute: Vector2 {
+        return Vector2(x: abs(x), y: abs(y))
+    }
+}
+
+public extension Vector2 where Scalar: FloatingPoint {
+    /// Rounds the components of this `Vector2` using a given
+    /// `FloatingPointRoundingRule`.
+    @inlinable
+    func rounded(_ rule: FloatingPointRoundingRule) -> Vector2 {
+        return Vector2(x: x.rounded(rule), y: y.rounded(rule))
+    }
+    
+    /// Rounds the components of this `Vector2` using a given
+    /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
+    ///
+    /// Equivalent to calling C's round() function on each component.
+    @inlinable
+    func rounded() -> Vector2 {
+        return rounded(.toNearestOrAwayFromZero)
+    }
+    
+    /// Rounds the components of this `Vector2` using a given
+    /// `FloatingPointRoundingRule.up`.
+    ///
+    /// Equivalent to calling C's ceil() function on each component.
+    @inlinable
+    func ceil() -> Vector2 {
+        return rounded(.up)
+    }
+    
+    /// Rounds the components of this `Vector2` using a given
+    /// `FloatingPointRoundingRule.down`.
+    ///
+    /// Equivalent to calling C's floor() function on each component.
+    @inlinable
+    func floor() -> Vector2 {
+        return rounded(.down)
+    }
+}
+
 public extension Vector2 where Scalar: FloatingPoint {
     init<B: BinaryInteger>(_ vec: Vector2<B>) {
-        self.init(Scalar(vec.x), Scalar(vec.y))
+        self.init(x: Scalar(vec.x), y: Scalar(vec.y))
     }
     
     @inlinable
@@ -295,42 +370,32 @@ public extension Vector2 where Scalar: FloatingPoint {
     static func + <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs + Vector2(rhs)
     }
-        
+    
     @inlinable
     static func - <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs - Vector2(rhs)
     }
-        
+    
     @inlinable
     static func * <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
         return lhs * Vector2(rhs)
     }
-        
-    @inlinable
-    static func / <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
-        return lhs / Vector2(rhs)
-    }
-        
+    
     @inlinable
     static func + <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) + rhs
     }
-        
+    
     @inlinable
     static func - <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) - rhs
     }
-        
+    
     @inlinable
     static func * <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
         return Vector2(lhs) * rhs
     }
-        
-    @inlinable
-    static func / <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
-        return Vector2(lhs) / rhs
-    }
-        
+    
     @inlinable
     static func += <B: BinaryInteger>(lhs: inout Vector2, rhs: Vector2<B>) {
         lhs = lhs + Vector2(rhs)
@@ -343,18 +408,37 @@ public extension Vector2 where Scalar: FloatingPoint {
     static func *= <B: BinaryInteger>(lhs: inout Vector2, rhs: Vector2<B>) {
         lhs = lhs * Vector2(rhs)
     }
+}
+
+public extension Vector2 where Scalar: FloatingPoint & DivisibleArithmetic {
+    @inlinable
+    static func / <B: BinaryInteger>(lhs: Vector2, rhs: Vector2<B>) -> Vector2 {
+        return lhs / Vector2(rhs)
+    }
+    
+    @inlinable
+    static func / <B: BinaryInteger>(lhs: Vector2<B>, rhs: Vector2) -> Vector2 {
+        return Vector2(lhs) / rhs
+    }
+    
     @inlinable
     static func /= <B: BinaryInteger>(lhs: inout Vector2, rhs: Vector2<B>) {
         lhs = lhs / Vector2(rhs)
     }
 }
 
-public extension Vector2 where Scalar: ElementaryFunctions {
+public extension Vector2 where Scalar: Numeric & ElementaryFunctions {
     /// Returns the Euclidean norm (square root of the squared length) of this
     /// `Vector2`
     @inlinable
     var length: Scalar {
         return Scalar.sqrt(lengthSquared)
+    }
+    
+    /// Returns the distance between this `Vector2` and another `Vector2`
+    @inlinable
+    func distance(to vec: Vector2) -> Scalar {
+        return Scalar.sqrt(self.distanceSquared(to: vec))
     }
     
     /// Returns a rotated version of this vector, rotated around the origin by a
@@ -391,13 +475,14 @@ public extension Vector2 where Scalar: Comparable & ElementaryFunctions & Divisi
     ///
     /// Returns `Vector2.zero` if the vector has `length == 0`.
     @inlinable
-    mutating func normalized() {
+    mutating func normalize() {
         self = normalized()
     }
     
     /// Returns a normalized version of this vector.
     ///
     /// Returns `Vector2.zero` if the vector has `length == 0`.
+    @inlinable
     func normalized() -> Vector2 {
         let l = length
         if l <= 0 {
@@ -412,11 +497,6 @@ public extension Vector2 where Scalar: FloatingPoint & ElementaryFunctions {
     @inlinable
     static func * (lhs: Self, rhs: Matrix2<Scalar>) -> Self {
         return Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
-    }
-    
-    @inlinable
-    static func * (lhs: Matrix2<Scalar>, rhs: Self) -> Self {
-        return Matrix2<Scalar>.transformPoint(matrix: lhs, point: rhs)
     }
     
     @inlinable
@@ -440,7 +520,7 @@ public extension Collection {
     ///
     /// Returns `Vector2.zero`, if the collection is empty.
     @inlinable
-    func averageVector<Scalar: FloatingPoint>() -> Vector2<Scalar> where Element == Vector2<Scalar> {
+    func averageVector<Scalar: FloatingPoint & DivisibleArithmetic>() -> Vector2<Scalar> where Element == Vector2<Scalar> {
         if isEmpty {
             return .zero
         }
@@ -450,11 +530,11 @@ public extension Collection {
 }
 
 public func min<T: Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
-    return Vector2(min(vec1.x, vec2.x), min(vec1.y, vec2.y))
+    return Vector2(x: min(vec1.x, vec2.x), y: min(vec1.y, vec2.y))
 }
 
 public func max<T: Comparable>(_ vec1: Vector2<T>, _ vec2: Vector2<T>) -> Vector2<T> {
-    return Vector2(max(vec1.x, vec2.x), max(vec1.y, vec2.y))
+    return Vector2(x: max(vec1.x, vec2.x), y: max(vec1.y, vec2.y))
 }
 
 /// Returns a `Vector2` with each component as the absolute value of the components

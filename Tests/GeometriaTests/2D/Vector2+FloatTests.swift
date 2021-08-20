@@ -7,7 +7,7 @@ class Vector2_FloatTests: XCTestCase {
     func testNormalized() {
         let vec = Vector2F(x: -10, y: 20)
         
-        XCTAssertEqual(vec.normalized(), Vector2F(x: -0.44721362, y: 0.89442724))
+        assertEqual(vec.normalized(), Vector2F(x: -0.44721362, y: 0.89442724), accuracy: 1e-7)
     }
     
     func testDot() {

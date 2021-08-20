@@ -53,7 +53,7 @@ import Foundation
 public typealias Matrix2D = Matrix2<Double>
 
 /// Plain Matrix3x2 with floating-point components.
-public struct Matrix2<Scalar: SIMDScalar & FloatingPoint & ElementaryFunctions>: Hashable, Codable, CustomStringConvertible {
+public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, CustomStringConvertible {
     public typealias Vector = Vector2<Scalar>
     
     /// Gets the identity matrix.
@@ -602,7 +602,13 @@ public struct Matrix2<Scalar: SIMDScalar & FloatingPoint & ElementaryFunctions>:
     }
 }
 
-/// Geometry transformation
+// MARK: Conformances
+
+extension Matrix2: Encodable where Scalar: Encodable { }
+extension Matrix2: Decodable where Scalar: Decodable { }
+
+// MARK: Geometry transformation
+
 public extension Matrix2 {
     @inlinable
     func transform(_ rect: Rectangle2<Scalar>) -> Rectangle2<Scalar> {

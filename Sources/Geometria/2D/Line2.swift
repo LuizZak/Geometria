@@ -9,7 +9,7 @@ public typealias Line2D = Line2<Double>
 public typealias Line2F = Line2<Float>
 
 /// Describes a line as a pair of start and end positions
-public struct Line2<Scalar: VectorScalar>: Equatable, Codable {
+public struct Line2<Scalar: VectorScalar> {
     public var start: Vector2<Scalar>
     public var end: Vector2<Scalar>
     
@@ -25,6 +25,11 @@ public struct Line2<Scalar: VectorScalar>: Equatable, Codable {
         end = Vector2(x: x2, y: y2)
     }
 }
+
+extension Line2: Equatable where Scalar: Equatable { }
+extension Line2: Hashable where Scalar: Hashable { }
+extension Line2: Encodable where Scalar: Encodable { }
+extension Line2: Decodable where Scalar: Decodable { }
 
 extension Line2 where Scalar: Numeric {
     /// Returns the squared length of this line

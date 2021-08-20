@@ -6,7 +6,7 @@ public typealias Rectangle2D = Rectangle2<Double>
 public typealias Rectangle2F = Rectangle2<Float>
 
 /// Describes a 2D rectangle
-public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
+public struct Rectangle2<Scalar: VectorScalar> {
     /// Returns an empty rectangle
     public static var zero: Rectangle2 { Rectangle2(x: 0, y: 0, width: 0, height: 0) }
     
@@ -286,6 +286,11 @@ public struct Rectangle2<Scalar: VectorScalar>: Equatable, Codable {
         return Rectangle2(left: left, top: top, right: value, bottom: bottom)
     }
 }
+
+extension Rectangle2: Equatable where Scalar: Equatable { }
+extension Rectangle2: Hashable where Scalar: Hashable { }
+extension Rectangle2: Encodable where Scalar: Encodable { }
+extension Rectangle2: Decodable where Scalar: Decodable { }
 
 public extension Rectangle2 where Scalar: Comparable {
     /// Initializes a Rectangle containing the minimum area capable of containing

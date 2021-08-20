@@ -2,6 +2,8 @@ import XCTest
 import Geometria
 
 class Vector2Tests: XCTestCase {
+    let accuracy: Double = 1.0e-15
+    
     typealias Vector = Vector2<Int>
     
     func testZero() {
@@ -14,16 +16,64 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(Vector.unit.y, 1)
     }
     
-    func testOne() {
-        XCTAssertEqual(Vector.one.x, 1)
-        XCTAssertEqual(Vector.one.y, 1)
-    }
-    
     func testDescription() {
         XCTAssertEqual(Vector2<Int>(x: 0, y: 1).description,
-                       "SIMD2<Int>(0, 1)")
+                       "Vector2<Int>(x: 0, y: 1)")
         XCTAssertEqual(Vector2<Double>(x: 0, y: 1).description,
-                       "SIMD2<Double>(0.0, 1.0)")
+                       "Vector2<Double>(x: 0.0, y: 1.0)")
+    }
+    
+    func testInitZero() {
+        let sut = Vector()
+        
+        XCTAssertEqual(sut.x, 0)
+        XCTAssertEqual(sut.y, 0)
+    }
+    
+    func testInit() {
+        let sut = Vector(x: 0, y: 1)
+        
+        XCTAssertEqual(sut.x, 0)
+        XCTAssertEqual(sut.y, 1)
+    }
+    
+    func testInitXy() {
+        let sut = Vector(repeating: 1)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 1)
+    }
+    
+    func testSetX() {
+        var sut = Vector.zero
+        
+        sut.x = 1
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 0)
+    }
+    
+    func testSetY() {
+        var sut = Vector.zero
+        
+        sut.y = 1
+        
+        XCTAssertEqual(sut.x, 0)
+        XCTAssertEqual(sut.y, 1)
+    }
+    
+    func testEquatable() {
+        XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
+        XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))
+        XCTAssertNotEqual(Vector(x: 1, y: 0), Vector(x: 0, y: 1))
+        XCTAssertNotEqual(Vector(x: 0, y: 0), Vector(x: 0, y: 1))
+    }
+    
+    func testHashable() {
+        XCTAssertEqual(Vector(x: 0, y: 1).hashValue, Vector(x: 0, y: 1).hashValue)
+        XCTAssertNotEqual(Vector(x: 1, y: 1).hashValue, Vector(x: 0, y: 1).hashValue)
+        XCTAssertNotEqual(Vector(x: 1, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
+        XCTAssertNotEqual(Vector(x: 0, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
     }
     
     func testGreaterThan() {
@@ -269,6 +319,12 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(v1.distanceSquared(to: v2), 800)
     }
     
+    func testDistanceSquared_zeroDistance() {
+        let vec = Vector2D(x: 10, y: 20)
+        
+        XCTAssertEqual(vec.distanceSquared(to: vec), 0.0)
+    }
+    
     func testDot() {
         let v1 = Vector(x: 10, y: 20)
         let v2 = Vector(x: 30, y: 40)
@@ -377,7 +433,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec.y, 2)
     }
     
-    func testRounded() {
+    func testRoundedWithRoundingRule() {
         let vec = Vector2D(x: 0.5, y: 1.6)
         
         XCTAssertEqual(vec.rounded(.up), Vector2D(x: 1, y: 2))
@@ -386,6 +442,12 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec.rounded(.toNearestOrEven), Vector2D(x: 0, y: 2))
         XCTAssertEqual(vec.rounded(.towardZero), Vector2D(x: 0, y: 1))
         XCTAssertEqual(vec.rounded(.awayFromZero), Vector2D(x: 1, y: 2))
+    }
+    
+    func testRounded() {
+        let vec = Vector2D(x: 0.5, y: 1.6)
+        
+        XCTAssertEqual(vec.rounded(), Vector2D(x: 1, y: 2))
     }
     
     func testModulosOperator_vector() {
@@ -445,6 +507,65 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(result.y, 5, accuracy: 0.0000000001)
     }
     
+    func testDistanceTo() {
+        let v1 = Vector2D(x: 10, y: 20)
+        let v2 = Vector2D(x: 30, y: 40)
+        
+        XCTAssertEqual(v1.distance(to: v2), 28.284271247461902, accuracy: accuracy)
+    }
+    
+    func testDistanceTo_zeroDistance() {
+        let vec = Vector2D(x: 10, y: 20)
+        
+        XCTAssertEqual(vec.distance(to: vec), 0.0)
+    }
+    
+    func testNormalize() {
+        var vec = Vector2D(x: -10, y: 20)
+        
+        vec.normalize()
+        
+        assertEqual(vec, Vector2D(x: -0.4472135954999579, y: 0.8944271909999159),
+                    accuracy: accuracy)
+    }
+    
+    func testNormalize_zero() {
+        var vec = Vector2D(x: 0, y: 0)
+        
+        vec.normalize()
+        
+        XCTAssertEqual(vec, .zero)
+    }
+    
+    func testNormalized() {
+        let vec = Vector2D(x: -10, y: 20)
+        
+        assertEqual(vec.normalized(), Vector2D(x: -0.4472135954999579, y: 0.8944271909999159),
+                    accuracy: accuracy)
+    }
+    
+    func testNormalized_zero() {
+        let vec = Vector2D(x: 0, y: 0)
+        
+        XCTAssertEqual(vec.normalized(), .zero)
+    }
+    
+    func testMultiplyMatrix() {
+        let matrix = Matrix2D(m11: 2, m12: 3, m21: 4, m22: 5, m31: 6, m32: 7)
+        let vec = Vector2D(x: 1, y: 2)
+        
+        XCTAssertEqual(vec * matrix, Vector2D(x: 16.0, y: 20.0))
+    }
+    
+    func testMultiplyMatrix_inPlace() {
+        let matrix = Matrix2D.translation(x: 10, y: 20)
+        var vec = Vector2D(x: 1, y: 2)
+        
+        vec *= matrix
+        
+        XCTAssertEqual(vec, Vector2D(x: 11.0, y: 22.0))
+    }
+    
     func testAverageVector() {
         let list = [
             Vector2D(x: -1, y: -1),
@@ -484,30 +605,35 @@ class Vector2Tests: XCTestCase {
     func testFloor() {
         let vec = Vector2D(x: 0.5, y: 1.6)
         
+        XCTAssertEqual(vec.floor(), Vector2D(x: 0, y: 1))
         XCTAssertEqual(floor(vec), Vector2D(x: 0, y: 1))
     }
     
     func testCeil() {
         let vec = Vector2D(x: 0.5, y: 1.6)
         
+        XCTAssertEqual(vec.ceil(), Vector2D(x: 1, y: 2))
         XCTAssertEqual(ceil(vec), Vector2D(x: 1, y: 2))
     }
     
     func testAbsolute() {
         let vec = Vector2D(x: -1, y: -2)
         
+        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
         XCTAssertEqual(abs(vec), Vector2D(x: 1, y: 2))
     }
     
     func testAbsolute_mixedPositiveNegative() {
         let vec = Vector2D(x: -1, y: 2)
         
+        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
         XCTAssertEqual(abs(vec), Vector2D(x: 1, y: 2))
     }
     
     func testAbsolute_positive() {
         let vec = Vector2D(x: 1, y: 2)
         
+        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
         XCTAssertEqual(abs(vec), Vector2D(x: 1, y: 2))
     }
 }
