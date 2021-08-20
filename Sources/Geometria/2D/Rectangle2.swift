@@ -54,6 +54,7 @@ public struct Rectangle2<Scalar> {
     /// Gets the height of this Rectangle.
     ///
     /// When setting this value, `height` must always be `>= 0`.
+    @inlinable
     public var height: Scalar {
         get {
             return size.y
@@ -156,6 +157,12 @@ extension Rectangle2: Encodable where Scalar: Encodable { }
 extension Rectangle2: Decodable where Scalar: Decodable { }
 
 public extension Rectangle2 where Scalar: AdditiveArithmetic {
+    /// Returns `true` if the area of this rectangle is zero.
+    @inlinable
+    var isAreaZero: Bool {
+        size == .zero
+    }
+    
     /// Minimum point for this rectangle.
     @inlinable
     var minimum: Vector2<Scalar> {
@@ -218,20 +225,21 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     }
     
     /// Returns this `Rectangle2` represented as a `Box2`
+    @inlinable
     var asBox2: Box2<Scalar> {
         Box2(minimum: minimum, maximum: maximum)
     }
     
-    /// Initializes a Rectangle instance out of the given minimum and maximum
+    /// Initializes a `Rectangle2` instance out of the given minimum and maximum
     /// coordinates.
-    /// The coordinates are not checked for ordering, and will be directly
-    /// assigned to `minimum` and `maximum` properties.
+    ///
+    /// - precondition: `minimum <= maximum`
     @inlinable
     init(minimum: Vector2<Scalar>, maximum: Vector2<Scalar>) {
         self.init(location: minimum, size: maximum - minimum)
     }
     
-    /// Initializes a Rectangle with the corners of a rectangle.
+    /// Initializes a `Rectangle2` with the edges of a box.
     @inlinable
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         self.init(x: left, y: top, width: right - left, height: bottom - top)
@@ -303,40 +311,13 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     }
 }
 
-public extension Rectangle2 where Scalar: Numeric {
-    /// Returns an empty rectangle
-    @inlinable
-    static var zero: Rectangle2 { Rectangle2(x: .zero, y: .zero, width: .zero, height: .zero) }
-    
-    /// Returns true iff this Rectangle's area is empty (i.e. `width == 0 && height == 0`).
-    @inlinable
-    var isEmpty: Bool {
-        return width == .zero && height == .zero
-    }
-    
-    /// Initializes an empty Rectangle instance.
-    @inlinable
-    init() {
-        location = .zero
-        size = .zero
-    }
-    
-    /// Returns a Rectangle with the same position as this Rectangle, with its
-    /// width and height multiplied by the coordinates of the given vector.
-    @inlinable
-    func scaledBy(vector: Vector2<Scalar>) -> Rectangle2 {
-        return scaledBy(x: vector.x, y: vector.y)
-    }
-    
-    /// Returns a Rectangle with the same position as this Rectangle, with its
-    /// width and height multiplied by the coordinates of the given vector.
-    @inlinable
-    func scaledBy(x: Scalar, y: Scalar) -> Rectangle2 {
-        return Rectangle2(x: x, y: y, width: width * x, height: height * y)
-    }
-}
-
 public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
+    /// Returns `true` if `size >= .zero`.
+    @inlinable
+    var isValid: Bool {
+        size >= .zero
+    }
+    
     /// Initializes a Rectangle containing the minimum area capable of containing
     /// all supplied points.
     ///
@@ -423,7 +404,41 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     /// given Rectangles.
     @inlinable
     static func union(_ left: Rectangle2, _ right: Rectangle2) -> Rectangle2 {
-        return Rectangle2(minimum: min(left.minimum, right.minimum), maximum: max(left.maximum, right.maximum))
+        return Rectangle2(minimum: min(left.minimum, right.minimum),
+                          maximum: max(left.maximum, right.maximum))
+    }
+}
+
+public extension Rectangle2 where Scalar: Numeric {
+    /// Returns an empty rectangle
+    @inlinable
+    static var zero: Rectangle2 { Rectangle2(x: .zero, y: .zero, width: .zero, height: .zero) }
+    
+    /// Returns true iff this Rectangle's area is empty (i.e. `width == 0 && height == 0`).
+    @inlinable
+    var isEmpty: Bool {
+        return width == .zero && height == .zero
+    }
+    
+    /// Initializes an empty Rectangle instance.
+    @inlinable
+    init() {
+        location = .zero
+        size = .zero
+    }
+    
+    /// Returns a Rectangle with the same position as this Rectangle, with its
+    /// width and height multiplied by the coordinates of the given vector.
+    @inlinable
+    func scaledBy(vector: Vector2<Scalar>) -> Rectangle2 {
+        return scaledBy(x: vector.x, y: vector.y)
+    }
+    
+    /// Returns a Rectangle with the same position as this Rectangle, with its
+    /// width and height multiplied by the coordinates of the given vector.
+    @inlinable
+    func scaledBy(x: Scalar, y: Scalar) -> Rectangle2 {
+        return Rectangle2(x: x, y: y, width: width * x, height: height * y)
     }
 }
 
