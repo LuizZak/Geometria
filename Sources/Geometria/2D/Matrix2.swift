@@ -624,7 +624,7 @@ extension Matrix2: Decodable where Scalar: Decodable { }
 
 public extension Matrix2 {
     @inlinable
-    func transform(_ rect: Rectangle2<Scalar>) -> Rectangle2<Scalar> {
+    func transform<V: Vector2Type>(_ rect: Rectangle2<V>) -> Rectangle2<V> where V.Scalar == Scalar {
         var minimum = min(transform(rect.topLeft), transform(rect.topRight))
         minimum = min(minimum, transform(rect.bottomLeft))
         minimum = min(minimum, transform(rect.bottomRight))
@@ -637,12 +637,12 @@ public extension Matrix2 {
     }
     
     @inlinable
-    func transform(_ point: Vector2<Scalar>) -> Vector2<Scalar> {
+    func transform<V: Vector2Type>(_ point: V) -> V where V.Scalar == Scalar {
         return Self.transformPoint(matrix: self, point: point)
     }
     
     @inlinable
-    func transform(points: [Vector2<Scalar>]) -> [Vector2<Scalar>] {
+    func transform<V: Vector2Type>(points: [V]) -> [V] where V.Scalar == Scalar {
         return points.map(transform(_:))
     }
 }

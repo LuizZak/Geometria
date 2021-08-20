@@ -1,20 +1,25 @@
 import RealModule
 
 /// Represents a double-precision floating-point 2D rectangle.
-public typealias Rectangle2D = Rectangle2<Double>
+public typealias Rectangle2D = Rectangle2<Vector2D>
 
 /// Represents a single-precision floating-point 2D rectangle.
-public typealias Rectangle2F = Rectangle2<Float>
+public typealias Rectangle2F = Rectangle2<Vector2F>
+
+/// Represents an integer 2D rectangle.
+public typealias Rectangle2i = Rectangle2<Vector2i>
 
 /// Represents a 2D rectangle with a vector describing its origin and a size
 /// vector that describes the span of the rectangle.
-public struct Rectangle2<Scalar> {
+public struct Rectangle2<Vector: Vector2Type> {
+    public typealias Scalar = Vector.Scalar
+    
     /// The top-left location of this rectangle.
-    public var location: Vector2<Scalar>
+    public var location: Vector
     
     /// The size of this rectangle.
     /// Must be `>= Vector2.zero`
-    public var size: Vector2<Scalar>
+    public var size: Vector
     
     /// Gets the X position of this Rectangle.
     @inlinable
@@ -78,46 +83,46 @@ public struct Rectangle2<Scalar> {
     
     /// The top-left corner of the rectangle.
     @inlinable
-    public var topLeft: Vector2<Scalar> {
-        return Vector2<Scalar>(x: left, y: top)
+    public var topLeft: Vector {
+        return Vector(x: left, y: top)
     }
     
     /// Initializes a Rectangle with the coordinates of a rectangle.
     @inlinable
     public init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {
-        location = Vector2<Scalar>(x: x, y: y)
-        size = Vector2<Scalar>(x: width, y: height)
+        location = Vector(x: x, y: y)
+        size = Vector(x: width, y: height)
     }
     
     /// Initializes a Rectangle with the location + size of a rectangle.
     @inlinable
-    public init(location: Vector2<Scalar>, size: Vector2<Scalar>) {
+    public init(location: Vector, size: Vector) {
         self.location = location
         self.size = size
     }
     
     /// Returns a Rectangle that matches this Rectangle's size with a new location.
     @inlinable
-    public func withLocation(_ location: Vector2<Scalar>) -> Rectangle2 {
+    public func withLocation(_ location: Vector) -> Rectangle2 {
         return Rectangle2(location: location, size: size)
     }
     
     /// Returns a rectangle that matches this Rectangle's size with a new location.
     @inlinable
     public func withLocation(x: Scalar, y: Scalar) -> Rectangle2 {
-        return withLocation(Vector2<Scalar>(x: x, y: y))
+        return withLocation(Vector(x: x, y: y))
     }
     
     /// Returns a Rectangle that matches this Rectangle's size with a new location.
     @inlinable
-    public func withSize(_ size: Vector2<Scalar>) -> Rectangle2 {
+    public func withSize(_ size: Vector) -> Rectangle2 {
         return Rectangle2(location: location, size: size)
     }
     
     /// Returns a Rectangle that matches this Rectangle's size with a new location.
     @inlinable
     public func withSize(width: Scalar, height: Scalar) -> Rectangle2 {
-        return withSize(Vector2<Scalar>(x: width, y: height))
+        return withSize(Vector(x: width, y: height))
     }
     
     /// Returns a new Rectangle with the same left, right, and height as the current
@@ -138,7 +143,7 @@ public struct Rectangle2<Scalar> {
     /// with the given radius vector describing the dimensions of the corner arcs
     /// on the X and Y axis.
     @inlinable
-    public func rounded(radius: Vector2<Scalar>) -> RoundRectangle2<Scalar> {
+    public func rounded(radius: Vector) -> RoundRectangle2<Vector> {
         return RoundRectangle2(bounds: self, radius: radius)
     }
     
@@ -146,26 +151,28 @@ public struct Rectangle2<Scalar> {
     /// with the given radius value describing the dimensions of the corner arcs
     /// on the X and Y axis.
     @inlinable
-    public func rounded(radius: Scalar) -> RoundRectangle2<Scalar> {
+    public func rounded(radius: Scalar) -> RoundRectangle2<Vector> {
         return RoundRectangle2(bounds: self, radiusX: radius, radiusY: radius)
     }
 }
 
-extension Rectangle2: Equatable where Scalar: Equatable { }
-extension Rectangle2: Hashable where Scalar: Hashable { }
-extension Rectangle2: Encodable where Scalar: Encodable { }
-extension Rectangle2: Decodable where Scalar: Decodable { }
+extension Rectangle2: Equatable where Vector: Equatable, Scalar: Equatable { }
+extension Rectangle2: Hashable where Vector: Hashable, Scalar: Hashable { }
+extension Rectangle2: Encodable where Vector: Encodable, Scalar: Encodable { }
+extension Rectangle2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Rectangle2 where Scalar: AdditiveArithmetic {
+public extension Rectangle2 where Vector: Equatable, Scalar: AdditiveArithmetic {
     /// Returns `true` if the area of this rectangle is zero.
     @inlinable
     var isAreaZero: Bool {
         size == .zero
     }
-    
+}
+
+public extension Rectangle2 where Scalar: AdditiveArithmetic {
     /// Minimum point for this rectangle.
     @inlinable
-    var minimum: Vector2<Scalar> {
+    var minimum: Vector {
         get { return topLeft }
         set {
             let diff = newValue - minimum
@@ -177,7 +184,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     
     /// Maximum point for this rectangle.
     @inlinable
-    var maximum: Vector2<Scalar> {
+    var maximum: Vector {
         get { return bottomRight }
         set {
             width = newValue.x - x
@@ -199,20 +206,20 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     
     /// The top-right corner of the rectangle.
     @inlinable
-    var topRight: Vector2<Scalar> {
-        return Vector2<Scalar>(x: right, y: top)
+    var topRight: Vector {
+        return Vector(x: right, y: top)
     }
     
     /// The bottom-left corner of the rectangle.
     @inlinable
-    var bottomLeft: Vector2<Scalar> {
-        return Vector2<Scalar>(x: left, y: bottom)
+    var bottomLeft: Vector {
+        return Vector(x: left, y: bottom)
     }
     
     /// The bottom-right corner of the rectangle.
     @inlinable
-    var bottomRight: Vector2<Scalar> {
-        return Vector2<Scalar>(x: right, y: bottom)
+    var bottomRight: Vector {
+        return Vector(x: right, y: bottom)
     }
     
     /// Returns an array of vectors that represent this `Rectangle`'s corners in
@@ -220,13 +227,13 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     ///
     /// Always contains 4 elements.
     @inlinable
-    var corners: [Vector2<Scalar>] {
+    var corners: [Vector] {
         return [topLeft, topRight, bottomRight, bottomLeft]
     }
     
     /// Returns this `Rectangle2` represented as a `Box2`
     @inlinable
-    var asBox2: Box2<Scalar> {
+    var asBox2: Box2<Vector> {
         Box2(minimum: minimum, maximum: maximum)
     }
     
@@ -235,7 +242,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     ///
     /// - precondition: `minimum <= maximum`
     @inlinable
-    init(minimum: Vector2<Scalar>, maximum: Vector2<Scalar>) {
+    init(minimum: Vector, maximum: Vector) {
         self.init(location: minimum, size: maximum - minimum)
     }
     
@@ -248,7 +255,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     /// Returns a copy of this Rectangle with the minimum and maximum coordinates
     /// offset by a given amount.
     @inlinable
-    func offsetBy(_ vector: Vector2<Scalar>) -> Rectangle2 {
+    func offsetBy(_ vector: Vector) -> Rectangle2 {
         return Rectangle2(location: location + vector, size: size)
     }
     
@@ -256,12 +263,12 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic {
     /// offset by a given amount.
     @inlinable
     func offsetBy(x: Scalar, y: Scalar) -> Rectangle2 {
-        return offsetBy(Vector2<Scalar>(x: x, y: y))
+        return offsetBy(Vector(x: x, y: y))
     }
     
     /// Insets this Rectangle with a given set of edge inset values.
     @inlinable
-    func inset(_ inset: EdgeInsets2<Scalar>) -> Rectangle2 {
+    func inset(_ inset: EdgeInsets2<Vector>) -> Rectangle2 {
         return Rectangle2(left: left + inset.left,
                           top: top + inset.top,
                           right: right - inset.right,
@@ -323,14 +330,14 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     ///
     /// If no points are supplied, an empty Rectangle is created instead.
     @inlinable
-    init(of points: Vector2<Scalar>...) {
+    init(of points: Vector...) {
         self = Rectangle2(points: points)
     }
     
     /// Initializes a Rectangle out of a set of points, expanding to the
     /// smallest bounding box capable of fitting each point.
     @inlinable
-    init<C: Collection>(points: C) where C.Element == Vector2<Scalar> {
+    init<C: Collection>(points: C) where C.Element == Vector {
         guard let first = points.first else {
             location = .zero
             size = .zero
@@ -345,7 +352,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     
     /// Expands the bounding box of this Rectangle to include the given point.
     @inlinable
-    mutating func expand(toInclude point: Vector2<Scalar>) {
+    mutating func expand(toInclude point: Vector) {
         minimum = min(minimum, point)
         maximum = max(maximum, point)
     }
@@ -356,7 +363,7 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     /// Same as calling `expand(toInclude:Vector2D)` over each point.
     /// If the array is empty, nothing is done.
     @inlinable
-    mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector2<Scalar> {
+    mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
         for p in points {
             expand(toInclude: p)
         }
@@ -367,14 +374,14 @@ public extension Rectangle2 where Scalar: AdditiveArithmetic & Comparable {
     /// to contain the point as well.
     @inlinable
     func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector2<Scalar>(x: x, y: y))
+        return contains(Vector(x: x, y: y))
     }
     
     /// Returns whether a given point is contained within this bounding box.
     /// The check is inclusive, so the edges of the bounding box are considered
     /// to contain the point as well.
     @inlinable
-    func contains(_ point: Vector2<Scalar>) -> Bool {
+    func contains(_ point: Vector) -> Bool {
         return point >= minimum && point <= maximum
     }
     
@@ -430,7 +437,7 @@ public extension Rectangle2 where Scalar: Numeric {
     /// Returns a Rectangle with the same position as this Rectangle, with its
     /// width and height multiplied by the coordinates of the given vector.
     @inlinable
-    func scaledBy(vector: Vector2<Scalar>) -> Rectangle2 {
+    func scaledBy(vector: Vector) -> Rectangle2 {
         return scaledBy(x: vector.x, y: vector.y)
     }
     
@@ -457,7 +464,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     
     /// Gets the center point of this Rectangle.
     @inlinable
-    var center: Vector2<Scalar> {
+    var center: Vector {
         get {
             return location + size / 2
         }
@@ -469,11 +476,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     /// Returns a Rectangle which is an inflated version of this Rectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
     @inlinable
-    func inflatedBy(_ size: Vector2<Scalar>) -> Rectangle2 {
-        if size == .zero {
-            return self
-        }
-        
+    func inflatedBy(_ size: Vector) -> Rectangle2 {
         return Rectangle2(minimum: minimum - size / 2, maximum: maximum + size / 2)
     }
     
@@ -481,17 +484,13 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     /// (i.e. bounds are larger by `size`, but center remains the same).
     @inlinable
     func inflatedBy(x: Scalar, y: Scalar) -> Rectangle2 {
-        return inflatedBy(Vector2<Scalar>(x: x, y: y))
+        return inflatedBy(Vector(x: x, y: y))
     }
     
     /// Returns a Rectangle which is an inset version of this Rectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
     @inlinable
-    func insetBy(_ size: Vector2<Scalar>) -> Rectangle2 {
-        if size == .zero {
-            return self
-        }
-        
+    func insetBy(_ size: Vector) -> Rectangle2 {
         return Rectangle2(minimum: minimum + size / 2, maximum: maximum - size / 2)
     }
     
@@ -499,7 +498,7 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     /// (i.e. bounds are smaller by `size`, but center remains the same).
     @inlinable
     func insetBy(x: Scalar, y: Scalar) -> Rectangle2 {
-        return insetBy(Vector2<Scalar>(x: x, y: y))
+        return insetBy(Vector(x: x, y: y))
     }
     
     /// Returns a new Rectangle with the same width and height as the current
@@ -507,13 +506,13 @@ public extension Rectangle2 where Scalar: DivisibleArithmetic {
     /// composed of `[x, y]`.
     @inlinable
     func movingCenter(toX x: Scalar, y: Scalar) -> Rectangle2 {
-        return movingCenter(to: Vector2<Scalar>(x: x, y: y))
+        return movingCenter(to: Vector(x: x, y: y))
     }
     
     /// Returns a new Rectangle with the same width and height as the current
     /// instance, where the center of the boundaries lay on `center`.
     @inlinable
-    func movingCenter(to center: Vector2<Scalar>) -> Rectangle2 {
+    func movingCenter(to center: Vector) -> Rectangle2 {
         return Rectangle2(minimum: center - size / 2, maximum: center + size / 2)
     }
 }
@@ -559,7 +558,7 @@ public extension Rectangle2 where Scalar: FloatingPoint {
 public extension Rectangle2 where Scalar: Real {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
-    func transformedBounds(_ matrix: Matrix2<Scalar>) -> Rectangle2<Scalar> {
+    func transformedBounds(_ matrix: Matrix2<Scalar>) -> Rectangle2<Vector> {
         return matrix.transform(self)
     }
 }

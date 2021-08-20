@@ -1,25 +1,27 @@
 /// Represents a 2D box with two double-precision floating-point vectors that
 /// describe the minimal and maximal coordinates of the box's opposite corners.
-public typealias Box2D = Box2<Double>
+public typealias Box2D = Box2<Vector2D>
 
 /// Represents a 2D box with two single-precision floating-point vectors that
 /// describe the minimal and maximal coordinates of the box's opposite corners.
-public typealias Box2F = Box2<Float>
+public typealias Box2F = Box2<Vector2F>
 
 /// Represents a 2D box with two integer vectors that describe the minimal and
 /// maximal coordinates of the box's opposite corners.
-public typealias Box2i = Box2<Int>
+public typealias Box2i = Box2<Vector2i>
 
 /// Represents a 2D box with two vectors that describe the minimal and maximal
 /// coordinates of the box's opposite corners.
-public struct Box2<Scalar> {
+public struct Box2<Vector: Vector2Type> {
+    public typealias Scalar = Vector.Scalar
+    
     /// The minimal coordinate of this
     /// Must be `<= maximum`
-    public var minimum: Vector2<Scalar>
+    public var minimum: Vector
     
     /// The maximal coordinate of this box.
     /// Must be `>= minimum`.
-    public var maximum: Vector2<Scalar>
+    public var maximum: Vector
     
     /// The y coordinate of the top corner of this box.
     ///
@@ -47,26 +49,26 @@ public struct Box2<Scalar> {
     
     /// The top-left corner of the box.
     @inlinable
-    public var topLeft: Vector2<Scalar> { minimum }
+    public var topLeft: Vector { minimum }
     
     /// The top-right corner of the box.
     @inlinable
-    public var topRight: Vector2<Scalar> { Vector2(x: right, y: top) }
+    public var topRight: Vector { Vector(x: right, y: top) }
     
     /// The bottom-right corner of the box.
     @inlinable
-    public var bottomRight: Vector2<Scalar> { maximum }
+    public var bottomRight: Vector { maximum }
     
     /// The bottom-left corner of the box.
     @inlinable
-    public var bottomLeft: Vector2<Scalar> { Vector2(x: left, y: top) }
+    public var bottomLeft: Vector { Vector(x: left, y: top) }
     
     /// Returns an array of vectors that represent this `Box2`'s corners in
     /// clockwise order, starting from the top-left corner.
     ///
     /// Always contains 4 elements.
     @inlinable
-    var corners: [Vector2<Scalar>] {
+    var corners: [Vector] {
         return [topLeft, topRight, bottomRight, bottomLeft]
     }
     
@@ -75,7 +77,7 @@ public struct Box2<Scalar> {
     ///
     /// - precondition: `minimum <= maximum`
     @inlinable
-    public init(minimum: Vector2<Scalar>, maximum: Vector2<Scalar>) {
+    public init(minimum: Vector, maximum: Vector) {
         self.minimum = minimum
         self.maximum = maximum
     }
@@ -83,16 +85,16 @@ public struct Box2<Scalar> {
     /// Initializes a `Box2` with the edges of a box.
     @inlinable
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
-        self.init(minimum: Vector2(x: left, y: top), maximum: Vector2(x: right, y: bottom))
+        self.init(minimum: Vector(x: left, y: top), maximum: Vector(x: right, y: bottom))
     }
 }
 
-extension Box2: Equatable where Scalar: Equatable { }
-extension Box2: Hashable where Scalar: Hashable { }
-extension Box2: Encodable where Scalar: Encodable { }
-extension Box2: Decodable where Scalar: Decodable { }
+extension Box2: Equatable where Vector: Equatable, Scalar: Equatable { }
+extension Box2: Hashable where Vector: Hashable, Scalar: Hashable { }
+extension Box2: Encodable where Vector: Encodable, Scalar: Encodable { }
+extension Box2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Box2 where Scalar: Equatable {
+public extension Box2 where Vector: Equatable {
     /// Returns `true` if the area of this box is zero.
     @inlinable
     var isAreaZero: Bool {
@@ -109,7 +111,7 @@ public extension Box2 where Scalar: Comparable {
     
     /// Expands this box to include the given point.
     @inlinable
-    mutating func expand(toInclude point: Vector2<Scalar>) {
+    mutating func expand(toInclude point: Vector) {
         minimum = min(minimum, point)
         maximum = max(maximum, point)
     }
@@ -119,7 +121,7 @@ public extension Box2 where Scalar: Comparable {
     /// Same as calling `expand(toInclude:Vector2D)` over each point.
     /// If the array is empty, nothing is done.
     @inlinable
-    mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector2<Scalar> {
+    mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
         for p in points {
             expand(toInclude: p)
         }
@@ -131,7 +133,7 @@ public extension Box2 where Scalar: Comparable {
     /// contain the point as well.
     @inlinable
     func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector2<Scalar>(x: x, y: y))
+        return contains(Vector(x: x, y: y))
     }
     
     /// Returns whether a given point is contained within this box.
@@ -139,7 +141,7 @@ public extension Box2 where Scalar: Comparable {
     /// The check is inclusive, so the edges of the box are considered to
     /// contain the point as well.
     @inlinable
-    func contains(_ point: Vector2<Scalar>) -> Bool {
+    func contains(_ point: Vector) -> Bool {
         return point >= minimum && point <= maximum
     }
     
@@ -175,7 +177,7 @@ public extension Box2 where Scalar: Comparable {
     }
 }
 
-public extension Box2 where Scalar: AdditiveArithmetic {
+public extension Box2 where Vector: Equatable, Scalar: AdditiveArithmetic {
     /// Returns a box with all coordinates set to zero.
     @inlinable
     static var zero: Self { Self(minimum: .zero, maximum: .zero) }
@@ -194,7 +196,7 @@ public extension Box2 where Scalar: AdditiveArithmetic {
     
     /// Gets the size of this box.
     @inlinable
-    var size: Vector2<Scalar> {
+    var size: Vector {
         maximum - minimum
     }
     
@@ -206,15 +208,15 @@ public extension Box2 where Scalar: AdditiveArithmetic {
     
     /// Returns this `Box2` represented as a `Rectangle2`
     @inlinable
-    var asRectangle2: Rectangle2<Scalar> {
+    var asRectangle2: Rectangle2<Vector> {
         Rectangle2(minimum: minimum, maximum: maximum)
     }
     
     /// Initializes a `Box2` with the coordinates of a rectangle.
     @inlinable
     init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {
-        let minimum = Vector2(x: x, y: y)
-        let maximum = minimum + Vector2(x: width, y: height)
+        let minimum = Vector(x: x, y: y)
+        let maximum = minimum + Vector(x: width, y: height)
         
         self.init(minimum: minimum, maximum: maximum)
     }
@@ -226,14 +228,14 @@ public extension Box2 where Scalar: AdditiveArithmetic & Comparable {
     ///
     /// If no points are supplied, an empty box is created, instead.
     @inlinable
-    init(of points: Vector2<Scalar>...) {
+    init(of points: Vector...) {
         self = Box2(points: points)
     }
     
     /// Initializes a box out of a set of points, expanding to the smallest
     /// area capable of fitting each point.
     @inlinable
-    init<C: Collection>(points: C) where C.Element == Vector2<Scalar> {
+    init<C: Collection>(points: C) where C.Element == Vector {
         guard let first = points.first else {
             minimum = .zero
             maximum = .zero
