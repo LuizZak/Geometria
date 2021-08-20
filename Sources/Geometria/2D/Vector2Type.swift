@@ -61,9 +61,10 @@ public extension Vector2Type where Scalar: Comparable {
 }
 
 public extension Vector2Type where Scalar: AdditiveArithmetic {
-    /// A zero-value `Vector2` value where each component corresponds to its
+    /// A zero-value `Vector2Type` value where each component corresponds to its
     /// representation of `0`.
-    static var zero: Self {
+    @usableFromInline
+    internal static var zero: Self {
         return Self(x: .zero, y: .zero)
     }
     
@@ -114,19 +115,19 @@ public extension Vector2Type where Scalar: AdditiveArithmetic {
 }
 
 public extension Vector2Type where Scalar: Numeric {
-    /// A unit-value `Vector2` value where each component corresponds to its
+    /// A unit-value `Vector2Type` value where each component corresponds to its
     /// representation of `1`.
     static var unit: Self {
         return Self(x: 1, y: 1)
     }
     
-    /// Returns the length squared of this `Vector2`
+    /// Returns the length squared of this `Vector2Type`
     @inlinable
     var lengthSquared: Scalar {
         return x * x + y * y
     }
     
-    /// Returns the distance squared between this `Vector2` and another `Vector2`
+    /// Returns the distance squared between this `Vector2Type` and another `Vector2Type`
     @inlinable
     func distanceSquared(to vec: Self) -> Scalar {
         let d = self - vec
@@ -134,7 +135,7 @@ public extension Vector2Type where Scalar: Numeric {
         return d.lengthSquared
     }
     
-    /// Calculates the dot product between this and another provided `Vector2`
+    /// Calculates the dot product between this and another provided `Vector2Type`
     @inlinable
     func dot(_ other: Self) -> Scalar {
         return x * other.x + y * other.y
@@ -284,22 +285,22 @@ public extension Vector2Type where Scalar: DivisibleArithmetic {
 }
 
 public extension Vector2Type where Scalar: Comparable & SignedNumeric {
-    /// Returns a `Vector2` where each component is the absolute value of the
-    /// components of this `Vector2`.
+    /// Returns a `Vector2Type` where each component is the absolute value of the
+    /// components of this `Vector2Type`.
     var absolute: Self {
         return Self(x: abs(x), y: abs(y))
     }
 }
 
 public extension Vector2Type where Scalar: FloatingPoint {
-    /// Rounds the components of this `Vector2` using a given
+    /// Rounds the components of this `Vector2Type` using a given
     /// `FloatingPointRoundingRule`.
     @inlinable
     func rounded(_ rule: FloatingPointRoundingRule) -> Self {
         return Self(x: x.rounded(rule), y: y.rounded(rule))
     }
     
-    /// Rounds the components of this `Vector2` using a given
+    /// Rounds the components of this `Vector2Type` using a given
     /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
     ///
     /// Equivalent to calling C's round() function on each component.
@@ -308,7 +309,7 @@ public extension Vector2Type where Scalar: FloatingPoint {
         return rounded(.toNearestOrAwayFromZero)
     }
     
-    /// Rounds the components of this `Vector2` using a given
+    /// Rounds the components of this `Vector2Type` using a given
     /// `FloatingPointRoundingRule.up`.
     ///
     /// Equivalent to calling C's ceil() function on each component.
@@ -317,7 +318,7 @@ public extension Vector2Type where Scalar: FloatingPoint {
         return rounded(.up)
     }
     
-    /// Rounds the components of this `Vector2` using a given
+    /// Rounds the components of this `Vector2Type` using a given
     /// `FloatingPointRoundingRule.down`.
     ///
     /// Equivalent to calling C's floor() function on each component.
@@ -407,13 +408,13 @@ public extension Vector2Type where Scalar: FloatingPoint & DivisibleArithmetic {
 
 public extension Vector2Type where Scalar: Numeric & ElementaryFunctions {
     /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector2`
+    /// `Vector2Type`
     @inlinable
     var length: Scalar {
         return Scalar.sqrt(lengthSquared)
     }
     
-    /// Returns the distance between this `Vector2` and another `Vector2`
+    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
     @inlinable
     func distance(to vec: Self) -> Scalar {
         return Scalar.sqrt(self.distanceSquared(to: vec))
@@ -482,7 +483,7 @@ public extension Vector2Type where Scalar: FloatingPoint & ElementaryFunctions {
     @inlinable
     static func matrix(scale: Self = .unit,
                        rotate angle: Scalar = 0,
-                       translate: Self = .zero) -> Matrix2<Scalar> {
+                       translate: Self = Self(x: 0, y: 0)) -> Matrix2<Scalar> {
         
         return Matrix2<Scalar>.transformation(xScale: scale.x,
                                               yScale: scale.y,
@@ -504,7 +505,7 @@ public extension Vector2Type where Scalar: FloatingPoint & ElementaryFunctions {
 
 public extension Vector2Type where Scalar: Real {
     /// Returns the angle in radians of the line formed by tracing from the
-    /// origin (0, 0) to this `Vector2`.
+    /// origin (0, 0) to this `Vector2Type`.
     @inlinable
     var angle: Scalar {
         return Scalar.atan2(y: y, x: x)
@@ -512,7 +513,7 @@ public extension Vector2Type where Scalar: Real {
 }
 
 public extension Collection {
-    /// Averages this collection of vectors into one `Vector2` point as the mean
+    /// Averages this collection of vectors into one `Vector2Type` point as the mean
     /// location of each vector.
     ///
     /// Returns `Vector2.zero`, if the collection is empty.
@@ -534,8 +535,8 @@ public func max<V: Vector2Type>(_ vec1: V, _ vec2: V) -> V where V.Scalar: Compa
     return V(x: max(vec1.x, vec2.x), y: max(vec1.y, vec2.y))
 }
 
-/// Returns a `Vector2` with each component as the absolute value of the components
-/// of a given `Vector2`.
+/// Returns a `Vector2Type` with each component as the absolute value of the components
+/// of a given `Vector2Type`.
 ///
 /// Equivalent to calling C's abs() function on each component.
 @inlinable
@@ -543,7 +544,7 @@ public func abs<V: Vector2Type>(_ x: V) -> V where V.Scalar: Comparable & Signed
     return V(x: abs(x.x), y: abs(x.y))
 }
 
-/// Rounds the components of a given `Vector2` using
+/// Rounds the components of a given `Vector2Type` using
 /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
 ///
 /// Equivalent to calling C's round() function on each component.
@@ -552,7 +553,7 @@ public func round<V: Vector2Type>(_ x: V) -> V where V.Scalar: FloatingPoint {
     return x.rounded(.toNearestOrAwayFromZero)
 }
 
-/// Rounds up the components of a given `Vector2` using
+/// Rounds up the components of a given `Vector2Type` using
 /// `FloatingPointRoundingRule.up`.
 ///
 /// Equivalent to calling C's ceil() function on each component.
@@ -561,7 +562,7 @@ public func ceil<V: Vector2Type>(_ x: V) -> V where V.Scalar: FloatingPoint {
     return x.rounded(.up)
 }
 
-/// Rounds down the components of a given `Vector2` using
+/// Rounds down the components of a given `Vector2Type` using
 /// `FloatingPointRoundingRule.down`.
 ///
 /// Equivalent to calling C's floor() function on each component.

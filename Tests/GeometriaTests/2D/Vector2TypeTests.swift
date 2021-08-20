@@ -1,5 +1,6 @@
 import XCTest
-import Geometria
+
+@testable import Geometria
 
 class Vector2TypeTests: XCTestCase {
     let accuracy: Double = 1.0e-15

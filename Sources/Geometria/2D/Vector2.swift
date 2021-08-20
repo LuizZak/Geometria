@@ -34,3 +34,12 @@ extension Vector2: Equatable where Scalar: Equatable { }
 extension Vector2: Hashable where Scalar: Hashable { }
 extension Vector2: Encodable where Scalar: Encodable { }
 extension Vector2: Decodable where Scalar: Decodable { }
+
+public extension Vector2 where Scalar: AdditiveArithmetic {
+    /// A zero-value `Vector2` value where each component corresponds to its
+    /// representation of `0`.
+    @inlinable
+    static var zero: Self {
+        return Self(x: .zero, y: .zero)
+    }
+}
