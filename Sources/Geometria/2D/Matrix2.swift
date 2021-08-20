@@ -450,6 +450,19 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         return Vector(x: x, y: y)
     }
     
+    /// Transforms a vector by this matrix.
+    ///
+    /// - Parameter matrix: The matrix to use as a transformation matrix.
+    /// - Parameter point: The original vector to apply the transformation.
+    /// - Returns: The result of the transformation for the input vector.
+    @inlinable
+    public static func transformPoint<V: Vector2Type>(matrix: Matrix2, point: V) -> V where V.Scalar == Scalar {
+        let x = point.x * matrix.m11 + point.y * matrix.m21 + matrix.m31
+        let y = point.x * matrix.m12 + point.y * matrix.m22 + matrix.m32
+        
+        return V(x: x, y: y)
+    }
+    
     /// Calculates the inverse of this matrix instance.
     public func inverted() -> Matrix2 {
         return Matrix2.invert(self)
