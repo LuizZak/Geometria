@@ -42,9 +42,9 @@ public extension Vector2F {
     ///
     /// The order of operations are: scaling -> rotation -> translation
     @inlinable
-    static func matrix(scalingBy scale: Self = .one,
-                       rotatingBy angle: Scalar = 0,
-                       translatingBy translate: Self = .zero) -> float3x3 {
+    static func matrix(scale: Self = .one,
+                       rotate angle: Scalar = 0,
+                       translate: Self = .zero) -> float3x3 {
         
         typealias MatrixType = float3x3
         typealias Vector3Type = SIMD3<Scalar>
