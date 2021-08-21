@@ -3,23 +3,23 @@ import Geometria
 
 // MARK: Vector2 equality
 
-func assertEqual<T>(_ vec1: Vector2<T>,
-                    _ vec2: Vector2<T>,
-                    accuracy: T,
-                    messagePrefix: @escaping @autoclosure () -> String = "",
-                    file: StaticString = #file,
-                    line: UInt = #line) where T: FloatingPoint {
+func assertEqual<V: Vector2Type>(_ vec1: V,
+                                 _ vec2: V,
+                                 accuracy: V.Scalar,
+                                 messagePrefix: @escaping @autoclosure () -> String = "",
+                                 file: StaticString = #file,
+                                 line: UInt = #line) where V.Scalar: FloatingPoint {
     
     XCTAssertEqual(vec1.x, vec2.x, accuracy: accuracy, "\(messagePrefix())x", file: file, line: line)
     XCTAssertEqual(vec1.y, vec2.y, accuracy: accuracy, "\(messagePrefix())y", file: file, line: line)
 }
 
-func assertNotEqual<T>(_ vec1: Vector2<T>,
-                       _ vec2: Vector2<T>,
-                       accuracy: T,
-                       messagePrefix: @escaping @autoclosure () -> String = "",
-                       file: StaticString = #file,
-                       line: UInt = #line) where T: FloatingPoint {
+func assertNotEqual<V: Vector2Type>(_ vec1: V,
+                                    _ vec2: V,
+                                    accuracy: V.Scalar,
+                                    messagePrefix: @escaping @autoclosure () -> String = "",
+                                    file: StaticString = #file,
+                                    line: UInt = #line) where V.Scalar: FloatingPoint {
     
     XCTAssertNotEqual(vec1.x, vec2.x, accuracy: accuracy, "\(messagePrefix())x", file: file, line: line)
     XCTAssertNotEqual(vec1.y, vec2.y, accuracy: accuracy, "\(messagePrefix())y", file: file, line: line)

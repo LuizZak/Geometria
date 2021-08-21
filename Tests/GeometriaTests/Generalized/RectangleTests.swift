@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import simd
 
 class RectangleTests: XCTestCase {
     typealias Rectangle = Rectangle2D
@@ -70,7 +71,7 @@ extension RectangleTests {
     func testMinimum_set() {
         var sut = Rectangle(x: 0, y: 1, width: 2, height: 3)
         
-        sut.minimum = Vector2(x: -1, y: 0)
+        sut.minimum = .init(x: -1, y: 0)
         
         XCTAssertEqual(sut.location, .init(x: -1, y: 0))
         XCTAssertEqual(sut.size, .init(x: 3, y: 4))
@@ -85,7 +86,7 @@ extension RectangleTests {
     func testMaximum_set() {
         var sut = Rectangle(x: 0, y: 1, width: 2, height: 3)
         
-        sut.maximum = Vector2(x: 4, y: 6)
+        sut.maximum = .init(x: 4, y: 6)
         
         XCTAssertEqual(sut.location, .init(x: 0, y: 1))
         XCTAssertEqual(sut.size, .init(x: 4, y: 5))
