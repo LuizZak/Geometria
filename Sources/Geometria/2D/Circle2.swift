@@ -33,12 +33,15 @@ public extension Circle2 where Scalar: AdditiveArithmetic {
 
 public extension Circle2 where Scalar: Numeric & Comparable {
     /// Returns `true` if this circle's area contains a given point.
+    ///
+    /// Points at the perimeter of the circle (distance to center == radius)
+    /// are considered as contained within the circle.
     @inlinable
     func contains(x: Scalar, y: Scalar) -> Bool {
         let dx = x - center.x
         let dy = y - center.y
         
-        return dx * dx + dy * dy < radius * radius
+        return dx * dx + dy * dy <= radius * radius
     }
     
     /// Returns `true` if this circle's area contains a given point.
