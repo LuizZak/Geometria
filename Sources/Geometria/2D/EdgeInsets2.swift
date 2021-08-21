@@ -12,27 +12,27 @@ public typealias EdgeInsets2i = EdgeInsets2<Vector2i>
 public struct EdgeInsets2<Vector: Vector2Type> {
     public typealias Scalar = Vector.Scalar
     
-    public var top: Scalar
     public var left: Scalar
-    public var bottom: Scalar
+    public var top: Scalar
     public var right: Scalar
+    public var bottom: Scalar
     
-    public init(top: Scalar,
-                left: Scalar,
-                bottom: Scalar,
-                right: Scalar) {
+    public init(left: Scalar,
+                top: Scalar,
+                right: Scalar,
+                bottom: Scalar) {
         
-        self.top = top
         self.left = left
-        self.bottom = bottom
+        self.top = top
         self.right = right
+        self.bottom = bottom
     }
     
     public init(_ value: Scalar) {
-        top = value
         left = value
-        bottom = value
+        top = value
         right = value
+        bottom = value
     }
 }
 
@@ -44,7 +44,7 @@ extension EdgeInsets2: Decodable where Vector: Decodable, Scalar: Decodable { }
 public extension EdgeInsets2 where Vector: VectorAdditive {
     @inlinable
     static var zero: Self {
-        EdgeInsets2(top: .zero, left: .zero, bottom: .zero, right: .zero)
+        EdgeInsets2(left: .zero, top: .zero, right: .zero, bottom: .zero)
     }
     
     func inset(rectangle: Rectangle<Vector>) -> Rectangle<Vector> {

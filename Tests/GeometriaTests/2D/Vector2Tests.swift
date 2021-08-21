@@ -235,6 +235,22 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec1, Vector(x: 2, y: 4))
     }
     
+    func testDivision_inPlace() {
+        var vec1 = Vector(x: 3, y: 5)
+        
+        vec1 /= Vector(x: 2, y: 3)
+        
+        XCTAssertEqual(vec1, Vector(x: 1, y: 1))
+    }
+    
+    func testDivision_withScalar_inPlace() {
+        var vec1 = Vector(x: 1, y: 4)
+        
+        vec1 /= 3
+        
+        XCTAssertEqual(vec1, Vector(x: 0, y: 1))
+    }
+    
     func testAddition_floatingPoint_binaryNumber() {
         let vec1 = Vector2D(x: 1, y: 2)
         let vec2 = Vector2i(x: 3, y: 4)

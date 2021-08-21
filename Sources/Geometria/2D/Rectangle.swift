@@ -255,10 +255,12 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     public var description: String {
         return "\(type(of: self))(x: \(x), y: \(y), width: \(width), height: \(height))"
     }
-    
+}
+
+public extension Rectangle where Vector: Vector2Type {
     /// Gets the X position of this Rectangle.
     @inlinable
-    public var x: Scalar {
+    var x: Scalar {
         get {
             return location.x
         }
@@ -269,7 +271,7 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     
     /// Gets the Y position of this Rectangle.
     @inlinable
-    public var y: Scalar {
+    var y: Scalar {
         get {
             return location.y
         }
@@ -282,7 +284,7 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     ///
     /// When setting this value, `width` must always be `>= 0`.
     @inlinable
-    public var width: Scalar {
+    var width: Scalar {
         get {
             return size.x
         }
@@ -295,7 +297,7 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     ///
     /// When setting this value, `height` must always be `>= 0`.
     @inlinable
-    public var height: Scalar {
+    var height: Scalar {
         get {
             return size.y
         }
@@ -308,50 +310,50 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     ///
     /// Alias for `y`.
     @inlinable
-    public var top: Scalar { y }
+    var top: Scalar { y }
     
     /// The x coordinate of the left corner of this rectangle.
     ///
     /// Alias for `x`.
     @inlinable
-    public var left: Scalar { x }
+    var left: Scalar { x }
     
     /// The top-left corner of the rectangle.
     @inlinable
-    public var topLeft: Vector {
+    var topLeft: Vector {
         return Vector(x: left, y: top)
     }
     
     /// Initializes a Rectangle with the coordinates of a 2D rectangle.
     @inlinable
-    public init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {
+    init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {
         location = Vector(x: x, y: y)
         size = Vector(x: width, y: height)
     }
     
     /// Returns a Rectangle that matches this Rectangle's size with a new location.
     @inlinable
-    public func withSize(width: Scalar, height: Scalar) -> Rectangle {
+    func withSize(width: Scalar, height: Scalar) -> Rectangle {
         return withSize(Vector(x: width, y: height))
     }
     
     /// Returns a rectangle that matches this Rectangle's size with a new location.
     @inlinable
-    public func withLocation(x: Scalar, y: Scalar) -> Rectangle {
+    func withLocation(x: Scalar, y: Scalar) -> Rectangle {
         return withLocation(Vector(x: x, y: y))
     }
     
     /// Returns a new Rectangle with the same left, right, and height as the current
     /// instance, where the `top` lays on `value`.
     @inlinable
-    public func movingTop(to value: Scalar) -> Rectangle {
+    func movingTop(to value: Scalar) -> Rectangle {
         return Rectangle(x: left, y: value, width: width, height: height)
     }
     
     /// Returns a new Rectangle with the same top, bottom, and width as the current
     /// instance, where the `left` lays on `value`.
     @inlinable
-    public func movingLeft(to value: Scalar) -> Rectangle {
+    func movingLeft(to value: Scalar) -> Rectangle {
         return Rectangle(x: value, y: top, width: width, height: height)
     }
     
@@ -359,7 +361,7 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     /// with the given radius vector describing the dimensions of the corner arcs
     /// on the X and Y axis.
     @inlinable
-    public func rounded(radius: Vector) -> RoundRectangle2<Vector> {
+    func rounded(radius: Vector) -> RoundRectangle2<Vector> {
         return RoundRectangle2(bounds: self, radius: radius)
     }
     
@@ -367,12 +369,12 @@ extension Rectangle: CustomStringConvertible where Vector: Vector2Type {
     /// with the given radius value describing the dimensions of the corner arcs
     /// on the X and Y axis.
     @inlinable
-    public func rounded(radius: Scalar) -> RoundRectangle2<Vector> {
+    func rounded(radius: Scalar) -> RoundRectangle2<Vector> {
         return RoundRectangle2(bounds: self, radiusX: radius, radiusY: radius)
     }
 }
 
-extension Rectangle where Vector: Vector2Type & VectorAdditive {
+public extension Rectangle where Vector: Vector2Type & VectorAdditive {
     /// The x coordinate of the right corner of this rectangle.
     ///
     /// Alias for `x + width`.
@@ -425,13 +427,6 @@ extension Rectangle where Vector: Vector2Type & VectorAdditive {
         return offsetBy(Vector(x: x, y: y))
     }
     
-    /// Returns a new Rectangle with the same left, right, and height as the current
-    /// instance, where the `bottom` lays on `value`.
-    @inlinable
-    func movingBottom(to value: Scalar) -> Rectangle {
-        return Rectangle(left: left, top: value - height, right: right, bottom: value)
-    }
-    
     /// Returns a new Rectangle with the same top, bottom, and width as the current
     /// instance, where the `right` lays on `value`.
     @inlinable
@@ -439,18 +434,11 @@ extension Rectangle where Vector: Vector2Type & VectorAdditive {
         return Rectangle(left: value - width, top: top, right: value, bottom: bottom)
     }
     
-    /// Returns a new Rectangle with the same left, right, and bottom as the current
-    /// instance, where the `top` lays on `value`.
-    @inlinable
-    func stretchingTop(to value: Scalar) -> Rectangle {
-        return Rectangle(left: left, top: value, right: right, bottom: bottom)
-    }
-    
-    /// Returns a new Rectangle with the same left, right, and top as the current
+    /// Returns a new Rectangle with the same left, right, and height as the current
     /// instance, where the `bottom` lays on `value`.
     @inlinable
-    func stretchingBottom(to value: Scalar) -> Rectangle {
-        return Rectangle(left: left, top: top, right: right, bottom: value)
+    func movingBottom(to value: Scalar) -> Rectangle {
+        return Rectangle(left: left, top: value - height, right: right, bottom: value)
     }
     
     /// Returns a new Rectangle with the same top, bottom, and right as the current
@@ -460,6 +448,13 @@ extension Rectangle where Vector: Vector2Type & VectorAdditive {
         return Rectangle(left: value, top: top, right: right, bottom: bottom)
     }
     
+    /// Returns a new Rectangle with the same left, right, and bottom as the current
+    /// instance, where the `top` lays on `value`.
+    @inlinable
+    func stretchingTop(to value: Scalar) -> Rectangle {
+        return Rectangle(left: left, top: value, right: right, bottom: bottom)
+    }
+    
     /// Returns a new Rectangle with the same top, bottom, and left as the current
     /// instance, where the `right` lays on `value`.
     @inlinable
@@ -467,13 +462,20 @@ extension Rectangle where Vector: Vector2Type & VectorAdditive {
         return Rectangle(left: left, top: top, right: value, bottom: bottom)
     }
     
+    /// Returns a new Rectangle with the same left, right, and top as the current
+    /// instance, where the `bottom` lays on `value`.
+    @inlinable
+    func stretchingBottom(to value: Scalar) -> Rectangle {
+        return Rectangle(left: left, top: top, right: right, bottom: value)
+    }
+    
     /// Insets this Rectangle with a given set of edge inset values.
     @inlinable
     func inset(_ inset: EdgeInsets2<Vector>) -> Rectangle {
         return Rectangle(left: left + inset.left,
-                          top: top + inset.top,
-                          right: right - inset.right,
-                          bottom: bottom - inset.bottom)
+                         top: top + inset.top,
+                         right: right - inset.right,
+                         bottom: bottom - inset.bottom)
     }
 }
 
@@ -487,6 +489,7 @@ public extension Rectangle where Vector: Vector2Type & VectorAdditive & VectorCo
 
 public extension Rectangle where Vector: Vector2Type & VectorAdditive & VectorComparable {
     /// Returns whether a given point is contained within this bounding box.
+    ///
     /// The check is inclusive, so the edges of the bounding box are considered
     /// to contain the point as well.
     @inlinable
@@ -508,14 +511,25 @@ public extension Rectangle where Vector: Vector2Type & VectorDivisible {
     /// Gets the center X position of this Rectangle.
     @inlinable
     var centerX: Scalar {
-        return center.x
+        get {
+            return center.x
+        }
+        set {
+            center.x = newValue
+        }
     }
     
     /// Gets the center Y position of this Rectangle.
     @inlinable
     var centerY: Scalar {
-        return center.y
+        get {
+            return center.y
+        }
+        set {
+            center.y = newValue
+        }
     }
+    
     /// Returns a Rectangle which is an inflated version of this Rectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
     @inlinable
@@ -537,7 +551,6 @@ public extension Rectangle where Vector: Vector2Type & VectorDivisible {
     func movingCenter(toX x: Scalar, y: Scalar) -> Rectangle {
         return movingCenter(to: Vector(x: x, y: y))
     }
-    
 }
 
 public extension Rectangle where Vector: Vector2Type, Scalar: FloatingPoint {

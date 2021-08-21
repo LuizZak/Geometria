@@ -623,8 +623,16 @@ extension Matrix2: Decodable where Scalar: Decodable { }
 // MARK: Geometry transformation
 
 public extension Matrix2 {
+    /// Transforms a given rectangle's bounds using this transformation matrix.
+    ///
+    /// The scale and rotation transformations use the origin (0, 0) for the base
+    /// of the transformation, so scaling and rotating do not happen around the
+    /// origin or center of the rectangle itself.
     @inlinable
     func transform<V: Vector2Type & VectorAdditive & VectorComparable>(_ rect: Rectangle<V>) -> Rectangle<V> where V.Scalar == Scalar {
+        
+        
+        
         var minimum = V.pointwiseMin(transform(rect.topLeft), transform(rect.topRight))
         minimum = V.pointwiseMin(minimum, transform(rect.bottomLeft))
         minimum = V.pointwiseMin(minimum, transform(rect.bottomRight))
@@ -633,7 +641,7 @@ public extension Matrix2 {
         maximum = V.pointwiseMax(maximum, transform(rect.bottomLeft))
         maximum = V.pointwiseMax(maximum, transform(rect.bottomRight))
         
-        return Rectangle(left: minimum.x, top: minimum.y, right: maximum.x, bottom: maximum.y)
+        return Rectangle(minimum: minimum, maximum: maximum)
     }
     
     @inlinable
