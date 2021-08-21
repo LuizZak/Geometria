@@ -2,7 +2,7 @@
 public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// A unit-value `VectorType` value where each component corresponds to its
     /// representation of `1`.
-    static var unit: Self { get }
+    static var one: Self { get }
     
     /// Returns the length squared of this `VectorType`
     @inlinable

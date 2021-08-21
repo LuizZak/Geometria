@@ -9,7 +9,7 @@ public extension Vector2F {
     ///
     /// The order of operations are: scaling -> rotation -> translation.
     @inlinable
-    static func simdMatrix(scale: Self = .unit,
+    static func simdMatrix(scale: Self = .one,
                            rotate angle: Scalar = 0,
                            translate: Self = Self(x: 0, y: 0)) -> float3x3 {
         

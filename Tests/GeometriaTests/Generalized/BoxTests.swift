@@ -82,12 +82,12 @@ extension BoxTests {
 extension BoxTests {
     func testIsValid() {
         XCTAssertTrue(Box(minimum: .zero, maximum: .zero).isValid)
-        XCTAssertTrue(Box(minimum: .zero, maximum: .unit).isValid)
+        XCTAssertTrue(Box(minimum: .zero, maximum: .one).isValid)
         XCTAssertTrue(Box(minimum: .zero, maximum: .init(x: 0, y: 1)).isValid)
         XCTAssertTrue(Box(minimum: .zero, maximum: .init(x: 1, y: 0)).isValid)
         XCTAssertFalse(Box(minimum: .init(x: 0, y: 1), maximum: .zero).isValid)
         XCTAssertFalse(Box(minimum: .init(x: 1, y: 0), maximum: .zero).isValid)
-        XCTAssertFalse(Box(minimum: .unit, maximum: .zero).isValid)
+        XCTAssertFalse(Box(minimum: .one, maximum: .zero).isValid)
     }
     
     func testExpandToIncludePoint() {
@@ -180,12 +180,12 @@ extension BoxTests {
     
     func testIsZero() {
         XCTAssertTrue(Box(minimum: .zero, maximum: .zero).isZero)
-        XCTAssertFalse(Box(minimum: .zero, maximum: .unit).isZero)
+        XCTAssertFalse(Box(minimum: .zero, maximum: .one).isZero)
         XCTAssertFalse(Box(minimum: .zero, maximum: .init(x: 0, y: 1)).isZero)
         XCTAssertFalse(Box(minimum: .zero, maximum: .init(x: 1, y: 0)).isZero)
         XCTAssertFalse(Box(minimum: .init(x: 0, y: 1), maximum: .zero).isZero)
         XCTAssertFalse(Box(minimum: .init(x: 1, y: 0), maximum: .zero).isZero)
-        XCTAssertFalse(Box(minimum: .unit, maximum: .zero).isZero)
+        XCTAssertFalse(Box(minimum: .one, maximum: .zero).isZero)
     }
     
     func testAsRectangle() {

@@ -149,7 +149,7 @@ extension Vector2: VectorAdditive where Scalar: AdditiveArithmetic {
 extension Vector2: VectorMultiplicative where Scalar: Numeric {
     /// A unit-value `Vector2Type` value where each component corresponds to its
     /// representation of `1`.
-    public static var unit: Self {
+    public static var one: Self {
         return Self(x: 1, y: 1)
     }
 }
@@ -509,7 +509,7 @@ extension Vector2: Vector2Real where Scalar: Real {
     ///
     /// The order of operations are: scaling -> rotation -> translation
     @inlinable
-    public static func matrix(scale: Self = .unit,
+    public static func matrix(scale: Self = .one,
                               rotate angle: Scalar = 0,
                               translate: Self = Self(x: 0, y: 0)) -> Matrix2<Scalar> {
         
