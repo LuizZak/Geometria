@@ -1,6 +1,6 @@
 /// Represents a box with two N-dimensional vectors that describe the minimal
 /// and maximal coordinates of the box's opposite corners.
-public struct Box<Vector: VectorType> {
+public struct NBox<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
     /// The minimal coordinate of this box.
@@ -15,7 +15,7 @@ public struct Box<Vector: VectorType> {
     /// Alias for `minimum`.
     public var location: Vector { minimum }
     
-    /// Initializes a `Box` with the given minimum and maximum boundary
+    /// Initializes a `NBox` with the given minimum and maximum boundary
     /// vectors.
     ///
     /// - precondition: `minimum <= maximum`
@@ -26,12 +26,12 @@ public struct Box<Vector: VectorType> {
     }
 }
 
-extension Box: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension Box: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension Box: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension Box: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension NBox: Equatable where Vector: Equatable, Scalar: Equatable { }
+extension NBox: Hashable where Vector: Hashable, Scalar: Hashable { }
+extension NBox: Encodable where Vector: Encodable, Scalar: Encodable { }
+extension NBox: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Box where Vector: Equatable {
+public extension NBox where Vector: Equatable {
     /// Returns `true` if the size of this box is zero.
     @inlinable
     var isSizeZero: Bool {
@@ -39,7 +39,7 @@ public extension Box where Vector: Equatable {
     }
 }
 
-public extension Box where Vector: VectorComparable {
+public extension NBox where Vector: VectorComparable {
     /// Returns `true` if `minimum <= maximum`.
     @inlinable
     var isValid: Bool {
@@ -76,7 +76,7 @@ public extension Box where Vector: VectorComparable {
     /// Returns whether a given box rests completely inside the boundaries of
     /// this box.
     @inlinable
-    func contains(box: Box) -> Bool {
+    func contains(box: NBox) -> Bool {
         return box.minimum >= minimum && box.maximum <= maximum
     }
     
@@ -85,27 +85,27 @@ public extension Box where Vector: VectorComparable {
     /// This check is inclusive, so the edges of the box are considered to
     /// intersect the other bounding box's edges as well.
     @inlinable
-    func intersects(_ box: Box) -> Bool {
+    func intersects(_ box: NBox) -> Bool {
         return minimum <= box.maximum && maximum >= box.minimum
     }
     
     /// Returns a box which is the minimum area that can fit `self` and the
     /// given box.
     @inlinable
-    func union(_ other: Box) -> Box {
-        return Box.union(self, other)
+    func union(_ other: NBox) -> NBox {
+        return NBox.union(self, other)
     }
     
     /// Returns a box which is the minimum area that can fit the given two
     /// boxes.
     @inlinable
-    static func union(_ left: Box, _ right: Box) -> Box {
-        return Box(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
+    static func union(_ left: NBox, _ right: NBox) -> NBox {
+        return NBox(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
                    maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 
-public extension Box where Vector: VectorAdditive {
+public extension NBox where Vector: VectorAdditive {
     /// Returns a box with all coordinates set to zero.
     @inlinable
     static var zero: Self { Self(minimum: .zero, maximum: .zero) }
@@ -124,17 +124,17 @@ public extension Box where Vector: VectorAdditive {
     
     /// Returns this `Box` represented as a `Rectangle`
     @inlinable
-    var asRectangle: Rectangle<Vector> {
-        Rectangle(minimum: minimum, maximum: maximum)
+    var asRectangle: NRectangle<Vector> {
+        NRectangle(minimum: minimum, maximum: maximum)
     }
     
-    /// Initializes a Box with zero minimal and maximal vectors.
+    /// Initializes a NBox with zero minimal and maximal vectors.
     init() {
         minimum = .zero
         maximum = .zero
     }
     
-    /// Initializes this Box with the equivalent coordinates of a rectangle with
+    /// Initializes this NBox with the equivalent coordinates of a rectangle with
     /// a given location and size.
     init(location: Vector, size: Vector) {
         minimum = location
@@ -142,14 +142,14 @@ public extension Box where Vector: VectorAdditive {
     }
 }
 
-public extension Box where Vector: VectorAdditive & VectorComparable {
+public extension NBox where Vector: VectorAdditive & VectorComparable {
     /// Initializes a box containing the minimum area capable of containing all
     /// supplied points.
     ///
     /// If no points are supplied, an empty box is created, instead.
     @inlinable
     init(of points: Vector...) {
-        self = Box(points: points)
+        self = NBox(points: points)
     }
     
     /// Initializes a box out of a set of points, expanding to the smallest

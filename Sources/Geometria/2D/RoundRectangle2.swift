@@ -13,15 +13,15 @@ public typealias RoundRectangle2i = RoundRectangle2<Vector2i>
 public struct RoundRectangle2<Vector: Vector2Type> {
     public typealias Scalar = Vector.Scalar
     
-    public var bounds: Rectangle<Vector>
+    public var bounds: NRectangle<Vector>
     public var radius: Vector
     
-    public init(bounds: Rectangle<Vector>, radius: Vector) {
+    public init(bounds: NRectangle<Vector>, radius: Vector) {
         self.bounds = bounds
         self.radius = radius
     }
     
-    public init(bounds: Rectangle<Vector>, radiusX: Scalar, radiusY: Scalar) {
+    public init(bounds: NRectangle<Vector>, radiusX: Scalar, radiusY: Scalar) {
         self.bounds = bounds
         self.radius = Vector(x: radiusX, y: radiusY)
     }

@@ -629,7 +629,7 @@ public extension Matrix2 {
     /// of the transformation, so scaling and rotating do not happen around the
     /// origin or center of the rectangle itself.
     @inlinable
-    func transform<V: Vector2Type & VectorAdditive & VectorComparable>(_ rect: Rectangle<V>) -> Rectangle<V> where V.Scalar == Scalar {
+    func transform<V: Vector2Type & VectorAdditive & VectorComparable>(_ rect: NRectangle<V>) -> NRectangle<V> where V.Scalar == Scalar {
         let topLeft = transform(rect.topLeft)
         let topRight = transform(rect.topRight)
         let bottomLeft = transform(rect.bottomLeft)
@@ -643,7 +643,7 @@ public extension Matrix2 {
         maximum = V.pointwiseMax(maximum, bottomLeft)
         maximum = V.pointwiseMax(maximum, bottomRight)
         
-        return Rectangle(minimum: minimum, maximum: maximum)
+        return NRectangle(minimum: minimum, maximum: maximum)
     }
     
     @inlinable

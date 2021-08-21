@@ -7,7 +7,7 @@ class Box2Tests: XCTestCase {
     // MARK: Vector2Type Conformance
     func testDescription() {
         XCTAssertEqual(Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 3)).description,
-                       "Box<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
+                       "NBox<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
     }
     
     func testX() {

@@ -8,7 +8,7 @@ class Rectangle2Tests: XCTestCase {
     // MARK: Vector2Type Conformance
     func testDescription() {
         XCTAssertEqual(Rectangle(x: 0, y: 1, width: 2, height: 3).description,
-                       "Rectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)")
+                       "NRectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)")
     }
     
     func testX() {

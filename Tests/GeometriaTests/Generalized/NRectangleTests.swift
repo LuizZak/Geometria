@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 import simd
 
-class RectangleTests: XCTestCase {
+class NRectangleTests: XCTestCase {
     typealias Rectangle = Rectangle2D
     
     func testInitWithLocationSize() {
@@ -37,7 +37,7 @@ class RectangleTests: XCTestCase {
 
 // MARK: VectorAdditive Conformance
 
-extension RectangleTests {
+extension NRectangleTests {
     func testIsSizeZero_zeroArea() {
         let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 0, y: 0))
         
@@ -97,7 +97,7 @@ extension RectangleTests {
         
         let result = sut.asBox
         
-        XCTAssertEqual(result, Box(left: 0, top: 1, right: 2, bottom: 4))
+        XCTAssertEqual(result, NBox(left: 0, top: 1, right: 2, bottom: 4))
     }
     
     func testInitWithMinimumMaximum() {
@@ -119,7 +119,7 @@ extension RectangleTests {
 
 // MARK: VectorAdditive & VectorComparable Conformance
 
-extension RectangleTests {
+extension NRectangleTests {
     func testIsValid() {
         XCTAssertTrue(Rectangle(x: 0, y: 0, width: 0, height: 0).isValid)
         XCTAssertTrue(Rectangle(x: 0, y: 0, width: 0, height: 1).isValid)
@@ -232,7 +232,7 @@ extension RectangleTests {
 
 // MARK: VectorMultiplicative Conformance
 
-extension RectangleTests {
+extension NRectangleTests {
     func testZero() {
         let result = Rectangle.zero
         

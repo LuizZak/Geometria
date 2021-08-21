@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class BoxTests: XCTestCase {
+class NBoxTests: XCTestCase {
     typealias Box = Box2D
     
     func testInitWithMinimumMaximum() {
@@ -22,7 +22,7 @@ class BoxTests: XCTestCase {
 
 // MARK: Equatable Conformance
 
-extension BoxTests {
+extension NBoxTests {
     func testEquality() {
         XCTAssertEqual(Box(minimum: .init(x: 1, y: 2),
                            maximum: .init(x: 3, y: 4)),
@@ -79,7 +79,7 @@ extension BoxTests {
 
 // MARK: VectorComparable Conformance
 
-extension BoxTests {
+extension NBoxTests {
     func testIsValid() {
         XCTAssertTrue(Box(minimum: .zero, maximum: .zero).isValid)
         XCTAssertTrue(Box(minimum: .zero, maximum: .one).isValid)
@@ -171,7 +171,7 @@ extension BoxTests {
 
 // MARK: VectorAdditive Conformance
 
-extension BoxTests {
+extension NBoxTests {
     func testSize() {
         let sut = Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 4))
         
@@ -193,7 +193,7 @@ extension BoxTests {
         
         let result = sut.asRectangle
         
-        XCTAssertEqual(result, Rectangle(x: 0, y: 1, width: 2, height: 3))
+        XCTAssertEqual(result, NRectangle(x: 0, y: 1, width: 2, height: 3))
     }
     
     func testInitEmpty() {
@@ -213,7 +213,7 @@ extension BoxTests {
 
 // MARK: VectorAdditive & VectorComparable Conformance
 
-extension BoxTests {
+extension NBoxTests {
     func testInitOfPoints() {
         let result = Box(of: .init(x: -1, y: 3), .init(x: 2, y: -5))
         
