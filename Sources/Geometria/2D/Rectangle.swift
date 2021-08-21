@@ -54,6 +54,8 @@ public extension Rectangle where Vector: VectorAdditive {
     }
     
     /// Minimum point for this rectangle.
+    ///
+    /// When set, the maximal point on the opposite corner is kept fixed.
     @inlinable
     var minimum: Vector {
         get { return location }
@@ -66,6 +68,8 @@ public extension Rectangle where Vector: VectorAdditive {
     }
     
     /// Maximum point for this rectangle.
+    ///
+    /// When set, the minimal point on the opposite corner is kept fixed.
     @inlinable
     var maximum: Vector {
         get { return location + size }
@@ -167,8 +171,8 @@ public extension Rectangle where Vector: VectorAdditive & VectorComparable {
     /// This check is inclusive, so the edges of the bounding box are considered
     /// to intersect the other bounding box's edges as well.
     @inlinable
-    func intersects(_ box: Rectangle) -> Bool {
-        return minimum <= box.maximum && maximum >= box.minimum
+    func intersects(_ other: Rectangle) -> Bool {
+        return minimum <= other.maximum && maximum >= other.minimum
     }
     
     /// Returns a Rectangle which is the minimum Rectangle that can fit this
@@ -206,7 +210,7 @@ public extension Rectangle where Vector: VectorMultiplicative {
     }
     
     /// Returns a Rectangle with the same position as this Rectangle, with its
-    /// width and height multiplied by the coordinates of the given vector.
+    /// size multiplied by the coordinates of the given vector.
     @inlinable
     func scaledBy(vector: Vector) -> Rectangle {
         return Rectangle(location: location, size: size * vector)
@@ -239,19 +243,11 @@ public extension Rectangle where Vector: VectorDivisible {
         return Rectangle(minimum: minimum + size / 2, maximum: maximum - size / 2)
     }
     
-    /// Returns a new Rectangle with the same width and height as the current
-    /// instance, where the center of the boundaries lay on `center`.
+    /// Returns a new Rectangle with the same size as the current instance,
+    /// where the center of the boundaries lay on `center`.
     @inlinable
     func movingCenter(to center: Vector) -> Rectangle {
         return Rectangle(minimum: center - size / 2, maximum: center + size / 2)
-    }
-}
-
-public extension Rectangle where Vector: Vector2Type & VectorAdditive & VectorComparable, Scalar: Real {
-    /// Applies the given Matrix on all corners of this Rectangle, returning a new
-    /// minimal Rectangle capable of containing the transformed points.
-    func transformedBounds(_ matrix: Matrix2<Scalar>) -> Rectangle<Vector> {
-        return matrix.transform(self)
     }
 }
 
@@ -481,6 +477,14 @@ extension Rectangle where Vector: Vector2Type & VectorAdditive {
     }
 }
 
+public extension Rectangle where Vector: Vector2Type & VectorAdditive & VectorComparable, Scalar: Real {
+    /// Applies the given Matrix on all corners of this Rectangle, returning a new
+    /// minimal Rectangle capable of containing the transformed points.
+    func transformedBounds(_ matrix: Matrix2<Scalar>) -> Rectangle<Vector> {
+        return matrix.transform(self)
+    }
+}
+
 public extension Rectangle where Vector: Vector2Type & VectorAdditive & VectorComparable {
     /// Returns whether a given point is contained within this bounding box.
     /// The check is inclusive, so the edges of the bounding box are considered
@@ -548,18 +552,18 @@ public extension Rectangle where Vector: Vector2Type & VectorMultiplicative, Sca
     /// Returns an `Rectangle` that is the intersection between this and another
     /// `Rectangle` instance.
     ///
-    /// Result is an empty Rectangle if the two rectangles do not intersect
+    /// Return is `nil`, if they do not intersect.
     @inlinable
-    func intersection(_ other: Rectangle) -> Rectangle {
+    func intersection(_ other: Rectangle) -> Rectangle? {
         return Rectangle.intersect(self, other)
     }
     
     /// Returns an `Rectangle` that is the intersection between two rectangle
     /// instances.
     ///
-    /// Return is `zero`, if they do not intersect.
+    /// Return is `nil`, if they do not intersect.
     @inlinable
-    static func intersect(_ a: Rectangle, _ b: Rectangle) -> Rectangle {
+    static func intersect(_ a: Rectangle, _ b: Rectangle) -> Rectangle? {
         let x1 = max(a.left, b.left)
         let x2 = min(a.right, b.right)
         let y1 = max(a.top, b.top)
@@ -569,6 +573,6 @@ public extension Rectangle where Vector: Vector2Type & VectorMultiplicative, Sca
             return Rectangle(left: x1, top: y1, right: x2, bottom: y2)
         }
         
-        return .zero
+        return nil
     }
 }
