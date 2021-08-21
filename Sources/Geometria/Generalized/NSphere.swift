@@ -35,14 +35,3 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
         return d.lengthSquared <= radius * radius
     }
 }
-
-public extension NSphere where Vector: Vector2Type & VectorMultiplicative, Scalar: Comparable {
-    /// Returns `true` if this circle's area contains a given point.
-    ///
-    /// Points at the perimeter of the circle (distance to center == radius)
-    /// are considered as contained within the circle.
-    @inlinable
-    func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(.init(x: x, y: y))
-    }
-}

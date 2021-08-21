@@ -1,6 +1,10 @@
 import RealModule
 import simd
 
+extension SIMD2: VectorType {
+    
+}
+
 extension SIMD2: VectorNormalizable where Scalar == Double {
     public mutating func normalize() {
         self = normalized()
@@ -15,16 +19,82 @@ extension SIMD2: VectorNormalizable where Scalar == Double {
     }
 }
 
-extension SIMD2: VectorType where Scalar == Double {
+extension SIMD2: VectorComparable where Scalar == Double {
+    /// Returns the pointwise minimal Vector where each component is the minimal
+    /// scalar value at each index for both vectors.
+    @inlinable
+    public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
+        return simd.min(lhs, rhs)
+    }
     
+    /// Returns the pointwise maximal Vector where each component is the maximal
+    /// scalar value at each index for both vectors.
+    @inlinable
+    public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
+        return simd.max(lhs, rhs)
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than `rhs`.
+    ///
+    /// Performs `lhs.x > rhs.x && lhs.y > rhs.y`
+    @inlinable
+    public static func > (lhs: Self, rhs: Self) -> Bool {
+        return lhs.x > rhs.x && lhs.y > rhs.y
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than or equal to `rhs`.
+    ///
+    /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y`
+    @inlinable
+    public static func >= (lhs: Self, rhs: Self) -> Bool {
+        return lhs.x >= rhs.x && lhs.y >= rhs.y
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// less than `rhs`.
+    ///
+    /// Performs `lhs.x < rhs.x && lhs.y < rhs.y`
+    @inlinable
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        return lhs.x < rhs.x && lhs.y < rhs.y
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// less than or equal to `rhs`.
+    ///
+    /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y`
+    @inlinable
+    public static func <= (lhs: Self, rhs: Self) -> Bool {
+        return lhs.x <= rhs.x && lhs.y <= rhs.y
+    }
 }
 
-extension SIMD2: VectorAdditive where Scalar == Double {
+extension SIMD2: VectorAdditive where Scalar: FloatingPoint {
     
 }
 
 extension SIMD2: VectorMultiplicative where Scalar == Double {
+    @inlinable
+    public func distanceSquared(to vec: SIMD2<Scalar>) -> Scalar {
+        return distance_squared(self, vec)
+    }
     
+    @inlinable
+    public func dot(_ other: SIMD2<Scalar>) -> Scalar {
+        return simd.dot(self, other)
+    }
+    
+    @inlinable
+    public func ratio(_ ratio: Scalar, to other: SIMD2<Scalar>) -> SIMD2<Scalar> {
+        return (1 - ratio) * self + ratio * other
+    }
+    
+    @inlinable
+    public static func lerp(start: SIMD2<Scalar>, end: SIMD2<Scalar>, amount: Scalar) -> SIMD2<Scalar> {
+        start.ratio(amount, to: end)
+    }
 }
 
 extension SIMD2: Vector2Multiplicative where Scalar == Double {
@@ -89,14 +159,7 @@ extension SIMD2: VectorDivisible where Scalar == Double {
     
 }
 
-extension SIMD2: Vector2Real where Scalar == Double {
-    /// Returns the angle in radians of the line formed by tracing from the
-    /// origin (0, 0) to this `Vector2`.
-    @inlinable
-    public var angle: Scalar {
-        return Scalar.atan2(y: y, x: x)
-    }
-    
+extension SIMD2: VectorReal where Scalar == Double {
     /// Returns the Euclidean norm (square root of the squared length) of this
     /// `Vector2Type`
     @inlinable
@@ -108,6 +171,15 @@ extension SIMD2: Vector2Real where Scalar == Double {
     @inlinable
     public func distance(to vec: Self) -> Scalar {
         return Scalar.sqrt(self.distanceSquared(to: vec))
+    }
+}
+
+extension SIMD2: Vector2Real where Scalar == Double {
+    /// Returns the angle in radians of the line formed by tracing from the
+    /// origin (0, 0) to this `Vector2Type`.
+    @inlinable
+    public var angle: Scalar {
+        return Scalar.atan2(y: y, x: x)
     }
     
     /// Returns a rotated version of this vector, rotated around the origin by a
@@ -168,7 +240,7 @@ extension SIMD2: Vector2Real where Scalar == Double {
     }
 }
 
-extension SIMD2: Vector2Type, VectorComparable, VectorReal, VectorFloatingPoint where Scalar == Double {
+extension SIMD2: Vector2Type, VectorFloatingPoint where Scalar == Double {
     @inlinable
     public var lengthSquared: Scalar {
         return length_squared(self)
@@ -190,40 +262,6 @@ extension SIMD2: Vector2Type, VectorComparable, VectorReal, VectorFloatingPoint 
     }
     
     @inlinable
-    public func distanceSquared(to vec: SIMD2<Scalar>) -> Scalar {
-        return distance_squared(self, vec)
-    }
-    
-    @inlinable
-    public func dot(_ other: SIMD2<Scalar>) -> Scalar {
-        return simd.dot(self, other)
-    }
-    
-    @inlinable
-    public func ratio(_ ratio: Scalar, to other: SIMD2<Scalar>) -> SIMD2<Scalar> {
-        return (1 - ratio) * self + ratio * other
-    }
-    
-    @inlinable
-    public static func lerp(start: SIMD2<Scalar>, end: SIMD2<Scalar>, amount: Scalar) -> SIMD2<Scalar> {
-        start.ratio(amount, to: end)
-    }
-    
-    /// Returns the pointwise minimal Vector where each component is the minimal
-    /// scalar value at each index for both vectors.
-    @inlinable
-    public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
-        return simd.min(lhs, rhs)
-    }
-    
-    /// Returns the pointwise maximal Vector where each component is the maximal
-    /// scalar value at each index for both vectors.
-    @inlinable
-    public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
-        return simd.max(lhs, rhs)
-    }
-    
-    @inlinable
     public static func % (lhs: Self, rhs: Self) -> Self {
         return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
                     y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
@@ -233,41 +271,5 @@ extension SIMD2: Vector2Type, VectorComparable, VectorReal, VectorFloatingPoint 
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
                     y: lhs.y.truncatingRemainder(dividingBy: rhs))
-    }
-    
-    /// Compares two vectors and returns `true` if all components of `lhs` are
-    /// greater than `rhs`.
-    ///
-    /// Performs `lhs.x > rhs.x && lhs.y > rhs.y`
-    @inlinable
-    public static func > (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x > rhs.x && lhs.y > rhs.y
-    }
-    
-    /// Compares two vectors and returns `true` if all components of `lhs` are
-    /// greater than or equal to `rhs`.
-    ///
-    /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y`
-    @inlinable
-    public static func >= (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x >= rhs.x && lhs.y >= rhs.y
-    }
-    
-    /// Compares two vectors and returns `true` if all components of `lhs` are
-    /// less than `rhs`.
-    ///
-    /// Performs `lhs.x < rhs.x && lhs.y < rhs.y`
-    @inlinable
-    public static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x < rhs.x && lhs.y < rhs.y
-    }
-    
-    /// Compares two vectors and returns `true` if all components of `lhs` are
-    /// less than or equal to `rhs`.
-    ///
-    /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y`
-    @inlinable
-    public static func <= (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x <= rhs.x && lhs.y <= rhs.y
     }
 }
