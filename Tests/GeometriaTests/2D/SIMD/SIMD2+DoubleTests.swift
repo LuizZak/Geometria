@@ -505,6 +505,15 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(vec, Vector(x: 11.0, y: 22.0))
     }
     
+    func testFloatingPointInitWithBinaryInteger() {
+        let vecInt = Vector2<Int>(x: 1, y: 2)
+        
+        let vec = Vector2<Float>(vecInt)
+        
+        XCTAssertEqual(vec.x, 1)
+        XCTAssertEqual(vec.y, 2)
+    }
+    
     func testAverageVector() {
         let list = [
             Vector(x: -1, y: -1),
@@ -521,44 +530,33 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(list.averageVector(), Vector.zero)
     }
     
-    func testRound() {
-        let vec = Vector(x: 0.5, y: 1.6)
-        
-        XCTAssertEqual(round(vec), Vector(x: 1, y: 2))
-    }
-    
     func testFloor() {
         let vec = Vector(x: 0.5, y: 1.6)
         
         XCTAssertEqual(vec.floor(), Vector(x: 0, y: 1))
-        XCTAssertEqual(floor(vec), Vector(x: 0, y: 1))
     }
     
     func testCeil() {
         let vec = Vector(x: 0.5, y: 1.6)
         
         XCTAssertEqual(vec.ceil(), Vector(x: 1, y: 2))
-        XCTAssertEqual(ceil(vec), Vector(x: 1, y: 2))
     }
     
     func testAbsolute() {
         let vec = Vector(x: -1, y: -2)
         
         XCTAssertEqual(vec.absolute, Vector(x: 1, y: 2))
-        XCTAssertEqual(abs(vec), Vector(x: 1, y: 2))
     }
     
     func testAbsolute_mixedPositiveNegative() {
         let vec = Vector(x: -1, y: 2)
         
         XCTAssertEqual(vec.absolute, Vector(x: 1, y: 2))
-        XCTAssertEqual(abs(vec), Vector(x: 1, y: 2))
     }
     
     func testAbsolute_positive() {
         let vec = Vector(x: 1, y: 2)
         
         XCTAssertEqual(vec.absolute, Vector(x: 1, y: 2))
-        XCTAssertEqual(abs(vec), Vector(x: 1, y: 2))
     }
 }

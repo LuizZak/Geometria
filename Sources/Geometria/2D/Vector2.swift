@@ -339,10 +339,6 @@ extension Vector2: VectorNormalizable where Scalar: Comparable & Real & Divisibl
 }
 
 extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
-    public init<V: Vector2Type>(_ vec: V) where V.Scalar: BinaryInteger {
-        self.init(x: Scalar(vec.x), y: Scalar(vec.y))
-    }
-    
     /// Rounds the components of this `Vector2Type` using a given
     /// `FloatingPointRoundingRule`.
     @inlinable
@@ -388,78 +384,15 @@ extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
         return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
                     y: lhs.y.truncatingRemainder(dividingBy: rhs))
     }
-    
-    @inlinable
-    public static func + <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs + Self(rhs)
-    }
-    
-    @inlinable
-    public static func - <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs - Self(rhs)
-    }
-    
-    @inlinable
-    public static func * <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs * Self(rhs)
-    }
-    
-    @inlinable
-    public static func + <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) + rhs
-    }
-    
-    @inlinable
-    public static func - <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) - rhs
-    }
-    
-    @inlinable
-    public static func * <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) * rhs
-    }
-    
-    @inlinable
-    public static func += <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs + Self(rhs)
-    }
-    
-    @inlinable
-    public static func -= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs - Self(rhs)
-    }
-    
-    @inlinable
-    public static func *= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs * Self(rhs)
-    }
-    
-    @inlinable
-    public static func / <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs / Self(rhs)
-    }
-    
-    @inlinable
-    public static func / <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) / rhs
-    }
-    
-    @inlinable
-    public static func /= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs / Self(rhs)
+}
+
+extension Vector2: Vector2FloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+    public init<V: Vector2Type>(_ vec: V) where V.Scalar: BinaryInteger {
+        self.init(x: Scalar(vec.x), y: Scalar(vec.y))
     }
 }
 
-extension Vector2: VectorReal where Scalar: Real { }
-
-extension Vector2: Vector2Real where Scalar: Real {
-    /// Returns the angle in radians of the line formed by tracing from the
-    /// origin (0, 0) to this `Vector2`.
-    @inlinable
-    public var angle: Scalar {
-        return Scalar.atan2(y: y, x: x)
-    }
-    
+extension Vector2: VectorReal where Scalar: DivisibleArithmetic & Real {
     /// Returns the Euclidean norm (square root of the squared length) of this
     /// `Vector2Type`
     @inlinable
@@ -471,6 +404,15 @@ extension Vector2: Vector2Real where Scalar: Real {
     @inlinable
     public func distance(to vec: Self) -> Scalar {
         return Scalar.sqrt(self.distanceSquared(to: vec))
+    }
+}
+
+extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
+    /// Returns the angle in radians of the line formed by tracing from the
+    /// origin (0, 0) to this `Vector2`.
+    @inlinable
+    public var angle: Scalar {
+        return Scalar.atan2(y: y, x: x)
     }
     
     /// Returns a rotated version of this vector, rotated around the origin by a

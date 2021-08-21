@@ -1,7 +1,7 @@
 import RealModule
 
 /// Protocol for vector types where the components are real numbers.
-public protocol VectorReal: VectorMultiplicative where Scalar: Real {
+public protocol VectorReal: VectorFloatingPoint where Scalar: Real {
     /// Returns the Euclidean norm (square root of the squared length) of this
     /// `VectorReal`
     var length: Scalar { get }

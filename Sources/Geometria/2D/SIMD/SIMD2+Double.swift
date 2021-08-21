@@ -5,6 +5,10 @@ extension SIMD2: VectorType {
     
 }
 
+extension SIMD2: Vector2Type {
+    
+}
+
 extension SIMD2: VectorNormalizable where Scalar == Double {
     public mutating func normalize() {
         self = normalized()
@@ -159,6 +163,106 @@ extension SIMD2: VectorDivisible where Scalar == Double {
     
 }
 
+extension SIMD2: VectorFloatingPoint where Scalar == Double {
+    @inlinable
+    public var lengthSquared: Scalar {
+        return length_squared(self)
+    }
+    
+    @inlinable
+    public func rounded() -> SIMD2<Scalar> {
+        return self.rounded(.toNearestOrAwayFromZero)
+    }
+    
+    @inlinable
+    public func ceil() -> SIMD2<Scalar> {
+        return self.rounded(.up)
+    }
+    
+    @inlinable
+    public func floor() -> SIMD2<Scalar> {
+        return self.rounded(.down)
+    }
+    
+    @inlinable
+    public static func % (lhs: Self, rhs: Self) -> Self {
+        return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+                    y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
+    }
+    
+    @inlinable
+    public static func % (lhs: Self, rhs: Scalar) -> Self {
+        return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
+                    y: lhs.y.truncatingRemainder(dividingBy: rhs))
+    }
+}
+
+extension SIMD2: Vector2FloatingPoint where Scalar == Double {
+    public init<V>(_ other: V) where V : Vector2Type, V.Scalar : BinaryInteger {
+        self.init(x: Scalar(other.x), y: Scalar(other.y))
+    }
+    
+    @inlinable
+    public static func + <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
+        return lhs + Self(rhs)
+    }
+    
+    @inlinable
+    public static func - <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
+        return lhs - Self(rhs)
+    }
+    
+    @inlinable
+    public static func * <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
+        return lhs * Self(rhs)
+    }
+    
+    @inlinable
+    public static func + <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
+        return Self(lhs) + rhs
+    }
+    
+    @inlinable
+    public static func - <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
+        return Self(lhs) - rhs
+    }
+    
+    @inlinable
+    public static func * <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
+        return Self(lhs) * rhs
+    }
+    
+    @inlinable
+    public static func += <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
+        lhs = lhs + Self(rhs)
+    }
+    
+    @inlinable
+    public static func -= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
+        lhs = lhs - Self(rhs)
+    }
+    
+    @inlinable
+    public static func *= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
+        lhs = lhs * Self(rhs)
+    }
+    
+    @inlinable
+    public static func / <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
+        return lhs / Self(rhs)
+    }
+    
+    @inlinable
+    public static func / <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
+        return Self(lhs) / rhs
+    }
+    
+    @inlinable
+    public static func /= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
+        lhs = lhs / Self(rhs)
+    }
+}
+
 extension SIMD2: VectorReal where Scalar == Double {
     /// Returns the Euclidean norm (square root of the squared length) of this
     /// `Vector2Type`
@@ -237,39 +341,5 @@ extension SIMD2: Vector2Real where Scalar == Double {
     @inlinable
     public static func *= (lhs: inout Self, rhs: Matrix2<Scalar>) {
         lhs = Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
-    }
-}
-
-extension SIMD2: Vector2Type, VectorFloatingPoint where Scalar == Double {
-    @inlinable
-    public var lengthSquared: Scalar {
-        return length_squared(self)
-    }
-    
-    @inlinable
-    public func rounded() -> SIMD2<Scalar> {
-        return self.rounded(.toNearestOrAwayFromZero)
-    }
-    
-    @inlinable
-    public func ceil() -> SIMD2<Scalar> {
-        return self.rounded(.up)
-    }
-    
-    @inlinable
-    public func floor() -> SIMD2<Scalar> {
-        return self.rounded(.down)
-    }
-    
-    @inlinable
-    public static func % (lhs: Self, rhs: Self) -> Self {
-        return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                    y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
-    }
-    
-    @inlinable
-    public static func % (lhs: Self, rhs: Scalar) -> Self {
-        return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                    y: lhs.y.truncatingRemainder(dividingBy: rhs))
     }
 }

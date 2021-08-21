@@ -251,74 +251,6 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec1, Vector(x: 0, y: 1))
     }
     
-    func testAddition_floatingPoint_binaryNumber() {
-        let vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 4)
-        
-        XCTAssertEqual(vec2 + vec1, Vector2D(x: 4, y: 6))
-        XCTAssertEqual(vec1 + vec2, Vector2D(x: 4, y: 6))
-    }
-    
-    func testSubtraction_floatingPoint_binaryNumber() {
-        let vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 5)
-        
-        XCTAssertEqual(vec2 - vec1, Vector2D(x: 2, y: 3))
-        XCTAssertEqual(vec1 - vec2, Vector2D(x: -2, y: -3))
-    }
-    
-    func testMultiplication_floatingPoint_binaryNumber() {
-        let vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 4)
-        
-        XCTAssertEqual(vec2 * vec1, Vector2D(x: 3, y: 8))
-        XCTAssertEqual(vec1 * vec2, Vector2D(x: 3, y: 8))
-    }
-    
-    func testDivision_floatingPoint_binaryNumber() {
-        let vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 4)
-        
-        XCTAssertEqual(vec2 / vec1, Vector2D(x: 3, y: 2))
-        XCTAssertEqual(vec1 / vec2, Vector2D(x: 0.3333333333333333, y: 0.5))
-    }
-    
-    func testAddition_floatingPoint_binaryNumber_inPLace() {
-        var vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 4)
-        
-        vec1 += vec2
-        
-        XCTAssertEqual(vec1, Vector2D(x: 4, y: 6))
-    }
-    
-    func testSubtraction_floatingPoint_binaryNumber_inPLace() {
-        var vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 5)
-        
-        vec1 -= vec2
-        
-        XCTAssertEqual(vec1, Vector2D(x: -2, y: -3))
-    }
-    
-    func testMultiplication_floatingPoint_binaryNumber_inPLace() {
-        var vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 4)
-        
-        vec1 *= vec2
-        
-        XCTAssertEqual(vec1, Vector2D(x: 3, y: 8))
-    }
-    
-    func testDivision_floatingPoint_binaryNumber_inPLace() {
-        var vec1 = Vector2D(x: 1, y: 2)
-        let vec2 = Vector2i(x: 3, y: 4)
-        
-        vec1 /= vec2
-        
-        XCTAssertEqual(vec1, Vector2D(x: 0.3333333333333333, y: 0.5))
-    }
-    
     func testLengthSquared() {
         XCTAssertEqual(Vector(x: 3, y: 2).lengthSquared, 13)
         XCTAssertEqual(Vector2D(x: 3.0, y: 2.0).lengthSquared, 13.0)
@@ -501,14 +433,27 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(result.y, 2)
     }
     
+    func testLength() {
+        XCTAssertEqual(Vector2(x: 3, y: 2).length, 3.605551275463989)
+    }
+    
+    func testDistanceTo() {
+        let v1 = Vector2D(x: 10, y: 20)
+        let v2 = Vector2D(x: 30, y: 40)
+        
+        XCTAssertEqual(v1.distance(to: v2), 28.284271247461902, accuracy: accuracy)
+    }
+    
+    func testDistanceTo_zeroDistance() {
+        let vec = Vector2D(x: 10, y: 20)
+        
+        XCTAssertEqual(vec.distance(to: vec), 0.0)
+    }
+    
     func testAngle() {
         let vec = Vector2D(x: -10, y: 10)
         
         XCTAssertEqual(vec.angle, .pi * (3.0 / 4.0))
-    }
-    
-    func testLength() {
-        XCTAssertEqual(Vector2(x: 3, y: 2).length, 3.605551275463989)
     }
     
     func testRotatedBy() {
@@ -536,19 +481,6 @@ class Vector2Tests: XCTestCase {
         
         XCTAssertEqual(result.x, 10, accuracy: 0.0000000001)
         XCTAssertEqual(result.y, 5, accuracy: 0.0000000001)
-    }
-    
-    func testDistanceTo() {
-        let v1 = Vector2D(x: 10, y: 20)
-        let v2 = Vector2D(x: 30, y: 40)
-        
-        XCTAssertEqual(v1.distance(to: v2), 28.284271247461902, accuracy: accuracy)
-    }
-    
-    func testDistanceTo_zeroDistance() {
-        let vec = Vector2D(x: 10, y: 20)
-        
-        XCTAssertEqual(vec.distance(to: vec), 0.0)
     }
     
     func testNormalize() {
