@@ -16,6 +16,20 @@ public protocol Vector2Type: VectorType {
     init(repeating scalar: Scalar)
 }
 
+/// Returns the pointwise minimal Vector where each component is the minimal
+/// scalar value at each index for both vectors.
+@inlinable
+public func min<V: VectorComparable>(_ lhs: V, _ rhs: V) -> V {
+    return V.pointwiseMin(lhs, rhs)
+}
+
+/// Returns the pointwise maximal Vector where each component is the maximal
+/// scalar value at each index for both vectors.
+@inlinable
+public func max<V: VectorComparable>(_ lhs: V, _ rhs: V) -> V {
+    return V.pointwiseMax(lhs, rhs)
+}
+
 /// Returns a `VectorSigned` with each component as the absolute value of the
 /// components of a given `VectorSigned`.
 ///

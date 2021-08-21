@@ -373,6 +373,24 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 2), Vector2D(x: 50, y: 60))
     }
     
+    func testAbsolute() {
+        let vec = Vector2D(x: -1, y: -2)
+        
+        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
+    }
+    
+    func testAbsolute_mixedPositiveNegative() {
+        let vec = Vector2D(x: -1, y: 2)
+        
+        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
+    }
+    
+    func testAbsolute_positive() {
+        let vec = Vector2D(x: 1, y: 2)
+        
+        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
+    }
+    
     func testPerpendicular() {
         let vec = Vector(x: 5, y: 1)
         
@@ -449,6 +467,18 @@ class Vector2Tests: XCTestCase {
         let vec = Vector2D(x: 0.5, y: 1.6)
         
         XCTAssertEqual(vec.rounded(), Vector2D(x: 1, y: 2))
+    }
+    
+    func testFloor() {
+        let vec = Vector2D(x: 0.5, y: 1.6)
+        
+        XCTAssertEqual(vec.floor(), Vector2D(x: 0, y: 1))
+    }
+    
+    func testCeil() {
+        let vec = Vector2D(x: 0.5, y: 1.6)
+        
+        XCTAssertEqual(vec.ceil(), Vector2D(x: 1, y: 2))
     }
     
     func testModulosOperator_vector() {
@@ -634,46 +664,5 @@ class Vector2Tests: XCTestCase {
         let list: [Vector2D] = []
         
         XCTAssertEqual(list.averageVector(), Vector2D.zero)
-    }
-    
-    func testRound() {
-        let vec = Vector2D(x: 0.5, y: 1.6)
-        
-        XCTAssertEqual(round(vec), Vector2D(x: 1, y: 2))
-    }
-    
-    func testFloor() {
-        let vec = Vector2D(x: 0.5, y: 1.6)
-        
-        XCTAssertEqual(vec.floor(), Vector2D(x: 0, y: 1))
-        XCTAssertEqual(floor(vec), Vector2D(x: 0, y: 1))
-    }
-    
-    func testCeil() {
-        let vec = Vector2D(x: 0.5, y: 1.6)
-        
-        XCTAssertEqual(vec.ceil(), Vector2D(x: 1, y: 2))
-        XCTAssertEqual(ceil(vec), Vector2D(x: 1, y: 2))
-    }
-    
-    func testAbsolute() {
-        let vec = Vector2D(x: -1, y: -2)
-        
-        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
-        XCTAssertEqual(abs(vec), Vector2D(x: 1, y: 2))
-    }
-    
-    func testAbsolute_mixedPositiveNegative() {
-        let vec = Vector2D(x: -1, y: 2)
-        
-        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
-        XCTAssertEqual(abs(vec), Vector2D(x: 1, y: 2))
-    }
-    
-    func testAbsolute_positive() {
-        let vec = Vector2D(x: 1, y: 2)
-        
-        XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
-        XCTAssertEqual(abs(vec), Vector2D(x: 1, y: 2))
     }
 }
