@@ -15,13 +15,17 @@ public typealias Box2i = Box<Vector2i>
 public struct Box<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
-    /// The minimal coordinate of this
-    /// Must be `<= maximum`
+    /// The minimal coordinate of this box.
+    /// Must be `<= maximum`.
     public var minimum: Vector
     
     /// The maximal coordinate of this box.
     /// Must be `>= minimum`.
     public var maximum: Vector
+    
+    /// The location of this Box corresponding to its minimal vector.
+    /// Alias for `minimum`.
+    public var location: Vector { minimum }
     
     /// Initializes a `Box` with the given minimum and maximum boundary
     /// vectors.
@@ -40,9 +44,9 @@ extension Box: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Box: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension Box where Vector: Equatable {
-    /// Returns `true` if the area of this box is zero.
+    /// Returns `true` if the size of this box is zero.
     @inlinable
-    var isAreaZero: Bool {
+    var isSizeZero: Bool {
         minimum == maximum
     }
 }
@@ -113,17 +117,6 @@ public extension Box where Vector: VectorComparable {
     }
 }
 
-public extension Box where Vector: Vector2Type & VectorComparable {
-    /// Returns whether a given point is contained within this 2d box.
-    ///
-    /// The check is inclusive, so the edges of the box are considered to
-    /// contain the point as well.
-    @inlinable
-    func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector(x: x, y: y))
-    }
-}
-
 public extension Box where Vector: VectorAdditive {
     /// Returns a box with all coordinates set to zero.
     @inlinable
@@ -145,6 +138,19 @@ public extension Box where Vector: VectorAdditive {
     @inlinable
     var asRectangle: Rectangle<Vector> {
         Rectangle(minimum: minimum, maximum: maximum)
+    }
+    
+    /// Initializes a Box with zero minimal and maximal vectors.
+    init() {
+        minimum = .zero
+        maximum = .zero
+    }
+    
+    /// Initializes this Box with the equivalent coordinates of a rectangle with
+    /// a given location and size.
+    init(location: Vector, size: Vector) {
+        minimum = location
+        maximum = location + size
     }
 }
 
@@ -175,12 +181,24 @@ public extension Box where Vector: VectorAdditive & VectorComparable {
     }
 }
 
+extension Box: CustomStringConvertible where Vector: Vector2Type {
+    public var description: String {
+        return "\(type(of: self))(left: \(minimum.x), top: \(minimum.y), right: \(maximum.x), bottom: \(maximum.y))"
+    }
+}
+
 public extension Box where Vector: Vector2Type {
+    /// The x coordinate of the left corner of this 2d box.
+    ///
+    /// Alias for `minimum.x`.
+    @inlinable
+    var x: Scalar { minimum.x }
+    
     /// The y coordinate of the top corner of this 2d box.
     ///
     /// Alias for `minimum.y`.
     @inlinable
-    var top: Scalar { minimum.y }
+    var y: Scalar { minimum.y }
     
     /// The x coordinate of the left corner of this 2d box.
     ///
@@ -188,17 +206,23 @@ public extension Box where Vector: Vector2Type {
     @inlinable
     var left: Scalar { minimum.x }
     
-    /// The y coordinate of the bottom corner of this 2d box.
+    /// The y coordinate of the top corner of this 2d box.
     ///
-    /// Alias for `maximum.y`.
+    /// Alias for `minimum.y`.
     @inlinable
-    var bottom: Scalar { maximum.y }
+    var top: Scalar { minimum.y }
     
     /// The x coordinate of the right corner of this 2d box.
     ///
     /// Alias for `maximum.x`.
     @inlinable
     var right: Scalar { maximum.x }
+    
+    /// The y coordinate of the bottom corner of this 2d box.
+    ///
+    /// Alias for `maximum.y`.
+    @inlinable
+    var bottom: Scalar { maximum.y }
     
     /// The top-left corner of the 2d box.
     @inlinable
@@ -214,7 +238,7 @@ public extension Box where Vector: Vector2Type {
     
     /// The bottom-left corner of the 2d box.
     @inlinable
-    var bottomLeft: Vector { Vector(x: left, y: top) }
+    var bottomLeft: Vector { Vector(x: left, y: bottom) }
     
     /// Returns an array of vectors that represent this `Box`'s 2D corners in
     /// clockwise order, starting from the top-left corner.
@@ -229,6 +253,17 @@ public extension Box where Vector: Vector2Type {
     @inlinable
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         self.init(minimum: Vector(x: left, y: top), maximum: Vector(x: right, y: bottom))
+    }
+}
+
+public extension Box where Vector: Vector2Type & VectorComparable {
+    /// Returns whether a given point is contained within this 2d box.
+    ///
+    /// The check is inclusive, so the edges of the box are considered to
+    /// contain the point as well.
+    @inlinable
+    func contains(x: Scalar, y: Scalar) -> Bool {
+        return contains(Vector(x: x, y: y))
     }
 }
 

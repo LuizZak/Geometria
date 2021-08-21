@@ -37,16 +37,28 @@ class RectangleTests: XCTestCase {
 // MARK: VectorAdditive Conformance
 
 extension RectangleTests {
-    func testIsAreaZero_zeroArea() {
+    func testIsSizeZero_zeroArea() {
         let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 0, y: 0))
         
-        XCTAssertTrue(sut.isAreaZero)
+        XCTAssertTrue(sut.isSizeZero)
     }
     
-    func testIsAreaZero_nonZeroArea() {
-        let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 2, y: 2))
+    func testIsSizeZero_zeroWidth() {
+        let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 0, y: 1))
         
-        XCTAssertFalse(sut.isAreaZero)
+        XCTAssertFalse(sut.isSizeZero)
+    }
+    
+    func testIsSizeZero_zeroHeight() {
+        let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 1, y: 0))
+        
+        XCTAssertFalse(sut.isSizeZero)
+    }
+    
+    func testIsSizeZero_nonZeroArea() {
+        let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 1, y: 1))
+        
+        XCTAssertFalse(sut.isSizeZero)
     }
     
     func testMinimum() {
@@ -225,15 +237,6 @@ extension RectangleTests {
         
         XCTAssertEqual(result.location, .init(x: 0, y: 0))
         XCTAssertEqual(result.size, .init(x: 0, y: 0))
-    }
-    
-    func testIsEmpty() {
-        XCTAssertTrue(Rectangle(x: 0, y: 0, width: 0, height: 0).isEmpty)
-        XCTAssertTrue(Rectangle(x: 2, y: 3, width: 0, height: 0).isEmpty)
-        XCTAssertTrue(Rectangle(x: -2, y: -3, width: 0, height: 0).isEmpty)
-        XCTAssertFalse(Rectangle(x: 0, y: 0, width: 1, height: 0).isEmpty)
-        XCTAssertFalse(Rectangle(x: 0, y: 0, width: 0, height: 1).isEmpty)
-        XCTAssertFalse(Rectangle(x: 0, y: 0, width: 1, height: 1).isEmpty)
     }
     
     func testInitEmpty() {

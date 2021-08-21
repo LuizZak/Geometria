@@ -47,9 +47,9 @@ extension Rectangle: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Rectangle: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension Rectangle where Vector: VectorAdditive {
-    /// Returns `true` if the area of this rectangle is zero.
+    /// Returns `true` if the size of this rectangle is zero.
     @inlinable
-    var isAreaZero: Bool {
+    var isSizeZero: Bool {
         size == .zero
     }
     
@@ -195,12 +195,6 @@ public extension Rectangle where Vector: VectorMultiplicative {
     /// Returns an empty rectangle
     @inlinable
     static var zero: Rectangle { Rectangle(location: .zero, size: .zero) }
-    
-    /// Returns true iff this Rectangle's area is empty (i.e. `width == 0 && height == 0`).
-    @inlinable
-    var isEmpty: Bool {
-        return size == .zero
-    }
     
     /// Initializes an empty Rectangle instance.
     @inlinable
