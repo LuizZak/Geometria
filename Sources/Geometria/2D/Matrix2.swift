@@ -630,16 +630,18 @@ public extension Matrix2 {
     /// origin or center of the rectangle itself.
     @inlinable
     func transform<V: Vector2Type & VectorAdditive & VectorComparable>(_ rect: Rectangle<V>) -> Rectangle<V> where V.Scalar == Scalar {
+        let topLeft = transform(rect.topLeft)
+        let topRight = transform(rect.topRight)
+        let bottomLeft = transform(rect.bottomLeft)
+        let bottomRight = transform(rect.bottomRight)
         
+        var minimum = V.pointwiseMin(topLeft, topRight)
+        minimum = V.pointwiseMin(minimum, bottomLeft)
+        minimum = V.pointwiseMin(minimum, bottomRight)
         
-        
-        var minimum = V.pointwiseMin(transform(rect.topLeft), transform(rect.topRight))
-        minimum = V.pointwiseMin(minimum, transform(rect.bottomLeft))
-        minimum = V.pointwiseMin(minimum, transform(rect.bottomRight))
-        
-        var maximum = V.pointwiseMax(transform(rect.topLeft), transform(rect.topRight))
-        maximum = V.pointwiseMax(maximum, transform(rect.bottomLeft))
-        maximum = V.pointwiseMax(maximum, transform(rect.bottomRight))
+        var maximum = V.pointwiseMax(topLeft, topRight)
+        maximum = V.pointwiseMax(maximum, bottomLeft)
+        maximum = V.pointwiseMax(maximum, bottomRight)
         
         return Rectangle(minimum: minimum, maximum: maximum)
     }
