@@ -4,13 +4,28 @@ import Geometria
 class NSphereTests: XCTestCase {
     typealias NSphere = Circle2D
     
+    func testCodable() throws {
+        let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        let data = try encoder.encode(sut)
+        let result = try decoder.decode(NSphere.self, from: data)
+        
+        XCTAssertEqual(sut, result)
+    }
+    
     func testInitWithCenterRadius() {
         let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
         
         XCTAssertEqual(sut.center, .init(x: 0, y: 1))
         XCTAssertEqual(sut.radius, 2)
     }
-    
+}
+
+// MARK: AdditiveArithmetic Conformance
+
+extension NSphereTests {
     func testExpandedBy() {
         let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
         
@@ -20,6 +35,11 @@ class NSphereTests: XCTestCase {
         XCTAssertEqual(result.radius, 5)
     }
     
+}
+
+// MARK: VectorMultiplicative, Scalar: Comparable Conformance
+
+extension NSphereTests {
     func testContainsVector() {
         let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
         

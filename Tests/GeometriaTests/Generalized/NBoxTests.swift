@@ -4,6 +4,18 @@ import Geometria
 class NBoxTests: XCTestCase {
     typealias Box = Box2D
     
+    func testCodable() throws {
+        let sut = Box(minimum: .init(x: 1, y: 2),
+                      maximum: .init(x: 3, y: 4))
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        let data = try encoder.encode(sut)
+        let result = try decoder.decode(Box.self, from: data)
+        
+        XCTAssertEqual(sut, result)
+    }
+    
     func testInitWithMinimumMaximum() {
         let sut = Box(minimum: .init(x: 1, y: 2),
                       maximum: .init(x: 3, y: 4))

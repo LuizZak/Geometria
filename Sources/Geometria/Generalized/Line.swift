@@ -30,14 +30,6 @@ extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Line where Vector: Vector2Type {
-    @inlinable
-    init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
-        start = Vector(x: x1, y: y1)
-        end = Vector(x: x2, y: y2)
-    }
-}
-
 extension Line where Vector: VectorMultiplicative {
     /// Returns the squared length of this line
     @inlinable
@@ -51,13 +43,5 @@ extension Line where Vector: VectorReal {
     @inlinable
     public var length: Scalar {
         return (end - start).length
-    }
-}
-
-extension Line where Vector: Vector2Real {
-    /// Returns the angle of this line, in radians
-    @inlinable
-    public var angle: Scalar {
-        return (end - start).angle
     }
 }

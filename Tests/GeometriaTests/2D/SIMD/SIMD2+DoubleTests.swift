@@ -319,6 +319,15 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(-(-vec), vec)
     }
     
+    func testFloatingPointInitWithBinaryInteger() {
+        let vecInt = Vector2<Int>(x: 1, y: 2)
+        
+        let vec = Vector(vecInt)
+        
+        XCTAssertEqual(vec.x, 1)
+        XCTAssertEqual(vec.y, 2)
+    }
+    
     func testRoundedWithRoundingRule() {
         let vec = Vector(x: 0.5, y: 1.6)
         
@@ -503,15 +512,6 @@ class SIMD2_DoubleTests: XCTestCase {
         vec *= matrix
         
         XCTAssertEqual(vec, Vector(x: 11.0, y: 22.0))
-    }
-    
-    func testFloatingPointInitWithBinaryInteger() {
-        let vecInt = Vector2<Int>(x: 1, y: 2)
-        
-        let vec = Vector2<Float>(vecInt)
-        
-        XCTAssertEqual(vec.x, 1)
-        XCTAssertEqual(vec.y, 2)
     }
     
     func testAverageVector() {

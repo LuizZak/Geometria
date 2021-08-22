@@ -24,7 +24,9 @@ public extension NSphere where Scalar: AdditiveArithmetic {
 }
 
 public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable {
-    /// Returns `true` if this N-sphere's area contains a given point.
+    /// Returns `true` if this N-sphere's area contains a given point by checking
+    /// if the distance from the center of this N-sphere to the point is less than
+    /// or equal to the radius of this N-sphere.
     ///
     /// Points at the perimeter of the N-sphere (distance to center == radius)
     /// are considered as contained within the N-sphere.

@@ -16,12 +16,6 @@ public protocol DivisibleArithmetic: Numeric {
     static func /= (lhs: inout Self, rhs: Self)
 }
 
-public extension DivisibleArithmetic {
-    static func /= (lhs: inout Self, rhs: Self) {
-        lhs = lhs / rhs
-    }
-}
-
 // MARK: - Integers conformance
 extension Int: DivisibleArithmetic { }
 extension UInt: DivisibleArithmetic { }

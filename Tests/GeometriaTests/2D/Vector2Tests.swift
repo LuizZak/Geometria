@@ -6,6 +6,17 @@ class Vector2Tests: XCTestCase {
     
     typealias Vector = Vector2<Int>
     
+    func testCodable() throws {
+        let sut = Vector(x: 0, y: 1)
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        let data = try encoder.encode(sut)
+        let result = try decoder.decode(Vector.self, from: data)
+        
+        XCTAssertEqual(sut, result)
+    }
+    
     func testZero() {
         XCTAssertEqual(Vector.zero.x, 0)
         XCTAssertEqual(Vector.zero.y, 0)

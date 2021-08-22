@@ -5,6 +5,18 @@ import simd
 class NRectangleTests: XCTestCase {
     typealias Rectangle = Rectangle2D
     
+    func testCodable() throws {
+        let sut = Rectangle(location: .init(x: 1, y: 2),
+                            size: .init(x: 3, y: 4))
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        let data = try encoder.encode(sut)
+        let result = try decoder.decode(Rectangle.self, from: data)
+        
+        XCTAssertEqual(sut, result)
+    }
+    
     func testInitWithLocationSize() {
         let sut = Rectangle(location: .init(x: 1, y: 2),
                             size: .init(x: 3, y: 4))

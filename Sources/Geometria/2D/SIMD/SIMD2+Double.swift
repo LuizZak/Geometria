@@ -201,66 +201,6 @@ extension SIMD2: Vector2FloatingPoint where Scalar == Double {
     public init<V>(_ other: V) where V : Vector2Type, V.Scalar : BinaryInteger {
         self.init(x: Scalar(other.x), y: Scalar(other.y))
     }
-    
-    @inlinable
-    public static func + <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs + Self(rhs)
-    }
-    
-    @inlinable
-    public static func - <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs - Self(rhs)
-    }
-    
-    @inlinable
-    public static func * <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs * Self(rhs)
-    }
-    
-    @inlinable
-    public static func + <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) + rhs
-    }
-    
-    @inlinable
-    public static func - <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) - rhs
-    }
-    
-    @inlinable
-    public static func * <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) * rhs
-    }
-    
-    @inlinable
-    public static func += <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs + Self(rhs)
-    }
-    
-    @inlinable
-    public static func -= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs - Self(rhs)
-    }
-    
-    @inlinable
-    public static func *= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs * Self(rhs)
-    }
-    
-    @inlinable
-    public static func / <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs / Self(rhs)
-    }
-    
-    @inlinable
-    public static func / <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) / rhs
-    }
-    
-    @inlinable
-    public static func /= <V: Vector2Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger {
-        lhs = lhs / Self(rhs)
-    }
 }
 
 extension SIMD2: VectorReal where Scalar == Double {
