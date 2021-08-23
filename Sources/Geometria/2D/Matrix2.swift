@@ -57,7 +57,9 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     public typealias Vector = Vector2<Scalar>
     
     /// Gets the identity matrix.
-    public static var identity: Self { Self(m11: 1, m12: 0, m21: 0, m22: 1, m31: 0, m32: 0) }
+    public static var identity: Self { Self(m11: 1, m12: 0,
+                                            m21: 0, m22: 1,
+                                            m31: 0, m32: 0) }
     
     /// Element (1,1)
     public let m11: Scalar
@@ -78,13 +80,13 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     public let m32: Scalar
     
     /// Gets the first row in the matrix; that is M11 and M12.
-    public var row1: Vector { Vector(x: m11, y: m12) }
+    public var row1: [Scalar] { [m11, m12] }
     
     /// Gets the second row in the matrix; that is M21 and M22.
-    public var row2: Vector { Vector(x: m21, y: m22) }
+    public var row2: [Scalar] { [m21, m22] }
     
     /// Gets the third row in the matrix; that is M31 and M32.
-    public var row3: Vector { Vector(x: m31, y: m32) }
+    public var row3: [Scalar] { [m31, m32] }
     
     /// Gets the first column in the matrix; that is M11, M21, and M31.
     public var column1: [Scalar] { [m11, m21, m31] }
@@ -124,13 +126,13 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter row: The row of the matrix to access.
     /// - Parameter column: The column of the matrix to access.
     /// - Returns: The value of the component at the specified index.
-    public subscript(row row: Int, column: Int) -> Scalar {
-        if row < 0 || row > 2 {
-            fatalError("Rows and columns for matrices run from 0 to 2, inclusive.")
-        }
-        if column < 0 || column > 1 {
-            fatalError("Rows and columns for matrices run from 0 to 1, inclusive.")
-        }
+    ///
+    /// - precondition: `row >= 0 && row <= 2 && column >= 0 && column <= 1`
+    public subscript(row row: Int, column column: Int) -> Scalar {
+        precondition(row >= 0 || row <= 2,
+                     "Rows for matrices run from 0 to 2, inclusive.")
+        precondition(column >= 0 || column <= 1,
+                     "Rows and columns for matrices run from 0 to 1, inclusive.")
         
         return self[index: row * 2 + column]
     }
@@ -173,10 +175,10 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter values: The values to assign to the components of the matrix.
     /// This must be an array with six elements, otherwise a runtime error is thrown
+    ///
+    /// - precondition: `values.count == 6`
     public init(values: [Scalar]) {
-        if values.count != 6 {
-            fatalError("There must be six input values for Matrix3x2.")
-        }
+        precondition(values.count == 6, "There must be six input values for Matrix3x2")
         
         m11 = values[0]
         m12 = values[1]
@@ -193,6 +195,18 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Returns: A six-element array containing the components of the matrix.
     public func toArray() -> [Scalar] {
         return [m11, m12, m21, m22, m31, m32]
+    }
+    
+    /// Calculates the determinant of this matrix.
+    ///
+    /// - Returns: Result of the determinant.
+    public func determinant() -> Scalar {
+        return m11 * m22 - m12 * m21
+    }
+    
+    /// Calculates the inverse of this matrix instance.
+    public func inverted() -> Matrix2 {
+        return Matrix2.invert(self)
     }
     
     /// Determines the sum of two matrices.
@@ -320,17 +334,6 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
-    /// Performs a cubic interpolation between two matrices.
-    ///
-    /// - Parameter start: Start matrix.
-    /// - Parameter end: End matrix.
-    /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
-    public static func smoothStep(start: Matrix2, end: Matrix2, amount: Scalar) -> Matrix2 {
-        let amount = smoothStep(amount)
-        
-        return lerp(start: start, end: end, amount: amount)
-    }
-    
     /// Creates a matrix that scales along the x-axis and y-axis.
     ///
     /// - Parameter scale: Scaling factor for both axes.
@@ -368,13 +371,6 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
                        m31: center.x - x * center.x, m32: center.y - y * center.y)
     }
     
-    /// Calculates the determinant of this matrix.
-    ///
-    /// - Returns: Result of the determinant.
-    public func determinant() -> Scalar {
-        return m11 * m22 - m12 * m21
-    }
-    
     /// Creates a matrix that rotates.
     ///
     /// - Parameter angle: Angle of rotation in radians. Angles are measured
@@ -399,25 +395,6 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         return translation(-center) * rotation(angle: angle) * translation(center)
     }
     
-    /// Creates a transformation matrix.
-    ///
-    /// - Parameter xScale: Scaling factor that is applied along the x-axis.
-    /// - Parameter yScale: Scaling factor that is applied along the y-axis.
-    /// - Parameter angle: Angle of rotation in radians. Angles are measured
-    /// clockwise when looking along the rotation axis.
-    /// - Parameter xOffset: X-coordinate offset.
-    /// - Parameter yOffset: Y-coordinate offset.
-    public static func transformation(xScale: Scalar,
-                                      yScale: Scalar,
-                                      angle: Scalar,
-                                      xOffset: Scalar,
-                                      yOffset: Scalar) -> Matrix2 {
-        
-        return scaling(x: xScale, y: yScale)
-        * rotation(angle: angle)
-        * translation(x: xOffset, y: yOffset)
-    }
-    
     /// Creates a translation matrix using the specified offsets.
     ///
     /// - Parameter value: The offset for both coordinate planes.
@@ -435,6 +412,25 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         return Matrix2(m11: 1, m12: 0,
                        m21: 0, m22: 1,
                        m31: x, m32: y)
+    }
+    
+    /// Creates a transformation matrix.
+    ///
+    /// - Parameter xScale: Scaling factor that is applied along the x-axis.
+    /// - Parameter yScale: Scaling factor that is applied along the y-axis.
+    /// - Parameter angle: Angle of rotation in radians. Angles are measured
+    /// clockwise when looking along the rotation axis.
+    /// - Parameter xOffset: X-coordinate offset.
+    /// - Parameter yOffset: Y-coordinate offset.
+    public static func transformation(xScale: Scalar,
+                                      yScale: Scalar,
+                                      angle: Scalar,
+                                      xOffset: Scalar,
+                                      yOffset: Scalar) -> Matrix2 {
+        
+        return scaling(x: xScale, y: yScale)
+        * rotation(angle: angle)
+        * translation(x: xOffset, y: yOffset)
     }
     
     /// Transforms a vector by this matrix.
@@ -461,11 +457,6 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let y = point.x * matrix.m12 + point.y * matrix.m22 + matrix.m32
         
         return V(x: x, y: y)
-    }
-    
-    /// Calculates the inverse of this matrix instance.
-    public func inverted() -> Matrix2 {
-        return Matrix2.invert(self)
     }
     
     /// Creates a skew matrix.
@@ -592,16 +583,6 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Returns: The result of linear interpolation of values based on the amount.
     private static func lerp(from: Scalar, to: Scalar, amount: Scalar) -> Scalar {
         return (1 - amount) * from + amount * to
-    }
-    
-    /// Performs smooth (cubic Hermite) interpolation between 0 and 1.
-    /// - Remarks:
-    /// See https://en.wikipedia.org/wiki/Smoothstep
-    /// - Parameter amount: Value between 0 and 1 indicating interpolation amount.
-    private static func smoothStep(_ amount: Scalar) -> Scalar {
-        return amount <= 0 ? 0
-        : amount >= 1 ? 1
-        : amount * amount * (3 - 2 * amount)
     }
     
     /// Determines whether the specified value is close to zero (0.0f).
