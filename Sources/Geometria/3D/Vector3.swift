@@ -355,4 +355,16 @@ extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
     public func distance(to vec: Self) -> Scalar {
         return Scalar.sqrt(self.distanceSquared(to: vec))
     }
+    
+    @inlinable
+    public static func pow(_ vec: Self, _ n: Scalar) -> Self {
+        return Self.pow(vec, Self(x: n, y: n, z: n))
+    }
+    
+    @inlinable
+    public static func pow(_ vec: Self, _ n: Self) -> Self {
+        return Self(x: Scalar.pow(vec.x, n.x),
+                    y: Scalar.pow(vec.y, n.y),
+                    z: Scalar.pow(vec.z, n.z))
+    }
 }

@@ -8,4 +8,12 @@ public protocol VectorReal: VectorFloatingPoint where Scalar: Real {
     
     /// Returns the distance between this `VectorReal` and another `VectorReal`
     func distance(to vec: Self) -> Scalar
+    
+    /// Returns the result of powering each component of this vector by the `n`th
+    /// power.
+    static func pow(_ vec: Self, _ n: Scalar) -> Self
+    
+    /// Returns the result of powering each component of this vector by the `n`th
+    /// power represented by each corresponding component of the `n` vector.
+    static func pow(_ vec: Self, _ n: Self) -> Self
 }

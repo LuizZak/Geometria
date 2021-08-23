@@ -461,6 +461,25 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec.distance(to: vec), 0.0)
     }
     
+    func testPowFactor() {
+        let vec = Vector2D(x: 2, y: 3)
+        
+        let result = Vector2D.pow(vec, 5)
+        
+        XCTAssertEqual(result.x, 32)
+        XCTAssertEqual(result.y, 243)
+    }
+    
+    func testPowVector() {
+        let vec = Vector2D(x: 2, y: 3)
+        let power = Vector2D(x: 5, y: 6)
+        
+        let result = Vector2D.pow(vec, power)
+        
+        XCTAssertEqual(result.x, 32)
+        XCTAssertEqual(result.y, 729)
+    }
+    
     func testAngle() {
         let vec = Vector2D(x: -10, y: 10)
         

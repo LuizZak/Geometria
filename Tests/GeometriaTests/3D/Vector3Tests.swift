@@ -415,6 +415,27 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(Vector3(x: 3, y: 2, z: 1).length, 3.7416573867739413, accuracy: accuracy)
     }
     
+    func testPowFactor() {
+        let vec = Vector3D(x: 2, y: 3, z: 5)
+        
+        let result = Vector3D.pow(vec, 6)
+        
+        XCTAssertEqual(result.x, 64)
+        XCTAssertEqual(result.y, 729)
+        XCTAssertEqual(result.z, 15625)
+    }
+    
+    func testPowVector() {
+        let vec = Vector3D(x: 2, y: 3, z: 5)
+        let power = Vector3D(x: 6, y: 7, z: 8)
+        
+        let result = Vector3D.pow(vec, power)
+        
+        XCTAssertEqual(result.x, 64)
+        XCTAssertEqual(result.y, 2187)
+        XCTAssertEqual(result.z, 390625)
+    }
+    
     func testDistanceTo() {
         let v1 = Vector3D(x: 10, y: 20, z: 30)
         let v2 = Vector3D(x: 40, y: 50, z: 60)

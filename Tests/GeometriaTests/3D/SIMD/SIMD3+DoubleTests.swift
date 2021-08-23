@@ -220,6 +220,27 @@ class SIMD3Tests: XCTestCase {
         XCTAssertEqual(Vector(x: 3, y: 2, z: 1).length, 3.7416573867739413, accuracy: accuracy)
     }
     
+    func testPowFactor() {
+        let vec = Vector(x: 2, y: 3, z: 5)
+        
+        let result = Vector.pow(vec, 6)
+        
+        XCTAssertEqual(result.x, 64)
+        XCTAssertEqual(result.y, 729)
+        XCTAssertEqual(result.z, 15625)
+    }
+    
+    func testPowVector() {
+        let vec = Vector(x: 2, y: 3, z: 5)
+        let power = Vector(x: 6, y: 7, z: 8)
+        
+        let result = Vector.pow(vec, power)
+        
+        XCTAssertEqual(result.x, 64)
+        XCTAssertEqual(result.y, 2187)
+        XCTAssertEqual(result.z, 390625)
+    }
+    
     func testDistanceTo() {
         let v1 = Vector(x: 10, y: 20, z: 30)
         let v2 = Vector(x: 40, y: 50, z: 60)

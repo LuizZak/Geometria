@@ -216,6 +216,17 @@ extension SIMD2: VectorReal where Scalar == Double {
     public func distance(to vec: Self) -> Scalar {
         return Scalar.sqrt(self.distanceSquared(to: vec))
     }
+    
+    @inlinable
+    public static func pow(_ vec: Self, _ n: Scalar) -> Self {
+        return Self.pow(vec, Self(x: n, y: n))
+    }
+    
+    @inlinable
+    public static func pow(_ vec: Self, _ n: Self) -> Self {
+        return Self(x: Scalar.pow(vec.x, n.x),
+                    y: Scalar.pow(vec.y, n.y))
+    }
 }
 
 extension SIMD2: Vector2Real where Scalar == Double {
