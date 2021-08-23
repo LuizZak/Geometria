@@ -1,16 +1,15 @@
 import RealModule
-import simd
 
-/// Represents a 2D point with two double-precision floating-point components
+/// Represents a 3D point with three double-precision floating-point components
 public typealias Vector3D = Vector3<Double>
 
-/// Represents a 2D point with two single-precision floating-point components
+/// Represents a 3D point with three single-precision floating-point components
 public typealias Vector3F = Vector3<Float>
 
-/// Represents a 2D point with two `Int` components
+/// Represents a 3D point with three `Int` components
 public typealias Vector3i = Vector3<Int>
 
-/// A two-component vector type
+/// A three-component vector type
 public struct Vector3<Scalar>: Vector3Type {
     /// X coordinate of this vector
     public var x: Scalar

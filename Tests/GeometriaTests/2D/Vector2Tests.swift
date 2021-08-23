@@ -22,7 +22,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(Vector.zero.y, 0)
     }
     
-    func testUnit() {
+    func testOne() {
         XCTAssertEqual(Vector.one.x, 1)
         XCTAssertEqual(Vector.one.y, 1)
     }

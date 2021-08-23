@@ -22,7 +22,7 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(Vector.zero.y, 0)
     }
     
-    func testUnit() {
+    func testOne() {
         XCTAssertEqual(Vector.one.x, 1)
         XCTAssertEqual(Vector.one.y, 1)
     }
@@ -412,7 +412,7 @@ class Vector3Tests: XCTestCase {
     }
     
     func testLength() {
-        XCTAssertEqual(Vector2(x: 3, y: 2).length, 3.605551275463989)
+        XCTAssertEqual(Vector3(x: 3, y: 2, z: 1).length, 3.7416573867739413, accuracy: accuracy)
     }
     
     func testDistanceTo() {
@@ -460,21 +460,5 @@ class Vector3Tests: XCTestCase {
         let vec = Vector3D(x: 0, y: 0, z: 0)
         
         XCTAssertEqual(vec.normalized(), .zero)
-    }
-    
-    func testAverageVector() {
-        let list = [
-            Vector3D(x: -1, y: -1, z: -2),
-            Vector3D(x: 0, y: 0, z: 0),
-            Vector3D(x: 10, y: 7, z: -4)
-        ]
-        
-        XCTAssertEqual(list.averageVector(), Vector3D(x: 3, y: 2, z: -2))
-    }
-    
-    func testAverageVector_emptyCollection() {
-        let list: [Vector3D] = []
-        
-        XCTAssertEqual(list.averageVector(), Vector3D.zero)
     }
 }

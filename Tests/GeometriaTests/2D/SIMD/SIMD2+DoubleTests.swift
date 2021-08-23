@@ -7,23 +7,6 @@ class SIMD2_DoubleTests: XCTestCase {
     
     typealias Vector = SIMD2<Double>
     
-    func testZero() {
-        XCTAssertEqual(Vector.zero.x, 0)
-        XCTAssertEqual(Vector.zero.y, 0)
-    }
-    
-    func testUnit() {
-        XCTAssertEqual(Vector.one.x, 1)
-        XCTAssertEqual(Vector.one.y, 1)
-    }
-    
-    func testInit() {
-        let sut = Vector(x: 0, y: 1)
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 1)
-    }
-    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
         XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))
@@ -36,20 +19,6 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertNotEqual(Vector(x: 1, y: 1).hashValue, Vector(x: 0, y: 1).hashValue)
         XCTAssertNotEqual(Vector(x: 1, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
         XCTAssertNotEqual(Vector(x: 0, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
-    }
-    
-    func testInitZero() {
-        let sut = Vector()
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 0)
-    }
-    
-    func testInitXy() {
-        let sut = Vector(repeating: 1)
-        
-        XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 1)
     }
     
     func testPointwiseMin() {
@@ -104,113 +73,6 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertTrue(Vector(x: -1, y: 0) <= Vector(x: 0, y: 0))
         XCTAssertTrue(Vector(x: 0, y: -1) <= Vector(x: 0, y: 0))
         XCTAssertTrue(Vector(x: -1, y: -1) <= Vector(x: 0, y: 0))
-    }
-    
-    func testAddition() {
-        XCTAssertEqual(Vector(x: 1, y: 2) + Vector(x: 3, y: 4),
-                       Vector(x: 4, y: 6))
-    }
-    
-    func testAddition_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2) + 3,
-                       Vector(x: 4, y: 5))
-    }
-    
-    func testSubtraction() {
-        XCTAssertEqual(Vector(x: 1, y: 2) - Vector(x: 3, y: 5),
-                       Vector(x: -2, y: -3))
-    }
-    
-    func testSubtraction_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2) - 3,
-                       Vector(x: -2, y: -1))
-    }
-    
-    func testMultiplication() {
-        XCTAssertEqual(Vector(x: 1, y: 2) * Vector(x: 3, y: 4),
-                       Vector(x: 3, y: 8))
-    }
-    
-    func testMultiplication_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2) * 3,
-                       Vector(x: 3, y: 6))
-    }
-    
-    func testDivision() {
-        XCTAssertEqual(Vector(x: 3, y: 5) / Vector(x: 2, y: 3),
-                       Vector(x: 1.5, y: 1.6666666666666667))
-    }
-    
-    func testDivision_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2) / 3,
-                       Vector(x: 0.3333333333333333, y: 0.6666666666666666))
-    }
-    
-    func testAddition_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        let vec2 = Vector(x: 3, y: 4)
-        
-        vec1 += vec2
-        
-        XCTAssertEqual(vec1, Vector(x: 4, y: 6))
-    }
-    
-    func testAddition_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        
-        vec1 += 1
-        
-        XCTAssertEqual(vec1, Vector(x: 2, y: 3))
-    }
-    
-    func testSubtraction_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        let vec2 = Vector(x: 3, y: 5)
-        
-        vec1 -= vec2
-        
-        XCTAssertEqual(vec1, Vector(x: -2, y: -3))
-    }
-    
-    func testSubtraction_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        
-        vec1 -= 1
-        
-        XCTAssertEqual(vec1, Vector(x: 0, y: 1))
-    }
-    
-    func testMultiplication_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        let vec2 = Vector(x: 3, y: 4)
-        
-        vec1 *= vec2
-        
-        XCTAssertEqual(vec1, Vector(x: 3, y: 8))
-    }
-    
-    func testMultiplication_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        
-        vec1 *= 2
-        
-        XCTAssertEqual(vec1, Vector(x: 2, y: 4))
-    }
-    
-    func testDivision_inPlace() {
-        var vec1 = Vector(x: 3, y: 5)
-        
-        vec1 /= Vector(x: 2, y: 3)
-        
-        assertEqual(vec1, Vector(x: 1.5, y: 1.6666666666666667), accuracy: accuracy)
-    }
-    
-    func testDivision_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 4)
-        
-        vec1 /= 3
-        
-        assertEqual(vec1, Vector(x: 0.3333333333333333, y: 1.3333333333333333), accuracy: accuracy)
     }
     
     func testLengthSquared() {
@@ -323,6 +185,17 @@ class SIMD2_DoubleTests: XCTestCase {
         let vecInt = Vector2<Int>(x: 1, y: 2)
         
         let vec = Vector(vecInt)
+        
+        XCTAssertEqual(vec.x, 1)
+        XCTAssertEqual(vec.y, 2)
+    }
+    
+    // Ensure the original overloaded init from simd module still works without
+    // ambiguities
+    func testFloatingPointInitWithBinaryInteger_simd() {
+        let vecInt = SIMD2<Int>(x: 1, y: 2)
+        
+        let vec = SIMD2<Double>(vecInt)
         
         XCTAssertEqual(vec.x, 1)
         XCTAssertEqual(vec.y, 2)
