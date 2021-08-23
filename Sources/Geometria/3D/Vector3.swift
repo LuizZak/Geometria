@@ -61,37 +61,37 @@ extension Vector3: VectorComparable where Scalar: Comparable {
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than `rhs`.
     ///
-    /// Performs `lhs.x > rhs.x && lhs.y > rhs.y`
+    /// Performs `lhs.x > rhs.x && lhs.y > rhs.y && lhs.z > rhs.z`
     @inlinable
     public static func > (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x > rhs.x && lhs.y > rhs.y
+        return lhs.x > rhs.x && lhs.y > rhs.y && lhs.z > rhs.z
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than or equal to `rhs`.
     ///
-    /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y`
+    /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y && lhs.z >= rhs.z`
     @inlinable
     public static func >= (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x >= rhs.x && lhs.y >= rhs.y
+        return lhs.x >= rhs.x && lhs.y >= rhs.y && lhs.z >= rhs.z
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than `rhs`.
     ///
-    /// Performs `lhs.x < rhs.x && lhs.y < rhs.y`
+    /// Performs `lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z`
     @inlinable
     public static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x < rhs.x && lhs.y < rhs.y
+        return lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than or equal to `rhs`.
     ///
-    /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y`
+    /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y && lhs.z <= rhs.z`
     @inlinable
     public static func <= (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x <= rhs.x && lhs.y <= rhs.y
+        return lhs.x <= rhs.x && lhs.y <= rhs.y && lhs.z <= rhs.z
     }
 }
 

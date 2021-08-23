@@ -72,10 +72,12 @@ extension LineTests {
     }
     
     func testProject2D() {
-        let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
+        let sut = Line(x1: 2, y1: 1, x2: 3, y2: 2)
         let point = Vector2D(x: 2, y: 2)
         
-        XCTAssertEqual(sut.project(point), Vector2D(x: 2, y: 0))
+        assertEqual(sut.project(point),
+                    Vector2D(x: 2.7071067811865475, y: 1.7071067811865475),
+                    accuracy: 1e-12)
     }
     
     func testProject2D_offBounds() {
@@ -96,7 +98,7 @@ extension LineTests {
     
     func testProject3D() {
         let sut = Line3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
-        let point = Vector3D(x: 3, y: 0, z: 0)
+        let point = Vector3D(x: 3, y: 1, z: 0)
         
         assertEqual(sut.project(point),
                     Vector3D(x: 3, y: 0, z: 0),
@@ -105,9 +107,9 @@ extension LineTests {
     
     func testProject3D_offBounds() {
         let sut = Line3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
-        let point = Vector3D(x: -3, y: 0, z: 0)
+        let point = Vector3D(x: -3, y: 1, z: 0)
         
-        XCTAssertEqual(sut.project(point), Vector3D(x: -2, y: 0, z: 0))
+        XCTAssertEqual(sut.project(point), Vector3D(x: -3, y: 0, z: 0))
     }
     
     func testProject3D_skewed() {

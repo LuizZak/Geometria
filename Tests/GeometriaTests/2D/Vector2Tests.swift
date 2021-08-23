@@ -62,7 +62,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(sut.y, 0)
     }
     
-    func testInitXy() {
+    func testInitRepeating() {
         let sut = Vector(repeating: 1)
         
         XCTAssertEqual(sut.x, 1)
@@ -591,21 +591,5 @@ class Vector2Tests: XCTestCase {
         vec *= matrix
         
         XCTAssertEqual(vec, Vector2D(x: 11.0, y: 22.0))
-    }
-    
-    func testAverageVector() {
-        let list = [
-            Vector2D(x: -1, y: -1),
-            Vector2D(x: 0, y: 0),
-            Vector2D(x: 10, y: 7)
-        ]
-        
-        XCTAssertEqual(list.averageVector(), Vector2D(x: 3, y: 2))
-    }
-    
-    func testAverageVector_emptyCollection() {
-        let list: [Vector2D] = []
-        
-        XCTAssertEqual(list.averageVector(), Vector2D.zero)
     }
 }
