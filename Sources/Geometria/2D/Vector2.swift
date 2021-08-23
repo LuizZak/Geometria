@@ -152,9 +152,7 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     public static var one: Self {
         return Self(x: 1, y: 1)
     }
-}
-
-extension Vector2: Vector2Multiplicative where Scalar: Numeric {
+    
     /// Returns the length squared of this `Vector2Type`
     @inlinable
     public var lengthSquared: Scalar {
@@ -173,15 +171,6 @@ extension Vector2: Vector2Multiplicative where Scalar: Numeric {
     @inlinable
     public func dot(_ other: Self) -> Scalar {
         return x * other.x + y * other.y
-    }
-    
-    /// Calculates the cross product between this and another provided Vector.
-    /// The resulting scalar would match the 'z' axis of the cross product
-    /// between 3d vectors matching the x and y coordinates of the operands, with
-    /// the 'z' coordinate being 0.
-    @inlinable
-    public func cross(_ other: Self) -> Scalar {
-        return (x * other.y) - (y * other.x)
     }
     
     /// Returns the vector that lies within this and another vector's ratio line
@@ -232,6 +221,17 @@ extension Vector2: Vector2Multiplicative where Scalar: Numeric {
     @inlinable
     public static func *= (lhs: inout Self, rhs: Scalar) {
         lhs = lhs * rhs
+    }
+}
+
+extension Vector2: Vector2Multiplicative where Scalar: Numeric {
+    /// Calculates the cross product between this and another provided Vector.
+    /// The resulting scalar would match the 'z' axis of the cross product
+    /// between 3d vectors matching the x and y coordinates of the operands, with
+    /// the 'z' coordinate being 0.
+    @inlinable
+    public func cross(_ other: Self) -> Scalar {
+        return (x * other.y) - (y * other.x)
     }
 }
 

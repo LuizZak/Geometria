@@ -1,16 +1,5 @@
 import RealModule
 
-/// Represents a 2D line as a pair of double-precision floating-point start and
-/// end vectors.
-public typealias Line2D = Line<Vector2D>
-
-/// Represents a 2D line as a pair of single-precision floating-point start and
-/// end vectors.
-public typealias Line2F = Line<Vector2F>
-
-/// Represents a 2D line as a pair of integer start and end vectors.
-public typealias Line2i = Line<Vector2i>
-
 /// Represents a line as a pair of start and end N-dimensional vectors.
 public struct Line<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
@@ -30,18 +19,30 @@ extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-extension Line where Vector: VectorMultiplicative {
+public extension Line where Vector: VectorMultiplicative {
     /// Returns the squared length of this line
     @inlinable
-    public var lengthSquared: Scalar {
+    var lengthSquared: Scalar {
         return (end - start).lengthSquared
     }
 }
 
-extension Line where Vector: VectorReal {
+public extension Line where Vector: VectorReal {
     /// Returns the length of this line
     @inlinable
-    public var length: Scalar {
+    var length: Scalar {
         return (end - start).length
+    }
+    
+    /// Performs a vector projection of a given vector with respect to this line.
+    /// The resulting vector lies within the infinite line formed by
+    /// `start <-> end`, extending past both ends.
+    func project(_ vector: Vector) -> Vector {
+        let relEnd = end - start
+        let relVec = vector - start
+        
+        let proj = relVec.dot(relEnd) / length
+        
+        return start + (end - start) * proj
     }
 }

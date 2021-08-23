@@ -1,5 +1,3 @@
-import RealModule
-
 /// Protocol for types that can represent 2D vectors.
 public protocol Vector2Type: VectorType {
     /// The X coordinate of this 2D vector.

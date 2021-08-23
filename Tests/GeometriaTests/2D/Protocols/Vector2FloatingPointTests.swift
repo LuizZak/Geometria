@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class VectorFloatingPointTests: XCTestCase {
+class Vector2FloatingPointTests: XCTestCase {
     typealias Vector = Vector2D
     
     func testAddition_floatingPoint_binaryNumber() {
