@@ -26,17 +26,6 @@ func assertEqual<V: Vector3Type>(_ vec1: V,
     XCTAssertEqual(vec1.z, vec2.z, accuracy: accuracy, "\(messagePrefix())z", file: file, line: line)
 }
 
-func assertNotEqual<V: Vector2Type>(_ vec1: V,
-                                    _ vec2: V,
-                                    accuracy: V.Scalar,
-                                    messagePrefix: @escaping @autoclosure () -> String = "",
-                                    file: StaticString = #file,
-                                    line: UInt = #line) where V.Scalar: FloatingPoint {
-    
-    XCTAssertNotEqual(vec1.x, vec2.x, accuracy: accuracy, "\(messagePrefix())x", file: file, line: line)
-    XCTAssertNotEqual(vec1.y, vec2.y, accuracy: accuracy, "\(messagePrefix())y", file: file, line: line)
-}
-
 // MARK: Double array equality
 
 func assertEqual<T>(_ values1: [T],
@@ -64,15 +53,4 @@ func assertEqual<T>(_ simd1: SIMD3<T>,
     XCTAssertEqual(simd1.x, simd2.x, accuracy: accuracy, "x", file: file, line: line)
     XCTAssertEqual(simd1.y, simd2.y, accuracy: accuracy, "y", file: file, line: line)
     XCTAssertEqual(simd1.z, simd2.z, accuracy: accuracy, "z", file: file, line: line)
-}
-
-func assertNotEqual<T>(_ simd1: SIMD3<T>,
-                       _ simd2: SIMD3<T>,
-                       accuracy: T,
-                       file: StaticString = #file,
-                       line: UInt = #line) where T: FloatingPoint {
-    
-    XCTAssertNotEqual(simd1.x, simd2.x, accuracy: accuracy, "x", file: file, line: line)
-    XCTAssertNotEqual(simd1.y, simd2.y, accuracy: accuracy, "y", file: file, line: line)
-    XCTAssertNotEqual(simd1.z, simd2.z, accuracy: accuracy, "z", file: file, line: line)
 }
