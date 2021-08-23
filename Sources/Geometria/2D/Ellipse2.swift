@@ -14,10 +14,10 @@ public typealias Ellipse2i = Ellipsoid<Vector2i>
 public extension Ellipsoid where Vector: Vector2Type {
     var radiusX: Scalar {
         get {
-            return radius.y
+            return radius.x
         }
         set {
-            radius.y = newValue
+            radius.x = newValue
         }
     }
     var radiusY: Scalar {

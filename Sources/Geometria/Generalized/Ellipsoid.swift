@@ -2,7 +2,7 @@ import RealModule
 
 /// Represents an N-dimensional ellipsoid as a center with an N-dimensional
 /// radii vector which describes the axis of the ellipsoid.
-public struct Ellipsoid<Vector: Vector2Type> {
+public struct Ellipsoid<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
     public var center: Vector
