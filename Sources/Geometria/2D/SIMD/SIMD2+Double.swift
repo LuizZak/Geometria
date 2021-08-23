@@ -223,6 +223,12 @@ extension SIMD2: VectorReal where Scalar == Double {
     }
     
     @inlinable
+    public static func pow(_ vec: Self, _ n: Int) -> Self {
+        return Self(x: Scalar.pow(vec.x, n),
+                    y: Scalar.pow(vec.y, n))
+    }
+    
+    @inlinable
     public static func pow(_ vec: Self, _ n: Self) -> Self {
         return Self(x: Scalar.pow(vec.x, n.x),
                     y: Scalar.pow(vec.y, n.y))

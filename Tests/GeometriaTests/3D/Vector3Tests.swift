@@ -415,8 +415,38 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(Vector3(x: 3, y: 2, z: 1).length, 3.7416573867739413, accuracy: accuracy)
     }
     
-    func testPowFactor() {
+    func testPowFactor_double() {
         let vec = Vector3D(x: 2, y: 3, z: 5)
+        
+        let result = Vector3D.pow(vec, 6.0)
+        
+        XCTAssertEqual(result.x, 64)
+        XCTAssertEqual(result.y, 729)
+        XCTAssertEqual(result.z, 15625)
+    }
+    
+    func testPowFactor_double_negativeBase() {
+        let vec = Vector3D(x: -2, y: -3, z: -5)
+        
+        let result = Vector3D.pow(vec, 6.0)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
+        XCTAssertTrue(result.z.isNaN)
+    }
+    
+    func testPowFactor_integer() {
+        let vec = Vector3D(x: 2, y: 3, z: 5)
+        
+        let result = Vector3D.pow(vec, 6)
+        
+        XCTAssertEqual(result.x, 64)
+        XCTAssertEqual(result.y, 729)
+        XCTAssertEqual(result.z, 15625)
+    }
+    
+    func testPowFactor_integer_negativeBase() {
+        let vec = Vector3D(x: -2, y: -3, z: -5)
         
         let result = Vector3D.pow(vec, 6)
         
@@ -434,6 +464,17 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(result.x, 64)
         XCTAssertEqual(result.y, 2187)
         XCTAssertEqual(result.z, 390625)
+    }
+    
+    func testPowVector_negativeBase() {
+        let vec = Vector3D(x: -2, y: -3, z: -5)
+        let power = Vector3D(x: 6, y: 7, z: 8)
+        
+        let result = Vector3D.pow(vec, power)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
+        XCTAssertTrue(result.z.isNaN)
     }
     
     func testDistanceTo() {

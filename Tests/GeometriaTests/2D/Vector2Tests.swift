@@ -461,13 +461,40 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec.distance(to: vec), 0.0)
     }
     
-    func testPowFactor() {
+    func testPowFactor_double() {
+        let vec = Vector2D(x: 2, y: 3)
+        
+        let result = Vector2D.pow(vec, 5.0)
+        
+        XCTAssertEqual(result.x, 32)
+        XCTAssertEqual(result.y, 243)
+    }
+    
+    func testPowFactor_double_negativeBase() {
+        let vec = Vector2D(x: -1, y: -2)
+        
+        let result = Vector2D.pow(vec, 3.0)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
+    }
+    
+    func testPowFactor_integer() {
         let vec = Vector2D(x: 2, y: 3)
         
         let result = Vector2D.pow(vec, 5)
         
         XCTAssertEqual(result.x, 32)
         XCTAssertEqual(result.y, 243)
+    }
+    
+    func testPowFactor_integer_negativeBase() {
+        let vec = Vector2D(x: -1, y: -2)
+        
+        let result = Vector2D.pow(vec, 3)
+        
+        XCTAssertEqual(result.x, -1)
+        XCTAssertEqual(result.y, -8)
     }
     
     func testPowVector() {
@@ -478,6 +505,16 @@ class Vector2Tests: XCTestCase {
         
         XCTAssertEqual(result.x, 32)
         XCTAssertEqual(result.y, 729)
+    }
+    
+    func testPowVector_negativeBase() {
+        let vec = Vector2D(x: -2, y: -3)
+        let power = Vector2D(x: 5, y: 6)
+        
+        let result = Vector2D.pow(vec, power)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
     }
     
     func testAngle() {

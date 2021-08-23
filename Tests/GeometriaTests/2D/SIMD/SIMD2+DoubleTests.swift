@@ -248,23 +248,60 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(Vector(x: 3, y: 2).length, 3.605551275463989)
     }
     
-    func testPowFactor() {
-        let vec = Vector2D(x: 2, y: 3)
+    func testPowFactor_double() {
+        let vec = Vector(x: 2, y: 3)
         
-        let result = Vector2D.pow(vec, 5)
+        let result = Vector.pow(vec, 5.0)
         
         XCTAssertEqual(result.x, 32)
         XCTAssertEqual(result.y, 243)
     }
     
-    func testPowVector() {
-        let vec = Vector2D(x: 2, y: 3)
-        let power = Vector2D(x: 5, y: 6)
+    func testPowFactor_double_negativeBase() {
+        let vec = Vector(x: -1, y: -2)
         
-        let result = Vector2D.pow(vec, power)
+        let result = Vector.pow(vec, 3.0)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
+    }
+    
+    func testPowFactor_integer() {
+        let vec = Vector(x: 2, y: 3)
+        
+        let result = Vector.pow(vec, 5)
+        
+        XCTAssertEqual(result.x, 32)
+        XCTAssertEqual(result.y, 243)
+    }
+    
+    func testPowFactor_integer_negativeBase() {
+        let vec = Vector(x: -1, y: -2)
+        
+        let result = Vector.pow(vec, 3)
+        
+        XCTAssertEqual(result.x, -1)
+        XCTAssertEqual(result.y, -8)
+    }
+    
+    func testPowVector() {
+        let vec = Vector(x: 2, y: 3)
+        let power = Vector(x: 5, y: 6)
+        
+        let result = Vector.pow(vec, power)
         
         XCTAssertEqual(result.x, 32)
         XCTAssertEqual(result.y, 729)
+    }
+    
+    func testPowVector_negativeBase() {
+        let vec = Vector(x: -2, y: -3)
+        let power = Vector(x: 5, y: 6)
+        
+        let result = Vector.pow(vec, power)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
     }
     
     func testRotatedBy() {

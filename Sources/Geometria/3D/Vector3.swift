@@ -362,6 +362,13 @@ extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
     }
     
     @inlinable
+    public static func pow(_ vec: Self, _ n: Int) -> Self {
+        return Self(x: Scalar.pow(vec.x, n),
+                    y: Scalar.pow(vec.y, n),
+                    z: Scalar.pow(vec.z, n))
+    }
+    
+    @inlinable
     public static func pow(_ vec: Self, _ n: Self) -> Self {
         return Self(x: Scalar.pow(vec.x, n.x),
                     y: Scalar.pow(vec.y, n.y),
