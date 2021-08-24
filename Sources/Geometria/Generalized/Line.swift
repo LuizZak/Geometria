@@ -27,7 +27,7 @@ public extension Line where Vector: VectorMultiplicative {
     }
 }
 
-public extension Line where Vector: VectorDivisible {
+public extension Line where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this line,
     /// returning a scalar value representing the normalized magnitude of the
     /// projected point between `start <-> end`.
@@ -46,20 +46,12 @@ public extension Line where Vector: VectorDivisible {
     
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by
-    /// `start <-> end`, extending past both ends.
+    /// `start <-> end`, potentialy extending past either end.
     @inlinable
     func project(_ vector: Vector) -> Vector {
         let proj = projectScalar(vector)
         
         return start + (end - start) * proj
-    }
-}
-
-public extension Line where Vector: VectorReal {
-    /// Returns the length of this line
-    @inlinable
-    var length: Scalar {
-        return (end - start).length
     }
     
     /// Returns the distance squared between this line and a given vector.
@@ -70,6 +62,14 @@ public extension Line where Vector: VectorReal {
         let point = start + (end - start) * proj
         
         return vector.distanceSquared(to: point)
+    }
+}
+
+public extension Line where Vector: VectorReal {
+    /// Returns the length of this line
+    @inlinable
+    var length: Scalar {
+        return (end - start).length
     }
     
     /// Returns the distance between this line and a given vector.
