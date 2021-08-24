@@ -75,6 +75,10 @@ extension SIMD2: VectorComparable where Scalar == Double {
     }
 }
 
+extension SIMD2: AdditiveArithmetic where Scalar: FloatingPoint {
+    
+}
+
 extension SIMD2: VectorAdditive where Scalar: FloatingPoint {
     
 }

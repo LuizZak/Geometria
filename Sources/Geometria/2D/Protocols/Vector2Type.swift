@@ -8,10 +8,6 @@ public protocol Vector2Type: VectorType {
     
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar)
-    
-    /// Creates a new `Vector2Type` with the given scalar on all coordinates
-    @inlinable
-    init(repeating scalar: Scalar)
 }
 
 /// Returns the pointwise minimal Vector where each component is the minimal

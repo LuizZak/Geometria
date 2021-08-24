@@ -11,8 +11,4 @@ public protocol Vector3Type: VectorType {
     
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar, z: Scalar)
-    
-    /// Creates a new `Vector3Type` with the given scalar on all coordinates
-    @inlinable
-    init(repeating scalar: Scalar)
 }

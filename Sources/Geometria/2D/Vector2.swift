@@ -90,6 +90,10 @@ extension Vector2: VectorComparable where Scalar: Comparable {
     }
 }
 
+extension Vector2: AdditiveArithmetic where Scalar: AdditiveArithmetic {
+    
+}
+
 extension Vector2: VectorAdditive where Scalar: AdditiveArithmetic {
     /// A zero-value `Vector2` value where each component corresponds to its
     /// representation of `0`.
