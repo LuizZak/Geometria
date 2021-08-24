@@ -6,22 +6,22 @@ public struct NSquare<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
     /// The origin of this box, corresponding to the minimal coordinate of the
-    /// box's bounds
+    /// box's bounds.
     public var origin: Vector
     
-    /// The length of the edge of this square
-    public var length: Scalar
+    /// The length of the side edges of this square.
+    public var sideLength: Scalar
     
     /// Returns a rectangle with the same boundaries as this square.
     @inlinable
     public var asRectangle: NRectangle<Vector> {
-        return NRectangle(location: origin, size: Vector(repeating: length))
+        return NRectangle(location: origin, size: Vector(repeating: sideLength))
     }
     
     @inlinable
-    public init(origin: Vector, length: Scalar) {
+    public init(origin: Vector, sideLength: Scalar) {
         self.origin = origin
-        self.length = length
+        self.sideLength = sideLength
     }
 }
 
@@ -29,7 +29,7 @@ public extension NSquare where Vector: VectorAdditive {
     /// Returns a box with the same boundaries as this square.
     @inlinable
     var asBox: NBox<Vector> {
-        return NBox(minimum: origin, maximum: origin + Vector(repeating: length))
+        return NBox(minimum: origin, maximum: origin + Vector(repeating: sideLength))
     }
 }
 
@@ -38,7 +38,7 @@ public extension NSquare where Vector: VectorAdditive & VectorComparable {
     /// square.
     @inlinable
     func contains(_ vector: Vector) -> Bool {
-        let max = origin + Vector(repeating: length)
+        let max = origin + Vector(repeating: sideLength)
         
         return vector >= origin && vector <= max
     }

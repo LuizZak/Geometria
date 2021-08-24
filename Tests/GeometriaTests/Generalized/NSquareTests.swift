@@ -5,7 +5,7 @@ class NSquareTests: XCTestCase {
     typealias Square = NSquare<Vector2D>
     
     func testAsRectangle() {
-        let sut = Square(origin: .init(x: 2, y: 3), length: 4)
+        let sut = Square(origin: .init(x: 2, y: 3), sideLength: 4)
         
         let result = sut.asRectangle
         
@@ -18,7 +18,7 @@ class NSquareTests: XCTestCase {
 
 extension NSquareTests {
     func testAsBox() {
-        let sut = Square(origin: .init(x: 2, y: 3), length: 4)
+        let sut = Square(origin: .init(x: 2, y: 3), sideLength: 4)
         
         let result = sut.asBox
         
@@ -31,13 +31,13 @@ extension NSquareTests {
 
 extension NSquareTests {
     func testContainsVector_center() {
-        let sut = Square(origin: .init(x: 3, y: 2), length: 1)
+        let sut = Square(origin: .init(x: 3, y: 2), sideLength: 1)
         
         XCTAssertTrue(sut.contains(.init(x: 3.5, y: 2.5)))
     }
     
     func testContainsVector() {
-        let sut = Square(origin: .init(x: 2.5, y: 4.5), length: 1)
+        let sut = Square(origin: .init(x: 2.5, y: 4.5), sideLength: 1)
         
         XCTAssert(sut.contains(.init(x: 2.5, y: 4.5)))
         XCTAssert(sut.contains(.init(x: 2.5, y: 5.5)))
