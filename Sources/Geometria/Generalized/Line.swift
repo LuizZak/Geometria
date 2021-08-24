@@ -61,4 +61,14 @@ public extension Line where Vector: VectorReal {
     var length: Scalar {
         return (end - start).length
     }
+    
+    /// Returns the distance between this line and a given vector.
+    @inlinable
+    func distance(to vector: Vector) -> Scalar {
+        let proj = min(1, max(0, projectScalar(vector)))
+        
+        let point = start + (end - start) * proj
+        
+        return vector.distance(to: point)
+    }
 }
