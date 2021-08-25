@@ -26,7 +26,7 @@ func assertEqual<V: Vector3Type>(_ vec1: V,
     XCTAssertEqual(vec1.z, vec2.z, accuracy: accuracy, "\(messagePrefix())z", file: file, line: line)
 }
 
-// MARK: Double array equality
+// MARK: FloatingPoint array equality
 
 func assertEqual<T>(_ values1: [T],
                     _ values2: [T],
