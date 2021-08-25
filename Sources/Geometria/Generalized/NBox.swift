@@ -13,13 +13,14 @@ public struct NBox<Vector: VectorType> {
     
     /// The location of this Box corresponding to its minimal vector.
     /// Alias for `minimum`.
+    @_transparent
     public var location: Vector { minimum }
     
     /// Initializes a `NBox` with the given minimum and maximum boundary
     /// vectors.
     ///
     /// - precondition: `minimum <= maximum`
-    @inlinable
+    @_transparent
     public init(minimum: Vector, maximum: Vector) {
         self.minimum = minimum
         self.maximum = maximum
@@ -33,7 +34,7 @@ extension NBox: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension NBox where Vector: Equatable {
     /// Returns `true` if the size of this box is zero.
-    @inlinable
+    @_transparent
     var isSizeZero: Bool {
         minimum == maximum
     }
@@ -41,13 +42,13 @@ public extension NBox where Vector: Equatable {
 
 public extension NBox where Vector: VectorComparable {
     /// Returns `true` if `minimum <= maximum`.
-    @inlinable
+    @_transparent
     var isValid: Bool {
         minimum <= maximum
     }
     
     /// Expands this box to include the given point.
-    @inlinable
+    @_transparent
     mutating func expand(toInclude point: Vector) {
         minimum = Vector.pointwiseMin(minimum, point)
         maximum = Vector.pointwiseMax(maximum, point)
@@ -68,14 +69,14 @@ public extension NBox where Vector: VectorComparable {
     ///
     /// The check is inclusive, so the edges of the box are considered to
     /// contain the point as well.
-    @inlinable
+    @_transparent
     func contains(_ point: Vector) -> Bool {
         return point >= minimum && point <= maximum
     }
     
     /// Returns whether a given box rests completely inside the boundaries of
     /// this box.
-    @inlinable
+    @_transparent
     func contains(box: NBox) -> Bool {
         return box.minimum >= minimum && box.maximum <= maximum
     }
@@ -84,51 +85,52 @@ public extension NBox where Vector: VectorComparable {
     ///
     /// This check is inclusive, so the edges of the box are considered to
     /// intersect the other bounding box's edges as well.
-    @inlinable
+    @_transparent
     func intersects(_ box: NBox) -> Bool {
         return minimum <= box.maximum && maximum >= box.minimum
     }
     
     /// Returns a box which is the minimum area that can fit `self` and the
     /// given box.
-    @inlinable
+    @_transparent
     func union(_ other: NBox) -> NBox {
         return NBox.union(self, other)
     }
     
     /// Returns a box which is the minimum area that can fit the given two
     /// boxes.
-    @inlinable
+    @_transparent
     static func union(_ left: NBox, _ right: NBox) -> NBox {
         return NBox(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                   maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+                    maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 
 public extension NBox where Vector: VectorAdditive {
     /// Returns a box with all coordinates set to zero.
-    @inlinable
+    @_transparent
     static var zero: Self { Self(minimum: .zero, maximum: .zero) }
     
     /// Gets the size of this box.
-    @inlinable
+    @_transparent
     var size: Vector {
         maximum - minimum
     }
     
     /// Returns `true` if this box is a `Box2.zero` instance.
-    @inlinable
+    @_transparent
     var isZero: Bool {
         minimum == .zero && maximum == .zero
     }
     
     /// Returns this `Box` represented as a `Rectangle`
-    @inlinable
+    @_transparent
     var asRectangle: NRectangle<Vector> {
         NRectangle(minimum: minimum, maximum: maximum)
     }
     
     /// Initializes a NBox with zero minimal and maximal vectors.
+    @_transparent
     init() {
         minimum = .zero
         maximum = .zero
@@ -136,6 +138,7 @@ public extension NBox where Vector: VectorAdditive {
     
     /// Initializes this NBox with the equivalent coordinates of a rectangle with
     /// a given location and size.
+    @_transparent
     init(location: Vector, size: Vector) {
         minimum = location
         maximum = location + size
@@ -147,7 +150,7 @@ public extension NBox where Vector: VectorAdditive & VectorComparable {
     /// supplied points.
     ///
     /// If no points are supplied, an empty box is created, instead.
-    @inlinable
+    @_transparent
     init(of points: Vector...) {
         self = NBox(points: points)
     }

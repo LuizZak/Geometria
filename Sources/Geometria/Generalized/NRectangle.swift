@@ -11,20 +11,20 @@ public struct NRectangle<Vector: VectorType> {
     public var size: Vector
     
     /// Initializes a NRectangle with the location + size of a rectangle.
-    @inlinable
+    @_transparent
     public init(location: Vector, size: Vector) {
         self.location = location
         self.size = size
     }
     
     /// Returns a NRectangle that matches this NRectangle's size with a new location.
-    @inlinable
+    @_transparent
     public func withLocation(_ location: Vector) -> NRectangle {
         return NRectangle(location: location, size: size)
     }
     
     /// Returns a NRectangle that matches this NRectangle's size with a new location.
-    @inlinable
+    @_transparent
     public func withSize(_ size: Vector) -> NRectangle {
         return NRectangle(location: location, size: size)
     }
@@ -37,7 +37,7 @@ extension NRectangle: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension NRectangle where Vector: VectorAdditive {
     /// Returns `true` if the size of this rectangle is zero.
-    @inlinable
+    @_transparent
     var isSizeZero: Bool {
         size == .zero
     }
@@ -45,7 +45,7 @@ public extension NRectangle where Vector: VectorAdditive {
     /// Minimum point for this rectangle.
     ///
     /// When set, the maximal point on the opposite corner is kept fixed.
-    @inlinable
+    @_transparent
     var minimum: Vector {
         get { return location }
         set {
@@ -59,7 +59,7 @@ public extension NRectangle where Vector: VectorAdditive {
     /// Maximum point for this rectangle.
     ///
     /// When set, the minimal point on the opposite corner is kept fixed.
-    @inlinable
+    @_transparent
     var maximum: Vector {
         get { return location + size }
         set {
@@ -68,7 +68,7 @@ public extension NRectangle where Vector: VectorAdditive {
     }
     
     /// Returns this `Rectangle` represented as a `Box`
-    @inlinable
+    @_transparent
     var asBox: NBox<Vector> {
         NBox(minimum: minimum, maximum: maximum)
     }
@@ -77,14 +77,14 @@ public extension NRectangle where Vector: VectorAdditive {
     /// coordinates.
     ///
     /// - precondition: `minimum <= maximum`
-    @inlinable
+    @_transparent
     init(minimum: Vector, maximum: Vector) {
         self.init(location: minimum, size: maximum - minimum)
     }
     
     /// Returns a copy of this NRectangle with the minimum and maximum coordinates
     /// offset by a given amount.
-    @inlinable
+    @_transparent
     func offsetBy(_ vector: Vector) -> NRectangle {
         return NRectangle(location: location + vector, size: size)
     }
@@ -92,7 +92,7 @@ public extension NRectangle where Vector: VectorAdditive {
 
 public extension NRectangle where Vector: VectorAdditive & VectorComparable {
     /// Returns `true` if `size >= .zero`.
-    @inlinable
+    @_transparent
     var isValid: Bool {
         size >= .zero
     }
@@ -101,7 +101,7 @@ public extension NRectangle where Vector: VectorAdditive & VectorComparable {
     /// all supplied points.
     ///
     /// If no points are supplied, an empty NRectangle is created instead.
-    @inlinable
+    @_transparent
     init(of points: Vector...) {
         self = NRectangle(points: points)
     }
@@ -123,7 +123,7 @@ public extension NRectangle where Vector: VectorAdditive & VectorComparable {
     }
     
     /// Expands the bounding box of this NRectangle to include the given point.
-    @inlinable
+    @_transparent
     mutating func expand(toInclude point: Vector) {
         minimum = Vector.pointwiseMin(minimum, point)
         maximum = Vector.pointwiseMax(maximum, point)
@@ -144,14 +144,14 @@ public extension NRectangle where Vector: VectorAdditive & VectorComparable {
     /// Returns whether a given point is contained within this bounding box.
     /// The check is inclusive, so the edges of the bounding box are considered
     /// to contain the point as well.
-    @inlinable
+    @_transparent
     func contains(_ point: Vector) -> Bool {
         return point >= minimum && point <= maximum
     }
     
     /// Returns whether a given NRectangle rests completely inside the boundaries
     /// of this NRectangle.
-    @inlinable
+    @_transparent
     func contains(rectangle: NRectangle) -> Bool {
         return rectangle.minimum >= minimum && rectangle.maximum <= maximum
     }
@@ -159,34 +159,34 @@ public extension NRectangle where Vector: VectorAdditive & VectorComparable {
     /// Returns whether this NRectangle intersects the given NRectangle instance.
     /// This check is inclusive, so the edges of the bounding box are considered
     /// to intersect the other bounding box's edges as well.
-    @inlinable
+    @_transparent
     func intersects(_ other: NRectangle) -> Bool {
         return minimum <= other.maximum && maximum >= other.minimum
     }
     
     /// Returns a NRectangle which is the minimum NRectangle that can fit this
     /// NRectangle with another given NRectangle.
-    @inlinable
+    @_transparent
     func union(_ other: NRectangle) -> NRectangle {
         return NRectangle.union(self, other)
     }
     
     /// Returns a NRectangle which is the minimum NRectangle that can fit two
     /// given Rectangles.
-    @inlinable
+    @_transparent
     static func union(_ left: NRectangle, _ right: NRectangle) -> NRectangle {
         return NRectangle(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                         maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+                          maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 
 public extension NRectangle where Vector: VectorMultiplicative {
     /// Returns an empty rectangle
-    @inlinable
+    @_transparent
     static var zero: NRectangle { NRectangle(location: .zero, size: .zero) }
     
     /// Initializes an empty NRectangle instance.
-    @inlinable
+    @_transparent
     init() {
         location = .zero
         size = .zero

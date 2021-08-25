@@ -11,7 +11,7 @@ public extension NSphere where Vector: Vector2Type & VectorMultiplicative, Scala
     ///
     /// Points at the perimeter of the circle (distance to center == radius)
     /// are considered as contained within the circle.
-    @inlinable
+    @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
         return contains(.init(x: x, y: y))
     }

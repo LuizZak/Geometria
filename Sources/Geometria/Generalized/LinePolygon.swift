@@ -15,15 +15,18 @@ public struct LinePolygon<Vector: VectorType> {
     
     public var vertices: [Vector]
     
+    @_transparent
     public init() {
         vertices = []
     }
     
+    @_transparent
     public init(vertices: [Vector]) {
         self.vertices = vertices
     }
     
     /// Adds a new vertex at the end of this polygon's vertices list
+    @_transparent
     public mutating func addVertex(_ v: Vector) {
         vertices.append(v)
     }

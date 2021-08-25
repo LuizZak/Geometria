@@ -12,6 +12,7 @@ public typealias Ellipse2F = Ellipsoid<Vector2F>
 public typealias Ellipse2i = Ellipsoid<Vector2i>
 
 public extension Ellipsoid where Vector: Vector2Type {
+    @_transparent
     var radiusX: Scalar {
         get {
             return radius.x
@@ -20,6 +21,8 @@ public extension Ellipsoid where Vector: Vector2Type {
             radius.x = newValue
         }
     }
+    
+    @_transparent
     var radiusY: Scalar {
         get {
             return radius.y
@@ -28,10 +31,10 @@ public extension Ellipsoid where Vector: Vector2Type {
             radius.y = newValue
         }
     }
-    
 }
 
 public extension Ellipsoid where Vector: Vector2Type & VectorReal {
+    @_transparent
     init(center: Vector, radiusX: Scalar, radiusY: Scalar) {
         self.init(center: center, radius: Vector(x: radiusX, y: radiusY))
     }
@@ -41,7 +44,7 @@ public extension Ellipsoid where Vector: Vector2Type & VectorReal {
     ///
     /// The method returns `true` for points that lie on the outer perimeter of
     /// the ellipse (inclusive)
-    @inlinable
+    @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
         return contains(Vector(x: x, y: y))
     }

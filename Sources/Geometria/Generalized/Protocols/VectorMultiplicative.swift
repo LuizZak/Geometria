@@ -5,15 +5,12 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     static var one: Self { get }
     
     /// Returns the length squared of this `VectorType`
-    @inlinable
     var lengthSquared: Scalar { get }
     
     /// Returns the distance squared between this `VectorType` and another `VectorType`
-    @inlinable
     func distanceSquared(to vec: Self) -> Scalar
     
     /// Calculates the dot product between this and another provided `VectorType`
-    @inlinable
     func dot(_ other: Self) -> Scalar
     
     /// Returns the vector that lies within this and another vector's ratio line
@@ -29,7 +26,6 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     ///   - other: The second vector to form the line that will have the point
     /// projected onto.
     /// - Returns: A vector that lies within the line created by the two vectors.
-    @inlinable
     func ratio(_ ratio: Scalar, to other: Self) -> Self
     
     /// Performs a linear interpolation between two points.

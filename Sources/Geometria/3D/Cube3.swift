@@ -8,6 +8,7 @@ public typealias Cube3F = NSquare<Vector3F>
 public typealias Cube3i = NSquare<Vector3i>
 
 public extension NSquare where Vector: Vector3Type {
+    @_transparent
     init(x: Scalar, y: Scalar, z: Scalar, sideLength: Scalar) {
         self.init(origin: .init(x: x, y: y, z: z), sideLength: sideLength)
     }

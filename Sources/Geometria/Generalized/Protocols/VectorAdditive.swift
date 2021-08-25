@@ -1,10 +1,6 @@
 /// Represents a `VectorType` with addition and subtraction arithmetic
 /// operators available.
 public protocol VectorAdditive: VectorType, AdditiveArithmetic where Scalar: AdditiveArithmetic {
-    /// A zero-value `VectorType` value where each component corresponds to its
-    /// representation of `0`.
-    static var zero: Self { get }
-    
     /// Initializes a zero-valued `VectorType`
     init()
     

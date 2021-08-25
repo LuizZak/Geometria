@@ -5,6 +5,7 @@ public struct NSphere<Vector: VectorType> {
     public var center: Vector
     public var radius: Scalar
     
+    @_transparent
     public init(center: Vector, radius: Scalar) {
         self.center = center
         self.radius = radius

@@ -17,7 +17,7 @@ extension NRectangle: CustomStringConvertible where Vector: Vector2Type {
 
 public extension NRectangle where Vector: Vector2Type {
     /// Gets the X position of this Rectangle.
-    @inlinable
+    @_transparent
     var x: Scalar {
         get {
             return location.x
@@ -28,7 +28,7 @@ public extension NRectangle where Vector: Vector2Type {
     }
     
     /// Gets the Y position of this Rectangle.
-    @inlinable
+    @_transparent
     var y: Scalar {
         get {
             return location.y
@@ -41,7 +41,7 @@ public extension NRectangle where Vector: Vector2Type {
     /// Gets the width of this Rectangle.
     ///
     /// When setting this value, `width` must always be `>= 0`.
-    @inlinable
+    @_transparent
     var width: Scalar {
         get {
             return size.x
@@ -54,7 +54,7 @@ public extension NRectangle where Vector: Vector2Type {
     /// Gets the height of this Rectangle.
     ///
     /// When setting this value, `height` must always be `>= 0`.
-    @inlinable
+    @_transparent
     var height: Scalar {
         get {
             return size.y
@@ -67,36 +67,36 @@ public extension NRectangle where Vector: Vector2Type {
     /// The y coordinate of the top corner of this rectangle.
     ///
     /// Alias for `y`.
-    @inlinable
+    @_transparent
     var top: Scalar { y }
     
     /// The x coordinate of the left corner of this rectangle.
     ///
     /// Alias for `x`.
-    @inlinable
+    @_transparent
     var left: Scalar { x }
     
     /// The top-left corner of the rectangle.
-    @inlinable
+    @_transparent
     var topLeft: Vector {
         return Vector(x: left, y: top)
     }
     
     /// Initializes a Rectangle with the coordinates of a 2D rectangle.
-    @inlinable
+    @_transparent
     init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {
         location = Vector(x: x, y: y)
         size = Vector(x: width, y: height)
     }
     
     /// Returns a Rectangle that matches this Rectangle's size with a new location.
-    @inlinable
+    @_transparent
     func withSize(width: Scalar, height: Scalar) -> NRectangle {
         return withSize(Vector(x: width, y: height))
     }
     
     /// Returns a rectangle that matches this Rectangle's size with a new location.
-    @inlinable
+    @_transparent
     func withLocation(x: Scalar, y: Scalar) -> NRectangle {
         return withLocation(Vector(x: x, y: y))
     }
@@ -136,29 +136,29 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive {
     /// The x coordinate of the right corner of this rectangle.
     ///
     /// Alias for `x + width`.
-    @inlinable
+    @_transparent
     var right: Scalar { x + width }
     
     /// The y coordinate of the bottom corner of this rectangle.
     ///
     /// Alias for `y + height`.
-    @inlinable
+    @_transparent
     var bottom: Scalar { y + height }
     
     /// The top-right corner of the rectangle.
-    @inlinable
+    @_transparent
     var topRight: Vector {
         return Vector(x: right, y: top)
     }
     
     /// The bottom-left corner of the rectangle.
-    @inlinable
+    @_transparent
     var bottomLeft: Vector {
         return Vector(x: left, y: bottom)
     }
     
     /// The bottom-right corner of the rectangle.
-    @inlinable
+    @_transparent
     var bottomRight: Vector {
         return Vector(x: right, y: bottom)
     }
@@ -173,14 +173,14 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive {
     }
     
     /// Initializes a `Rectangle` with the edges of a box.
-    @inlinable
+    @_transparent
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         self.init(x: left, y: top, width: right - left, height: bottom - top)
     }
     
     /// Returns a copy of this Rectangle with the minimum and maximum coordinates
     /// offset by a given amount.
-    @inlinable
+    @_transparent
     func offsetBy(x: Scalar, y: Scalar) -> NRectangle {
         return offsetBy(Vector(x: x, y: y))
     }
@@ -231,15 +231,16 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive {
     @inlinable
     func inset(_ inset: EdgeInsets2<Vector>) -> NRectangle {
         return NRectangle(left: left + inset.left,
-                         top: top + inset.top,
-                         right: right - inset.right,
-                         bottom: bottom - inset.bottom)
+                          top: top + inset.top,
+                          right: right - inset.right,
+                          bottom: bottom - inset.bottom)
     }
 }
 
 public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorComparable, Scalar: Real {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
+    @_transparent
     func transformedBounds(_ matrix: Matrix2<Scalar>) -> NRectangle<Vector> {
         return matrix.transform(self)
     }
@@ -250,7 +251,7 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorC
     ///
     /// The check is inclusive, so the edges of the bounding box are considered
     /// to contain the point as well.
-    @inlinable
+    @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
         return contains(Vector(x: x, y: y))
     }
@@ -259,7 +260,7 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorC
 public extension NRectangle where Vector: Vector2Type & VectorMultiplicative {
     /// Returns a Rectangle with the same position as this Rectangle, with its
     /// width and height multiplied by the coordinates of the given vector.
-    @inlinable
+    @_transparent
     func scaledBy(x: Scalar, y: Scalar) -> NRectangle {
         return scaledBy(vector: Vector(x: x, y: y))
     }
@@ -267,7 +268,7 @@ public extension NRectangle where Vector: Vector2Type & VectorMultiplicative {
 
 public extension NRectangle where Vector: Vector2Type & VectorDivisible {
     /// Gets the center X position of this Rectangle.
-    @inlinable
+    @_transparent
     var centerX: Scalar {
         get {
             return center.x
@@ -278,7 +279,7 @@ public extension NRectangle where Vector: Vector2Type & VectorDivisible {
     }
     
     /// Gets the center Y position of this Rectangle.
-    @inlinable
+    @_transparent
     var centerY: Scalar {
         get {
             return center.y
@@ -290,14 +291,14 @@ public extension NRectangle where Vector: Vector2Type & VectorDivisible {
     
     /// Returns a Rectangle which is an inflated version of this Rectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
-    @inlinable
+    @_transparent
     func inflatedBy(x: Scalar, y: Scalar) -> NRectangle {
         return inflatedBy(Vector(x: x, y: y))
     }
     
     /// Returns a Rectangle which is an inset version of this Rectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
-    @inlinable
+    @_transparent
     func insetBy(x: Scalar, y: Scalar) -> NRectangle {
         return insetBy(Vector(x: x, y: y))
     }
@@ -305,7 +306,7 @@ public extension NRectangle where Vector: Vector2Type & VectorDivisible {
     /// Returns a new Rectangle with the same width and height as the current
     /// instance, where the center of the boundaries lay on the coordinates
     /// composed of `[x, y]`.
-    @inlinable
+    @_transparent
     func movingCenter(toX x: Scalar, y: Scalar) -> NRectangle {
         return movingCenter(to: Vector(x: x, y: y))
     }
@@ -313,7 +314,7 @@ public extension NRectangle where Vector: Vector2Type & VectorDivisible {
 
 public extension NRectangle where Vector: Vector2Type, Scalar: FloatingPoint {
     /// Initializes a Rectangle with the coordinates of a rectangle.
-    @inlinable
+    @_transparent
     init<B: BinaryInteger>(x: B, y: B, width: B, height: B) {
         self.init(x: Scalar(x), y: Scalar(y), width: Scalar(width), height: Scalar(height))
     }

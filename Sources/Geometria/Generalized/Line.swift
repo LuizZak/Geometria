@@ -7,7 +7,7 @@ public struct Line<Vector: VectorType> {
     public var start: Vector
     public var end: Vector
     
-    @inlinable
+    @_transparent
     public init(start: Vector, end: Vector) {
         self.start = start
         self.end = end
@@ -21,7 +21,7 @@ extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension Line where Vector: VectorMultiplicative {
     /// Returns the squared length of this line
-    @inlinable
+    @_transparent
     var lengthSquared: Scalar {
         return (end - start).lengthSquared
     }
@@ -67,7 +67,7 @@ public extension Line where Vector: VectorFloatingPoint {
 
 public extension Line where Vector: VectorReal {
     /// Returns the length of this line
-    @inlinable
+    @_transparent
     var length: Scalar {
         return (end - start).length
     }

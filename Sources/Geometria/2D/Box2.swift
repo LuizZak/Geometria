@@ -20,53 +20,53 @@ public extension NBox where Vector: Vector2Type {
     /// The x coordinate of the left corner of this 2d box.
     ///
     /// Alias for `minimum.x`.
-    @inlinable
+    @_transparent
     var x: Scalar { minimum.x }
     
     /// The y coordinate of the top corner of this 2d box.
     ///
     /// Alias for `minimum.y`.
-    @inlinable
+    @_transparent
     var y: Scalar { minimum.y }
     
     /// The x coordinate of the left corner of this 2d box.
     ///
     /// Alias for `minimum.x`.
-    @inlinable
+    @_transparent
     var left: Scalar { minimum.x }
     
     /// The y coordinate of the top corner of this 2d box.
     ///
     /// Alias for `minimum.y`.
-    @inlinable
+    @_transparent
     var top: Scalar { minimum.y }
     
     /// The x coordinate of the right corner of this 2d box.
     ///
     /// Alias for `maximum.x`.
-    @inlinable
+    @_transparent
     var right: Scalar { maximum.x }
     
     /// The y coordinate of the bottom corner of this 2d box.
     ///
     /// Alias for `maximum.y`.
-    @inlinable
+    @_transparent
     var bottom: Scalar { maximum.y }
     
     /// The top-left corner of the 2d box.
-    @inlinable
+    @_transparent
     var topLeft: Vector { minimum }
     
     /// The top-right corner of the 2d box.
-    @inlinable
+    @_transparent
     var topRight: Vector { Vector(x: right, y: top) }
     
     /// The bottom-right corner of the 2d box.
-    @inlinable
+    @_transparent
     var bottomRight: Vector { maximum }
     
     /// The bottom-left corner of the 2d box.
-    @inlinable
+    @_transparent
     var bottomLeft: Vector { Vector(x: left, y: bottom) }
     
     /// Returns an array of vectors that represent this `Box`'s 2D corners in
@@ -79,7 +79,7 @@ public extension NBox where Vector: Vector2Type {
     }
     
     /// Initializes a `Box` with the edges of a box.
-    @inlinable
+    @_transparent
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         self.init(minimum: Vector(x: left, y: top), maximum: Vector(x: right, y: bottom))
     }
@@ -90,7 +90,7 @@ public extension NBox where Vector: Vector2Type & VectorComparable {
     ///
     /// The check is inclusive, so the edges of the box are considered to
     /// contain the point as well.
-    @inlinable
+    @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
         return contains(Vector(x: x, y: y))
     }
@@ -98,13 +98,13 @@ public extension NBox where Vector: Vector2Type & VectorComparable {
 
 public extension NBox where Vector: Vector2Type & VectorAdditive {
     /// Gets the width of this box.
-    @inlinable
+    @_transparent
     var width: Scalar {
         size.x
     }
     
     /// Gets the height of this box.
-    @inlinable
+    @_transparent
     var height: Scalar {
         size.y
     }

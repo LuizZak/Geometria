@@ -17,6 +17,7 @@ public struct EdgeInsets2<Vector: Vector2Type> {
     public var right: Scalar
     public var bottom: Scalar
     
+    @_transparent
     public init(left: Scalar,
                 top: Scalar,
                 right: Scalar,
@@ -28,6 +29,7 @@ public struct EdgeInsets2<Vector: Vector2Type> {
         self.bottom = bottom
     }
     
+    @_transparent
     public init(_ value: Scalar) {
         left = value
         top = value
@@ -42,11 +44,12 @@ extension EdgeInsets2: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension EdgeInsets2: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension EdgeInsets2 where Vector: VectorAdditive {
-    @inlinable
+    @_transparent
     static var zero: Self {
         EdgeInsets2(left: .zero, top: .zero, right: .zero, bottom: .zero)
     }
     
+    @_transparent
     func inset(rectangle: NRectangle<Vector>) -> NRectangle<Vector> {
         return rectangle.inset(self)
     }

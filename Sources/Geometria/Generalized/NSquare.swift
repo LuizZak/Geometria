@@ -13,12 +13,12 @@ public struct NSquare<Vector: VectorType> {
     public var sideLength: Scalar
     
     /// Returns a rectangle with the same boundaries as this square.
-    @inlinable
+    @_transparent
     public var asRectangle: NRectangle<Vector> {
         return NRectangle(location: origin, size: Vector(repeating: sideLength))
     }
     
-    @inlinable
+    @_transparent
     public init(origin: Vector, sideLength: Scalar) {
         self.origin = origin
         self.sideLength = sideLength
@@ -27,7 +27,7 @@ public struct NSquare<Vector: VectorType> {
 
 public extension NSquare where Vector: VectorAdditive {
     /// Returns a box with the same boundaries as this square.
-    @inlinable
+    @_transparent
     var asBox: NBox<Vector> {
         return NBox(minimum: origin, maximum: origin + Vector(repeating: sideLength))
     }
