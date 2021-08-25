@@ -31,5 +31,8 @@ extension UInt64: DivisibleArithmetic { }
 
 // MARK: - Floating-point conformance
 extension Float: DivisibleArithmetic { }
-extension Float80: DivisibleArithmetic { }
 extension Double: DivisibleArithmetic { }
+
+#if (arch(i386) || arch(x86_64)) && !os(Windows) && !os(Android)
+extension Float80: DivisibleArithmetic { }
+#endif
