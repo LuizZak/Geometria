@@ -1,14 +1,17 @@
 /// Represents a 2D box with two double-precision floating-point vectors that
 /// describe the minimal and maximal coordinates of the box's opposite corners.
-public typealias Box2D = NBox<Vector2D>
+public typealias Box2D = Box2<Vector2D>
 
 /// Represents a 2D box with two single-precision floating-point vectors that
 /// describe the minimal and maximal coordinates of the box's opposite corners.
-public typealias Box2F = NBox<Vector2F>
+public typealias Box2F = Box2<Vector2F>
 
 /// Represents a 2D box with two integer vectors that describe the minimal and
 /// maximal coordinates of the box's opposite corners.
-public typealias Box2i = NBox<Vector2i>
+public typealias Box2i = Box2<Vector2i>
+
+/// Typealias for `NBox<V>`, where `V` is constrained to `Vector2Type`.
+public typealias Box2<V: Vector2Type> = NBox<V>
 
 extension NBox: CustomStringConvertible where Vector: Vector2Type {
     public var description: String {
@@ -16,7 +19,7 @@ extension NBox: CustomStringConvertible where Vector: Vector2Type {
     }
 }
 
-public extension NBox where Vector: Vector2Type {
+public extension Box2 {
     /// The x coordinate of the left corner of this 2d box.
     ///
     /// Alias for `minimum.x`.
@@ -85,7 +88,7 @@ public extension NBox where Vector: Vector2Type {
     }
 }
 
-public extension NBox where Vector: Vector2Type & VectorComparable {
+public extension Box2 where Vector: VectorComparable {
     /// Returns whether a given point is contained within this 2d box.
     ///
     /// The check is inclusive, so the edges of the box are considered to
@@ -96,7 +99,7 @@ public extension NBox where Vector: Vector2Type & VectorComparable {
     }
 }
 
-public extension NBox where Vector: Vector2Type & VectorAdditive {
+public extension Box2 where Vector: VectorAdditive {
     /// Gets the width of this box.
     @_transparent
     var width: Scalar {

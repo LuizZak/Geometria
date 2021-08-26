@@ -1,21 +1,24 @@
 import RealModule
 
 /// Represents a double-precision floating-point 2D rectangle.
-public typealias Rectangle2D = NRectangle<Vector2D>
+public typealias Rectangle2D = Rectangle2<Vector2D>
 
 /// Represents a single-precision floating-point 2D rectangle.
-public typealias Rectangle2F = NRectangle<Vector2F>
+public typealias Rectangle2F = Rectangle2<Vector2F>
 
 /// Represents an integer 2D rectangle.
-public typealias Rectangle2i = NRectangle<Vector2i>
+public typealias Rectangle2i = Rectangle2<Vector2i>
 
-extension NRectangle: CustomStringConvertible where Vector: Vector2Type {
+/// Typealias for `NRectangle<V>`, where `V` is constrained to `Vector2Type`.
+public typealias Rectangle2<V: Vector2Type> = NRectangle<V>
+
+extension Rectangle2: CustomStringConvertible {
     public var description: String {
         return "\(type(of: self))(x: \(x), y: \(y), width: \(width), height: \(height))"
     }
 }
 
-public extension NRectangle where Vector: Vector2Type {
+public extension Rectangle2 {
     /// Gets the X position of this Rectangle.
     @_transparent
     var x: Scalar {
@@ -132,7 +135,7 @@ public extension NRectangle where Vector: Vector2Type {
     }
 }
 
-public extension NRectangle where Vector: Vector2Type & VectorAdditive {
+public extension Rectangle2 where Vector: VectorAdditive {
     /// The x coordinate of the right corner of this rectangle.
     ///
     /// Alias for `x + width`.
@@ -237,7 +240,7 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive {
     }
 }
 
-public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorComparable, Scalar: Real {
+public extension Rectangle2 where Vector: VectorAdditive & VectorComparable, Scalar: Real {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
     @_transparent
@@ -246,7 +249,7 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorC
     }
 }
 
-public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorComparable {
+public extension Rectangle2 where Vector: VectorAdditive & VectorComparable {
     /// Returns whether a given point is contained within this bounding box.
     ///
     /// The check is inclusive, so the edges of the bounding box are considered
@@ -257,7 +260,7 @@ public extension NRectangle where Vector: Vector2Type & VectorAdditive & VectorC
     }
 }
 
-public extension NRectangle where Vector: Vector2Type & VectorMultiplicative {
+public extension Rectangle2 where Vector: VectorMultiplicative {
     /// Returns a Rectangle with the same position as this Rectangle, with its
     /// width and height multiplied by the coordinates of the given vector.
     @_transparent
@@ -266,7 +269,7 @@ public extension NRectangle where Vector: Vector2Type & VectorMultiplicative {
     }
 }
 
-public extension NRectangle where Vector: Vector2Type & VectorDivisible {
+public extension Rectangle2 where Vector: VectorDivisible {
     /// Gets the center X position of this Rectangle.
     @_transparent
     var centerX: Scalar {
@@ -312,7 +315,7 @@ public extension NRectangle where Vector: Vector2Type & VectorDivisible {
     }
 }
 
-public extension NRectangle where Vector: Vector2Type, Scalar: FloatingPoint {
+public extension Rectangle2 where Scalar: FloatingPoint {
     /// Initializes a Rectangle with the coordinates of a rectangle.
     @_transparent
     init<B: BinaryInteger>(x: B, y: B, width: B, height: B) {
@@ -320,7 +323,7 @@ public extension NRectangle where Vector: Vector2Type, Scalar: FloatingPoint {
     }
 }
 
-public extension NRectangle where Vector: Vector2Type & VectorMultiplicative, Scalar: Comparable {
+public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparable {
     /// Returns an `Rectangle` that is the intersection between this and another
     /// `Rectangle` instance.
     ///

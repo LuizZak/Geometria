@@ -2,16 +2,19 @@ import RealModule
 
 /// Represents a 2D ellipse as a double-precision floating-point center with X
 /// and Y radii.
-public typealias Ellipse2D = Ellipsoid<Vector2D>
+public typealias Ellipse2D = Ellipse2<Vector2D>
 
 /// Represents a 2D ellipse as a single-precision floating-point center with X
 /// and Y radii.
-public typealias Ellipse2F = Ellipsoid<Vector2F>
+public typealias Ellipse2F = Ellipse2<Vector2F>
 
 /// Represents a 2D ellipse as a integer center with X and Y radii.
-public typealias Ellipse2i = Ellipsoid<Vector2i>
+public typealias Ellipse2i = Ellipse2<Vector2i>
 
-public extension Ellipsoid where Vector: Vector2Type {
+/// Typealias for `Ellipsoid<V>`, where `V` is constrained to `Vector2Type`.
+public typealias Ellipse2<V: Vector2Type> = Ellipsoid<V>
+
+public extension Ellipse2 {
     @_transparent
     var radiusX: Scalar {
         get {
@@ -33,7 +36,7 @@ public extension Ellipsoid where Vector: Vector2Type {
     }
 }
 
-public extension Ellipsoid where Vector: Vector2Type & VectorReal {
+public extension Ellipse2 where Vector: VectorReal {
     @_transparent
     init(center: Vector, radiusX: Scalar, radiusY: Scalar) {
         self.init(center: center, radius: Vector(x: radiusX, y: radiusY))

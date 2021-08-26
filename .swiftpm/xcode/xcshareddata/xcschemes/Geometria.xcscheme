@@ -50,13 +50,6 @@
             BlueprintName = "Geometria"
             ReferencedContainer = "container:">
          </BuildableReference>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "GeometriaTests"
-            BuildableName = "GeometriaTests"
-            BlueprintName = "GeometriaTests"
-            ReferencedContainer = "container:">
-         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference

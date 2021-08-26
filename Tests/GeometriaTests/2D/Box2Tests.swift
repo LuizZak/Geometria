@@ -4,7 +4,6 @@ import Geometria
 class Box2Tests: XCTestCase {
     typealias Box = Box2D
     
-    // MARK: Vector2Type Conformance
     func testDescription() {
         XCTAssertEqual(Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 3)).description,
                        "NBox<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
@@ -89,7 +88,7 @@ class Box2Tests: XCTestCase {
     }
 }
 
-// MARK: Vector2Type & VectorComparable
+// MARK: VectorComparable
 
 extension Box2Tests {
     func testContainsXY() {
@@ -107,7 +106,7 @@ extension Box2Tests {
     }
 }
 
-// MARK: Vector2Type & VectorAdditive Conformance
+// MARK: VectorAdditive Conformance
 
 extension Box2Tests {
     func testWidth() {

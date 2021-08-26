@@ -2,16 +2,19 @@ import RealModule
 
 /// Represents a 3D ellipse as a double-precision floating-point center with X,
 /// Y, and Z radii.
-public typealias Ellipse3D = Ellipsoid<Vector3D>
+public typealias Ellipse3D = Ellipsoid3<Vector3D>
 
 /// Represents a 3D ellipse as a single-precision floating-point center with X,
 /// Y, and Z radii.
-public typealias Ellipse3F = Ellipsoid<Vector3F>
+public typealias Ellipse3F = Ellipsoid3<Vector3F>
 
 /// Represents a 3D ellipse as a integer center with X, Y, and Z radii.
-public typealias Ellipse3i = Ellipsoid<Vector3i>
+public typealias Ellipse3i = Ellipsoid3<Vector3i>
 
-public extension Ellipsoid where Vector: Vector3Type {
+/// Typealias for `Ellipsoid<V>`, where `V` is constrained to `Vector3Type`.
+public typealias Ellipsoid3<V: Vector3Type> = Ellipsoid<V>
+
+public extension Ellipsoid3 {
     @_transparent
     var radiusX: Scalar {
         get {
@@ -43,7 +46,7 @@ public extension Ellipsoid where Vector: Vector3Type {
     }
 }
 
-public extension Ellipsoid where Vector: Vector3Type & VectorReal {
+public extension Ellipsoid3 where Vector: VectorReal {
     @_transparent
     init(center: Vector, radiusX: Scalar, radiusY: Scalar, radiusZ: Scalar) {
         self.init(center: center, radius: Vector(x: radiusX, y: radiusY, z: radiusZ))

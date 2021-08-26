@@ -5,7 +5,6 @@ import simd
 class Rectangle2Tests: XCTestCase {
     typealias Rectangle = Rectangle2D
     
-    // MARK: Vector2Type Conformance
     func testDescription() {
         XCTAssertEqual(Rectangle(x: 0, y: 1, width: 2, height: 3).description,
                        "NRectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)")
@@ -151,7 +150,7 @@ class Rectangle2Tests: XCTestCase {
     }
 }
 
-// MARK: Vector2Type & VectorAdditive Conformance
+// MARK: VectorAdditive Conformance
 
 extension Rectangle2Tests {
     func testRight() {
@@ -275,7 +274,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: Vector2Type & VectorAdditive & VectorComparable, Scalar: Real Conformance
+// MARK: VectorAdditive & VectorComparable, Scalar: Real Conformance
 
 extension Rectangle2Tests {
     func testTransformedBounds_scale() {
@@ -369,7 +368,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: Vector2Type & VectorAdditive & VectorComparable Conformance
+// MARK: VectorAdditive & VectorComparable Conformance
 
 extension Rectangle2Tests {
     func testContainsXY() {
@@ -387,7 +386,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: Vector2Type & VectorMultiplicative
+// MARK: VectorMultiplicative
 
 extension Rectangle2Tests {
     func testScaledByXY() {
@@ -400,7 +399,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: Vector2Type & VectorDivisible
+// MARK: VectorDivisible
 
 extension Rectangle2Tests {
     func testCenterX() {
@@ -477,7 +476,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: Vector2Type, Scalar: FloatingPoint Conformance
+// MARK: Scalar: FloatingPoint Conformance
 
 extension Rectangle2Tests {
     func testFloatingPointInitWithBinaryInteger() {
@@ -488,7 +487,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: Vector2Type & VectorMultiplicative, Scalar: Comparable Conformance
+// MARK: VectorMultiplicative, Scalar: Comparable Conformance
 
 extension Rectangle2Tests {
     func testIntersection_sameRectangle() {

@@ -1,15 +1,18 @@
 /// Represents a 2D polygon as a series of connected double-precision
 /// floating-point 2D vertices.
-public typealias LinePolygon2D = LinePolygon<Vector2D>
+public typealias LinePolygon2D = LinePolygon2<Vector2D>
 
 /// Represents a 2D polygon as a series of connected single-precision
 /// floating-point 2D vertices.
-public typealias LinePolygon2F = LinePolygon<Vector2F>
+public typealias LinePolygon2F = LinePolygon2<Vector2F>
 
 /// Represents a 2D polygon as a series of connected integer 2D vertices.
-public typealias LinePolygon2i = LinePolygon<Vector2i>
+public typealias LinePolygon2i = LinePolygon2<Vector2i>
 
-public extension LinePolygon where Vector: Vector2Type {
+/// Typealias for `LinePolygon<V>`, where `V` is constrained to `Vector2Type`.
+public typealias LinePolygon2<V: Vector2Type> = LinePolygon<V>
+
+public extension LinePolygon2 {
     /// Adds a new 2D vertex at the end of this polygon's vertices list
     @_transparent
     mutating func addVertex(x: Scalar, y: Scalar) {
@@ -17,7 +20,7 @@ public extension LinePolygon where Vector: Vector2Type {
     }
 }
 
-public extension LinePolygon where Vector: Vector2Multiplicative & VectorComparable {
+public extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     
     // Implementation derived from LÖVE's love.math.isConvex at:
     // https://github.com/love2d/love/blob/216d5ca4b2ab04bd765daa4c23c00b81b4aedf08/src/modules/math/MathModule.cpp#L155
@@ -35,8 +38,7 @@ public extension LinePolygon where Vector: Vector2Multiplicative & VectorCompara
         var q = vertices[k] - vertices[j]
         let winding = p.cross(q)
         
-        while k + 1 < vertices.count
-        {
+        while k + 1 < vertices.count {
             i = j
             j = k
             k += 1

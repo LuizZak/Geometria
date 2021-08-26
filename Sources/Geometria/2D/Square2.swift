@@ -1,13 +1,16 @@
 /// Represents a double-precision floating-point 2D square.
-public typealias Square2D = NSquare<Vector2D>
+public typealias Square2D = Square2<Vector2D>
 
 /// Represents a single-precision floating-point 2D square.
-public typealias Square2F = NSquare<Vector2F>
+public typealias Square2F = Square2<Vector2F>
 
 /// Represents an integer 2D square.
-public typealias Square2i = NSquare<Vector2i>
+public typealias Square2i = Square2<Vector2i>
 
-public extension NSquare where Vector: Vector2Type {
+/// Typealias for `NSquare<V>`, where `V` is constrained to `Vector2Type`.
+public typealias Square2<V: Vector2Type> = NSquare<V>
+
+public extension Square2 {
     @_transparent
     init(x: Scalar, y: Scalar, sideLength: Scalar) {
         self.init(origin: .init(x: x, y: y), sideLength: sideLength)
