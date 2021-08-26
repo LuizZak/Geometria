@@ -33,6 +33,6 @@ public extension LineType where Vector: VectorFloatingPoint {
     func project(_ vector: Vector) -> Vector {
         let proj = projectScalar(vector)
         
-        return a + (b - a) * proj
+        return a.addingProduct(b - a, proj)
     }
 }
