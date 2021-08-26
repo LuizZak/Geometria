@@ -37,7 +37,7 @@ public extension Line where Vector: VectorFloatingPoint {
         let relEnd = b - a
         let relVec = vector - a
         
-        let proj = relVec.dot(relEnd) / (b - a).lengthSquared
+        let proj = relVec.dot(relEnd) / relEnd.lengthSquared
         
         return proj
     }

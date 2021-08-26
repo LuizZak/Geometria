@@ -51,6 +51,24 @@ class LineSegmentTests: XCTestCase {
         XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 999)).hashValue,
                           LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
     }
+    
+    func testAsRay() {
+        let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        
+        let result = sut.asRay
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
+        XCTAssertEqual(result.b, .init(x: 3, y: 5))
+    }
+    
+    func testAsLine() {
+        let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        
+        let result = sut.asLine
+        
+        XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.b, .init(x: 3, y: 5))
+    }
 }
 
 // MARK: VectorMultiplicative Conformance

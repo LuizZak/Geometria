@@ -51,6 +51,15 @@ class RayTests: XCTestCase {
         XCTAssertNotEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 999)).hashValue,
                           Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
     }
+    
+    func testAsLine() {
+        let sut = Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        
+        let result = sut.asLine
+        
+        XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.b, .init(x: 3, y: 5))
+    }
 }
 
 // MARK: VectorFloatingPoint Conformance

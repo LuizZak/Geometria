@@ -23,6 +23,22 @@ extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension LineSegment: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+public extension LineSegment {
+    /// Returns a `Ray` representation of this line segment, where the `ray.start`
+    /// matches `self.start` and `ray.b` matches `self.end`.
+    @inlinable
+    var asRay: Ray<Vector> {
+        return Ray(start: start, b: end)
+    }
+    
+    /// Returns a `Line` representation of this line segment, where the `line.a`
+    /// matches `self.start` and `line.b` matches `self.end`.
+    @inlinable
+    var asLine: Line<Vector> {
+        return Line(a: start, b: end)
+    }
+}
+
 public extension LineSegment where Vector: VectorMultiplicative {
     /// Returns the squared length of this line
     @_transparent

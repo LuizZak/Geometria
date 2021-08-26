@@ -22,6 +22,15 @@ extension Ray: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Ray: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Ray: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+public extension Ray {
+    /// Returns a `Line` representation of this ray, where the `line.a` matches
+    /// `self.start` and `line.b` matches `self.b`.
+    @inlinable
+    var asLine: Line<Vector> {
+        return Line(a: start, b: b)
+    }
+}
+
 public extension Ray where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this ray,
     /// returning a scalar value representing the normalized magnitude of the
@@ -34,7 +43,7 @@ public extension Ray where Vector: VectorFloatingPoint {
         let relEnd = b - start
         let relVec = vector - start
         
-        let proj = relVec.dot(relEnd) / (b - start).lengthSquared
+        let proj = relVec.dot(relEnd) / relEnd.lengthSquared
         
         return proj
     }
