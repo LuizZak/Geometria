@@ -5,7 +5,12 @@ import RealModule
 public struct Line<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
+    /// An initial point a line tracing from infinity passes through before
+    /// being projected through `b` and extending to infinity in a straight line.
     public var a: Vector
+    
+    /// A secondary point a line tracing from `a` passes through before
+    /// being projected to infinity in a straight line.
     public var b: Vector
     
     @_transparent
@@ -23,9 +28,9 @@ extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 public extension Line where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this line,
     /// returning a scalar value representing the normalized magnitude of the
-    /// projected point between `start <-> end`.
+    /// projected point between `a <-> b`.
     ///
-    /// By multiplying the result of this function by `start + (end - start)`,
+    /// By multiplying the result of this function by `a + (b - a)`,
     /// the projected point as it lays on this line can be obtained.
     @inlinable
     func projectScalar(_ vector: Vector) -> Scalar {
@@ -39,7 +44,7 @@ public extension Line where Vector: VectorFloatingPoint {
     
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by
-    /// `start <-> end`, potentialy extending past either end.
+    /// `b <-> a`, potentialy extending past either end.
     @inlinable
     func project(_ vector: Vector) -> Vector {
         let proj = projectScalar(vector)

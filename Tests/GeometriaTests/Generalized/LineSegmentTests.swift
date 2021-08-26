@@ -3,6 +3,7 @@ import Geometria
 
 class LineSegmentTests: XCTestCase {
     typealias LineSegment = LineSegment2D
+    typealias LineSegment3 = LineSegment3D
     
     func testCodable() throws {
         let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
@@ -87,21 +88,21 @@ extension LineSegmentTests {
     }
     
     func testProjectScalar3D() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 3, y2: 0, z2: 0)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 3, y2: 0, z2: 0)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.projectScalar(point), 0.3333333333333333, accuracy: 1e-12)
     }
     
     func testProjectScalar3D_offBounds() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
         let point = Vector3D(x: -3, y: 1, z: 0)
         
         XCTAssertEqual(sut.projectScalar(point), -3)
     }
     
     func testProjectScalar3D_skewed() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 0, y: 2, z: 0)
         
         XCTAssertEqual(sut.projectScalar(point), 0.6666666666666666, accuracy: 1e-12)
@@ -151,7 +152,7 @@ extension LineSegmentTests {
     }
     
     func testProject3D_parallel() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 3, y2: 0, z2: 0)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 3, y2: 0, z2: 0)
         let point = Vector3D(x: 1, y: 0, z: 0)
         
         assertEqual(sut.project(point),
@@ -160,14 +161,14 @@ extension LineSegmentTests {
     }
     
     func testProject3D_offBounds() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
         let point = Vector3D(x: -3, y: 1, z: 0)
         
         XCTAssertEqual(sut.project(point), Vector3D(x: -3, y: 0, z: 0))
     }
     
     func testProject3D_skewed() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 0, y: 2, z: 0)
         
         assertEqual(sut.project(point),
@@ -176,7 +177,7 @@ extension LineSegmentTests {
     }
     
     func testProject3D_skewed_centered() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         assertEqual(sut.project(point),
@@ -206,7 +207,7 @@ extension LineSegmentTests {
     }
     
     func testDistanceSquaredTo3D() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
@@ -244,7 +245,7 @@ extension LineSegmentTests {
     }
     
     func testDistanceTo3D() {
-        let sut = LineSegment3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distance(to: point), 0.816496580927726, accuracy: 1e-15)

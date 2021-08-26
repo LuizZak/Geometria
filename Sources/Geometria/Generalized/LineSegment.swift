@@ -5,7 +5,10 @@ import RealModule
 public struct LineSegment<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
+    /// The bounded start of this line segment, inclusive.
     public var start: Vector
+    
+    /// The bounded end of this line segment, inclusive.
     public var end: Vector
     
     @_transparent
