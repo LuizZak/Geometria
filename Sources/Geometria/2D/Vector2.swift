@@ -345,6 +345,19 @@ extension Vector2: VectorNormalizable where Scalar: Comparable & Real & Divisibl
 }
 
 extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+    /// Returns the result of adding the product of the two given vectors to this
+    /// vector, computed without intermediate rounding.
+    ///
+    /// This method is equivalent to calling C `fma` function on each component.
+    ///
+    /// - Parameters:
+    ///   - lhs: One of the vectors to multiply before adding to this vector.
+    ///   - rhs: The other vector to multiply.
+    /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    public func addingProduct(_ a: Self, _ b: Self) -> Self {
+        return Self(x: x.addingProduct(a.x, b.x), y: y.addingProduct(a.y, b.y))
+    }
+    
     /// Rounds the components of this `Vector2Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent

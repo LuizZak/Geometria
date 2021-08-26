@@ -386,13 +386,15 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(-(-vec), vec)
     }
     
-    func testFloatingPointInitWithBinaryInteger() {
-        let vecInt = Vector2<Int>(x: 1, y: 2)
+    func testAddingProduct() {
+        let a = Vector2D(x: 0.5, y: 0.6)
+        let b = Vector2D(x: 1, y: 2)
+        let c = Vector2D(x: 3, y: 5)
         
-        let vec = Vector2<Float>(vecInt)
+        let result = a.addingProduct(b, c)
         
-        XCTAssertEqual(vec.x, 1)
-        XCTAssertEqual(vec.y, 2)
+        XCTAssertEqual(result.x, 3.5)
+        XCTAssertEqual(result.y, 10.6)
     }
     
     func testRoundedWithRoundingRule() {
@@ -442,6 +444,15 @@ class Vector2Tests: XCTestCase {
         
         XCTAssertEqual(result.x, 3)
         XCTAssertEqual(result.y, 2)
+    }
+    
+    func testFloatingPointInitWithBinaryInteger() {
+        let vecInt = Vector2<Int>(x: 1, y: 2)
+        
+        let vec = Vector2<Float>(vecInt)
+        
+        XCTAssertEqual(vec.x, 1)
+        XCTAssertEqual(vec.y, 2)
     }
     
     func testLength() {

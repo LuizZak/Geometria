@@ -143,26 +143,16 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(-(-vec), vec)
     }
     
-    func testFloatingPointInitWithBinaryInteger() {
-        let vecInt = Vector3i(x: 1, y: 2, z: 3)
+    func testAddingProduct() {
+        let a = Vector(x: 0.5, y: 0.6, z: 0.7)
+        let b = Vector(x: 1, y: 2, z: 3)
+        let c = Vector(x: 5, y: 7, z: 11)
         
-        let vec = SIMD3<Double>(vecInt)
+        let result = a.addingProduct(b, c)
         
-        XCTAssertEqual(vec.x, 1)
-        XCTAssertEqual(vec.y, 2)
-        XCTAssertEqual(vec.z, 3)
-    }
-    
-    // Ensure the original overloaded init from simd module still works without
-    // ambiguities
-    func testFloatingPointInitWithBinaryInteger_simd() {
-        let vecInt = SIMD3<Int>(x: 1, y: 2, z: 3)
-        
-        let vec = SIMD3<Double>(vecInt)
-        
-        XCTAssertEqual(vec.x, 1)
-        XCTAssertEqual(vec.y, 2)
-        XCTAssertEqual(vec.z, 3)
+        XCTAssertEqual(result.x, 5.5)
+        XCTAssertEqual(result.y, 14.6)
+        XCTAssertEqual(result.z, 33.7)
     }
     
     func testRoundedWithRoundingRule() {
@@ -214,6 +204,28 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(result.x, 3)
         XCTAssertEqual(result.y, 2)
         XCTAssertEqual(result.z, 3)
+    }
+    
+    func testFloatingPointInitWithBinaryInteger() {
+        let vecInt = Vector3i(x: 1, y: 2, z: 3)
+        
+        let vec = SIMD3<Double>(vecInt)
+        
+        XCTAssertEqual(vec.x, 1)
+        XCTAssertEqual(vec.y, 2)
+        XCTAssertEqual(vec.z, 3)
+    }
+    
+    // Ensure the original overloaded init from simd module still works without
+    // ambiguities
+    func testFloatingPointInitWithBinaryInteger_simd() {
+        let vecInt = SIMD3<Int>(x: 1, y: 2, z: 3)
+        
+        let vec = SIMD3<Double>(vecInt)
+        
+        XCTAssertEqual(vec.x, 1)
+        XCTAssertEqual(vec.y, 2)
+        XCTAssertEqual(vec.z, 3)
     }
     
     func testLength() {
