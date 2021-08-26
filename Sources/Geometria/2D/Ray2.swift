@@ -10,6 +10,10 @@ public typealias Ray2F = Ray<Vector2F>
 /// crosses before being projected to infinity
 public typealias Ray2i = Ray<Vector2i>
 
+extension Ray: Line2Type where Vector: Vector2Type {
+    
+}
+
 public extension Ray where Vector: Vector2Type & VectorAdditive {
     /// Initializes a new Ray with a 2D vector for its position and another
     /// describing the direction of the ray relative to the position.
@@ -17,13 +21,5 @@ public extension Ray where Vector: Vector2Type & VectorAdditive {
     init(x: Scalar, y: Scalar, dx: Scalar, dy: Scalar) {
         start = Vector(x: x, y: y)
         b = start + Vector(x: dx, y: dy)
-    }
-}
-
-public extension Ray where Vector: Vector2Real {
-    /// Returns the angle of this line, in radians
-    @_transparent
-    var angle: Scalar {
-        return (b - start).angle
     }
 }

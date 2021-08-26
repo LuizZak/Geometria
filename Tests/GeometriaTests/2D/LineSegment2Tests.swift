@@ -13,13 +13,3 @@ class LineSegment2Tests: XCTestCase {
         XCTAssertEqual(sut.end.y, 5)
     }
 }
-
-// MARK: Vector2Real Conformance
-
-extension LineSegment2Tests {
-    func testAngle() {
-        let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
-        
-        XCTAssertEqual(sut.angle, 0.982793723247329, accuracy: 1e-13)
-    }
-}

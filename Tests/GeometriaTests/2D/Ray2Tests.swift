@@ -13,13 +13,3 @@ class Ray2Tests: XCTestCase {
         XCTAssertEqual(sut.b.y, 7)
     }
 }
-
-// MARK: Vector2Real Conformance
-
-extension Ray2Tests {
-    func testAngle() {
-        let sut = Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
-        
-        XCTAssertEqual(sut.angle, 0.982793723247329, accuracy: 1e-13)
-    }
-}
