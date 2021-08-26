@@ -192,6 +192,28 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(result.y, 10.6)
     }
     
+    func testAddingProductScalarVector() {
+        let a = Vector(x: 0.5, y: 0.6)
+        let b = 2.0
+        let c = Vector(x: 3, y: 5)
+        
+        let result = a.addingProduct(b, c)
+        
+        XCTAssertEqual(result.x, 6.5)
+        XCTAssertEqual(result.y, 10.6)
+    }
+    
+    func testAddingProductVectorScalar() {
+        let a = Vector(x: 0.5, y: 0.6)
+        let b = Vector(x: 1, y: 2)
+        let c = 2.0
+        
+        let result = a.addingProduct(b, c)
+        
+        XCTAssertEqual(result.x, 2.5)
+        XCTAssertEqual(result.y, 4.6)
+    }
+    
     func testRoundedWithRoundingRule() {
         let vec = Vector(x: 0.5, y: 1.6)
         

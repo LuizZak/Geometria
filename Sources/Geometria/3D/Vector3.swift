@@ -308,6 +308,32 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
         return Self(x: x.addingProduct(a.x, b.x), y: y.addingProduct(a.y, b.y), z: z.addingProduct(a.z, b.z))
     }
     
+    /// Returns the result of adding the product of the given scalar and vector
+    /// to this vector, computed without intermediate rounding.
+    ///
+    /// This method is equivalent to calling C `fma` function on each component.
+    ///
+    /// - Parameters:
+    ///   - lhs: A scalar to multiply before adding to this vector.
+    ///   - rhs: A vector to multiply.
+    /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    public func addingProduct(_ a: Scalar, _ b: Self) -> Self {
+        return Self(x: x.addingProduct(a, b.x), y: y.addingProduct(a, b.y), z: z.addingProduct(a, b.z))
+    }
+    
+    /// Returns the result of adding the product of the given vector and scalar
+    /// to this vector, computed without intermediate rounding.
+    ///
+    /// This method is equivalent to calling C `fma` function on each component.
+    ///
+    /// - Parameters:
+    ///   - lhs: A vector to multiply before adding to this vector.
+    ///   - rhs: A scalar to multiply.
+    /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    public func addingProduct(_ a: Self, _ b: Scalar) -> Self {
+        return Self(x: x.addingProduct(a.x, b), y: y.addingProduct(a.y, b), z: z.addingProduct(a.z, b))
+    }
+    
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent

@@ -11,6 +11,28 @@ public protocol VectorFloatingPoint: VectorDivisible where Scalar: FloatingPoint
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     func addingProduct(_ a: Self, _ b: Self) -> Self
     
+    /// Returns the result of adding the product of the given scalar and vector
+    /// to this vector, computed without intermediate rounding.
+    ///
+    /// This method is equivalent to calling C `fma` function on each component.
+    ///
+    /// - Parameters:
+    ///   - lhs: A scalar to multiply before adding to this vector.
+    ///   - rhs: A vector to multiply.
+    /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    func addingProduct(_ a: Scalar, _ b: Self) -> Self
+    
+    /// Returns the result of adding the product of the given vector and scalar
+    /// to this vector, computed without intermediate rounding.
+    ///
+    /// This method is equivalent to calling C `fma` function on each component.
+    ///
+    /// - Parameters:
+    ///   - lhs: A vector to multiply before adding to this vector.
+    ///   - rhs: A scalar to multiply.
+    /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    func addingProduct(_ a: Self, _ b: Scalar) -> Self
+    
     /// Rounds the components of this `VectorType` using a given
     /// `FloatingPointRoundingRule`.
     func rounded(_ rule: FloatingPointRoundingRule) -> Self
