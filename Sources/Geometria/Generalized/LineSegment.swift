@@ -18,6 +18,14 @@ public struct LineSegment<Vector: VectorType> {
     }
 }
 
+extension LineSegment: LineType {
+    @_transparent
+    public var a: Vector { return start }
+    
+    @_transparent
+    public var b: Vector { return end }
+}
+
 extension LineSegment: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }
@@ -48,32 +56,6 @@ public extension LineSegment where Vector: VectorMultiplicative {
 }
 
 public extension LineSegment where Vector: VectorFloatingPoint {
-    /// Performs a vector projection of a given vector with respect to this line,
-    /// returning a scalar value representing the normalized magnitude of the
-    /// projected point between `start <-> end`.
-    ///
-    /// By multiplying the result of this function by `start + (end - start)`,
-    /// the projected point as it lays on this line can be obtained.
-    @inlinable
-    func projectScalar(_ vector: Vector) -> Scalar {
-        let relEnd = end - start
-        let relVec = vector - start
-        
-        let proj = relVec.dot(relEnd) / lengthSquared
-        
-        return proj
-    }
-    
-    /// Performs a vector projection of a given vector with respect to this line.
-    /// The resulting vector lies within the infinite line formed by
-    /// `start <-> end`, potentialy extending past either end.
-    @inlinable
-    func project(_ vector: Vector) -> Vector {
-        let proj = projectScalar(vector)
-        
-        return start + (end - start) * proj
-    }
-    
     /// Returns the distance squared between this line and a given vector.
     ///
     /// The projected point on which the distance is taken is capped between

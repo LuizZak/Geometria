@@ -20,38 +20,16 @@ public struct Line<Vector: VectorType> {
     }
 }
 
+extension Line: LineType {
+    
+}
+
 extension Line: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 public extension Line where Vector: VectorFloatingPoint {
-    /// Performs a vector projection of a given vector with respect to this line,
-    /// returning a scalar value representing the normalized magnitude of the
-    /// projected point between `a <-> b`.
-    ///
-    /// By multiplying the result of this function by `a + (b - a)`,
-    /// the projected point as it lays on this line can be obtained.
-    @inlinable
-    func projectScalar(_ vector: Vector) -> Scalar {
-        let relEnd = b - a
-        let relVec = vector - a
-        
-        let proj = relVec.dot(relEnd) / relEnd.lengthSquared
-        
-        return proj
-    }
-    
-    /// Performs a vector projection of a given vector with respect to this line.
-    /// The resulting vector lies within the infinite line formed by
-    /// `b <-> a`, potentialy extending past either end.
-    @inlinable
-    func project(_ vector: Vector) -> Vector {
-        let proj = projectScalar(vector)
-        
-        return a + (b - a) * proj
-    }
-    
     /// Returns the distance squared between this line and a given vector.
     @inlinable
     func distanceSquared(to vector: Vector) -> Scalar {
