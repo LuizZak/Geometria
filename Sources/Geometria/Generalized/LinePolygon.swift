@@ -1,15 +1,8 @@
-/// Represents a 2D polygon as a series of connected double-precision
-/// floating-point 2D vertices.
-public typealias LinePolygon2D = LinePolygon<Vector2D>
-
-/// Represents a 2D polygon as a series of connected single-precision
-/// floating-point 2D vertices.
-public typealias LinePolygon2F = LinePolygon<Vector2F>
-
-/// Represents a 2D polygon as a series of connected integer 2D vertices.
-public typealias LinePolygon2i = LinePolygon<Vector2i>
-
 /// Represents a line polygon as a series of connected N-dimensional vertices.
+///
+/// A 2-dimensional line polygon defines a closed polygon, while in higher
+/// dimensions it is simply a list of line segments where the ends meet at the
+/// vertices.
 public struct LinePolygon<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     

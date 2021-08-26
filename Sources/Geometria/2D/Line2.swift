@@ -17,10 +17,10 @@ public extension Line where Vector: Vector2Type {
     }
 }
 
-extension Line where Vector: Vector2Real {
+public extension Line where Vector: Vector2Real {
     /// Returns the angle of this line, in radians
     @_transparent
-    public var angle: Scalar {
+    var angle: Scalar {
         return (end - start).angle
     }
 }

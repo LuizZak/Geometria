@@ -73,7 +73,7 @@ class Ellipse3Tests: XCTestCase {
     }
 }
 
-// MARK: Vector: Vector2Type, Scalar: Real Conformance
+// MARK: Vector2Type, Scalar: Real Conformance
 
 extension Ellipse3Tests {
     func testContainsXY() {
