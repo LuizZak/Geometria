@@ -1,12 +1,12 @@
 import XCTest
 import Geometria
 
-class Box2Tests: XCTestCase {
+class AABB2Tests: XCTestCase {
     typealias Box = Box2D
     
     func testDescription() {
         XCTAssertEqual(Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 3)).description,
-                       "NBox<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
+                       "AABB<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
     }
     
     func testX() {
@@ -90,7 +90,7 @@ class Box2Tests: XCTestCase {
 
 // MARK: VectorComparable
 
-extension Box2Tests {
+extension AABB2Tests {
     func testContainsXY() {
         let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
         
@@ -108,7 +108,7 @@ extension Box2Tests {
 
 // MARK: VectorAdditive Conformance
 
-extension Box2Tests {
+extension AABB2Tests {
     func testWidth() {
         let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
         

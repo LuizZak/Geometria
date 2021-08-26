@@ -67,10 +67,10 @@ public extension NRectangle where Vector: VectorAdditive {
         }
     }
     
-    /// Returns this `Rectangle` represented as a `Box`
+    /// Returns this `Rectangle` represented as an `AABB`
     @_transparent
-    var asBox: NBox<Vector> {
-        NBox(minimum: minimum, maximum: maximum)
+    var asAABB: AABB<Vector> {
+        AABB(minimum: minimum, maximum: maximum)
     }
     
     /// Initializes a `NRectangle` instance out of the given minimum and maximum

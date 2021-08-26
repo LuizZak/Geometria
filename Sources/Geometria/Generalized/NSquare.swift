@@ -28,8 +28,8 @@ public struct NSquare<Vector: VectorType> {
 public extension NSquare where Vector: VectorAdditive {
     /// Returns a box with the same boundaries as this square.
     @_transparent
-    var asBox: NBox<Vector> {
-        return NBox(minimum: origin, maximum: origin + Vector(repeating: sideLength))
+    var asBox: AABB<Vector> {
+        return AABB(minimum: origin, maximum: origin + Vector(repeating: sideLength))
     }
 }
 

@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class NBoxTests: XCTestCase {
+class AABBTests: XCTestCase {
     typealias Box = Box2D
     
     func testCodable() throws {
@@ -34,7 +34,7 @@ class NBoxTests: XCTestCase {
 
 // MARK: Equatable Conformance
 
-extension NBoxTests {
+extension AABBTests {
     func testEquality() {
         XCTAssertEqual(Box(minimum: .init(x: 1, y: 2),
                            maximum: .init(x: 3, y: 4)),
@@ -91,7 +91,7 @@ extension NBoxTests {
 
 // MARK: VectorComparable Conformance
 
-extension NBoxTests {
+extension AABBTests {
     func testIsValid() {
         XCTAssertTrue(Box(minimum: .zero, maximum: .zero).isValid)
         XCTAssertTrue(Box(minimum: .zero, maximum: .one).isValid)
@@ -183,7 +183,7 @@ extension NBoxTests {
 
 // MARK: VectorAdditive Conformance
 
-extension NBoxTests {
+extension AABBTests {
     func testSize() {
         let sut = Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 4))
         
@@ -225,7 +225,7 @@ extension NBoxTests {
 
 // MARK: VectorAdditive & VectorComparable Conformance
 
-extension NBoxTests {
+extension AABBTests {
     func testInitOfPoints() {
         let result = Box(of: .init(x: -1, y: 3), .init(x: 2, y: -5))
         

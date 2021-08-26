@@ -1,6 +1,6 @@
-/// Represents a box with two N-dimensional vectors that describe the minimal
-/// and maximal coordinates of the box's opposite corners.
-public struct NBox<Vector: VectorType> {
+/// Represents an axis-aligned bounding box with two N-dimensional vectors that
+/// describe the minimal and maximal coordinates of the box's opposite corners.
+public struct AABB<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
     /// The minimal coordinate of this box.
@@ -27,12 +27,12 @@ public struct NBox<Vector: VectorType> {
     }
 }
 
-extension NBox: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension NBox: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension NBox: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension NBox: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension AABB: Equatable where Vector: Equatable, Scalar: Equatable { }
+extension AABB: Hashable where Vector: Hashable, Scalar: Hashable { }
+extension AABB: Encodable where Vector: Encodable, Scalar: Encodable { }
+extension AABB: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension NBox where Vector: Equatable {
+public extension AABB where Vector: Equatable {
     /// Returns `true` if the size of this box is zero.
     @_transparent
     var isSizeZero: Bool {
@@ -40,7 +40,7 @@ public extension NBox where Vector: Equatable {
     }
 }
 
-public extension NBox where Vector: VectorComparable {
+public extension AABB where Vector: VectorComparable {
     /// Returns `true` if `minimum <= maximum`.
     @_transparent
     var isValid: Bool {
@@ -77,7 +77,7 @@ public extension NBox where Vector: VectorComparable {
     /// Returns whether a given box rests completely inside the boundaries of
     /// this box.
     @_transparent
-    func contains(box: NBox) -> Bool {
+    func contains(box: AABB) -> Bool {
         return box.minimum >= minimum && box.maximum <= maximum
     }
     
@@ -86,27 +86,27 @@ public extension NBox where Vector: VectorComparable {
     /// This check is inclusive, so the edges of the box are considered to
     /// intersect the other bounding box's edges as well.
     @_transparent
-    func intersects(_ box: NBox) -> Bool {
+    func intersects(_ box: AABB) -> Bool {
         return minimum <= box.maximum && maximum >= box.minimum
     }
     
     /// Returns a box which is the minimum area that can fit `self` and the
     /// given box.
     @_transparent
-    func union(_ other: NBox) -> NBox {
-        return NBox.union(self, other)
+    func union(_ other: AABB) -> AABB {
+        return AABB.union(self, other)
     }
     
     /// Returns a box which is the minimum area that can fit the given two
     /// boxes.
     @_transparent
-    static func union(_ left: NBox, _ right: NBox) -> NBox {
-        return NBox(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
+    static func union(_ left: AABB, _ right: AABB) -> AABB {
+        return AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
                     maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 
-public extension NBox where Vector: VectorAdditive {
+public extension AABB where Vector: VectorAdditive {
     /// Returns a box with all coordinates set to zero.
     @_transparent
     static var zero: Self { Self(minimum: .zero, maximum: .zero) }
@@ -145,14 +145,14 @@ public extension NBox where Vector: VectorAdditive {
     }
 }
 
-public extension NBox where Vector: VectorAdditive & VectorComparable {
+public extension AABB where Vector: VectorAdditive & VectorComparable {
     /// Initializes a box containing the minimum area capable of containing all
     /// supplied points.
     ///
     /// If no points are supplied, an empty box is created, instead.
     @_transparent
     init(of points: Vector...) {
-        self = NBox(points: points)
+        self = AABB(points: points)
     }
     
     /// Initializes a box out of a set of points, expanding to the smallest

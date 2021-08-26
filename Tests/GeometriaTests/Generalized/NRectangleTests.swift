@@ -104,12 +104,12 @@ extension NRectangleTests {
         XCTAssertEqual(sut.size, .init(x: 4, y: 5))
     }
     
-    func testAsBox() {
+    func testAsAABB() {
         let sut = Rectangle(x: 0, y: 1, width: 2, height: 3)
         
-        let result = sut.asBox
+        let result = sut.asAABB
         
-        XCTAssertEqual(result, NBox(left: 0, top: 1, right: 2, bottom: 4))
+        XCTAssertEqual(result, AABB(left: 0, top: 1, right: 2, bottom: 4))
     }
     
     func testInitWithMinimumMaximum() {

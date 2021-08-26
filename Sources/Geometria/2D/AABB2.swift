@@ -1,25 +1,27 @@
-/// Represents a 2D box with two double-precision floating-point vectors that
+/// Represents a 2D axis-aligned bounding box with two double-precision
+/// floating-point vectors that describe the minimal and maximal coordinates
+/// of the box's opposite corners.
+public typealias Box2D = AABB2<Vector2D>
+
+/// Represents a 2D axis-aligned bounding box with two single-precision
+/// floating-point vectors that describe the minimal and maximal coordinates
+/// of the box's opposite corners.
+public typealias Box2F = AABB2<Vector2F>
+
+/// Represents a 2D axis-aligned bounding box with two integer vectors that
 /// describe the minimal and maximal coordinates of the box's opposite corners.
-public typealias Box2D = Box2<Vector2D>
+public typealias Box2i = AABB2<Vector2i>
 
-/// Represents a 2D box with two single-precision floating-point vectors that
-/// describe the minimal and maximal coordinates of the box's opposite corners.
-public typealias Box2F = Box2<Vector2F>
+/// Typealias for `AABB<V>`, where `V` is constrained to `Vector2Type`.
+public typealias AABB2<V: Vector2Type> = AABB<V>
 
-/// Represents a 2D box with two integer vectors that describe the minimal and
-/// maximal coordinates of the box's opposite corners.
-public typealias Box2i = Box2<Vector2i>
-
-/// Typealias for `NBox<V>`, where `V` is constrained to `Vector2Type`.
-public typealias Box2<V: Vector2Type> = NBox<V>
-
-extension NBox: CustomStringConvertible where Vector: Vector2Type {
+extension AABB2: CustomStringConvertible {
     public var description: String {
         return "\(type(of: self))(left: \(minimum.x), top: \(minimum.y), right: \(maximum.x), bottom: \(maximum.y))"
     }
 }
 
-public extension Box2 {
+public extension AABB2 {
     /// The x coordinate of the left corner of this 2d box.
     ///
     /// Alias for `minimum.x`.
@@ -72,7 +74,7 @@ public extension Box2 {
     @_transparent
     var bottomLeft: Vector { Vector(x: left, y: bottom) }
     
-    /// Returns an array of vectors that represent this `Box`'s 2D corners in
+    /// Returns an array of vectors that represent this `AABB`'s 2D corners in
     /// clockwise order, starting from the top-left corner.
     ///
     /// Always contains 4 elements.
@@ -81,14 +83,14 @@ public extension Box2 {
         return [topLeft, topRight, bottomRight, bottomLeft]
     }
     
-    /// Initializes a `Box` with the edges of a box.
+    /// Initializes a `AABB` with the edges of a box.
     @_transparent
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         self.init(minimum: Vector(x: left, y: top), maximum: Vector(x: right, y: bottom))
     }
 }
 
-public extension Box2 where Vector: VectorComparable {
+public extension AABB2 where Vector: VectorComparable {
     /// Returns whether a given point is contained within this 2d box.
     ///
     /// The check is inclusive, so the edges of the box are considered to
@@ -99,7 +101,7 @@ public extension Box2 where Vector: VectorComparable {
     }
 }
 
-public extension Box2 where Vector: VectorAdditive {
+public extension AABB2 where Vector: VectorAdditive {
     /// Gets the width of this box.
     @_transparent
     var width: Scalar {
@@ -112,7 +114,7 @@ public extension Box2 where Vector: VectorAdditive {
         size.y
     }
     
-    /// Initializes a `Box` with the coordinates of a rectangle.
+    /// Initializes a `AABB` with the coordinates of a rectangle.
     @inlinable
     init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {
         let minimum = Vector(x: x, y: y)
