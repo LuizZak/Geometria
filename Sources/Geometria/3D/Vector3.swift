@@ -224,6 +224,11 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
     }
     
     @_transparent
+    public static func * (lhs: Scalar, rhs: Self) -> Self {
+        return Self(x: lhs * rhs.x, y: lhs * rhs.y, z: lhs * rhs.z)
+    }
+    
+    @_transparent
     public static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }

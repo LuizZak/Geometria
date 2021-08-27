@@ -42,6 +42,8 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     
     static func * (lhs: Self, rhs: Scalar) -> Self
     
+    static func * (lhs: Scalar, rhs: Self) -> Self
+    
     static func *= (lhs: inout Self, rhs: Self)
     
     static func *= (lhs: inout Self, rhs: Scalar)

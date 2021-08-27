@@ -132,6 +132,11 @@ class Vector2Tests: XCTestCase {
                        Vector2F(x: 4, y: 6))
     }
     
+    func testAddition_isCommutative() {
+        XCTAssertEqual(Vector(x: 1, y: 2) + Vector(x: 3, y: 4),
+                       Vector(x: 3, y: 4) + Vector(x: 1, y: 2))
+    }
+    
     func testAddition_withScalar() {
         XCTAssertEqual(Vector(x: 1, y: 2) + 3,
                        Vector(x: 4, y: 5))
@@ -168,13 +173,29 @@ class Vector2Tests: XCTestCase {
                        Vector2F(x: 3, y: 8))
     }
     
+    func testMultiplication_isCommutative() {
+        XCTAssertEqual(Vector2D(x: 1, y: 2) * Vector2D(x: 3, y: 4),
+                       Vector2D(x: 3, y: 4) * Vector2D(x: 1, y: 2))
+    }
+    
     func testMultiplication_withScalar() {
         XCTAssertEqual(Vector(x: 1, y: 2) * 3,
                        Vector(x: 3, y: 6))
+        XCTAssertEqual(3 * Vector(x: 1, y: 2),
+                       Vector(x: 3, y: 6))
         XCTAssertEqual(Vector2D(x: 1, y: 2) * 3,
+                       Vector2D(x: 3, y: 6))
+        XCTAssertEqual(3 * Vector2D(x: 1, y: 2),
                        Vector2D(x: 3, y: 6))
         XCTAssertEqual(Vector2F(x: 1, y: 2) * 3,
                        Vector2F(x: 3, y: 6))
+        XCTAssertEqual(3 * Vector2F(x: 1, y: 2),
+                       Vector2F(x: 3, y: 6))
+    }
+    
+    func testMultiplication_withScalar_isCommutative() {
+        XCTAssertEqual(Vector2D(x: 1, y: 2) * 3,
+                       3 * Vector2D(x: 1, y: 2))
     }
     
     func testDivision() {
@@ -281,10 +302,10 @@ class Vector2Tests: XCTestCase {
     }
     
     func testDot() {
-        let v1 = Vector(x: 10, y: 20)
-        let v2 = Vector(x: 30, y: 40)
+        let v1 = Vector(x: 2, y: 3)
+        let v2 = Vector(x: 5, y: 7)
         
-        XCTAssertEqual(v1.dot(v2), 1100)
+        XCTAssertEqual(v1.dot(v2), 31)
     }
     
     func testCross() {
