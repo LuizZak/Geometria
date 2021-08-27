@@ -1,5 +1,5 @@
 /// Represents an N-dimensional ray line which has a starting point and crosses
-/// a secondary point projecting past infinity.
+/// a secondary point before being projecting to infinity.
 public struct Ray<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     

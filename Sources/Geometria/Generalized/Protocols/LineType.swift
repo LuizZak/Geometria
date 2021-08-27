@@ -14,7 +14,7 @@ public extension LineType where Vector: VectorFloatingPoint {
     /// returning a scalar value representing the normalized magnitude of the
     /// projected point between `a <-> b`.
     ///
-    /// By multiplying the result of this function by `a + (b - a)`,
+    /// By multiplying the result of this function by `(b - a)` and adding `a`,
     /// the projected point as it lays on this line can be obtained.
     @inlinable
     func projectScalar(_ vector: Vector) -> Vector.Scalar {
