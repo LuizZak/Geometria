@@ -559,4 +559,16 @@ class Vector3Tests: XCTestCase {
         
         XCTAssertEqual(vec.normalized(), .zero)
     }
+    
+    func testAzimuth() {
+        let vec = Vector3D(x: 1, y: 1, z: 1)
+        
+        XCTAssertEqual(vec.azimuth, 0.7853981633974483)
+    }
+    
+    func testElevation() {
+        let vec = Vector3D(x: 1, y: 1, z: 1)
+        
+        XCTAssertEqual(vec.elevation, 0.7853981633974483)
+    }
 }

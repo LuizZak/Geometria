@@ -192,3 +192,17 @@ extension SIMD3: VectorReal where Scalar == Double {
                     z: Scalar.pow(vec.z, n.z))
     }
 }
+
+extension SIMD3: Vector3Real where Scalar == Double {
+    /// The XY-plane angle of this vector
+    @_transparent
+    public var azimuth: Scalar {
+        return Scalar.atan2(y: y, x: x)
+    }
+    
+    /// The XZ-plane angle of this vector
+    @_transparent
+    public var elevation: Scalar {
+        return Scalar.atan2(y: z, x: x)
+    }
+}

@@ -423,3 +423,17 @@ extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
                     z: Scalar.pow(vec.z, n.z))
     }
 }
+
+extension Vector3: Vector3Real where Scalar: DivisibleArithmetic & Real {
+    /// The XY-plane angle of this vector
+    @_transparent
+    public var azimuth: Scalar {
+        return Scalar.atan2(y: y, x: x)
+    }
+    
+    /// The XZ-plane angle of this vector
+    @_transparent
+    public var elevation: Scalar {
+        return Scalar.atan2(y: z, x: x)
+    }
+}

@@ -1,3 +1,4 @@
+/// Protocol for 3D vector types where the components are floating-point numbers
 public protocol Vector3FloatingPoint: Vector3Type & VectorFloatingPoint {
     /// Initializes this `Vector3FloatingPoint` with a given binary Vector2
     init<V: Vector3Type>(_ other: V) where V.Scalar: BinaryInteger

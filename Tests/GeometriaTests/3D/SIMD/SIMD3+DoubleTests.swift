@@ -364,4 +364,16 @@ class SIMD3_DoubleTests: XCTestCase {
         
         XCTAssertEqual(vec.normalized(), .zero)
     }
+    
+    func testAzimuth() {
+        let vec = Vector(x: 1, y: 1, z: 1)
+        
+        XCTAssertEqual(vec.azimuth, 0.7853981633974483)
+    }
+    
+    func testElevation() {
+        let vec = Vector(x: 1, y: 1, z: 1)
+        
+        XCTAssertEqual(vec.elevation, 0.7853981633974483)
+    }
 }
