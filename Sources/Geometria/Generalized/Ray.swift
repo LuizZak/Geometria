@@ -28,7 +28,7 @@ extension Ray: LineType {
 }
 
 public extension Ray {
-    /// Returns a `Line` representation of this ray, where the `line.a` matches
+    /// Returns a `Line` representation of this ray, where `line.a` matches
     /// `self.start` and `line.b` matches `self.b`.
     @inlinable
     var asLine: Line<Vector> {
@@ -42,7 +42,7 @@ public extension Ray where Vector: VectorFloatingPoint {
     func distanceSquared(to vector: Vector) -> Scalar {
         let proj = max(0, projectScalar(vector))
         
-        let point = start + (b - start) * proj
+        let point = start.addingProduct(b - start, proj)
         
         return vector.distanceSquared(to: point)
     }
@@ -53,5 +53,17 @@ public extension Ray where Vector: VectorReal {
     @inlinable
     func distance(to vector: Vector) -> Scalar {
         return distanceSquared(to: vector).squareRoot()
+    }
+}
+
+public extension Ray where Vector: VectorNormalizable {
+    /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
+    /// matches `self.start` and `ray.direction` matches
+    /// `(self.b - self.start).normalized()`.
+    ///
+    /// - precondition: `(self.b - self.start).length > 0`
+    @inlinable
+    var asDirectionalRay: DirectionalRay<Vector> {
+        return DirectionalRay(start: start, direction: b - start)
     }
 }

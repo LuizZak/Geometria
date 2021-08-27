@@ -1,0 +1,34 @@
+/// Wraps a vector and ensures that assignments are always stored as a unit
+/// vector.
+///
+/// If attempting to store a vector with `.length == 0`, a runtime error is
+/// raised.
+@propertyWrapper
+public struct UnitVector<Vector: VectorReal & VectorNormalizable> {
+    @usableFromInline
+    internal var _value: Vector
+    
+    public var wrappedValue: Vector {
+        @inlinable
+        get {
+            return _value
+        }
+        @inlinable
+        set {
+            precondition(_value.lengthSquared > 0, "Unit vectors must have length > 0")
+            
+            _value = newValue.normalized()
+        }
+    }
+    
+    public init(wrappedValue: Vector) {
+        precondition(wrappedValue.lengthSquared > 0, "Unit vectors must have length > 0")
+        
+        self._value = wrappedValue.normalized()
+    }
+}
+
+extension UnitVector: Equatable where Vector: Equatable, Vector.Scalar: Equatable { }
+extension UnitVector: Hashable where Vector: Hashable, Vector.Scalar: Hashable { }
+extension UnitVector: Encodable where Vector: Encodable, Vector.Scalar: Encodable { }
+extension UnitVector: Decodable where Vector: Decodable, Vector.Scalar: Decodable { }

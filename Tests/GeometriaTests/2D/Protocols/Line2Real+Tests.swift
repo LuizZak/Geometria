@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class Line2Type_Tests: XCTestCase {
+class Line2Real_Tests: XCTestCase {
     typealias Vector = Vector2D
     typealias Line = Line2<Vector>
     

@@ -125,3 +125,17 @@ extension RayTests {
         XCTAssertEqual(sut.distance(to: point), 0.816496580927726, accuracy: 1e-15)
     }
 }
+
+// MARK: VectorNormalizable Conformance
+
+extension RayTests {
+    func testAsDirectionalRay() {
+        let sut = Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        
+        let result = sut.asDirectionalRay
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(result.angle, sut.angle)
+    }
+}

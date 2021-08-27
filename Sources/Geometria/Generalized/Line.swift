@@ -29,9 +29,7 @@ public extension Line where Vector: VectorFloatingPoint {
     /// Returns the distance squared between this line and a given vector.
     @inlinable
     func distanceSquared(to vector: Vector) -> Scalar {
-        let proj = projectScalar(vector)
-        
-        let point = a + (b - a) * proj
+        let point = project(vector)
         
         return vector.distanceSquared(to: point)
     }

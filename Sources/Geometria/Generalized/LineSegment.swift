@@ -40,18 +40,18 @@ extension LineSegment: BoundedVolumeType where Vector: VectorComparable {
 }
 
 public extension LineSegment {
-    /// Returns a `Ray` representation of this line segment, where the `ray.start`
-    /// matches `self.start` and `ray.b` matches `self.end`.
-    @inlinable
-    var asRay: Ray<Vector> {
-        return Ray(start: start, b: end)
-    }
-    
-    /// Returns a `Line` representation of this line segment, where the `line.a`
+    /// Returns a `Line` representation of this line segment, where `line.a`
     /// matches `self.start` and `line.b` matches `self.end`.
     @inlinable
     var asLine: Line<Vector> {
         return Line(a: start, b: end)
+    }
+    
+    /// Returns a `Ray` representation of this line segment, where `ray.start`
+    /// matches `self.start` and `ray.b` matches `self.end`.
+    @inlinable
+    var asRay: Ray<Vector> {
+        return Ray(start: start, b: end)
     }
 }
 
@@ -72,7 +72,7 @@ public extension LineSegment where Vector: VectorFloatingPoint {
     func distanceSquared(to vector: Vector) -> Scalar {
         let proj = min(1, max(0, projectScalar(vector)))
         
-        let point = start + (end - start) * proj
+        let point = start.addingProduct(end - start, proj)
         
         return vector.distanceSquared(to: point)
     }
@@ -89,5 +89,17 @@ public extension LineSegment where Vector: VectorReal {
     @inlinable
     func distance(to vector: Vector) -> Scalar {
         return distanceSquared(to: vector).squareRoot()
+    }
+}
+
+public extension LineSegment where Vector: VectorNormalizable {
+    /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
+    /// matches `self.start` and `ray.direction` matches
+    /// `(self.end - self.start).normalized()`.
+    ///
+    /// - precondition: `(self.end - self.start).length > 0`
+    @inlinable
+    var asDirectionalRay: DirectionalRay<Vector> {
+        return DirectionalRay(start: start, direction: end - start)
     }
 }

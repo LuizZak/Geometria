@@ -61,4 +61,64 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
+    
+    func xtestDirectionalRayProject2D() {
+        typealias Vector = Vector2D
+        
+        let ray = DirectionalRay<Vector>(x: 0, y: 0, dx: 10, dy: 10)
+        let point = Vector(x: 0, y: 10)
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                _ = ray.project(point + Double(i))
+            }
+        }
+    }
+    
+    func xtestDirectionalRayProject3D() {
+        typealias Vector = Vector3D
+        
+        let ray = DirectionalRay<Vector>(x: 0, y: 0, z: 0, dx: 10, dy: 10, dz: 10)
+        let point = Vector(x: 10, y: 10, z: 0)
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                _ = ray.project(point + Double(i))
+            }
+        }
+    }
+    
+    func xtestDirectionalRayProject2D_simd() {
+        typealias Vector = SIMD2<Double>
+        
+        let ray = DirectionalRay<Vector>(x: 0, y: 0, dx: 10, dy: 10)
+        let point = Vector(x: 0, y: 10)
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                _ = ray.project(point + Double(i))
+            }
+        }
+    }
+    
+    func xtestDirectionalRayProject3D_simd() {
+        typealias Vector = SIMD3<Double>
+        
+        let ray = DirectionalRay<Vector>(x: 0, y: 0, z: 0, dx: 10, dy: 10, dz: 10)
+        let point = Vector(x: 10, y: 10, z: 0)
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                _ = ray.project(point + Double(i))
+            }
+        }
+    }
 }

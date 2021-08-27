@@ -19,3 +19,7 @@ extension LineSegment2: Line2Type {
         end = Vector(x: x2, y: y2)
     }
 }
+
+extension LineSegment2: Line2Real where Vector: Vector2Real {
+    
+}

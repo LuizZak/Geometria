@@ -1,19 +1,25 @@
 /// Represents a 2D ray as a pair of double-precision floating-point vectors
-/// where the ray starts and crosses before being projected to infinity.
+/// describing where the ray starts and crosses before being projected to
+/// infinity.
 public typealias Ray2D = Ray2<Vector2D>
 
-/// Represents a 2D line as a pair of single-precision floating-point vectors
-/// where the ray starts and crosses before being projected to infinity.
+/// Represents a 2D ray as a pair of single-precision floating-point vectors
+/// describing where the ray starts and crosses before being projected to
+/// infinity.
 public typealias Ray2F = Ray2<Vector2F>
 
-/// Represents a 2D line as a pair of integer vectors where the ray starts and
-/// crosses before being projected to infinity.
+/// Represents a 2D ray as a pair of integer vectors describing where the ray
+/// starts and crosses before being projected to infinity.
 public typealias Ray2i = Ray2<Vector2i>
 
 /// Typealias for `Ray<V>`, where `V` is constrained to `Vector2Type`.
 public typealias Ray2<V: Vector2Type> = Ray<V>
 
 extension Ray2: Line2Type {
+    
+}
+
+extension Ray2: Line2Real where Vector: Vector2Real {
     
 }
 

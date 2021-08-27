@@ -20,3 +20,7 @@ extension Line2: Line2Type {
         b = Vector(x: x2, y: y2)
     }
 }
+
+extension Line2: Line2Real where Vector: Vector2Real {
+    
+}

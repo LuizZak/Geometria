@@ -52,21 +52,21 @@ class LineSegmentTests: XCTestCase {
                           LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
     }
     
-    func testAsRay() {
-        let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
-        
-        let result = sut.asRay
-        
-        XCTAssertEqual(result.start, .init(x: 1, y: 2))
-        XCTAssertEqual(result.b, .init(x: 3, y: 5))
-    }
-    
     func testAsLine() {
         let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
         
         let result = sut.asLine
         
         XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.b, .init(x: 3, y: 5))
+    }
+    
+    func testAsRay() {
+        let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        
+        let result = sut.asRay
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
         XCTAssertEqual(result.b, .init(x: 3, y: 5))
     }
 }
@@ -177,5 +177,19 @@ extension LineSegmentTests {
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distance(to: point), 0.816496580927726, accuracy: 1e-15)
+    }
+}
+
+// MARK: VectorNormalizable Conformance
+
+extension LineSegmentTests {
+    func testAsDirectionalRay() {
+        let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        
+        let result = sut.asDirectionalRay
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(result.angle, sut.angle)
     }
 }
