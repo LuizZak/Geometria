@@ -63,13 +63,13 @@ public extension LineSegment where Vector: VectorMultiplicative {
     }
 }
 
-public extension LineSegment where Vector: VectorFloatingPoint {
+extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns the distance squared between this line and a given vector.
     ///
     /// The projected point on which the distance is taken is capped between
     /// the start and end points.
     @inlinable
-    func distanceSquared(to vector: Vector) -> Scalar {
+    public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = min(1, max(0, projectScalar(vector)))
         
         let point = start.addingProduct(end - start, proj)
@@ -78,17 +78,11 @@ public extension LineSegment where Vector: VectorFloatingPoint {
     }
 }
 
-public extension LineSegment where Vector: VectorReal {
+extension LineSegment: LineReal where Vector: VectorReal {
     /// Returns the length of this line
     @_transparent
-    var length: Scalar {
+    public var length: Scalar {
         return (end - start).length
-    }
-    
-    /// Returns the distance between this line and a given vector.
-    @inlinable
-    func distance(to vector: Vector) -> Scalar {
-        return distanceSquared(to: vector).squareRoot()
     }
 }
 

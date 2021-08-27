@@ -80,6 +80,22 @@ class DirectionalRayTests: XCTestCase {
     }
 }
 
+// MARK: LineType Conformance
+
+extension DirectionalRayTests {
+    func testA() {
+        let sut = DirectionalRay(start: .init(x: 1, y: 2), direction: .init(x: 3, y: 5))
+        
+        XCTAssertEqual(sut.a, .init(x: 1, y: 2))
+    }
+    
+    func testB() {
+        let sut = DirectionalRay(start: .init(x: 1, y: 2), direction: .init(x: 3, y: 5))
+        
+        XCTAssertEqual(sut.b, .init(x: 1.5144957554275265, y: 2.857492925712544))
+    }
+}
+
 // MARK: VectorAdditive Conformance
 
 extension DirectionalRayTests {
@@ -106,7 +122,7 @@ extension DirectionalRayTests {
     }
 }
 
-// MARK: VectorFloatingPoint Conformance
+// MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension DirectionalRayTests {
     func testProjectScalar2D() {
@@ -254,37 +270,5 @@ extension DirectionalRayTests {
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
-    }
-}
-
-// MARK: VectorReal Conformance
-
-extension DirectionalRayTests {
-    func testDistanceTo2D() {
-        let sut = DirectionalRay(x: 1, y: 2, dx: 3, dy: 5)
-        let point = Vector2D(x: 2, y: 3)
-        
-        XCTAssertEqual(sut.distance(to: point), 0.34299717028501786, accuracy: 1e-15)
-    }
-    
-    func testDistanceTo2D_pastStart() {
-        let sut = DirectionalRay(x: 1, y: 2, dx: 3, dy: 5)
-        let point = Vector2D(x: -1, y: 0)
-        
-        XCTAssertEqual(sut.distance(to: point), 2.8284271247461903, accuracy: 1e-15)
-    }
-    
-    func testDistanceTo2D_pastEnd() {
-        let sut = DirectionalRay(x: 1, y: 2, dx: 3, dy: 5)
-        let point = Vector2D(x: 5, y: 7)
-        
-        XCTAssertEqual(sut.distance(to: point), 0.8574929257125439, accuracy: 1e-15)
-    }
-    
-    func testDistanceTo3D() {
-        let sut = DirectionalRay3(x: 1, y: 2, z: 3, dx: 5, dy: 7, dz: 11)
-        let point = Vector3D(x: 3, y: 3, z: 3)
-        
-        XCTAssertEqual(sut.distance(to: point), 1.8756195557598343, accuracy: 1e-15)
     }
 }

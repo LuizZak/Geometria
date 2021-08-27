@@ -36,10 +36,10 @@ extension Ray: LineType {
     public var a: Vector { return start }
 }
 
-public extension Ray where Vector: VectorFloatingPoint {
+extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns the distance squared between this line and a given vector.
     @inlinable
-    func distanceSquared(to vector: Vector) -> Scalar {
+    public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = max(0, projectScalar(vector))
         
         let point = start.addingProduct(b - start, proj)
@@ -48,12 +48,8 @@ public extension Ray where Vector: VectorFloatingPoint {
     }
 }
 
-public extension Ray where Vector: VectorReal {
-    /// Returns the distance between this line and a given vector.
-    @inlinable
-    func distance(to vector: Vector) -> Scalar {
-        return distanceSquared(to: vector).squareRoot()
-    }
+extension Ray: LineReal where Vector: VectorReal {
+    
 }
 
 public extension Ray where Vector: VectorNormalizable {

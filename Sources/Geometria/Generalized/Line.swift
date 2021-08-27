@@ -25,14 +25,8 @@ extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension Line where Vector: VectorFloatingPoint {
-    /// Returns the distance squared between this line and a given vector.
-    @inlinable
-    func distanceSquared(to vector: Vector) -> Scalar {
-        let point = project(vector)
-        
-        return vector.distanceSquared(to: point)
-    }
+extension Line: LineFloatingPoint where Vector: VectorFloatingPoint {
+    
 }
 
 public extension Line where Vector: VectorReal {

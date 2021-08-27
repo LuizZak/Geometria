@@ -28,6 +28,16 @@ extension DirectionalRay: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension DirectionalRay: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension DirectionalRay: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+extension DirectionalRay: LineType {
+    public var a: Vector {
+        return start
+    }
+    
+    public var b: Vector {
+        return start + direction
+    }
+}
+
 public extension DirectionalRay where Vector: VectorAdditive {
     /// Returns a `Line` representation of this directional ray, where `line.a`
     /// matches `self.start` and `line.b` matches `self.start + self.direction`.
@@ -44,7 +54,7 @@ public extension DirectionalRay where Vector: VectorAdditive {
     }
 }
 
-public extension DirectionalRay where Vector: VectorFloatingPoint {
+extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the line `start <-> start + direction`.
@@ -53,7 +63,7 @@ public extension DirectionalRay where Vector: VectorFloatingPoint {
     /// `start`, the projected point as it lays on this directional ray line can
     /// be obtained.
     @inlinable
-    func projectScalar(_ vector: Vector) -> Vector.Scalar {
+    public func projectScalar(_ vector: Vector) -> Vector.Scalar {
         let relVec = vector - start
         
         let proj = relVec.dot(direction)
@@ -67,7 +77,7 @@ public extension DirectionalRay where Vector: VectorFloatingPoint {
     /// The resulting vector lies within the infinite line formed by
     /// `start <-> start + direction`, potentialy extending past either end.
     @inlinable
-    func project(_ vector: Vector) -> Vector {
+    public func project(_ vector: Vector) -> Vector {
         let proj = projectScalar(vector)
         
         return start.addingProduct(direction, proj)
@@ -76,7 +86,7 @@ public extension DirectionalRay where Vector: VectorFloatingPoint {
     /// Returns the distance squared between this directional ray and a given
     /// vector.
     @inlinable
-    func distanceSquared(to vector: Vector) -> Scalar {
+    public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = max(0, projectScalar(vector))
         
         let point = start.addingProduct(direction, proj)
@@ -85,10 +95,6 @@ public extension DirectionalRay where Vector: VectorFloatingPoint {
     }
 }
 
-public extension DirectionalRay where Vector: VectorReal {
-    /// Returns the distance between this line and a given vector.
-    @inlinable
-    func distance(to vector: Vector) -> Scalar {
-        return distanceSquared(to: vector).squareRoot()
-    }
+extension DirectionalRay: LineReal where Vector: VectorReal {
+    
 }
