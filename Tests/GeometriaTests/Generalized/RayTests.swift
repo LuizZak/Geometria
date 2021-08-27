@@ -87,7 +87,7 @@ extension RayTests {
     }
     
     func testDistanceSquaredTo3D() {
-        let sut = Line3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = Ray3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
@@ -119,7 +119,7 @@ extension RayTests {
     }
     
     func testDistanceTo3D() {
-        let sut = Line3D(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
+        let sut = Ray3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distance(to: point), 0.816496580927726, accuracy: 1e-15)
