@@ -1,5 +1,5 @@
 /// Protocol for Vector types that can be normalized
-public protocol VectorNormalizable {
+public protocol VectorNormalizable: VectorReal {
     /// Normalizes this `Vector`.
     ///
     /// Returns `Vector.zero`, if the vector has `length == 0`.
