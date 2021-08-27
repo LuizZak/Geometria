@@ -31,14 +31,14 @@ extension DirectionalRay: Decodable where Vector: Decodable, Scalar: Decodable {
 public extension DirectionalRay where Vector: VectorAdditive {
     /// Returns a `Line` representation of this directional ray, where `line.a`
     /// matches `self.start` and `line.b` matches `self.start + self.direction`.
-    @inlinable
+    @_transparent
     var asLine: Line<Vector> {
         return Line(a: start, b: start + direction)
     }
     
     /// Returns a `Ray` representation of this directional ray, where `ray.start`
     /// matches `self.start` and `ray.b` matches `self.start + self.direction`.
-    @inlinable
+    @_transparent
     var asRay: Ray<Vector> {
         return Ray(start: start, b: start + direction)
     }

@@ -22,18 +22,18 @@ extension Ray: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Ray: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Ray: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-extension Ray: LineType {
-    @_transparent
-    public var a: Vector { return start }
-}
-
 public extension Ray {
     /// Returns a `Line` representation of this ray, where `line.a` matches
     /// `self.start` and `line.b` matches `self.b`.
-    @inlinable
+    @_transparent
     var asLine: Line<Vector> {
         return Line(a: start, b: b)
     }
+}
+
+extension Ray: LineType {
+    @_transparent
+    public var a: Vector { return start }
 }
 
 public extension Ray where Vector: VectorFloatingPoint {
@@ -62,7 +62,7 @@ public extension Ray where Vector: VectorNormalizable {
     /// `(self.b - self.start).normalized()`.
     ///
     /// - precondition: `(self.b - self.start).length > 0`
-    @inlinable
+    @_transparent
     var asDirectionalRay: DirectionalRay<Vector> {
         return DirectionalRay(start: start, direction: b - start)
     }

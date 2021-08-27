@@ -62,6 +62,16 @@ class RayTests: XCTestCase {
     }
 }
 
+// MARK: LineType Conformance
+
+extension RayTests {
+    func testA() {
+        let sut = Ray(start: .zero, b: .one)
+        
+        XCTAssertEqual(sut.a, .zero)
+    }
+}
+
 // MARK: VectorFloatingPoint Conformance
 
 extension RayTests {

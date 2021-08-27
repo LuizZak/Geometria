@@ -9,11 +9,11 @@ public struct UnitVector<Vector: VectorReal & VectorNormalizable> {
     internal var _value: Vector
     
     public var wrappedValue: Vector {
-        @inlinable
+        @_transparent
         get {
             return _value
         }
-        @inlinable
+        @_transparent
         set {
             precondition(_value.lengthSquared > 0, "Unit vectors must have length > 0")
             
@@ -21,6 +21,7 @@ public struct UnitVector<Vector: VectorReal & VectorNormalizable> {
         }
     }
     
+    @_transparent
     public init(wrappedValue: Vector) {
         precondition(wrappedValue.lengthSquared > 0, "Unit vectors must have length > 0")
         

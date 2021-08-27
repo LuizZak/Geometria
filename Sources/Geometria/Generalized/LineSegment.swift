@@ -23,6 +23,22 @@ extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension LineSegment: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+public extension LineSegment {
+    /// Returns a `Line` representation of this line segment, where `line.a`
+    /// matches `self.start` and `line.b` matches `self.end`.
+    @_transparent
+    var asLine: Line<Vector> {
+        return Line(a: start, b: end)
+    }
+    
+    /// Returns a `Ray` representation of this line segment, where `ray.start`
+    /// matches `self.start` and `ray.b` matches `self.end`.
+    @_transparent
+    var asRay: Ray<Vector> {
+        return Ray(start: start, b: end)
+    }
+}
+
 extension LineSegment: LineType {
     @_transparent
     public var a: Vector { return start }
@@ -36,22 +52,6 @@ extension LineSegment: BoundedVolumeType where Vector: VectorComparable {
     public var bounds: AABB<Vector> {
         return AABB(minimum: Vector.pointwiseMin(a, b),
                     maximum: Vector.pointwiseMax(a, b))
-    }
-}
-
-public extension LineSegment {
-    /// Returns a `Line` representation of this line segment, where `line.a`
-    /// matches `self.start` and `line.b` matches `self.end`.
-    @inlinable
-    var asLine: Line<Vector> {
-        return Line(a: start, b: end)
-    }
-    
-    /// Returns a `Ray` representation of this line segment, where `ray.start`
-    /// matches `self.start` and `ray.b` matches `self.end`.
-    @inlinable
-    var asRay: Ray<Vector> {
-        return Ray(start: start, b: end)
     }
 }
 
@@ -98,7 +98,7 @@ public extension LineSegment where Vector: VectorNormalizable {
     /// `(self.end - self.start).normalized()`.
     ///
     /// - precondition: `(self.end - self.start).length > 0`
-    @inlinable
+    @_transparent
     var asDirectionalRay: DirectionalRay<Vector> {
         return DirectionalRay(start: start, direction: end - start)
     }
