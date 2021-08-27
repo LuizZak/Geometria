@@ -44,3 +44,11 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
         return d.lengthSquared <= radius * radius
     }
 }
+
+public extension NSphere where Vector: VectorFloatingPoint {
+    /// Returns `true` if this N-sphere's area intersects the given line type.
+    @inlinable
+    func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+        return line.distanceSquared(to: center) <= radius * radius
+    }
+}

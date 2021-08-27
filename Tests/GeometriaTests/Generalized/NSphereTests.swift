@@ -71,3 +71,233 @@ extension NSphereTests {
         XCTAssertFalse(sut.contains(.init(x: 0, y: -3)))
     }
 }
+
+// MARK: VectorFloatingPoint Conformance
+
+// 2D tests
+extension NSphereTests {
+    typealias Circle = Circle2<Vector2D>
+    typealias Line2 = Geometria.Line2<Vector2D>
+    
+    func testIntersectsLine_2d_originCircle() {
+        let sut = Circle(center: .zero,
+                         radius: 1)
+        
+        // Horizontal line with Y = -2
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: -1, y1: -2, x2: 1, y2: -2))
+        )
+        // Horizontal line with Y = -1
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: -1, y1: -1, x2: 1, y2: -1))
+        )
+        // Horizontal line with Y = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: -1, y1: 0, x2: 1, y2: 0))
+        )
+        // Horizontal line with Y = 1
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: -1, y1: 1, x2: 1, y2: 1))
+        )
+        // Horizontal line with Y = 2
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: -1, y1: 2, x2: 1, y2: 2))
+        )
+        // Vertical line with X = -2
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: -2, y1: -1, x2: -2, y2: 1))
+        )
+        // Vertical line with X = -1
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: -1, y1: -1, x2: -1, y2: 1))
+        )
+        // Vertical line with X = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 0, y1: -1, x2: 0, y2: 1))
+        )
+        // Vertical line with X = 1
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 1, y1: -1, x2: 1, y2: 1))
+        )
+        // Vertical line with X = 2
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: 2, y1: -1, x2: 2, y2: 1))
+        )
+        // Tangential line
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 0, y1: 1, x2: 1, y2: 0))
+        )
+        // Tangential line, off radii
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: 0, y1: 2, x2: 2, y2: 0))
+        )
+    }
+    
+    func testIntersectsLine_2d_offsetCircle() {
+        let sut = Circle(center: .init(x: 2, y: 3),
+                         radius: 1)
+        
+        // Horizontal line with Y = 1
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: 0, y1: 1, x2: 4, y2: 1))
+        )
+        // Horizontal line with Y = 2
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 0, y1: 2, x2: 4, y2: 2))
+        )
+        // Horizontal line with Y = 3
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 0, y1: 3, x2: 4, y2: 3))
+        )
+        // Horizontal line with Y = 4
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 0, y1: 4, x2: 4, y2: 4))
+        )
+        // Horizontal line with Y = 5
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: 0, y1: 5, x2: 4, y2: 5))
+        )
+        // Vertical line with X = 0
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: 0, y1: 0, x2: 0, y2: 4))
+        )
+        // Vertical line with X = 1
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 1, y1: 0, x2: 1, y2: 4))
+        )
+        // Vertical line with X = 2
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 2, y1: 0, x2: 2, y2: 4))
+        )
+        // Vertical line with X = 3
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 3, y1: 0, x2: 3, y2: 4))
+        )
+        // Vertical line with X = 4
+        XCTAssertFalse(
+            sut.intersects(line: Line2(x1: 4, y1: 0, x2: 4, y2: 4))
+        )
+        // Tangential line
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 2, y1: 4, x2: 3, y2: 2))
+        )
+        // Tangential line, off radii
+        XCTAssertTrue(
+            sut.intersects(line: Line2(x1: 2, y1: 5, x2: 4, y2: 1))
+        )
+    }
+}
+
+// 3D tests
+extension NSphereTests {
+    typealias Sphere = Geometria.NSphere<Vector3D>
+    typealias Line3 = Geometria.Line3<Vector3D>
+    
+    func testIntersectsLine_3d_originSphere() {
+        let sut = Sphere(center: .zero,
+                         radius: 1)
+        
+        // X plane line with Y = -2, Z = 0
+        XCTAssertFalse(
+            sut.intersects(line: Line3(x1: -1, y1: -2, z1: 0, x2: 1, y2: -2, z2: 0))
+        )
+        // X plane line with Y = -1, Z = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: -1, z1: 0, x2: 1, y2: -1, z2: 0))
+        )
+        // X plane line with Y = 0, Z = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0))
+        )
+        // X plane line with Y = 1, Z = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 1, z1: 0, x2: 1, y2: 1, z2: 0))
+        )
+        // X plane line with Y = 2, Z = 0
+        XCTAssertFalse(
+            sut.intersects(line: Line3(x1: -1, y1: 2, z1: 0, x2: 1, y2: 2, z2: 0))
+        )
+        // X plane line with Y = 0, Z = -1
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 0, z1: -1, x2: 1, y2: 0, z2: -1))
+        )
+        // X plane line with Y = 0, Z = 1
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 0, z1: 1, x2: 1, y2: 0, z2: 1))
+        )
+        
+        // Y plane line with X = -2, Z = 0
+        XCTAssertFalse(
+            sut.intersects(line: Line3(x1: -2, y1: -1, z1: 0, x2: -2, y2: 1, z2: 0))
+        )
+        // Y plane line with X = -1, Z = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: -1, z1: 0, x2: -1, y2: 1, z2: 0))
+        )
+        // Y plane line with X = 0, Z = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 0, y1: -1, z1: 0, x2: 0, y2: 1, z2: 0))
+        )
+        // Y plane line with X = 1, Z = 0
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 1, y1: -1, z1: 0, x2: 1, y2: 1, z2: 0))
+        )
+        // Y plane line with X = 2, Z = 0
+        XCTAssertFalse(
+            sut.intersects(line: Line3(x1: 2, y1: -1, z1: 0, x2: 2, y2: 1, z2: 0))
+        )
+        
+        // Tangential line
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 1, y1: 1, z1: 1, x2: -1, y2: -1, z2: -1))
+        )
+        // Tangential line, off-radii
+        XCTAssertFalse(
+            sut.intersects(line: Line3(x1: 0, y1: 2, z1: 2, x2: 2, y2: 0, z2: -2))
+        )
+    }
+    
+    func testIntersectsLine_3d_offsetSphere() {
+        let sut = Sphere(center: .init(x: 2, y: 3, z: 5),
+                         radius: 1)
+        
+        // X plane line with Y = 2, Z = 5
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 2, z1: 5, x2: 1, y2: 2, z2: 5))
+        )
+        // X plane line with Y = 3, Z = 5
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 3, z1: 5, x2: 1, y2: 3, z2: 5))
+        )
+        // X plane line with Y = 4, Z = 5
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 4, z1: 5, x2: 1, y2: 4, z2: 5))
+        )
+        // X plane line with Y = 3, Z = 4
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 3, z1: 4, x2: 1, y2: 3, z2: 4))
+        )
+        // X plane line with Y = 3, Z = 6
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: -1, y1: 3, z1: 6, x2: 1, y2: 3, z2: 6))
+        )
+        
+        // Y plane line with X = 1, Z = 5
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 1, y1: -1, z1: 5, x2: 1, y2: 1, z2: 5))
+        )
+        // Y plane line with X = 2, Z = 5
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 2, y1: -1, z1: 5, x2: 2, y2: 1, z2: 5))
+        )
+        // Y plane line with X = 3, Z = 5
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 3, y1: -1, z1: 5, x2: 3, y2: 1, z2: 5))
+        )
+        
+        // Tangential line
+        XCTAssertTrue(
+            sut.intersects(line: Line3(x1: 3, y1: 4, z1: 6, x2: 1, y2: 2, z2: 4))
+        )
+    }
+}
