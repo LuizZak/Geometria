@@ -1,7 +1,5 @@
-/// Represents an N-dimensional square with an origin point and a side length.
-///
-/// The edges of the square are parallel to each axis of the corresponding vector
-/// type of this square.
+/// Represents an N-dimensional square with an origin point and a scalar value
+/// for the side length of each edge.
 public struct NSquare<Vector: VectorType> {
     public typealias Scalar = Vector.Scalar
     
@@ -25,10 +23,10 @@ public struct NSquare<Vector: VectorType> {
     }
 }
 
-public extension NSquare where Vector: VectorAdditive {
+extension NSquare: BoundedVolumeType where Vector: VectorAdditive {
     /// Returns a box with the same boundaries as this square.
     @_transparent
-    var asBox: AABB<Vector> {
+    public var bounds: AABB<Vector> {
         return AABB(minimum: origin, maximum: origin + Vector(repeating: sideLength))
     }
 }

@@ -23,7 +23,20 @@ class NSphereTests: XCTestCase {
     }
 }
 
-// MARK: AdditiveArithmetic Conformance
+// MARK: BoundedVolumeType Conformance
+
+extension NSphereTests {
+    func testBounds() {
+        let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -2, y: -1))
+        XCTAssertEqual(result.maximum, .init(x: 2, y: 3))
+    }
+}
+
+// MARK: Scalar: AdditiveArithmetic Conformance
 
 extension NSphereTests {
     func testExpandedBy() {

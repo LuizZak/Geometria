@@ -52,6 +52,18 @@ class EllipsoidTests: XCTestCase {
     }
 }
 
+// MARK: BoundedVolumeType Conformance
+
+extension EllipsoidTests {
+    func testBounds() {
+        let sut = Ellipsoid(center: .init(x: 1, y: 2), radius: .init(x: 3, y: 4))
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -2, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 4, y: 6))
+    }
+}
 
 // MARK: VectorReal Conformance
 

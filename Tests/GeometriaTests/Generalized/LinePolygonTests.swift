@@ -59,3 +59,29 @@ class LinePolygonTests: XCTestCase {
         ])
     }
 }
+
+// MARK: BoundedVolumeType Conformance
+
+extension LinePolygonTests {
+    func testBounds() {
+        let sut = LinePolygon(vertices: [
+            .init(x: -2, y: 3),
+            .init(x: 4, y: 1),
+            .init(x: 3, y: -4)
+        ])
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -2, y: -4))
+        XCTAssertEqual(result.maximum, .init(x: 4, y: 3))
+    }
+    
+    func testBounds_empty() {
+        let sut = LinePolygon()
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .zero)
+        XCTAssertEqual(result.maximum, .zero)
+    }
+}

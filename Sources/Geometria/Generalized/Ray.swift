@@ -17,15 +17,15 @@ public struct Ray<Vector: VectorType> {
     }
 }
 
-extension Ray: LineType {
-    @_transparent
-    public var a: Vector { return start }
-}
-
 extension Ray: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Ray: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Ray: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Ray: Decodable where Vector: Decodable, Scalar: Decodable { }
+
+extension Ray: LineType {
+    @_transparent
+    public var a: Vector { return start }
+}
 
 public extension Ray {
     /// Returns a `Line` representation of this ray, where the `line.a` matches

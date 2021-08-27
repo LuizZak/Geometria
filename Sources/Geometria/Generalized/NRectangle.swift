@@ -90,6 +90,14 @@ public extension NRectangle where Vector: VectorAdditive {
     }
 }
 
+extension NRectangle: BoundedVolumeType where Vector: VectorAdditive {
+    /// Returns this `Rectangle` represented as an `AABB`
+    @_transparent
+    public var bounds: AABB<Vector> {
+        AABB(minimum: minimum, maximum: maximum)
+    }
+}
+
 public extension NRectangle where Vector: VectorAdditive & VectorComparable {
     /// Returns `true` if `size >= .zero`.
     @_transparent

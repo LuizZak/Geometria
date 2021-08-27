@@ -18,6 +18,11 @@ public struct LineSegment<Vector: VectorType> {
     }
 }
 
+extension LineSegment: Equatable where Vector: Equatable, Scalar: Equatable { }
+extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
+extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }
+extension LineSegment: Decodable where Vector: Decodable, Scalar: Decodable { }
+
 extension LineSegment: LineType {
     @_transparent
     public var a: Vector { return start }
@@ -26,10 +31,13 @@ extension LineSegment: LineType {
     public var b: Vector { return end }
 }
 
-extension LineSegment: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension LineSegment: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension LineSegment: BoundedVolumeType where Vector: VectorComparable {
+    @_transparent
+    public var bounds: AABB<Vector> {
+        return AABB(minimum: Vector.pointwiseMin(a, b),
+                    maximum: Vector.pointwiseMax(a, b))
+    }
+}
 
 public extension LineSegment {
     /// Returns a `Ray` representation of this line segment, where the `ray.start`

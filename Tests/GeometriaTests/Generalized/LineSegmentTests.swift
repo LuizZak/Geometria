@@ -71,6 +71,35 @@ class LineSegmentTests: XCTestCase {
     }
 }
 
+// MARK: LineType Conformance
+
+extension LineSegmentTests {
+    func testA() {
+        let sut = LineSegment(start: .zero, end: .one)
+        
+        XCTAssertEqual(sut.a, .zero)
+    }
+    
+    func testB() {
+        let sut = LineSegment(start: .zero, end: .one)
+        
+        XCTAssertEqual(sut.b, .one)
+    }
+}
+
+// MARK: BoundedVolumeType Conformance
+
+extension LineSegmentTests {
+    func testBounds() {
+        let sut = LineSegment(start: .init(x: 1, y: -2), end: .init(x: -3, y: 5))
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -3, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 1, y: 5))
+    }
+}
+
 // MARK: VectorMultiplicative Conformance
 
 extension LineSegmentTests {

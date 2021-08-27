@@ -32,6 +32,20 @@ class AABBTests: XCTestCase {
     }
 }
 
+// MARK: BoundedVolumeType Conformance
+
+extension AABBTests {
+    func testBounds() {
+        let sut = Box(minimum: .init(x: 1, y: 2),
+                      maximum: .init(x: 3, y: 6))
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
+    }
+}
+
 // MARK: Equatable Conformance
 
 extension AABBTests {

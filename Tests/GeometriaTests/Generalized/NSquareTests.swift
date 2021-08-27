@@ -14,13 +14,13 @@ class NSquareTests: XCTestCase {
     }
 }
 
-// MARK: VectorAdditive Conformance
+// MARK: BoundedVolumeType Conformance
 
 extension NSquareTests {
-    func testAsBox() {
+    func testBounds() {
         let sut = Square(origin: .init(x: 2, y: 3), sideLength: 4)
         
-        let result = sut.asBox
+        let result = sut.bounds
         
         XCTAssertEqual(result.minimum, .init(x: 2, y: 3))
         XCTAssertEqual(result.maximum, .init(x: 6, y: 7))

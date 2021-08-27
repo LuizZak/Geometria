@@ -2,7 +2,7 @@ import RealModule
 
 /// Represents a line as a pair of start and end N-dimensional vectors which
 /// describe the two points an infinite line crosses.
-public struct Line<Vector: VectorType> {
+public struct Line<Vector: VectorType>: LineType {
     public typealias Scalar = Vector.Scalar
     
     /// An initial point a line tracing from infinity passes through before
@@ -18,10 +18,6 @@ public struct Line<Vector: VectorType> {
         self.a = a
         self.b = b
     }
-}
-
-extension Line: LineType {
-    
 }
 
 extension Line: Equatable where Vector: Equatable, Scalar: Equatable { }

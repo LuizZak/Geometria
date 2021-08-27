@@ -17,6 +17,12 @@ extension NSphere: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension NSphere: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension NSphere: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+extension NSphere: BoundedVolumeType where Vector: VectorAdditive {
+    public var bounds: AABB<Vector> {
+        return AABB(minimum: center - radius, maximum: center + radius)
+    }
+}
+
 public extension NSphere where Scalar: AdditiveArithmetic {
     @inlinable
     func expanded(by value: Scalar) -> NSphere {

@@ -19,6 +19,13 @@ extension Ellipsoid: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Ellipsoid: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Ellipsoid: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+extension Ellipsoid: BoundedVolumeType where Vector: VectorAdditive {
+    @_transparent
+    public var bounds: AABB<Vector> {
+        return AABB(minimum: center - radius, maximum: center + radius)
+    }
+}
+
 public extension Ellipsoid where Vector: VectorReal {
     /// Returns `true` if the given point is contained within this ellipse.
     ///

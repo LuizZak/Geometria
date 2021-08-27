@@ -129,6 +129,19 @@ extension NRectangleTests {
     }
 }
 
+// MARK: BoundedVolumeType Conformance
+
+extension NRectangleTests {
+    func testBounds() {
+        let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
+        XCTAssertEqual(result.maximum, .init(x: 4, y: 7))
+    }
+}
+
 // MARK: VectorAdditive & VectorComparable Conformance
 
 extension NRectangleTests {

@@ -32,6 +32,11 @@ extension AABB: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension AABB: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension AABB: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+extension AABB: BoundedVolumeType {
+    @_transparent
+    public var bounds: AABB<Vector> { return self }
+}
+
 public extension AABB where Vector: Equatable {
     /// Returns `true` if the size of this box is zero.
     @_transparent

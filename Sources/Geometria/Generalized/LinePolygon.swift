@@ -29,3 +29,9 @@ extension LinePolygon: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension LinePolygon: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension LinePolygon: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension LinePolygon: Decodable where Vector: Decodable, Scalar: Decodable { }
+
+extension LinePolygon: BoundedVolumeType where Vector: VectorAdditive & VectorComparable {
+    public var bounds: AABB<Vector> {
+        return AABB(points: vertices)
+    }
+}
