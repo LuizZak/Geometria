@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 
 class AABBTests: XCTestCase {
-    typealias Box = Box2D
+    typealias Box = AABB2D
     
     func testCodable() throws {
         let sut = Box(minimum: .init(x: 1, y: 2),
