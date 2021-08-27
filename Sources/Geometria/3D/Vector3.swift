@@ -304,6 +304,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     ///   - lhs: One of the vectors to multiply before adding to this vector.
     ///   - rhs: The other vector to multiply.
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    @_transparent
     public func addingProduct(_ a: Self, _ b: Self) -> Self {
         return Self(x: x.addingProduct(a.x, b.x), y: y.addingProduct(a.y, b.y), z: z.addingProduct(a.z, b.z))
     }
@@ -317,6 +318,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     ///   - lhs: A scalar to multiply before adding to this vector.
     ///   - rhs: A vector to multiply.
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    @_transparent
     public func addingProduct(_ a: Scalar, _ b: Self) -> Self {
         return Self(x: x.addingProduct(a, b.x), y: y.addingProduct(a, b.y), z: z.addingProduct(a, b.z))
     }
@@ -330,6 +332,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     ///   - lhs: A vector to multiply before adding to this vector.
     ///   - rhs: A scalar to multiply.
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
+    @_transparent
     public func addingProduct(_ a: Self, _ b: Scalar) -> Self {
         return Self(x: x.addingProduct(a.x, b), y: y.addingProduct(a.y, b), z: z.addingProduct(a.z, b))
     }
@@ -431,9 +434,16 @@ extension Vector3: Vector3Real where Scalar: DivisibleArithmetic & Real {
         return Scalar.atan2(y: y, x: x)
     }
     
-    /// The XZ-plane angle of this vector
-    @_transparent
+    /// The elevation angle of this vector, or the angle between the XY plane
+    /// and the vector.
+    ///
+    /// Returns zero, if the vector's length is zero.
+    @inlinable
     public var elevation: Scalar {
-        return Scalar.atan2(y: z, x: x)
+        if length == .zero {
+            return .zero
+        }
+        
+        return Scalar.asin(z / length)
     }
 }

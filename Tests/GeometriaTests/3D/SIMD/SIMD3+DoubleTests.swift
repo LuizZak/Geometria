@@ -366,14 +366,28 @@ class SIMD3_DoubleTests: XCTestCase {
     }
     
     func testAzimuth() {
-        let vec = Vector(x: 1, y: 1, z: 1)
-        
-        XCTAssertEqual(vec.azimuth, 0.7853981633974483)
+        XCTAssertEqual(Vector(x: 1, y: 1, z: -1).azimuth, 0.7853981633974483)
+        XCTAssertEqual(Vector(x: 1, y: 1, z: 0).azimuth, 0.7853981633974483)
+        XCTAssertEqual(Vector(x: 1, y: 1, z: 1).azimuth, 0.7853981633974483)
     }
     
     func testElevation() {
-        let vec = Vector(x: 1, y: 1, z: 1)
-        
-        XCTAssertEqual(vec.elevation, 0.7853981633974483)
+        XCTAssertEqual(Vector(x: 0, y: 0, z: 1).elevation, .pi / 2)
+        XCTAssertEqual(Vector(x: 0, y: 0, z: -1).elevation, -.pi / 2)
+        XCTAssertEqual(Vector(x: -1, y: -1, z: 1).elevation, 0.6154797086703875)
+        XCTAssertEqual(Vector(x: 1, y: -1, z: 1).elevation, 0.6154797086703875)
+        XCTAssertEqual(Vector(x: 1, y: 1, z: 1).elevation, 0.6154797086703875)
+        XCTAssertEqual(Vector(x: -1, y: 1, z: 1).elevation, 0.6154797086703875)
+    }
+    
+    func testElevation_zeroZ() {
+        XCTAssertEqual(Vector(x: -1, y: -1, z: 0).elevation, 0)
+        XCTAssertEqual(Vector(x: 1, y: -1, z: 0).elevation, 0)
+        XCTAssertEqual(Vector(x: 1, y: 1, z: 0).elevation, 0)
+        XCTAssertEqual(Vector(x: -1, y: 1, z: 0).elevation, 0)
+    }
+    
+    func testElevation_zeroLength() {
+        XCTAssertEqual(Vector.zero.elevation, 0)
     }
 }

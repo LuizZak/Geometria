@@ -200,9 +200,16 @@ extension SIMD3: Vector3Real where Scalar == Double {
         return Scalar.atan2(y: y, x: x)
     }
     
-    /// The XZ-plane angle of this vector
-    @_transparent
+    /// The elevation angle of this vector, or the angle between the XY plane
+    /// and the vector.
+    ///
+    /// Returns zero, if the vector's length is zero.
+    @inlinable
     public var elevation: Scalar {
-        return Scalar.atan2(y: z, x: x)
+        if length == .zero {
+            return .zero
+        }
+        
+        return Scalar.asin(z / length)
     }
 }

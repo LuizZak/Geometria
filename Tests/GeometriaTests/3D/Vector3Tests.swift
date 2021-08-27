@@ -561,14 +561,28 @@ class Vector3Tests: XCTestCase {
     }
     
     func testAzimuth() {
-        let vec = Vector3D(x: 1, y: 1, z: 1)
-        
-        XCTAssertEqual(vec.azimuth, 0.7853981633974483)
+        XCTAssertEqual(Vector3D(x: 1, y: 1, z: -1).azimuth, 0.7853981633974483)
+        XCTAssertEqual(Vector3D(x: 1, y: 1, z: 0).azimuth, 0.7853981633974483)
+        XCTAssertEqual(Vector3D(x: 1, y: 1, z: 1).azimuth, 0.7853981633974483)
     }
     
     func testElevation() {
-        let vec = Vector3D(x: 1, y: 1, z: 1)
-        
-        XCTAssertEqual(vec.elevation, 0.7853981633974483)
+        XCTAssertEqual(Vector3D(x: 0, y: 0, z: 1).elevation, .pi / 2)
+        XCTAssertEqual(Vector3D(x: 0, y: 0, z: -1).elevation, -.pi / 2)
+        XCTAssertEqual(Vector3D(x: -1, y: -1, z: 1).elevation, 0.6154797086703875)
+        XCTAssertEqual(Vector3D(x: 1, y: -1, z: 1).elevation, 0.6154797086703875)
+        XCTAssertEqual(Vector3D(x: 1, y: 1, z: 1).elevation, 0.6154797086703875)
+        XCTAssertEqual(Vector3D(x: -1, y: 1, z: 1).elevation, 0.6154797086703875)
+    }
+    
+    func testElevation_zeroZ() {
+        XCTAssertEqual(Vector3D(x: -1, y: -1, z: 0).elevation, 0)
+        XCTAssertEqual(Vector3D(x: 1, y: -1, z: 0).elevation, 0)
+        XCTAssertEqual(Vector3D(x: 1, y: 1, z: 0).elevation, 0)
+        XCTAssertEqual(Vector3D(x: -1, y: 1, z: 0).elevation, 0)
+    }
+    
+    func testElevation_zeroLength() {
+        XCTAssertEqual(Vector3D.zero.elevation, 0)
     }
 }
