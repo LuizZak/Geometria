@@ -10,7 +10,7 @@ public typealias DirectionalRay2F = DirectionalRay2<Vector2F>
 
 /// Typealias for `DirectionalRay<V>`, where `V` is constrained to
 /// `Vector2Type & VectorNormalizable`.
-public typealias DirectionalRay2<V: Vector2Type & VectorNormalizable> = DirectionalRay<V>
+public typealias DirectionalRay2<V: Vector2Type & VectorFloatingPoint> = DirectionalRay<V>
 
 public extension DirectionalRay2 {
     /// Initializes a new Ray with a 2D vector for its position and another

@@ -4,7 +4,7 @@ import Geometria
 class Matrix2Tests: XCTestCase {
     typealias Matrix = Matrix2D
     
-    func testIdendity() {
+    func testIdentity() {
         XCTAssertEqual(Matrix.identity.m11, 1)
         XCTAssertEqual(Matrix.identity.m12, 0)
         XCTAssertEqual(Matrix.identity.m21, 0)
@@ -55,7 +55,7 @@ class Matrix2Tests: XCTestCase {
         XCTAssertEqual(sut.scaleVector, .init(x: 1, y: 4))
     }
     
-    func testIsIdendity() {
+    func testIsIdentity() {
         let sut = makeSut()
         
         XCTAssertFalse(sut.isIdentity)

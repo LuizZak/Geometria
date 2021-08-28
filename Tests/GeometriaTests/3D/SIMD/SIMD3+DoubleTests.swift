@@ -137,7 +137,7 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(-Vector(x: 1, y: 2, z: 3), Vector(x: -1, y: -2, z: -3))
     }
     
-    func testNegate_doubleNegateEqualsIdendity() {
+    func testNegate_doubleNegateEqualsIdentity() {
         let vec = Vector(x: 1, y: 2, z: 3)
         
         XCTAssertEqual(-(-vec), vec)
@@ -208,7 +208,7 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(vec.ceil(), Vector(x: 1, y: 2, z: 4))
     }
     
-    func testModulosOperator_vector() {
+    func testModuloOperator_vector() {
         let vec = Vector(x: 3, y: 10, z: 7)
         let mod = Vector(x: 4, y: 3, z: 5)
         
@@ -219,7 +219,7 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(result.z, 2)
     }
     
-    func testModulosOperator_scalar() {
+    func testModuloOperator_scalar() {
         let vec = Vector(x: 3, y: 10, z: 7)
         let mod = 4.0
         

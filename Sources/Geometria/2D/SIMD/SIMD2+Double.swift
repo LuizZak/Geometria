@@ -9,20 +9,6 @@ extension SIMD2: Vector2Type where Scalar == Double {
     
 }
 
-extension SIMD2: VectorNormalizable where Scalar == Double {
-    public mutating func normalize() {
-        self = normalized()
-    }
-    
-    public func normalized() -> SIMD2<Scalar> {
-        if self.lengthSquared == 0 {
-            return .zero
-        }
-        
-        return simd.normalize(self)
-    }
-}
-
 extension SIMD2: VectorComparable where Scalar == Double {
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.

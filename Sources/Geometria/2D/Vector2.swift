@@ -164,13 +164,7 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     public var lengthSquared: Scalar {
         return x * x + y * y
     }
-    
-    /// Returns the distance squared between this `Vector2Type` and another `Vector2Type`
-    @_transparent
-    public func distanceSquared(to vec: Self) -> Scalar {
-        return (self - vec).lengthSquared
-    }
-    
+
     /// Calculates the dot product between this and another provided `Vector2Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -326,29 +320,6 @@ extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
     }
 }
 
-extension Vector2: VectorNormalizable where Scalar: Comparable & Real & DivisibleArithmetic {
-    /// Normalizes this Vector instance.
-    ///
-    /// Returns `Vector2.zero` if the vector has `length == 0`.
-    @_transparent
-    public mutating func normalize() {
-        self = normalized()
-    }
-    
-    /// Returns a normalized version of this vector.
-    ///
-    /// Returns `Vector2.zero` if the vector has `length == 0`.
-    @inlinable
-    public func normalized() -> Self {
-        let l = length
-        if l <= 0 {
-            return .zero
-        }
-        
-        return self / l
-    }
-}
-
 extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
@@ -444,19 +415,6 @@ extension Vector2: Vector2FloatingPoint where Scalar: DivisibleArithmetic & Floa
 }
 
 extension Vector2: VectorReal where Scalar: DivisibleArithmetic & Real {
-    /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector2Type`
-    @_transparent
-    public var length: Scalar {
-        return Scalar.sqrt(lengthSquared)
-    }
-    
-    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
-    @_transparent
-    public func distance(to vec: Self) -> Scalar {
-        return Scalar.sqrt(self.distanceSquared(to: vec))
-    }
-    
     @_transparent
     public static func pow(_ vec: Self, _ n: Scalar) -> Self {
         return Self.pow(vec, Self(x: n, y: n))

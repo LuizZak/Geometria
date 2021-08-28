@@ -64,6 +64,16 @@ public extension LineSegment where Vector: VectorMultiplicative {
 }
 
 extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
+    /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
+    /// matches `self.start` and `ray.direction` matches
+    /// `(self.end - self.start).normalized()`.
+    ///
+    /// - precondition: `(self.end - self.start).length > 0`
+    @_transparent
+    public var asDirectionalRay: DirectionalRay<Vector> {
+        return DirectionalRay(start: start, direction: end - start)
+    }
+    
     /// Returns `true` for projected scalars (0-1) (finite line)
     @inlinable
     public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
@@ -89,17 +99,5 @@ extension LineSegment: LineReal where Vector: VectorReal {
     @_transparent
     public var length: Scalar {
         return (end - start).length
-    }
-}
-
-public extension LineSegment where Vector: VectorNormalizable {
-    /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
-    /// matches `self.start` and `ray.direction` matches
-    /// `(self.end - self.start).normalized()`.
-    ///
-    /// - precondition: `(self.end - self.start).length > 0`
-    @_transparent
-    var asDirectionalRay: DirectionalRay<Vector> {
-        return DirectionalRay(start: start, direction: end - start)
     }
 }

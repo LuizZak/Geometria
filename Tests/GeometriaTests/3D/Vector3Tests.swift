@@ -301,19 +301,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(Vector3D(x: 3.0, y: 2.0, z: 1.0).lengthSquared, 14.0)
     }
     
-    func testDistanceSquared() {
-        let v1 = Vector(x: 10, y: 20, z: 30)
-        let v2 = Vector(x: 40, y: 50, z: 60)
-        
-        XCTAssertEqual(v1.distanceSquared(to: v2), 2700)
-    }
-    
-    func testDistanceSquared_zeroDistance() {
-        let vec = Vector3D(x: 10, y: 20, z: 30)
-        
-        XCTAssertEqual(vec.distanceSquared(to: vec), 0.0)
-    }
-    
     func testDot() {
         let v1 = Vector(x: 10, y: 20, z: 30)
         let v2 = Vector(x: 40, y: 50, z: 60)
@@ -365,7 +352,7 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(-Vector(x: 1, y: 2, z: 3), Vector(x: -1, y: -2, z: -3))
     }
     
-    func testNegate_doubleNegateEqualsIdendity() {
+    func testNegate_doubleNegateEqualsIdentity() {
         let vec = Vector(x: 1, y: 2, z: 3)
         
         XCTAssertEqual(-(-vec), vec)
@@ -436,7 +423,7 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(vec.ceil(), Vector3D(x: 1, y: 2, z: 4))
     }
     
-    func testModulosOperator_vector() {
+    func testModuloOperator_vector() {
         let vec = Vector3D(x: 3, y: 10, z: 7)
         let mod = Vector3D(x: 4, y: 3, z: 5)
         
@@ -447,7 +434,7 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(result.z, 2)
     }
     
-    func testModulosOperator_scalar() {
+    func testModuloOperator_scalar() {
         let vec = Vector3D(x: 3, y: 10, z: 7)
         let mod = 4.0
         
@@ -532,53 +519,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertTrue(result.x.isNaN)
         XCTAssertTrue(result.y.isNaN)
         XCTAssertTrue(result.z.isNaN)
-    }
-    
-    func testDistanceTo() {
-        let v1 = Vector3D(x: 10, y: 20, z: 30)
-        let v2 = Vector3D(x: 40, y: 50, z: 60)
-        
-        XCTAssertEqual(v1.distance(to: v2), 51.96152422706632, accuracy: accuracy)
-    }
-    
-    func testDistanceTo_zeroDistance() {
-        let vec = Vector3D(x: 10, y: 20, z: 30)
-        
-        XCTAssertEqual(vec.distance(to: vec), 0.0)
-    }
-    
-    func testNormalize() {
-        var vec = Vector3D(x: -10, y: 20, z: 15.0)
-        
-        vec.normalize()
-        
-        assertEqual(vec, Vector3D(x: -0.3713906763541037,
-                                  y: 0.7427813527082074,
-                                  z: 0.5570860145311556),
-                    accuracy: accuracy)
-    }
-    
-    func testNormalize_zero() {
-        var vec = Vector3D(x: 0, y: 0, z: 0)
-        
-        vec.normalize()
-        
-        XCTAssertEqual(vec, .zero)
-    }
-    
-    func testNormalized() {
-        let vec = Vector3D(x: -10, y: 20, z: 15.0)
-        
-        assertEqual(vec.normalized(), Vector3D(x: -0.3713906763541037,
-                                               y: 0.7427813527082074,
-                                               z: 0.5570860145311556),
-                    accuracy: accuracy)
-    }
-    
-    func testNormalized_zero() {
-        let vec = Vector3D(x: 0, y: 0, z: 0)
-        
-        XCTAssertEqual(vec.normalized(), .zero)
     }
     
     func testAzimuth() {

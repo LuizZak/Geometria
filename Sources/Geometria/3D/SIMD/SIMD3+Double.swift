@@ -9,20 +9,6 @@ extension SIMD3: Vector3Type where Scalar == Double {
     
 }
 
-extension SIMD3: VectorNormalizable where Scalar == Double {
-    public mutating func normalize() {
-        self = normalized()
-    }
-    
-    public func normalized() -> SIMD3<Scalar> {
-        if self.lengthSquared == 0 {
-            return .zero
-        }
-        
-        return simd.normalize(self)
-    }
-}
-
 extension SIMD3: VectorComparable where Scalar == Double {
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.
@@ -122,6 +108,33 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
         return length_squared(self)
     }
     
+    /// Returns the Euclidean norm (square root of the squared length) of this
+    /// `Vector2Type`
+    @_transparent
+    public var length: Scalar {
+        return simd.length(self)
+    }
+    
+    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
+    @_transparent
+    public func distance(to vec: Self) -> Scalar {
+        return simd.distance(self, vec)
+    }
+    
+    @_transparent
+    public mutating func normalize() {
+        self = normalized()
+    }
+    
+    @inlinable
+    public func normalized() -> SIMD3<Scalar> {
+        if self.lengthSquared == 0 {
+            return .zero
+        }
+        
+        return simd.normalize(self)
+    }
+    
     @_transparent
     public func rounded() -> SIMD3<Scalar> {
         return self.rounded(.toNearestOrAwayFromZero)
@@ -160,19 +173,6 @@ extension SIMD3: Vector3FloatingPoint where Scalar == Double {
 }
 
 extension SIMD3: VectorReal where Scalar == Double {
-    /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector2Type`
-    @_transparent
-    public var length: Scalar {
-        return Scalar.sqrt(lengthSquared)
-    }
-    
-    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
-    @_transparent
-    public func distance(to vec: Self) -> Scalar {
-        return Scalar.sqrt(self.distanceSquared(to: vec))
-    }
-    
     @_transparent
     public static func pow(_ vec: Self, _ n: Scalar) -> Self {
         return Self.pow(vec, Self(x: n, y: n, z: n))

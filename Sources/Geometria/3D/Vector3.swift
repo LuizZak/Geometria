@@ -167,15 +167,7 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
     public var lengthSquared: Scalar {
         return x * x + y * y + z * z
     }
-    
-    /// Returns the distance squared between this `Vector3Type` and another `Vector3Type`
-    @_transparent
-    public func distanceSquared(to vec: Self) -> Scalar {
-        let d = self - vec
-        
-        return d.lengthSquared
-    }
-    
+
     /// Calculates the dot product between this and another provided `Vector3Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -273,29 +265,6 @@ extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
     @_transparent
     public static func /= (lhs: inout Self, rhs: Scalar) {
         lhs = lhs / rhs
-    }
-}
-
-extension Vector3: VectorNormalizable where Scalar: Comparable & Real & DivisibleArithmetic {
-    /// Normalizes this Vector instance.
-    ///
-    /// Returns `Vector3.zero` if the vector has `length == 0`.
-    @_transparent
-    public mutating func normalize() {
-        self = normalized()
-    }
-    
-    /// Returns a normalized version of this vector.
-    ///
-    /// Returns `Vector3.zero` if the vector has `length == 0`.
-    @inlinable
-    public func normalized() -> Self {
-        let l = length
-        if l <= 0 {
-            return .zero
-        }
-        
-        return self / l
     }
 }
 
@@ -399,19 +368,6 @@ extension Vector3: Vector3FloatingPoint where Scalar: DivisibleArithmetic & Floa
 }
 
 extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
-    /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector3Type`
-    @_transparent
-    public var length: Scalar {
-        return Scalar.sqrt(lengthSquared)
-    }
-    
-    /// Returns the distance between this `Vector3Type` and another `Vector3Type`
-    @_transparent
-    public func distance(to vec: Self) -> Scalar {
-        return Scalar.sqrt(self.distanceSquared(to: vec))
-    }
-    
     @_transparent
     public static func pow(_ vec: Self, _ n: Scalar) -> Self {
         return Self.pow(vec, Self(x: n, y: n, z: n))

@@ -1,6 +1,6 @@
 /// Represents an N-dimensional ray line which projects a line from a starting
 /// point in a specified direction to infinity.
-public struct DirectionalRay<Vector: VectorReal & VectorNormalizable> {
+public struct DirectionalRay<Vector: VectorFloatingPoint> {
     public typealias Scalar = Vector.Scalar
     
     /// The starting position of this ray
@@ -81,7 +81,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// directional ray.
     ///
     /// The resulting vector lies within the infinite line formed by
-    /// `start <-> start + direction`, potentialy extending past either end.
+    /// `start <-> start + direction`, potentially extending past either end.
     @inlinable
     public func project(_ vector: Vector) -> Vector {
         let proj = projectScalar(vector)

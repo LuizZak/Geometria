@@ -287,20 +287,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(Vector(x: 3, y: 2).lengthSquared, 13)
         XCTAssertEqual(Vector2D(x: 3.0, y: 2.0).lengthSquared, 13.0)
     }
-    
-    func testDistanceSquared() {
-        let v1 = Vector(x: 10, y: 20)
-        let v2 = Vector(x: 30, y: 40)
-        
-        XCTAssertEqual(v1.distanceSquared(to: v2), 800)
-    }
-    
-    func testDistanceSquared_zeroDistance() {
-        let vec = Vector2D(x: 10, y: 20)
-        
-        XCTAssertEqual(vec.distanceSquared(to: vec), 0.0)
-    }
-    
+
     func testDot() {
         let v1 = Vector(x: 2, y: 3)
         let v2 = Vector(x: 5, y: 7)
@@ -401,7 +388,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(-Vector(x: 1, y: 2), Vector(x: -1, y: -2))
     }
     
-    func testNegate_doubleNegateEqualsIdendity() {
+    func testNegate_doubleNegateEqualsIdentity() {
         let vec = Vector(x: 1, y: 2)
         
         XCTAssertEqual(-(-vec), vec)
@@ -469,7 +456,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec.ceil(), Vector2D(x: 1, y: 2))
     }
     
-    func testModulosOperator_vector() {
+    func testModuloOperator_vector() {
         let vec = Vector2D(x: 3, y: 10)
         let mod = Vector2D(x: 4, y: 3)
         
@@ -479,7 +466,7 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(result.y, 1)
     }
     
-    func testModulosOperator_scalar() {
+    func testModuloOperator_scalar() {
         let vec = Vector2D(x: 3, y: 10)
         let mod = 4.0
         

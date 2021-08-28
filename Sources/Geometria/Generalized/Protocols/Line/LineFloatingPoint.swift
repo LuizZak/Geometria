@@ -11,10 +11,10 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by
-    /// `b <-> a`, potentialy extending past either end.
+    /// `b <-> a`, potentially extending past either end.
     func project(_ vector: Vector) -> Vector
     
-    /// Returns `true` if a normalized, projeted `scalar` representing a segment
+    /// Returns `true` if a normalized, projected `scalar` representing a segment
     /// of this line with the same starting point and direction, with
     /// `length = self.length * scalar`, lies within the boundaries of this line.
     ///
@@ -25,6 +25,9 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     
     /// Returns the distance squared between this line and a given vector.
     func distanceSquared(to vector: Vector) -> Vector.Scalar
+    
+    /// Returns the distance between this line and a given vector.
+    func distance(to vector: Vector) -> Vector.Scalar
 }
 
 public extension LineFloatingPoint {
@@ -50,5 +53,10 @@ public extension LineFloatingPoint {
         let point = project(vector)
         
         return vector.distanceSquared(to: point)
+    }
+    
+    @inlinable
+    func distance(to vector: Vector) -> Vector.Scalar {
+        return distanceSquared(to: vector).squareRoot()
     }
 }

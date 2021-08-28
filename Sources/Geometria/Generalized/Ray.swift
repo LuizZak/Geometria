@@ -37,6 +37,16 @@ extension Ray: LineType {
 }
 
 extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
+    /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
+    /// matches `self.start` and `ray.direction` matches
+    /// `(self.b - self.start).normalized()`.
+    ///
+    /// - precondition: `(self.b - self.start).length > 0`
+    @_transparent
+    public var asDirectionalRay: DirectionalRay<Vector> {
+        return DirectionalRay(start: start, direction: b - start)
+    }
+    
     /// Returns `true` for all positive projected scalars (ray)
     @inlinable
     public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
@@ -56,16 +66,4 @@ extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
 
 extension Ray: LineReal where Vector: VectorReal {
     
-}
-
-public extension Ray where Vector: VectorNormalizable {
-    /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
-    /// matches `self.start` and `ray.direction` matches
-    /// `(self.b - self.start).normalized()`.
-    ///
-    /// - precondition: `(self.b - self.start).length > 0`
-    @_transparent
-    var asDirectionalRay: DirectionalRay<Vector> {
-        return DirectionalRay(start: start, direction: b - start)
-    }
 }
