@@ -75,6 +75,16 @@ extension RayTests {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension RayTests {
+    func testAsDirectionalRay() {
+        let sut = Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+
+        let result = sut.asDirectionalRay
+
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(result.angle, sut.angle)
+    }
+
     func testContainsProjectedNormalizedMagnitude() {
         let sut = Ray(x: 0, y: 0, dx: 1, dy: 0)
         
@@ -115,19 +125,5 @@ extension RayTests {
         let point = Vector3D(x: 1, y: 1, z: 0)
         
         XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
-    }
-}
-
-// MARK: VectorNormalizable Conformance
-
-extension RayTests {
-    func testAsDirectionalRay() {
-        let sut = Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
-        
-        let result = sut.asDirectionalRay
-        
-        XCTAssertEqual(result.start, .init(x: 1, y: 2))
-        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
-        XCTAssertEqual(result.angle, sut.angle)
     }
 }

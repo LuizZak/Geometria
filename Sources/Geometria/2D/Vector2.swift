@@ -164,13 +164,7 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     public var lengthSquared: Scalar {
         return x * x + y * y
     }
-    
-    /// Returns the distance squared between this `Vector2Type` and another `Vector2Type`
-    @_transparent
-    public func distanceSquared(to vec: Self) -> Scalar {
-        return (self - vec).lengthSquared
-    }
-    
+
     /// Calculates the dot product between this and another provided `Vector2Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -327,40 +321,6 @@ extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
 }
 
 extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
-    /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector2Type`
-    @_transparent
-    public var length: Scalar {
-        return lengthSquared.squareRoot()
-    }
-    
-    /// Normalizes this Vector instance.
-    ///
-    /// Returns `Vector2.zero` if the vector has `length == 0`.
-    @_transparent
-    public mutating func normalize() {
-        self = normalized()
-    }
-    
-    /// Returns a normalized version of this vector.
-    ///
-    /// Returns `Vector2.zero` if the vector has `length == 0`.
-    @inlinable
-    public func normalized() -> Self {
-        let l = length
-        if l <= 0 {
-            return .zero
-        }
-        
-        return self / l
-    }
-    
-    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
-    @_transparent
-    public func distance(to vec: Self) -> Scalar {
-        return self.distanceSquared(to: vec).squareRoot()
-    }
-    
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
     ///

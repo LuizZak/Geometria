@@ -114,23 +114,25 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     public var length: Scalar {
         return simd.length(self)
     }
-    
+
+    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
+    @_transparent
+    public func distance(to vec: Self) -> Scalar {
+        return simd.distance(self, vec)
+    }
+
+    @_transparent
     public mutating func normalize() {
         self = normalized()
     }
     
+    @inlinable
     public func normalized() -> SIMD3<Scalar> {
         if self.lengthSquared == 0 {
             return .zero
         }
         
         return simd.normalize(self)
-    }
-    
-    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
-    @_transparent
-    public func distance(to vec: Self) -> Scalar {
-        return simd.distance(self, vec)
     }
     
     @_transparent

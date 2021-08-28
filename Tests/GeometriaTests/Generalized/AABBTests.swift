@@ -56,7 +56,7 @@ extension AABBTests {
                            maximum: .init(x: 3, y: 4)))
     }
     
-    func testUnequality() {
+    func testInequality() {
         XCTAssertNotEqual(Box(minimum: .init(x: 999, y: 2),
                               maximum: .init(x: 3, y: 4)),
                           Box(minimum: .init(x: 1, y: 2),

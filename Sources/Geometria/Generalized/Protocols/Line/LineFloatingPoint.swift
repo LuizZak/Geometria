@@ -13,9 +13,17 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by
-    /// `b <-> a`, potentialy extending past either end.
+    /// `b <-> a`, potentially extending past either end.
     func project(_ vector: Vector) -> Vector
     
+    /// Returns the result of creating a projection of this line's start point
+    /// projected towards this line's end point, with a total magnitude of
+    /// `scalar`.
+    ///
+    /// For `scalar == 0`, returns `self.a`, for `scalar == self.length`,
+    /// returns `self.b`.
+    func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector
+
     /// Returns the result of creating a projection of this line's start point
     /// projected towards this line's end point, with a normalized magnitude of
     /// `scalar`.
@@ -23,7 +31,7 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     /// For `scalar == 0`, returns `self.a`, for `scalar == 1`, returns `self.b`
     func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector
     
-    /// Returns `true` if a normalized, projeted `scalar` representing a segment
+    /// Returns `true` if a normalized, projected `scalar` representing a segment
     /// of this line with the same starting point and direction, with
     /// `length = self.length * scalar`, lies within the boundaries of this line.
     ///

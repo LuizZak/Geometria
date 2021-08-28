@@ -6,7 +6,7 @@ public typealias RoundRectangle2D = RoundRectangle2<Vector2D>
 /// and X and Y radius.
 public typealias RoundRectangle2F = RoundRectangle2<Vector2F>
 
-/// Represents a 2D rounded rectangle with integerbounds and X and Y radius.
+/// Represents a 2D rounded rectangle with integer bounds and X and Y radius.
 public typealias RoundRectangle2i = RoundRectangle2<Vector2i>
 
 /// Represents a 2D rounded rectangle with rectangular bounds and X and Y radius.

@@ -86,7 +86,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
         
         return proj
     }
-    
+
     /// Returns the result of creating a projection of this ray's start point
     /// projected in the direction of this ray's direction, with a total
     /// magnitude of `scalar`.

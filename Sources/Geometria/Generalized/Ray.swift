@@ -63,3 +63,7 @@ extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
         return vector.distanceSquared(to: point)
     }
 }
+
+extension Ray: LineReal where Vector: VectorReal {
+    
+}

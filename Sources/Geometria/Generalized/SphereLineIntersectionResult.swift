@@ -25,5 +25,8 @@ public enum SphereLineIntersectionResult<Vector: VectorType> {
 
 extension SphereLineIntersectionResult: Equatable where Vector: Equatable { }
 extension SphereLineIntersectionResult: Hashable where Vector: Hashable { }
+
+#if swift(>=5.5)
 extension SphereLineIntersectionResult: Encodable where Vector: Encodable { }
 extension SphereLineIntersectionResult: Decodable where Vector: Decodable { }
+#endif
