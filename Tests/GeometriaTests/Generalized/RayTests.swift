@@ -75,18 +75,18 @@ extension RayTests {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension RayTests {
-    func testContainsProjectedScalar() {
+    func testContainsProjectedNormalizedMagnitude() {
         let sut = Ray(x: 0, y: 0, dx: 1, dy: 0)
         
-        XCTAssertFalse(sut.containsProjectedScalar(-.infinity))
-        XCTAssertFalse(sut.containsProjectedScalar(-1))
-        XCTAssertFalse(sut.containsProjectedScalar(-0.1))
-        XCTAssertTrue(sut.containsProjectedScalar(0))
-        XCTAssertTrue(sut.containsProjectedScalar(0.5))
-        XCTAssertTrue(sut.containsProjectedScalar(1))
-        XCTAssertTrue(sut.containsProjectedScalar(1.1))
-        XCTAssertTrue(sut.containsProjectedScalar(2))
-        XCTAssertTrue(sut.containsProjectedScalar(.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-1))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-0.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0.5))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(2))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
     }
     
     func testDistanceSquaredTo2D() {

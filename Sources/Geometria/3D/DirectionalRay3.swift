@@ -9,10 +9,21 @@ public typealias DirectionalRay3D = DirectionalRay3<Vector3D>
 public typealias DirectionalRay3F = DirectionalRay3<Vector3F>
 
 /// Typealias for `DirectionalRay3<V>`, where `V` is constrained to
-/// `Vector3Type & VectorNormalizable`.
-public typealias DirectionalRay3<V: Vector3Type & VectorNormalizable> = DirectionalRay<V>
+/// `Vector3Type & VectorFloatingPoint`.
+public typealias DirectionalRay3<V: Vector3Type & VectorFloatingPoint> = DirectionalRay<V>
 
 public extension DirectionalRay3 {
+    /// Initializes a new Directional Ray with 3D vectors describing the start
+    /// and secondary point the ray crosses before projecting towards infinity.
+    ///
+    /// The direction will be normalized before initializing.
+    ///
+    /// - precondition: `Vector(x: x2 - x1, y: y2 - y1, z: z2 - z1).length > 0`
+    @_transparent
+    init(x1: Scalar, y1: Scalar, z1: Scalar, x2: Scalar, y2: Scalar, z2: Scalar) {
+        self.init(start: Vector(x: x1, y: y1, z: z1), direction: Vector(x: x2 - x1, y: y2 - y1, z: z2 - z1))
+    }
+    
     /// Initializes a new Ray with a 3D vector for its position and another
     /// describing the direction of the ray relative to the position.
     @_transparent

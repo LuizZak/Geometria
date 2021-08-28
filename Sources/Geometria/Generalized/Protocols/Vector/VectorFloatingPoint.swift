@@ -1,5 +1,22 @@
 /// Protocol for vector types where the components are floating-point numbers
 public protocol VectorFloatingPoint: VectorDivisible where Scalar: FloatingPoint {
+    /// Returns the Euclidean norm (square root of the squared length), or
+    /// _magnitude_, of this `VectorReal`.
+    var length: Scalar { get }
+    
+    /// Normalizes this `Vector`.
+    ///
+    /// Returns `Vector.zero`, if the vector has `length == 0`.
+    mutating func normalize()
+    
+    /// Returns a normalized version of this `Vector`.
+    ///
+    /// Returns `Vector.zero` if the vector has `length == 0`.
+    func normalized() -> Self
+    
+    /// Returns the distance between this `VectorReal` and another `VectorReal`
+    func distance(to vec: Self) -> Scalar
+    
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
     ///

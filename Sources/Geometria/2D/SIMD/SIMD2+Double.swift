@@ -9,20 +9,6 @@ extension SIMD2: Vector2Type where Scalar == Double {
     
 }
 
-extension SIMD2: VectorNormalizable where Scalar == Double {
-    public mutating func normalize() {
-        self = normalized()
-    }
-    
-    public func normalized() -> SIMD2<Scalar> {
-        if self.lengthSquared == 0 {
-            return .zero
-        }
-        
-        return simd.normalize(self)
-    }
-}
-
 extension SIMD2: VectorComparable where Scalar == Double {
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.
@@ -84,6 +70,11 @@ extension SIMD2: VectorAdditive where Scalar: FloatingPoint {
 }
 
 extension SIMD2: VectorMultiplicative where Scalar == Double {
+    @inlinable
+    public var lengthSquared: Scalar {
+        return length_squared(self)
+    }
+    
     @inlinable
     public func distanceSquared(to vec: SIMD2<Scalar>) -> Scalar {
         return distance_squared(self, vec)
@@ -168,9 +159,29 @@ extension SIMD2: VectorDivisible where Scalar == Double {
 }
 
 extension SIMD2: VectorFloatingPoint where Scalar == Double {
+    /// Returns the Euclidean norm (square root of the squared length) of this
+    /// `Vector2Type`
     @inlinable
-    public var lengthSquared: Scalar {
-        return length_squared(self)
+    public var length: Scalar {
+        return simd.length(self)
+    }
+    
+    public mutating func normalize() {
+        self = normalized()
+    }
+    
+    public func normalized() -> SIMD2<Scalar> {
+        if self.lengthSquared == 0 {
+            return .zero
+        }
+        
+        return simd.normalize(self)
+    }
+    
+    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
+    @inlinable
+    public func distance(to vec: Self) -> Scalar {
+        return simd.distance(self, vec)
     }
     
     @inlinable
@@ -208,19 +219,6 @@ extension SIMD2: Vector2FloatingPoint where Scalar == Double {
 }
 
 extension SIMD2: VectorReal where Scalar == Double {
-    /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector2Type`
-    @inlinable
-    public var length: Scalar {
-        return Scalar.sqrt(lengthSquared)
-    }
-    
-    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
-    @inlinable
-    public func distance(to vec: Self) -> Scalar {
-        return Scalar.sqrt(self.distanceSquared(to: vec))
-    }
-    
     @inlinable
     public static func pow(_ vec: Self, _ n: Scalar) -> Self {
         return Self.pow(vec, Self(x: n, y: n))

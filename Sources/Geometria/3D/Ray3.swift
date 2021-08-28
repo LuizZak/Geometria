@@ -16,6 +16,15 @@ public typealias Ray3i = Ray3<Vector3i>
 public typealias Ray3<V: Vector3Type> = Ray<V>
 
 public extension Ray3 where Vector: VectorAdditive {
+    /// Initializes a new Ray with two 3D vectors representing the starting
+    /// point of the ray and a secondary point the ray crosses before projecting
+    /// towards infinity.
+    @_transparent
+    init(x1: Scalar, y1: Scalar, z1: Scalar, x2: Scalar, y2: Scalar, z2: Scalar) {
+        start = Vector(x: x1, y: y1, z: z1)
+        b = Vector(x: x2, y: y2, z: z2)
+    }
+    
     /// Initializes a new Ray with a 3D vector for its position and another
     /// describing the direction of the ray relative to the position.
     @_transparent

@@ -56,17 +56,17 @@ class LineTests: XCTestCase {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension LineTests {
-    func testContainsProjectedScalar() {
+    func testContainsProjectedNormalizedMagnitude() {
         let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
         
-        XCTAssertTrue(sut.containsProjectedScalar(-.infinity))
-        XCTAssertTrue(sut.containsProjectedScalar(-1))
-        XCTAssertTrue(sut.containsProjectedScalar(-0.1))
-        XCTAssertTrue(sut.containsProjectedScalar(0))
-        XCTAssertTrue(sut.containsProjectedScalar(0.5))
-        XCTAssertTrue(sut.containsProjectedScalar(1))
-        XCTAssertTrue(sut.containsProjectedScalar(1.1))
-        XCTAssertTrue(sut.containsProjectedScalar(2))
-        XCTAssertTrue(sut.containsProjectedScalar(.infinity))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(-.infinity))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(-1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(-0.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0.5))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(2))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
     }
 }

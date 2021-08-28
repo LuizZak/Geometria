@@ -9,12 +9,23 @@ public typealias DirectionalRay2D = DirectionalRay2<Vector2D>
 public typealias DirectionalRay2F = DirectionalRay2<Vector2F>
 
 /// Typealias for `DirectionalRay<V>`, where `V` is constrained to
-/// `Vector2Type & VectorNormalizable`.
-public typealias DirectionalRay2<V: Vector2Type & VectorNormalizable> = DirectionalRay<V>
+/// `Vector2Type & VectorFloatingPoint`.
+public typealias DirectionalRay2<V: Vector2Type & VectorFloatingPoint> = DirectionalRay<V>
 
 public extension DirectionalRay2 {
-    /// Initializes a new Ray with a 2D vector for its position and another
-    /// describing the direction of the ray relative to the position.
+    /// Initializes a new Directional Ray with 2D vectors describing the start
+    /// and secondary point the ray crosses before projecting towards infinity.
+    ///
+    /// The direction will be normalized before initializing.
+    ///
+    /// - precondition: `Vector(x: x2 - x1, y: y2 - y1).length > 0`
+    @_transparent
+    init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
+        self.init(start: Vector(x: x1, y: y1), direction: Vector(x: x2 - x1, y: y2 - y1))
+    }
+    
+    /// Initializes a new Directional Ray with a 2D vector for its position and
+    /// another describing the direction of the ray relative to the position.
     ///
     /// The direction will be normalized before initializing.
     ///

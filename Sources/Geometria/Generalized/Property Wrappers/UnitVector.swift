@@ -4,7 +4,7 @@
 /// If attempting to store a vector with `.length == 0`, a runtime error is
 /// raised.
 @propertyWrapper
-public struct UnitVector<Vector: VectorReal & VectorNormalizable> {
+public struct UnitVector<Vector: VectorFloatingPoint> {
     @usableFromInline
     internal var _value: Vector
     

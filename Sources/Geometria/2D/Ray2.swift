@@ -24,6 +24,15 @@ extension Ray2: Line2Real where Vector: Vector2Real {
 }
 
 public extension Ray2 where Vector: VectorAdditive {
+    /// Initializes a new Ray with two 2D vectors representing the starting
+    /// point of the ray and a secondary point the ray crosses before projecting
+    /// towards infinity.
+    @_transparent
+    init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
+        start = Vector(x: x1, y: y1)
+        b = Vector(x: x2, y: y2)
+    }
+    
     /// Initializes a new Ray with a 2D vector for its position and another
     /// describing the direction of the ray relative to the position.
     @_transparent

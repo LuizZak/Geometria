@@ -28,7 +28,7 @@ extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 extension Line: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns `true` for all projected scalars (infinite line)
     @inlinable
-    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         return true
     }
 }

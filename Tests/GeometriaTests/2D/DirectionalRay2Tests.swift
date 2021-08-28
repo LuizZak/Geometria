@@ -5,6 +5,15 @@ class DirectionalRay2Tests: XCTestCase {
     typealias DirectionalRay = DirectionalRay2D
     
     func testInitWithCoordinates() {
+        let sut = DirectionalRay(x1: 1, y1: 2, x2: 1, y2: -2)
+        
+        XCTAssertEqual(sut.start.x, 1)
+        XCTAssertEqual(sut.start.y, 2)
+        XCTAssertEqual(sut.direction.x, 0)
+        XCTAssertEqual(sut.direction.y, -1)
+    }
+    
+    func testInitWithCenterDirection() {
         let sut = DirectionalRay(x: 1, y: 2, dx: 3, dy: 5)
         
         XCTAssertEqual(sut.start.x, 1)
@@ -13,7 +22,7 @@ class DirectionalRay2Tests: XCTestCase {
         XCTAssertEqual(sut.direction.y, 0.8574929257125441)
     }
     
-    func testInitWithCoordinates_normalization() {
+    func testInitWithCenterDirection_normalization() {
         XCTAssertEqual(DirectionalRay(x: 1, y: 2, dx: 3, dy: 5).direction,
                        .init(x: 0.5144957554275265, y: 0.8574929257125441))
         XCTAssertEqual(DirectionalRay(x: 1, y: 2, dx: 1, dy: 0).direction,

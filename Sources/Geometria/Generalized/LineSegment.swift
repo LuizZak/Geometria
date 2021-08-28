@@ -66,7 +66,7 @@ public extension LineSegment where Vector: VectorMultiplicative {
 extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns `true` for projected scalars (0-1) (finite line)
     @inlinable
-    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         return scalar >= 0 && scalar <= 1
     }
     
@@ -76,7 +76,7 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// the start and end points.
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {
-        let proj = min(1, max(0, projectScalar(vector)))
+        let proj = min(1, max(0, projectAsScalar(vector)))
         
         let point = start.addingProduct(end - start, proj)
         
@@ -90,16 +90,14 @@ extension LineSegment: LineReal where Vector: VectorReal {
     public var length: Scalar {
         return (end - start).length
     }
-}
-
-public extension LineSegment where Vector: VectorNormalizable {
+    
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
     /// matches `self.start` and `ray.direction` matches
     /// `(self.end - self.start).normalized()`.
     ///
     /// - precondition: `(self.end - self.start).length > 0`
     @_transparent
-    var asDirectionalRay: DirectionalRay<Vector> {
+    public var asDirectionalRay: DirectionalRay<Vector> {
         return DirectionalRay(start: start, direction: end - start)
     }
 }

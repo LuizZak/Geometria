@@ -1,6 +1,6 @@
 /// Represents an N-dimensional ray line which projects a line from a starting
 /// point in a specified direction to infinity.
-public struct DirectionalRay<Vector: VectorReal & VectorNormalizable> {
+public struct DirectionalRay<Vector: VectorFloatingPoint> {
     public typealias Scalar = Vector.Scalar
     
     /// The starting position of this ray
@@ -20,6 +20,16 @@ public struct DirectionalRay<Vector: VectorReal & VectorNormalizable> {
     public init(start: Vector, direction: Vector) {
         self.start = start
         self.direction = direction
+    }
+    
+    /// Initializes a directional ray with a given line's endpoints.
+    ///
+    /// The direction will be normalized before initializing.
+    ///
+    /// - precondition: `line.length > 0`
+    @_transparent
+    public init<Line: LineType>(_ line: Line) where Line.Vector == Vector {
+        self.init(start: line.a, direction: line.b - line.a)
     }
 }
 
@@ -57,7 +67,7 @@ public extension DirectionalRay where Vector: VectorAdditive {
 extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns `true` for all positive projected scalars (ray)
     @inlinable
-    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         return scalar >= 0
     }
     
@@ -69,7 +79,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// `start`, the projected point as it lays on this directional ray line can
     /// be obtained.
     @inlinable
-    public func projectScalar(_ vector: Vector) -> Vector.Scalar {
+    public func projectAsScalar(_ vector: Vector) -> Vector.Scalar {
         let relVec = vector - start
         
         let proj = relVec.dot(direction)
@@ -77,30 +87,22 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
         return proj
     }
     
-    /// Performs a vector projection of a given vector with respect to this
-    /// directional ray.
-    ///
-    /// The resulting vector lies within the infinite line formed by
-    /// `start <-> start + direction`, potentialy extending past either end.
+    /// Returns the result of creating a projection of this ray's start point
+    /// projected in the direction of this ray's direction, with a total
+    /// magnitude of `scalar`.
     @inlinable
-    public func project(_ vector: Vector) -> Vector {
-        let proj = projectScalar(vector)
-        
-        return start.addingProduct(direction, proj)
+    public func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
+        return start.addingProduct(direction, scalar)
     }
     
     /// Returns the distance squared between this directional ray and a given
     /// vector.
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {
-        let proj = max(0, projectScalar(vector))
+        let proj = max(0, projectAsScalar(vector))
         
         let point = start.addingProduct(direction, proj)
         
         return vector.distanceSquared(to: point)
     }
-}
-
-extension DirectionalRay: LineReal where Vector: VectorReal {
-    
 }

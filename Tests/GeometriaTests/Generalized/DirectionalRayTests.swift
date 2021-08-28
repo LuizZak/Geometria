@@ -125,60 +125,60 @@ extension DirectionalRayTests {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension DirectionalRayTests {
-    func testContainsProjectedScalar() {
+    func testContainsProjectedNormalizedMagnitude() {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 0)
         
-        XCTAssertFalse(sut.containsProjectedScalar(-.infinity))
-        XCTAssertFalse(sut.containsProjectedScalar(-1))
-        XCTAssertFalse(sut.containsProjectedScalar(-0.1))
-        XCTAssertTrue(sut.containsProjectedScalar(0))
-        XCTAssertTrue(sut.containsProjectedScalar(0.5))
-        XCTAssertTrue(sut.containsProjectedScalar(1))
-        XCTAssertTrue(sut.containsProjectedScalar(1.1))
-        XCTAssertTrue(sut.containsProjectedScalar(2))
-        XCTAssertTrue(sut.containsProjectedScalar(.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-1))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-0.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0.5))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(2))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
     }
     
-    func testProjectScalar2D() {
+    func testProjectAsScalar2D() {
         let sut = DirectionalRay(x: 2, y: 1, dx: 3, dy: 2)
         let point = Vector2D(x: 2, y: 2)
         
-        XCTAssertEqual(sut.projectScalar(point), 0.5547001962252291, accuracy: 1e-12)
+        XCTAssertEqual(sut.projectAsScalar(point), 0.5547001962252291, accuracy: 1e-12)
     }
     
-    func testProjectScalar2D_offBounds() {
+    func testProjectAsScalar2D_offBounds() {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 0)
         let point = Vector2D(x: -2, y: 2)
         
-        XCTAssertEqual(sut.projectScalar(point), -2)
+        XCTAssertEqual(sut.projectAsScalar(point), -2)
     }
     
-    func testProjectScalar2D_skewed() {
+    func testProjectAsScalar2D_skewed() {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
         let point = Vector2D(x: 0, y: 2)
         
-        XCTAssertEqual(sut.projectScalar(point), 1.4142135623730951, accuracy: 1e-12)
+        XCTAssertEqual(sut.projectAsScalar(point), 1.4142135623730951, accuracy: 1e-12)
     }
     
-    func testProjectScalar3D() {
+    func testProjectAsScalar3D() {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 3, dy: 0, dz: 0)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
-        XCTAssertEqual(sut.projectScalar(point), 1.0, accuracy: 1e-12)
+        XCTAssertEqual(sut.projectAsScalar(point), 1.0, accuracy: 1e-12)
     }
     
-    func testProjectScalar3D_offBounds() {
+    func testProjectAsScalar3D_offBounds() {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 0, dz: 0)
         let point = Vector3D(x: -3, y: 1, z: 0)
         
-        XCTAssertEqual(sut.projectScalar(point), -3)
+        XCTAssertEqual(sut.projectAsScalar(point), -3)
     }
     
-    func testProjectScalar3D_skewed() {
+    func testProjectAsScalar3D_skewed() {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 0, y: 2, z: 0)
         
-        XCTAssertEqual(sut.projectScalar(point), 1.1547005383792515, accuracy: 1e-12)
+        XCTAssertEqual(sut.projectAsScalar(point), 1.1547005383792515, accuracy: 1e-12)
     }
     
     func testProject2D() {

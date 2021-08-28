@@ -113,18 +113,18 @@ extension LineSegmentTests {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension LineSegmentTests {
-    func testContainsProjectedScalar() {
+    func testContainsProjectedNormalizedMagnitude() {
         let sut = LineSegment(x1: 0, y1: 0, x2: 1, y2: 0)
         
-        XCTAssertFalse(sut.containsProjectedScalar(-.infinity))
-        XCTAssertFalse(sut.containsProjectedScalar(-1))
-        XCTAssertFalse(sut.containsProjectedScalar(-0.1))
-        XCTAssertTrue(sut.containsProjectedScalar(0))
-        XCTAssertTrue(sut.containsProjectedScalar(0.5))
-        XCTAssertTrue(sut.containsProjectedScalar(1))
-        XCTAssertFalse(sut.containsProjectedScalar(1.1))
-        XCTAssertFalse(sut.containsProjectedScalar(2))
-        XCTAssertFalse(sut.containsProjectedScalar(.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-1))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-0.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0.5))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(1.1))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(2))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(.infinity))
     }
     
     func testDistanceSquaredTo2D() {

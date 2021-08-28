@@ -276,7 +276,14 @@ extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
     }
 }
 
-extension Vector3: VectorNormalizable where Scalar: Comparable & Real & DivisibleArithmetic {
+extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+    /// Returns the Euclidean norm (square root of the squared length) of this
+    /// `Vector3Type`
+    @_transparent
+    public var length: Scalar {
+        return lengthSquared.squareRoot()
+    }
+    
     /// Normalizes this Vector instance.
     ///
     /// Returns `Vector3.zero` if the vector has `length == 0`.
@@ -297,9 +304,13 @@ extension Vector3: VectorNormalizable where Scalar: Comparable & Real & Divisibl
         
         return self / l
     }
-}
-
-extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+    
+    /// Returns the distance between this `Vector3Type` and another `Vector3Type`
+    @_transparent
+    public func distance(to vec: Self) -> Scalar {
+        return self.distanceSquared(to: vec).squareRoot()
+    }
+    
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
     ///
@@ -399,19 +410,6 @@ extension Vector3: Vector3FloatingPoint where Scalar: DivisibleArithmetic & Floa
 }
 
 extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
-    /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector3Type`
-    @_transparent
-    public var length: Scalar {
-        return Scalar.sqrt(lengthSquared)
-    }
-    
-    /// Returns the distance between this `Vector3Type` and another `Vector3Type`
-    @_transparent
-    public func distance(to vec: Self) -> Scalar {
-        return Scalar.sqrt(self.distanceSquared(to: vec))
-    }
-    
     @_transparent
     public static func pow(_ vec: Self, _ n: Scalar) -> Self {
         return Self.pow(vec, Self(x: n, y: n, z: n))
