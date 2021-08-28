@@ -8,7 +8,7 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     /// By multiplying the result of this function by `(b - a)` and adding `a`,
     /// the projected point as it lays on this line can be obtained.
     ///
-    /// - seealso: projectMagnitude(_:)
+    /// - seealso: projectedNormalizedMagnitude(_:)
     func projectAsScalar(_ vector: Vector) -> Vector.Scalar
     
     /// Performs a vector projection of a given vector with respect to this line.
