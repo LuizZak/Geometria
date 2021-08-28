@@ -64,6 +64,12 @@ public extension LineSegment where Vector: VectorMultiplicative {
 }
 
 extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
+    /// Returns the length of this line
+    @_transparent
+    public var length: Scalar {
+        return (end - start).length
+    }
+
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
     /// matches `self.start` and `ray.direction` matches
     /// `(self.end - self.start).normalized()`.
@@ -95,9 +101,5 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
 }
 
 extension LineSegment: LineReal where Vector: VectorReal {
-    /// Returns the length of this line
-    @_transparent
-    public var length: Scalar {
-        return (end - start).length
-    }
+
 }
