@@ -52,3 +52,21 @@ class LineTests: XCTestCase {
                           Line(a: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
     }
 }
+
+// MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
+
+extension LineTests {
+    func testContainsProjectedScalar() {
+        let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertTrue(sut.containsProjectedScalar(-.infinity))
+        XCTAssertTrue(sut.containsProjectedScalar(-1))
+        XCTAssertTrue(sut.containsProjectedScalar(-0.1))
+        XCTAssertTrue(sut.containsProjectedScalar(0))
+        XCTAssertTrue(sut.containsProjectedScalar(0.5))
+        XCTAssertTrue(sut.containsProjectedScalar(1))
+        XCTAssertTrue(sut.containsProjectedScalar(1.1))
+        XCTAssertTrue(sut.containsProjectedScalar(2))
+        XCTAssertTrue(sut.containsProjectedScalar(.infinity))
+    }
+}

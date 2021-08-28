@@ -55,6 +55,12 @@ public extension DirectionalRay where Vector: VectorAdditive {
 }
 
 extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
+    /// Returns `true` for all positive projected scalars (ray)
+    @inlinable
+    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+        return scalar >= 0
+    }
+    
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the line `start <-> start + direction`.

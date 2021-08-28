@@ -26,13 +26,13 @@ extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension Line: LineFloatingPoint where Vector: VectorFloatingPoint {
-    
+    /// Returns `true` for all projected scalars (infinite line)
+    @inlinable
+    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+        return true
+    }
 }
 
-public extension Line where Vector: VectorReal {
-    /// Returns the distance between this line and a given vector.
-    @inlinable
-    func distance(to vector: Vector) -> Scalar {
-        return distanceSquared(to: vector).squareRoot()
-    }
+extension Line: LineReal where Vector: VectorReal {
+    
 }

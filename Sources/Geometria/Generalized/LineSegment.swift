@@ -64,6 +64,12 @@ public extension LineSegment where Vector: VectorMultiplicative {
 }
 
 extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
+    /// Returns `true` for projected scalars (0-1) (finite line)
+    @inlinable
+    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+        return scalar >= 0 && scalar <= 1
+    }
+    
     /// Returns the distance squared between this line and a given vector.
     ///
     /// The projected point on which the distance is taken is capped between

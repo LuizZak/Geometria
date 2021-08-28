@@ -37,6 +37,12 @@ extension Ray: LineType {
 }
 
 extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
+    /// Returns `true` for all positive projected scalars (ray)
+    @inlinable
+    public func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool {
+        return scalar >= 0
+    }
+    
     /// Returns the distance squared between this line and a given vector.
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {

@@ -125,6 +125,20 @@ extension DirectionalRayTests {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension DirectionalRayTests {
+    func testContainsProjectedScalar() {
+        let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 0)
+        
+        XCTAssertFalse(sut.containsProjectedScalar(-.infinity))
+        XCTAssertFalse(sut.containsProjectedScalar(-1))
+        XCTAssertFalse(sut.containsProjectedScalar(-0.1))
+        XCTAssertTrue(sut.containsProjectedScalar(0))
+        XCTAssertTrue(sut.containsProjectedScalar(0.5))
+        XCTAssertTrue(sut.containsProjectedScalar(1))
+        XCTAssertTrue(sut.containsProjectedScalar(1.1))
+        XCTAssertTrue(sut.containsProjectedScalar(2))
+        XCTAssertTrue(sut.containsProjectedScalar(.infinity))
+    }
+    
     func testProjectScalar2D() {
         let sut = DirectionalRay(x: 2, y: 1, dx: 3, dy: 2)
         let point = Vector2D(x: 2, y: 2)

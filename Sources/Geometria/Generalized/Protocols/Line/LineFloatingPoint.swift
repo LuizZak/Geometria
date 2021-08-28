@@ -14,6 +14,15 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     /// `b <-> a`, potentialy extending past either end.
     func project(_ vector: Vector) -> Vector
     
+    /// Returns `true` if a normalized, projeted `scalar` representing a segment
+    /// of this line with the same starting point and direction, with
+    /// `length = self.length * scalar`, lies within the boundaries of this line.
+    ///
+    /// For infinite lines, all projected scalars lie within the line, while in
+    /// line segments bounded with start/end points, only values lying in (0-1)
+    /// are contained on the line.
+    func containsProjectedScalar(_ scalar: Vector.Scalar) -> Bool
+    
     /// Returns the distance squared between this line and a given vector.
     func distanceSquared(to vector: Vector) -> Vector.Scalar
 }
