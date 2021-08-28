@@ -254,6 +254,24 @@ extension NSphereTests {
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
+    func testIntersectionWithLine_line_across_startsAndEndsAfterCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = Line2(x1: 4, y1: 4.5, x2: 5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .dualPoint(.init(x: -0.3228756555322949, y: 4.5),
+                                  .init(x: 2.3228756555322954, y: 4.5)))
+    }
+    
+    func testIntersectionWithLine_line_across_startsAndEndsWithinCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = Line2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                                  .init(x: 2.3228756555322954, y: 4.5)))
+    }
+    
     func testIntersectionWithLine_line_across_centerLine() {
         let sut = Circle(center: .init(x: 1, y: 3), radius: 1)
         let line = Line2(x1: -2, y1: 3, x2: 2, y2: 3)
@@ -328,6 +346,21 @@ extension NSphereTests {
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
+    func testIntersectionWithLine_ray_across_startsAndEndsAfterCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = Ray2(x1: 4, y1: 4.5, x2: 5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWithLine_ray_across_startsAndEndsWithinCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = Ray2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+    }
+    
     func testIntersectionWithLine_ray_across_centerLine() {
         let sut = Circle(center: .init(x: 1, y: 3), radius: 1)
         let line = Ray2(x1: -2, y1: 3, x2: 2, y2: 3)
@@ -393,6 +426,30 @@ extension NSphereTests {
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
+    func testIntersectionWithLine_dray_across_startsAndEndsBeforeCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = DRay2(x1: -4, y1: 4.5, x2: -3, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                                  .init(x: 2.322875655532295, y: 4.5)))
+    }
+    
+    func testIntersectionWithLine_dray_across_startsAndEndsAfterCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = DRay2(x1: 4, y1: 4.5, x2: 5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWithLine_dray_across_startsAndEndsWithinCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = DRay2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+    }
+    
     func testIntersectionWithLine_dray_across_centerLine() {
         let sut = Circle(center: .init(x: 1, y: 3), radius: 1)
         let line = DRay2(x1: -2, y1: 3, x2: 2, y2: 3)
@@ -455,6 +512,27 @@ extension NSphereTests {
         
         XCTAssertEqual(sut.intersection(with: line),
                        .singlePoint(.init(x: -0.32287565553229536, y: 4.5)))
+    }
+    
+    func testIntersectionWithLine_lineSegment_across_startsAndEndsBeforeCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = LineSegment2(x1: -4, y1: 4.5, x2: -3, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWithLine_lineSegment_across_startsAndEndsAfterCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = LineSegment2(x1: 4, y1: 4.5, x2: 5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWithLine_lineSegment_across_startsAndEndsWithinCircle() {
+        let sut = Circle(center: .init(x: 1, y: 3), radius: 2)
+        let line = LineSegment2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .contained)
     }
     
     func testIntersectionWithLine_lineSegment_across_centerLine() {

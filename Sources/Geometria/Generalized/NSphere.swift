@@ -86,7 +86,7 @@ public extension NSphere where Vector: VectorFloatingPoint {
         case (false, true):
             return .singlePoint(line.projectedNormalizedMagnitude(t1))
         case (false, false):
-            return .contained
+            return t0.sign == t1.sign ? .noIntersection : .contained
         }
     }
 }
