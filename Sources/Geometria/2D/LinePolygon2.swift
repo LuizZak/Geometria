@@ -58,33 +58,24 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
     /// Assuming this `LinePolygon2` represents a clockwise closed polygon,
     /// performs a vector-containment check against the polygon formed by this
     /// polygon's vertices.
-    public func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(.init(x: x, y: y))
-    }
-    
-    /// Assuming this `LinePolygon2` represents a clockwise closed polygon,
-    /// performs a vector-containment check against the polygon formed by this
-    /// polygon's vertices.
+    @inlinable
     public func contains(_ vector: Vector) -> Bool {
         if vertices.count < 3 {
             return false
         }
         
         let aabb = AABB(points: vertices)
-        
-        // Check if the point is inside the AABB
         if !aabb.contains(vector) {
             return false
         }
         
-        // basic idea: draw a line from the point to a point known to be outside
-        // the body.  count the number of lines in the polygon it intersects.
-        // if that number is odd, we are inside. If it's even, we are outside.
-        // in this implementation we will always use a line that moves off in
+        // Basic idea: Draw a line from the point to a point known to be outside
+        // the body. Count the number of lines in the polygon it intersects.
+        // If that number is odd, we are inside. If it's even, we are outside.
+        // In this implementation we will always use a line that moves off in
         // the positive X direction from the point to simplify things.
         let endPtX = aabb.maximum.x + 1
         
-        // line we are testing against goes from pt -> endPt.
         var inside = false
         
         var edgeStX = vertices[0].x

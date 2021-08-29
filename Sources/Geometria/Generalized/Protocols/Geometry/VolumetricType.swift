@@ -7,3 +7,23 @@ public protocol VolumetricType: GeometricType {
     /// volumetric shape.
     func contains(_ vector: Vector) -> Bool
 }
+
+// TODO: Move these extensions 2D/3D folders
+
+public extension VolumetricType where Vector: Vector2Type {
+    /// Returns `true` iff `vector` lies within the 'inside' area of this
+    /// volumetric shape.
+    @_transparent
+    func contains(x: Vector.Scalar, y: Vector.Scalar) -> Bool {
+        return contains(.init(x: x, y: y))
+    }
+}
+
+public extension VolumetricType where Vector: Vector3Type {
+    /// Returns `true` iff `vector` lies within the 'inside' area of this
+    /// volumetric shape.
+    @_transparent
+    func contains(x: Vector.Scalar, y: Vector.Scalar, z: Vector.Scalar) -> Bool {
+        return contains(.init(x: x, y: y, z: z))
+    }
+}
