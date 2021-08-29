@@ -6,6 +6,19 @@ class SIMD3_DoubleTests: XCTestCase {
     
     typealias Vector = SIMD3<Double>
     
+    func testMinimalComponent() {
+        XCTAssertEqual(Vector(x: -1, y: 2, z: 3).minimalComponent, -1)
+        XCTAssertEqual(Vector(x: 1, y: -2, z: 3).minimalComponent, -2)
+        XCTAssertEqual(Vector(x: 1, y: 2, z: -3).minimalComponent, -3)
+    }
+    
+    func testMaximalComponent() {
+        XCTAssertEqual(Vector(x: -1, y: 2, z: 3).maximalComponent, 3)
+        XCTAssertEqual(Vector(x: 1, y: -2, z: 3).maximalComponent, 3)
+        XCTAssertEqual(Vector(x: 1, y: 3, z: 2).maximalComponent, 3)
+        XCTAssertEqual(Vector(x: 1, y: 2, z: -3).maximalComponent, 2)
+    }
+    
     func testPointwiseMin() {
         let vec1 = Vector(x: 2, y: -3, z: 5)
         let vec2 = Vector(x: -1, y: 4, z: -6)

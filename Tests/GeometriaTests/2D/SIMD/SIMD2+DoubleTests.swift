@@ -7,6 +7,16 @@ class SIMD2_DoubleTests: XCTestCase {
     
     typealias Vector = SIMD2<Double>
     
+    func testMinimalComponent() {
+        XCTAssertEqual(Vector(x: -1, y: 2).minimalComponent, -1)
+        XCTAssertEqual(Vector(x: 1, y: -2).minimalComponent, -2)
+    }
+    
+    func testMaximalComponent() {
+        XCTAssertEqual(Vector(x: -1, y: 2).maximalComponent, 2)
+        XCTAssertEqual(Vector(x: 1, y: -2).maximalComponent, 1)
+    }
+    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
         XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))

@@ -10,6 +10,16 @@ extension SIMD3: Vector3Type where Scalar == Double {
 }
 
 extension SIMD3: VectorComparable where Scalar == Double {
+    @_transparent
+    public var minimalComponent: Scalar {
+        return min()
+    }
+    
+    @_transparent
+    public var maximalComponent: Scalar {
+        return max()
+    }
+    
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.
     @_transparent
