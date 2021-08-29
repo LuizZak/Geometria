@@ -201,21 +201,21 @@ extension NSphereTests {
         let sut = Circle(center: .zero, radius: 1)
         let line = Line2(x1: -2, y1: 1, x2: 2, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_line_tangent_startsAfterCircle() {
         let sut = Circle(center: .zero, radius: 1)
         let line = Line2(x1: 1.1, y1: 1, x2: 2, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: -9.128500424695729e-17, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: -9.128500424695729e-17, y: 1)))
     }
     
     func testIntersectionWithLine_line_tangent_endsBeforeCircle() {
         let sut = Circle(center: .zero, radius: 1)
         let line = Line2(x1: -1.5, y1: 1, x2: -1, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_line_across() {
@@ -223,7 +223,7 @@ extension NSphereTests {
         let line = Line2(x1: -3, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -232,7 +232,7 @@ extension NSphereTests {
         let line = Line2(x1: 1, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.3228756555322954, y: 4.5)))
     }
     
@@ -241,7 +241,7 @@ extension NSphereTests {
         let line = Line2(x1: -3, y1: 4.5, x2: 1, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -250,7 +250,7 @@ extension NSphereTests {
         let line = Line2(x1: -4, y1: 4.5, x2: -3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -259,7 +259,7 @@ extension NSphereTests {
         let line = Line2(x1: 4, y1: 4.5, x2: 5, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.3228756555322949, y: 4.5),
+                       .enterExit(.init(x: -0.3228756555322949, y: 4.5),
                                   .init(x: 2.3228756555322954, y: 4.5)))
     }
     
@@ -268,7 +268,7 @@ extension NSphereTests {
         let line = Line2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.3228756555322954, y: 4.5)))
     }
     
@@ -277,7 +277,7 @@ extension NSphereTests {
         let line = Line2(x1: -2, y1: 3, x2: 2, y2: 3)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(Vector2(x: 0, y: 3),
+                       .enterExit(Vector2(x: 0, y: 3),
                                   Vector2(x: 2, y: 3)))
     }
     
@@ -294,7 +294,7 @@ extension NSphereTests {
         let sut = Circle(center: .zero, radius: 1)
         let line = Ray2(x1: -2, y1: 1, x2: 2, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_ray_tangent_startsAfterCircle() {
@@ -308,7 +308,7 @@ extension NSphereTests {
         let sut = Circle(center: .zero, radius: 1)
         let line = Ray2(x1: -1.5, y1: 1, x2: -1, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_ray_across() {
@@ -316,7 +316,7 @@ extension NSphereTests {
         let line = Ray2(x1: -3, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -325,7 +325,7 @@ extension NSphereTests {
         let line = Ray2(x1: 1, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+                       .exit(.init(x: 2.3228756555322954, y: 4.5)))
     }
     
     func testIntersectionWithLine_ray_across_endsWithinCircle() {
@@ -333,7 +333,7 @@ extension NSphereTests {
         let line = Ray2(x1: -3, y1: 4.5, x2: 1, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -342,7 +342,7 @@ extension NSphereTests {
         let line = Ray2(x1: -4, y1: 4.5, x2: -3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -358,7 +358,7 @@ extension NSphereTests {
         let line = Ray2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+                       .exit(.init(x: 2.3228756555322954, y: 4.5)))
     }
     
     func testIntersectionWithLine_ray_across_centerLine() {
@@ -366,7 +366,7 @@ extension NSphereTests {
         let line = Ray2(x1: -2, y1: 3, x2: 2, y2: 3)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(Vector2(x: 0, y: 3),
+                       .enterExit(Vector2(x: 0, y: 3),
                                   Vector2(x: 2, y: 3)))
     }
     
@@ -383,7 +383,7 @@ extension NSphereTests {
         let sut = Circle(center: .zero, radius: 1)
         let line = DRay2(x1: -2, y1: 1, x2: 2, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_dray_tangent_startsAfterCircle() {
@@ -397,7 +397,7 @@ extension NSphereTests {
         let sut = Circle(center: .zero, radius: 1)
         let line = DRay2(x1: -1.5, y1: 1, x2: -1, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_dray_across() {
@@ -405,7 +405,7 @@ extension NSphereTests {
         let line = DRay2(x1: -3, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -414,7 +414,7 @@ extension NSphereTests {
         let line = DRay2(x1: 1, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+                       .exit(.init(x: 2.3228756555322954, y: 4.5)))
     }
     
     func testIntersectionWithLine_dray_across_endsWithinCircle() {
@@ -422,7 +422,7 @@ extension NSphereTests {
         let line = DRay2(x1: -3, y1: 4.5, x2: 1, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -431,7 +431,7 @@ extension NSphereTests {
         let line = DRay2(x1: -4, y1: 4.5, x2: -3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -447,7 +447,7 @@ extension NSphereTests {
         let line = DRay2(x1: 0.5, y1: 4.5, x2: 1.5, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+                       .exit(.init(x: 2.3228756555322954, y: 4.5)))
     }
     
     func testIntersectionWithLine_dray_across_centerLine() {
@@ -455,7 +455,7 @@ extension NSphereTests {
         let line = DRay2(x1: -2, y1: 3, x2: 2, y2: 3)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(Vector2(x: 0, y: 3),
+                       .enterExit(Vector2(x: 0, y: 3),
                                   Vector2(x: 2, y: 3)))
     }
     
@@ -472,7 +472,7 @@ extension NSphereTests {
         let sut = Circle(center: .zero, radius: 1)
         let line = LineSegment2(x1: -2, y1: 1, x2: 2, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line), .tangent(.init(x: 0, y: 1)))
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 0, y: 1)))
     }
     
     func testIntersectionWithLine_lineSegment_tangent_startsAfterCircle() {
@@ -494,7 +494,7 @@ extension NSphereTests {
         let line = LineSegment2(x1: -3, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(.init(x: -0.32287565553229536, y: 4.5),
+                       .enterExit(.init(x: -0.32287565553229536, y: 4.5),
                                   .init(x: 2.322875655532295, y: 4.5)))
     }
     
@@ -503,7 +503,7 @@ extension NSphereTests {
         let line = LineSegment2(x1: 1, y1: 4.5, x2: 3, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .singlePoint(.init(x: 2.3228756555322954, y: 4.5)))
+                       .exit(.init(x: 2.3228756555322954, y: 4.5)))
     }
     
     func testIntersectionWithLine_lineSegment_across_endsWithinCircle() {
@@ -511,7 +511,7 @@ extension NSphereTests {
         let line = LineSegment2(x1: -3, y1: 4.5, x2: 1, y2: 4.5)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .singlePoint(.init(x: -0.32287565553229536, y: 4.5)))
+                       .enter(.init(x: -0.32287565553229536, y: 4.5)))
     }
     
     func testIntersectionWithLine_lineSegment_across_startsAndEndsBeforeCircle() {
@@ -540,7 +540,7 @@ extension NSphereTests {
         let line = LineSegment2(x1: -2, y1: 3, x2: 2, y2: 3)
         
         XCTAssertEqual(sut.intersection(with: line),
-                       .dualPoint(Vector2(x: 0, y: 3),
+                       .enterExit(Vector2(x: 0, y: 3),
                                   Vector2(x: 2, y: 3)))
     }
 }

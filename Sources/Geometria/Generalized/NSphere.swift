@@ -56,7 +56,7 @@ public extension NSphere where Vector: VectorFloatingPoint {
     /// two points representing the entrance and exit intersections against this
     /// N-sphere's outer perimeter.
     @inlinable
-    func intersection<Line: LineFloatingPoint>(with line: Line) -> SphereLineIntersectionResult<Vector> where Line.Vector == Vector {
+    func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         let projection = line.projectAsScalar(center)
         let projected = line.projectedNormalizedMagnitude(projection)
         let d = projected.distanceSquared(to: center)
@@ -64,7 +64,7 @@ public extension NSphere where Vector: VectorFloatingPoint {
         
         guard d != radiusSquared else {
             if line.containsProjectedNormalizedMagnitude(projection) {
-                return .tangent(projected)
+                return .singlePoint(projected)
             }
             
             return .noIntersection
@@ -80,11 +80,11 @@ public extension NSphere where Vector: VectorFloatingPoint {
         
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
-            return .dualPoint(line.projectedNormalizedMagnitude(t0), line.projectedNormalizedMagnitude(t1))
+            return .enterExit(line.projectedNormalizedMagnitude(t0), line.projectedNormalizedMagnitude(t1))
         case (true, false):
-            return .singlePoint(line.projectedNormalizedMagnitude(t0))
+            return .enter(line.projectedNormalizedMagnitude(t0))
         case (false, true):
-            return .singlePoint(line.projectedNormalizedMagnitude(t1))
+            return .exit(line.projectedNormalizedMagnitude(t1))
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
