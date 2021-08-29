@@ -20,11 +20,10 @@ public extension LinePolygon2 {
     }
 }
 
-public extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
-    
+extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     // Implementation derived from LÖVE's love.math.isConvex at:
     // https://github.com/love2d/love/blob/216d5ca4b2ab04bd765daa4c23c00b81b4aedf08/src/modules/math/MathModule.cpp#L155
-    func isConvex() -> Bool {
+    public func isConvex() -> Bool {
         if vertices.count < 3 {
             return false
         }
@@ -52,5 +51,64 @@ public extension LinePolygon2 where Vector: Vector2Multiplicative & VectorCompar
         }
         
         return true
+    }
+}
+
+extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorComparable {
+    /// Assuming this `LinePolygon2` represents a clockwise closed polygon,
+    /// performs a vector-containment check against the polygon formed by this
+    /// polygon's vertices.
+    public func contains(x: Scalar, y: Scalar) -> Bool {
+        return contains(.init(x: x, y: y))
+    }
+    
+    /// Assuming this `LinePolygon2` represents a clockwise closed polygon,
+    /// performs a vector-containment check against the polygon formed by this
+    /// polygon's vertices.
+    public func contains(_ vector: Vector) -> Bool {
+        if vertices.count < 3 {
+            return false
+        }
+        
+        let aabb = AABB(points: vertices)
+        
+        // Check if the point is inside the AABB
+        if !aabb.contains(vector) {
+            return false
+        }
+        
+        // basic idea: draw a line from the point to a point known to be outside
+        // the body.  count the number of lines in the polygon it intersects.
+        // if that number is odd, we are inside. If it's even, we are outside.
+        // in this implementation we will always use a line that moves off in
+        // the positive X direction from the point to simplify things.
+        let endPtX = aabb.maximum.x + 1
+        
+        // line we are testing against goes from pt -> endPt.
+        var inside = false
+        
+        var edgeStX = vertices[0].x
+        var edgeStY = vertices[0].y
+        
+        for i in 0..<vertices.count {
+            let next = (i + 1) % vertices.count
+            
+            let edgeEndX = vertices[next].x
+            let edgeEndY = vertices[next].y
+            
+            if ((edgeStY <= vector.y) && (edgeEndY > vector.y)) || ((edgeStY > vector.y) && (edgeEndY <= vector.y)) {
+                let slope = (edgeEndX - edgeStX) / (edgeEndY - edgeStY)
+                let hitX = edgeStX + ((vector.y - edgeStY) * slope)
+                
+                if ((hitX >= vector.x) && (hitX <= endPtX)) {
+                    inside = !inside
+                }
+            }
+            
+            edgeStX = edgeEndX
+            edgeStY = edgeEndY
+        }
+        
+        return inside
     }
 }
