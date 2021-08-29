@@ -10,52 +10,16 @@ public protocol Vector2Type: VectorType {
     init(x: Scalar, y: Scalar)
 }
 
-/// Returns the pointwise minimal Vector where each component is the minimal
-/// scalar value at each index for both vectors.
-@inlinable
-public func min<V: VectorComparable>(_ lhs: V, _ rhs: V) -> V {
-    return V.pointwiseMin(lhs, rhs)
-}
-
-/// Returns the pointwise maximal Vector where each component is the maximal
-/// scalar value at each index for both vectors.
-@inlinable
-public func max<V: VectorComparable>(_ lhs: V, _ rhs: V) -> V {
-    return V.pointwiseMax(lhs, rhs)
-}
-
-/// Returns a `VectorSigned` with each component as the absolute value of the
-/// components of a given `VectorSigned`.
-///
-/// Equivalent to calling C's abs() function on each component.
-@inlinable
-public func abs<V: VectorSigned>(_ x: V) -> V {
-    return x.absolute
-}
-
-/// Rounds the components of a given `VectorFloatingPoint` using
-/// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
-///
-/// Equivalent to calling C's round() function on each component.
-@inlinable
-public func round<V: VectorFloatingPoint>(_ x: V) -> V {
-    return x.rounded(.toNearestOrAwayFromZero)
-}
-
-/// Rounds up the components of a given `VectorFloatingPoint` using
-/// `FloatingPointRoundingRule.up`.
-///
-/// Equivalent to calling C's ceil() function on each component.
-@inlinable
-public func ceil<V: VectorFloatingPoint>(_ x: V) -> V {
-    return x.rounded(.up)
-}
-
-/// Rounds down the components of a given `VectorFloatingPoint` using
-/// `FloatingPointRoundingRule.down`.
-///
-/// Equivalent to calling C's floor() function on each component.
-@inlinable
-public func floor<V: VectorFloatingPoint>(_ x: V) -> V {
-    return x.rounded(.down)
+public extension Vector2Type where Self: VectorComparable {
+    /// Returns the greatest scalar component between x, y in this vector
+    @_transparent
+    var maximalComponent: Scalar {
+        return max(x, y)
+    }
+    
+    /// Returns the least scalar component between x, y in this vector
+    @_transparent
+    var minimalComponent: Scalar {
+        return min(x, y)
+    }
 }

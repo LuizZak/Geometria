@@ -7,3 +7,12 @@ public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric &
     /// Negates this Vector
     static prefix func - (lhs: Self) -> Self
 }
+
+/// Returns a `VectorSigned` with each component as the absolute value of the
+/// components of a given `VectorSigned`.
+///
+/// Equivalent to calling C's abs() function on each component.
+@inlinable
+public func abs<V: VectorSigned>(_ x: V) -> V {
+    return x.absolute
+}

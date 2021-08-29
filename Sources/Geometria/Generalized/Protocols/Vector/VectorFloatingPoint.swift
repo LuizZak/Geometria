@@ -114,3 +114,30 @@ public extension VectorFloatingPoint {
         return (vec - self).length
     }
 }
+
+/// Rounds the components of a given `VectorFloatingPoint` using
+/// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
+///
+/// Equivalent to calling C's round() function on each component.
+@inlinable
+public func round<V: VectorFloatingPoint>(_ x: V) -> V {
+    return x.rounded(.toNearestOrAwayFromZero)
+}
+
+/// Rounds up the components of a given `VectorFloatingPoint` using
+/// `FloatingPointRoundingRule.up`.
+///
+/// Equivalent to calling C's ceil() function on each component.
+@inlinable
+public func ceil<V: VectorFloatingPoint>(_ x: V) -> V {
+    return x.rounded(.up)
+}
+
+/// Rounds down the components of a given `VectorFloatingPoint` using
+/// `FloatingPointRoundingRule.down`.
+///
+/// Equivalent to calling C's floor() function on each component.
+@inlinable
+public func floor<V: VectorFloatingPoint>(_ x: V) -> V {
+    return x.rounded(.down)
+}

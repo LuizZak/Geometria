@@ -12,3 +12,17 @@ public protocol Vector3Type: VectorType {
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar, z: Scalar)
 }
+
+public extension Vector3Type where Self: VectorComparable {
+    /// Returns the greatest scalar component between x, y, z in this vector
+    @_transparent
+    var maximalComponent: Scalar {
+        return max(max(x, y), z)
+    }
+    
+    /// Returns the least scalar component between x, y, z in this vector
+    @_transparent
+    var minimalComponent: Scalar {
+        return min(min(x, y), z)
+    }
+}
