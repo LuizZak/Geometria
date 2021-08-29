@@ -218,9 +218,9 @@ public extension Rectangle2 where Vector: VectorAdditive {
     @inlinable
     func inset(_ inset: EdgeInsets2<Vector>) -> NRectangle {
         NRectangle(left: left + inset.left,
-                top: top + inset.top,
-                right: right - inset.right,
-                bottom: bottom - inset.bottom)
+                   top: top + inset.top,
+                   right: right - inset.right,
+                   bottom: bottom - inset.bottom)
     }
 }
 

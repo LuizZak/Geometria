@@ -109,7 +109,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     @_transparent
     public static func union(_ left: AABB, _ right: AABB) -> AABB {
         AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+             maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 

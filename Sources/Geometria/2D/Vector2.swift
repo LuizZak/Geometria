@@ -42,6 +42,7 @@ extension Vector2: Hashable where Scalar: Hashable { }
 extension Vector2: Encodable where Scalar: Encodable { }
 extension Vector2: Decodable where Scalar: Decodable { }
 
+// swiftlint:disable shorthand_operator
 extension Vector2: VectorComparable where Scalar: Comparable {
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.
@@ -164,7 +165,7 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     public var lengthSquared: Scalar {
         x * x + y * y
     }
-
+    
     /// Calculates the dot product between this and another provided `Vector2Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -319,6 +320,7 @@ extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
         lhs = lhs / rhs
     }
 }
+// swiftlint:enable shorthand_operator
 
 extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
     /// Returns the result of adding the product of the two given vectors to this
@@ -397,13 +399,13 @@ extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs))
     }
 }
 
@@ -416,20 +418,15 @@ extension Vector2: Vector2FloatingPoint where Scalar: DivisibleArithmetic & Floa
 
 extension Vector2: VectorReal where Scalar: DivisibleArithmetic & Real {
     @_transparent
-    public static func pow(_ vec: Self, _ n: Scalar) -> Self {
-        Self.pow(vec, Self(x: n, y: n))
+    public static func pow(_ vec: Self, _ exponent: Int) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent),
+             y: Scalar.pow(vec.y, exponent))
     }
     
     @_transparent
-    public static func pow(_ vec: Self, _ n: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, n),
-                y: Scalar.pow(vec.y, n))
-    }
-    
-    @_transparent
-    public static func pow(_ vec: Self, _ n: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, n.x),
-                y: Scalar.pow(vec.y, n.y))
+    public static func pow(_ vec: Self, _ exponent: Self) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent.x),
+             y: Scalar.pow(vec.y, exponent.y))
     }
 }
 
@@ -480,12 +477,12 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
     public static func matrix(scale: Self = .one,
                               rotate angle: Scalar = 0,
                               translate: Self = Self(x: 0, y: 0)) -> Matrix2<Scalar> {
-
+        
         Matrix2<Scalar>.transformation(xScale: scale.x,
-                yScale: scale.y,
-                angle: angle,
-                xOffset: translate.x,
-                yOffset: translate.y)
+                                       yScale: scale.y,
+                                       angle: angle,
+                                       xOffset: translate.x,
+                                       yOffset: translate.y)
     }
     
     @_transparent

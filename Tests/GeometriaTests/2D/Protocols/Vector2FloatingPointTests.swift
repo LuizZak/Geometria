@@ -72,51 +72,51 @@ class Vector2FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(vec1, Vector(x: 0.3333333333333333, y: 0.5))
     }
-
+    
     func testDistanceTo() {
         let v1 = Vector3D(x: 10, y: 20, z: 30)
         let v2 = Vector3D(x: 40, y: 50, z: 60)
-
+        
         XCTAssertEqual(v1.distance(to: v2), 51.96152422706632, accuracy: accuracy)
     }
-
+    
     func testDistanceTo_zeroDistance() {
         let vec = Vector3D(x: 10, y: 20, z: 30)
-
+        
         XCTAssertEqual(vec.distance(to: vec), 0.0)
     }
-
+    
     func testNormalize() {
         var vec = Vector3D(x: -10, y: 20, z: 15.0)
-
+        
         vec.normalize()
-
+        
         assertEqual(vec, Vector3D(x: -0.3713906763541037,
-                y: 0.7427813527082074,
-                z: 0.5570860145311556),
-                accuracy: accuracy)
+                                  y: 0.7427813527082074,
+                                  z: 0.5570860145311556),
+                    accuracy: accuracy)
     }
-
+    
     func testNormalize_zero() {
         var vec = Vector3D(x: 0, y: 0, z: 0)
-
+        
         vec.normalize()
-
+        
         XCTAssertEqual(vec, .zero)
     }
-
+    
     func testNormalized() {
         let vec = Vector3D(x: -10, y: 20, z: 15.0)
-
+        
         assertEqual(vec.normalized(), Vector3D(x: -0.3713906763541037,
-                y: 0.7427813527082074,
-                z: 0.5570860145311556),
-                accuracy: accuracy)
+                                               y: 0.7427813527082074,
+                                               z: 0.5570860145311556),
+                    accuracy: accuracy)
     }
-
+    
     func testNormalized_zero() {
         let vec = Vector3D(x: 0, y: 0, z: 0)
-
+        
         XCTAssertEqual(vec.normalized(), .zero)
     }
 }

@@ -35,7 +35,7 @@ extension Ellipsoid: VolumetricType where Vector: VectorReal {
     public func contains(_ point: Vector) -> Bool {
         let r2 = Vector.pow(radius, 2)
         
-        let p: Vector = Vector.pow(point - center, 2) / r2
+        let p = Vector.pow(point - center, 2) / r2
         
         return p.lengthSquared <= 1
     }

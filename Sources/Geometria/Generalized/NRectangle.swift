@@ -72,7 +72,7 @@ public extension NRectangle where Vector: VectorAdditive {
             let diff = newValue - minimum
             
             location = newValue
-            size = size - diff
+            size -= diff
         }
     }
     
@@ -206,7 +206,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     @_transparent
     public static func union(_ left: NRectangle, _ right: NRectangle) -> NRectangle {
         NRectangle(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+                   maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 

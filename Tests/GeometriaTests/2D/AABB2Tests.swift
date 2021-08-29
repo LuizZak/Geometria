@@ -121,4 +121,3 @@ extension AABB2Tests {
         XCTAssertEqual(sut.height, 4)
     }
 }
-

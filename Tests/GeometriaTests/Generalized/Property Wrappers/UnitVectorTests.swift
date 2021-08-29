@@ -24,7 +24,7 @@ class UnitVectorTests: XCTestCase {
     }
     
     func testSet() {
-        var sut: UnitVector = UnitVector(wrappedValue: .init(x: 1, y: 0))
+        var sut = UnitVector(wrappedValue: .init(x: 1, y: 0))
         
         sut.wrappedValue = .init(x: 2, y: 3)
         

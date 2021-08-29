@@ -89,7 +89,7 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
                 let slope = (edgeEnd.x - edgeSt.x) / (edgeEnd.y - edgeSt.y)
                 let hitX = edgeSt.x + ((vector.y - edgeSt.y) * slope)
                 
-                if ((hitX >= vector.x) && (hitX <= endPtX)) {
+                if (hitX >= vector.x) && (hitX <= endPtX) {
                     inside = !inside
                 }
             }

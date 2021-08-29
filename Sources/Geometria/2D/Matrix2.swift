@@ -111,13 +111,20 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Returns: The value of the component at the specified index.
     public subscript(index index: Int) -> Scalar {
         switch index {
-        case 0: return m11
-        case 1: return m12
-        case 2: return m21
-        case 3: return m22
-        case 4: return m31
-        case 5: return m32
-        default: fatalError("Indices for Matrix3x2 run from 0 to 5, inclusive.")
+        case 0:
+            return m11
+        case 1:
+            return m12
+        case 2:
+            return m21
+        case 3:
+            return m22
+        case 4:
+            return m31
+        case 5:
+            return m32
+        default:
+            fatalError("Indices for Matrix3x2 run from 0 to 5, inclusive.")
         }
     }
     

@@ -1,0 +1,15 @@
+disabled_rules:
+  - identifier_name
+  - type_name
+
+opt_in_rules:
+  - single_test_class
+
+custom_rules:
+  test_class_name:
+    name: "Invalid Test Class Name"
+    regex: "class\\s+(\\w+(?<!Tests)):\\s+XCTestCase"
+    message: "A test class name must end with 'Tests'"
+    severity: error
+
+type_body_length: 500

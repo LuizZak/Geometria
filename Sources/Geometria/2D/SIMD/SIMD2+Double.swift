@@ -212,38 +212,33 @@ extension SIMD2: VectorFloatingPoint where Scalar == Double {
     @inlinable
     public static func % (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
     }
     
     @inlinable
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs))
     }
 }
 
 extension SIMD2: Vector2FloatingPoint where Scalar == Double {
-    public init<V>(_ other: V) where V : Vector2Type, V.Scalar : BinaryInteger {
+    public init<V>(_ other: V) where V: Vector2Type, V.Scalar: BinaryInteger {
         self.init(x: Scalar(other.x), y: Scalar(other.y))
     }
 }
 
 extension SIMD2: VectorReal where Scalar == Double {
     @inlinable
-    public static func pow(_ vec: Self, _ n: Scalar) -> Self {
-        Self.pow(vec, Self(x: n, y: n))
+    public static func pow(_ vec: Self, _ exponent: Int) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent),
+             y: Scalar.pow(vec.y, exponent))
     }
     
     @inlinable
-    public static func pow(_ vec: Self, _ n: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, n),
-                y: Scalar.pow(vec.y, n))
-    }
-    
-    @inlinable
-    public static func pow(_ vec: Self, _ n: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, n.x),
-                y: Scalar.pow(vec.y, n.y))
+    public static func pow(_ vec: Self, _ exponent: Self) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent.x),
+             y: Scalar.pow(vec.y, exponent.y))
     }
 }
 
@@ -294,12 +289,12 @@ extension SIMD2: Vector2Real where Scalar == Double {
     public static func matrix(scale: Self = .one,
                               rotate angle: Scalar = 0,
                               translate: Self = Self(x: 0, y: 0)) -> Matrix2<Scalar> {
-
+        
         Matrix2<Scalar>.transformation(xScale: scale.x,
-                yScale: scale.y,
-                angle: angle,
-                xOffset: translate.x,
-                yOffset: translate.y)
+                                       yScale: scale.y,
+                                       angle: angle,
+                                       xOffset: translate.x,
+                                       yOffset: translate.y)
     }
     
     @inlinable

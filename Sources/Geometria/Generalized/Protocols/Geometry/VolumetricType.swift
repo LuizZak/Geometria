@@ -15,7 +15,7 @@ public extension VolumetricType where Vector: Vector2Type {
     /// volumetric shape.
     @_transparent
     func contains(x: Vector.Scalar, y: Vector.Scalar) -> Bool {
-        return contains(.init(x: x, y: y))
+        contains(.init(x: x, y: y))
     }
 }
 
@@ -24,6 +24,6 @@ public extension VolumetricType where Vector: Vector3Type {
     /// volumetric shape.
     @_transparent
     func contains(x: Vector.Scalar, y: Vector.Scalar, z: Vector.Scalar) -> Bool {
-        return contains(.init(x: x, y: y, z: z))
+        contains(.init(x: x, y: y, z: z))
     }
 }

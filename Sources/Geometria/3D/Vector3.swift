@@ -45,6 +45,7 @@ extension Vector3: Hashable where Scalar: Hashable { }
 extension Vector3: Encodable where Scalar: Encodable { }
 extension Vector3: Decodable where Scalar: Decodable { }
 
+// swiftlint:disable shorthand_operator
 extension Vector3: VectorComparable where Scalar: Comparable {
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.
@@ -167,7 +168,7 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
     public var lengthSquared: Scalar {
         x * x + y * y + z * z
     }
-
+    
     /// Calculates the dot product between this and another provided `Vector3Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -267,6 +268,7 @@ extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
         lhs = lhs / rhs
     }
 }
+// swiftlint:enable shorthand_operator
 
 extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
     /// Returns the result of adding the product of the two given vectors to this
@@ -348,15 +350,15 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
-                z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
+             z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs),
-                z: lhs.z.truncatingRemainder(dividingBy: rhs))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs),
+             z: lhs.z.truncatingRemainder(dividingBy: rhs))
     }
 }
 
@@ -369,22 +371,17 @@ extension Vector3: Vector3FloatingPoint where Scalar: DivisibleArithmetic & Floa
 
 extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
     @_transparent
-    public static func pow(_ vec: Self, _ n: Scalar) -> Self {
-        Self.pow(vec, Self(x: n, y: n, z: n))
+    public static func pow(_ vec: Self, _ exponent: Int) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent),
+             y: Scalar.pow(vec.y, exponent),
+             z: Scalar.pow(vec.z, exponent))
     }
     
     @_transparent
-    public static func pow(_ vec: Self, _ n: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, n),
-                y: Scalar.pow(vec.y, n),
-                z: Scalar.pow(vec.z, n))
-    }
-    
-    @_transparent
-    public static func pow(_ vec: Self, _ n: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, n.x),
-                y: Scalar.pow(vec.y, n.y),
-                z: Scalar.pow(vec.z, n.z))
+    public static func pow(_ vec: Self, _ exponent: Self) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent.x),
+             y: Scalar.pow(vec.y, exponent.y),
+             z: Scalar.pow(vec.z, exponent.z))
     }
 }
 

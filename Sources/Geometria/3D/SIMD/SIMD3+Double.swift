@@ -124,13 +124,13 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     public var length: Scalar {
         simd.length(self)
     }
-
+    
     /// Returns the distance between this `Vector2Type` and another `Vector2Type`
     @_transparent
     public func distance(to vec: Self) -> Scalar {
         simd.distance(self, vec)
     }
-
+    
     @_transparent
     public mutating func normalize() {
         self = normalized()
@@ -163,43 +163,38 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
-                z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
+             z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                y: lhs.y.truncatingRemainder(dividingBy: rhs),
-                z: lhs.z.truncatingRemainder(dividingBy: rhs))
+             y: lhs.y.truncatingRemainder(dividingBy: rhs),
+             z: lhs.z.truncatingRemainder(dividingBy: rhs))
     }
 }
 
 extension SIMD3: Vector3FloatingPoint where Scalar == Double {
     @_transparent
-    public init<V>(_ other: V) where V : Vector3Type, V.Scalar : BinaryInteger {
+    public init<V>(_ other: V) where V: Vector3Type, V.Scalar: BinaryInteger {
         self.init(x: Scalar(other.x), y: Scalar(other.y), z: Scalar(other.z))
     }
 }
 
 extension SIMD3: VectorReal where Scalar == Double {
     @_transparent
-    public static func pow(_ vec: Self, _ n: Scalar) -> Self {
-        Self.pow(vec, Self(x: n, y: n, z: n))
+    public static func pow(_ vec: Self, _ exponent: Int) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent),
+             y: Scalar.pow(vec.y, exponent),
+             z: Scalar.pow(vec.z, exponent))
     }
     
     @_transparent
-    public static func pow(_ vec: Self, _ n: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, n),
-                y: Scalar.pow(vec.y, n),
-                z: Scalar.pow(vec.z, n))
-    }
-    
-    @_transparent
-    public static func pow(_ vec: Self, _ n: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, n.x),
-                y: Scalar.pow(vec.y, n.y),
-                z: Scalar.pow(vec.z, n.z))
+    public static func pow(_ vec: Self, _ exponent: Self) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent.x),
+             y: Scalar.pow(vec.y, exponent.y),
+             z: Scalar.pow(vec.z, exponent.z))
     }
 }
 

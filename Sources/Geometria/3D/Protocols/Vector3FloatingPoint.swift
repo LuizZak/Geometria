@@ -28,6 +28,8 @@ public protocol Vector3FloatingPoint: Vector3Type & VectorFloatingPoint {
     static func /= <V: Vector3Type>(lhs: inout Self, rhs: V) where V.Scalar: BinaryInteger
 }
 
+// swiftlint:disable shorthand_operator
+
 extension Vector3FloatingPoint {
     @inlinable
     public static func + <V: Vector3Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {

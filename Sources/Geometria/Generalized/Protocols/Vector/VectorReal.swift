@@ -6,15 +6,22 @@ public protocol VectorReal: VectorFloatingPoint & VectorComparable where Scalar:
     /// power.
     ///
     /// - precondition: `vec >= Self.zero`
-    static func pow(_ vec: Self, _ n: Scalar) -> Self
+    static func pow(_ vec: Self, _ exponent: Scalar) -> Self
     
     /// Returns the result of powering each component of this vector by the `n`th
     /// power (integer).
-    static func pow(_ vec: Self, _ n: Int) -> Self
+    static func pow(_ vec: Self, _ exponent: Int) -> Self
     
     /// Returns the result of powering each component of this vector by the `n`th
     /// power represented by each corresponding component of the `n` vector.
     ///
     /// - precondition: `vec >= Self.zero`
     static func pow(_ vec: Self, _ n: Self) -> Self
+}
+
+public extension VectorReal {
+    @_transparent
+    static func pow(_ vec: Self, _ exponent: Scalar) -> Self {
+        Self.pow(vec, Self(repeating: exponent))
+    }
 }

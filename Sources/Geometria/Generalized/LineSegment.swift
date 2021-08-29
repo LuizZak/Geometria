@@ -53,7 +53,7 @@ extension LineSegment: BoundableType where Vector: VectorComparable {
     @_transparent
     public var bounds: AABB<Vector> {
         AABB(minimum: Vector.pointwiseMin(a, b),
-                maximum: Vector.pointwiseMax(a, b))
+             maximum: Vector.pointwiseMax(a, b))
     }
 }
 
@@ -71,7 +71,7 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     public var length: Scalar {
         (end - start).length
     }
-
+    
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
     /// matches `self.start` and `ray.direction` matches
     /// `(self.end - self.start).normalized()`.

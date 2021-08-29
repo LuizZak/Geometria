@@ -571,14 +571,14 @@ extension Matrix2Tests {
     func makePrimesSut() -> Matrix {
         Matrix(m11: 2, m12: 3, m21: 5, m22: 7, m31: 11, m32: 13)
     }
-
+    
     /// Creates a test `Matrix` with `Matrix.transformation(xScale: 2, yScale: 3, angle: .pi / 2, xOffset: 4, yOffset: 5)`
     func makeTransformSut() -> Matrix {
         Matrix
-                .transformation(xScale: 2,
-                yScale: 3,
-                angle: .pi / 2,
-                xOffset: 4,
-                yOffset: 5)
+            .transformation(xScale: 2,
+                            yScale: 3,
+                            angle: .pi / 2,
+                            xOffset: 4,
+                            yOffset: 5)
     }
 }
