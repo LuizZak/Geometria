@@ -1,5 +1,5 @@
 /// Protocol for objects that form geometric lines with at least two points.
-public protocol LineType {
+public protocol LineType: GeometricType {
     associatedtype Vector: VectorType
     
     /// Gets the first point that defines the line of this `LineType`

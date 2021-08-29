@@ -2,7 +2,7 @@ import RealModule
 
 /// Represents a line segment as a pair of start and end N-dimensional vectors
 /// which describe a closed interval.
-public struct LineSegment<Vector: VectorType> {
+public struct LineSegment<Vector: VectorType>: LineType {
     public typealias Scalar = Vector.Scalar
     
     /// The bounded start of this line segment, inclusive.
@@ -10,6 +10,12 @@ public struct LineSegment<Vector: VectorType> {
     
     /// The bounded end of this line segment, inclusive.
     public var end: Vector
+    
+    @_transparent
+    public var a: Vector { return start }
+    
+    @_transparent
+    public var b: Vector { return end }
     
     @_transparent
     public init(start: Vector, end: Vector) {
@@ -37,14 +43,6 @@ public extension LineSegment {
     var asRay: Ray<Vector> {
         return Ray(start: start, b: end)
     }
-}
-
-extension LineSegment: LineType {
-    @_transparent
-    public var a: Vector { return start }
-    
-    @_transparent
-    public var b: Vector { return end }
 }
 
 extension LineSegment: BoundableType where Vector: VectorComparable {

@@ -1,6 +1,6 @@
 /// Represents an N-dimensional square with an origin point and a scalar value
 /// for the side length of each edge.
-public struct NSquare<Vector: VectorType> {
+public struct NSquare<Vector: VectorType>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
     /// The origin of this box, corresponding to the minimal coordinate of the
@@ -31,11 +31,11 @@ extension NSquare: BoundableType where Vector: VectorAdditive {
     }
 }
 
-public extension NSquare where Vector: VectorAdditive & VectorComparable {
+extension NSquare: VolumetricType where Vector: VectorAdditive & VectorComparable {
     /// Returns `true` if the given vector is contained within the bounds of this
     /// square.
     @inlinable
-    func contains(_ vector: Vector) -> Bool {
+    public func contains(_ vector: Vector) -> Bool {
         let max = origin + Vector(repeating: sideLength)
         
         return vector >= origin && vector <= max

@@ -2,7 +2,7 @@ import RealModule
 
 /// Represents an N-dimensional ellipsoid as a center with an N-dimensional
 /// radii vector which describes the axis of the ellipsoid.
-public struct Ellipsoid<Vector: VectorType> {
+public struct Ellipsoid<Vector: VectorType>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
     public var center: Vector
@@ -26,13 +26,13 @@ extension Ellipsoid: BoundableType where Vector: VectorAdditive {
     }
 }
 
-public extension Ellipsoid where Vector: VectorReal {
+extension Ellipsoid: VolumetricType where Vector: VectorReal {
     /// Returns `true` if the given point is contained within this ellipse.
     ///
     /// The method returns `true` for points that lie on the outer perimeter of
     /// the ellipse (inclusive)
     @inlinable
-    func contains(_ point: Vector) -> Bool {
+    public func contains(_ point: Vector) -> Bool {
         let r2 = Vector.pow(radius, 2)
         
         let p: Vector = Vector.pow(point - center, 2) / r2

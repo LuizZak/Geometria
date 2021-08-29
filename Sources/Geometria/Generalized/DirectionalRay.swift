@@ -1,6 +1,6 @@
 /// Represents an N-dimensional ray line which projects a line from a starting
 /// point in a specified direction to infinity.
-public struct DirectionalRay<Vector: VectorFloatingPoint> {
+public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
     /// The starting position of this ray

@@ -1,7 +1,7 @@
 import RealModule
 
 /// Protocol for vector types where the components are real numbers.
-public protocol VectorReal: VectorFloatingPoint where Scalar: Real {
+public protocol VectorReal: VectorFloatingPoint & VectorComparable where Scalar: Real {
     /// Returns the result of powering each component of this vector by the `n`th
     /// power.
     ///

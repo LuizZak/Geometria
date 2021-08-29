@@ -3,7 +3,7 @@
 /// A 2-dimensional line polygon defines a closed polygon, while in higher
 /// dimensions it is simply a list of line segments where the ends meet at the
 /// vertices.
-public struct LinePolygon<Vector: VectorType> {
+public struct LinePolygon<Vector: VectorType>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
     public var vertices: [Vector]

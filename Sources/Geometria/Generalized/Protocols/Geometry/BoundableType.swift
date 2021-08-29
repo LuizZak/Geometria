@@ -1,5 +1,5 @@
-/// Describes a geometric type that can be fitted into a finite, axis-aligned
-/// bounding box.
+/// Describes a general type that can be fitted into a finite, non-empty
+/// axis-aligned bounding box.
 public protocol BoundableType {
     associatedtype Vector: VectorType
     

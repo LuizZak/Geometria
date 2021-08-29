@@ -1,6 +1,6 @@
 /// Represents an axis-aligned bounding box with two N-dimensional vectors that
 /// describe the minimal and maximal coordinates of the box's opposite corners.
-public struct AABB<Vector: VectorType> {
+public struct AABB<Vector: VectorType>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
     /// The minimal coordinate of this box.
@@ -45,16 +45,16 @@ public extension AABB where Vector: Equatable {
     }
 }
 
-public extension AABB where Vector: VectorComparable {
+extension AABB: VolumetricType where Vector: VectorComparable {
     /// Returns `true` if `minimum <= maximum`.
     @_transparent
-    var isValid: Bool {
+    public var isValid: Bool {
         minimum <= maximum
     }
     
     /// Expands this box to include the given point.
     @_transparent
-    mutating func expand(toInclude point: Vector) {
+    public mutating func expand(toInclude point: Vector) {
         minimum = Vector.pointwiseMin(minimum, point)
         maximum = Vector.pointwiseMax(maximum, point)
     }
@@ -64,7 +64,7 @@ public extension AABB where Vector: VectorComparable {
     /// Same as calling `expand(toInclude:Vector2D)` over each point.
     /// If the array is empty, nothing is done.
     @inlinable
-    mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
+    public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
         for p in points {
             expand(toInclude: p)
         }
@@ -75,14 +75,14 @@ public extension AABB where Vector: VectorComparable {
     /// The check is inclusive, so the edges of the box are considered to
     /// contain the point as well.
     @_transparent
-    func contains(_ point: Vector) -> Bool {
+    public func contains(_ point: Vector) -> Bool {
         return point >= minimum && point <= maximum
     }
     
     /// Returns whether a given box rests completely inside the boundaries of
     /// this box.
     @_transparent
-    func contains(box: AABB) -> Bool {
+    public func contains(box: AABB) -> Bool {
         return box.minimum >= minimum && box.maximum <= maximum
     }
     
@@ -91,21 +91,21 @@ public extension AABB where Vector: VectorComparable {
     /// This check is inclusive, so the edges of the box are considered to
     /// intersect the other bounding box's edges as well.
     @_transparent
-    func intersects(_ box: AABB) -> Bool {
+    public func intersects(_ box: AABB) -> Bool {
         return minimum <= box.maximum && maximum >= box.minimum
     }
     
     /// Returns a box which is the minimum area that can fit `self` and the
     /// given box.
     @_transparent
-    func union(_ other: AABB) -> AABB {
+    public func union(_ other: AABB) -> AABB {
         return AABB.union(self, other)
     }
     
     /// Returns a box which is the minimum area that can fit the given two
     /// boxes.
     @_transparent
-    static func union(_ left: AABB, _ right: AABB) -> AABB {
+    public static func union(_ left: AABB, _ right: AABB) -> AABB {
         return AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
                     maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }

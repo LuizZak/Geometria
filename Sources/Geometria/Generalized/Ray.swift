@@ -1,6 +1,6 @@
 /// Represents an N-dimensional ray line which has a starting point and crosses
 /// a secondary point before being projecting to infinity.
-public struct Ray<Vector: VectorType> {
+public struct Ray<Vector: VectorType>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
     /// The starting position of this ray
