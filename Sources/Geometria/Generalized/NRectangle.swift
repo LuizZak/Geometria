@@ -28,6 +28,24 @@ public struct NRectangle<Vector: VectorType>: GeometricType {
     public func withSize(_ size: Vector) -> NRectangle {
         return NRectangle(location: location, size: size)
     }
+    
+    /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,
+    /// with the given radius vector describing the dimensions of the corner
+    /// arcs.
+    @inlinable
+    public func rounded(radius: Vector) -> RoundNRectangle<Vector> {
+        return RoundNRectangle(rectangle: self, radius: radius)
+    }
+    
+    /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,
+    /// with the given radius value describing the dimensions of the corner
+    /// arcs.
+    ///
+    /// Alias for `rounded(radius: Vector(repeating: radius))`
+    @_transparent
+    public func rounded(radius: Scalar) -> RoundNRectangle<Vector> {
+        return rounded(radius: .init(repeating: radius))
+    }
 }
 
 extension NRectangle: Equatable where Vector: Equatable, Scalar: Equatable { }

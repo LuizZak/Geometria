@@ -130,24 +130,6 @@ class Rectangle2Tests: XCTestCase {
         XCTAssertEqual(result.location, .init(x: 5, y: 2))
         XCTAssertEqual(result.size, .init(x: 3, y: 4))
     }
-    
-    func testRoundedRadius() {
-        let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        
-        let result = sut.rounded(radius: .init(x: 5, y: 6))
-        
-        XCTAssertEqual(result.bounds, sut)
-        XCTAssertEqual(result.radius, .init(x: 5, y: 6))
-    }
-    
-    func testRoundedRadiusScalar() {
-        let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        
-        let result = sut.rounded(radius: 5)
-        
-        XCTAssertEqual(result.bounds, sut)
-        XCTAssertEqual(result.radius, .init(x: 5, y: 5))
-    }
 }
 
 // MARK: VectorAdditive Conformance

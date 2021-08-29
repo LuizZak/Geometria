@@ -117,22 +117,6 @@ public extension Rectangle2 {
     func movingLeft(to value: Scalar) -> NRectangle {
         return NRectangle(x: value, y: top, width: width, height: height)
     }
-    
-    /// Returns a `RoundRectangle` which has the same bounds as this rectangle,
-    /// with the given radius vector describing the dimensions of the corner arcs
-    /// on the X and Y axis.
-    @inlinable
-    func rounded(radius: Vector) -> RoundRectangle2<Vector> {
-        return RoundRectangle2(bounds: self, radius: radius)
-    }
-    
-    /// Returns a `RoundRectangle` which has the same bounds as this rectangle,
-    /// with the given radius value describing the dimensions of the corner arcs
-    /// on the X and Y axis.
-    @inlinable
-    func rounded(radius: Scalar) -> RoundRectangle2<Vector> {
-        return RoundRectangle2(bounds: self, radiusX: radius, radiusY: radius)
-    }
 }
 
 public extension Rectangle2 where Vector: VectorAdditive {
