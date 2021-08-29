@@ -32,6 +32,6 @@ extension LinePolygon: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension LinePolygon: BoundableType where Vector: VectorAdditive & VectorComparable {
     public var bounds: AABB<Vector> {
-        return AABB(points: vertices)
+        AABB(points: vertices)
     }
 }

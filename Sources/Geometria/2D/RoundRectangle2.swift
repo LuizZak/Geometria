@@ -16,6 +16,6 @@ extension RoundRectangle2 {
     @_transparent
     public init(rectangle: NRectangle<Vector>, radiusX: Scalar, radiusY: Scalar) {
         self.rectangle = rectangle
-        self.radius = Vector(x: radiusX, y: radiusY)
+        radius = Vector(x: radiusX, y: radiusY)
     }
 }

@@ -67,12 +67,12 @@ public extension LineFloatingPoint {
     
     @inlinable
     func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
-        return a.addingProduct((b - a).normalized(), scalar)
+        a.addingProduct((b - a).normalized(), scalar)
     }
     
     @inlinable
     func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector {
-        return a.addingProduct(b - a, scalar)
+        a.addingProduct(b - a, scalar)
     }
     
     @inlinable
@@ -84,6 +84,6 @@ public extension LineFloatingPoint {
     
     @inlinable
     func distance(to vector: Vector) -> Vector.Scalar {
-        return distanceSquared(to: vector).squareRoot()
+        distanceSquared(to: vector).squareRoot()
     }
 }

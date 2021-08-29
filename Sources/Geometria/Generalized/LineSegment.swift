@@ -12,10 +12,14 @@ public struct LineSegment<Vector: VectorType>: LineType {
     public var end: Vector
     
     @_transparent
-    public var a: Vector { return start }
+    public var a: Vector {
+        start
+    }
     
     @_transparent
-    public var b: Vector { return end }
+    public var b: Vector {
+        end
+    }
     
     @_transparent
     public init(start: Vector, end: Vector) {
@@ -34,22 +38,22 @@ public extension LineSegment {
     /// matches `self.start` and `line.b` matches `self.end`.
     @_transparent
     var asLine: Line<Vector> {
-        return Line(a: start, b: end)
+        Line(a: start, b: end)
     }
     
     /// Returns a `Ray` representation of this line segment, where `ray.start`
     /// matches `self.start` and `ray.b` matches `self.end`.
     @_transparent
     var asRay: Ray<Vector> {
-        return Ray(start: start, b: end)
+        Ray(start: start, b: end)
     }
 }
 
 extension LineSegment: BoundableType where Vector: VectorComparable {
     @_transparent
     public var bounds: AABB<Vector> {
-        return AABB(minimum: Vector.pointwiseMin(a, b),
-                    maximum: Vector.pointwiseMax(a, b))
+        AABB(minimum: Vector.pointwiseMin(a, b),
+                maximum: Vector.pointwiseMax(a, b))
     }
 }
 
@@ -57,7 +61,7 @@ public extension LineSegment where Vector: VectorMultiplicative {
     /// Returns the squared length of this line
     @_transparent
     var lengthSquared: Scalar {
-        return (end - start).lengthSquared
+        (end - start).lengthSquared
     }
 }
 
@@ -65,7 +69,7 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns the length of this line
     @_transparent
     public var length: Scalar {
-        return (end - start).length
+        (end - start).length
     }
 
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
@@ -75,13 +79,13 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// - precondition: `(self.end - self.start).length > 0`
     @_transparent
     public var asDirectionalRay: DirectionalRay<Vector> {
-        return DirectionalRay(start: start, direction: end - start)
+        DirectionalRay(start: start, direction: end - start)
     }
     
     /// Returns `true` for projected scalars (0-1) (finite line)
     @inlinable
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
-        return scalar >= 0 && scalar <= 1
+        scalar >= 0 && scalar <= 1
     }
     
     /// Returns the distance squared between this line and a given vector.

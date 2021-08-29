@@ -13,7 +13,7 @@ public struct NSquare<Vector: VectorType>: GeometricType {
     /// Returns a rectangle with the same boundaries as this square.
     @_transparent
     public var asRectangle: NRectangle<Vector> {
-        return NRectangle(location: origin, size: Vector(repeating: sideLength))
+        NRectangle(location: origin, size: Vector(repeating: sideLength))
     }
     
     @_transparent
@@ -27,7 +27,7 @@ extension NSquare: BoundableType where Vector: VectorAdditive {
     /// Returns a box with the same boundaries as this square.
     @_transparent
     public var bounds: AABB<Vector> {
-        return AABB(minimum: origin, maximum: origin + Vector(repeating: sideLength))
+        AABB(minimum: origin, maximum: origin + Vector(repeating: sideLength))
     }
 }
 

@@ -52,6 +52,6 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
 public extension VectorMultiplicative {
     /// Returns the distance squared between this `VectorType` and another `VectorType`
     func distanceSquared(to vec: Self) -> Scalar {
-        return (self - vec).lengthSquared
+        (self - vec).lengthSquared
     }
 }

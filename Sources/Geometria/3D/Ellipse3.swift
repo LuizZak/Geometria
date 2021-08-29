@@ -18,7 +18,7 @@ public extension Ellipsoid3 {
     @_transparent
     var radiusX: Scalar {
         get {
-            return radius.x
+            radius.x
         }
         set {
             radius.x = newValue
@@ -28,7 +28,7 @@ public extension Ellipsoid3 {
     @_transparent
     var radiusY: Scalar {
         get {
-            return radius.y
+            radius.y
         }
         set {
             radius.y = newValue
@@ -38,7 +38,7 @@ public extension Ellipsoid3 {
     @_transparent
     var radiusZ: Scalar {
         get {
-            return radius.z
+            radius.z
         }
         set {
             radius.z = newValue
@@ -59,6 +59,6 @@ public extension Ellipsoid3 where Vector: VectorReal {
     /// the ellipse (inclusive)
     @_transparent
     func contains(x: Scalar, y: Scalar, z: Scalar) -> Bool {
-        return contains(Vector(x: x, y: y, z: z))
+        contains(Vector(x: x, y: y, z: z))
     }
 }

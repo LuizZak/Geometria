@@ -14,5 +14,5 @@ public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric &
 /// Equivalent to calling C's abs() function on each component.
 @inlinable
 public func abs<V: VectorSigned>(_ x: V) -> V {
-    return x.absolute
+    x.absolute
 }

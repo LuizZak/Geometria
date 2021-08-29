@@ -19,14 +19,14 @@ extension NSphere: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension NSphere: BoundableType where Vector: VectorAdditive {
     public var bounds: AABB<Vector> {
-        return AABB(minimum: center - radius, maximum: center + radius)
+        AABB(minimum: center - radius, maximum: center + radius)
     }
 }
 
 public extension NSphere where Scalar: AdditiveArithmetic {
     @inlinable
     func expanded(by value: Scalar) -> NSphere {
-        return NSphere(center: center, radius: radius + value)
+        NSphere(center: center, radius: radius + value)
     }
 }
 
@@ -49,7 +49,7 @@ extension NSphere: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this N-sphere's area intersects the given line type.
     @inlinable
     public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
-        return line.distanceSquared(to: center) <= radius * radius
+        line.distanceSquared(to: center) <= radius * radius
     }
     
     /// Performs an intersection test against the given line, returning up to

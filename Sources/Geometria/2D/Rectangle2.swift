@@ -14,7 +14,7 @@ public typealias Rectangle2<V: Vector2Type> = NRectangle<V>
 
 extension Rectangle2: CustomStringConvertible {
     public var description: String {
-        return "\(type(of: self))(x: \(x), y: \(y), width: \(width), height: \(height))"
+        "\(type(of: self))(x: \(x), y: \(y), width: \(width), height: \(height))"
     }
 }
 
@@ -23,7 +23,7 @@ public extension Rectangle2 {
     @_transparent
     var x: Scalar {
         get {
-            return location.x
+            location.x
         }
         set {
             location.x = newValue
@@ -34,7 +34,7 @@ public extension Rectangle2 {
     @_transparent
     var y: Scalar {
         get {
-            return location.y
+            location.y
         }
         set {
             location.y = newValue
@@ -47,7 +47,7 @@ public extension Rectangle2 {
     @_transparent
     var width: Scalar {
         get {
-            return size.x
+            size.x
         }
         set {
             size.x = newValue
@@ -60,7 +60,7 @@ public extension Rectangle2 {
     @_transparent
     var height: Scalar {
         get {
-            return size.y
+            size.y
         }
         set {
             size.y = newValue
@@ -82,7 +82,7 @@ public extension Rectangle2 {
     /// The top-left corner of the rectangle.
     @_transparent
     var topLeft: Vector {
-        return Vector(x: left, y: top)
+        Vector(x: left, y: top)
     }
     
     /// Initializes a Rectangle with the coordinates of a 2D rectangle.
@@ -95,27 +95,27 @@ public extension Rectangle2 {
     /// Returns a Rectangle that matches this Rectangle's size with a new location.
     @_transparent
     func withSize(width: Scalar, height: Scalar) -> NRectangle {
-        return withSize(Vector(x: width, y: height))
+        withSize(Vector(x: width, y: height))
     }
     
     /// Returns a rectangle that matches this Rectangle's size with a new location.
     @_transparent
     func withLocation(x: Scalar, y: Scalar) -> NRectangle {
-        return withLocation(Vector(x: x, y: y))
+        withLocation(Vector(x: x, y: y))
     }
     
     /// Returns a new Rectangle with the same left, right, and height as the current
     /// instance, where the `top` lays on `value`.
     @inlinable
     func movingTop(to value: Scalar) -> NRectangle {
-        return NRectangle(x: left, y: value, width: width, height: height)
+        NRectangle(x: left, y: value, width: width, height: height)
     }
     
     /// Returns a new Rectangle with the same top, bottom, and width as the current
     /// instance, where the `left` lays on `value`.
     @inlinable
     func movingLeft(to value: Scalar) -> NRectangle {
-        return NRectangle(x: value, y: top, width: width, height: height)
+        NRectangle(x: value, y: top, width: width, height: height)
     }
 }
 
@@ -135,19 +135,19 @@ public extension Rectangle2 where Vector: VectorAdditive {
     /// The top-right corner of the rectangle.
     @_transparent
     var topRight: Vector {
-        return Vector(x: right, y: top)
+        Vector(x: right, y: top)
     }
     
     /// The bottom-left corner of the rectangle.
     @_transparent
     var bottomLeft: Vector {
-        return Vector(x: left, y: bottom)
+        Vector(x: left, y: bottom)
     }
     
     /// The bottom-right corner of the rectangle.
     @_transparent
     var bottomRight: Vector {
-        return Vector(x: right, y: bottom)
+        Vector(x: right, y: bottom)
     }
     
     /// Returns an array of vectors that represent this `Rectangle`'s corners in
@@ -156,7 +156,7 @@ public extension Rectangle2 where Vector: VectorAdditive {
     /// Always contains 4 elements.
     @inlinable
     var corners: [Vector] {
-        return [topLeft, topRight, bottomRight, bottomLeft]
+        [topLeft, topRight, bottomRight, bottomLeft]
     }
     
     /// Initializes a `Rectangle` with the edges of a box.
@@ -169,58 +169,58 @@ public extension Rectangle2 where Vector: VectorAdditive {
     /// offset by a given amount.
     @_transparent
     func offsetBy(x: Scalar, y: Scalar) -> NRectangle {
-        return offsetBy(Vector(x: x, y: y))
+        offsetBy(Vector(x: x, y: y))
     }
     
     /// Returns a new Rectangle with the same top, bottom, and width as the current
     /// instance, where the `right` lays on `value`.
     @inlinable
     func movingRight(to value: Scalar) -> NRectangle {
-        return NRectangle(left: value - width, top: top, right: value, bottom: bottom)
+        NRectangle(left: value - width, top: top, right: value, bottom: bottom)
     }
     
     /// Returns a new Rectangle with the same left, right, and height as the current
     /// instance, where the `bottom` lays on `value`.
     @inlinable
     func movingBottom(to value: Scalar) -> NRectangle {
-        return NRectangle(left: left, top: value - height, right: right, bottom: value)
+        NRectangle(left: left, top: value - height, right: right, bottom: value)
     }
     
     /// Returns a new Rectangle with the same top, bottom, and right as the current
     /// instance, where the `left` lays on `value`.
     @inlinable
     func stretchingLeft(to value: Scalar) -> NRectangle {
-        return NRectangle(left: value, top: top, right: right, bottom: bottom)
+        NRectangle(left: value, top: top, right: right, bottom: bottom)
     }
     
     /// Returns a new Rectangle with the same left, right, and bottom as the current
     /// instance, where the `top` lays on `value`.
     @inlinable
     func stretchingTop(to value: Scalar) -> NRectangle {
-        return NRectangle(left: left, top: value, right: right, bottom: bottom)
+        NRectangle(left: left, top: value, right: right, bottom: bottom)
     }
     
     /// Returns a new Rectangle with the same top, bottom, and left as the current
     /// instance, where the `right` lays on `value`.
     @inlinable
     func stretchingRight(to value: Scalar) -> NRectangle {
-        return NRectangle(left: left, top: top, right: value, bottom: bottom)
+        NRectangle(left: left, top: top, right: value, bottom: bottom)
     }
     
     /// Returns a new Rectangle with the same left, right, and top as the current
     /// instance, where the `bottom` lays on `value`.
     @inlinable
     func stretchingBottom(to value: Scalar) -> NRectangle {
-        return NRectangle(left: left, top: top, right: right, bottom: value)
+        NRectangle(left: left, top: top, right: right, bottom: value)
     }
     
     /// Insets this Rectangle with a given set of edge inset values.
     @inlinable
     func inset(_ inset: EdgeInsets2<Vector>) -> NRectangle {
-        return NRectangle(left: left + inset.left,
-                          top: top + inset.top,
-                          right: right - inset.right,
-                          bottom: bottom - inset.bottom)
+        NRectangle(left: left + inset.left,
+                top: top + inset.top,
+                right: right - inset.right,
+                bottom: bottom - inset.bottom)
     }
 }
 
@@ -229,7 +229,7 @@ public extension Rectangle2 where Vector: VectorAdditive & VectorComparable, Sca
     /// minimal Rectangle capable of containing the transformed points.
     @_transparent
     func transformedBounds(_ matrix: Matrix2<Scalar>) -> NRectangle<Vector> {
-        return matrix.transform(self)
+        matrix.transform(self)
     }
 }
 
@@ -240,7 +240,7 @@ public extension Rectangle2 where Vector: VectorAdditive & VectorComparable {
     /// to contain the point as well.
     @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector(x: x, y: y))
+        contains(Vector(x: x, y: y))
     }
 }
 
@@ -249,7 +249,7 @@ public extension Rectangle2 where Vector: VectorMultiplicative {
     /// width and height multiplied by the coordinates of the given vector.
     @_transparent
     func scaledBy(x: Scalar, y: Scalar) -> NRectangle {
-        return scaledBy(vector: Vector(x: x, y: y))
+        scaledBy(vector: Vector(x: x, y: y))
     }
 }
 
@@ -258,7 +258,7 @@ public extension Rectangle2 where Vector: VectorDivisible {
     @_transparent
     var centerX: Scalar {
         get {
-            return center.x
+            center.x
         }
         set {
             center.x = newValue
@@ -269,7 +269,7 @@ public extension Rectangle2 where Vector: VectorDivisible {
     @_transparent
     var centerY: Scalar {
         get {
-            return center.y
+            center.y
         }
         set {
             center.y = newValue
@@ -280,14 +280,14 @@ public extension Rectangle2 where Vector: VectorDivisible {
     /// (i.e. bounds are larger by `size`, but center remains the same).
     @_transparent
     func inflatedBy(x: Scalar, y: Scalar) -> NRectangle {
-        return inflatedBy(Vector(x: x, y: y))
+        inflatedBy(Vector(x: x, y: y))
     }
     
     /// Returns a Rectangle which is an inset version of this Rectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
     @_transparent
     func insetBy(x: Scalar, y: Scalar) -> NRectangle {
-        return insetBy(Vector(x: x, y: y))
+        insetBy(Vector(x: x, y: y))
     }
     
     /// Returns a new Rectangle with the same width and height as the current
@@ -295,7 +295,7 @@ public extension Rectangle2 where Vector: VectorDivisible {
     /// composed of `[x, y]`.
     @_transparent
     func movingCenter(toX x: Scalar, y: Scalar) -> NRectangle {
-        return movingCenter(to: Vector(x: x, y: y))
+        movingCenter(to: Vector(x: x, y: y))
     }
 }
 
@@ -314,7 +314,7 @@ public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparab
     /// Return is `nil`, if they do not intersect.
     @inlinable
     func intersection(_ other: NRectangle) -> NRectangle? {
-        return NRectangle.intersect(self, other)
+        NRectangle.intersect(self, other)
     }
     
     /// Returns an `Rectangle` that is the intersection between two rectangle

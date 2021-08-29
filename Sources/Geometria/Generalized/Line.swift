@@ -29,7 +29,7 @@ extension Line: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns `true` for all projected scalars (infinite line)
     @inlinable
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
-        return true
+        true
     }
 }
 

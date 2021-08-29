@@ -22,7 +22,7 @@ extension Ellipsoid: Decodable where Vector: Decodable, Scalar: Decodable { }
 extension Ellipsoid: BoundableType where Vector: VectorAdditive {
     @_transparent
     public var bounds: AABB<Vector> {
-        return AABB(minimum: center - radius, maximum: center + radius)
+        AABB(minimum: center - radius, maximum: center + radius)
     }
 }
 

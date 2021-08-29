@@ -34,7 +34,9 @@ extension AABB: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension AABB: BoundableType {
     @_transparent
-    public var bounds: AABB<Vector> { return self }
+    public var bounds: AABB<Vector> {
+        self
+    }
 }
 
 public extension AABB where Vector: Equatable {
@@ -76,14 +78,14 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// contain the point as well.
     @_transparent
     public func contains(_ point: Vector) -> Bool {
-        return point >= minimum && point <= maximum
+        point >= minimum && point <= maximum
     }
     
     /// Returns whether a given box rests completely inside the boundaries of
     /// this box.
     @_transparent
     public func contains(box: AABB) -> Bool {
-        return box.minimum >= minimum && box.maximum <= maximum
+        box.minimum >= minimum && box.maximum <= maximum
     }
     
     /// Returns whether this box intersects the given box instance.
@@ -92,22 +94,22 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// intersect the other bounding box's edges as well.
     @_transparent
     public func intersects(_ box: AABB) -> Bool {
-        return minimum <= box.maximum && maximum >= box.minimum
+        minimum <= box.maximum && maximum >= box.minimum
     }
     
     /// Returns a box which is the minimum area that can fit `self` and the
     /// given box.
     @_transparent
     public func union(_ other: AABB) -> AABB {
-        return AABB.union(self, other)
+        AABB.union(self, other)
     }
     
     /// Returns a box which is the minimum area that can fit the given two
     /// boxes.
     @_transparent
     public static func union(_ left: AABB, _ right: AABB) -> AABB {
-        return AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                    maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+        AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
+                maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 

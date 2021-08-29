@@ -16,6 +16,6 @@ public extension Circle2 where Vector: VectorMultiplicative, Scalar: Comparable 
     /// are considered as contained within the circle.
     @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(.init(x: x, y: y))
+        contains(.init(x: x, y: y))
     }
 }

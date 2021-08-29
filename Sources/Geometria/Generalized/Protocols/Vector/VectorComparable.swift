@@ -34,12 +34,12 @@ public protocol VectorComparable: VectorType where Scalar: Comparable {
 /// scalar value at each index for both vectors.
 @inlinable
 public func min<V: VectorComparable>(_ lhs: V, _ rhs: V) -> V {
-    return V.pointwiseMin(lhs, rhs)
+    V.pointwiseMin(lhs, rhs)
 }
 
 /// Returns the pointwise maximal Vector where each component is the maximal
 /// scalar value at each index for both vectors.
 @inlinable
 public func max<V: VectorComparable>(_ lhs: V, _ rhs: V) -> V {
-    return V.pointwiseMax(lhs, rhs)
+    V.pointwiseMax(lhs, rhs)
 }

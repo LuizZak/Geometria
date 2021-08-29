@@ -17,22 +17,14 @@ public typealias Ellipse2<V: Vector2Type> = Ellipsoid<V>
 public extension Ellipse2 {
     @_transparent
     var radiusX: Scalar {
-        get {
-            return radius.x
-        }
-        set {
-            radius.x = newValue
-        }
+        get { radius.x }
+        set { radius.x = newValue }
     }
     
     @_transparent
     var radiusY: Scalar {
-        get {
-            return radius.y
-        }
-        set {
-            radius.y = newValue
-        }
+        get { radius.y }
+        set { radius.y = newValue }
     }
 }
 
@@ -49,6 +41,6 @@ public extension Ellipse2 where Vector: VectorReal {
     /// the ellipse (inclusive)
     @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector(x: x, y: y))
+        contains(Vector(x: x, y: y))
     }
 }

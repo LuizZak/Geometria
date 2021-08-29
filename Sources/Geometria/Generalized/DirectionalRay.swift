@@ -40,11 +40,11 @@ extension DirectionalRay: Decodable where Vector: Decodable, Scalar: Decodable {
 
 extension DirectionalRay: LineType {
     public var a: Vector {
-        return start
+        start
     }
     
     public var b: Vector {
-        return start + direction
+        start + direction
     }
 }
 
@@ -53,14 +53,14 @@ public extension DirectionalRay where Vector: VectorAdditive {
     /// matches `self.start` and `line.b` matches `self.start + self.direction`.
     @_transparent
     var asLine: Line<Vector> {
-        return Line(a: start, b: start + direction)
+        Line(a: start, b: start + direction)
     }
     
     /// Returns a `Ray` representation of this directional ray, where `ray.start`
     /// matches `self.start` and `ray.b` matches `self.start + self.direction`.
     @_transparent
     var asRay: Ray<Vector> {
-        return Ray(start: start, b: start + direction)
+        Ray(start: start, b: start + direction)
     }
 }
 
@@ -68,7 +68,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns `true` for all positive projected scalars (ray)
     @inlinable
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
-        return scalar >= 0
+        scalar >= 0
     }
     
     /// Performs a vector projection of a given vector with respect to this
@@ -92,7 +92,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// magnitude of `scalar`.
     @inlinable
     public func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
-        return start.addingProduct(direction, scalar)
+        start.addingProduct(direction, scalar)
     }
     
     /// Returns the distance squared between this directional ray and a given

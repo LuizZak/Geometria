@@ -20,13 +20,13 @@ public struct NRectangle<Vector: VectorType>: GeometricType {
     /// Returns a NRectangle that matches this NRectangle's size with a new location.
     @_transparent
     public func withLocation(_ location: Vector) -> NRectangle {
-        return NRectangle(location: location, size: size)
+        NRectangle(location: location, size: size)
     }
     
     /// Returns a NRectangle that matches this NRectangle's size with a new location.
     @_transparent
     public func withSize(_ size: Vector) -> NRectangle {
-        return NRectangle(location: location, size: size)
+        NRectangle(location: location, size: size)
     }
     
     /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,
@@ -34,7 +34,7 @@ public struct NRectangle<Vector: VectorType>: GeometricType {
     /// arcs.
     @inlinable
     public func rounded(radius: Vector) -> RoundNRectangle<Vector> {
-        return RoundNRectangle(rectangle: self, radius: radius)
+        RoundNRectangle(rectangle: self, radius: radius)
     }
     
     /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,
@@ -44,7 +44,7 @@ public struct NRectangle<Vector: VectorType>: GeometricType {
     /// Alias for `rounded(radius: Vector(repeating: radius))`
     @_transparent
     public func rounded(radius: Scalar) -> RoundNRectangle<Vector> {
-        return rounded(radius: .init(repeating: radius))
+        rounded(radius: .init(repeating: radius))
     }
 }
 
@@ -65,7 +65,9 @@ public extension NRectangle where Vector: VectorAdditive {
     /// When set, the maximal point on the opposite corner is kept fixed.
     @_transparent
     var minimum: Vector {
-        get { return location }
+        get {
+            location
+        }
         set {
             let diff = newValue - minimum
             
@@ -79,7 +81,9 @@ public extension NRectangle where Vector: VectorAdditive {
     /// When set, the minimal point on the opposite corner is kept fixed.
     @_transparent
     var maximum: Vector {
-        get { return location + size }
+        get {
+            location + size
+        }
         set {
             size = newValue - location
         }
@@ -104,7 +108,7 @@ public extension NRectangle where Vector: VectorAdditive {
     /// offset by a given amount.
     @_transparent
     func offsetBy(_ vector: Vector) -> NRectangle {
-        return NRectangle(location: location + vector, size: size)
+        NRectangle(location: location + vector, size: size)
     }
 }
 
@@ -172,14 +176,14 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     /// to contain the point as well.
     @_transparent
     public func contains(_ point: Vector) -> Bool {
-        return point >= minimum && point <= maximum
+        point >= minimum && point <= maximum
     }
     
     /// Returns whether a given NRectangle rests completely inside the boundaries
     /// of this NRectangle.
     @_transparent
     public func contains(rectangle: NRectangle) -> Bool {
-        return rectangle.minimum >= minimum && rectangle.maximum <= maximum
+        rectangle.minimum >= minimum && rectangle.maximum <= maximum
     }
     
     /// Returns whether this NRectangle intersects the given NRectangle instance.
@@ -187,22 +191,22 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     /// to intersect the other bounding box's edges as well.
     @_transparent
     public func intersects(_ other: NRectangle) -> Bool {
-        return minimum <= other.maximum && maximum >= other.minimum
+        minimum <= other.maximum && maximum >= other.minimum
     }
     
     /// Returns a NRectangle which is the minimum NRectangle that can fit this
     /// NRectangle with another given NRectangle.
     @_transparent
     public func union(_ other: NRectangle) -> NRectangle {
-        return NRectangle.union(self, other)
+        NRectangle.union(self, other)
     }
     
     /// Returns a NRectangle which is the minimum NRectangle that can fit two
     /// given Rectangles.
     @_transparent
     public static func union(_ left: NRectangle, _ right: NRectangle) -> NRectangle {
-        return NRectangle(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                          maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+        NRectangle(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
+                maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 
@@ -222,7 +226,7 @@ public extension NRectangle where Vector: VectorMultiplicative {
     /// size multiplied by the coordinates of the given vector.
     @inlinable
     func scaledBy(vector: Vector) -> NRectangle {
-        return NRectangle(location: location, size: size * vector)
+        NRectangle(location: location, size: size * vector)
     }
 }
 
@@ -231,7 +235,7 @@ public extension NRectangle where Vector: VectorDivisible {
     @inlinable
     var center: Vector {
         get {
-            return location + size / 2
+            location + size / 2
         }
         set {
             location = newValue - size / 2
@@ -242,20 +246,20 @@ public extension NRectangle where Vector: VectorDivisible {
     /// (i.e. bounds are larger by `size`, but center remains the same).
     @inlinable
     func inflatedBy(_ size: Vector) -> NRectangle {
-        return NRectangle(minimum: minimum - size / 2, maximum: maximum + size / 2)
+        NRectangle(minimum: minimum - size / 2, maximum: maximum + size / 2)
     }
     
     /// Returns a NRectangle which is an inset version of this NRectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
     @inlinable
     func insetBy(_ size: Vector) -> NRectangle {
-        return NRectangle(minimum: minimum + size / 2, maximum: maximum - size / 2)
+        NRectangle(minimum: minimum + size / 2, maximum: maximum - size / 2)
     }
     
     /// Returns a new NRectangle with the same size as the current instance,
     /// where the center of the boundaries lay on `center`.
     @inlinable
     func movingCenter(to center: Vector) -> NRectangle {
-        return NRectangle(minimum: center - size / 2, maximum: center + size / 2)
+        NRectangle(minimum: center - size / 2, maximum: center + size / 2)
     }
 }

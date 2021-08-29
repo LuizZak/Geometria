@@ -20,6 +20,6 @@ extension RoundNRectangle: Decodable where Vector: Decodable, Scalar: Decodable 
 
 extension RoundNRectangle: BoundableType where Vector: VectorAdditive {
     public var bounds: AABB<Vector> {
-        return rectangle.bounds
+        rectangle.bounds
     }
 }

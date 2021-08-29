@@ -17,7 +17,7 @@ public typealias AABB2<V: Vector2Type> = AABB<V>
 
 extension AABB2: CustomStringConvertible {
     public var description: String {
-        return "\(type(of: self))(left: \(minimum.x), top: \(minimum.y), right: \(maximum.x), bottom: \(maximum.y))"
+        "\(type(of: self))(left: \(minimum.x), top: \(minimum.y), right: \(maximum.x), bottom: \(maximum.y))"
     }
 }
 
@@ -80,7 +80,7 @@ public extension AABB2 {
     /// Always contains 4 elements.
     @inlinable
     var corners: [Vector] {
-        return [topLeft, topRight, bottomRight, bottomLeft]
+        [topLeft, topRight, bottomRight, bottomLeft]
     }
     
     /// Initializes a `AABB` with the edges of a box.
@@ -97,7 +97,7 @@ public extension AABB2 where Vector: VectorComparable {
     /// contain the point as well.
     @_transparent
     func contains(x: Scalar, y: Scalar) -> Bool {
-        return contains(Vector(x: x, y: y))
+        contains(Vector(x: x, y: y))
     }
 }
 

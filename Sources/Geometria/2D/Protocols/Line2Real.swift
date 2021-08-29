@@ -8,6 +8,6 @@ public extension Line2Real {
     /// Returns the angle of this line, in radians
     @_transparent
     var angle: Vector.Scalar {
-        return (b - a).angle
+        (b - a).angle
     }
 }

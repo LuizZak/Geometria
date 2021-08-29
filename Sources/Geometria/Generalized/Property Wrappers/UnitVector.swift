@@ -11,7 +11,7 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     public var wrappedValue: Vector {
         @_transparent
         get {
-            return _value
+            _value
         }
         @_transparent
         set {
@@ -25,7 +25,7 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     public init(wrappedValue: Vector) {
         precondition(wrappedValue.lengthSquared > 0, "Unit vectors must have length > 0")
         
-        self._value = wrappedValue.normalized()
+        _value = wrappedValue.normalized()
     }
 }
 

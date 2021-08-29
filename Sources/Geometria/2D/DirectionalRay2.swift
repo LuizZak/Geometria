@@ -40,6 +40,6 @@ public extension DirectionalRay2 where Vector: Vector2Real {
     /// Returns the angle of this directional ray, in radians
     @_transparent
     var angle: Vector.Scalar {
-        return direction.angle
+        direction.angle
     }
 }

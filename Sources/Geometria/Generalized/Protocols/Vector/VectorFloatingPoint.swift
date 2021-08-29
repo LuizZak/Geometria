@@ -83,7 +83,7 @@ public extension VectorFloatingPoint {
     /// _magnitude_, of this `VectorFloatingPoint`.
     @_transparent
     var length: Scalar {
-        return lengthSquared.squareRoot()
+        lengthSquared.squareRoot()
     }
     
     /// Normalizes this `Vector`.
@@ -91,7 +91,7 @@ public extension VectorFloatingPoint {
     /// Returns `Vector.zero`, if the vector has `length == 0`.
     @_transparent
     mutating func normalize() {
-        self = self.normalized()
+        self = normalized()
     }
     
     /// Returns a normalized version of this vector.
@@ -111,7 +111,7 @@ public extension VectorFloatingPoint {
     /// `VectorFloatingPoint`.
     @inlinable
     func distance(to vec: Self) -> Scalar {
-        return (vec - self).length
+        (vec - self).length
     }
 }
 
@@ -121,7 +121,7 @@ public extension VectorFloatingPoint {
 /// Equivalent to calling C's round() function on each component.
 @inlinable
 public func round<V: VectorFloatingPoint>(_ x: V) -> V {
-    return x.rounded(.toNearestOrAwayFromZero)
+    x.rounded(.toNearestOrAwayFromZero)
 }
 
 /// Rounds up the components of a given `VectorFloatingPoint` using
@@ -130,7 +130,7 @@ public func round<V: VectorFloatingPoint>(_ x: V) -> V {
 /// Equivalent to calling C's ceil() function on each component.
 @inlinable
 public func ceil<V: VectorFloatingPoint>(_ x: V) -> V {
-    return x.rounded(.up)
+    x.rounded(.up)
 }
 
 /// Rounds down the components of a given `VectorFloatingPoint` using
@@ -139,5 +139,5 @@ public func ceil<V: VectorFloatingPoint>(_ x: V) -> V {
 /// Equivalent to calling C's floor() function on each component.
 @inlinable
 public func floor<V: VectorFloatingPoint>(_ x: V) -> V {
-    return x.rounded(.down)
+    x.rounded(.down)
 }

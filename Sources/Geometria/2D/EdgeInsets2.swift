@@ -51,6 +51,6 @@ public extension EdgeInsets2 where Vector: VectorAdditive {
     
     @_transparent
     func inset(rectangle: NRectangle<Vector>) -> NRectangle<Vector> {
-        return rectangle.inset(self)
+        rectangle.inset(self)
     }
 }

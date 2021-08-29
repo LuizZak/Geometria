@@ -14,12 +14,12 @@ public extension Vector2Type where Self: VectorComparable {
     /// Returns the greatest scalar component between x, y in this vector
     @_transparent
     var maximalComponent: Scalar {
-        return max(x, y)
+        max(x, y)
     }
     
     /// Returns the least scalar component between x, y in this vector
     @_transparent
     var minimalComponent: Scalar {
-        return min(x, y)
+        min(x, y)
     }
 }

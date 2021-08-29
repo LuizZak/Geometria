@@ -31,32 +31,32 @@ public protocol Vector2FloatingPoint: Vector2Type, VectorFloatingPoint {
 extension Vector2FloatingPoint {
     @inlinable
     public static func + <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs + Self(rhs)
+        lhs + Self(rhs)
     }
     
     @inlinable
     public static func - <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs - Self(rhs)
+        lhs - Self(rhs)
     }
     
     @inlinable
     public static func * <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs * Self(rhs)
+        lhs * Self(rhs)
     }
     
     @inlinable
     public static func + <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) + rhs
+        Self(lhs) + rhs
     }
     
     @inlinable
     public static func - <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) - rhs
+        Self(lhs) - rhs
     }
     
     @inlinable
     public static func * <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) * rhs
+        Self(lhs) * rhs
     }
     
     @inlinable
@@ -76,12 +76,12 @@ extension Vector2FloatingPoint {
     
     @inlinable
     public static func / <V: Vector2Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger {
-        return lhs / Self(rhs)
+        lhs / Self(rhs)
     }
     
     @inlinable
     public static func / <V: Vector2Type>(lhs: V, rhs: Self) -> Self where V.Scalar: BinaryInteger {
-        return Self(lhs) / rhs
+        Self(lhs) / rhs
     }
     
     @inlinable

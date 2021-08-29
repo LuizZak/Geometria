@@ -27,13 +27,15 @@ public extension Ray {
     /// `self.start` and `line.b` matches `self.b`.
     @_transparent
     var asLine: Line<Vector> {
-        return Line(a: start, b: b)
+        Line(a: start, b: b)
     }
 }
 
 extension Ray: LineType {
     @_transparent
-    public var a: Vector { return start }
+    public var a: Vector {
+        start
+    }
 }
 
 extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
@@ -44,13 +46,13 @@ extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// - precondition: `(self.b - self.start).length > 0`
     @_transparent
     public var asDirectionalRay: DirectionalRay<Vector> {
-        return DirectionalRay(start: start, direction: b - start)
+        DirectionalRay(start: start, direction: b - start)
     }
     
     /// Returns `true` for all positive projected scalars (ray)
     @inlinable
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
-        return scalar >= 0
+        scalar >= 0
     }
     
     /// Returns the distance squared between this line and a given vector.

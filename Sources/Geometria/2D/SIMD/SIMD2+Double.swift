@@ -12,26 +12,26 @@ extension SIMD2: Vector2Type where Scalar == Double {
 extension SIMD2: VectorComparable where Scalar == Double {
     @_transparent
     public var minimalComponent: Scalar {
-        return min()
+        min()
     }
     
     @_transparent
     public var maximalComponent: Scalar {
-        return max()
+        max()
     }
     
     /// Returns the pointwise minimal Vector where each component is the minimal
     /// scalar value at each index for both vectors.
     @inlinable
     public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
-        return simd.min(lhs, rhs)
+        simd.min(lhs, rhs)
     }
     
     /// Returns the pointwise maximal Vector where each component is the maximal
     /// scalar value at each index for both vectors.
     @inlinable
     public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
-        return simd.max(lhs, rhs)
+        simd.max(lhs, rhs)
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -40,7 +40,7 @@ extension SIMD2: VectorComparable where Scalar == Double {
     /// Performs `lhs.x > rhs.x && lhs.y > rhs.y`
     @inlinable
     public static func > (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x > rhs.x && lhs.y > rhs.y
+        lhs.x > rhs.x && lhs.y > rhs.y
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -49,7 +49,7 @@ extension SIMD2: VectorComparable where Scalar == Double {
     /// Performs `lhs.x >= rhs.x && lhs.y >= rhs.y`
     @inlinable
     public static func >= (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x >= rhs.x && lhs.y >= rhs.y
+        lhs.x >= rhs.x && lhs.y >= rhs.y
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -58,7 +58,7 @@ extension SIMD2: VectorComparable where Scalar == Double {
     /// Performs `lhs.x < rhs.x && lhs.y < rhs.y`
     @inlinable
     public static func < (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x < rhs.x && lhs.y < rhs.y
+        lhs.x < rhs.x && lhs.y < rhs.y
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -67,7 +67,7 @@ extension SIMD2: VectorComparable where Scalar == Double {
     /// Performs `lhs.x <= rhs.x && lhs.y <= rhs.y`
     @inlinable
     public static func <= (lhs: Self, rhs: Self) -> Bool {
-        return lhs.x <= rhs.x && lhs.y <= rhs.y
+        lhs.x <= rhs.x && lhs.y <= rhs.y
     }
 }
 
@@ -82,22 +82,22 @@ extension SIMD2: VectorAdditive where Scalar: FloatingPoint {
 extension SIMD2: VectorMultiplicative where Scalar == Double {
     @inlinable
     public var lengthSquared: Scalar {
-        return length_squared(self)
+        length_squared(self)
     }
     
     @inlinable
     public func distanceSquared(to vec: SIMD2<Scalar>) -> Scalar {
-        return distance_squared(self, vec)
+        distance_squared(self, vec)
     }
     
     @inlinable
     public func dot(_ other: SIMD2<Scalar>) -> Scalar {
-        return simd.dot(self, other)
+        simd.dot(self, other)
     }
     
     @inlinable
     public func ratio(_ ratio: Scalar, to other: SIMD2<Scalar>) -> SIMD2<Scalar> {
-        return (1 - ratio) * self + ratio * other
+        (1 - ratio) * self + ratio * other
     }
     
     @inlinable
@@ -109,14 +109,14 @@ extension SIMD2: VectorMultiplicative where Scalar == Double {
 extension SIMD2: Vector2Multiplicative where Scalar == Double {
     @inlinable
     public func cross(_ other: SIMD2<Scalar>) -> Scalar {
-        return simd.cross(self, other).z
+        simd.cross(self, other).z
     }
 }
 
 extension SIMD2: VectorSigned where Scalar == Double {
     @inlinable
     public var absolute: SIMD2<Scalar> {
-        return simd.abs(self)
+        simd.abs(self)
     }
 }
 
@@ -132,14 +132,14 @@ extension SIMD2: Vector2Signed where Scalar == Double {
     /// Returns a Vector perpendicular to this Vector relative to the origin
     @inlinable
     public func perpendicular() -> Self {
-        return Self(x: -y, y: x)
+        Self(x: -y, y: x)
     }
     
     /// Returns a vector that represents this vector's point, rotated 90º counter
     /// clockwise relative to the origin.
     @inlinable
     public func leftRotated() -> Self {
-        return Self(x: -y, y: x)
+        Self(x: -y, y: x)
     }
     
     /// Rotates this vector 90º counter clockwise relative to the origin.
@@ -153,7 +153,7 @@ extension SIMD2: Vector2Signed where Scalar == Double {
     /// clockwise relative to the origin.
     @inlinable
     public func rightRotated() -> Self {
-        return Self(x: y, y: -x)
+        Self(x: y, y: -x)
     }
     
     /// Rotates this vector 90º clockwise relative to the origin.
@@ -173,7 +173,7 @@ extension SIMD2: VectorFloatingPoint where Scalar == Double {
     /// `Vector2Type`
     @inlinable
     public var length: Scalar {
-        return simd.length(self)
+        simd.length(self)
     }
     
     public mutating func normalize() {
@@ -181,7 +181,7 @@ extension SIMD2: VectorFloatingPoint where Scalar == Double {
     }
     
     public func normalized() -> SIMD2<Scalar> {
-        if self.lengthSquared == 0 {
+        if lengthSquared == 0 {
             return .zero
         }
         
@@ -191,34 +191,34 @@ extension SIMD2: VectorFloatingPoint where Scalar == Double {
     /// Returns the distance between this `Vector2Type` and another `Vector2Type`
     @inlinable
     public func distance(to vec: Self) -> Scalar {
-        return simd.distance(self, vec)
+        simd.distance(self, vec)
     }
     
     @inlinable
     public func rounded() -> SIMD2<Scalar> {
-        return self.rounded(.toNearestOrAwayFromZero)
+        self.rounded(.toNearestOrAwayFromZero)
     }
     
     @inlinable
     public func ceil() -> SIMD2<Scalar> {
-        return self.rounded(.up)
+        self.rounded(.up)
     }
     
     @inlinable
     public func floor() -> SIMD2<Scalar> {
-        return self.rounded(.down)
+        self.rounded(.down)
     }
     
     @inlinable
     public static func % (lhs: Self, rhs: Self) -> Self {
-        return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-                    y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
+        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+                y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
     }
     
     @inlinable
     public static func % (lhs: Self, rhs: Scalar) -> Self {
-        return Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-                    y: lhs.y.truncatingRemainder(dividingBy: rhs))
+        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
+                y: lhs.y.truncatingRemainder(dividingBy: rhs))
     }
 }
 
@@ -231,19 +231,19 @@ extension SIMD2: Vector2FloatingPoint where Scalar == Double {
 extension SIMD2: VectorReal where Scalar == Double {
     @inlinable
     public static func pow(_ vec: Self, _ n: Scalar) -> Self {
-        return Self.pow(vec, Self(x: n, y: n))
+        Self.pow(vec, Self(x: n, y: n))
     }
     
     @inlinable
     public static func pow(_ vec: Self, _ n: Int) -> Self {
-        return Self(x: Scalar.pow(vec.x, n),
-                    y: Scalar.pow(vec.y, n))
+        Self(x: Scalar.pow(vec.x, n),
+                y: Scalar.pow(vec.y, n))
     }
     
     @inlinable
     public static func pow(_ vec: Self, _ n: Self) -> Self {
-        return Self(x: Scalar.pow(vec.x, n.x),
-                    y: Scalar.pow(vec.y, n.y))
+        Self(x: Scalar.pow(vec.x, n.x),
+                y: Scalar.pow(vec.y, n.y))
     }
 }
 
@@ -252,14 +252,14 @@ extension SIMD2: Vector2Real where Scalar == Double {
     /// origin (0, 0) to this `Vector2Type`.
     @inlinable
     public var angle: Scalar {
-        return Scalar.atan2(y: y, x: x)
+        Scalar.atan2(y: y, x: x)
     }
     
     /// Returns a rotated version of this vector, rotated around the origin by a
     /// given angle in radians
     @inlinable
     public func rotated(by angleInRadians: Scalar) -> Self {
-        return Self.rotate(self, by: angleInRadians)
+        Self.rotate(self, by: angleInRadians)
     }
     
     /// Rotates this vector around the origin by a given angle in radians
@@ -271,7 +271,7 @@ extension SIMD2: Vector2Real where Scalar == Double {
     /// Rotates this vector around a given pivot by a given angle in radians
     @inlinable
     public func rotated(by angleInRadians: Scalar, around pivot: Self) -> Self {
-        return (self - pivot).rotated(by: angleInRadians) + pivot
+        (self - pivot).rotated(by: angleInRadians) + pivot
     }
     
     /// Rotates a given vector around the origin by an angle in radians
@@ -294,17 +294,17 @@ extension SIMD2: Vector2Real where Scalar == Double {
     public static func matrix(scale: Self = .one,
                               rotate angle: Scalar = 0,
                               translate: Self = Self(x: 0, y: 0)) -> Matrix2<Scalar> {
-        
-        return Matrix2<Scalar>.transformation(xScale: scale.x,
-                                              yScale: scale.y,
-                                              angle: angle,
-                                              xOffset: translate.x,
-                                              yOffset: translate.y)
+
+        Matrix2<Scalar>.transformation(xScale: scale.x,
+                yScale: scale.y,
+                angle: angle,
+                xOffset: translate.x,
+                yOffset: translate.y)
     }
     
     @inlinable
     public static func * (lhs: Self, rhs: Matrix2<Scalar>) -> Self {
-        return Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
+        Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
     }
     
     @inlinable

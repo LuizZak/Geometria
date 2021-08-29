@@ -564,21 +564,21 @@ class Matrix2Tests: XCTestCase {
 extension Matrix2Tests {
     /// Creates a test `Matrix` with `Matrix(m11: 1, m12: 2, m21: 3, m22: 4, m31: 5, m32: 6)`
     func makeSut() -> Matrix {
-        return Matrix(m11: 1, m12: 2, m21: 3, m22: 4, m31: 5, m32: 6)
+        Matrix(m11: 1, m12: 2, m21: 3, m22: 4, m31: 5, m32: 6)
     }
     
     /// Creates a test `Matrix` with `Matrix(m11: 2, m12: 3, m21: 5, m22: 7, m31: 11, m32: 13)`
     func makePrimesSut() -> Matrix {
-        return Matrix(m11: 2, m12: 3, m21: 5, m22: 7, m31: 11, m32: 13)
+        Matrix(m11: 2, m12: 3, m21: 5, m22: 7, m31: 11, m32: 13)
     }
 
     /// Creates a test `Matrix` with `Matrix.transformation(xScale: 2, yScale: 3, angle: .pi / 2, xOffset: 4, yOffset: 5)`
     func makeTransformSut() -> Matrix {
-        return Matrix
-            .transformation(xScale: 2,
-                            yScale: 3,
-                            angle: .pi / 2,
-                            xOffset: 4,
-                            yOffset: 5)
+        Matrix
+                .transformation(xScale: 2,
+                yScale: 3,
+                angle: .pi / 2,
+                xOffset: 4,
+                yOffset: 5)
     }
 }
