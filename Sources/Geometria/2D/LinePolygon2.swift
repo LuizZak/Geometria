@@ -78,26 +78,23 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
         
         var inside = false
         
-        var edgeStX = vertices[0].x
-        var edgeStY = vertices[0].y
+        var edgeSt = vertices[0]
         
         for i in 0..<vertices.count {
             let next = (i + 1) % vertices.count
             
-            let edgeEndX = vertices[next].x
-            let edgeEndY = vertices[next].y
+            let edgeEnd = vertices[next]
             
-            if ((edgeStY <= vector.y) && (edgeEndY > vector.y)) || ((edgeStY > vector.y) && (edgeEndY <= vector.y)) {
-                let slope = (edgeEndX - edgeStX) / (edgeEndY - edgeStY)
-                let hitX = edgeStX + ((vector.y - edgeStY) * slope)
+            if ((edgeSt.y <= vector.y) && (edgeEnd.y > vector.y)) || ((edgeSt.y > vector.y) && (edgeEnd.y <= vector.y)) {
+                let slope = (edgeEnd.x - edgeSt.x) / (edgeEnd.y - edgeSt.y)
+                let hitX = edgeSt.x + ((vector.y - edgeSt.y) * slope)
                 
                 if ((hitX >= vector.x) && (hitX <= endPtX)) {
                     inside = !inside
                 }
             }
             
-            edgeStX = edgeEndX
-            edgeStY = edgeEndY
+            edgeSt = edgeEnd
         }
         
         return inside
