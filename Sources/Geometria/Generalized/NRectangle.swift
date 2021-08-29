@@ -90,7 +90,7 @@ public extension NRectangle where Vector: VectorAdditive {
     }
 }
 
-extension NRectangle: BoundedVolumeType where Vector: VectorAdditive {
+extension NRectangle: BoundableType where Vector: VectorAdditive {
     /// Returns this `Rectangle` represented as an `AABB`
     @_transparent
     public var bounds: AABB<Vector> {

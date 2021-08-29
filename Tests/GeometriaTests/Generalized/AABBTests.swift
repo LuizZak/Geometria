@@ -32,7 +32,7 @@ class AABBTests: XCTestCase {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension AABBTests {
     func testBounds() {

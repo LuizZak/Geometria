@@ -129,7 +129,7 @@ extension NRectangleTests {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension NRectangleTests {
     func testBounds() {

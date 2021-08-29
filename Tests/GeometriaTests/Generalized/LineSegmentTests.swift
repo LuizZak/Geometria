@@ -87,7 +87,7 @@ extension LineSegmentTests {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension LineSegmentTests {
     func testBounds() {

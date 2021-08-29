@@ -60,7 +60,7 @@ class LinePolygonTests: XCTestCase {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension LinePolygonTests {
     func testBounds() {

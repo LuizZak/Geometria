@@ -14,7 +14,7 @@ class NSquareTests: XCTestCase {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension NSquareTests {
     func testBounds() {

@@ -17,7 +17,7 @@ extension NSphere: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension NSphere: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension NSphere: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-extension NSphere: BoundedVolumeType where Vector: VectorAdditive {
+extension NSphere: BoundableType where Vector: VectorAdditive {
     public var bounds: AABB<Vector> {
         return AABB(minimum: center - radius, maximum: center + radius)
     }
@@ -45,10 +45,10 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
     }
 }
 
-public extension NSphere where Vector: VectorFloatingPoint {
+extension NSphere: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this N-sphere's area intersects the given line type.
     @inlinable
-    func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+    public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
         return line.distanceSquared(to: center) <= radius * radius
     }
     
@@ -56,7 +56,7 @@ public extension NSphere where Vector: VectorFloatingPoint {
     /// two points representing the entrance and exit intersections against this
     /// N-sphere's outer perimeter.
     @inlinable
-    func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         let projection = line.projectAsScalar(center)
         let projected = line.projectedNormalizedMagnitude(projection)
         let d = projected.distanceSquared(to: center)

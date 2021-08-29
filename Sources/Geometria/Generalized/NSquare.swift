@@ -23,7 +23,7 @@ public struct NSquare<Vector: VectorType> {
     }
 }
 
-extension NSquare: BoundedVolumeType where Vector: VectorAdditive {
+extension NSquare: BoundableType where Vector: VectorAdditive {
     /// Returns a box with the same boundaries as this square.
     @_transparent
     public var bounds: AABB<Vector> {

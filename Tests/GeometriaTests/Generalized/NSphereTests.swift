@@ -23,7 +23,7 @@ class NSphereTests: XCTestCase {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension NSphereTests {
     func testBounds() {

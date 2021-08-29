@@ -52,7 +52,7 @@ class EllipsoidTests: XCTestCase {
     }
 }
 
-// MARK: BoundedVolumeType Conformance
+// MARK: BoundableType Conformance
 
 extension EllipsoidTests {
     func testBounds() {

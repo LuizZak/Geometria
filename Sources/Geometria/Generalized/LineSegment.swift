@@ -47,7 +47,7 @@ extension LineSegment: LineType {
     public var b: Vector { return end }
 }
 
-extension LineSegment: BoundedVolumeType where Vector: VectorComparable {
+extension LineSegment: BoundableType where Vector: VectorComparable {
     @_transparent
     public var bounds: AABB<Vector> {
         return AABB(minimum: Vector.pointwiseMin(a, b),
