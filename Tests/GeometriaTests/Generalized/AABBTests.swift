@@ -135,6 +135,21 @@ extension AABBTests {
         XCTAssertEqual(sut.maximum, .init(x: 3, y: 2))
     }
     
+    func testClamp_outOfBounds() {
+        let sut = Box(minimum: .init(x: 2, y: 3), maximum: .init(x: 7, y: 11))
+        
+        XCTAssertEqual(sut.clamp(.init(x: 0, y: 0)), .init(x: 2, y: 3))
+        XCTAssertEqual(sut.clamp(.init(x: 12, y: 12)), .init(x: 7, y: 11))
+        XCTAssertEqual(sut.clamp(.init(x: 0, y: 5)), .init(x: 2, y: 5))
+        XCTAssertEqual(sut.clamp(.init(x: 5, y: 1)), .init(x: 5, y: 3))
+    }
+    
+    func testClamp_withinBounds() {
+        let sut = Box(minimum: .init(x: 2, y: 3), maximum: .init(x: 7, y: 11))
+        
+        XCTAssertEqual(sut.clamp(.init(x: 3, y: 5)), .init(x: 3, y: 5))
+    }
+    
     func testContainsPoint() {
         let sut = Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 5, y: 8))
         

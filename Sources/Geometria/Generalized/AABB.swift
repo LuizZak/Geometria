@@ -72,6 +72,15 @@ extension AABB: VolumetricType where Vector: VectorComparable {
         }
     }
     
+    /// Clamps a given vector's coordinates to the confines of this AABB.
+    /// Points inside the AABB remain unchanced, while points outside are
+    /// projected along the edges to the closest point to `vector` that is
+    /// within this AABB.
+    @inlinable
+    public func clamp(_ vector: Vector) -> Vector {
+        return Vector.pointwiseMax(minimum, Vector.pointwiseMin(maximum, vector))
+    }
+    
     /// Returns whether a given point is contained within this box.
     ///
     /// The check is inclusive, so the edges of the box are considered to
