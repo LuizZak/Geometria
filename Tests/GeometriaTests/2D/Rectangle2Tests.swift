@@ -256,7 +256,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: VectorAdditive & VectorComparable, Scalar: Real Conformance
+// MARK: VectorReal
 
 extension Rectangle2Tests {
     func testTransformedBounds_scale() {

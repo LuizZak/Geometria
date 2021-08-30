@@ -224,7 +224,7 @@ public extension Rectangle2 where Vector: VectorAdditive {
     }
 }
 
-public extension Rectangle2 where Vector: VectorAdditive & VectorComparable, Scalar: Real {
+public extension Rectangle2 where Vector: VectorReal {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
     @_transparent
@@ -308,7 +308,7 @@ public extension Rectangle2 where Scalar: FloatingPoint {
 }
 
 public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparable {
-    /// Returns an `Rectangle` that is the intersection between this and another
+    /// Returns an `Rectangle2` that is the intersection between this and another
     /// `Rectangle` instance.
     ///
     /// Return is `nil`, if they do not intersect.
@@ -317,7 +317,7 @@ public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparab
         NRectangle.intersect(self, other)
     }
     
-    /// Returns an `Rectangle` that is the intersection between two rectangle
+    /// Returns an `Rectangle2` that is the intersection between two rectangle
     /// instances.
     ///
     /// Return is `nil`, if they do not intersect.
