@@ -1,8 +1,9 @@
 /// Wraps a vector and ensures that assignments are always stored as a unit
 /// vector.
 ///
-/// If attempting to store a vector with `.length == 0`, a runtime error is
-/// raised.
+/// If a vector with `.length == 0` is attempted to be stored, a zero-valued
+/// vector is assigned instead and  ``isValid`` returns `false` until a new
+/// valid vector is supplied.
 @propertyWrapper
 public struct UnitVector<Vector: VectorFloatingPoint> {
     @usableFromInline
@@ -13,7 +14,9 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     /// When assigning a new value, the vector is first normalized before being
     /// assigned.
     ///
-    /// - precondition: When asigning: `newValue.length > 0`
+    /// If a vector with `.length == 0` is attempted to be stored, a zero-valued
+    /// vector is assigned instead and  ``isValid`` returns `false` until a new
+    /// valid vector is supplied.
     public var wrappedValue: Vector {
         @_transparent
         get {
@@ -21,23 +24,30 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
         }
         @_transparent
         set {
-            precondition(_value.lengthSquared > 0, "Unit vectors must have length > 0")
-            
             _value = newValue.normalized()
         }
     }
     
+    /// Returns `true` if the underlying vector is a non-zero value.
+    ///
+    /// When assigning vectors of zero-length, this property returns `true`
+    /// until another valid vector is assigned on ``wrappedValue``.
+    @inlinable
+    public var isValid: Bool {
+        _value != .zero
+    }
+    
     /// Creates a new `UnitVector` with a given starting value.
+    ///
+    /// If a vector with `.length == 0` is attempted to be stored, a zero-valued
+    /// vector is assigned instead and  ``isValid`` returns `false` until a new
+    /// valid vector is supplied.
     ///
     /// - Parameter wrappedValue: A vector to initialize this `UnitVector` with,
     /// which is normalized before being assigned.
     /// Value must have `length > 0`.
-    ///
-    /// - precondition: `wrappedValue.length > 0`
     @_transparent
     public init(wrappedValue: Vector) {
-        precondition(wrappedValue.lengthSquared > 0, "Unit vectors must have length > 0")
-        
         _value = wrappedValue.normalized()
     }
 }
