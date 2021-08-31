@@ -200,7 +200,13 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/BoundableType.html">BoundableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConvexType.html">ConvexType</a>
@@ -225,6 +231,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a>
@@ -579,6 +588,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html">RectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 
                 </div>
               </div>
@@ -981,7 +991,7 @@ contain the point as well.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)))</span> <span class="c1">// Prints "false"</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)))</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)))</span> <span class="c1">// Prints "true"</span>
 </code></pre>
 
                       </div>
@@ -1177,7 +1187,7 @@ given box.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">zero</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">zero</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1204,7 +1214,7 @@ given box.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1231,7 +1241,7 @@ given box.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isZero</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isZero</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1258,7 +1268,7 @@ given box.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asRectangle</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">asRectangle</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1285,7 +1295,7 @@ given box.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1313,35 +1323,7 @@ with a given location and size.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">location</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzrlE8offsetByyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/offsetBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzrlE8offsetByyACyxGxF">offsetBy(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a copy of this AABB with the minimum and maximum coordinates
-offset by a given amount.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">offsetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">location</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

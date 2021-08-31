@@ -200,7 +200,13 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/BoundableType.html">BoundableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConvexType.html">ConvexType</a>
@@ -225,6 +231,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a>
@@ -817,87 +826,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE1x1y5width6heightACyxG6ScalarQz_A3Ktcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(x:y:width:height:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE1x1y5width6heightACyxG6ScalarQz_A3Ktcfc">init(x:<wbr>y:<wbr>width:<wbr>height:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a Rectangle with the coordinates of a 2D rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE8withSize5width6heightACyxG6ScalarQz_AJtF"></a>
-                    <a name="//apple_ref/swift/Method/withSize(width:height:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE8withSize5width6heightACyxG6ScalarQz_AJtF">withSize(width:<wbr>height:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a Rectangle that matches this Rectangle&rsquo;s size with a new location.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">withSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE12withLocation1x1yACyxG6ScalarQz_AJtF"></a>
-                    <a name="//apple_ref/swift/Method/withLocation(x:y:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE12withLocation1x1yACyxG6ScalarQz_AJtF">withLocation(x:<wbr>y:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a rectangle that matches this Rectangle&rsquo;s size with a new location.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">withLocation</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE9movingTop2toACyxG6ScalarQz_tF"></a>
                     <a name="//apple_ref/swift/Method/movingTop(to:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzrlE9movingTop2toACyxG6ScalarQz_tF">movingTop(to:<wbr>)</a>
@@ -917,7 +845,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingTop</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">movingTop</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -946,7 +874,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingLeft</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">movingLeft</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1184,7 +1112,7 @@ offset by a given amount.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">offsetBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">offsetBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1213,7 +1141,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingRight</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">movingRight</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1242,7 +1170,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingBottom</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">movingBottom</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1271,7 +1199,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingLeft</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">stretchingLeft</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1300,7 +1228,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingTop</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">stretchingTop</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1329,7 +1257,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingRight</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">stretchingRight</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1358,7 +1286,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingBottom</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">stretchingBottom</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1386,7 +1314,7 @@ instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">inset</span><span class="p">(</span><span class="n">_</span> <span class="nv">inset</span><span class="p">:</span> <span class="kt"><a href="../Structs/EdgeInsets2.html">EdgeInsets2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+<span class="kd">func</span> <span class="nf">inset</span><span class="p">(</span><span class="n">_</span> <span class="nv">inset</span><span class="p">:</span> <span class="kt"><a href="../Structs/EdgeInsets2.html">EdgeInsets2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1511,7 +1439,7 @@ width and height multiplied by the coordinates of the given vector.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">scaledBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">scaledBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1606,7 +1534,7 @@ width and height multiplied by the coordinates of the given vector.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1634,7 +1562,7 @@ width and height multiplied by the coordinates of the given vector.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1663,7 +1591,7 @@ composed of <code>[x, y]</code>.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">toX</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">toX</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1747,7 +1675,7 @@ composed of <code>[x, y]</code>.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">intersection</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="p">?</span></code></pre>
+<span class="kd">func</span> <span class="nf">intersection</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
 
                         </div>
                       </div>
@@ -1778,7 +1706,7 @@ instances.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">_</span> <span class="nv">a</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">b</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="p">?</span></code></pre>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">intersect</span><span class="p">(</span><span class="n">_</span> <span class="nv">a</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`,</span> <span class="n">_</span> <span class="nv">b</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
 
                         </div>
                       </div>

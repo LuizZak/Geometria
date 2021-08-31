@@ -200,7 +200,13 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/BoundableType.html">BoundableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConvexType.html">ConvexType</a>
@@ -225,6 +231,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a>
@@ -572,11 +581,12 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NRectangle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NRectangle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 
@@ -632,7 +642,8 @@ and a size vector that describes the span of the rectangle.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The top-left location of this rectangle.</p>
+                        <p>The starting location of this rectangle with the minimal coordinates
+contained within the rectangle.</p>
 
                       </div>
                       <div class="declaration">
@@ -659,7 +670,8 @@ and a size vector that describes the span of the rectangle.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The size of this rectangle.</p>
+                        <p>The size of this rectangle, which when added to <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleV8locationxvp">location</a></code> produce the
+maximal coordinates contained within this rectangle.</p>
 
 <p>Must be <code>&gt;= Vector.zero</code></p>
 
@@ -696,60 +708,6 @@ and a size vector that describes the span of the rectangle.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">location</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleV12withLocationyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/withLocation(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleV12withLocationyACyxGxF">withLocation(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a NRectangle that matches this NRectangle&rsquo;s size with a new location.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">withLocation</span><span class="p">(</span><span class="n">_</span> <span class="nv">location</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleV8withSizeyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/withSize(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleV8withSizeyACyxGxF">withSize(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a NRectangle that matches this NRectangle&rsquo;s size with a new location.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">withSize</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
 
                         </div>
                       </div>
@@ -833,6 +791,33 @@ arcs.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE4zeroACyxGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/zero" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE4zeroACyxGvpZ">zero</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an empty rectangle</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">zero</span><span class="p">:</span> <span class="kt">NRectangle</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE10isSizeZeroSbvp"></a>
                     <a name="//apple_ref/swift/Property/isSizeZero" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE10isSizeZeroSbvp">isSizeZero</a>
@@ -850,7 +835,7 @@ arcs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isSizeZero</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isSizeZero</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -879,7 +864,7 @@ arcs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">minimum</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">minimum</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -908,7 +893,7 @@ arcs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">maximum</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">maximum</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -935,34 +920,7 @@ arcs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asAABB</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE4zeroACyxGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/zero" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE4zeroACyxGvpZ">zero</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns an empty rectangle</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">zero</span><span class="p">:</span> <span class="kt">NRectangle</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">asAABB</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -989,7 +947,7 @@ arcs.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -1022,35 +980,7 @@ coordinates.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">minimum</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">maximum</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE8offsetByyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/offsetBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzrlE8offsetByyACyxGxF">offsetBy(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a copy of this NRectangle with its location offset by a given
-Vector amount.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">offsetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">minimum</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">maximum</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

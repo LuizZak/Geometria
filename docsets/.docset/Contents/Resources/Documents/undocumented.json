@@ -267,13 +267,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector2Signed.swift",
-      "line": 1,
-      "symbol": "Vector2Signed",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/RoundRectangle2.swift",
       "line": 17,
       "symbol": "RoundRectangle2.init(rectangle:radiusX:radiusY:)",

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vector2FloatingPoint Protocol Reference</title>
+    <title>RectangleType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/Vector2FloatingPoint" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/RectangleType" class="dashAnchor"></a>
 
-    <a title="Vector2FloatingPoint Protocol Reference"></a>
+    <a title="RectangleType Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Vector2FloatingPoint Protocol Reference
+      RectangleType Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -577,15 +577,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Vector2FloatingPoint</h1>
+            <h1>RectangleType</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RectangleType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol for 2D vector types where the components are floating-point numbers.</p>
+            <p>Protocol for geometric types defined by vectors that fill enclosed
+rectangular areas with a defined location and size.</p>
 
           </div>
         </section>
@@ -597,9 +598,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointPyxqd__cAA0B4TypeRd__Sz6ScalarRpd__lufc"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointPyxqd__cAA0B4TypeRd__Sz6ScalarRpd__lufc">init(_:<wbr>)</a>
+                    <a name="/s:9Geometria13RectangleTypeP6VectorQa"></a>
+                    <a name="//apple_ref/swift/Alias/Vector" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -607,14 +608,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes this <code>Vector2FloatingPoint</code> with a given binary Vector2</p>
+                        <p>The vector type associated with this <code>RectangleType</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">init</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -624,31 +625,25 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1poiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/+(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1poiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">+(_:<wbr>_:<wbr>)</a>
+                    <a name="/s:9Geometria13RectangleTypeP8location6VectorQzvp"></a>
+                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria13RectangleTypeP8location6VectorQzvp">location</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The starting location of this rectangle with the minimal coordinates
+contained within the rectangle.</p>
 
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">+</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -658,78 +653,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1soiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/-(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1soiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">-(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">-</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1moiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/*(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1moiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">*(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">*</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1poiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/+(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1poiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ">+(_:<wbr>_:<wbr>)</a>
+                    <a name="/s:9Geometria13RectangleTypeP4size6VectorQzvp"></a>
+                    <a name="//apple_ref/swift/Property/size" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria13RectangleTypeP4size6VectorQzvp">size</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -737,268 +663,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The size of this rectangle, which when added to <code><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP8location6VectorQzvp">location</a></code> produce the
+maximal coordinates contained within this rectangle.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">+</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1soiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/-(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1soiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ">-(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">-</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1moiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/*(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1moiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ">*(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">*</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP2peoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/+=(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP2peoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">+=(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">+=</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">inout</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP2seoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/-=(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP2seoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">-=(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">-=</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">inout</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP2meoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method/*=(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP2meoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">*=(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">*=</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">inout</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1doiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method//(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1doiyxx_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">/(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">/</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP1doiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method//(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP1doiyxqd___xtAA0B4TypeRd__Sz6ScalarRpd__lFZ">/(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">/</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20Vector2FloatingPointP2deoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ"></a>
-                    <a name="//apple_ref/swift/Method//=(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20Vector2FloatingPointP2deoiyyxz_qd__tAA0B4TypeRd__Sz6ScalarRpd__lFZ">/=(_:<wbr>_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">/=</span> <span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">inout</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">size</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
