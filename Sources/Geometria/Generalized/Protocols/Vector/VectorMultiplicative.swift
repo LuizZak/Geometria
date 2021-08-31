@@ -4,13 +4,32 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// representation of `1`.
     static var one: Self { get }
     
-    /// Returns the length squared of this `VectorType`
+    /// Returns the length squared of this `VectorType`.
+    ///
+    /// Performs the computation `x0 * x0 + x1 * x1 + ... + xN * xN` for any
+    /// N-dimensional vector type, and is equivalent to the squared distance to
+    /// the origin of the vector space, or the ``dot(_:)`` product of the vector
+    /// by itself.
     var lengthSquared: Scalar { get }
     
-    /// Returns the distance squared between this `VectorType` and another `VectorType`
+    /// Returns the squared distance between this `VectorType` and another
+    /// `VectorType`.
+    ///
+    /// Equivalent to `(vec - self).distanceSquared`.
     func distanceSquared(to vec: Self) -> Scalar
     
-    /// Calculates the dot product between this and another provided `VectorType`
+    /// Calculates the [dot product](http://en.wikipedia.org/wiki/Dot_product)
+    /// between this vector and another.
+    ///
+    /// Performs the computation `x1 * y1 + x2 * y2 + ... + xN + yN` for any
+    /// N-dimensional vector type.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: 3.0, y: -2.0)
+    /// let v2 = Vector2D(x: 2.5, y: 7.0)
+    ///
+    /// print(v1.dot(v2)) // Prints "-6.5"
+    /// ```
     func dot(_ other: Self) -> Scalar
     
     /// Returns the vector that lies within this and another vector's ratio line

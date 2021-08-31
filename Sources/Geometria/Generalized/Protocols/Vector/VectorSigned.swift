@@ -1,10 +1,18 @@
 /// Vector type where the components are signed numbers.
 public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric & Comparable {
-    /// Returns a `VectorSigned` where each component is the absolute
-    /// value of the components of this `VectorSigned`.
+    /// Returns a `VectorSigned` where each component is the absolute magnitude
+    /// of the components of this `VectorSigned`.
+    ///
+    /// ```swift
+    /// print(Vector2D(x: 2.0, y: -1.0).absolute) // Prints "(x: 2.0, y: 1.0)"
+    /// ```
     var absolute: Self { get }
     
-    /// Negates this Vector
+    /// Negates this Vector by flipping the sign of each component.
+    ///
+    /// ```swift
+    /// print(-Vector2D(x: 2.0, y: -1.0)) // Prints "(x: -2.0, y: 1.0)"
+    /// ```
     static prefix func - (lhs: Self) -> Self
 }
 

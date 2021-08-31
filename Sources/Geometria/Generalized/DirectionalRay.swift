@@ -95,7 +95,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
         start.addingProduct(direction, scalar)
     }
     
-    /// Returns the distance squared between this directional ray and a given
+    /// Returns the squared distance between this directional ray and a given
     /// vector.
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {

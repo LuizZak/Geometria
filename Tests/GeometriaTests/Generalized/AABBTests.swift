@@ -286,7 +286,6 @@ extension AABBTests {
     }
 }
 
-
 // MARK: VectorMultiplicative Conformance
 
 extension AABBTests {

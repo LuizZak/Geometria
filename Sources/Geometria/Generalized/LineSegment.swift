@@ -58,7 +58,7 @@ extension LineSegment: BoundableType where Vector: VectorComparable {
 }
 
 public extension LineSegment where Vector: VectorMultiplicative {
-    /// Returns the squared length of this line
+    /// Returns the squared length of this line.
     @_transparent
     var lengthSquared: Scalar {
         (end - start).lengthSquared
@@ -66,7 +66,7 @@ public extension LineSegment where Vector: VectorMultiplicative {
 }
 
 extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
-    /// Returns the length of this line
+    /// Returns the length of this line.
     @_transparent
     public var length: Scalar {
         (end - start).length
@@ -88,7 +88,7 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
         scalar >= 0 && scalar <= 1
     }
     
-    /// Returns the distance squared between this line and a given vector.
+    /// Returns the squared distance between this line and a given vector.
     ///
     /// The projected point on which the distance is taken is capped between
     /// the start and end points.

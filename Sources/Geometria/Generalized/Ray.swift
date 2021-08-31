@@ -55,7 +55,7 @@ extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
         scalar >= 0
     }
     
-    /// Returns the distance squared between this line and a given vector.
+    /// Returns the squared distance between this line and a given vector.
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = max(0, projectAsScalar(vector))

@@ -16,4 +16,15 @@ class VectorMultiplicativeTests: XCTestCase {
 
         XCTAssertEqual(vec.distanceSquared(to: vec), 0.0)
     }
+    
+    func testLengthSquared() {
+        XCTAssertEqual(Vector2D(x: 3.0, y: 2.0).lengthSquared, 13.0)
+    }
+
+    func testDot() {
+        let v1 = Vector2D(x: 2, y: -3)
+        let v2 = Vector2D(x: 5, y: 7)
+        
+        XCTAssertEqual(v1.dot(v2), -11.0)
+    }
 }

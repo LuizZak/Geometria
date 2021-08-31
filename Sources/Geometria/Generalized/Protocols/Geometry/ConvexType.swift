@@ -1,6 +1,7 @@
 /// Protocol for geometric types defined by floating-point vectors that form
 /// closed convex shapes.
 public protocol ConvexType {
+    /// The floating-point vector type associated with this `ConvexType`.
     associatedtype Vector: VectorFloatingPoint
     
     /// Performs an intersection test against the given line, returning up to

@@ -1,3 +1,5 @@
+// TODO: Make this conform to VectorComparable?
+
 /// Protocol for vector types where the components are floating-point numbers
 public protocol VectorFloatingPoint: VectorDivisible where Scalar: FloatingPoint {
     /// Returns the Euclidean norm (square root of the squared length), or

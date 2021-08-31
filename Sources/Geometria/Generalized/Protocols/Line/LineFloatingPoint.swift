@@ -12,8 +12,8 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     func projectAsScalar(_ vector: Vector) -> Vector.Scalar
     
     /// Performs a vector projection of a given vector with respect to this line.
-    /// The resulting vector lies within the infinite line formed by
-    /// `b <-> a`, potentially extending past either end.
+    /// The resulting vector lies within the infinite line formed by extending
+    /// `a <-> b`.
     func project(_ vector: Vector) -> Vector
     
     /// Returns the result of creating a projection of this line's start point
@@ -22,6 +22,9 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     ///
     /// For `scalar == 0`, returns `self.a`, for `scalar == self.length`,
     /// returns `self.b`.
+    ///
+    /// - parameter scalar: A non-normalized magnitude that describes the length
+    /// along the slope of this line to generate the point out of.
     func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector
 
     /// Returns the result of creating a projection of this line's start point
@@ -29,6 +32,11 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     /// `scalar`.
     ///
     /// For `scalar == 0`, returns `self.a`, for `scalar == 1`, returns `self.b`
+    ///
+    /// - parameter scalar: A normalized magnitude that describes the length
+    /// along the slope of this line to generate the point out of. Values
+    /// outside the range [0, 1] are allowed and equate to projections past the
+    /// endpoints of the line.
     func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector
     
     /// Returns `true` if a normalized, projected `scalar` representing a segment
@@ -40,10 +48,12 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     /// are contained on the line.
     func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool
     
-    /// Returns the distance squared between this line and a given vector.
+    /// Returns the squared distance between this line and a given vector.
     func distanceSquared(to vector: Vector) -> Vector.Scalar
     
     /// Returns the distance between this line and a given vector.
+    ///
+    /// Equivalent to `self.distanceSquared(to: vector).squareRoot()`.
     func distance(to vector: Vector) -> Vector.Scalar
 }
 
@@ -82,7 +92,7 @@ public extension LineFloatingPoint {
         return vector.distanceSquared(to: point)
     }
     
-    @inlinable
+    @_transparent
     func distance(to vector: Vector) -> Vector.Scalar {
         distanceSquared(to: vector).squareRoot()
     }

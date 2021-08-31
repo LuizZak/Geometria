@@ -8,6 +8,12 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     @usableFromInline
     internal var _value: Vector
     
+    /// Gets or sets the underlying vector value.
+    ///
+    /// When assigning a new value, the vector is first normalized before being
+    /// assigned.
+    ///
+    /// - precondition: When asigning: `newValue.length > 0`
     public var wrappedValue: Vector {
         @_transparent
         get {
@@ -21,6 +27,13 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
         }
     }
     
+    /// Creates a new `UnitVector` with a given starting value.
+    ///
+    /// - Parameter wrappedValue: A vector to initialize this `UnitVector` with,
+    /// which is normalized before being assigned.
+    /// Value must have `length > 0`.
+    ///
+    /// - precondition: `wrappedValue.length > 0`
     @_transparent
     public init(wrappedValue: Vector) {
         precondition(wrappedValue.lengthSquared > 0, "Unit vectors must have length > 0")

@@ -14,6 +14,16 @@ public extension Collection {
     /// the mean location of each vector.
     ///
     /// Returns `VectorDivisible.zero`, if the collection is empty.
+    ///
+    /// ```swift
+    /// let vectors = [
+    ///     Vector2D(x: 3.0, y: 4.3),
+    ///     Vector2D(x: -2.0, y: 2.3),
+    ///     Vector2D(x: 2.0, y: 6.9)
+    /// ]
+    ///
+    /// print(vectors.averageVector()) // Prints "(x: 1.0, y: 4.5)"
+    /// ```
     @inlinable
     func averageVector<V: VectorDivisible>() -> V where Element == V, V.Scalar: FloatingPoint {
         if isEmpty {
