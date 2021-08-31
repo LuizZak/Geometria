@@ -81,8 +81,8 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     }
     
     /// Returns a ``DirectionalRay`` representation of this ray, where the
-    /// result's ``DirectionalRay.start`` matches ``start`` and
-    /// ``DirectionalRay.direction`` matches `(end - start).normalized()`.
+    /// result's ``DirectionalRay/start`` matches ``start`` and
+    /// ``DirectionalRay/direction`` matches `(end - start).normalized()`.
     ///
     /// - precondition: `(self.end - self.start).length > 0`
     @_transparent
@@ -104,7 +104,7 @@ extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// The projected point on which the distance is taken is capped between
     /// the start and end points.
     ///
-    /// ```
+    /// ```swift
     /// let line = LineSegment2D(x1: 1, y1: 1, x2: 3, y2: 1)
     /// let point1 = Vector2D(x: 0, y: 0)
     /// let point2 = Vector2D(x: 2, y: 0)

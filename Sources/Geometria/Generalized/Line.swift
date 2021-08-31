@@ -1,7 +1,9 @@
 import RealModule
 
-/// Represents a line as a pair of start and end N-dimensional vectors which
-/// describe the two points an infinite line crosses.
+/// Represents a geometric line as a pair of start and end N-dimensional vectors
+/// which describe the two points an infinite line crosses.
+///
+/// [geometric line]: https://en.wikipedia.org/wiki/Line_(geometry)
 public struct Line<Vector: VectorType>: LineType {
     public typealias Scalar = Vector.Scalar
     

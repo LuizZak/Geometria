@@ -1,5 +1,7 @@
-/// Represents an N-dimensional ray line which projects a line from a starting
-/// point in a specified direction to infinity.
+/// Represents an N-dimensional [geometric ray] which projects a line from a
+/// starting point in a specified direction to infinity.
+///
+/// [geometric ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
 public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     public typealias Scalar = Vector.Scalar
     
@@ -95,11 +97,12 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the line `start <-> start + direction`.
     ///
-    /// By multiplying the result of this function by `direction` and adding
-    /// `start`, the projected point as it lays on this directional ray line can
-    /// be obtained.
+    /// By multiplying the result of this function by ``direction`` and adding
+    /// ``start``, the projected point as it lays on this directional ray line
+    /// can be obtained. This can also be achieved by using
+    /// ``projectedMagnitude(_:)``.
     ///
-    /// ```
+    /// ```swift
     /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
     ///
     /// print(ray.projectAsScalar(.init(x: 5, y: 0))) // Prints "4"
@@ -119,7 +122,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// projected in the direction of this ray's direction, with a total
     /// magnitude of `scalar`.
     ///
-    /// ```
+    /// ```swift
     /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
     ///
     /// print(ray.projectedMagnitude(4)) // Prints "(x: 5, y: 0)"
@@ -134,7 +137,7 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns the squared distance between this directional ray and a given
     /// vector.
     ///
-    /// ```
+    /// ```swift
     /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
     /// let point1 = Vector2D(x: 0, y: 0)
     /// let point2 = Vector2D(x: 5, y: 0)
