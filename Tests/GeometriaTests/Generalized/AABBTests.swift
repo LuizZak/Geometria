@@ -211,11 +211,20 @@ extension AABBTests {
     func testUnion() {
         let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 4, y: 7))
         
-        let result = sut.union(.init(minimum: .init(x: 7, y: 13),
+        let result = sut.union(.init(minimum: .init(x: -7, y: 13),
                                      maximum: .init(x: 23, y: 30)))
         
-        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
+        XCTAssertEqual(result.minimum, .init(x: -7, y: 2))
         XCTAssertEqual(result.maximum, .init(x: 23, y: 30))
+    }
+    
+    func testUnion_returnsSelfForEqualBox() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 5))
+        
+        let result = sut.union(sut)
+        
+        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 5))
     }
 }
 

@@ -8,7 +8,7 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     /// By multiplying the result of this function by `(b - a)` and adding `a`,
     /// the projected point as it lays on this line can be obtained.
     ///
-    /// - seealso: projectedNormalizedMagnitude(_:)
+    /// - seealso: ``projectedNormalizedMagnitude(_:)-vyrp``
     func projectAsScalar(_ vector: Vector) -> Vector.Scalar
     
     /// Performs a vector projection of a given vector with respect to this line.
@@ -49,11 +49,15 @@ public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
     func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool
     
     /// Returns the squared distance between this line and a given vector.
+    ///
+    /// - seealso: ``distance(to:)-9p2y4``
     func distanceSquared(to vector: Vector) -> Vector.Scalar
     
     /// Returns the distance between this line and a given vector.
     ///
     /// Equivalent to `self.distanceSquared(to: vector).squareRoot()`.
+    ///
+    /// - seealso: ``distanceSquared(to:)-3wyqd``
     func distance(to vector: Vector) -> Vector.Scalar
 }
 

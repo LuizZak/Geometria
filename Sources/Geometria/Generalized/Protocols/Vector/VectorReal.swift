@@ -1,7 +1,7 @@
 import RealModule
 
 /// Protocol for vector types where the components are real numbers.
-public protocol VectorReal: VectorFloatingPoint & VectorComparable where Scalar: Real {
+public protocol VectorReal: VectorFloatingPoint where Scalar: Real {
     /// Returns the result of powering each component of this vector by the Nth
     /// power specified by `exponent` (integer).
     static func pow(_ vec: Self, _ exponent: Int) -> Self

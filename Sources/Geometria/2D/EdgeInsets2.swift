@@ -10,6 +10,7 @@ public typealias EdgeInsets2i = EdgeInsets2<Vector2i>
 /// Represents a 2D edge inset as relative inset values for each of the four
 /// edges of a rectangular 2D perimeter.
 public struct EdgeInsets2<Vector: Vector2Type> {
+    /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
     public var left: Scalar

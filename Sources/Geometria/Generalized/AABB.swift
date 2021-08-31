@@ -32,6 +32,7 @@ extension AABB: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension AABB: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension AABB: BoundableType {
+    /// Returns `self`.
     @_transparent
     public var bounds: AABB<Vector> {
         self
@@ -40,6 +41,15 @@ extension AABB: BoundableType {
 
 public extension AABB where Vector: Equatable {
     /// Returns `true` if the size of this box is zero.
+    ///
+    /// Size is zero when `minimum == maximum`.
+    ///
+    /// ```swift
+    /// let box = AABB2D(minimum: .init(x: 1.0, y: 2.0),
+    ///                  maximum: .init(x: 1.0, y: 2.0))
+    ///
+    /// print(box.isSizeZero) // Prints "true"
+    /// ```
     @_transparent
     var isSizeZero: Bool {
         minimum == maximum
@@ -47,13 +57,24 @@ public extension AABB where Vector: Equatable {
 }
 
 extension AABB: VolumetricType where Vector: VectorComparable {
-    /// Returns `true` if `minimum <= maximum`.
+    /// Returns `true` iff `minimum <= maximum`.
     @_transparent
     public var isValid: Bool {
         minimum <= maximum
     }
     
     /// Expands this box to include the given point.
+    ///
+    /// The resulting box is the minimal AABB capable of enclosing the original
+    /// AABB and vector `point`.
+    ///
+    /// ```swift
+    /// var box = AABB2D(minimum: .init(x: 1, y: 1), maximum: .init(x: 3, y: 3))
+    ///
+    /// box.expand(toInclude: .init(x: -5, y: 6))
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: 1), maximum: (x: 3, y: 6))"
+    /// ```
     @_transparent
     public mutating func expand(toInclude point: Vector) {
         minimum = Vector.pointwiseMin(minimum, point)
@@ -62,8 +83,11 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     
     /// Expands this box to fully include the given set of points.
     ///
-    /// Same as calling `expand(toInclude:Vector2D)` over each point.
+    /// Equivalent to calling `expand(toInclude:Vector2D)` over each point.
     /// If the array is empty, nothing is done.
+    ///
+    /// The resulting box is the minimal AABB capable of enclosing the original
+    /// AABB and all vectors in `points`.
     @inlinable
     public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
         for p in points {
@@ -72,10 +96,11 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     }
     
     /// Clamps a given vector's coordinates to the confines of this AABB.
+    ///
     /// Points inside the AABB remain unchanced, while points outside are
     /// projected along the edges to the closest point to `vector` that is
     /// within this AABB.
-    @inlinable
+    @_transparent
     public func clamp(_ vector: Vector) -> Vector {
         Vector.pointwiseMax(minimum, Vector.pointwiseMin(maximum, vector))
     }
@@ -89,8 +114,10 @@ extension AABB: VolumetricType where Vector: VectorComparable {
         point >= minimum && point <= maximum
     }
     
-    /// Returns whether a given box rests completely inside the boundaries of
-    /// this box.
+    /// Returns whether a given box is completely contained inside the
+    /// boundaries of this box.
+    ///
+    /// Returns `true` for `aabb.contains(aabb)`.
     @_transparent
     public func contains(box: AABB) -> Bool {
         box.minimum >= minimum && box.maximum <= maximum
@@ -98,22 +125,26 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     
     /// Returns whether this box intersects the given box instance.
     ///
-    /// This check is inclusive, so the edges of the box are considered to
-    /// intersect the other bounding box's edges as well.
+    /// This check is inclusive, so edges of the box are considered to intersect
+    /// the other bounding box's edges as well.
     @_transparent
     public func intersects(_ box: AABB) -> Bool {
         minimum <= box.maximum && maximum >= box.minimum
     }
     
-    /// Returns a box which is the minimum area that can fit `self` and the
+    /// Returns a box which is the minimum box capable of fitting `self` and the
     /// given box.
+    ///
+    /// Returns `aabb` for `aabb.union(aabb)`.
     @_transparent
     public func union(_ other: AABB) -> AABB {
         AABB.union(self, other)
     }
     
-    /// Returns a box which is the minimum area that can fit the given two
-    /// boxes.
+    /// Returns a box which is the minimum box capable of fitting `left` and
+    /// `right`.
+    ///
+    /// Returns `aabb` for `AABB.union(aabb, aabb)`.
     @_transparent
     public static func union(_ left: AABB, _ right: AABB) -> AABB {
         AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
@@ -122,7 +153,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
 }
 
 public extension AABB where Vector: VectorAdditive {
-    /// Returns a box with all coordinates set to zero.
+    /// Returns a box with ``minimum`` and ``maximum`` set to `Vector.zero`.
     @_transparent
     static var zero: Self { Self(minimum: .zero, maximum: .zero) }
     
@@ -144,15 +175,15 @@ public extension AABB where Vector: VectorAdditive {
         NRectangle(minimum: minimum, maximum: maximum)
     }
     
-    /// Initializes a NBox with zero minimal and maximal vectors.
+    /// Initializes an AABB with zero minimal and maximal vectors.
     @_transparent
     init() {
         minimum = .zero
         maximum = .zero
     }
     
-    /// Initializes this NBox with the equivalent coordinates of a rectangle with
-    /// a given location and size.
+    /// Initializes this AABB with the equivalent coordinates of a rectangle
+    /// with a given location and size.
     @_transparent
     init(location: Vector, size: Vector) {
         minimum = location
@@ -171,7 +202,7 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     /// Initializes a box containing the minimum area capable of containing all
     /// supplied points.
     ///
-    /// If no points are supplied, an empty box is created, instead.
+    /// If no points are supplied, a ``AABB/zero`` box is created, instead.
     @_transparent
     init(of points: Vector...) {
         self = AABB(points: points)

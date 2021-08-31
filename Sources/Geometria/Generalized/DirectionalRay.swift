@@ -53,10 +53,14 @@ extension DirectionalRay: Encodable where Vector: Encodable, Scalar: Encodable {
 extension DirectionalRay: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension DirectionalRay: LineType {
+    /// Equivalent to ``start``.
+    @_transparent
     public var a: Vector {
         start
     }
     
+    /// Equivalent to ``start`` + ``direction``.
+    @_transparent
     public var b: Vector {
         start + direction
     }
@@ -64,14 +68,14 @@ extension DirectionalRay: LineType {
 
 public extension DirectionalRay where Vector: VectorAdditive {
     /// Returns a `Line` representation of this directional ray, where `line.a`
-    /// matches `self.start` and `line.b` matches `self.start + self.direction`.
+    /// matches ``start`` and `line.b` matches ``start`` + ``direction``.
     @_transparent
     var asLine: Line<Vector> {
         Line(a: start, b: start + direction)
     }
     
     /// Returns a `Ray` representation of this directional ray, where `ray.start`
-    /// matches `self.start` and `ray.b` matches `self.start + self.direction`.
+    /// matches ``start`` and `ray.b` matches ``start`` + ``direction``.
     @_transparent
     var asRay: Ray<Vector> {
         Ray(start: start, b: start + direction)
@@ -79,7 +83,9 @@ public extension DirectionalRay where Vector: VectorAdditive {
 }
 
 extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
-    /// Returns `true` for all positive projected scalars (ray)
+    /// Returns `true` for all positive scalar values, which describes a [ray].
+    ///
+    /// [ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
     @inlinable
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         scalar >= 0
@@ -92,6 +98,14 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// By multiplying the result of this function by `direction` and adding
     /// `start`, the projected point as it lays on this directional ray line can
     /// be obtained.
+    ///
+    /// ```
+    /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
+    ///
+    /// print(ray.projectAsScalar(.init(x: 5, y: 0))) // Prints "4"
+    /// ```
+    ///
+    /// - seealso: ``projectedMagnitude(_:)``
     @inlinable
     public func projectAsScalar(_ vector: Vector) -> Vector.Scalar {
         let relVec = vector - start
@@ -104,6 +118,14 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// Returns the result of creating a projection of this ray's start point
     /// projected in the direction of this ray's direction, with a total
     /// magnitude of `scalar`.
+    ///
+    /// ```
+    /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
+    ///
+    /// print(ray.projectedMagnitude(4)) // Prints "(x: 5, y: 0)"
+    /// ```
+    ///
+    /// - seealso: ``projectAsScalar(_:)``
     @inlinable
     public func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
         start.addingProduct(direction, scalar)
@@ -111,6 +133,15 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     
     /// Returns the squared distance between this directional ray and a given
     /// vector.
+    ///
+    /// ```
+    /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
+    /// let point1 = Vector2D(x: 0, y: 0)
+    /// let point2 = Vector2D(x: 5, y: 0)
+    ///
+    /// print(ray.distanceSquared(to: point1)) // Prints "2"
+    /// print(ray.distanceSquared(to: point2)) // Prints "1"
+    /// ```
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = max(0, projectAsScalar(vector))

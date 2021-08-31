@@ -1,6 +1,7 @@
 /// Represents an N-dimensional square with an origin point and a scalar value
 /// for the side length of each edge.
 public struct NSquare<Vector: VectorType>: GeometricType {
+    /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
     /// The origin of this box, corresponding to the minimal coordinate of the
@@ -24,7 +25,7 @@ public struct NSquare<Vector: VectorType>: GeometricType {
 }
 
 extension NSquare: BoundableType where Vector: VectorAdditive {
-    /// Returns a box with the same boundaries as this square.
+    /// Returns the minimal ``AABB`` capable of containing this NSquare.
     @_transparent
     public var bounds: AABB<Vector> {
         AABB(minimum: origin, maximum: origin + Vector(repeating: sideLength))

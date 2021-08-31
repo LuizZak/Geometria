@@ -1,5 +1,6 @@
 /// Represents an N-sphere with a center point and radius.
 public struct NSphere<Vector: VectorType>: GeometricType {
+    /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
     public var center: Vector

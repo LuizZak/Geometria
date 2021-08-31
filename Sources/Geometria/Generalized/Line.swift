@@ -26,8 +26,13 @@ extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension Line: LineFloatingPoint where Vector: VectorFloatingPoint {
-    /// Returns `true` for all projected scalars (infinite line)
-    @inlinable
+    /// Returns `true` for all scalar values, which describes a [geometric line].
+    ///
+    /// This makes the line behave effectively like an infinitely long line when
+    /// working with methods from ``LineFloatingPoint`` conformance.
+    ///
+    /// [geometric line]: https://en.wikipedia.org/wiki/Line_(geometry)
+    @_transparent
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         true
     }

@@ -1,12 +1,14 @@
 /// Represents an N-dimensional rectangle with a vector describing its origin
 /// and a size vector that describes the span of the rectangle.
 public struct NRectangle<Vector: VectorType>: GeometricType {
+    /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
     /// The top-left location of this rectangle.
     public var location: Vector
     
     /// The size of this rectangle.
+    ///
     /// Must be `>= Vector.zero`
     public var size: Vector
     
