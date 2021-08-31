@@ -787,8 +787,7 @@ vectors.</p>
                         <p>Returns <code>true</code> if the size of this box is zero.</p>
 
 <p>Size is zero when <code>minimum == maximum</code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">minimum</span><span class="p">:</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">),</span>
-                 <span class="nv">maximum</span><span class="p">:</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">))</span>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">)</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">isSizeZero</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
 </code></pre>
@@ -862,7 +861,7 @@ vectors.</p>
 
 <p>The resulting box is the minimal AABB capable of enclosing the original
 AABB and vector <code>point</code>.</p>
-<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">minimum</span><span class="p">:</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span> <span class="nv">maximum</span><span class="p">:</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">3</span><span class="p">))</span>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="n">box</span><span class="o">.</span><span class="nf">expand</span><span class="p">(</span><span class="nv">toInclude</span><span class="p">:</span> <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">6</span><span class="p">))</span>
 
@@ -896,11 +895,21 @@ AABB and vector <code>point</code>.</p>
                       <div class="abstract">
                         <p>Expands this box to fully include the given set of points.</p>
 
-<p>Equivalent to calling <code>expand(toInclude:Vector2D)</code> over each point.
+<p>Equivalent to calling <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A16VectorComparableRzrlE6expand9toIncludeyx_tF">expand(toInclude:)</a></code> over each point.
 If the array is empty, nothing is done.</p>
 
 <p>The resulting box is the minimal AABB capable of enclosing the original
 AABB and all vectors in <code>points</code>.</p>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">box</span><span class="o">.</span><span class="nf">expand</span><span class="p">(</span><span class="nv">toInclude</span><span class="p">:</span> <span class="p">[</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="p">)</span> <span class="c1">// Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -930,9 +939,15 @@ AABB and all vectors in <code>points</code>.</p>
                       <div class="abstract">
                         <p>Clamps a given vector&rsquo;s coordinates to the confines of this AABB.</p>
 
-<p>Points inside the AABB remain unchanced, while points outside are
+<p>Points inside the AABB remain unchanged, while points outside are
 projected along the edges to the closest point to <code>vector</code> that is
 within this AABB.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">clamp</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)))</span> <span class="c1">// Prints "(x: -1, y: 2)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">clamp</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">)))</span> <span class="c1">// Prints "(x: -1, y: -2)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">clamp</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)))</span> <span class="c1">// Prints "(x: 3, y: 1)"</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -963,6 +978,11 @@ within this AABB.</p>
 
 <p>The check is inclusive, so the edges of the box are considered to
 contain the point as well.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)))</span> <span class="c1">// Prints "false"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)))</span> <span class="c1">// Prints "true"</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -993,6 +1013,14 @@ contain the point as well.</p>
 boundaries of this box.</p>
 
 <p>Returns <code>true</code> for <code>aabb.contains(aabb)</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box1</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box2</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box3</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box1</span><span class="p">))</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box2</span><span class="p">))</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box3</span><span class="p">))</span> <span class="c1">// Prints "false"</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1023,6 +1051,16 @@ boundaries of this box.</p>
 
 <p>This check is inclusive, so edges of the box are considered to intersect
 the other bounding box&rsquo;s edges as well.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box1</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box2</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box3</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box4</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">7</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">intersects</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box1</span><span class="p">))</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">intersects</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box2</span><span class="p">))</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">intersects</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box3</span><span class="p">))</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">intersects</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="n">box4</span><span class="p">))</span> <span class="c1">// Prints "false"</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1053,6 +1091,11 @@ the other bounding box&rsquo;s edges as well.</p>
 given box.</p>
 
 <p>Returns <code>aabb</code> for <code>aabb.union(aabb)</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box1</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box2</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box1</span><span class="o">.</span><span class="nf">union</span><span class="p">(</span><span class="n">box2</span><span class="p">))</span> <span class="c1">// Prints (minimum: (x: -1, y: -3), maximum: (x: 5, y: 4))</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1083,6 +1126,11 @@ given box.</p>
 <code>right</code>.</p>
 
 <p>Returns <code>aabb</code> for <code>AABB.union(aabb, aabb)</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box1</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">box2</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="kt">AABB</span><span class="o">.</span><span class="nf">union</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">))</span> <span class="c1">// Prints (minimum: (x: -1, y: -3), maximum: (x: 5, y: 4))</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1176,7 +1224,7 @@ given box.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns <code>true</code> if this box is a <code>Box2.zero</code> instance.</p>
+                        <p>Returns <code>true</code> if this box is a <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A14VectorAdditiveRzrlE4zeroACyxGvpZ">AABB.zero</a></code> instance.</p>
 
                       </div>
                       <div class="declaration">
@@ -1331,6 +1379,16 @@ supplied points.</p>
 
 <p>If no points are supplied, a <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A14VectorAdditiveRzrlE4zeroACyxGvpZ">zero</a></code> box is created, instead.</p>
 
+<p>Convenience for <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE6pointsACyxGqd___tc7ElementQyd__RszSlRd__lufc">init(points:)</a></code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="p">)</span> <span class="c1">// Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"</span>
+</code></pre>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1358,6 +1416,14 @@ supplied points.</p>
                       <div class="abstract">
                         <p>Initializes a box out of a set of points, expanding to the smallest
 area capable of fitting each point.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">box</span> <span class="o">=</span> <span class="kt">AABB2D</span><span class="p">(</span><span class="nv">points</span><span class="p">:</span> <span class="p">[</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">box</span><span class="p">)</span> <span class="c1">// Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"</span>
+</code></pre>
 
                       </div>
                       <div class="declaration">
@@ -1398,7 +1464,11 @@ area capable of fitting each point.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Gets the center point of this AABB.</p>
+                        <p>Gets or sets the center point of this AABB.</p>
+
+<p>When assigning the center of a bounding box, the size remains unchanged
+while the coordinates of the vectors change to position the AABB&rsquo;s center
+on the provided coordinates.</p>
 
                       </div>
                       <div class="declaration">
@@ -1429,13 +1499,19 @@ area capable of fitting each point.</p>
                         <p>Returns an AABB which is an inflated version of this AABB (i.e. bounds
 are larger by <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A14VectorAdditiveRzrlE4sizexvp">size</a></code>, but center remains the same).</p>
 
+<p>Equivalent to insetting the box by a negative amount.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A15VectorDivisibleRzrlE7insetByyACyxGxF">insetBy(_:)</a></code>
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
 
                         </div>
                       </div>
@@ -1458,13 +1534,19 @@ are larger by <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A14Vector
                         <p>Returns an AABB which is an inset version of this AABB (i.e. bounds are
 smaller by <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A14VectorAdditiveRzrlE4sizexvp">size</a></code>, but center remains the same).</p>
 
+<p>Equivalent to inflating the box by a negative amount.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code><a href="../Structs/AABB.html#/s:9Geometria4AABBVA2A15VectorDivisibleRzrlE10inflatedByyACyxGxF">inflatedBy(_:)</a></code>
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
 
                         </div>
                       </div>
@@ -1492,8 +1574,7 @@ center of the boundaries lay on <code><a href="../Structs/AABB.html#/s:9Geometri
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">to</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">to</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AABB</span></code></pre>
 
                         </div>
                       </div>

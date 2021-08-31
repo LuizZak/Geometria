@@ -1454,6 +1454,10 @@ size multiplied by the coordinates of the given vector.</p>
                       <div class="abstract">
                         <p>Gets the center point of this Rectangle.</p>
 
+<p>When assigning the center of a rectangle, the size remains unchanged
+while the coordinates of the vectors change to position the rectangle&rsquo;s
+center on the provided coordinates.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -1483,10 +1487,10 @@ size multiplied by the coordinates of the given vector.</p>
                         <p>Returns a NRectangle which is an inflated version of this NRectangle
 (i.e. bounds are larger by <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleV4sizexvp">size</a></code>, but center remains the same).</p>
 
-<p>Equivalent to inseting the rectangle by a negative amount.</p>
+<p>Equivalent to insetting the rectangle by a negative amount.</p>
 <div class="aside aside-seealso">
     <p class="aside-title">Seealso</p>
-    insetBy
+    <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE7insetByyACyxGxF">insetBy(_:)</a></code>
 
 </div>
 
@@ -1521,7 +1525,7 @@ size multiplied by the coordinates of the given vector.</p>
 <p>Equivalent to inflating the rectangle by a negative amount.</p>
 <div class="aside aside-seealso">
     <p class="aside-title">Seealso</p>
-    inflatedBy
+    <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE10inflatedByyACyxGxF">inflatedBy(_:)</a></code>
 
 </div>
 
