@@ -215,6 +215,9 @@
                 <a class="nav-group-task-link" href="../Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a>
               </li>
               <li class="nav-group-task">
@@ -589,6 +592,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 
                 </div>
               </div>
@@ -1350,149 +1354,6 @@ size multiplied by the coordinates of the given vector.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
 <span class="kd">func</span> <span class="nf">scaledBy</span><span class="p">(</span><span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorDivisible%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorDivisible`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorDivisible%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE6centerxvp"></a>
-                    <a name="//apple_ref/swift/Property/center" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE6centerxvp">center</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the center point of this Rectangle.</p>
-
-<p>When assigning the center of a rectangle, the size remains unchanged
-while the coordinates of the vectors change to position the rectangle&rsquo;s
-center on the provided coordinates.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="k">var</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE10inflatedByyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/inflatedBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE10inflatedByyACyxGxF">inflatedBy(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a NRectangle which is an inflated version of this NRectangle
-(i.e. bounds are larger by <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleV4sizexvp">size</a></code>, but center remains the same).</p>
-
-<p>Equivalent to insetting the rectangle by a negative amount.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE7insetByyACyxGxF">insetBy(_:)</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE7insetByyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/insetBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE7insetByyACyxGxF">insetBy(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a NRectangle which is an inset version of this NRectangle
-(i.e. bounds are smaller by <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleV4sizexvp">size</a></code>, but center remains the same).</p>
-
-<p>Equivalent to inflating the rectangle by a negative amount.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE10inflatedByyACyxGxF">inflatedBy(_:)</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE12movingCenter2toACyxGx_tF"></a>
-                    <a name="//apple_ref/swift/Method/movingCenter(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE12movingCenter2toACyxGx_tF">movingCenter(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new NRectangle with the same size as the current instance,
-where the center of the boundaries lay on <code><a href="../Structs/NRectangle.html#/s:9Geometria10NRectangleVA2A15VectorDivisibleRzrlE6centerxvp">center</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">to</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
 
                         </div>
                       </div>

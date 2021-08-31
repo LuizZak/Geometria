@@ -215,6 +215,9 @@
                 <a class="nav-group-task-link" href="Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a>
               </li>
               <li class="nav-group-task">
@@ -766,6 +769,7 @@ describe the minimal and maximal coordinates of the box&rsquo;s opposite corners
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="Protocols/RectangleType.html">RectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 
                         </div>
                       </div>
@@ -980,6 +984,7 @@ and a size vector that describes the span of the rectangle.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 
                         </div>
                       </div>

@@ -215,6 +215,9 @@
                 <a class="nav-group-task-link" href="Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a>
               </li>
               <li class="nav-group-task">
@@ -708,6 +711,66 @@ protocol <code><a href="Protocols/RectangleType.html">RectangleType</a></code>.<
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/DivisibleRectangleType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypeP">DivisibleRectangleType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol refining <code><a href="Protocols/RectangleType.html">RectangleType</a></code> with <code><a href="Protocols/VectorDivisible.html">VectorDivisible</a></code> extensions.</p>
+
+<p>Divisible rectangle types can be split into smaller rectangles, as well as
+be inflated/inset.</p>
+
+                        <a href="Protocols/DivisibleRectangleType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DivisibleRectangleType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria13RectangleTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/RectangleType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria13RectangleTypeP">RectangleType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol for geometric types defined by vectors that fill enclosed
+rectangular areas with a defined location and size.</p>
+
+                        <a href="Protocols/RectangleType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RectangleType</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria20Vector2FloatingPointP"></a>
                     <a name="//apple_ref/swift/Protocol/Vector2FloatingPoint" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria20Vector2FloatingPointP">Vector2FloatingPoint</a>
@@ -1148,35 +1211,6 @@ vectors representing the endpoints of the line.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">AdditiveRectangleType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RectangleType.html">RectangleType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypeP"></a>
-                    <a name="//apple_ref/swift/Protocol/RectangleType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypeP">RectangleType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Protocol for geometric types defined by vectors that fill enclosed
-rectangular areas with a defined location and size.</p>
-
-                        <a href="Protocols/RectangleType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RectangleType</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
 
                         </div>
                       </div>

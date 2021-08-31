@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Ellipsoid Structure Reference</title>
+    <title>DivisibleRectangleType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Ellipsoid" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/DivisibleRectangleType" class="dashAnchor"></a>
 
-    <a title="Ellipsoid Structure Reference"></a>
+    <a title="DivisibleRectangleType Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Ellipsoid Structure Reference
+      DivisibleRectangleType Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -580,22 +580,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Ellipsoid</h1>
+            <h1>DivisibleRectangleType</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Ellipsoid</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Ellipsoid</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Ellipsoid</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Ellipsoid</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Ellipsoid</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Ellipsoid</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Ellipsoid</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorReal.html">VectorReal</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">DivisibleRectangleType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Represents an N-dimensional ellipsoid as a center with an N-dimensional
-radii vector which describes the axis of the ellipsoid.</p>
+            <p>Protocol refining <code><a href="../Protocols/RectangleType.html">RectangleType</a></code> with <code><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></code> extensions.</p>
+
+<p>Divisible rectangle types can be split into smaller rectangles, as well as
+be inflated/inset.</p>
 
           </div>
         </section>
@@ -607,36 +603,9 @@ radii vector which describes the axis of the ellipsoid.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria9EllipsoidV6Scalara"></a>
-                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9EllipsoidV6Scalara">Scalar</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Convenience for <code>Vector.Scalar</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Scalar</span> <span class="o">=</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria9EllipsoidV6centerxvp"></a>
+                    <a name="/s:9Geometria22DivisibleRectangleTypeP6center6VectorQzvp"></a>
                     <a name="//apple_ref/swift/Property/center" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9EllipsoidV6centerxvp">center</a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypeP6center6VectorQzvp">center</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -644,14 +613,14 @@ radii vector which describes the axis of the ellipsoid.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This ellipsoid&rsquo;s center.</p>
+                        <p>Gets the center point of this rectangle.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -661,9 +630,9 @@ radii vector which describes the axis of the ellipsoid.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria9EllipsoidV6radiusxvp"></a>
-                    <a name="//apple_ref/swift/Property/radius" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9EllipsoidV6radiusxvp">radius</a>
+                    <a name="/s:9Geometria22DivisibleRectangleTypeP10inflatedByyx6VectorQzF"></a>
+                    <a name="//apple_ref/swift/Method/inflatedBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypeP10inflatedByyx6VectorQzF">inflatedBy(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -671,14 +640,22 @@ radii vector which describes the axis of the ellipsoid.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The axis-aligned axis (or radii) for this ellipsoid.</p>
+                        <p>Returns a new rectangle which is an inflated version of this rectangle
+(i.e. bounds are larger by <code>size</code>, but center remains the same).</p>
+
+<p>Equivalent to insetting the rectangle by a negative amount.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code><a href="../Protocols/DivisibleRectangleType.html#/s:9Geometria22DivisibleRectangleTypeP7insetByyx6VectorQzF">insetBy(_:)</a></code>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -688,9 +665,9 @@ radii vector which describes the axis of the ellipsoid.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria9EllipsoidV6center6radiusACyxGx_xtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(center:radius:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9EllipsoidV6center6radiusACyxGx_xtcfc">init(center:<wbr>radius:<wbr>)</a>
+                    <a name="/s:9Geometria22DivisibleRectangleTypeP7insetByyx6VectorQzF"></a>
+                    <a name="//apple_ref/swift/Method/insetBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypeP7insetByyx6VectorQzF">insetBy(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -698,14 +675,50 @@ radii vector which describes the axis of the ellipsoid.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns a new rectangle which is an inset version of this rectangle
+(i.e. bounds are smaller by <code>size</code>, but center remains the same).</p>
+
+<p>Equivalent to inflating the rectangle by a negative amount.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code><a href="../Protocols/DivisibleRectangleType.html#/s:9Geometria22DivisibleRectangleTypeP10inflatedByyx6VectorQzF">inflatedBy(_:)</a></code>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypeP12movingCenter2tox6VectorQz_tF"></a>
+                    <a name="//apple_ref/swift/Method/movingCenter(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypeP12movingCenter2tox6VectorQz_tF">movingCenter(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new rectangle with the same size as the current instance,
+where the center of the boundaries lay on <code><a href="../Protocols/DivisibleRectangleType.html#/s:9Geometria22DivisibleRectangleTypeP6center6VectorQzvp">center</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">to</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -716,11 +729,11 @@ radii vector which describes the axis of the ellipsoid.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive`" class="dashAnchor"></a>
+                <a name="/Available%20where%20%60Self%60%3A%20%60ConstructableRectangleType%60%2C%20%60Vector%60%3A%20%60Vector2Type%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Self`: `ConstructableRectangleType`, `Vector`: `Vector2Type`" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code></p>
+                  <a class="section-name-link" href="#/Available%20where%20%60Self%60%3A%20%60ConstructableRectangleType%60%2C%20%60Vector%60%3A%20%60Vector2Type%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Self</code>: <code><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></code>, <code>Vector</code>: <code><a href="../Protocols/Vector2Type.html">Vector2Type</a></code></p>
 </h3>
                 </div>
               </div>
@@ -728,24 +741,151 @@ radii vector which describes the axis of the ellipsoid.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria9EllipsoidVA2A14VectorAdditiveRzrlE6boundsAA4AABBVyxGvp"></a>
-                    <a name="//apple_ref/swift/Property/bounds" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9EllipsoidVA2A14VectorAdditiveRzrlE6boundsAA4AABBVyxGvp">bounds</a>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE7centerXAfH_6ScalarAA0gD0PQZvp"></a>
+                    <a name="//apple_ref/swift/Property/centerX" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE7centerXAfH_6ScalarAA0gD0PQZvp">centerX</a>
                     </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the minimal <code><a href="../Structs/AABB.html">AABB</a></code> capable of containing this ellipsoid.</p>
+                        <p>Gets or sets the center X position of this Rectangle.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bounds</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">centerX</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE7centerYAfH_6ScalarAA0gD0PQZvp"></a>
+                    <a name="//apple_ref/swift/Property/centerY" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE7centerYAfH_6ScalarAA0gD0PQZvp">centerY</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets or sets the center Y position of this Rectangle.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">centerY</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE10inflatedBy1x1yxAfH_6ScalarAA0gD0PQZ_APtF"></a>
+                    <a name="//apple_ref/swift/Method/inflatedBy(x:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE10inflatedBy1x1yxAfH_6ScalarAA0gD0PQZ_APtF">inflatedBy(x:<wbr>y:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a Rectangle which is an inflated version of this Rectangle
+(i.e. bounds are larger by <code>size</code>, but center remains the same).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE7insetBy1x1yxAfH_6ScalarAA0gD0PQZ_APtF"></a>
+                    <a name="//apple_ref/swift/Method/insetBy(x:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE7insetBy1x1yxAfH_6ScalarAA0gD0PQZ_APtF">insetBy(x:<wbr>y:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a Rectangle which is an inset version of this Rectangle
+(i.e. bounds are smaller by <code>size</code>, but center remains the same).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE12movingCenter3toX1yxAfH_6ScalarAA0gD0PQZ_APtF"></a>
+                    <a name="//apple_ref/swift/Method/movingCenter(toX:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA07Vector2D06VectorAA0cD0PRpzrlE12movingCenter3toX1yxAfH_6ScalarAA0gD0PQZ_APtF">movingCenter(toX:<wbr>y:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new Rectangle with the same width and height as the current
+instance, where the center of the boundaries lay on the coordinates
+composed of <code>[x, y]</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">toX</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -756,11 +896,11 @@ radii vector which describes the axis of the ellipsoid.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorReal%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorReal`" class="dashAnchor"></a>
+                <a name="/Available%20where%20%60Self%60%3A%20%60ConstructableRectangleType%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Self`: `ConstructableRectangleType`" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorReal%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorReal.html">VectorReal</a></code></p>
+                  <a class="section-name-link" href="#/Available%20where%20%60Self%60%3A%20%60ConstructableRectangleType%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Self</code>: <code><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></code></p>
 </h3>
                 </div>
               </div>
@@ -768,28 +908,154 @@ radii vector which describes the axis of the ellipsoid.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria9EllipsoidVA2A10VectorRealRzrlE8containsySbxF"></a>
-                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9EllipsoidVA2A10VectorRealRzrlE8containsySbxF">contains(_:<wbr>)</a>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE6center6VectorAA0cD0PQzvp"></a>
+                    <a name="//apple_ref/swift/Property/center" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE6center6VectorAA0cD0PQzvp">center</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns <code>true</code> if the given point is contained within this ellipse.</p>
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Gets or sets the center point of this rectangle.</p>
 
-<p>The method returns <code>true</code> for points that lie on the outer perimeter of
-the ellipse (inclusive).</p>
+<p>When assigning the center of a rectangle, the size remains unchanged
+while the coordinates of the vectors change to position the rectangle&rsquo;s
+center on the provided coordinates.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE10inflatedByyx6VectorAA0cD0PQzF"></a>
+                    <a name="//apple_ref/swift/Method/inflatedBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE10inflatedByyx6VectorAA0cD0PQzF">inflatedBy(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns a rectangle which is an inflated version of this rectangle
+(i.e. bounds are larger by <code>size</code>, but center remains the same).</p>
+
+<p>Equivalent to insetting the rectangle by a negative amount.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code>insetBy(_:)</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">inflatedBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE7insetByyx6VectorAA0cD0PQzF"></a>
+                    <a name="//apple_ref/swift/Method/insetBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE7insetByyx6VectorAA0cD0PQzF">insetBy(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns a rectangle which is an inset version of this rectangle
+(i.e. bounds are smaller by <code>size</code>, but center remains the same).</p>
+
+<p>Equivalent to inflating the rectangle by a negative amount.</p>
+<div class="aside aside-seealso">
+    <p class="aside-title">Seealso</p>
+    <code>inflatedBy(_:)</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">insetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE12movingCenter2tox6VectorAA0cD0PQz_tF"></a>
+                    <a name="//apple_ref/swift/Method/movingCenter(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzrlE12movingCenter2tox6VectorAA0cD0PQz_tF">movingCenter(to:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns a new rectangle with the same size as the current instance,
+where the center of the boundaries lay on <code>center</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">movingCenter</span><span class="p">(</span><span class="n">to</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
