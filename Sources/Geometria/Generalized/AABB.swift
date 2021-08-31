@@ -302,48 +302,6 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     }
 }
 
-public extension AABB where Vector: VectorDivisible {
-    /// Gets or sets the center point of this AABB.
-    ///
-    /// When assigning the center of a bounding box, the size remains unchanged
-    /// while the coordinates of the vectors change to position the AABB's center
-    /// on the provided coordinates.
-    @inlinable
-    var center: Vector {
-        get {
-            (minimum + maximum) / 2
-        }
-        set {
-            self = self.movingCenter(to: newValue)
-        }
-    }
+extension AABB: DivisibleRectangleType where Vector: VectorDivisible {
     
-    /// Returns an AABB which is an inflated version of this AABB (i.e. bounds
-    /// are larger by `size`, but center remains the same).
-    ///
-    /// Equivalent to insetting the box by a negative amount.
-    ///
-    /// - seealso: ``insetBy(_:)``
-    @_transparent
-    func inflatedBy(_ size: Vector) -> AABB {
-        AABB(minimum: minimum - size / 2, maximum: maximum + size / 2)
-    }
-    
-    /// Returns an AABB which is an inset version of this AABB (i.e. bounds are
-    /// smaller by `size`, but center remains the same).
-    ///
-    /// Equivalent to inflating the box by a negative amount.
-    ///
-    /// - seealso: ``inflatedBy(_:)``
-    @_transparent
-    func insetBy(_ size: Vector) -> AABB {
-        AABB(minimum: minimum + size / 2, maximum: maximum - size / 2)
-    }
-    
-    /// Returns a new AABB with the same size as the current instance, where the
-    /// center of the boundaries lay on `center`.
-    @_transparent
-    func movingCenter(to center: Vector) -> AABB {
-        AABB(minimum: center - size / 2, maximum: center + size / 2)
-    }
 }

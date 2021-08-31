@@ -152,52 +152,6 @@ public extension Rectangle2 where Vector: VectorMultiplicative {
     }
 }
 
-public extension Rectangle2 where Vector: VectorDivisible {
-    /// Gets the center X position of this Rectangle.
-    @_transparent
-    var centerX: Scalar {
-        get {
-            center.x
-        }
-        set {
-            center.x = newValue
-        }
-    }
-    
-    /// Gets the center Y position of this Rectangle.
-    @_transparent
-    var centerY: Scalar {
-        get {
-            center.y
-        }
-        set {
-            center.y = newValue
-        }
-    }
-    
-    /// Returns a Rectangle which is an inflated version of this Rectangle
-    /// (i.e. bounds are larger by `size`, but center remains the same).
-    @_transparent
-    func inflatedBy(x: Scalar, y: Scalar) -> Self {
-        inflatedBy(Vector(x: x, y: y))
-    }
-    
-    /// Returns a Rectangle which is an inset version of this Rectangle
-    /// (i.e. bounds are smaller by `size`, but center remains the same).
-    @_transparent
-    func insetBy(x: Scalar, y: Scalar) -> Self {
-        insetBy(Vector(x: x, y: y))
-    }
-    
-    /// Returns a new Rectangle with the same width and height as the current
-    /// instance, where the center of the boundaries lay on the coordinates
-    /// composed of `[x, y]`.
-    @_transparent
-    func movingCenter(toX x: Scalar, y: Scalar) -> Self {
-        movingCenter(to: Vector(x: x, y: y))
-    }
-}
-
 public extension Rectangle2 where Scalar: FloatingPoint {
     /// Initializes a Rectangle with the coordinates of a rectangle.
     @_transparent
