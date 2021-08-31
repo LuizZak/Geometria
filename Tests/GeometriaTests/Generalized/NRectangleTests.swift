@@ -62,7 +62,19 @@ class NRectangleTests: XCTestCase {
         XCTAssertEqual(result.rectangle, sut)
         XCTAssertEqual(result.radius, .init(x: 5, y: 5))
     }
-    
+}
+
+// MARK: BoundableType Conformance
+
+extension NRectangleTests {
+    func testBounds() {
+        let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
+        XCTAssertEqual(result.maximum, .init(x: 4, y: 7))
+    }
 }
 
 // MARK: VectorAdditive Conformance
@@ -92,6 +104,24 @@ extension NRectangleTests {
         XCTAssertFalse(sut.isSizeZero)
     }
     
+    func testZero() {
+        let result = Rectangle.zero
+        
+        XCTAssertEqual(result.location, .init(x: 0, y: 0))
+        XCTAssertEqual(result.size, .init(x: 0, y: 0))
+    }
+    
+    func testInitEmpty() {
+        let sut = Rectangle()
+        
+        XCTAssertEqual(sut.location, .zero)
+        XCTAssertEqual(sut.size, .zero)
+    }
+}
+
+// MARK: VectorAdditive & VectorComparable Conformance
+
+extension NRectangleTests {
     func testMinimum() {
         let sut = Rectangle(x: 0, y: 1, width: 2, height: 3)
         
@@ -144,19 +174,6 @@ extension NRectangleTests {
         
         XCTAssertEqual(result.location, .init(x: 8, y: 13))
         XCTAssertEqual(result.size, .init(x: 3, y: 5))
-    }
-}
-
-// MARK: BoundableType Conformance
-
-extension NRectangleTests {
-    func testBounds() {
-        let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
-        
-        let result = sut.bounds
-        
-        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
-        XCTAssertEqual(result.maximum, .init(x: 4, y: 7))
     }
 }
 
@@ -276,20 +293,6 @@ extension NRectangleTests {
 // MARK: VectorMultiplicative Conformance
 
 extension NRectangleTests {
-    func testZero() {
-        let result = Rectangle.zero
-        
-        XCTAssertEqual(result.location, .init(x: 0, y: 0))
-        XCTAssertEqual(result.size, .init(x: 0, y: 0))
-    }
-    
-    func testInitEmpty() {
-        let sut = Rectangle()
-        
-        XCTAssertEqual(sut.location, .zero)
-        XCTAssertEqual(sut.size, .zero)
-    }
-    
     func testScaledByVector() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
         
@@ -298,7 +301,11 @@ extension NRectangleTests {
         XCTAssertEqual(result.location, .init(x: 1, y: 2))
         XCTAssertEqual(result.size, .init(x: 6, y: 15))
     }
-    
+}
+
+// MARK: VectorDivisible Conformance
+
+extension NRectangleTests {
     func testCenter() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
         

@@ -78,7 +78,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// within this AABB.
     @inlinable
     public func clamp(_ vector: Vector) -> Vector {
-        return Vector.pointwiseMax(minimum, Vector.pointwiseMin(maximum, vector))
+        Vector.pointwiseMax(minimum, Vector.pointwiseMin(maximum, vector))
     }
     
     /// Returns whether a given point is contained within this box.
@@ -159,6 +159,13 @@ public extension AABB where Vector: VectorAdditive {
         minimum = location
         maximum = location + size
     }
+    
+    /// Returns a copy of this AABB with the minimum and maximum coordinates
+    /// offset by a given amount.
+    @_transparent
+    func offsetBy(_ vector: Vector) -> AABB {
+        AABB(minimum: minimum + vector, maximum: maximum)
+    }
 }
 
 public extension AABB where Vector: VectorAdditive & VectorComparable {
@@ -185,5 +192,39 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
         maximum = first
         
         expand(toInclude: points)
+    }
+}
+
+public extension AABB where Vector: VectorDivisible {
+    /// Gets the center point of this AABB.
+    @inlinable
+    var center: Vector {
+        get {
+            (minimum + maximum) / 2
+        }
+        set {
+            self = self.movingCenter(to: newValue)
+        }
+    }
+    
+    /// Returns an AABB which is an inflated version of this AABB (i.e. bounds
+    /// are larger by `size`, but center remains the same).
+    @inlinable
+    func inflatedBy(_ size: Vector) -> AABB {
+        AABB(minimum: minimum - size / 2, maximum: maximum + size / 2)
+    }
+    
+    /// Returns an AABB which is an inset version of this AABB (i.e. bounds are
+    /// smaller by `size`, but center remains the same).
+    @inlinable
+    func insetBy(_ size: Vector) -> AABB {
+        AABB(minimum: minimum + size / 2, maximum: maximum - size / 2)
+    }
+    
+    /// Returns a new AABB with the same size as the current instance, where the
+    /// center of the boundaries lay on `center`.
+    @inlinable
+    func movingCenter(to center: Vector) -> AABB {
+        AABB(minimum: center - size / 2, maximum: center + size / 2)
     }
 }

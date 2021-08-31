@@ -95,6 +95,17 @@ public extension NRectangle where Vector: VectorAdditive {
         AABB(minimum: minimum, maximum: maximum)
     }
     
+    /// Returns an empty rectangle
+    @_transparent
+    static var zero: NRectangle { NRectangle(location: .zero, size: .zero) }
+    
+    /// Initializes an empty NRectangle instance.
+    @_transparent
+    init() {
+        location = .zero
+        size = .zero
+    }
+    
     /// Initializes a `NRectangle` instance out of the given minimum and maximum
     /// coordinates.
     ///
@@ -104,8 +115,8 @@ public extension NRectangle where Vector: VectorAdditive {
         self.init(location: minimum, size: maximum - minimum)
     }
     
-    /// Returns a copy of this NRectangle with the minimum and maximum coordinates
-    /// offset by a given amount.
+    /// Returns a copy of this NRectangle with its location offset by a given
+    /// Vector amount.
     @_transparent
     func offsetBy(_ vector: Vector) -> NRectangle {
         NRectangle(location: location + vector, size: size)
@@ -211,17 +222,6 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
 }
 
 public extension NRectangle where Vector: VectorMultiplicative {
-    /// Returns an empty rectangle
-    @_transparent
-    static var zero: NRectangle { NRectangle(location: .zero, size: .zero) }
-    
-    /// Initializes an empty NRectangle instance.
-    @_transparent
-    init() {
-        location = .zero
-        size = .zero
-    }
-    
     /// Returns a NRectangle with the same position as this NRectangle, with its
     /// size multiplied by the coordinates of the given vector.
     @inlinable
