@@ -9,30 +9,6 @@ class AABB2Tests: XCTestCase {
                        "AABB<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
     }
     
-    func testX() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.x, 1)
-    }
-    
-    func testY() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.y, 2)
-    }
-    
-    func testLeft() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.left, 1)
-    }
-    
-    func testTop() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.top, 2)
-    }
-    
     func testRight() {
         let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
         
@@ -43,12 +19,6 @@ class AABB2Tests: XCTestCase {
         let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
         
         XCTAssertEqual(sut.bottom, 6)
-    }
-    
-    func testTopLeft() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.topLeft, .init(x: 1, y: 2))
     }
     
     func testTopRight() {
@@ -103,21 +73,5 @@ extension AABB2Tests {
         XCTAssertFalse(sut.contains(x: 4.1, y: 2))
         XCTAssertFalse(sut.contains(x: 4, y: 6.1))
         XCTAssertFalse(sut.contains(x: 1, y: 6.1))
-    }
-}
-
-// MARK: VectorAdditive Conformance
-
-extension AABB2Tests {
-    func testWidth() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.width, 2)
-    }
-    
-    func testHeight() {
-        let sut = AABB(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))
-        
-        XCTAssertEqual(sut.height, 4)
     }
 }

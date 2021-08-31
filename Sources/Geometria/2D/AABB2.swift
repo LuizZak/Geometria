@@ -102,18 +102,6 @@ public extension AABB2 where Vector: VectorComparable {
 }
 
 public extension AABB2 where Vector: VectorAdditive {
-    /// Gets the width of this box.
-    @_transparent
-    var width: Scalar {
-        size.x
-    }
-    
-    /// Gets the height of this box.
-    @_transparent
-    var height: Scalar {
-        size.y
-    }
-    
     /// Initializes a `AABB` with the coordinates of a rectangle.
     @inlinable
     init(x: Scalar, y: Scalar, width: Scalar, height: Scalar) {

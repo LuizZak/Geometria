@@ -1,3 +1,6 @@
+// TODO: Split RectangleType into a more primitive protocol exposing just
+// TODO: 'location' so AABB can conform without requiring VectorAdditive conformance
+
 /// Protocol for geometric types defined by vectors that fill enclosed
 /// rectangular areas with a defined location and size.
 public protocol RectangleType: GeometricType {
