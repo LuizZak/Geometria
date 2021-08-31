@@ -60,6 +60,13 @@ extension NRectangleTests {
 // MARK: VectorAdditive Conformance
 
 extension NRectangleTests {
+    func testZero() {
+        let result = Rectangle.zero
+        
+        XCTAssertEqual(result.location, .init(x: 0, y: 0))
+        XCTAssertEqual(result.size, .init(x: 0, y: 0))
+    }
+    
     func testIsSizeZero_zeroArea() {
         let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 0, y: 0))
         
@@ -82,13 +89,6 @@ extension NRectangleTests {
         let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 1, y: 1))
         
         XCTAssertFalse(sut.isSizeZero)
-    }
-    
-    func testZero() {
-        let result = Rectangle.zero
-        
-        XCTAssertEqual(result.location, .init(x: 0, y: 0))
-        XCTAssertEqual(result.size, .init(x: 0, y: 0))
     }
     
     func testInitEmpty() {
@@ -145,15 +145,6 @@ extension NRectangleTests {
         
         XCTAssertEqual(sut.location, .init(x: 1, y: 2))
         XCTAssertEqual(sut.size, .init(x: 2, y: 3))
-    }
-    
-    func testOffsetBy() {
-        let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
-        
-        let result = sut.offsetBy(.init(x: 7, y: 11))
-        
-        XCTAssertEqual(result.location, .init(x: 8, y: 13))
-        XCTAssertEqual(result.size, .init(x: 3, y: 5))
     }
 }
 

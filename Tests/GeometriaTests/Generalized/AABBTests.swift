@@ -101,15 +101,6 @@ extension AABBTests {
         
         XCTAssertFalse(sut.isSizeZero)
     }
-    
-    func testOffsetBy() {
-        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 7, y: 11))
-        
-        let result = sut.offsetBy(.init(x: 13, y: 17))
-        
-        XCTAssertEqual(result.minimum, .init(x: 14, y: 19))
-        XCTAssertEqual(result.maximum, .init(x: 7, y: 11))
-    }
 }
 
 // MARK: VectorComparable Conformance

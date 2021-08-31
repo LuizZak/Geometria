@@ -1,4 +1,10 @@
-/// Protocol for rectangle geometric types that can be constructed.
+/// Protocol for rectangle geometric types that can be constructed with location
+/// and size.
+///
+/// Rectangle types that cannot be constructed with arbitrary location or sizes
+/// (e.g. ``NSquare`` has location but size is restricted to a single side
+/// length scalar) should not conform to this protocol, instead use base
+/// protocol ``RectangleType``.
 public protocol ConstructableRectangleType: RectangleType {
     /// Initializes a new instance of this `RectangleType` with the given
     /// location and size vectors.
@@ -16,11 +22,11 @@ public protocol ConstructableRectangleType: RectangleType {
 public extension ConstructableRectangleType {
     @inlinable
     func withLocation(_ location: Vector) -> Self {
-        return Self(location: location, size: size)
+        Self(location: location, size: size)
     }
     
     @inlinable
     func withSize(_ size: Vector) -> Self {
-        return Self(location: location, size: size)
+        Self(location: location, size: size)
     }
 }

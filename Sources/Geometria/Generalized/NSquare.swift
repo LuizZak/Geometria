@@ -27,7 +27,7 @@ public struct NSquare<Vector: VectorType>: GeometricType {
 extension NSquare: RectangleType & BoundableType where Vector: VectorAdditive {
     /// Returns the span of this ``NSquare``.
     public var size: Vector {
-        return Vector(repeating: sideLength)
+        Vector(repeating: sideLength)
     }
     
     /// Returns the minimal ``AABB`` capable of containing this ``NSquare``.

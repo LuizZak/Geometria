@@ -45,10 +45,14 @@ extension NRectangle: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension NRectangle: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension NRectangle: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-public extension NRectangle where Vector: VectorAdditive {
+extension NRectangle: AdditiveRectangleType where Vector: VectorAdditive {
+    /// Returns an empty rectangle
+    @_transparent
+    public static var zero: NRectangle { NRectangle(location: .zero, size: .zero) }
+    
     /// Returns `true` if the size of this rectangle is zero.
     @_transparent
-    var isSizeZero: Bool {
+    public var isSizeZero: Bool {
         size == .zero
     }
     
@@ -56,7 +60,7 @@ public extension NRectangle where Vector: VectorAdditive {
     ///
     /// When set, the maximal point on the opposite corner is kept fixed.
     @_transparent
-    var minimum: Vector {
+    public var minimum: Vector {
         get {
             location
         }
@@ -72,7 +76,7 @@ public extension NRectangle where Vector: VectorAdditive {
     ///
     /// When set, the minimal point on the opposite corner is kept fixed.
     @_transparent
-    var maximum: Vector {
+    public var maximum: Vector {
         get {
             location + size
         }
@@ -83,17 +87,13 @@ public extension NRectangle where Vector: VectorAdditive {
     
     /// Returns this `Rectangle` represented as an `AABB`
     @_transparent
-    var asAABB: AABB<Vector> {
+    public var asAABB: AABB<Vector> {
         AABB(minimum: minimum, maximum: maximum)
     }
     
-    /// Returns an empty rectangle
-    @_transparent
-    static var zero: NRectangle { NRectangle(location: .zero, size: .zero) }
-    
     /// Initializes an empty NRectangle instance.
     @_transparent
-    init() {
+    public init() {
         location = .zero
         size = .zero
     }
@@ -103,15 +103,8 @@ public extension NRectangle where Vector: VectorAdditive {
     ///
     /// - precondition: `minimum <= maximum`
     @_transparent
-    init(minimum: Vector, maximum: Vector) {
+    public init(minimum: Vector, maximum: Vector) {
         self.init(location: minimum, size: maximum - minimum)
-    }
-    
-    /// Returns a copy of this NRectangle with its location offset by a given
-    /// Vector amount.
-    @_transparent
-    func offsetBy(_ vector: Vector) -> NRectangle {
-        NRectangle(location: location + vector, size: size)
     }
 }
 

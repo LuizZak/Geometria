@@ -12,5 +12,8 @@ doc-publish: doc
 lint:
 	@swiftlint
 
+lint-html:
+	@swiftlint lint --reporter html > lint-results.html
+
 repl:
 	swift run --repl

@@ -214,7 +214,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     }
 }
 
-extension AABB: RectangleType & ConstructableRectangleType where Vector: VectorAdditive {
+extension AABB: RectangleType & ConstructableRectangleType & AdditiveRectangleType where Vector: VectorAdditive {
     /// Returns a box with ``minimum`` and ``maximum`` set to `Vector.zero`.
     @_transparent
     public static var zero: Self { Self(minimum: .zero, maximum: .zero) }
@@ -250,13 +250,6 @@ extension AABB: RectangleType & ConstructableRectangleType where Vector: VectorA
     public init(location: Vector, size: Vector) {
         minimum = location
         maximum = location + size
-    }
-    
-    /// Returns a copy of this AABB with the minimum and maximum coordinates
-    /// offset by a given amount.
-    @_transparent
-    public func offsetBy(_ vector: Vector) -> AABB {
-        AABB(minimum: minimum + vector, maximum: maximum)
     }
 }
 
