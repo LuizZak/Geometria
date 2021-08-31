@@ -8,3 +8,9 @@ doc:
 
 doc-publish: doc
 	@$(MAKE) -C docs publish
+
+lint:
+	@swiftlint
+
+repl:
+	swift run --repl

@@ -234,6 +234,10 @@ public extension NRectangle where Vector: VectorMultiplicative {
 
 public extension NRectangle where Vector: VectorDivisible {
     /// Gets the center point of this Rectangle.
+    ///
+    /// When assigning the center of a rectangle, the size remains unchanged
+    /// while the coordinates of the vectors change to position the rectangle's
+    /// center on the provided coordinates.
     @inlinable
     var center: Vector {
         get {
@@ -248,9 +252,9 @@ public extension NRectangle where Vector: VectorDivisible {
     /// Returns a NRectangle which is an inflated version of this NRectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
     ///
-    /// Equivalent to inseting the rectangle by a negative amount.
+    /// Equivalent to insetting the rectangle by a negative amount.
     ///
-    /// - seealso: insetBy
+    /// - seealso: ``insetBy(_:)``
     @_transparent
     func inflatedBy(_ size: Vector) -> NRectangle {
         NRectangle(minimum: minimum - size / 2, maximum: maximum + size / 2)
@@ -261,7 +265,7 @@ public extension NRectangle where Vector: VectorDivisible {
     ///
     /// Equivalent to inflating the rectangle by a negative amount.
     ///
-    /// - seealso: inflatedBy
+    /// - seealso: ``inflatedBy(_:)``
     @_transparent
     func insetBy(_ size: Vector) -> NRectangle {
         NRectangle(minimum: minimum + size / 2, maximum: maximum - size / 2)

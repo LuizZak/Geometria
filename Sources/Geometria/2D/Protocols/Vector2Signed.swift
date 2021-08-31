@@ -1,3 +1,4 @@
+/// Protocol for 2D vector types where the components are signed numbers.
 public protocol Vector2Signed: Vector2Type & VectorSigned {
     /// Makes this Vector perpendicular to its current position relative to the
     /// origin.
@@ -15,8 +16,8 @@ public protocol Vector2Signed: Vector2Type & VectorSigned {
     /// This alters the vector instance.
     mutating func formLeftRotated()
     
-    /// Returns a vector that represents this vector's point, rotated 90º clockwise
-    /// clockwise relative to the origin.
+    /// Returns a vector that represents this vector's point, rotated 90º
+    /// clockwise clockwise relative to the origin.
     func rightRotated() -> Self
     
     /// Rotates this vector 90º clockwise relative to the origin.

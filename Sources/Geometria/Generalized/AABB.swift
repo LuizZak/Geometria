@@ -45,8 +45,7 @@ public extension AABB where Vector: Equatable {
     /// Size is zero when `minimum == maximum`.
     ///
     /// ```swift
-    /// let box = AABB2D(minimum: .init(x: 1.0, y: 2.0),
-    ///                  maximum: .init(x: 1.0, y: 2.0))
+    /// let box = AABB2D(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0)
     ///
     /// print(box.isSizeZero) // Prints "true"
     /// ```
@@ -69,7 +68,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// AABB and vector `point`.
     ///
     /// ```swift
-    /// var box = AABB2D(minimum: .init(x: 1, y: 1), maximum: .init(x: 3, y: 3))
+    /// var box = AABB2D(left: 1, top: 1, right: 3, bottom: 3)
     ///
     /// box.expand(toInclude: .init(x: -5, y: 6))
     ///
@@ -83,11 +82,23 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     
     /// Expands this box to fully include the given set of points.
     ///
-    /// Equivalent to calling `expand(toInclude:Vector2D)` over each point.
+    /// Equivalent to calling ``expand(toInclude:)-3z3he`` over each point.
     /// If the array is empty, nothing is done.
     ///
     /// The resulting box is the minimal AABB capable of enclosing the original
     /// AABB and all vectors in `points`.
+    ///
+    /// ```swift
+    /// var box = AABB2D(left: 1, top: 1, right: 3, bottom: 3)
+    ///
+    /// box.expand(toInclude: [
+    ///     .init(x: -5, y: 4),
+    ///     .init(x: 3, y: -2),
+    ///     .init(x: 1, y: 6)
+    /// ])
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"
+    /// ```
     @inlinable
     public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
         for p in points {
@@ -97,9 +108,17 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     
     /// Clamps a given vector's coordinates to the confines of this AABB.
     ///
-    /// Points inside the AABB remain unchanced, while points outside are
+    /// Points inside the AABB remain unchanged, while points outside are
     /// projected along the edges to the closest point to `vector` that is
     /// within this AABB.
+    ///
+    /// ```swift
+    /// let box = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
+    ///
+    /// print(box.clamp(.init(x: -3, y: 2))) // Prints "(x: -1, y: 2)"
+    /// print(box.clamp(.init(x: -3, y: -3))) // Prints "(x: -1, y: -2)"
+    /// print(box.clamp(.init(x: 5, y: 1))) // Prints "(x: 3, y: 1)"
+    /// ```
     @_transparent
     public func clamp(_ vector: Vector) -> Vector {
         Vector.pointwiseMax(minimum, Vector.pointwiseMin(maximum, vector))
@@ -109,6 +128,13 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     ///
     /// The check is inclusive, so the edges of the box are considered to
     /// contain the point as well.
+    ///
+    /// ```swift
+    /// let box = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
+    ///
+    /// print(box.contains(.init(x: -3, y: 2))) // Prints "false"
+    /// print(box.contains(.init(x: 1, y: 2))) // Prints "true"
+    /// ```
     @_transparent
     public func contains(_ point: Vector) -> Bool {
         point >= minimum && point <= maximum
@@ -118,6 +144,16 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// boundaries of this box.
     ///
     /// Returns `true` for `aabb.contains(aabb)`.
+    ///
+    /// ```swift
+    /// let box1 = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
+    /// let box2 = AABB2D(left: 0, top: 1, right: 2, bottom: 3)
+    /// let box3 = AABB2D(left: 1, top: 1, right: 5, bottom: 5)
+    ///
+    /// print(box1.contains(box: box1)) // Prints "true"
+    /// print(box1.contains(box: box2)) // Prints "true"
+    /// print(box1.contains(box: box3)) // Prints "false"
+    /// ```
     @_transparent
     public func contains(box: AABB) -> Bool {
         box.minimum >= minimum && box.maximum <= maximum
@@ -127,6 +163,18 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     ///
     /// This check is inclusive, so edges of the box are considered to intersect
     /// the other bounding box's edges as well.
+    ///
+    /// ```swift
+    /// let box1 = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
+    /// let box2 = AABB2D(left: 0, top: 1, right: 2, bottom: 3)
+    /// let box3 = AABB2D(left: 1, top: 1, right: 5, bottom: 5)
+    /// let box4 = AABB2D(left: -1, top: 5, right: 3, bottom: 7)
+    ///
+    /// print(box1.intersects(box: box1)) // Prints "true"
+    /// print(box1.intersects(box: box2)) // Prints "true"
+    /// print(box1.intersects(box: box3)) // Prints "true"
+    /// print(box1.intersects(box: box4)) // Prints "false"
+    /// ```
     @_transparent
     public func intersects(_ box: AABB) -> Bool {
         minimum <= box.maximum && maximum >= box.minimum
@@ -136,6 +184,13 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// given box.
     ///
     /// Returns `aabb` for `aabb.union(aabb)`.
+    ///
+    /// ```swift
+    /// let box1 = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
+    /// let box2 = AABB2D(left: 0, top: -3, right: 5, bottom: 3)
+    ///
+    /// print(box1.union(box2)) // Prints (minimum: (x: -1, y: -3), maximum: (x: 5, y: 4))
+    /// ```
     @_transparent
     public func union(_ other: AABB) -> AABB {
         AABB.union(self, other)
@@ -145,6 +200,13 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// `right`.
     ///
     /// Returns `aabb` for `AABB.union(aabb, aabb)`.
+    ///
+    /// ```swift
+    /// let box1 = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
+    /// let box2 = AABB2D(left: 0, top: -3, right: 5, bottom: 3)
+    ///
+    /// print(AABB.union(box1, box2)) // Prints (minimum: (x: -1, y: -3), maximum: (x: 5, y: 4))
+    /// ```
     @_transparent
     public static func union(_ left: AABB, _ right: AABB) -> AABB {
         AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
@@ -163,7 +225,7 @@ public extension AABB where Vector: VectorAdditive {
         maximum - minimum
     }
     
-    /// Returns `true` if this box is a `Box2.zero` instance.
+    /// Returns `true` if this box is a `AABB.zero` instance.
     @_transparent
     var isZero: Bool {
         minimum == .zero && maximum == .zero
@@ -226,7 +288,11 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
 }
 
 public extension AABB where Vector: VectorDivisible {
-    /// Gets the center point of this AABB.
+    /// Gets or sets the center point of this AABB.
+    ///
+    /// When assigning the center of a bounding box, the size remains unchanged
+    /// while the coordinates of the vectors change to position the AABB's center
+    /// on the provided coordinates.
     @inlinable
     var center: Vector {
         get {
@@ -239,21 +305,29 @@ public extension AABB where Vector: VectorDivisible {
     
     /// Returns an AABB which is an inflated version of this AABB (i.e. bounds
     /// are larger by `size`, but center remains the same).
-    @inlinable
+    ///
+    /// Equivalent to insetting the box by a negative amount.
+    ///
+    /// - seealso: ``insetBy(_:)``
+    @_transparent
     func inflatedBy(_ size: Vector) -> AABB {
         AABB(minimum: minimum - size / 2, maximum: maximum + size / 2)
     }
     
     /// Returns an AABB which is an inset version of this AABB (i.e. bounds are
     /// smaller by `size`, but center remains the same).
-    @inlinable
+    ///
+    /// Equivalent to inflating the box by a negative amount.
+    ///
+    /// - seealso: ``inflatedBy(_:)``
+    @_transparent
     func insetBy(_ size: Vector) -> AABB {
         AABB(minimum: minimum + size / 2, maximum: maximum - size / 2)
     }
     
     /// Returns a new AABB with the same size as the current instance, where the
     /// center of the boundaries lay on `center`.
-    @inlinable
+    @_transparent
     func movingCenter(to center: Vector) -> AABB {
         AABB(minimum: center - size / 2, maximum: center + size / 2)
     }

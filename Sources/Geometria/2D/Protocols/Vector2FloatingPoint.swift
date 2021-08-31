@@ -1,4 +1,4 @@
-/// Protocol for vector types where the components are floating-point numbers
+/// Protocol for 2D vector types where the components are floating-point numbers.
 public protocol Vector2FloatingPoint: Vector2Type, VectorFloatingPoint {
     /// Initializes this `Vector2FloatingPoint` with a given binary Vector2
     init<V: Vector2Type>(_ other: V) where V.Scalar: BinaryInteger
