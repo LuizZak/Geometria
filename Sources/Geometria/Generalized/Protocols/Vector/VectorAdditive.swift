@@ -5,7 +5,7 @@ public protocol VectorAdditive: VectorType, AdditiveArithmetic where Scalar: Add
     ///
     /// ```swift
     /// print(Vector2D()) // Prints "(x: 0.0, y: 0.0)"
-    /// print(Vector2i()) // Prints "(x: 0.0, y: 0.0)"
+    /// print(Vector2i()) // Prints "(x: 0, y: 0)"
     /// ```
     init()
     
