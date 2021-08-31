@@ -13,6 +13,6 @@ public typealias Square2<V: Vector2Type> = NSquare<V>
 public extension Square2 {
     @_transparent
     init(x: Scalar, y: Scalar, sideLength: Scalar) {
-        self.init(origin: .init(x: x, y: y), sideLength: sideLength)
+        self.init(location: .init(x: x, y: y), sideLength: sideLength)
     }
 }

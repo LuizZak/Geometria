@@ -4,9 +4,9 @@ public struct NSquare<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
-    /// The origin of this box, corresponding to the minimal coordinate of the
+    /// The location of this box, corresponding to the minimal coordinate of the
     /// box's bounds.
-    public var origin: Vector
+    public var location: Vector
     
     /// The length of the side edges of this square.
     public var sideLength: Scalar
@@ -14,21 +14,26 @@ public struct NSquare<Vector: VectorType>: GeometricType {
     /// Returns a rectangle with the same boundaries as this square.
     @_transparent
     public var asRectangle: NRectangle<Vector> {
-        NRectangle(location: origin, size: Vector(repeating: sideLength))
+        NRectangle(location: location, size: Vector(repeating: sideLength))
     }
     
     @_transparent
-    public init(origin: Vector, sideLength: Scalar) {
-        self.origin = origin
+    public init(location: Vector, sideLength: Scalar) {
+        self.location = location
         self.sideLength = sideLength
     }
 }
 
-extension NSquare: BoundableType where Vector: VectorAdditive {
-    /// Returns the minimal ``AABB`` capable of containing this NSquare.
+extension NSquare: RectangleType & BoundableType where Vector: VectorAdditive {
+    /// Returns the span of this ``NSquare``.
+    public var size: Vector {
+        return Vector(repeating: sideLength)
+    }
+    
+    /// Returns the minimal ``AABB`` capable of containing this ``NSquare``.
     @_transparent
     public var bounds: AABB<Vector> {
-        AABB(minimum: origin, maximum: origin + Vector(repeating: sideLength))
+        AABB(minimum: location, maximum: location + Vector(repeating: sideLength))
     }
 }
 
@@ -37,8 +42,8 @@ extension NSquare: VolumetricType where Vector: VectorAdditive & VectorComparabl
     /// square.
     @inlinable
     public func contains(_ vector: Vector) -> Bool {
-        let max = origin + Vector(repeating: sideLength)
+        let max = location + Vector(repeating: sideLength)
         
-        return vector >= origin && vector <= max
+        return vector >= location && vector <= max
     }
 }

@@ -5,7 +5,7 @@ class NSquareTests: XCTestCase {
     typealias Square = NSquare<Vector2D>
     
     func testAsRectangle() {
-        let sut = Square(origin: .init(x: 2, y: 3), sideLength: 4)
+        let sut = Square(location: .init(x: 2, y: 3), sideLength: 4)
         
         let result = sut.asRectangle
         
@@ -14,11 +14,17 @@ class NSquareTests: XCTestCase {
     }
 }
 
-// MARK: BoundableType Conformance
+// MARK: RectangleType & BoundableType Conformance
 
 extension NSquareTests {
+    func testSize() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 3)
+        
+        XCTAssertEqual(sut.size, .init(x: 3, y: 3))
+    }
+    
     func testBounds() {
-        let sut = Square(origin: .init(x: 2, y: 3), sideLength: 4)
+        let sut = Square(location: .init(x: 2, y: 3), sideLength: 4)
         
         let result = sut.bounds
         
@@ -31,13 +37,13 @@ extension NSquareTests {
 
 extension NSquareTests {
     func testContainsVector_center() {
-        let sut = Square(origin: .init(x: 3, y: 2), sideLength: 1)
+        let sut = Square(location: .init(x: 3, y: 2), sideLength: 1)
         
         XCTAssertTrue(sut.contains(.init(x: 3.5, y: 2.5)))
     }
     
     func testContainsVector() {
-        let sut = Square(origin: .init(x: 2.5, y: 4.5), sideLength: 1)
+        let sut = Square(location: .init(x: 2.5, y: 4.5), sideLength: 1)
         
         XCTAssert(sut.contains(.init(x: 2.5, y: 4.5)))
         XCTAssert(sut.contains(.init(x: 2.5, y: 5.5)))

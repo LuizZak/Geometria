@@ -7,8 +7,8 @@ class Square2Tests: XCTestCase {
     func testInitWithXYSideLength() {
         let sut = Square(x: 1, y: 2, sideLength: 3)
         
-        XCTAssertEqual(sut.origin.x, 1)
-        XCTAssertEqual(sut.origin.y, 2)
+        XCTAssertEqual(sut.location.x, 1)
+        XCTAssertEqual(sut.location.y, 2)
         XCTAssertEqual(sut.sideLength, 3)
     }
 }

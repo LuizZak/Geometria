@@ -133,7 +133,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// let box = AABB2D(left: -1, top: -2, right: 3, bottom: 4)
     ///
     /// print(box.contains(.init(x: -3, y: 2))) // Prints "false"
-    /// print(box.contains(.init(x: 1, y: 2))) // Prints "true"
+    /// print(box.contains(.init(x: 1, y: 4))) // Prints "true"
     /// ```
     @_transparent
     public func contains(_ point: Vector) -> Bool {
@@ -214,32 +214,32 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     }
 }
 
-public extension AABB where Vector: VectorAdditive {
+extension AABB: RectangleType & ConstructableRectangleType where Vector: VectorAdditive {
     /// Returns a box with ``minimum`` and ``maximum`` set to `Vector.zero`.
     @_transparent
-    static var zero: Self { Self(minimum: .zero, maximum: .zero) }
+    public static var zero: Self { Self(minimum: .zero, maximum: .zero) }
     
     /// Gets the size of this box.
     @_transparent
-    var size: Vector {
+    public var size: Vector {
         maximum - minimum
     }
     
     /// Returns `true` if this box is a `AABB.zero` instance.
     @_transparent
-    var isZero: Bool {
+    public var isZero: Bool {
         minimum == .zero && maximum == .zero
     }
     
     /// Returns this `Box` represented as a `Rectangle`
     @_transparent
-    var asRectangle: NRectangle<Vector> {
+    public var asRectangle: NRectangle<Vector> {
         NRectangle(minimum: minimum, maximum: maximum)
     }
     
     /// Initializes an AABB with zero minimal and maximal vectors.
     @_transparent
-    init() {
+    public init() {
         minimum = .zero
         maximum = .zero
     }
@@ -247,7 +247,7 @@ public extension AABB where Vector: VectorAdditive {
     /// Initializes this AABB with the equivalent coordinates of a rectangle
     /// with a given location and size.
     @_transparent
-    init(location: Vector, size: Vector) {
+    public init(location: Vector, size: Vector) {
         minimum = location
         maximum = location + size
     }
@@ -255,7 +255,7 @@ public extension AABB where Vector: VectorAdditive {
     /// Returns a copy of this AABB with the minimum and maximum coordinates
     /// offset by a given amount.
     @_transparent
-    func offsetBy(_ vector: Vector) -> AABB {
+    public func offsetBy(_ vector: Vector) -> AABB {
         AABB(minimum: minimum + vector, maximum: maximum)
     }
 }

@@ -1,13 +1,15 @@
 /// Represents an N-dimensional rectangle with a vector describing its origin
 /// and a size vector that describes the span of the rectangle.
-public struct NRectangle<Vector: VectorType>: GeometricType {
+public struct NRectangle<Vector: VectorType>: ConstructableRectangleType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
-    /// The top-left location of this rectangle.
+    /// The starting location of this rectangle with the minimal coordinates
+    /// contained within the rectangle.
     public var location: Vector
     
-    /// The size of this rectangle.
+    /// The size of this rectangle, which when added to ``location`` produce the
+    /// maximal coordinates contained within this rectangle.
     ///
     /// Must be `>= Vector.zero`
     public var size: Vector
@@ -17,18 +19,6 @@ public struct NRectangle<Vector: VectorType>: GeometricType {
     public init(location: Vector, size: Vector) {
         self.location = location
         self.size = size
-    }
-    
-    /// Returns a NRectangle that matches this NRectangle's size with a new location.
-    @_transparent
-    public func withLocation(_ location: Vector) -> NRectangle {
-        NRectangle(location: location, size: size)
-    }
-    
-    /// Returns a NRectangle that matches this NRectangle's size with a new location.
-    @_transparent
-    public func withSize(_ size: Vector) -> NRectangle {
-        NRectangle(location: location, size: size)
     }
     
     /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,

@@ -13,6 +13,6 @@ public typealias Cube3<V: Vector3Type> = NSquare<V>
 public extension Cube3 {
     @_transparent
     init(x: Scalar, y: Scalar, z: Scalar, sideLength: Scalar) {
-        self.init(origin: .init(x: x, y: y, z: z), sideLength: sideLength)
+        self.init(location: .init(x: x, y: y, z: z), sideLength: sideLength)
     }
 }

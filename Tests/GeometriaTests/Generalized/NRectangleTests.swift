@@ -25,26 +25,6 @@ class NRectangleTests: XCTestCase {
         XCTAssertEqual(sut.size, .init(x: 3, y: 4))
     }
     
-    func testWithLocation() {
-        let sut = Rectangle(location: .init(x: 0, y: 0),
-                            size: .init(x: 3, y: 4))
-        
-        let result = sut.withLocation(.init(x: 1, y: 2))
-        
-        XCTAssertEqual(result.location, .init(x: 1, y: 2))
-        XCTAssertEqual(result.size, .init(x: 3, y: 4))
-    }
-    
-    func testWithSize() {
-        let sut = Rectangle(location: .init(x: 1, y: 2),
-                            size: .init(x: 0, y: 0))
-        
-        let result = sut.withSize(.init(x: 3, y: 4))
-        
-        XCTAssertEqual(result.location, .init(x: 1, y: 2))
-        XCTAssertEqual(result.size, .init(x: 3, y: 4))
-    }
-    
     func testRoundedRadius() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         
