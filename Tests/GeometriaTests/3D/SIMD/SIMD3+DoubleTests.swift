@@ -106,28 +106,6 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(v1.dot(v2), 3200)
     }
     
-    func testRatio() {
-        let v1 = Vector(x: 10, y: 20, z: 30)
-        let v2 = Vector(x: 40, y: 50, z: 60)
-        
-        XCTAssertEqual(v1.ratio(-1, to: v2), Vector(x: -20, y: -10, z: 0))
-        XCTAssertEqual(v1.ratio(0, to: v2), v1)
-        XCTAssertEqual(v1.ratio(0.5, to: v2), Vector(x: 25, y: 35, z: 45))
-        XCTAssertEqual(v1.ratio(1, to: v2), v2)
-        XCTAssertEqual(v1.ratio(2, to: v2), Vector(x: 70, y: 80, z: 90))
-    }
-    
-    func testLerp() {
-        let v1 = Vector(x: 10, y: 20, z: 30)
-        let v2 = Vector(x: 70, y: 110, z: 130)
-        
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: -1), Vector(x: -50, y: -70, z: -70))
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 0), v1)
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 0.5), Vector(x: 40.0, y: 65.0, z: 80.0))
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 1), v2)
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 2), Vector(x: 130.0, y: 200.0, z: 230.0))
-    }
-    
     func testAbsolute() {
         let vec = Vector(x: -1, y: -2, z: -3)
         

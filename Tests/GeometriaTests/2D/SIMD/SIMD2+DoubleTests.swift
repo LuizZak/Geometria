@@ -117,28 +117,6 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(v1.cross(v2), -200)
     }
     
-    func testRatio() {
-        let v1 = Vector(x: 10, y: 20)
-        let v2 = Vector(x: 30, y: 40)
-        
-        XCTAssertEqual(v1.ratio(-1, to: v2), Vector(x: -10, y: 0))
-        XCTAssertEqual(v1.ratio(0, to: v2), v1)
-        XCTAssertEqual(v1.ratio(0.5, to: v2), Vector(x: 20, y: 30))
-        XCTAssertEqual(v1.ratio(1, to: v2), v2)
-        XCTAssertEqual(v1.ratio(2, to: v2), Vector(x: 50, y: 60))
-    }
-    
-    func testLerp() {
-        let v1 = Vector(x: 10, y: 20)
-        let v2 = Vector(x: 30, y: 40)
-        
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: -1), Vector(x: -10, y: 0))
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 0), v1)
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 0.5), Vector(x: 20, y: 30))
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 1), v2)
-        XCTAssertEqual(Vector.lerp(start: v1, end: v2, amount: 2), Vector(x: 50, y: 60))
-    }
-    
     func testPerpendicular() {
         let vec = Vector(x: 5, y: 1)
         

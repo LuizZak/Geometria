@@ -94,16 +94,6 @@ extension SIMD2: VectorMultiplicative where Scalar == Double {
     public func dot(_ other: SIMD2<Scalar>) -> Scalar {
         simd.dot(self, other)
     }
-    
-    @inlinable
-    public func ratio(_ ratio: Scalar, to other: SIMD2<Scalar>) -> SIMD2<Scalar> {
-        (1 - ratio) * self + ratio * other
-    }
-    
-    @inlinable
-    public static func lerp(start: SIMD2<Scalar>, end: SIMD2<Scalar>, amount: Scalar) -> SIMD2<Scalar> {
-        start.ratio(amount, to: end)
-    }
 }
 
 extension SIMD2: Vector2Multiplicative where Scalar == Double {

@@ -94,16 +94,6 @@ extension SIMD3: VectorMultiplicative where Scalar == Double {
     public func dot(_ other: SIMD3<Scalar>) -> Scalar {
         simd.dot(self, other)
     }
-    
-    @_transparent
-    public func ratio(_ ratio: Scalar, to other: SIMD3<Scalar>) -> SIMD3<Scalar> {
-        (1 - ratio) * self + ratio * other
-    }
-    
-    @_transparent
-    public static func lerp(start: SIMD3<Scalar>, end: SIMD3<Scalar>, amount: Scalar) -> SIMD3<Scalar> {
-        start.ratio(amount, to: end)
-    }
 }
 
 extension SIMD3: VectorSigned where Scalar == Double {

@@ -69,8 +69,47 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
 }
 
 public extension VectorMultiplicative {
-    /// Returns the distance squared between this `VectorType` and another `VectorType`
+    /// Returns the length squared of this `VectorType`
+    @_transparent
+    var lengthSquared: Scalar {
+        self.dot(self)
+    }
+    
+    /// Returns the squared distance between this `VectorType` and another
+    /// `VectorType`
+    @_transparent
     func distanceSquared(to vec: Self) -> Scalar {
         (self - vec).lengthSquared
+    }
+    
+    /// Returns the vector that lies within this and another vector's ratio line
+    /// projected at a specified ratio along the line created by the vectors.
+    ///
+    /// A vector on ratio of 0 is the same as this vector's position, and 1 is the
+    /// same as the other vector's position.
+    ///
+    /// Values beyond 0 - 1 range project the point across the limits of the line.
+    ///
+    /// - Parameters:
+    ///   - ratio: A ratio (usually 0 through 1) between this and the second vector.
+    ///   - other: The second vector to form the line that will have the point
+    /// projected onto.
+    /// - Returns: A vector that lies within the line created by the two vectors.
+    @_transparent
+    func ratio(_ ratio: Scalar, to other: Self) -> Self {
+        self * (1 - ratio) + other * ratio
+    }
+    
+    /// Performs a linear interpolation between two points.
+    ///
+    /// Passing `amount` a value of 0 will cause `start` to be returned; a value
+    /// of 1 will cause `end` to be returned.
+    ///
+    /// - Parameter start: Start point.
+    /// - Parameter end: End point.
+    /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
+    @_transparent
+    static func lerp(start: Self, end: Self, amount: Scalar) -> Self {
+        start.ratio(amount, to: end)
     }
 }

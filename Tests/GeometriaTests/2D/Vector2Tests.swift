@@ -283,45 +283,11 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec1, Vector(x: 0, y: 1))
     }
     
-    func testLengthSquared() {
-        XCTAssertEqual(Vector(x: 3, y: 2).lengthSquared, 13)
-        XCTAssertEqual(Vector2D(x: 3.0, y: 2.0).lengthSquared, 13.0)
-    }
-
-    func testDot() {
-        let v1 = Vector(x: 2, y: 3)
-        let v2 = Vector(x: 5, y: 7)
-        
-        XCTAssertEqual(v1.dot(v2), 31)
-    }
-    
     func testCross() {
         let v1 = Vector(x: 10, y: 20)
         let v2 = Vector(x: 30, y: 40)
         
         XCTAssertEqual(v1.cross(v2), -200)
-    }
-    
-    func testRatio() {
-        let v1 = Vector2D(x: 10, y: 20)
-        let v2 = Vector2D(x: 30, y: 40)
-        
-        XCTAssertEqual(v1.ratio(-1, to: v2), Vector2D(x: -10, y: 0))
-        XCTAssertEqual(v1.ratio(0, to: v2), v1)
-        XCTAssertEqual(v1.ratio(0.5, to: v2), Vector2D(x: 20, y: 30))
-        XCTAssertEqual(v1.ratio(1, to: v2), v2)
-        XCTAssertEqual(v1.ratio(2, to: v2), Vector2D(x: 50, y: 60))
-    }
-    
-    func testLerp() {
-        let v1 = Vector2D(x: 10, y: 20)
-        let v2 = Vector2D(x: 30, y: 40)
-        
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: -1), Vector2D(x: -10, y: 0))
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 0), v1)
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 0.5), Vector2D(x: 20, y: 30))
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 1), v2)
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 2), Vector2D(x: 50, y: 60))
     }
     
     func testAbsolute() {
