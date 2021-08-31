@@ -173,7 +173,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     /// Expands the bounding box of this NRectangle to include the given set of
     /// points.
     ///
-    /// Same as calling `expand(toInclude:Vector2D)` over each point.
+    /// Same as calling ``expand(toInclude:)-970h`` over each point.
     /// If the array is empty, nothing is done.
     @inlinable
     public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
@@ -237,28 +237,37 @@ public extension NRectangle where Vector: VectorDivisible {
         get {
             location + size / 2
         }
+        @_transparent
         set {
-            location = newValue - size / 2
+            self = movingCenter(to: newValue)
         }
     }
     
     /// Returns a NRectangle which is an inflated version of this NRectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
-    @inlinable
+    ///
+    /// Equivalent to inseting the rectangle by a negative amount.
+    ///
+    /// - seealso: insetBy
+    @_transparent
     func inflatedBy(_ size: Vector) -> NRectangle {
         NRectangle(minimum: minimum - size / 2, maximum: maximum + size / 2)
     }
     
     /// Returns a NRectangle which is an inset version of this NRectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
-    @inlinable
+    ///
+    /// Equivalent to inflating the rectangle by a negative amount.
+    ///
+    /// - seealso: inflatedBy
+    @_transparent
     func insetBy(_ size: Vector) -> NRectangle {
         NRectangle(minimum: minimum + size / 2, maximum: maximum - size / 2)
     }
     
     /// Returns a new NRectangle with the same size as the current instance,
     /// where the center of the boundaries lay on `center`.
-    @inlinable
+    @_transparent
     func movingCenter(to center: Vector) -> NRectangle {
         NRectangle(minimum: center - size / 2, maximum: center + size / 2)
     }
