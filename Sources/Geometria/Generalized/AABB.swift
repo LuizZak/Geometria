@@ -265,6 +265,18 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     /// supplied points.
     ///
     /// If no points are supplied, a ``AABB/zero`` box is created, instead.
+    ///
+    /// Convenience for ``init(points:)``.
+    ///
+    /// ```swift
+    /// let box = AABB2D(of:
+    ///     .init(x: -5, y: 4),
+    ///     .init(x: 3, y: -2),
+    ///     .init(x: 1, y: 6)
+    /// )
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"
+    /// ```
     @_transparent
     init(of points: Vector...) {
         self = AABB(points: points)
@@ -272,6 +284,16 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     
     /// Initializes a box out of a set of points, expanding to the smallest
     /// area capable of fitting each point.
+    ///
+    /// ```swift
+    /// let box = AABB2D(points: [
+    ///     .init(x: -5, y: 4),
+    ///     .init(x: 3, y: -2),
+    ///     .init(x: 1, y: 6)
+    /// ])
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"
+    /// ```
     @inlinable
     init<C: Collection>(points: C) where C.Element == Vector {
         guard let first = points.first else {
