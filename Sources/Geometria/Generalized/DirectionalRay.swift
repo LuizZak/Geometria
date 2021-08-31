@@ -6,7 +6,9 @@ public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     /// The starting position of this ray
     public var start: Vector
     
-    /// A vector relative to `start` which indicates the direction of this ray.
+    /// A unit vector relative to `start` which indicates the direction of this
+    /// ray.
+    ///
     /// Must have `length > 0`.
     @UnitVector public var direction: Vector
     
@@ -29,7 +31,19 @@ public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     /// - precondition: `line.length > 0`
     @_transparent
     public init<Line: LineType>(_ line: Line) where Line.Vector == Vector {
-        self.init(start: line.a, direction: line.b - line.a)
+        self.init(a: line.a, b: line.b)
+    }
+    
+    /// Initializes a directional ray with a line passing through `a` and `b`.
+    ///
+    /// The ray's ``start`` point matches `a`.
+    ///
+    /// The direction will be normalized before initializing.
+    ///
+    /// - precondition: `line.length > 0`
+    @_transparent
+    public init(a: Vector, b: Vector) {
+        self.init(start: a, direction: b - a)
     }
 }
 

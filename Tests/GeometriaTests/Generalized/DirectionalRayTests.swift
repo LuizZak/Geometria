@@ -78,17 +78,31 @@ class DirectionalRayTests: XCTestCase {
                                       direction: .init(x: 2, y: 3)).direction,
                        .init(x: 0.5547001962252291, y: 0.8320502943378437))
     }
-
+    
     func testInitWithLine() {
         let sut = DirectionalRay(Line2D(x1: 1, y1: 2, x2: 3, y2: 5))
-
+        
         XCTAssertEqual(sut.start, .init(x: 1, y: 2))
         XCTAssertEqual(sut.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
     }
-
+    
     func testInitWithLine_negativeDirection() {
         let sut = DirectionalRay(Line2D(x1: 1, y1: 1, x2: -1, y2: -1))
-
+        
+        XCTAssertEqual(sut.start, .init(x: 1, y: 1))
+        XCTAssertEqual(sut.direction, .init(x: -0.7071067811865475, y: -0.7071067811865475))
+    }
+    
+    func testInitWithPoints() {
+        let sut = DirectionalRay(a: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        
+        XCTAssertEqual(sut.start, .init(x: 1, y: 2))
+        XCTAssertEqual(sut.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+    }
+    
+    func testInitWithPoints_negativeDirection() {
+        let sut = DirectionalRay(a: .init(x: 1, y: 1), b: .init(x: -1, y: -1))
+        
         XCTAssertEqual(sut.start, .init(x: 1, y: 1))
         XCTAssertEqual(sut.direction, .init(x: -0.7071067811865475, y: -0.7071067811865475))
     }
@@ -271,12 +285,12 @@ extension DirectionalRayTests {
                     Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
                     accuracy: 1e-12)
     }
-
+    
     func testProjectedMagnitude() {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
-
+        
         let result = sut.projectedMagnitude(10)
-
+        
         assertEqual(result,
                     .init(x: 7.071067811865475, y: 7.071067811865475),
                     accuracy: 1e-12)
