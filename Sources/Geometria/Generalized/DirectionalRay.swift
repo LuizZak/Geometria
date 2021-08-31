@@ -95,7 +95,8 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
-    /// the projected point laying on the line `start <-> start + direction`.
+    /// the projected point laying on the infinite line defined by points
+    /// `start <-> start + direction`.
     ///
     /// By multiplying the result of this function by ``direction`` and adding
     /// ``start``, the projected point as it lays on this directional ray line
