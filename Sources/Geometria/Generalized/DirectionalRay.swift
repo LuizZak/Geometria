@@ -73,14 +73,14 @@ public extension DirectionalRay where Vector: VectorAdditive {
     /// matches ``start`` and `line.b` matches ``start`` + ``direction``.
     @_transparent
     var asLine: Line<Vector> {
-        Line(a: start, b: start + direction)
+        Line(a: start, b: b)
     }
     
     /// Returns a `Ray` representation of this directional ray, where `ray.start`
     /// matches ``start`` and `ray.b` matches ``start`` + ``direction``.
     @_transparent
     var asRay: Ray<Vector> {
-        Ray(start: start, b: start + direction)
+        Ray(start: start, b: b)
     }
 }
 
@@ -132,6 +132,21 @@ extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
     /// - seealso: ``projectAsScalar(_:)``
     @inlinable
     public func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
+        start.addingProduct(direction, scalar)
+    }
+    
+    /// Returns the result of creating a projection of this ray's start point
+    /// projected towards this line's end point, with a normalized magnitude of
+    /// `scalar`.
+    ///
+    /// For `scalar == 0`, returns `self.a`, for `scalar == 1`, returns `self.b`
+    ///
+    /// - parameter scalar: A normalized magnitude that describes the length
+    /// along the slope of this line to generate the point out of. Values
+    /// outside the range [0, 1] are allowed and equate to projections past the
+    /// endpoints of the line.
+    @inlinable
+    public func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector {
         start.addingProduct(direction, scalar)
     }
     
