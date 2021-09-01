@@ -729,13 +729,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/AABB.swift",
-      "line": 378,
-      "symbol": "AABB.normalMagnitude(for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/DirectionalRay.swift",
       "line": 6,
       "symbol": "DirectionalRay.Scalar",
