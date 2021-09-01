@@ -306,12 +306,48 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
     /// Returns `true` if this AABB's area intersects the given line type.
     @inlinable
     func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
-        intersection(with: line) != .noIntersection
+        // Derived from C# implementation at: https://stackoverflow.com/a/3115514
+        let beginToEnd = line.b - line.a
+        
+        let beginToMin = minimum - line.a
+        let beginToMax = maximum - line.a
+        var tNear = -Scalar.infinity
+        var tFar = Scalar.infinity
+        
+        let t1 = beginToMin / beginToEnd
+        let t2 = beginToMax / beginToEnd
+        let tMin = min(t1, t2)
+        let tMax = max(t1, t2)
+        
+        for index in 0..<beginToEnd.scalarCount {
+            guard beginToEnd[index] != 0 else {
+                continue
+            }
+            
+            tNear = max(tNear, tMin[index])
+            tFar = min(tFar, tMax[index])
+            
+            if tNear > tFar {
+                return false
+            }
+        }
+        
+#if swift(>=5.5)
+        lazy var near = line.projectedNormalizedMagnitude(tNear)
+        lazy var far = line.projectedNormalizedMagnitude(tFar)
+#else
+        let near = line.projectedNormalizedMagnitude(tNear)
+        let far = line.projectedNormalizedMagnitude(tFar)
+#endif
+        
+        return (line.containsProjectedNormalizedMagnitude(tNear) && contains(near)) ||
+               (line.containsProjectedNormalizedMagnitude(tFar)  && contains(far))
     }
     
     /// Performs an intersection test against the given line, returning up to
     /// two points representing the entrance and exit intersections against this
     /// AABB's outer perimeter.
+    @inlinable
     func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let beginToEnd = line.b - line.a
@@ -353,8 +389,8 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         lazy var near = line.projectedNormalizedMagnitude(tNear)
         lazy var far = line.projectedNormalizedMagnitude(tFar)
 #else
-        var near = line.projectedNormalizedMagnitude(tNear)
-        var far = line.projectedNormalizedMagnitude(tFar)
+        let near = line.projectedNormalizedMagnitude(tNear)
+        let far = line.projectedNormalizedMagnitude(tFar)
 #endif
         
         switch (line.containsProjectedNormalizedMagnitude(tNear) && contains(near),
@@ -380,7 +416,8 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         }
     }
     
-    func normalMagnitude(for point: Vector) -> Vector {
+    @usableFromInline
+    internal func normalMagnitude(for point: Vector) -> Vector {
         var offsetPoint = point
         var normalIndex = 0
         var max = -Scalar.infinity
