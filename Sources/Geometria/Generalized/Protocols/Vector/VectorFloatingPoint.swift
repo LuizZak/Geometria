@@ -1,5 +1,5 @@
 /// Protocol for vector types where the components are floating-point numbers
-public protocol VectorFloatingPoint: VectorDivisible & VectorComparable where Scalar: FloatingPoint {
+public protocol VectorFloatingPoint: VectorSigned & VectorDivisible & VectorComparable where Scalar: FloatingPoint {
     /// Returns the Euclidean norm (square root of the squared length), or
     /// _magnitude_, of this `VectorFloatingPoint`.
     var length: Scalar { get }

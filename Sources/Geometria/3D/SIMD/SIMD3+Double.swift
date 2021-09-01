@@ -86,20 +86,25 @@ extension SIMD3: VectorMultiplicative where Scalar == Double {
     }
     
     @_transparent
-    public func distanceSquared(to vec: SIMD3<Scalar>) -> Scalar {
+    public func distanceSquared(to vec: Self) -> Scalar {
         distance_squared(self, vec)
     }
     
     @_transparent
-    public func dot(_ other: SIMD3<Scalar>) -> Scalar {
+    public func dot(_ other: Self) -> Scalar {
         simd.dot(self, other)
     }
 }
 
 extension SIMD3: VectorSigned where Scalar == Double {
     @_transparent
-    public var absolute: SIMD3<Scalar> {
+    public var absolute: Self {
         simd.abs(self)
+    }
+    
+    @_transparent
+    public var sign: Self {
+        return simd.sign(self)
     }
 }
 
@@ -127,7 +132,7 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     }
     
     @inlinable
-    public func normalized() -> SIMD3<Scalar> {
+    public func normalized() -> Self {
         if lengthSquared == 0 {
             return .zero
         }
@@ -136,17 +141,17 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     }
     
     @_transparent
-    public func rounded() -> SIMD3<Scalar> {
+    public func rounded() -> Self {
         self.rounded(.toNearestOrAwayFromZero)
     }
     
     @_transparent
-    public func ceil() -> SIMD3<Scalar> {
+    public func ceil() -> Self {
         self.rounded(.up)
     }
     
     @_transparent
-    public func floor() -> SIMD3<Scalar> {
+    public func floor() -> Self {
         self.rounded(.down)
     }
     

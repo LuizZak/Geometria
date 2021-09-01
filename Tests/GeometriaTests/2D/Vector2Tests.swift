@@ -308,6 +308,23 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec.absolute, Vector2D(x: 1, y: 2))
     }
     
+    func testSign() {
+        XCTAssertEqual(Vector2D(x: 0.0, y: 0.0).sign, .init(x: 1.0, y: 1.0))
+        XCTAssertEqual(Vector2D(x: -0.0, y: -0.0).sign, .init(x: 1.0, y: 1.0))
+        XCTAssertEqual(Vector2D(x: -1.0, y: 1.0).sign, .init(x: -1.0, y: 1.0))
+        XCTAssertEqual(Vector2D(x: 5.0, y: -4.0).sign, .init(x: 1.0, y: -1.0))
+    }
+    
+    func testNegate() {
+        XCTAssertEqual(-Vector(x: 1, y: 2), Vector(x: -1, y: -2))
+    }
+    
+    func testNegate_doubleNegateEqualsIdentity() {
+        let vec = Vector(x: 1, y: 2)
+        
+        XCTAssertEqual(-(-vec), vec)
+    }
+    
     func testPerpendicular() {
         let vec = Vector(x: 5, y: 1)
         
@@ -348,16 +365,6 @@ class Vector2Tests: XCTestCase {
         vec.formRightRotated()
         
         XCTAssertEqual(vec, Vector(x: 1, y: -5))
-    }
-    
-    func testNegate() {
-        XCTAssertEqual(-Vector(x: 1, y: 2), Vector(x: -1, y: -2))
-    }
-    
-    func testNegate_doubleNegateEqualsIdentity() {
-        let vec = Vector(x: 1, y: 2)
-        
-        XCTAssertEqual(-(-vec), vec)
     }
     
     func testAddingProduct() {

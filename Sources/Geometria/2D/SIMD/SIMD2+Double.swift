@@ -86,27 +86,32 @@ extension SIMD2: VectorMultiplicative where Scalar == Double {
     }
     
     @inlinable
-    public func distanceSquared(to vec: SIMD2<Scalar>) -> Scalar {
+    public func distanceSquared(to vec: Self) -> Scalar {
         distance_squared(self, vec)
     }
     
     @inlinable
-    public func dot(_ other: SIMD2<Scalar>) -> Scalar {
+    public func dot(_ other: Self) -> Scalar {
         simd.dot(self, other)
     }
 }
 
 extension SIMD2: Vector2Multiplicative where Scalar == Double {
     @inlinable
-    public func cross(_ other: SIMD2<Scalar>) -> Scalar {
+    public func cross(_ other: Self) -> Scalar {
         simd.cross(self, other).z
     }
 }
 
 extension SIMD2: VectorSigned where Scalar == Double {
-    @inlinable
-    public var absolute: SIMD2<Scalar> {
+    @_transparent
+    public var absolute: Self {
         simd.abs(self)
+    }
+    
+    @_transparent
+    public var sign: Self {
+        return simd.sign(self)
     }
 }
 
@@ -170,7 +175,7 @@ extension SIMD2: VectorFloatingPoint where Scalar == Double {
         self = normalized()
     }
     
-    public func normalized() -> SIMD2<Scalar> {
+    public func normalized() -> Self {
         if lengthSquared == 0 {
             return .zero
         }
@@ -185,17 +190,17 @@ extension SIMD2: VectorFloatingPoint where Scalar == Double {
     }
     
     @inlinable
-    public func rounded() -> SIMD2<Scalar> {
+    public func rounded() -> Self {
         self.rounded(.toNearestOrAwayFromZero)
     }
     
     @inlinable
-    public func ceil() -> SIMD2<Scalar> {
+    public func ceil() -> Self {
         self.rounded(.up)
     }
     
     @inlinable
-    public func floor() -> SIMD2<Scalar> {
+    public func floor() -> Self {
         self.rounded(.down)
     }
     

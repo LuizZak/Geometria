@@ -203,6 +203,13 @@ extension Vector3: VectorSigned where Scalar: SignedNumeric & Comparable {
         Self(x: abs(x), y: abs(y), z: abs(z))
     }
     
+    @_transparent
+    public var sign: Self {
+        Self(x: x < 0 ? -1 : 1,
+             y: y < 0 ? -1 : 1,
+             z: z < 0 ? -1 : 1)
+    }
+    
     /// Negates this Vector
     @_transparent
     public static prefix func - (lhs: Self) -> Self {
