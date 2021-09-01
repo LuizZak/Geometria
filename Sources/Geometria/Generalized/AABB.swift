@@ -327,20 +327,14 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
         
-        //tNear = max(tNear, tMin.maximalComponent)
-        //tFar = min(tFar, tMax.minimalComponent)
-        
         for index in 0..<beginToEnd.scalarCount {
             guard beginToEnd[index] != 0 else {
                 continue
             }
             
-            if tMin[index] > tNear {
-                tNear = tMin[index]
-            }
-            if tMax[index] < tFar {
-                tFar = tMax[index]
-            }
+            tNear = max(tNear, tMin[index])
+            tFar = min(tFar, tMax[index])
+            
             if tNear > tFar {
                 return .noIntersection
             }
