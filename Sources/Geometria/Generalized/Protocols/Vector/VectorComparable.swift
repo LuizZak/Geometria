@@ -1,5 +1,5 @@
 /// Represents a `VectorType` with comparison operators available.
-public protocol VectorComparable: VectorType where Scalar: Comparable {
+public protocol VectorComparable: VectorType & Equatable where Scalar: Comparable {
     /// Returns the index of the component of this vector that has the greatest
     /// value.
     ///
@@ -53,32 +53,6 @@ public protocol VectorComparable: VectorType where Scalar: Comparable {
     static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
-    /// greater than `rhs`.
-    ///
-    /// ```swift
-    /// let v1 = Vector2D(x: -2.0, y: 1)
-    /// let v2 = Vector2D(y: 3.0, y: 2)
-    /// let v3 = Vector2D(y: 4.0, y: 1)
-    ///
-    /// print(v2 > v1) // Prints "true"
-    /// print(v3 > v1) // Prints "false"
-    /// ```
-    static func > (lhs: Self, rhs: Self) -> Bool
-    
-    /// Compares two vectors and returns `true` if all components of `lhs` are
-    /// greater than or equal to `rhs`.
-    ///
-    /// ```swift
-    /// let v1 = Vector2D(x: -2.0, y: 1)
-    /// let v2 = Vector2D(y: 3.0, y: 2)
-    /// let v3 = Vector2D(y: 4.0, y: 1)
-    ///
-    /// print(v2 >= v1) // Prints "true"
-    /// print(v3 >= v1) // Prints "true"
-    /// ```
-    static func >= (lhs: Self, rhs: Self) -> Bool
-    
-    /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than `rhs`.
     ///
     /// ```swift
@@ -103,6 +77,32 @@ public protocol VectorComparable: VectorType where Scalar: Comparable {
     /// print(v3 <= v1) // Prints "true"
     /// ```
     static func <= (lhs: Self, rhs: Self) -> Bool
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1)
+    /// let v2 = Vector2D(y: 3.0, y: 2)
+    /// let v3 = Vector2D(y: 4.0, y: 1)
+    ///
+    /// print(v2 > v1) // Prints "true"
+    /// print(v3 > v1) // Prints "false"
+    /// ```
+    static func > (lhs: Self, rhs: Self) -> Bool
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1)
+    /// let v2 = Vector2D(y: 3.0, y: 2)
+    /// let v3 = Vector2D(y: 4.0, y: 1)
+    ///
+    /// print(v2 >= v1) // Prints "true"
+    /// print(v3 >= v1) // Prints "true"
+    /// ```
+    static func >= (lhs: Self, rhs: Self) -> Bool
 }
 
 public extension VectorComparable {
@@ -116,7 +116,7 @@ public extension VectorComparable {
         var c = 0
         var value = self[c]
         
-        for i in 1..<scalarCount where self[i] > value {
+        for i in 1..<scalarCount where self[i] >= value {
             c = i
             value = self[i]
         }
@@ -134,7 +134,7 @@ public extension VectorComparable {
         var c = 0
         var value = self[c]
         
-        for i in 1..<scalarCount where self[i] < value {
+        for i in 1..<scalarCount where self[i] <= value {
             c = i
             value = self[i]
         }
@@ -160,6 +160,106 @@ public extension VectorComparable {
     @_transparent
     var minimalComponent: Scalar {
         self[minimalComponentIndex]
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// less than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: 2.0, y: -1)
+    /// let v2 = Vector2D(y: -3.0, y: -2)
+    /// let v3 = Vector2D(y: -4.0, y: -1)
+    ///
+    /// print(v2 < v1) // Prints "true"
+    /// print(v3 < v1) // Prints "false"
+    /// ```
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        if lhs.scalarCount != rhs.scalarCount {
+            return false
+        }
+        
+        for i in 0..<lhs.scalarCount {
+            guard lhs[i] < rhs[i] else {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// less than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: 2.0, y: -1)
+    /// let v2 = Vector2D(y: -3.0, y: -2)
+    /// let v3 = Vector2D(y: -4.0, y: -1)
+    ///
+    /// print(v2 <= v1) // Prints "true"
+    /// print(v3 <= v1) // Prints "true"
+    /// ```
+    static func <= (lhs: Self, rhs: Self) -> Bool {
+        if lhs.scalarCount != rhs.scalarCount {
+            return false
+        }
+        
+        for i in 0..<lhs.scalarCount {
+            guard lhs[i] <= rhs[i] else {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1)
+    /// let v2 = Vector2D(y: 3.0, y: 2)
+    /// let v3 = Vector2D(y: 4.0, y: 1)
+    ///
+    /// print(v2 > v1) // Prints "true"
+    /// print(v3 > v1) // Prints "false"
+    /// ```
+    static func > (lhs: Self, rhs: Self) -> Bool {
+        if lhs.scalarCount != rhs.scalarCount {
+            return false
+        }
+        
+        for i in 0..<lhs.scalarCount {
+            guard lhs[i] > rhs[i] else {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    /// Compares two vectors and returns `true` if all components of `lhs` are
+    /// greater than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1)
+    /// let v2 = Vector2D(y: 3.0, y: 2)
+    /// let v3 = Vector2D(y: 4.0, y: 1)
+    ///
+    /// print(v2 >= v1) // Prints "true"
+    /// print(v3 >= v1) // Prints "true"
+    /// ```
+    static func >= (lhs: Self, rhs: Self) -> Bool {
+        if lhs.scalarCount != rhs.scalarCount {
+            return false
+        }
+        
+        for i in 0..<lhs.scalarCount {
+            guard lhs[i] >= rhs[i] else {
+                return false
+            }
+        }
+        
+        return true
     }
 }
 
