@@ -88,14 +88,9 @@ extension NSphere: ConvexType where Vector: VectorFloatingPoint {
         let th = (radiusSquared - d).squareRoot() / (line.a - line.b).length
         let t0 = projection - th
         let t1 = projection + th
-
-#if swift(>=5.5)
-        lazy var t0p = line.projectedNormalizedMagnitude(t0)
-        lazy var t1p = line.projectedNormalizedMagnitude(t1)
-#else
+        
         let t0p = line.projectedNormalizedMagnitude(t0)
         let t1p = line.projectedNormalizedMagnitude(t1)
-#endif
         
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):

@@ -319,7 +319,9 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
         
-        for index in 0..<beginToEnd.scalarCount {
+        var index = 0
+        while index < beginToEnd.scalarCount {
+            defer { index += 1 }
             guard beginToEnd[index] != 0 else {
                 continue
             }
@@ -362,7 +364,9 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
         
-        for index in 0..<beginToEnd.scalarCount {
+        var index = 0
+        while index < beginToEnd.scalarCount {
+            defer { index += 1 }
             guard beginToEnd[index] != 0 else {
                 continue
             }
@@ -385,13 +389,8 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
             )
         }
         
-#if swift(>=5.5)
-        lazy var near = line.projectedNormalizedMagnitude(tNear)
-        lazy var far = line.projectedNormalizedMagnitude(tFar)
-#else
         let near = line.projectedNormalizedMagnitude(tNear)
         let far = line.projectedNormalizedMagnitude(tFar)
-#endif
         
         switch (line.containsProjectedNormalizedMagnitude(tNear) && contains(near),
                 line.containsProjectedNormalizedMagnitude(tFar) && contains(far)) {
