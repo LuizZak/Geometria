@@ -347,3 +347,247 @@ extension AABBTests {
         XCTAssertEqual(result.size, .init(x: 7, y: 11))
     }
 }
+
+// MARK: Vector2FloatingPoint & VectorComparable Conformance
+
+extension AABBTests {
+    // MARK: intersects(line:)
+    
+    func testIntersectsLine_line() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 2, y1: 9, x2: 15, y2: 5)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_line_alongEdge_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 0, y1: 3, x2: 1, y2: 3)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_line_outsideLineLimits_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 0, y1: 9, x2: 1, y2: 8)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_line_noIntersection() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 9, y1: 9, x2: 15, y2: 7)
+        
+        XCTAssertFalse(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_lineSegment_outsideLineLimits_returnsFalse() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = LineSegment2D(x1: 0, y1: 9, x2: 1, y2: 8)
+        
+        XCTAssertFalse(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_lineSegment_alongEdge_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = LineSegment2D(x1: 1, y1: 3, x2: 13, y2: 3)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_lineSegment_alongEdge_startsAfterEdge_returnsFalse() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = LineSegment2D(x1: 12, y1: 3, x2: 13, y2: 3)
+        
+        XCTAssertFalse(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_ray() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 2, y1: 9, x2: 15, y2: 5)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_ray_intersectsBeforeRayStart_returnsFalse() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 2, y1: 10, x2: 15, y2: 11)
+        
+        XCTAssertFalse(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_ray_intersectsAfterRayStart_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 0, y1: 0, x2: 1, y2: 1)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_ray_startsWithinAABB_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 3, y1: 4, x2: 4, y2: 5)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_ray_alongEdge_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 0, y1: 3, x2: 1, y2: 3)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_directionalRay_intersectsBeforeRayStart_returnsFalse() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 2, y1: 10, x2: 15, y2: 11)
+        
+        XCTAssertFalse(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_directionalRay_intersectsAfterRayStart_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 0, y1: 0, x2: 1, y2: 1)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_directionalRay_startsWithinAABB_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 3, y1: 4, x2: 4, y2: 5)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    func testIntersectsLine_directionalRay_alongEdge_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 1, y1: 3, x2: 13, y2: 3)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
+    // MARK: intersection(with:)
+    
+    func testIntersectionWith_line() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 2, y1: 9, x2: 15, y2: 5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .enterExit(.init(x: 8.5, y: 7), .init(x: 11.0, y: 6.230769230769231)))
+    }
+    
+    func testIntersectionWith_line_outsideLineLimits_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 0, y1: 9, x2: 1, y2: 8)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .enterExit(.init(x: 2, y: 7), .init(x: 6, y: 3)))
+    }
+    
+    func testIntersectionWith_line_noIntersection() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 9, y1: 9, x2: 15, y2: 7)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWith_line_alongEdge() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 1, y1: 3, x2: 13, y2: 3)
+        
+        XCTAssertEqual(sut.intersection(with: line), .enterExit(.init(x: 2.0, y: 3.0), .init(x: 11.0, y: 3.0)))
+    }
+    
+    func testIntersectionWith_lineSegment_outsideLineLimits() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = LineSegment2D(x1: 0, y1: 9, x2: 1, y2: 8)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWith_lineSegment_exitOnly() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = LineSegment2D(x1: 5, y1: 4, x2: 12, y2: 4)
+        
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 11.0, y: 4.0)))
+    }
+    
+    func testIntersectionWith_lineSegment_endsWithinAABB() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = LineSegment2D(x1: 2, y1: 4, x2: 5, y2: 4)
+        
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 2.0, y: 4.0)))
+    }
+    
+    func testIntersectionWith_lineSegment_alongEdge() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 1, y1: 3, x2: 13, y2: 3)
+        
+        XCTAssertEqual(sut.intersection(with: line), .enterExit(.init(x: 2.0, y: 3.0), .init(x: 11.0, y: 3.0)))
+    }
+    
+    func testIntersectionWith_ray() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 2, y1: 9, x2: 15, y2: 5)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .enterExit(.init(x: 8.5, y: 7), .init(x: 11.0, y: 6.230769230769231)))
+    }
+    
+    func testIntersectionWith_ray_intersectsBeforeRayStart() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 2, y1: 10, x2: 15, y2: 11)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWith_ray_intersectsAfterRayStart() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 0, y1: 0, x2: 1, y2: 1)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .enterExit(.init(x: 3, y: 3), .init(x: 7, y: 7)))
+    }
+    
+    func testIntersectionWith_ray_startsWithinAABB() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 3, y1: 4, x2: 4, y2: 5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 6.0, y: 7.0)))
+    }
+    
+    func testIntersectionWith_ray_alongEdge() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Ray2D(x1: 0, y1: 3, x2: 1, y2: 3)
+        
+        XCTAssertEqual(sut.intersection(with: line), .enterExit(.init(x: 2.0, y: 3.0), .init(x: 11.0, y: 3.0)))
+    }
+    
+    func testIntersectionWith_directionalRay_intersectsBeforeRayStart() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 2, y1: 10, x2: 15, y2: 11)
+        
+        XCTAssertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWith_directionalRay_intersectsAfterRayStart() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 0, y1: 0, x2: 1, y2: 1)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+                       .enterExit(.init(x: 3.0, y: 3.0), .init(x: 6.999999999999999, y: 6.999999999999999)))
+    }
+    
+    func testIntersectionWith_directionalRay_startsWithinAABB() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 3, y1: 4, x2: 4, y2: 5)
+        
+        XCTAssertEqual(sut.intersection(with: line), .singlePoint(.init(x: 5.999999999999998, y: 7.0)))
+    }
+    
+    func testIntersectionWith_directionalRay_alongEdge() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = DirectionalRay2D(x1: 0, y1: 3, x2: 1, y2: 3)
+        
+        XCTAssertEqual(sut.intersection(with: line), .enterExit(.init(x: 2.0, y: 3.0), .init(x: 11.0, y: 3.0)))
+    }
+}

@@ -302,6 +302,69 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     }
 }
 
+public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
+    /// Returns `true` if this AABB's area intersects the given line type.
+    @inlinable
+    func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+        intersection(with: line) != .noIntersection
+    }
+    
+    /// Performs an intersection test against the given line, returning up to
+    /// two points representing the entrance and exit intersections against this
+    /// AABB's outer perimeter.
+    @inlinable
+    func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+        // Derived from C# implementation at: https://stackoverflow.com/a/3115514
+        let beginToEnd = line.b - line.a
+        
+        let beginToMin = minimum - line.a
+        let beginToMax = maximum - line.a
+        var tNear = -Scalar.infinity
+        var tFar = Scalar.infinity
+        
+        let t1 = beginToMin / beginToEnd
+        let t2 = beginToMax / beginToEnd
+        
+        for index in 0..<beginToEnd.scalarCount {
+            guard beginToEnd[index] != 0 else {
+                if beginToMin[index] > 0 || beginToMax[index] < 0 {
+                    return .noIntersection
+                }
+                continue
+            }
+            
+            let tMin = Swift.min(t1[index], t2[index])
+            let tMax = Swift.max(t1[index], t2[index])
+            if tMin > tNear {
+                tNear = tMin
+            }
+            if tMax < tFar {
+                tFar = tMax
+            }
+            if tNear > tFar || tFar < 0 {
+                return .noIntersection
+            }
+        }
+        
+        switch (line.containsProjectedNormalizedMagnitude(tNear),
+                line.containsProjectedNormalizedMagnitude(tFar)) {
+            
+        case (true, true):
+            return ConvexLineIntersection.enterExit(line.a + beginToEnd * tNear,
+                                                    line.a + beginToEnd * tFar)
+            
+        case (true, false):
+            return ConvexLineIntersection.singlePoint(line.a + beginToEnd * tNear)
+            
+        case (false, true):
+            return ConvexLineIntersection.singlePoint(line.a + beginToEnd * tFar)
+            
+        default:
+            return .noIntersection
+        }
+    }
+}
+
 extension AABB: DivisibleRectangleType where Vector: VectorDivisible {
     
 }
