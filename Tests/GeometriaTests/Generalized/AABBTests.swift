@@ -894,7 +894,7 @@ extension AABBTests {
         XCTAssertEqual(sut.intersection(with: line),
             .exit(
                 PointNormal(
-                    point: .init(x: 5.999999999999998, y: 7.0),
+                    point: .init(x: 5.999999999999998, y: 6.999999999999998),
                     normal: .init(x: 0.0, y: -1.0)
                 )
             )
