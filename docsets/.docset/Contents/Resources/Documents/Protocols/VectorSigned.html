@@ -328,6 +328,9 @@
                 <a class="nav-group-task-link" href="../Structs/NSquare.html">NSquare</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PointNormal.html">PointNormal</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Ray.html">Ray</a>
               </li>
               <li class="nav-group-task">
@@ -623,6 +626,91 @@ of the components of this <code>VectorSigned</code>.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">absolute</span><span class="p">:</span> <span class="k">Self</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria12VectorSignedP4signxvp"></a>
+                    <a name="//apple_ref/swift/Property/sign" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12VectorSignedP4signxvp">sign</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a <code>VectorSigned</code> where each component is <code>Self.one</code> with the
+signs of each component of this <code>VectorSigned</code>, unless the component is
+<code>Scalar.zero</code>, in which case the value is <code>Scalar.zero</code>, instead.</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">sign</span><span class="p">)</span> <span class="c1">// Prints "(x: 1.0, y: -1.0)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sign</span><span class="p">)</span> <span class="c1">// Prints "(x: -1.0, y: 0.0)"</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">sign</span><span class="p">:</span> <span class="k">Self</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria12VectorSignedP8withSign2ofxx_tF"></a>
+                    <a name="//apple_ref/swift/Method/withSign(of:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12VectorSignedP8withSign2ofxx_tF">withSign(of:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a <code>VectorSigned</code> where each component is the absolute magnitude
+of the components of this <code>VectorSigned</code>, but with the signs of a
+secondary <code>VectorSigned</code>.</p>
+
+<p>Equivalent to multiplying <code>self.absolute</code> by <code>other.sign</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vec1</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">vec2</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">vec1</span><span class="o">.</span><span class="nf">withSign</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">vec2</span><span class="p">))</span> <span class="c1">// Prints "(x: -5.0, y: 4.0, z: 0.0)"</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns a <code>VectorSigned</code> where each component is the absolute magnitude
+of the components of this <code>VectorSigned</code>, but with the signs of a
+secondary <code>VectorSigned</code>.</p>
+
+<p>Equivalent to multiplying <code>self.absolute</code> by <code>other.sign</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vec1</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">vec2</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">vec1</span><span class="o">.</span><span class="nf">withSign</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">vec2</span><span class="p">))</span> <span class="c1">// Prints "(x: -5.0, y: 4.0, z: 0.0)"</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">withSign</span><span class="p">(</span><span class="n">of</span> <span class="nv">other</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
