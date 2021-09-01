@@ -1,5 +1,21 @@
 /// Represents a `VectorType` with comparison operators available.
 public protocol VectorComparable: VectorType where Scalar: Comparable {
+    /// Returns the index of the component of this vector that has the greatest
+    /// value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).maximalComponentIndex // Returns 1
+    /// ```
+    var maximalComponentIndex: Int { get }
+    
+    /// Returns the index of the component of this vector that has the least
+    /// value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).minimalComponentIndex // Returns 0
+    /// ```
+    var minimalComponentIndex: Int { get }
+    
     /// Returns the component of this vector that has the greatest value.
     ///
     /// ```swift
@@ -87,6 +103,64 @@ public protocol VectorComparable: VectorType where Scalar: Comparable {
     /// print(v3 <= v1) // Prints "true"
     /// ```
     static func <= (lhs: Self, rhs: Self) -> Bool
+}
+
+public extension VectorComparable {
+    /// Returns the index of the component of this vector that has the greatest
+    /// value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).maximalComponentIndex // Returns 1
+    /// ```
+    var maximalComponentIndex: Int {
+        var c = 0
+        var value = self[c]
+        
+        for i in 1..<scalarCount where self[i] > value {
+            c = i
+            value = self[i]
+        }
+        
+        return c
+    }
+    
+    /// Returns the index of the component of this vector that has the least
+    /// value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).minimalComponentIndex // Returns 0
+    /// ```
+    var minimalComponentIndex: Int {
+        var c = 0
+        var value = self[c]
+        
+        for i in 1..<scalarCount where self[i] < value {
+            c = i
+            value = self[i]
+        }
+        
+        return c
+    }
+    
+    /// Returns the component of this vector that has the greatest value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).maximalComponent // Returns 2.5
+    /// ```
+    @_transparent
+    var maximalComponent: Scalar {
+        self[maximalComponentIndex]
+    }
+    
+    /// Returns the component of this vector that has the least value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).minimalComponent // Returns -3.0
+    /// ```
+    @_transparent
+    var minimalComponent: Scalar {
+        self[minimalComponentIndex]
+    }
 }
 
 /// Returns the pointwise minimal Vector where each component is the minimal

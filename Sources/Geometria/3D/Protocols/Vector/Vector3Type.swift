@@ -63,6 +63,54 @@ public extension Vector3Type {
 }
 
 public extension Vector3Type where Self: VectorComparable {
+    /// Returns the index of the component of this vector that has the greatest
+    /// value.
+    ///
+    /// ```swift
+    /// Vector3D(x: -3.0, y: 2.5, z: 0).maximalComponentIndex // Returns 1
+    /// ```
+    @_transparent
+    var maximalComponentIndex: Int {
+        if x > y {
+            if y > z {
+                return 0
+            }
+            if x > z {
+                return 0
+            }
+        }
+        
+        if y > z {
+            return 1
+        }
+        
+        return 2
+    }
+    
+    /// Returns the index of the component of this vector that has the least
+    /// value.
+    ///
+    /// ```swift
+    /// Vector3D(x: -3.0, y: 2.5, z: 0).minimalComponentIndex // Returns 0
+    /// ```
+    @_transparent
+    var minimalComponentIndex: Int {
+        if x < y {
+            if y < z {
+                return 0
+            }
+            if x < z {
+                return 0
+            }
+        }
+        
+        if y < z {
+            return 1
+        }
+        
+        return 2
+    }
+    
     /// Returns the greatest scalar component between x, y, z in this vector
     @_transparent
     var maximalComponent: Scalar {

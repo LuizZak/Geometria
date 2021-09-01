@@ -42,6 +42,48 @@ class Vector3TypeTests: XCTestCase {
         XCTAssertEqual(sut, .init(x: 0, y: 0, z: 3))
     }
     
+    func testMaximalComponentIndex() {
+        XCTAssertEqual(Vector3D(x: 4, y: 2, z: 3).maximalComponentIndex, 0)
+        XCTAssertEqual(Vector3D(x: 4, y: 3, z: 2).maximalComponentIndex, 0)
+        XCTAssertEqual(Vector3D(x: 1, y: 4, z: 3).maximalComponentIndex, 1)
+        XCTAssertEqual(Vector3D(x: 3, y: 4, z: 1).maximalComponentIndex, 1)
+        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 4).maximalComponentIndex, 2)
+        XCTAssertEqual(Vector3D(x: 3, y: 2, z: 4).maximalComponentIndex, 2)
+    }
+    
+    func testMaximalComponentIndex_equalMaxXY() {
+        XCTAssertEqual(Vector3D(x: 4, y: 4, z: 3).maximalComponentIndex, 1)
+    }
+    
+    func testMaximalComponentIndex_equalMaxXZ() {
+        XCTAssertEqual(Vector3D(x: 4, y: 2, z: 4).maximalComponentIndex, 2)
+    }
+    
+    func testMaximalComponentIndex_equalMaxYZ() {
+        XCTAssertEqual(Vector3D(x: 1, y: 4, z: 4).maximalComponentIndex, 2)
+    }
+    
+    func testMinimalComponentIndex() {
+        XCTAssertEqual(Vector3D(x: -1, y: 2, z: 3).minimalComponentIndex, 0)
+        XCTAssertEqual(Vector3D(x: -1, y: 3, z: 2).minimalComponentIndex, 0)
+        XCTAssertEqual(Vector3D(x: 1, y: -2, z: 3).minimalComponentIndex, 1)
+        XCTAssertEqual(Vector3D(x: 3, y: -2, z: 1).minimalComponentIndex, 1)
+        XCTAssertEqual(Vector3D(x: 1, y: 2, z: -3).minimalComponentIndex, 2)
+        XCTAssertEqual(Vector3D(x: 2, y: 1, z: -3).minimalComponentIndex, 2)
+    }
+    
+    func testMinimalComponentIndex_equalMinXY() {
+        XCTAssertEqual(Vector3D(x: -1, y: -1, z: 3).minimalComponentIndex, 1)
+    }
+    
+    func testMinimalComponentIndex_equalMinXZ() {
+        XCTAssertEqual(Vector3D(x: -1, y: 2, z: -1).minimalComponentIndex, 2)
+    }
+    
+    func testMinimalComponentIndex_equalMinYZ() {
+        XCTAssertEqual(Vector3D(x: 1, y: -1, z: -1).minimalComponentIndex, 2)
+    }
+    
     func testMinimalComponent() {
         XCTAssertEqual(Vector3D(x: -1, y: 2, z: 3).minimalComponent, -1)
         XCTAssertEqual(Vector3D(x: 1, y: -2, z: 3).minimalComponent, -2)

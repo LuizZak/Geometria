@@ -53,6 +53,28 @@ public extension Vector2Type {
 }
 
 public extension Vector2Type where Self: VectorComparable {
+    /// Returns the index of the component of this vector that has the greatest
+    /// value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).maximalComponentIndex // Returns 1
+    /// ```
+    @_transparent
+    var maximalComponentIndex: Int {
+        x > y ? 0 : 1
+    }
+    
+    /// Returns the index of the component of this vector that has the least
+    /// value.
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).minimalComponentIndex // Returns 0
+    /// ```
+    @_transparent
+    var minimalComponentIndex: Int {
+        x < y ? 0 : 1
+    }
+    
     /// Returns the greatest scalar component between x, y in this vector
     @_transparent
     var maximalComponent: Scalar {
