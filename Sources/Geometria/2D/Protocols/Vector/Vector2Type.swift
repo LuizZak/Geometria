@@ -25,15 +25,29 @@ public extension Vector2Type {
     /// - precondition: `index >= 0 && index < 2`
     @inlinable
     subscript(index: Int) -> Scalar {
-        switch index {
-        case 0:
-            return x
-            
-        case 1:
-            return y
-            
-        default:
-            preconditionFailure("index >= 0 && index < 2")
+        get {
+            switch index {
+            case 0:
+                return x
+                
+            case 1:
+                return y
+                
+            default:
+                preconditionFailure("index >= 0 && index < 2")
+            }
+        }
+        set {
+            switch index {
+            case 0:
+                x = newValue
+                
+            case 1:
+                y = newValue
+                
+            default:
+                preconditionFailure("index >= 0 && index < 2")
+            }
         }
     }
 }

@@ -29,18 +29,35 @@ public extension Vector3Type {
     /// - precondition: `index >= 0 && index < 3`
     @inlinable
     subscript(index: Int) -> Scalar {
-        switch index {
-        case 0:
-            return x
-            
-        case 1:
-            return y
-            
-        case 2:
-            return z
-            
-        default:
-            preconditionFailure("index >= 0 && index < 3")
+        get {
+            switch index {
+            case 0:
+                return x
+                
+            case 1:
+                return y
+                
+            case 2:
+                return z
+                
+            default:
+                preconditionFailure("index >= 0 && index < 3")
+            }
+        }
+        set {
+            switch index {
+            case 0:
+                x = newValue
+                
+            case 1:
+                y = newValue
+                
+            case 2:
+                z = newValue
+                
+            default:
+                preconditionFailure("index >= 0 && index < 3")
+            }
         }
     }
 }

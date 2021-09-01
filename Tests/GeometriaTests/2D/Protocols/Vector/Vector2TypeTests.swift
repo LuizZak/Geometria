@@ -10,8 +10,24 @@ class Vector2TypeTests: XCTestCase {
         XCTAssertEqual(Vector2D(x: 0, y: 2)[0], 0)
     }
     
+    func testSubscript_x_set() {
+        var sut = Vector2D.zero
+        
+        sut[0] = 2
+        
+        XCTAssertEqual(sut, .init(x: 2, y: 0))
+    }
+    
     func testSubscript_y() {
         XCTAssertEqual(Vector2D(x: 0, y: 2)[1], 2)
+    }
+    
+    func testSubscript_y_set() {
+        var sut = Vector2D.zero
+        
+        sut[1] = 2
+        
+        XCTAssertEqual(sut, .init(x: 0, y: 2))
     }
     
     func testMinimalComponent() {
