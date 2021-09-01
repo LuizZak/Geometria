@@ -83,3 +83,16 @@ class ConstructableRectangleType_2DTests: XCTestCase {
         XCTAssertEqual(result.size, .init(x: 3, y: 4))
     }
 }
+
+// MARK: Self: AdditiveRectangleType, Vector: Vector2Type Conformance
+
+extension ConstructableRectangleType_2DTests {
+    func testOffsetByXY() {
+        let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
+        
+        let result = sut.offsetBy(x: 5, y: 6)
+        
+        XCTAssertEqual(result.location, .init(x: 6, y: 8))
+        XCTAssertEqual(result.size, .init(x: 3, y: 4))
+    }
+}

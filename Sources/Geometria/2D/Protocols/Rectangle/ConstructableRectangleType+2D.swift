@@ -61,3 +61,12 @@ public extension ConstructableRectangleType where Vector: Vector2Type {
         Self(x: value, y: top, width: width, height: height)
     }
 }
+
+public extension ConstructableRectangleType where Self: AdditiveRectangleType, Vector: Vector2Type {
+    /// Returns a copy of this Rectangle with the minimum and maximum coordinates
+    /// offset by a given amount.
+    @_transparent
+    func offsetBy(x: Vector.Scalar, y: Vector.Scalar) -> Self {
+        offsetBy(Vector(x: x, y: y))
+    }
+}

@@ -62,15 +62,6 @@ extension Rectangle2Tests {
         XCTAssertEqual(sut.size, .init(x: 2, y: 3))
     }
     
-    func testOffsetByXY() {
-        let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        
-        let result = sut.offsetBy(x: 5, y: 6)
-        
-        XCTAssertEqual(result.location, .init(x: 6, y: 8))
-        XCTAssertEqual(result.size, .init(x: 3, y: 4))
-    }
-    
     func testMovingRightTo() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         

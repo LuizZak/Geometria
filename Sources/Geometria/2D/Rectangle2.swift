@@ -64,13 +64,6 @@ public extension Rectangle2 where Vector: VectorAdditive {
         self.init(x: left, y: top, width: right - left, height: bottom - top)
     }
     
-    /// Returns a copy of this Rectangle with the minimum and maximum coordinates
-    /// offset by a given amount.
-    @_transparent
-    func offsetBy(x: Scalar, y: Scalar) -> Self {
-        offsetBy(Vector(x: x, y: y))
-    }
-    
     /// Returns a new Rectangle with the same top, bottom, and width as the current
     /// instance, where the `right` lays on `value`.
     @inlinable
