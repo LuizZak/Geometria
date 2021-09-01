@@ -104,7 +104,7 @@ extension SIMD3: VectorSigned where Scalar == Double {
     
     @_transparent
     public var sign: Self {
-        return simd.sign(self)
+        simd.sign(self)
     }
 }
 

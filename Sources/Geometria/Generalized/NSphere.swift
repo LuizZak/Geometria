@@ -58,6 +58,16 @@ extension NSphere: ConvexType where Vector: VectorFloatingPoint {
     /// N-sphere's outer perimeter.
     @inlinable
     public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+        func normal(at point: Vector, inverted: Bool) -> Vector {
+            (inverted ? center - point : point - center).normalized()
+        }
+        func makePointNormal(at point: Vector, inverted: Bool = false) -> PointNormal<Vector> {
+            .init(
+                point: point,
+                normal: normal(at: point, inverted: inverted)
+            )
+        }
+        
         let projection = line.projectAsScalar(center)
         let projected = line.projectedNormalizedMagnitude(projection)
         let d = projected.distanceSquared(to: center)
@@ -65,7 +75,7 @@ extension NSphere: ConvexType where Vector: VectorFloatingPoint {
         
         guard d != radiusSquared else {
             if line.containsProjectedNormalizedMagnitude(projection) {
-                return .singlePoint(projected)
+                return .singlePoint(makePointNormal(at: projected))
             }
             
             return .noIntersection
@@ -79,13 +89,16 @@ extension NSphere: ConvexType where Vector: VectorFloatingPoint {
         let t0 = projection - th
         let t1 = projection + th
         
+        lazy var t0p = line.projectedNormalizedMagnitude(t0)
+        lazy var t1p = line.projectedNormalizedMagnitude(t1)
+        
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
-            return .enterExit(line.projectedNormalizedMagnitude(t0), line.projectedNormalizedMagnitude(t1))
+            return .enterExit(makePointNormal(at: t0p), makePointNormal(at: t1p, inverted: true))
         case (true, false):
-            return .enter(line.projectedNormalizedMagnitude(t0))
+            return .enter(makePointNormal(at: t0p))
         case (false, true):
-            return .exit(line.projectedNormalizedMagnitude(t1))
+            return .exit(makePointNormal(at: t1p, inverted: true))
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }

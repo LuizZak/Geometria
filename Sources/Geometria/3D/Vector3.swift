@@ -205,9 +205,9 @@ extension Vector3: VectorSigned where Scalar: SignedNumeric & Comparable {
     
     @_transparent
     public var sign: Self {
-        Self(x: x < 0 ? -1 : 1,
-             y: y < 0 ? -1 : 1,
-             z: z < 0 ? -1 : 1)
+        Self(x: x < 0 ? -1 : (x > 0 ? 1 : 0),
+             y: y < 0 ? -1 : (y > 0 ? 1 : 0),
+             z: z < 0 ? -1 : (z > 0 ? 1 : 0))
     }
     
     /// Negates this Vector

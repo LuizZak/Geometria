@@ -312,7 +312,6 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
     /// Performs an intersection test against the given line, returning up to
     /// two points representing the entrance and exit intersections against this
     /// AABB's outer perimeter.
-    @inlinable
     func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let beginToEnd = line.b - line.a
@@ -340,22 +339,63 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
             }
         }
         
-        switch (line.containsProjectedNormalizedMagnitude(tNear),
-                line.containsProjectedNormalizedMagnitude(tFar)) {
+        // TODO: Attempt to derive normal during computation above
+        func makePointNormal(_ point: Vector) -> PointNormal<Vector> {
+            let normal = normalMagnitude(for: point)
             
+            return PointNormal(
+                point: point,
+                normal: normal.withSign(of: -beginToEnd)
+            )
+        }
+        
+        lazy var near = line.projectedNormalizedMagnitude(tNear)
+        lazy var far = line.projectedNormalizedMagnitude(tFar)
+        
+        switch (line.containsProjectedNormalizedMagnitude(tNear) && contains(near),
+                line.containsProjectedNormalizedMagnitude(tFar) && contains(far)) {
         case (true, true):
-            return ConvexLineIntersection.enterExit(line.a + beginToEnd * tNear,
-                                                    line.a + beginToEnd * tFar)
+            return .enterExit(
+                makePointNormal(near),
+                makePointNormal(far)
+            )
             
         case (true, false):
-            return ConvexLineIntersection.singlePoint(line.a + beginToEnd * tNear)
+            return .enter(
+                makePointNormal(near)
+            )
             
         case (false, true):
-            return ConvexLineIntersection.singlePoint(line.a + beginToEnd * tFar)
+            return .exit(
+                makePointNormal(far)
+            )
             
         default:
             return .noIntersection
         }
+    }
+    
+    func normalMagnitude(for point: Vector) -> Vector {
+        var offsetPoint = point
+        var normalIndex = 0
+        var max = -Scalar.infinity
+        
+        offsetPoint -= center
+        
+        for index in 0..<offsetPoint.scalarCount {
+            let distance = abs(offsetPoint[index]) / size[index]
+            
+            if distance > max {
+                max = distance
+                normalIndex = index
+            }
+        }
+        
+        var normal = Vector.zero
+        
+        normal[normalIndex] = 1
+        
+        return normal
     }
 }
 

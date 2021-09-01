@@ -315,8 +315,8 @@ class Vector3Tests: XCTestCase {
     }
     
     func testSign() {
-        XCTAssertEqual(Vector3D(x: 0.0, y: 0.0, z: 0.0).sign, .init(x: 1.0, y: 1.0, z: 1.0))
-        XCTAssertEqual(Vector3D(x: -0.0, y: -0.0, z: 0.0).sign, .init(x: 1.0, y: 1.0, z: 1.0))
+        XCTAssertEqual(Vector3D(x: 0.0, y: 0.0, z: 0.0).sign, .init(x: 0.0, y: 0.0, z: 0.0))
+        XCTAssertEqual(Vector3D(x: -0.0, y: -0.0, z: -0.0).sign, .init(x: 0.0, y: 0.0, z: 0.0))
         XCTAssertEqual(Vector3D(x: -1.0, y: 1.0, z: -1.0).sign, .init(x: -1.0, y: 1.0, z: -1.0))
         XCTAssertEqual(Vector3D(x: 5.0, y: -4.0, z: 1.0).sign, .init(x: 1.0, y: -1.0, z: 1.0))
     }

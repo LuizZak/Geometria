@@ -309,8 +309,8 @@ class Vector2Tests: XCTestCase {
     }
     
     func testSign() {
-        XCTAssertEqual(Vector2D(x: 0.0, y: 0.0).sign, .init(x: 1.0, y: 1.0))
-        XCTAssertEqual(Vector2D(x: -0.0, y: -0.0).sign, .init(x: 1.0, y: 1.0))
+        XCTAssertEqual(Vector2D(x: 0.0, y: 0.0).sign, .init(x: 0.0, y: 0.0))
+        XCTAssertEqual(Vector2D(x: -0.0, y: -0.0).sign, .init(x: 0.0, y: 0.0))
         XCTAssertEqual(Vector2D(x: -1.0, y: 1.0).sign, .init(x: -1.0, y: 1.0))
         XCTAssertEqual(Vector2D(x: 5.0, y: -4.0).sign, .init(x: 1.0, y: -1.0))
     }

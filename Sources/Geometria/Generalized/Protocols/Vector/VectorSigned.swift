@@ -11,10 +11,12 @@ public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric &
     var absolute: Self { get }
     
     /// Returns a `VectorSigned` where each component is `Self.one` with the
-    /// signs of each component of this `VectorSigned`.
+    /// signs of each component of this `VectorSigned`, unless the component is
+    /// `Scalar.zero`, in which case the value is `Scalar.zero`, instead.
     ///
     /// ```swift
     /// print(Vector2D(x: 4.0, y: -2.0).sign) // Prints "(x: 1.0, y: -1.0)"
+    /// print(Vector2D(x: -1.0, y: 0.0).sign) // Prints "(x: -1.0, y: 0.0)"
     /// ```
     var sign: Self { get }
     
@@ -22,13 +24,13 @@ public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric &
     /// of the components of this `VectorSigned`, but with the signs of a
     /// secondary `VectorSigned`.
     ///
-    /// Equivalent to multiplying `self.absolute` by `other.sign`
+    /// Equivalent to multiplying `self.absolute` by `other.sign`.
     ///
     /// ```swift
-    /// let vec1 = Vector2D(x: 5.0, y: -4.0)
-    /// let vec2 = Vector2D(x: -1, y: 1)
+    /// let vec1 = Vector3D(x: 5.0, y: -4.0, z: 3.0)
+    /// let vec2 = Vector3D(x: -1.0, y: 1.0, z: 0.0)
     ///
-    /// print(vec1.withSign(of: vec2)) // Prints "(x: -5.0, y: 4.0)"
+    /// print(vec1.withSign(of: vec2)) // Prints "(x: -5.0, y: 4.0, z: 0.0)"
     /// ```
     func withSign(of other: Self) -> Self
     
@@ -45,14 +47,15 @@ public extension VectorSigned {
     /// of the components of this `VectorSigned`, but with the signs of a
     /// secondary `VectorSigned`.
     ///
-    /// Equivalent to multiplying `self.absolute` by `other.sign`
+    /// Equivalent to multiplying `self.absolute` by `other.sign`.
     ///
     /// ```swift
-    /// let vec1 = Vector2D(x: 5.0, y: -4.0)
-    /// let vec2 = Vector2D(x: -1, y: 1)
+    /// let vec1 = Vector3D(x: 5.0, y: -4.0, z: 3.0)
+    /// let vec2 = Vector3D(x: -1.0, y: 1.0, z: 0.0)
     ///
-    /// print(vec1.withSign(of: vec2)) // Prints "(x: -5.0, y: 4.0)"
+    /// print(vec1.withSign(of: vec2)) // Prints "(x: -5.0, y: 4.0, z: 0.0)"
     /// ```
+    @_transparent
     func withSign(of other: Self) -> Self {
         return absolute * other.sign
     }
@@ -68,7 +71,7 @@ public extension VectorSigned {
 /// ```swift
 /// print(abs(Vector2D(x: 2.0, y: -1.0))) // Prints "(x: 2.0, y: 1.0)"
 /// ```
-@inlinable
+@_transparent
 public func abs<V: VectorSigned>(_ x: V) -> V {
     x.absolute
 }
