@@ -13,6 +13,38 @@ public protocol Vector3Type: VectorType {
     init(x: Scalar, y: Scalar, z: Scalar)
 }
 
+public extension Vector3Type {
+    /// The number of scalars in the vector.
+    ///
+    /// For 3D vectors, this value is always 3.
+    @_transparent
+    var scalarCount: Int { return 3 }
+    
+    /// Accesses the scalar at the specified position.
+    ///
+    /// - index `0`: ``x``
+    /// - index `1`: ``y``
+    /// - index `2`: ``z``
+    ///
+    /// - precondition: `index >= 0 && index < 3`
+    @inlinable
+    subscript(index: Int) -> Scalar {
+        switch index {
+        case 0:
+            return x
+            
+        case 1:
+            return y
+            
+        case 2:
+            return z
+            
+        default:
+            preconditionFailure("index >= 0 && index < 3")
+        }
+    }
+}
+
 public extension Vector3Type where Self: VectorComparable {
     /// Returns the greatest scalar component between x, y, z in this vector
     @_transparent
