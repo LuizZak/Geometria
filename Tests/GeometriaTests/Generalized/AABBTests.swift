@@ -374,6 +374,13 @@ extension AABBTests {
         XCTAssertTrue(sut.intersects(line: line))
     }
     
+    func testIntersectsLine_line_intersectsBeforeLineStart_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 12, y1: 9, x2: 13, y2: 9)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
     func testIntersectsLine_line_noIntersection() {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 9, y1: 9, x2: 15, y2: 7)
@@ -497,6 +504,13 @@ extension AABBTests {
         XCTAssertEqual(sut.intersection(with: line), .enterExit(.init(x: 2.0, y: 3.0), .init(x: 11.0, y: 3.0)))
     }
     
+    func testIntersectionWith_line_intersectsBeforeLineStart() {
+        let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
+        let line = Line2D(x1: 12, y1: 9, x2: 13, y2: 9)
+        
+        XCTAssertEqual(sut.intersection(with: line), .enterExit(.init(x: 2.0, y: 9.0), .init(x: 11.0, y: 9.0)))
+    }
+    
     func testIntersectionWith_lineSegment_outsideLineLimits() {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = LineSegment2D(x1: 0, y1: 9, x2: 1, y2: 8)
@@ -535,7 +549,7 @@ extension AABBTests {
     
     func testIntersectionWith_ray_intersectsBeforeRayStart() {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
-        let line = Ray2D(x1: 2, y1: 10, x2: 15, y2: 11)
+        let line = Ray2D(x1: 10, y1: 10, x2: 15, y2: 11)
         
         XCTAssertEqual(sut.intersection(with: line), .noIntersection)
     }

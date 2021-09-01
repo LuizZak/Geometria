@@ -324,24 +324,24 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         
         let t1 = beginToMin / beginToEnd
         let t2 = beginToMax / beginToEnd
+        let tMin = min(t1, t2)
+        let tMax = max(t1, t2)
+        
+        //tNear = max(tNear, tMin.maximalComponent)
+        //tFar = min(tFar, tMax.minimalComponent)
         
         for index in 0..<beginToEnd.scalarCount {
             guard beginToEnd[index] != 0 else {
-                if beginToMin[index] > 0 || beginToMax[index] < 0 {
-                    return .noIntersection
-                }
                 continue
             }
             
-            let tMin = Swift.min(t1[index], t2[index])
-            let tMax = Swift.max(t1[index], t2[index])
-            if tMin > tNear {
-                tNear = tMin
+            if tMin[index] > tNear {
+                tNear = tMin[index]
             }
-            if tMax < tFar {
-                tFar = tMax
+            if tMax[index] < tFar {
+                tFar = tMax[index]
             }
-            if tNear > tFar || tFar < 0 {
+            if tNear > tFar {
                 return .noIntersection
             }
         }
