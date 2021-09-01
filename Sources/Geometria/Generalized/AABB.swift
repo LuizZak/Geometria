@@ -349,8 +349,13 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
             )
         }
         
+#if swift(>=5.5)
         lazy var near = line.projectedNormalizedMagnitude(tNear)
         lazy var far = line.projectedNormalizedMagnitude(tFar)
+#else
+        var near = line.projectedNormalizedMagnitude(tNear)
+        var far = line.projectedNormalizedMagnitude(tFar)
+#endif
         
         switch (line.containsProjectedNormalizedMagnitude(tNear) && contains(near),
                 line.containsProjectedNormalizedMagnitude(tFar) && contains(far)) {
