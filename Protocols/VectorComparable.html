@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
            Docs
         </a>
-         (85% documented)
+         (86% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -587,7 +587,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">VectorComparable</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">Comparable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">VectorComparable</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span><span class="p">,</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">Comparable</span></code></pre>
 
                 </div>
               </div>
@@ -603,16 +603,108 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria16VectorComparableP16maximalComponent6ScalarQzvp"></a>
-                    <a name="//apple_ref/swift/Property/maximalComponent" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria16VectorComparableP16maximalComponent6ScalarQzvp">maximalComponent</a>
+                    <a name="/s:9Geometria16VectorComparableP21maximalComponentIndexSivp"></a>
+                    <a name="//apple_ref/swift/Property/maximalComponentIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16VectorComparableP21maximalComponentIndexSivp">maximalComponentIndex</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>Returns the index of the component of this vector that has the greatest
+value.</p>
+<pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">maximalComponentIndex</span> <span class="c1">// Returns 1</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns the index of the component of this vector that has the greatest
+value.</p>
+<pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">maximalComponentIndex</span> <span class="c1">// Returns 1</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">maximalComponentIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16VectorComparableP21minimalComponentIndexSivp"></a>
+                    <a name="//apple_ref/swift/Property/minimalComponentIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16VectorComparableP21minimalComponentIndexSivp">minimalComponentIndex</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the index of the component of this vector that has the least
+value.</p>
+<pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">minimalComponentIndex</span> <span class="c1">// Returns 0</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns the index of the component of this vector that has the least
+value.</p>
+<pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">minimalComponentIndex</span> <span class="c1">// Returns 0</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">minimalComponentIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16VectorComparableP16maximalComponent6ScalarQzvp"></a>
+                    <a name="//apple_ref/swift/Property/maximalComponent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16VectorComparableP16maximalComponent6ScalarQzvp">maximalComponent</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the component of this vector that has the greatest value.</p>
+<pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">maximalComponent</span> <span class="c1">// Returns 2.5</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
                         <p>Returns the component of this vector that has the greatest value.</p>
 <pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">maximalComponent</span> <span class="c1">// Returns 2.5</span>
 </code></pre>
@@ -636,12 +728,22 @@
                     <a name="//apple_ref/swift/Property/minimalComponent" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria16VectorComparableP16minimalComponent6ScalarQzvp">minimalComponent</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>Returns the component of this vector that has the least value.</p>
+<pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">minimalComponent</span> <span class="c1">// Returns -3.0</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
                         <p>Returns the component of this vector that has the least value.</p>
 <pre class="highlight swift"><code><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">minimalComponent</span> <span class="c1">// Returns -3.0</span>
 </code></pre>
@@ -727,86 +829,32 @@ scalar value at each index for both vectors.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria16VectorComparableP1goiySbx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/&gt;(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria16VectorComparableP1goiySbx_xtFZ">>(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
-greater than <code>rhs</code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&gt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&gt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "false"</span>
-</code></pre>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria16VectorComparableP2geoiySbx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/&gt;=(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria16VectorComparableP2geoiySbx_xtFZ">>=(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
-greater than or equal to <code>rhs</code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&gt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&gt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
-</code></pre>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:9Geometria16VectorComparableP1loiySbx_xtFZ"></a>
                     <a name="//apple_ref/swift/Method/&lt;(_:_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria16VectorComparableP1loiySbx_xtFZ"><(_:<wbr>_:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
+less than <code>rhs</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&lt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "false"</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
                         <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
 less than <code>rhs</code>.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -836,6 +884,9 @@ less than <code>rhs</code>.</p>
                     <a name="//apple_ref/swift/Method/&lt;=(_:_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria16VectorComparableP2leoiySbx_xtFZ"><=(_:<wbr>_:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -853,11 +904,126 @@ less than or equal to <code>rhs</code>.</p>
 </code></pre>
 
                       </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
+less than or equal to <code>rhs</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&lt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&lt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+</code></pre>
+
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16VectorComparableP1goiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/&gt;(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16VectorComparableP1goiySbx_xtFZ">>(_:<wbr>_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
+greater than <code>rhs</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&gt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&gt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "false"</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
+greater than <code>rhs</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&gt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&gt;</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "false"</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16VectorComparableP2geoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/&gt;=(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16VectorComparableP2geoiySbx_xtFZ">>=(_:<wbr>_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
+greater than or equal to <code>rhs</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&gt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&gt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Compares two vectors and returns <code>true</code> if all components of <code>lhs</code> are
+greater than or equal to <code>rhs</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">v1</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v2</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">v3</span> <span class="o">=</span> <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">y</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">v2</span> <span class="o">&gt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">v3</span> <span class="o">&gt;=</span> <span class="n">v1</span><span class="p">)</span> <span class="c1">// Prints "true"</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
