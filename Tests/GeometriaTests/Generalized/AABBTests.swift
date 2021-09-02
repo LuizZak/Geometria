@@ -516,7 +516,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 5, y1: 0, x2: 5, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 5.0, y: 3.0),
@@ -534,7 +535,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 5, y1: 1, x2: 5, y2: 0)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 5.0, y: 7.0),
@@ -552,7 +554,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 0, y1: 5, x2: 1, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 5.0),
@@ -570,7 +573,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 1, y1: 5, x2: 0, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 11.0, y: 5.0),
@@ -588,7 +592,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 13, y1: 5, x2: 12, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 11.0, y: 5.0),
@@ -606,7 +611,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 12, y1: 5, x2: 13, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 5.0),
@@ -624,7 +630,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 5, y1: 9, x2: 5, y2: 8)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 5.0, y: 7.0),
@@ -642,7 +649,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 5, y1: 8, x2: 5, y2: 9)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 5.0, y: 3.0),
@@ -660,7 +668,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 0, y1: 8, x2: 1, y2: 7)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 6.0),
@@ -720,7 +729,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 1, y1: 3, x2: 13, y2: 3)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 3.0),
@@ -745,7 +755,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = LineSegment2D(x1: 5, y1: 4, x2: 12, y2: 4)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .exit(
                 PointNormal(
                     point: .init(x: 11.0, y: 4.0),
@@ -759,7 +770,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = LineSegment2D(x1: 2, y1: 4, x2: 5, y2: 4)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enter(
                 PointNormal(
                     point: .init(x: 2.0, y: 4.0),
@@ -773,7 +785,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 1, y1: 3, x2: 13, y2: 3)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 3.0),
@@ -791,7 +804,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Ray2D(x1: 2, y1: 9, x2: 15, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 8.5, y: 7.0),
@@ -816,7 +830,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Ray2D(x1: 0, y1: 0, x2: 1, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 3.0, y: 3.0),
@@ -834,7 +849,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Ray2D(x1: 3, y1: 4, x2: 4, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .exit(
                 PointNormal(
                     point: .init(x: 6.0, y: 7.0),
@@ -848,7 +864,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Ray2D(x1: 0, y1: 3, x2: 1, y2: 3)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 3.0),
@@ -873,7 +890,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = DirectionalRay2D(x1: 0, y1: 0, x2: 1, y2: 1)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 3.0, y: 3.0),
@@ -891,7 +909,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = DirectionalRay2D(x1: 3, y1: 4, x2: 4, y2: 5)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .exit(
                 PointNormal(
                     point: .init(x: 5.999999999999998, y: 6.999999999999998),
@@ -905,7 +924,8 @@ extension AABBTests {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = DirectionalRay2D(x1: 0, y1: 3, x2: 1, y2: 3)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 2.0, y: 3.0),
@@ -929,7 +949,8 @@ extension AABBTests {
         let line = LineSegment2D(x1: 101.01359554152113, y1: 164.20182144594258,
                                  x2: 298.9864044584789, y2: 145.79817855405742)
         
-        XCTAssertEqual(sut.intersection(with: line),
+        XCTAssertEqual(
+            sut.intersection(with: line),
             .enterExit(
                 PointNormal(
                     point: .init(x: 162.5, y: 158.4860171567055),

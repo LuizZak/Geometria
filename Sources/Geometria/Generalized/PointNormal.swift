@@ -1,7 +1,7 @@
 /// Represents a point along with a normal on the surface of a geometry.
 public struct PointNormal<Vector: VectorType>: CustomStringConvertible {
     public var description: String {
-        return "PointNormal(point: \(point), normal: \(normal))"
+        "PointNormal(point: \(point), normal: \(normal))"
     }
     
     /// A point on the surface of an object.

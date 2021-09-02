@@ -18,7 +18,7 @@ public extension Vector3Type {
     ///
     /// For 3D vectors, this value is always 3.
     @_transparent
-    var scalarCount: Int { return 3 }
+    var scalarCount: Int { 3 }
     
     /// Accesses the scalar at the specified position.
     ///

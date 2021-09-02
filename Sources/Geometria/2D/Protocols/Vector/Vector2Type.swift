@@ -15,7 +15,7 @@ public extension Vector2Type {
     ///
     /// For 2D vectors, this value is always 2.
     @_transparent
-    var scalarCount: Int { return 2 }
+    var scalarCount: Int { 2 }
     
     /// Accesses the scalar at the specified position.
     ///
