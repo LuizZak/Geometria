@@ -21,6 +21,13 @@ class NSphereTests: XCTestCase {
         XCTAssertEqual(sut.center, .init(x: 0, y: 1))
         XCTAssertEqual(sut.radius, 2)
     }
+    
+    func testInitWithXYRadius() {
+        let sut = NSphere(x: 0, y: 1, radius: 2)
+        
+        XCTAssertEqual(sut.center, .init(x: 0, y: 1))
+        XCTAssertEqual(sut.radius, 2)
+    }
 }
 
 // MARK: BoundableType Conformance
@@ -72,9 +79,71 @@ extension NSphereTests {
     }
 }
 
-// MARK: VectorFloatingPoint Conformance
+// MARK: ConvexType & PointProjectiveType Conformance
 
-// 2D tests
+extension NSphereTests {
+    func testProjectVector_atCenter() {
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 1)
+        let point = Vector2D(x: 1, y: 2)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(
+            result,
+            .init(x: 0.7071067811865475, y: 0.7071067811865475)
+        )
+    }
+    
+    func testProjectVector_fromTop() {
+        let sut = NSphere(center: .init(x: 0, y: 0), radius: 1)
+        let point = Vector2D(x: 0, y: -2)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(
+            result,
+            .init(x: 0, y: -1)
+        )
+    }
+    
+    func testProjectVector_fromRight() {
+        let sut = NSphere(center: .init(x: 0, y: 0), radius: 1)
+        let point = Vector2D(x: 2, y: 0)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(
+            result,
+            .init(x: 1, y: 0)
+        )
+    }
+    
+    func testProjectVector_withinSphere() {
+        let sut = NSphere(center: .init(x: 3, y: 5), radius: 2)
+        let point = Vector2D(x: 2, y: 4)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(
+            result,
+            .init(x: -1.414213562373095, y: -1.414213562373095)
+        )
+    }
+    
+    func testProjectVector_outsideSphere() {
+        let sut = NSphere(center: .init(x: 3, y: 5), radius: 2)
+        let point = Vector2D(x: 0, y: 0)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(
+            result,
+            .init(x: -1.028991510855053, y: -1.7149858514250882)
+        )
+    }
+}
+
+// 2D intersection tests
 extension NSphereTests {
     typealias PointNormal = Geometria.PointNormal<Vector2D>
     typealias Circle = Circle2<Vector2D>
@@ -822,7 +891,7 @@ extension NSphereTests {
     }
 }
 
-// 3D tests
+// 3D intersection tests
 extension NSphereTests {
     typealias Sphere = Geometria.NSphere<Vector3D>
     typealias Line3 = Geometria.Line3<Vector3D>

@@ -27,7 +27,7 @@ extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
-extension Line: LineFloatingPoint where Vector: VectorFloatingPoint {
+extension Line: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Returns `true` for all scalar values, which describes a [geometric line].
     ///
     /// This makes the line behave effectively like an infinitely long line when

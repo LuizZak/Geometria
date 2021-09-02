@@ -71,7 +71,7 @@ public extension LineSegment where Vector: VectorMultiplicative {
     }
 }
 
-extension LineSegment: LineFloatingPoint where Vector: VectorFloatingPoint {
+extension LineSegment: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Returns the length of this line.
     ///
     /// - seealso: ``lengthSquared``

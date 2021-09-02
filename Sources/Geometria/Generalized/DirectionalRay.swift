@@ -84,7 +84,7 @@ public extension DirectionalRay where Vector: VectorAdditive {
     }
 }
 
-extension DirectionalRay: LineFloatingPoint where Vector: VectorFloatingPoint {
+extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Returns `true` for all positive scalar values, which describes a [ray].
     ///
     /// [ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray

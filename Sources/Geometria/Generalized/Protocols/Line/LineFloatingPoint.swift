@@ -1,6 +1,6 @@
 /// Protocol for objects that form geometric lines with two floating-point
 /// vectors representing the endpoints of the line.
-public protocol LineFloatingPoint: LineType where Vector: VectorFloatingPoint {
+public protocol LineFloatingPoint: LineType, PointProjectiveType where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this line,
     /// returning a scalar value representing the normalized magnitude of the
     /// projected point between `a <-> b`.
