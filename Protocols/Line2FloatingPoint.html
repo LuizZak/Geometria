@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RoundNRectangle Structure Reference</title>
+    <title>Line2FloatingPoint Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/RoundNRectangle" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/Line2FloatingPoint" class="dashAnchor"></a>
 
-    <a title="RoundNRectangle Structure Reference"></a>
+    <a title="Line2FloatingPoint Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      RoundNRectangle Structure Reference
+      Line2FloatingPoint Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -589,21 +589,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>RoundNRectangle</h1>
+            <h1>Line2FloatingPoint</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RoundNRectangle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RoundNRectangle</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RoundNRectangle</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RoundNRectangle</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RoundNRectangle</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RoundNRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Line2FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Represents an N-dimensional rounded rectangle with a rectangle and radius
-for each axis.</p>
+            <p>Protocol for 2D line types where the vectors are floating-point vectors.</p>
 
           </div>
         </section>
@@ -615,146 +609,32 @@ for each axis.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria15RoundNRectangleV6Scalara"></a>
-                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria15RoundNRectangleV6Scalara">Scalar</a>
+                    <a name="/s:9Geometria18Line2FloatingPointP12intersection4withAA22LineIntersectionResultVy6VectorQzGSgqd___tAaBRd__AHQyd__AIRSlF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18Line2FloatingPointP12intersection4withAA22LineIntersectionResultVy6VectorQzGSgqd___tAaBRd__AHQyd__AIRSlF">intersection(with:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Convenience for <code>Vector.Scalar</code></p>
+                        <p>Returns the result of a line-line intersection with <code>other</code>.</p>
 
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Scalar</span> <span class="o">=</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria15RoundNRectangleV9rectangleAA0C0VyxGvp"></a>
-                    <a name="//apple_ref/swift/Property/rectangle" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria15RoundNRectangleV9rectangleAA0C0VyxGvp">rectangle</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rectangle</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria15RoundNRectangleV6radiusxvp"></a>
-                    <a name="//apple_ref/swift/Property/radius" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria15RoundNRectangleV6radiusxvp">radius</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria15RoundNRectangleV9rectangle6radiusACyxGAA0C0VyxG_xtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(rectangle:radius:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria15RoundNRectangleV9rectangle6radiusACyxGAA0C0VyxG_xtcfc">init(rectangle:<wbr>radius:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rectangle</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">radius</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria15RoundNRectangleVA2A14VectorAdditiveRzrlE6boundsAA4AABBVyxGvp"></a>
-                    <a name="//apple_ref/swift/Property/bounds" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria15RoundNRectangleVA2A14VectorAdditiveRzrlE6boundsAA4AABBVyxGvp">bounds</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the minimal <code><a href="../Structs/AABB.html">AABB</a></code> capable of containing this round rectangle&rsquo;s
-bounds.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bounds</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">:</span> <span class="kt">Line2FloatingPoint</span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">other</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/LineIntersectionResult.html">LineIntersectionResult</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">?</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span> <span class="o">==</span> <span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
