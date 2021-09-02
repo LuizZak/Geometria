@@ -918,4 +918,28 @@ extension AABBTests {
             )
         )
     }
+    
+    // MARK: -
+    
+    func testIntersectionWith_lineSegment_bug1() {
+        // Verify that the intersection point containment check doesn't fail due
+        // to rounding errors in the produced intersection points
+        
+        let sut = Box(left: 162.5, top: 135.0, right: 237.5, bottom: 165.0)
+        let line = LineSegment2D(x1: 101.01359554152113, y1: 164.20182144594258,
+                                 x2: 298.9864044584789, y2: 145.79817855405742)
+        
+        XCTAssertEqual(sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 162.5, y: 158.4860171567055),
+                    normal: .init(x: -1.0, y: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: 237.50000000000003, y: 151.5139828432945),
+                    normal: .init(x: -1.0, y: 0.0)
+                )
+            )
+        )
+    }
 }
