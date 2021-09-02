@@ -163,7 +163,12 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     /// Calculates the dot product between this and another provided `Vector2Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
-        x * other.x + y * other.y
+        // Doing this in separate statements to ease long compilation times in
+        // Xcode 12
+        let dx = x * other.x
+        let dy = y * other.y
+        
+        return dx + dy
     }
     
     @_transparent
@@ -199,7 +204,12 @@ extension Vector2: Vector2Multiplicative where Scalar: Numeric {
     /// the 'z' coordinate being 0.
     @_transparent
     public func cross(_ other: Self) -> Scalar {
-        (x * other.y) - (y * other.x)
+        // Doing this in separate statements to ease long compilation times in
+        // Xcode 12
+        let d1 = (x * other.y)
+        let d2 = (y * other.x)
+        
+        return d1 - d2
     }
 }
 
@@ -432,7 +442,10 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
         
-        return Self(x: (c * vec.x) - (s * vec.y), y: (c * vec.y) + (s * vec.x))
+        let x: Scalar = (c * vec.x) as Scalar - (s * vec.y) as Scalar
+        let y: Scalar = (c * vec.y) as Scalar + (s * vec.x) as Scalar
+        
+        return Self(x: x, y: y)
     }
     
     /// Creates a matrix that when multiplied with a Vector object applies the

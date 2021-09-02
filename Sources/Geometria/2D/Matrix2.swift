@@ -208,7 +208,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Returns: Result of the determinant.
     public func determinant() -> Scalar {
-        m11 * m22 - m12 * m21
+        ((m11 * m22) as Scalar) - m12 * m21
     }
     
     /// Calculates the inverse of this matrix instance.
@@ -266,12 +266,12 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The first matrix to multiply.
     /// - Parameter right: The second matrix to multiply.
     public static func multiply(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
-        let m11 = left.m11 * right.m11 + left.m12 * right.m21
-        let m12 = left.m11 * right.m12 + left.m12 * right.m22
-        let m21 = left.m21 * right.m11 + left.m22 * right.m21
-        let m22 = left.m21 * right.m12 + left.m22 * right.m22
-        let m31 = left.m31 * right.m11 + left.m32 * right.m21 + right.m31
-        let m32 = left.m31 * right.m12 + left.m32 * right.m22 + right.m32
+        let m11: Scalar = left.m11 * right.m11 + left.m12 * right.m21
+        let m12: Scalar = left.m11 * right.m12 + left.m12 * right.m22
+        let m21: Scalar = left.m21 * right.m11 + left.m22 * right.m21
+        let m22: Scalar = left.m21 * right.m12 + left.m22 * right.m22
+        let m31: Scalar = left.m31 * right.m11 + left.m32 * right.m21 + right.m31
+        let m32: Scalar = left.m31 * right.m12 + left.m32 * right.m22 + right.m32
         
         return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
@@ -447,8 +447,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Returns: The result of the transformation for the input vector.
     @inlinable
     public static func transformPoint(matrix: Matrix2, point: Vector) -> Vector {
-        let x = point.x * matrix.m11 + point.y * matrix.m21 + matrix.m31
-        let y = point.x * matrix.m12 + point.y * matrix.m22 + matrix.m32
+        let x = (point.x * matrix.m11) as Scalar + (point.y * matrix.m21) as Scalar + matrix.m31
+        let y = (point.x * matrix.m12) as Scalar + (point.y * matrix.m22) as Scalar + matrix.m32
         
         return Vector(x: x, y: y)
     }
@@ -460,8 +460,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Returns: The result of the transformation for the input vector.
     @inlinable
     public static func transformPoint<V: Vector2Type>(matrix: Matrix2, point: V) -> V where V.Scalar == Scalar {
-        let x = point.x * matrix.m11 + point.y * matrix.m21 + matrix.m31
-        let y = point.x * matrix.m12 + point.y * matrix.m22 + matrix.m32
+        let x = (point.x * matrix.m11) as Scalar + (point.y * matrix.m21) as Scalar + matrix.m31
+        let y = (point.x * matrix.m12) as Scalar + (point.y * matrix.m22) as Scalar + matrix.m32
         
         return V(x: x, y: y)
     }
@@ -491,13 +491,14 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let offsetX = value.m31
         let offsetY = value.m32
         
-        return Matrix2(
-            m11: value.m22 * invdet,
-            m12: -value.m12 * invdet,
-            m21: -value.m21 * invdet,
-            m22: value.m11 * invdet,
-            m31: (value.m21 * offsetY - offsetX * value.m22) * invdet,
-            m32: (offsetX * value.m12 - value.m11 * offsetY) * invdet)
+        let m11 = value.m22 * invdet
+        let m12 = -value.m12 * invdet
+        let m21 = -value.m21 * invdet
+        let m22 = value.m11 * invdet
+        let m31: Scalar = ((value.m21 * offsetY as Scalar - offsetX * value.m22) as Scalar) * invdet
+        let m32: Scalar = ((offsetX * value.m12 as Scalar - value.m11 * offsetY) as Scalar) * invdet
+        
+        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Adds two matrices.
@@ -589,7 +590,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter amount: Interpolation amount.
     /// - Returns: The result of linear interpolation of values based on the amount.
     private static func lerp(from: Scalar, to: Scalar, amount: Scalar) -> Scalar {
-        (1 - amount) * from + amount * to
+        ((1 - amount) * from as Scalar) + ((amount * to) as Scalar)
     }
     
     /// Determines whether the specified value is close to zero (0.0f).

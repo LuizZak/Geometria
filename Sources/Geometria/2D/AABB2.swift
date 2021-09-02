@@ -86,7 +86,10 @@ public extension AABB2 {
     /// Initializes a `AABB` with the edges of a box.
     @_transparent
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
-        self.init(minimum: Vector(x: left, y: top), maximum: Vector(x: right, y: bottom))
+        let minimum = Vector(x: left, y: top)
+        let maxixum = Vector(x: right, y: bottom)
+        
+        self.init(minimum: minimum, maximum: maxixum)
     }
 }
 

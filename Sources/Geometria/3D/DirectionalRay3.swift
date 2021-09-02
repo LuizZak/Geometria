@@ -21,7 +21,10 @@ public extension DirectionalRay3 {
     /// - precondition: `Vector(x: x2 - x1, y: y2 - y1, z: z2 - z1).length > 0`
     @_transparent
     init(x1: Scalar, y1: Scalar, z1: Scalar, x2: Scalar, y2: Scalar, z2: Scalar) {
-        self.init(start: Vector(x: x1, y: y1, z: z1), direction: Vector(x: x2 - x1, y: y2 - y1, z: z2 - z1))
+        let start = Vector(x: x1, y: y1, z: z1)
+        let direction = Vector(x: x2, y: y2, z: z2) - start
+        
+        self.init(start: start, direction: direction)
     }
     
     /// Initializes a new Ray with a 3D vector for its position and another
