@@ -9,10 +9,10 @@ public typealias DirectionalRay2D = DirectionalRay2<Vector2D>
 public typealias DirectionalRay2F = DirectionalRay2<Vector2F>
 
 /// Typealias for `DirectionalRay<V>`, where `V` is constrained to
-/// `Vector2Type & VectorFloatingPoint`.
-public typealias DirectionalRay2<V: Vector2Type & VectorFloatingPoint> = DirectionalRay<V>
+/// `Vector2FloatingPoint`.
+public typealias DirectionalRay2<V: Vector2FloatingPoint> = DirectionalRay<V>
 
-public extension DirectionalRay2 {
+extension DirectionalRay2: Line2Type {
     /// Initializes a new Directional Ray with 2D vectors describing the start
     /// and secondary point the ray crosses before projecting towards infinity.
     ///
@@ -20,7 +20,7 @@ public extension DirectionalRay2 {
     ///
     /// - precondition: `Vector(x: x2 - x1, y: y2 - y1).length > 0`
     @_transparent
-    init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
+    public init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
         self.init(start: Vector(x: x1, y: y1), direction: Vector(x: x2 - x1, y: y2 - y1))
     }
     
@@ -31,16 +31,12 @@ public extension DirectionalRay2 {
     ///
     /// - precondition: `Vector(x: dx, y: dy).length > 0`
     @_transparent
-    init(x: Scalar, y: Scalar, dx: Scalar, dy: Scalar) {
+    public init(x: Scalar, y: Scalar, dx: Scalar, dy: Scalar) {
         self.init(start: Vector(x: x, y: y), direction: Vector(x: dx, y: dy))
     }
 }
 
-extension DirectionalRay2: Line2Type where Vector: VectorFloatingPoint {
-    
-}
-
-extension DirectionalRay2: Line2FloatingPoint where Vector: VectorFloatingPoint {
+extension DirectionalRay2: Line2FloatingPoint where Vector: Vector2FloatingPoint {
     
 }
 
