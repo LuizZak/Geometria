@@ -334,16 +334,14 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
             }
         }
         
-#if swift(>=5.5)
-        lazy var near = line.projectedNormalizedMagnitude(tNear)
-        lazy var far = line.projectedNormalizedMagnitude(tFar)
-#else
         let near = line.projectedNormalizedMagnitude(tNear)
         let far = line.projectedNormalizedMagnitude(tFar)
-#endif
         
-        return (line.containsProjectedNormalizedMagnitude(tNear) && contains(near)) ||
-               (line.containsProjectedNormalizedMagnitude(tFar)  && contains(far))
+        let nearNormDotLine = normalMagnitude(for: near).dot(beginToEnd)
+        let farNormDotLine = normalMagnitude(for: far).dot(beginToEnd)
+        
+        return (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero) ||
+               (line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero)
     }
     
     /// Performs an intersection test against the given line, returning up to
@@ -393,7 +391,7 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
         let far = line.projectedNormalizedMagnitude(tFar)
         
         let nearNormDotLine = normalMagnitude(for: near).dot(beginToEnd)
-        let farNormDotLine = normalMagnitude(for: near).dot(beginToEnd)
+        let farNormDotLine = normalMagnitude(for: far).dot(beginToEnd)
         
         switch (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero,
                 line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero) {
