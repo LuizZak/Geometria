@@ -230,6 +230,12 @@
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a>
               </li>
               <li class="nav-group-task">
@@ -1024,8 +1030,37 @@ result&rsquo;s <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14Dire
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">containsProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/LineSegment.html#/s:9Geometria11LineSegmentV6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">containsProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/LineSegment.html#/s:9Geometria11LineSegmentV6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11LineSegmentVA2A19VectorFloatingPointRzrlE33clampProjectedNormalizedMagnitudey6ScalarQzAGF"></a>
+                    <a name="//apple_ref/swift/Method/clampProjectedNormalizedMagnitude(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11LineSegmentVA2A19VectorFloatingPointRzrlE33clampProjectedNormalizedMagnitudey6ScalarQzAGF">clampProjectedNormalizedMagnitude(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a projected normalized magnitude that is guaranteed to be
+contained in this line.</p>
+
+<p>For <code>LineSegment</code>, this is a clamped inclusive (0-1) range.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clampProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/LineSegment.html#/s:9Geometria11LineSegmentV6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/LineSegment.html#/s:9Geometria11LineSegmentV6Scalara">Scalar</a></span></code></pre>
 
                         </div>
                       </div>

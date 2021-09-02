@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LineFloatingPoint Protocol Reference</title>
+    <title>Line3FloatingPoint Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LineFloatingPoint" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/Line3FloatingPoint" class="dashAnchor"></a>
 
-    <a title="LineFloatingPoint Protocol Reference"></a>
+    <a title="Line3FloatingPoint Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      LineFloatingPoint Protocol Reference
+      Line3FloatingPoint Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -601,16 +601,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LineFloatingPoint</h1>
+            <h1>Line3FloatingPoint</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html">LineType</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Line3FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol for objects that form geometric lines with two floating-point
-vectors representing the endpoints of the line.</p>
+            <p>Protocol for 3D line types where the vectors are floating-point vectors.</p>
 
           </div>
         </section>
@@ -622,9 +621,9 @@ vectors representing the endpoints of the line.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria17LineFloatingPointP15projectAsScalary6Vector_0G0QZAEQzF"></a>
-                    <a name="//apple_ref/swift/Method/projectAsScalar(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP15projectAsScalary6Vector_0G0QZAEQzF">projectAsScalar(_:<wbr>)</a>
+                    <a name="/s:9Geometria18Line3FloatingPointP44unclampedNormalizedMagnitudesForShortestLine2to6Vector_6ScalarAA0L4TypePQZ6onSelf_AJ0O5OthertSgqd___tAaBRd__AFQyd__AFRtzlF"></a>
+                    <a name="//apple_ref/swift/Method/unclampedNormalizedMagnitudesForShortestLine(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18Line3FloatingPointP44unclampedNormalizedMagnitudesForShortestLine2to6Vector_6ScalarAA0L4TypePQZ6onSelf_AJ0O5OthertSgqd___tAaBRd__AFQyd__AFRtzlF">unclampedNormalizedMagnitudesForShortestLine(to:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -635,17 +634,12 @@ vectors representing the endpoints of the line.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Performs a vector projection of a given vector with respect to this line,
-returning a scalar value representing the normalized magnitude of the
-projected point between <code>a &lt;-&gt; b</code>.</p>
+                        <p>Returns a pair of unclamped, normalized magnitudes, on <code>self</code> and
+<code>other</code>, where the magnitudes when projected on each line result in a
+pair of points that form the shortest line between the two original
+lines.</p>
 
-<p>By multiplying the result of this function by <code>(b - a)</code> and adding <code>a</code>,
-the projected point as it lays on this line can be obtained.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Protocols/LineFloatingPoint.html#/s:9Geometria17LineFloatingPointP28projectedNormalizedMagnitudey6VectorQzAE_6ScalarQZF">projectedNormalizedMagnitude(_:)</a></code>
-
-</div>
+<p>Returns <code>nil</code> for parallel lines, and for any line where <code>a == b</code>.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -656,7 +650,8 @@ the projected point as it lays on this line can be obtained.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">projectAsScalar</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">unclampedNormalizedMagnitudesForShortestLine</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">:</span> <span class="kt">Line3FloatingPoint</span><span class="o">&gt;</span><span class="p">(</span><span class="n">to</span> <span class="nv">other</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">onSelf</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="nv">onOther</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)?</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span> <span class="o">==</span> <span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
@@ -666,9 +661,9 @@ the projected point as it lays on this line can be obtained.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria17LineFloatingPointP7projecty6VectorQzAFF"></a>
-                    <a name="//apple_ref/swift/Method/project(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP7projecty6VectorQzAFF">project(_:<wbr>)</a>
+                    <a name="/s:9Geometria18Line3FloatingPointP12shortestLine2toAA0F7SegmentVy6VectorQzGSgqd___tAaBRd__AHQyd__AIRSlF"></a>
+                    <a name="//apple_ref/swift/Method/shortestLine(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18Line3FloatingPointP12shortestLine2toAA0F7SegmentVy6VectorQzGSgqd___tAaBRd__AHQyd__AIRSlF">shortestLine(to:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Default implementation
@@ -679,49 +674,8 @@ the projected point as it lays on this line can be obtained.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Performs a vector projection of a given vector with respect to this line.
-The resulting vector lies within the infinite line formed by extending
-<code>a &lt;-&gt; b</code>.</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">project</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria17LineFloatingPointP18projectedMagnitudey6VectorQzAE_6ScalarQZF"></a>
-                    <a name="//apple_ref/swift/Method/projectedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP18projectedMagnitudey6VectorQzAE_6ScalarQZF">projectedMagnitude(_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the result of creating a projection of this line&rsquo;s start point
-projected towards this line&rsquo;s end point, with a total magnitude of
-<code>scalar</code>.</p>
-
-<p>For <code>scalar == 0</code>, returns <code>self.a</code>, for <code>scalar == self.length</code>,
-returns <code>self.b</code>.</p>
+                        <p>Returns the shortest line segment between the points of this line to
+another 3D line.</p>
 
                       </div>
                       <h4>Default Implementation</h4>
@@ -732,230 +686,7 @@ returns <code>self.b</code>.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">projectedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>scalar</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A non-normalized magnitude that describes the length
-along the slope of this line to generate the point out of.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria17LineFloatingPointP28projectedNormalizedMagnitudey6VectorQzAE_6ScalarQZF"></a>
-                    <a name="//apple_ref/swift/Method/projectedNormalizedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP28projectedNormalizedMagnitudey6VectorQzAE_6ScalarQZF">projectedNormalizedMagnitude(_:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the result of creating a projection of this line&rsquo;s start point
-projected towards this line&rsquo;s end point, with a normalized magnitude of
-<code>scalar</code>.</p>
-
-<p>For <code>scalar == 0</code>, returns <code>self.a</code>, for <code>scalar == 1</code>, returns <code>self.b</code></p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">projectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>scalar</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>A normalized magnitude that describes the length
-along the slope of this line to generate the point out of. Values
-outside the range [0, 1] are allowed and equate to projections past the
-endpoints of the line.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria17LineFloatingPointP36containsProjectedNormalizedMagnitudeySb6Vector_6ScalarQZF"></a>
-                    <a name="//apple_ref/swift/Method/containsProjectedNormalizedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP36containsProjectedNormalizedMagnitudeySb6Vector_6ScalarQZF">containsProjectedNormalizedMagnitude(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>true</code> if a normalized, projected <code>scalar</code> representing a segment
-of this line with the same starting point and direction, with
-<code>length = self.length * scalar</code>, lies within the boundaries of this line.</p>
-
-<p>For infinite lines, all projected scalars lie within the line, while in
-line segments bounded with start/end points, only values lying in (0-1)
-are contained on the line.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">containsProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria17LineFloatingPointP33clampProjectedNormalizedMagnitudey6Vector_6ScalarQZAGF"></a>
-                    <a name="//apple_ref/swift/Method/clampProjectedNormalizedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP33clampProjectedNormalizedMagnitudey6Vector_6ScalarQZAGF">clampProjectedNormalizedMagnitude(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a projected normalized magnitude that is guaranteed to be
-contained in this line.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">clampProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria17LineFloatingPointP15distanceSquared2to6Vector_6ScalarQZAFQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/distanceSquared(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP15distanceSquared2to6Vector_6ScalarQZAFQz_tF">distanceSquared(to:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the squared distance between this line and a given vector.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Protocols/LineFloatingPoint.html#/s:9Geometria17LineFloatingPointP8distance2to6Vector_6ScalarQZAFQz_tF">distance(to:)</a></code>
-
-</div>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">distanceSquared</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria17LineFloatingPointP8distance2to6Vector_6ScalarQZAFQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/distance(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria17LineFloatingPointP8distance2to6Vector_6ScalarQZAFQz_tF">distance(to:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the distance between this line and a given vector.</p>
-
-<p>Equivalent to <code>self.distanceSquared(to: vector).squareRoot()</code>.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Protocols/LineFloatingPoint.html#/s:9Geometria17LineFloatingPointP15distanceSquared2to6Vector_6ScalarQZAFQz_tF">distanceSquared(to:)</a></code>
-
-</div>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">distance</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">shortestLine</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">to</span> <span class="nv">other</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/LineSegment.html">LineSegment</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">?</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt">Line3FloatingPoint</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
