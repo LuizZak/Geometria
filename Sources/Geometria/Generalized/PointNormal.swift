@@ -1,5 +1,8 @@
 /// Represents a point along with a normal on the surface of a geometry.
 public struct PointNormal<Vector: VectorType>: CustomStringConvertible {
+    /// Convenience for `Vector.Scalar`
+    public typealias Scalar = Vector.Scalar
+    
     public var description: String {
         "PointNormal(point: \(point), normal: \(normal))"
     }

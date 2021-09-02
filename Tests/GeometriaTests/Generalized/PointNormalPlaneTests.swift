@@ -2,7 +2,8 @@ import XCTest
 import Geometria
 
 class PointNormalPlaneTests: XCTestCase {
-    typealias Plane = PointNormalPlane3D
+    typealias Vector = Vector3D
+    typealias Plane = PointNormalPlane3<Vector>
     
     func testDescription() {
         let sut = Plane(point: .init(x: 1, y: 2, z: 3),
@@ -38,5 +39,45 @@ class PointNormalPlaneTests: XCTestCase {
         
         XCTAssertEqual(result.point, .init(x: 1, y: 2, z: 3))
         XCTAssertEqual(result.normal, .init(x: 0.4216370213557839, y: 0.5270462766947299, z: 0.7378647873726218))
+    }
+    
+    func testSignedDistanceTo_parallelAxisPlane() {
+        let sut = Plane(point: .init(x: 1, y: 2, z: 3),
+                        normal: .init(x: 0, y: 0, z: 1))
+        let point = Vector(x: 1, y: 2, z: 10)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 7)
+    }
+    
+    func testSignedDistanceTo_parallelAxisPlane_negativeDistance() {
+        let sut = Plane(point: .init(x: 1, y: 2, z: 3),
+                        normal: .init(x: 0, y: 0, z: 1))
+        let point = Vector(x: 1, y: 2, z: -4)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, -7)
+    }
+    
+    func testSignedDistanceTo_tiltedAxisPlane() {
+        let sut = Plane(point: .init(x: 1, y: 2, z: 3),
+                        normal: .init(x: -1, y: 0, z: 1))
+        let point = Vector(x: 1, y: 2, z: 10)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 4.949747468305832)
+    }
+    
+    func testSignedDistanceTo_tiltedAxisPlane_negativeDistance() {
+        let sut = Plane(point: .init(x: 1, y: 2, z: 3),
+                        normal: .init(x: -1, y: 0, z: 1))
+        let point = Vector(x: 1, y: 2, z: -4)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, -4.949747468305832)
     }
 }
