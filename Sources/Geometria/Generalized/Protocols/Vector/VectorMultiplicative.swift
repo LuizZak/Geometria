@@ -79,6 +79,6 @@ public extension VectorMultiplicative {
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
     @_transparent
     static func lerp(start: Self, end: Self, amount: Scalar) -> Self {
-        ((start * (1 - amount)) as Self) + (end * amount as Self)
+        (start * ((1 - amount) as Scalar)) as Self + (end * amount as Self)
     }
 }

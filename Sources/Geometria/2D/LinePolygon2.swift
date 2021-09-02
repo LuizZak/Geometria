@@ -33,8 +33,8 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         // Turning direction can be determined using the cross-product of
         // the forward difference vectors
         var i = vertices.count - 2, j = vertices.count - 1, k = 0
-        var p = vertices[j] - vertices[i]
-        var q = vertices[k] - vertices[j]
+        var p: Vector = vertices[j] - vertices[i]
+        var q: Vector = vertices[k] - vertices[j]
         let winding = p.cross(q)
         
         while k + 1 < vertices.count {
