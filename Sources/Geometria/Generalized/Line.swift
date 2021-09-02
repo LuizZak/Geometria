@@ -28,7 +28,8 @@ extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension Line: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
-    /// Returns `true` for all scalar values, which describes a [geometric line].
+    /// Returns `true` for all non-NaN scalar values, which describes a
+    /// [geometric line].
     ///
     /// This makes the line behave effectively like an infinitely long line when
     /// working with methods from ``LineFloatingPoint`` conformance.
@@ -36,7 +37,17 @@ extension Line: LineFloatingPoint & PointProjectiveType where Vector: VectorFloa
     /// [geometric line]: https://en.wikipedia.org/wiki/Line_(geometry)
     @_transparent
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
-        true
+        !scalar.isNaN
+    }
+    
+    /// Returns a projected normalized magnitude that is guaranteed to be
+    /// contained in this line.
+    ///
+    /// For ``Line``, this is the full range of representable scalars, -∞ to ∞,
+    /// resulting in the same value as `scalar` being returned for all inputs.
+    @_transparent
+    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+        scalar
     }
 }
 

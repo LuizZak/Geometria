@@ -153,20 +153,6 @@ extension DirectionalRayTests {
 // MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
 
 extension DirectionalRayTests {
-    func testContainsProjectedNormalizedMagnitude() {
-        let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 0)
-        
-        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-.infinity))
-        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-1))
-        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-0.1))
-        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0))
-        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0.5))
-        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1))
-        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1.1))
-        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(2))
-        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
-    }
-    
     func testProjectAsScalar2D() {
         let sut = DirectionalRay(x: 2, y: 1, dx: 3, dy: 2)
         let point = Vector2D(x: 2, y: 2)
@@ -294,6 +280,40 @@ extension DirectionalRayTests {
         assertEqual(result,
                     .init(x: 7.071067811865475, y: 7.071067811865475),
                     accuracy: 1e-12)
+    }
+    
+    func testContainsProjectedNormalizedMagnitude() {
+        let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 0)
+        
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-.infinity))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-1))
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(-0.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(0.5))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(1.1))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(2))
+        XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
+    }
+    
+    func testContainsProjectedNormalizedMagnitude_returnsFalseForNaN() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(.nan))
+    }
+    
+    func testClampProjectedNormalizedMagnitude() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-.infinity), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-1), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-0.1), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(0), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(0.5), 0.5)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1), 1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1.1), 1.1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
     }
     
     func testDistanceSquaredTo2D() {

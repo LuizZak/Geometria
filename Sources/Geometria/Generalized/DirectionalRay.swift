@@ -85,14 +85,6 @@ public extension DirectionalRay where Vector: VectorAdditive {
 }
 
 extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
-    /// Returns `true` for all positive scalar values, which describes a [ray].
-    ///
-    /// [ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
-    @inlinable
-    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
-        scalar >= 0
-    }
-    
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the infinite line defined by points
@@ -148,6 +140,23 @@ extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: 
     @inlinable
     public func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector {
         start.addingProduct(direction, scalar)
+    }
+    
+    /// Returns `true` for all positive scalar values, which describes a [ray].
+    ///
+    /// [ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
+    @_transparent
+    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
+        scalar >= 0
+    }
+    
+    /// Returns a projected normalized magnitude that is guaranteed to be
+    /// contained in this line.
+    ///
+    /// For ``DirectionalRay``, this is a clamped inclusive (0-∞ range.
+    @_transparent
+    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+        return max(0, scalar)
     }
     
     /// Returns the squared distance between this directional ray and a given

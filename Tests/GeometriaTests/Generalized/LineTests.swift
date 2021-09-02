@@ -69,4 +69,24 @@ extension LineTests {
         XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(2))
         XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
     }
+    
+    func testContainsProjectedNormalizedMagnitude_returnsFalseForNaN() {
+        let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(.nan))
+    }
+    
+    func testClampProjectedNormalizedMagnitude() {
+        let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-.infinity), -.infinity)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-1), -1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-0.1), -0.1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(0), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(0.5), 0.5)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1), 1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1.1), 1.1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
+    }
 }

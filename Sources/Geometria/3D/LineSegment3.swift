@@ -12,10 +12,14 @@ public typealias LineSegment3i = LineSegment3<Vector3i>
 /// Typealias for `LineSegment<V>`, where `V` is constrained to `Vector3Type`.
 public typealias LineSegment3<V: Vector3Type> = LineSegment<V>
 
-public extension LineSegment3 {
+extension LineSegment3: Line3Type {
     @_transparent
-    init(x1: Scalar, y1: Scalar, z1: Scalar, x2: Scalar, y2: Scalar, z2: Scalar) {
+    public init(x1: Scalar, y1: Scalar, z1: Scalar, x2: Scalar, y2: Scalar, z2: Scalar) {
         start = Vector(x: x1, y: y1, z: z1)
         end = Vector(x: x2, y: y2, z: z2)
     }
+}
+
+extension LineSegment3: Line3FloatingPoint where Vector: Vector3Type & VectorFloatingPoint {
+    
 }

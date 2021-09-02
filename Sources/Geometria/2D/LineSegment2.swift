@@ -20,7 +20,7 @@ extension LineSegment2: Line2Type {
     }
 }
 
-extension LineSegment2: Line2FloatingPoint where Vector: VectorFloatingPoint {
+extension LineSegment2: Line2FloatingPoint where Vector: Vector2FloatingPoint {
     
 }
 

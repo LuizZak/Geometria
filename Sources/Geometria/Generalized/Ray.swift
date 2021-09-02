@@ -51,9 +51,18 @@ extension Ray: LineFloatingPoint & PointProjectiveType where Vector: VectorFloat
     }
     
     /// Returns `true` for all positive projected scalars (ray)
-    @inlinable
+    @_transparent
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         scalar >= 0
+    }
+    
+    /// Returns a projected normalized magnitude that is guaranteed to be
+    /// contained in this line.
+    ///
+    /// For ``Ray``, this is a clamped inclusive (0-∞ range.
+    @_transparent
+    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+        return max(0, scalar)
     }
     
     /// Returns the squared distance between this line and a given vector.

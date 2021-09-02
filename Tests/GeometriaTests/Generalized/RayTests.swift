@@ -99,6 +99,26 @@ extension RayTests {
         XCTAssertTrue(sut.containsProjectedNormalizedMagnitude(.infinity))
     }
     
+    func testContainsProjectedNormalizedMagnitude_returnsFalseForNaN() {
+        let sut = Ray(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertFalse(sut.containsProjectedNormalizedMagnitude(.nan))
+    }
+    
+    func testClampProjectedNormalizedMagnitude() {
+        let sut = Ray(x1: 0, y1: 0, x2: 1, y2: 0)
+        
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-.infinity), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-1), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(-0.1), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(0), 0)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(0.5), 0.5)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1), 1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1.1), 1.1)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
+        XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
+    }
+    
     func testDistanceSquaredTo2D() {
         let sut = Ray(x: 0, y: 0, dx: 1, dy: 1)
         let point = Vector2D(x: 0, y: 1)

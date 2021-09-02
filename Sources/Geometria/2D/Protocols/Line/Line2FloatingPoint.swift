@@ -1,5 +1,5 @@
 /// Protocol for 2D line types where the vectors are floating-point vectors.
-public protocol Line2FloatingPoint: LineFloatingPoint & Line2Type {
+public protocol Line2FloatingPoint: LineFloatingPoint & Line2Type where Vector: Vector2FloatingPoint {
     /// Returns the result of a line-line intersection with `other`.
     func intersection<Line: Line2FloatingPoint>(with other: Line)
         -> LineIntersectionResult<Vector>? where Line.Vector == Vector

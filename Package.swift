@@ -14,7 +14,9 @@ let package = Package(
     targets: [
         .target(
             name: "Geometria",
-            dependencies: [.product(name: "Numerics", package: "swift-numerics")]),
+            dependencies: [
+                .product(name: "Numerics", package: "swift-numerics")
+            ]),
         .testTarget(
             name: "GeometriaTests",
             dependencies: ["Geometria"]),
