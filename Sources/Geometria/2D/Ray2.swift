@@ -19,6 +19,10 @@ extension Ray2: Line2Type {
     
 }
 
+extension Ray2: Line2FloatingPoint where Vector: VectorFloatingPoint {
+    
+}
+
 extension Ray2: Line2Real where Vector: Vector2Real {
     
 }

@@ -112,16 +112,22 @@ private struct TestVectorComparable: VectorComparable {
     subscript(index: Int) -> Double {
         get {
             switch index {
-            case 0: return x
-            case 1: return y
-            default: fatalError()
+            case 0:
+                return x
+            case 1:
+                return y
+            default:
+                fatalError("index out of bounds")
             }
         }
         set {
             switch index {
-            case 0: x = newValue
-            case 1: y = newValue
-            default: fatalError()
+            case 0:
+                x = newValue
+            case 1:
+                y = newValue
+            default:
+                fatalError("index out of bounds")
             }
         }
     }

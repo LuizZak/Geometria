@@ -36,10 +36,18 @@ public extension DirectionalRay2 {
     }
 }
 
-public extension DirectionalRay2 where Vector: Vector2Real {
+extension DirectionalRay2: Line2Type where Vector: VectorFloatingPoint {
+    
+}
+
+extension DirectionalRay2: Line2FloatingPoint where Vector: VectorFloatingPoint {
+    
+}
+
+extension DirectionalRay2: Line2Real where Vector: Vector2Real {
     /// Returns the angle of this directional ray, in radians
     @_transparent
-    var angle: Vector.Scalar {
+    public var angle: Vector.Scalar {
         direction.angle
     }
 }

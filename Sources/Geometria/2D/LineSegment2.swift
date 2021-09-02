@@ -20,6 +20,10 @@ extension LineSegment2: Line2Type {
     }
 }
 
+extension LineSegment2: Line2FloatingPoint where Vector: VectorFloatingPoint {
+    
+}
+
 extension LineSegment2: Line2Real where Vector: Vector2Real {
     
 }
