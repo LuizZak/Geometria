@@ -36,8 +36,19 @@ public extension PointNormalPlane {
     ///
     /// By offsetting the point by -(signed distance x ``normal``), the
     /// projected point on the plane is retrieved.
+    @inlinable
     func signedDistance(to vector: Vector) -> Scalar {
         let v = vector - point
         return v.dot(normal)
+    }
+    
+    /// Projects a given vector on this plane.
+    ///
+    /// Returns the closest point on this plane to `vector`.
+    @inlinable
+    func project(vector: Vector) -> Vector {
+        let d = signedDistance(to: vector)
+        
+        return vector.addingProduct(-d, normal)
     }
 }
