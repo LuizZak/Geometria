@@ -1,8 +1,8 @@
 import XCTest
 import Geometria
 
-class PlaneTests: XCTestCase {
-    typealias Plane = Plane3D
+class PointNormalPlaneTests: XCTestCase {
+    typealias Plane = PointNormalPlane3D
     
     func testDescription() {
         let sut = Plane(point: .init(x: 1, y: 2, z: 3),
@@ -10,7 +10,7 @@ class PlaneTests: XCTestCase {
         
         XCTAssertEqual(
             sut.description,
-            "Plane(point: Vector3<Double>(x: 1.0, y: 2.0, z: 3.0), normal: Vector3<Double>(x: 0.0, y: 0.0, z: 1.0))"
+            "PointNormalPlane(point: Vector3<Double>(x: 1.0, y: 2.0, z: 3.0), normal: Vector3<Double>(x: 0.0, y: 0.0, z: 1.0))"
         )
     }
     
