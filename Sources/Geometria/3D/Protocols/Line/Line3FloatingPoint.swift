@@ -1,5 +1,14 @@
 /// Protocol for 3D line types where the vectors are floating-point vectors.
 public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint {
+    /// Returns a pair of unclamped, normalized magnitudes, one for `self` and
+    /// another for `other`, where the magnitudes when projected on each line
+    /// result in a pair of points that form the shortest line between the two
+    /// original lines.
+    ///
+    /// Returns `nil` for parallel lines, and for any line where `a == b`.
+    func unclampedNormalizedMagnitudesForShortestLine<Line: Line3FloatingPoint>(to other: Line)
+        -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector
+    
     /// Returns the shortest line segment between the points of this line to
     /// another 3D line.
     func shortestLine<Line: Line3FloatingPoint>(to other: Line) -> LineSegment<Vector>? where Line.Vector == Vector
@@ -7,7 +16,9 @@ public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint {
 
 public extension Line3FloatingPoint {
     @inlinable
-    func shortestLine<Line: Line3FloatingPoint>(to other: Line) -> LineSegment<Vector>? where Line.Vector == Vector {
+    func unclampedNormalizedMagnitudesForShortestLine<Line: Line3FloatingPoint>(to other: Line)
+        -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector {
+        
         // Algorithm as described in: http://paulbourke.net/geometry/pointlineplane/
         typealias Scalar = Vector.Scalar
         
@@ -47,6 +58,15 @@ public extension Line3FloatingPoint {
         
         // mub = ( d1343 + mua d4321 ) / d4343
         let mub: Scalar = (d1343 + (mua * d4321) as Scalar) as Scalar / d4343
+        
+        return (mua, mub)
+    }
+    
+    @inlinable
+    func shortestLine<Line: Line3FloatingPoint>(to other: Line) -> LineSegment<Vector>? where Line.Vector == Vector {
+        guard let (mua, mub) = unclampedNormalizedMagnitudesForShortestLine(to: other) else {
+            return nil
+        }
         
         let clampa = self.clampProjectedNormalizedMagnitude(mua)
         let clampb = other.clampProjectedNormalizedMagnitude(mub)
