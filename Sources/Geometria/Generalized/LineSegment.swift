@@ -94,9 +94,18 @@ extension LineSegment: LineFloatingPoint & PointProjectiveType where Vector: Vec
     /// [line segment].
     ///
     /// [line segment]: https://en.wikipedia.org/wiki/Line_segment
-    @inlinable
+    @_transparent
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         scalar >= 0 && scalar <= 1
+    }
+    
+    /// Returns a projected normalized magnitude that is guaranteed to be
+    /// contained in this line.
+    ///
+    /// For ``LineSegment``, this is a clamped inclusive (0-1) range.
+    @_transparent
+    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+        return min(1, max(0, scalar))
     }
     
     /// Returns the squared distance between this line and a given vector.

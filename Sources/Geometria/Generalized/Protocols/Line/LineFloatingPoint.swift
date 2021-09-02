@@ -48,6 +48,10 @@ public protocol LineFloatingPoint: LineType, PointProjectiveType where Vector: V
     /// are contained on the line.
     func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool
     
+    /// Returns a projected normalized magnitude that is guaranteed to be
+    /// contained in this line.
+    func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar
+    
     /// Returns the squared distance between this line and a given vector.
     ///
     /// - seealso: ``distance(to:)-9p2y4``
