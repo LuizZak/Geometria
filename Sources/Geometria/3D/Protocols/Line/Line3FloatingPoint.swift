@@ -1,9 +1,9 @@
 /// Protocol for 3D line types where the vectors are floating-point vectors.
 public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint {
-    /// Returns a pair of unclamped, normalized magnitudes, one for `self` and
-    /// another for `other`, where the magnitudes when projected on each line
-    /// result in a pair of points that form the shortest line between the two
-    /// original lines.
+    /// Returns a pair of unclamped, normalized magnitudes, on `self` and
+    /// `other`, where the magnitudes when projected on each line result in a
+    /// pair of points that form the shortest line between the two original
+    /// lines.
     ///
     /// Returns `nil` for parallel lines, and for any line where `a == b`.
     func unclampedNormalizedMagnitudesForShortestLine<Line: Line3FloatingPoint>(to other: Line)
