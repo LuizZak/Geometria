@@ -19,3 +19,11 @@ public struct PointNormalPlane<Vector: VectorFloatingPoint>: CustomStringConvert
         self.normal = normal
     }
 }
+
+public extension PointNormalPlane {
+    /// Returns a ``PointNormal`` value initialized with this plane's parameters.
+    @_transparent
+    var asPointNormal: PointNormal<Vector> {
+        return PointNormal(point: point, normal: normal)
+    }
+}

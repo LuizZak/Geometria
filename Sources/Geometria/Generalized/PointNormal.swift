@@ -23,3 +23,12 @@ public struct PointNormal<Vector: VectorType>: CustomStringConvertible {
 
 extension PointNormal: Equatable where Vector: Equatable { }
 extension PointNormal: Hashable where Vector: Hashable { }
+
+public extension PointNormal where Vector: VectorFloatingPoint {
+    /// Returns a ``PointNormalPlane`` value initialized with this point normal's
+    /// parameters.
+    @_transparent
+    var asPlane: PointNormalPlane<Vector> {
+        return PointNormalPlane(point: point, normal: normal)
+    }
+}
