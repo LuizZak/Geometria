@@ -96,7 +96,7 @@ class PointNormalPlaneTests: XCTestCase {
                         normal: .init(x: 1, y: 0, z: 1))
         let point = Vector(x: 2, y: 3, z: 10)
         
-        let result = sut.project(vector: point)
+        let result = sut.project(point)
         
         assertEqual(result,
                     .init(x: -3.999999999999999, y: 3.0, z: 4.000000000000001),
