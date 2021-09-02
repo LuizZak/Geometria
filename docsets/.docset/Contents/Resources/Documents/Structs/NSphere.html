@@ -239,6 +239,9 @@
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/PointProjectiveType.html">PointProjectiveType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
@@ -258,6 +261,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Vector3Multiplicative.html">Vector3Multiplicative</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Vector3Real.html">Vector3Real</a>
@@ -599,7 +605,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NSphere</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NSphere</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NSphere</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NSphere</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NSphere</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
@@ -859,6 +865,36 @@ are considered as contained within the N-sphere.</p>
                 </div>
               </div>
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria7NSphereVA2A19VectorFloatingPointRzrlE7projectyxxF"></a>
+                    <a name="//apple_ref/swift/Method/project(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria7NSphereVA2A19VectorFloatingPointRzrlE7projectyxxF">project(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the closest point on this sphere&rsquo;s surface to <code>vector</code>.</p>
+
+<p>If <code>vector</code> == <code><a href="../Structs/NSphere.html#/s:9Geometria7NSphereV6centerxvp">center</a></code>, an arbitrary point is chosen, instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">project</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>

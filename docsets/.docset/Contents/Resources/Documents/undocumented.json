@@ -85,6 +85,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/LineIntersectionResult.swift",
+      "line": 21,
+      "symbol": "LineIntersectionResult.init(point:line1NormalizedMagnitude:line2NormalizedMagnitude:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/LinePolygon2.swift",
       "line": 26,
       "symbol": "LinePolygon2.isConvex()",

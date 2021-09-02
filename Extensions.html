@@ -239,6 +239,9 @@
                 <a class="nav-group-task-link" href="Protocols/LineType.html">LineType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/PointProjectiveType.html">PointProjectiveType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
@@ -258,6 +261,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Vector3Multiplicative.html">Vector3Multiplicative</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Vector3Real.html">Vector3Real</a>
@@ -648,7 +654,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria7Circle2a">Circle2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Comparable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria7Circle2a">Circle2</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria7Circle2a">Circle2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Comparable</span></code></pre>
 
                         </div>
                       </div>
@@ -1200,6 +1207,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt">AdditiveArithmetic</span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Multiplicative.html">Vector3Multiplicative</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorSigned.html">VectorSigned</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorDivisible.html">VectorDivisible</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD3</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>

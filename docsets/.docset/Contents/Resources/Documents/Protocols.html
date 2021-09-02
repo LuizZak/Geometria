@@ -239,6 +239,9 @@
                 <a class="nav-group-task-link" href="Protocols/LineType.html">LineType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/PointProjectiveType.html">PointProjectiveType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
@@ -258,6 +261,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Vector3Multiplicative.html">Vector3Multiplicative</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Vector3Real.html">Vector3Real</a>
@@ -1032,6 +1038,34 @@ rectangular areas with a defined location and size.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria21Vector3MultiplicativeP"></a>
+                    <a name="//apple_ref/swift/Protocol/Vector3Multiplicative" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria21Vector3MultiplicativeP">Vector3Multiplicative</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol for 3D vector types with multiplicable scalars.</p>
+
+                        <a href="Protocols/Vector3Multiplicative.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector3Multiplicative</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Type.html">Vector3Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria13BoundableTypeP"></a>
                     <a name="//apple_ref/swift/Protocol/BoundableType" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria13BoundableTypeP">BoundableType</a>
@@ -1117,6 +1151,37 @@ closed convex shapes.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria19PointProjectiveTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/PointProjectiveType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria19PointProjectiveTypeP">PointProjectiveType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol for geometric types that support vector projection operations.</p>
+
+<p>Types conforming to this protocol expose a function that can project an
+arbitrary vector onto their surface.</p>
+
+                        <a href="Protocols/PointProjectiveType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PointProjectiveType</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria19DivisibleArithmeticP"></a>
                     <a name="//apple_ref/swift/Protocol/DivisibleArithmetic" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria19DivisibleArithmeticP">DivisibleArithmetic</a>
@@ -1164,7 +1229,7 @@ vectors representing the endpoints of the line.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineType.html">LineType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineType.html">LineType</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
