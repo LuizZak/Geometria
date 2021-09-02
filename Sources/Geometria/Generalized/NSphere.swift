@@ -46,7 +46,19 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
     }
 }
 
-extension NSphere: ConvexType where Vector: VectorFloatingPoint {
+extension NSphere: ConvexType & PointProjectiveType where Vector: VectorFloatingPoint {
+    /// Returns the closest point on this sphere's surface to `vector`.
+    ///
+    /// If `vector` == ``center``, an arbitrary point is chosen, instead.
+    @inlinable
+    public func project(_ vector: Vector) -> Vector {
+        if vector == center {
+            return Vector.one.normalized() * radius
+        }
+        
+        return (vector - center).normalized() * radius
+    }
+    
     /// Returns `true` if this N-sphere's area intersects the given line type.
     @inlinable
     public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {

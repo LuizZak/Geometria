@@ -39,7 +39,7 @@ extension Ray: LineType {
     }
 }
 
-extension Ray: LineFloatingPoint where Vector: VectorFloatingPoint {
+extension Ray: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
     /// matches `self.start` and `ray.direction` matches
     /// `(self.b - self.start).normalized()`.
