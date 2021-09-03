@@ -23,6 +23,9 @@ public struct PointNormalPlane<Vector: VectorFloatingPoint>: CustomStringConvert
     }
 }
 
+extension PointNormalPlane: Equatable where Vector: Equatable { }
+extension PointNormalPlane: Hashable where Vector: Hashable { }
+
 public extension PointNormalPlane {
     /// Returns a ``PointNormal`` value initialized with this plane's parameters.
     @_transparent

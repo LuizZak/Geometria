@@ -5,6 +5,24 @@ class PointNormalPlaneTests: XCTestCase {
     typealias Vector = Vector3D
     typealias Plane = PointNormalPlane3<Vector>
     
+    func testEquatable() {
+        XCTAssertEqual(Plane(point: .unitZ, normal: .unitY),
+                       Plane(point: .unitZ, normal: .unitY))
+        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY),
+                          Plane(point: .unitX, normal: .unitY))
+        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY),
+                          Plane(point: .unitX, normal: .unitX))
+    }
+    
+    func testHashable() {
+        XCTAssertEqual(Plane(point: .unitZ, normal: .unitY).hashValue,
+                       Plane(point: .unitZ, normal: .unitY).hashValue)
+        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY).hashValue,
+                          Plane(point: .unitX, normal: .unitY).hashValue)
+        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY).hashValue,
+                          Plane(point: .unitX, normal: .unitX).hashValue)
+    }
+    
     func testDescription() {
         let sut = Plane(point: .init(x: 1, y: 2, z: 3),
                         normal: .init(x: 0, y: 0, z: 1))
