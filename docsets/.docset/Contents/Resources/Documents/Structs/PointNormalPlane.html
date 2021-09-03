@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Collection Extension Reference</title>
+    <title>PointNormalPlane Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Collection" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/PointNormalPlane" class="dashAnchor"></a>
 
-    <a title="Collection Extension Reference"></a>
+    <a title="PointNormalPlane Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Collection Extension Reference
+      PointNormalPlane Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -622,15 +622,20 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Collection</h1>
+            <h1>PointNormalPlane</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Collection</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PointNormalPlane</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PointNormalPlane</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectiveType.html">PointProjectiveType</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Represents an infinite plane with a point and a normal.</p>
+
+<p>In 2D, a plane equates to a line, while in 3D and higher dimensions it
+equates to a flat 2D plane.</p>
+
           </div>
         </section>
 
@@ -641,9 +646,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sl9GeometriaE13averageVectorqd__yAA0C9DivisibleRd__7ElementQzRsd__SF6ScalarRpd__lF"></a>
-                    <a name="//apple_ref/swift/Method/averageVector()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sl9GeometriaE13averageVectorqd__yAA0C9DivisibleRd__7ElementQzRsd__SF6ScalarRpd__lF">averageVector()</a>
+                    <a name="/s:9Geometria16PointNormalPlaneV6Scalara"></a>
+                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV6Scalara">Scalar</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -651,18 +656,233 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Averages this collection of vectors into one <code><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></code> point as
-the mean location of each vector.</p>
+                        <p>Convenience for <code>Vector.Scalar</code></p>
 
-<p>Returns <code>VectorDivisible.zero</code>, if the collection is empty.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vectors</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">4.3</span><span class="p">),</span>
-    <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.3</span><span class="p">),</span>
-    <span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">6.9</span><span class="p">)</span>
-<span class="p">]</span>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Scalar</span> <span class="o">=</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
 
-<span class="nf">print</span><span class="p">(</span><span class="n">vectors</span><span class="o">.</span><span class="nf">averageVector</span><span class="p">())</span> <span class="c1">// Prints "(x: 1.0, y: 4.5)"</span>
-</code></pre>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV5pointxvp"></a>
+                    <a name="//apple_ref/swift/Property/point" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV5pointxvp">point</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A point on this plane.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV6normalxvp"></a>
+                    <a name="//apple_ref/swift/Property/normal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV6normalxvp">normal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The normal of the plane&rsquo;s surface.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd"><a href="../Structs/UnitVector.html">@UnitVector</a></span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV5point6normalACyxGx_xtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(point:normal:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV5point6normalACyxGx_xtcfc">init(point:<wbr>normal:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV02asbC0AA0bC0VyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/asPointNormal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV02asbC0AA0bC0VyxGvp">asPointNormal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a <code><a href="../Structs/PointNormal.html">PointNormal</a></code> value initialized with this plane&rsquo;s parameters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asPointNormal</span><span class="p">:</span> <span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV09unclampedC24MagnitudeForIntersection4with6ScalarQzSgqd___t6VectorQyd__RszAA012LineFloatingB0Rd__lF"></a>
+                    <a name="//apple_ref/swift/Method/unclampedNormalMagnitudeForIntersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV09unclampedC24MagnitudeForIntersection4with6ScalarQzSgqd___t6VectorQyd__RszAA012LineFloatingB0Rd__lF">unclampedNormalMagnitudeForIntersection(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the normalized magnitude for a line&rsquo;s intersection point on this
+plane.</p>
+
+<p>Result is <code>nil</code> if intersection is not within the line&rsquo;s limits, or if
+the line is parallel to this plane.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">unclampedNormalMagnitudeForIntersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PointNormalPlane.html#/s:9Geometria16PointNormalPlaneV6Scalara">Scalar</a></span><span class="p">?</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV12intersection4withxSgqd___t6VectorQyd__RszAA012LineFloatingB0Rd__lF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV12intersection4withxSgqd___t6VectorQyd__RszAA012LineFloatingB0Rd__lF">intersection(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the result of a line intersection on this plane.</p>
+
+<p>Result is <code>nil</code> if intersection is not within the line&rsquo;s limits, or if
+the line is parallel to this plane.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="p">?</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV14signedDistance2to6ScalarQzx_tF"></a>
+                    <a name="//apple_ref/swift/Method/signedDistance(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV14signedDistance2to6ScalarQzx_tF">signedDistance(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the signed distance of a given point to this plane.</p>
+
+<p>By offsetting the point by -(signed distance x <code><a href="../Structs/PointNormalPlane.html#/s:9Geometria16PointNormalPlaneV6normalxvp">normal</a></code>), the
+projected point on the plane is retrieved.</p>
 
                       </div>
                       <div class="declaration">
@@ -670,7 +890,37 @@ the mean location of each vector.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="n">averageVector</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">V</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span><span class="p">,</span> <span class="kt">V</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Element</span><span class="p">,</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">signedDistance</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PointNormalPlane.html#/s:9Geometria16PointNormalPlaneV6Scalara">Scalar</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16PointNormalPlaneV7projectyxxF"></a>
+                    <a name="//apple_ref/swift/Method/project(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16PointNormalPlaneV7projectyxxF">project(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Projects a given vector on this plane.</p>
+
+<p>Returns the closest point on this plane to <code>vector</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">project</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>

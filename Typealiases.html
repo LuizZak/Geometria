@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (86% documented)
+         (87% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -349,6 +349,9 @@
                 <a class="nav-group-task-link" href="Structs/PointNormal.html">PointNormal</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/PointNormalPlane.html">PointNormalPlane</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Ray.html">Ray</a>
               </li>
               <li class="nav-group-task">
@@ -514,6 +517,24 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria8Matrix2Da">Matrix2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria17PointNormalPlane2a">PointNormalPlane2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria18PointNormalPlane2Da">PointNormalPlane2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria18PointNormalPlane2Fa">PointNormalPlane2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria17PointNormalPlane3a">PointNormalPlane3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria18PointNormalPlane3Da">PointNormalPlane3D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria18PointNormalPlane3Fa">PointNormalPlane3F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria4Ray2a">Ray2</a>
@@ -879,14 +900,14 @@ infinity.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Typealias for <code><a href="Structs/DirectionalRay.html">DirectionalRay&lt;V&gt;</a></code>, where <code>V</code> is constrained to
-<code>Vector2Type &amp; VectorFloatingPoint</code>.</p>
+<code><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DirectionalRay2</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/DirectionalRay.html">DirectionalRay</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DirectionalRay2</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/DirectionalRay.html">DirectionalRay</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1436,6 +1457,89 @@ start and end vectors.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Matrix2D</span> <span class="o">=</span> <span class="kt"><a href="Structs/Matrix2.html">Matrix2</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria18PointNormalPlane2Da"></a>
+                    <a name="//apple_ref/swift/Alias/PointNormalPlane2D" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18PointNormalPlane2Da">PointNormalPlane2D</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 2D plane as a pair of double-precision floating-point vectors
+describing a point on the plane and the plane&rsquo;s normal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PointNormalPlane2D</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria17PointNormalPlane2a">PointNormalPlane2</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector2Da">Vector2D</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria18PointNormalPlane2Fa"></a>
+                    <a name="//apple_ref/swift/Alias/PointNormalPlane2F" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18PointNormalPlane2Fa">PointNormalPlane2F</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 2D plane as a pair of single-precision floating-point vectors
+describing a point on the plane and the plane&rsquo;s normal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PointNormalPlane2F</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria17PointNormalPlane2a">PointNormalPlane2</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector2Fa">Vector2F</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria17PointNormalPlane2a"></a>
+                    <a name="//apple_ref/swift/Alias/PointNormalPlane2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria17PointNormalPlane2a">PointNormalPlane2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Typealias for <code><a href="Structs/PointNormalPlane.html">PointNormalPlane&lt;V&gt;</a></code>, where <code>V</code> is constrained to <code><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PointNormalPlane2</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/PointNormalPlane.html">PointNormalPlane</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -2481,6 +2585,89 @@ end vectors.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">LineSegment3</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/LineSegment.html">LineSegment</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Type.html">Vector3Type</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria18PointNormalPlane3Da"></a>
+                    <a name="//apple_ref/swift/Alias/PointNormalPlane3D" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18PointNormalPlane3Da">PointNormalPlane3D</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 3D plane as a pair of double-precision floating-point vectors
+describing a point on the plane and the plane&rsquo;s normal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PointNormalPlane3D</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria17PointNormalPlane3a">PointNormalPlane3</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector3Da">Vector3D</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria18PointNormalPlane3Fa"></a>
+                    <a name="//apple_ref/swift/Alias/PointNormalPlane3F" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18PointNormalPlane3Fa">PointNormalPlane3F</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 3D plane as a pair of single-precision floating-point vectors
+describing a point on the plane and the plane&rsquo;s normal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PointNormalPlane3F</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria17PointNormalPlane3a">PointNormalPlane3</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector3Fa">Vector3F</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria17PointNormalPlane3a"></a>
+                    <a name="//apple_ref/swift/Alias/PointNormalPlane3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria17PointNormalPlane3a">PointNormalPlane3</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Typealias for <code>Plane&lt;V&gt;</code>, where <code>V</code> is constrained to <code><a href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">PointNormalPlane3</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/PointNormalPlane.html">PointNormalPlane</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>

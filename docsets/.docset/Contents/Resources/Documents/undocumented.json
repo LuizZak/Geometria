@@ -835,21 +835,21 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
-      "line": 76,
+      "line": 80,
       "symbol": "LineFloatingPoint.project(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
-      "line": 93,
+      "line": 97,
       "symbol": "LineFloatingPoint.distanceSquared(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
-      "line": 100,
+      "line": 104,
       "symbol": "LineFloatingPoint.distance(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
