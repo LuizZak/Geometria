@@ -82,7 +82,7 @@ extension NSphereTests {
 // MARK: ConvexType & PointProjectiveType Conformance
 
 extension NSphereTests {
-    func testProjectVector_atCenter() {
+    func testProjectUnclampedVector_atCenter() {
         let sut = NSphere(center: .init(x: 1, y: 2), radius: 1)
         let point = Vector2D(x: 1, y: 2)
         
@@ -94,7 +94,7 @@ extension NSphereTests {
         )
     }
     
-    func testProjectVector_fromTop() {
+    func testProjectUnclampedVector_fromTop() {
         let sut = NSphere(center: .init(x: 0, y: 0), radius: 1)
         let point = Vector2D(x: 0, y: -2)
         
@@ -106,7 +106,7 @@ extension NSphereTests {
         )
     }
     
-    func testProjectVector_fromRight() {
+    func testProjectUnclampedVector_fromRight() {
         let sut = NSphere(center: .init(x: 0, y: 0), radius: 1)
         let point = Vector2D(x: 2, y: 0)
         
@@ -118,7 +118,7 @@ extension NSphereTests {
         )
     }
     
-    func testProjectVector_withinSphere() {
+    func testProjectUnclampedVector_withinSphere() {
         let sut = NSphere(center: .init(x: 3, y: 5), radius: 2)
         let point = Vector2D(x: 2, y: 4)
         
@@ -130,7 +130,7 @@ extension NSphereTests {
         )
     }
     
-    func testProjectVector_outsideSphere() {
+    func testProjectUnclampedVector_outsideSphere() {
         let sut = NSphere(center: .init(x: 3, y: 5), radius: 2)
         let point = Vector2D(x: 0, y: 0)
         

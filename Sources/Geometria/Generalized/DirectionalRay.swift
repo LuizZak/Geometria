@@ -85,6 +85,14 @@ public extension DirectionalRay where Vector: VectorAdditive {
 }
 
 extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
+    /// Gets the slope of this directional ray.
+    ///
+    /// For directional rays this value always equates to `direction`.
+    @_transparent
+    public var lineSlope: Vector {
+        return direction
+    }
+    
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the infinite line defined by points
@@ -127,21 +135,6 @@ extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: 
         start.addingProduct(direction, scalar)
     }
     
-    /// Returns the result of creating a projection of this ray's start point
-    /// projected towards this line's end point, with a normalized magnitude of
-    /// `scalar`.
-    ///
-    /// For `scalar == 0`, returns `self.a`, for `scalar == 1`, returns `self.b`
-    ///
-    /// - parameter scalar: A normalized magnitude that describes the length
-    /// along the slope of this line to generate the point out of. Values
-    /// outside the range [0, 1] are allowed and equate to projections past the
-    /// endpoints of the line.
-    @inlinable
-    public func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector {
-        start.addingProduct(direction, scalar)
-    }
-    
     /// Returns `true` for all positive scalar values, which describes a [ray].
     ///
     /// [ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
@@ -157,25 +150,5 @@ extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: 
     @_transparent
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
         return max(0, scalar)
-    }
-    
-    /// Returns the squared distance between this directional ray and a given
-    /// vector.
-    ///
-    /// ```swift
-    /// let ray = DirectionalRay2D(x: 1, y: 1, dx: 1, dy: 0)
-    /// let point1 = Vector2D(x: 0, y: 0)
-    /// let point2 = Vector2D(x: 5, y: 0)
-    ///
-    /// print(ray.distanceSquared(to: point1)) // Prints "2"
-    /// print(ray.distanceSquared(to: point2)) // Prints "1"
-    /// ```
-    @inlinable
-    public func distanceSquared(to vector: Vector) -> Scalar {
-        let proj = max(0, projectAsScalar(vector))
-        
-        let point = start.addingProduct(direction, proj)
-        
-        return vector.distanceSquared(to: point)
     }
 }

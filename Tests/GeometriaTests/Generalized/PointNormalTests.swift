@@ -22,3 +22,15 @@ class PointNormalTests: XCTestCase {
         XCTAssertEqual(sut.normal, .init(x: 3, y: 5))
     }
 }
+
+extension PointNormalTests {
+    func testAsPlane() {
+        let sut = PointNormal(point: .init(x: 1, y: 2),
+                              normal: .init(x: 3, y: 5))
+        
+        let result = sut.asPlane
+        
+        XCTAssertEqual(result.point, .init(x: 1, y: 2))
+        XCTAssertEqual(result.normal, .init(x: 0.5144957554275265, y: 0.8574929257125441))
+    }
+}
