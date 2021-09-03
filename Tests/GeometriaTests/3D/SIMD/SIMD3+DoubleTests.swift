@@ -6,6 +6,14 @@ class SIMD3_DoubleTests: XCTestCase {
     
     typealias Vector = SIMD3<Double>
     
+    func testInitRepeating() {
+        let result = Vector(repeating: 1)
+        
+        XCTAssertEqual(result.x, 1)
+        XCTAssertEqual(result.y, 1)
+        XCTAssertEqual(result.z, 1)
+    }
+    
     func testMaximalComponentIndex() {
         XCTAssertEqual(Vector(x: 4, y: 2, z: 3).maximalComponentIndex, 0)
         XCTAssertEqual(Vector(x: 4, y: 3, z: 2).maximalComponentIndex, 0)

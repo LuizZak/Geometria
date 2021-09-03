@@ -65,12 +65,6 @@ public extension Vector3Type {
         }
     }
     
-    /// Initializes this vector type with the given coordinates.
-    @_transparent
-    init(repeating scalar: Scalar) {
-        self.init(x: scalar, y: scalar, z: scalar)
-    }
-    
     /// Creates a new vector with the coordinates of a given ``Vector2Type``,
     /// along with a new value for the ``z`` axis.
     @_transparent

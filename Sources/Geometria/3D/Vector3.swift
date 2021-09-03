@@ -25,12 +25,16 @@ public struct Vector3<Scalar>: Vector3Type {
         "\(type(of: self))(x: \(x), y: \(y), z: \(z))"
     }
     
-    /// Creates a new `Vector3` with the given coordinates
     @_transparent
     public init(x: Scalar, y: Scalar, z: Scalar) {
         self.x = x
         self.y = y
         self.z = z
+    }
+    
+    @_transparent
+    public init(repeating scalar: Scalar) {
+        self.init(x: scalar, y: scalar, z: scalar)
     }
 }
 

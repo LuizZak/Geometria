@@ -7,6 +7,13 @@ class SIMD2_DoubleTests: XCTestCase {
     
     typealias Vector = SIMD2<Double>
     
+    func testInitRepeating() {
+        let result = Vector(repeating: 1)
+        
+        XCTAssertEqual(result.x, 1)
+        XCTAssertEqual(result.y, 1)
+    }
+    
     func testMinimalComponentIndex() {
         XCTAssertEqual(Vector(x: -1, y: 2).minimalComponentIndex, 0)
         XCTAssertEqual(Vector(x: 1, y: -2).minimalComponentIndex, 1)

@@ -23,11 +23,15 @@ public struct Vector2<Scalar>: Vector2Type {
         "\(type(of: self))(x: \(x), y: \(y))"
     }
     
-    /// Creates a new `Vector2` with the given coordinates
     @_transparent
     public init(x: Scalar, y: Scalar) {
         self.x = x
         self.y = y
+    }
+    
+    @_transparent
+    public init(repeating scalar: Scalar) {
+        self.init(x: scalar, y: scalar)
     }
 }
 
