@@ -1,6 +1,6 @@
 /// Protocol for geometric types defined by floating-point vectors that form
 /// closed convex shapes.
-public protocol ConvexType {
+public protocol ConvexType: GeometricType {
     /// The floating-point vector type associated with this `ConvexType`.
     associatedtype Vector: VectorFloatingPoint
     
