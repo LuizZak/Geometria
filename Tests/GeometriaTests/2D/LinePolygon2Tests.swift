@@ -30,6 +30,16 @@ extension LinePolygon2Tests {
         XCTAssertTrue(sut.isConvex())
     }
     
+    func testIsConvex_reversedTriangle() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 3, y: 0),
+            .init(x: 3, y: 3),
+            .init(x: 0, y: 0)
+        ])
+        
+        XCTAssertTrue(sut.isConvex())
+    }
+    
     func testIsConvex_arrow_returnsFalse() {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0),
