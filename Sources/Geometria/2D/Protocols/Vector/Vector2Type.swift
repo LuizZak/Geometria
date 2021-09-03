@@ -8,6 +8,10 @@ public protocol Vector2Type: VectorType {
     
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar)
+    
+    /// Initializes a new instance of this `Vector2Type` type by copying the
+    /// coordinates of another `Vector2Type` of matching scalar type.
+    init<Vector: Vector2Type>(_ vector: Vector) where Vector.Scalar == Scalar
 }
 
 public extension Vector2Type {
@@ -49,6 +53,10 @@ public extension Vector2Type {
                 preconditionFailure("index >= 0 && index < 2")
             }
         }
+    }
+    
+    init<Vector: Vector2Type>(_ vector: Vector) where Vector.Scalar == Scalar {
+        self.init(x: vector.x, y: vector.y)
     }
 }
 

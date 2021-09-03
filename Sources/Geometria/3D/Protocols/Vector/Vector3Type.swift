@@ -15,6 +15,10 @@ public protocol Vector3Type: VectorType {
     /// Creates a new vector with the coordinates of a given ``Vector2Type``,
     /// along with a new value for the ``z`` axis.
     init<V: Vector2Type>(_ vec: V, z: Scalar) where V.Scalar == Scalar
+    
+    /// Initializes a new instance of this `Vector3Type` type by copying the
+    /// coordinates of another `Vector3Type` of matching scalar type.
+    init<Vector: Vector3Type>(_ vector: Vector) where Vector.Scalar == Scalar
 }
 
 public extension Vector3Type {
@@ -65,11 +69,14 @@ public extension Vector3Type {
         }
     }
     
-    /// Creates a new vector with the coordinates of a given ``Vector2Type``,
-    /// along with a new value for the ``z`` axis.
     @_transparent
     init<V: Vector2Type>(_ vec: V, z: Scalar) where V.Scalar == Scalar {
         self.init(x: vec.x, y: vec.y, z: z)
+    }
+    
+    @_transparent
+    init<Vector: Vector3Type>(_ vector: Vector) where Vector.Scalar == Scalar {
+        self.init(x: vector.x, y: vector.y, z: vector.z)
     }
 }
 

@@ -30,11 +30,27 @@ class Vector2TypeTests: XCTestCase {
         XCTAssertEqual(sut, .init(x: 0, y: 2))
     }
     
-    func testInitRepeating() {
-        let sut = Vector2D(repeating: 1)
+    func testInitWithVector() {
+        struct TestVec2: Vector2Type {
+            typealias Scalar = Double
+            
+            var x: Double
+            var y: Double
+            
+            init(x: Double, y: Double) {
+                (self.x, self.y) = (x, y)
+            }
+            
+            init(repeating scalar: Double) {
+                (x, y) = (scalar, scalar)
+            }
+        }
+        
+        let testVec = TestVec2(x: 1, y: 2)
+        let sut = Vector2D(testVec)
         
         XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 1)
+        XCTAssertEqual(sut.y, 2)
     }
     
     func testMinimalComponentIndex() {

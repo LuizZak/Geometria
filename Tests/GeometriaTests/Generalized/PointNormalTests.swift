@@ -41,4 +41,19 @@ extension PointNormalTests {
         XCTAssertEqual(result.point, .init(x: 1, y: 2))
         XCTAssertEqual(result.normal, .init(x: 0.5144957554275265, y: 0.8574929257125441))
     }
+    
+    func testInitWithPlane() {
+        let plane = PointNormalPlane<Vector3D>(point: .init(x: 1, y: 2, z: 3),
+                                               normal: .init(x: 4, y: 5, z: 6))
+        
+        let result = Geometria.PointNormal(plane)
+        
+        XCTAssertEqual(result.point, .init(x: 1, y: 2, z: 3))
+        XCTAssertEqual(
+            result.normal,
+            .init(x: 0.4558423058385518,
+                  y: 0.5698028822981898,
+                  z: 0.6837634587578276)
+        )
+    }
 }
