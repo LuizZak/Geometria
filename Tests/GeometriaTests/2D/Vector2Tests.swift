@@ -41,6 +41,13 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(sut.y, 1)
     }
     
+    func testInitRepeating() {
+        let sut = Vector(repeating: 1)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 1)
+    }
+    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
         XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))
@@ -60,13 +67,6 @@ class Vector2Tests: XCTestCase {
         
         XCTAssertEqual(sut.x, 0)
         XCTAssertEqual(sut.y, 0)
-    }
-    
-    func testInitRepeating() {
-        let sut = Vector(repeating: 1)
-        
-        XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 1)
     }
     
     func testPointwiseMin() {

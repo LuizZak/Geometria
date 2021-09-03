@@ -42,6 +42,39 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(sut.z, 2)
     }
     
+    func testInitRepeating() {
+        let sut = Vector(repeating: 1)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 1)
+        XCTAssertEqual(sut.z, 1)
+    }
+    
+    func testInitWithVector() {
+        struct TestVec3: Vector3Type {
+            typealias Scalar = Double
+            
+            var x: Double
+            var y: Double
+            var z: Double
+            
+            init(x: Double, y: Double, z: Double) {
+                (self.x, self.y, self.z) = (x, y, z)
+            }
+            
+            init(repeating scalar: Double) {
+                (x, y, z) = (scalar, scalar, scalar)
+            }
+        }
+        
+        let testVec = TestVec3(x: 1, y: 2, z: 3)
+        let sut = Vector3D(testVec)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 2)
+        XCTAssertEqual(sut.z, 3)
+    }
+    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1, z: 2), Vector(x: 0, y: 1, z: 2))
         XCTAssertNotEqual(Vector(x: 1, y: 1, z: 2), Vector(x: 0, y: 1, z: 2))
