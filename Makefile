@@ -1,5 +1,5 @@
 doc:
-	@jazzy \
+	@bundle exec jazzy \
 		--min-acl public \
 		--no-hide-documentation-coverage \
 		--theme fullwidth \
