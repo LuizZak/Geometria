@@ -1,5 +1,5 @@
 /// Represents a point along with a normal on the surface of a geometry.
-public struct PointNormal<Vector: VectorType>: CustomStringConvertible {
+public struct PointNormal<Vector: VectorType>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
@@ -27,11 +27,20 @@ public struct PointNormal<Vector: VectorType>: CustomStringConvertible {
 extension PointNormal: Equatable where Vector: Equatable { }
 extension PointNormal: Hashable where Vector: Hashable { }
 
-public extension PointNormal where Vector: VectorFloatingPoint {
+extension PointNormal: PlaneType where Vector: VectorFloatingPoint {
+    @_transparent
+    public var pointOnPlane: Vector { point }
+    
     /// Returns a ``PointNormalPlane`` value initialized with this point normal's
     /// parameters.
     @_transparent
-    var asPlane: PointNormalPlane<Vector> {
+    public var asPlane: PointNormalPlane<Vector> {
         return PointNormalPlane(point: point, normal: normal)
+    }
+    
+    /// Creates a ``PointNormal`` that wraps the given plane object.
+    @_transparent
+    public init<Plane: PlaneType>(_ plane: Plane) where Plane.Vector == Vector {
+        self.init(point: plane.pointOnPlane, normal: plane.normal)
     }
 }

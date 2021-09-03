@@ -23,7 +23,15 @@ class PointNormalTests: XCTestCase {
     }
 }
 
+// MARK: PlaneType Conformance
+
 extension PointNormalTests {
+    func testPointOnPlane() {
+        let sut = PointNormal(point: .init(x: 1, y: 2), normal: .init(x: 3, y: 5))
+        
+        XCTAssertEqual(sut.pointOnPlane, .init(x: 1, y: 2))
+    }
+    
     func testAsPlane() {
         let sut = PointNormal(point: .init(x: 1, y: 2),
                               normal: .init(x: 3, y: 5))

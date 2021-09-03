@@ -7,6 +7,6 @@ public protocol PlaneType: GeometricType {
     /// A point that is on this plane.
     var pointOnPlane: Vector { get }
     
-    /// A normal vector specifying the slope- or 'face', of the plane.
+    /// A normal vector specifying the slope- or 'up', of the plane's surface.
     var normal: Vector { get }
 }
