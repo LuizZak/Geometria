@@ -14,7 +14,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = line.project(point + Double(i))
+                _ = line.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -29,7 +29,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = line.project(point + Double(i))
+                _ = line.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -44,7 +44,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = line.project(point + Double(i))
+                _ = line.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -59,7 +59,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = line.project(point + Double(i))
+                _ = line.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -74,7 +74,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = ray.project(point + Double(i))
+                _ = ray.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -89,7 +89,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = ray.project(point + Double(i))
+                _ = ray.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -104,7 +104,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = ray.project(point + Double(i))
+                _ = ray.projectUnclamped(point + Double(i))
             }
         }
     }
@@ -119,7 +119,7 @@ class PerformanceTests: XCTestCase {
             var i = 0
             while i < 100_000 {
                 defer { i += 1 }
-                _ = ray.project(point + Double(i))
+                _ = ray.projectUnclamped(point + Double(i))
             }
         }
     }

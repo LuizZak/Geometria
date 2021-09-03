@@ -1,6 +1,9 @@
 /// Protocol for objects that form geometric lines with two floating-point
 /// vectors representing the endpoints of the line.
 public protocol LineFloatingPoint: LineType, PointProjectiveType where Vector: VectorFloatingPoint {
+    /// Gets the slope of this line, or the vector that represents `b - a`.
+    var lineSlope: Vector { get }
+    
     /// Performs a vector projection of a given vector with respect to this line,
     /// returning a scalar value representing the normalized magnitude of the
     /// projected point between `a <-> b`.
@@ -14,7 +17,7 @@ public protocol LineFloatingPoint: LineType, PointProjectiveType where Vector: V
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by extending
     /// `a <-> b`.
-    func project(_ vector: Vector) -> Vector
+    func projectUnclamped(_ vector: Vector) -> Vector
     
     /// Returns the result of creating a projection of this line's start point
     /// projected towards this line's end point, with a total magnitude of
@@ -66,9 +69,14 @@ public protocol LineFloatingPoint: LineType, PointProjectiveType where Vector: V
 }
 
 public extension LineFloatingPoint {
+    @_transparent
+    var lineSlope: Vector {
+        return b - a
+    }
+    
     @inlinable
     func projectAsScalar(_ vector: Vector) -> Vector.Scalar {
-        let relEnd = b - a
+        let relEnd = lineSlope
         let relVec = vector - a
         
         let proj = relVec.dot(relEnd) / relEnd.lengthSquared
@@ -79,18 +87,26 @@ public extension LineFloatingPoint {
     @inlinable
     func project(_ vector: Vector) -> Vector {
         let proj = projectAsScalar(vector)
+        let clampedProj = clampProjectedNormalizedMagnitude(proj)
+        
+        return projectedNormalizedMagnitude(clampedProj)
+    }
+    
+    @inlinable
+    func projectUnclamped(_ vector: Vector) -> Vector {
+        let proj = projectAsScalar(vector)
         
         return projectedNormalizedMagnitude(proj)
     }
     
     @inlinable
     func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
-        a.addingProduct((b - a).normalized(), scalar)
+        a.addingProduct(lineSlope.normalized(), scalar)
     }
     
     @inlinable
     func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector {
-        a.addingProduct(b - a, scalar)
+        a.addingProduct(lineSlope, scalar)
     }
     
     @inlinable

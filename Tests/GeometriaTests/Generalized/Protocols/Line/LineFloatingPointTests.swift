@@ -49,79 +49,79 @@ class LineFloatingPointTests: XCTestCase {
         XCTAssertEqual(sut.projectAsScalar(point), 0.6666666666666666, accuracy: 1e-12)
     }
     
-    func testProject2D() {
+    func testProjectUnclamped2D() {
         let sut = Line(x1: 2, y1: 1, x2: 3, y2: 2)
         let point = Vector2D(x: 2, y: 2)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector2D(x: 2.5, y: 1.5),
                     accuracy: 1e-12)
     }
     
-    func testProject2D_parallel() {
+    func testProjectUnclamped2D_parallel() {
         let sut = Line2D(x1: 0, y1: 0, x2: 3, y2: 0)
         let point = Vector2D(x: 1, y: 0)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector2D(x: 1, y: 0),
                     accuracy: 1e-12)
     }
     
-    func testProject2D_offBounds() {
+    func testProjectUnclamped2D_offBounds() {
         let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
         let point = Vector2D(x: -2, y: 2)
         
-        XCTAssertEqual(sut.project(point), Vector2D(x: -2, y: 0))
+        XCTAssertEqual(sut.projectUnclamped(point), Vector2D(x: -2, y: 0))
     }
     
-    func testProject2D_skewed() {
+    func testProjectUnclamped2D_skewed() {
         let sut = Line(x1: 0, y1: 0, x2: 1, y2: 1)
         let point = Vector2D(x: 0, y: 2)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector2D(x: 1, y: 1),
                     accuracy: 1e-12)
     }
     
-    func testProject2D_skewed_centered() {
+    func testProjectUnclamped2D_skewed_centered() {
         let sut = Line(x1: 0, y1: 0, x2: 1, y2: 1)
         let point = Vector2D(x: 0, y: 1)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector2D(x: 0.5, y: 0.5),
                     accuracy: 1e-12)
     }
     
-    func testProject3D_parallel() {
+    func testProjectUnclamped3D_parallel() {
         let sut = Line3(x1: 0, y1: 0, z1: 0, x2: 3, y2: 0, z2: 0)
         let point = Vector3D(x: 1, y: 0, z: 0)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector3D(x: 1, y: 0, z: 0),
                     accuracy: 1e-12)
     }
     
-    func testProject3D_offBounds() {
+    func testProjectUnclamped3D_offBounds() {
         let sut = Line3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 0, z2: 0)
         let point = Vector3D(x: -3, y: 1, z: 0)
         
-        XCTAssertEqual(sut.project(point), Vector3D(x: -3, y: 0, z: 0))
+        XCTAssertEqual(sut.projectUnclamped(point), Vector3D(x: -3, y: 0, z: 0))
     }
     
-    func testProject3D_skewed() {
+    func testProjectUnclamped3D_skewed() {
         let sut = Line3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 0, y: 2, z: 0)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
                     accuracy: 1e-12)
     }
     
-    func testProject3D_skewed_centered() {
+    func testProjectUnclamped3D_skewed_centered() {
         let sut = Line3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
-        assertEqual(sut.project(point),
+        assertEqual(sut.projectUnclamped(point),
                     Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
                     accuracy: 1e-12)
     }

@@ -29,6 +29,38 @@ public extension PointNormalPlane {
     var asPointNormal: PointNormal<Vector> {
         return PointNormal(point: point, normal: normal)
     }
+    
+    /// Returns the normalized magnitude for a line's intersection point on this
+    /// plane.
+    ///
+    /// Result is `nil` if intersection is not within the line's limits, or if
+    /// the line is parallel to this plane.
+    func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line) -> Scalar? where Line.Vector == Vector {
+        let denom = normal.dot(line.lineSlope)
+        if denom.isApproximatelyEqual(to: 0) {
+            return nil
+        }
+        
+        let numer = normal.dot(point - line.a)
+        
+        return numer / denom
+    }
+    
+    /// Returns the result of a line intersection on this plane.
+    ///
+    /// Result is `nil` if intersection is not within the line's limits, or if
+    /// the line is parallel to this plane.
+    func intersection<Line: LineFloatingPoint>(with line: Line) -> Vector? where Line.Vector == Vector {
+        guard let magnitude = unclampedNormalMagnitudeForIntersection(with: line) else {
+            return nil
+        }
+        
+        if line.containsProjectedNormalizedMagnitude(magnitude) {
+            return line.projectedNormalizedMagnitude(magnitude)
+        }
+        
+        return nil
+    }
 }
 
 extension PointNormalPlane: PointProjectiveType {
