@@ -23,7 +23,9 @@ public extension LinePolygon2 {
 extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     /// Returns `true` if this polygon is convex.
     ///
-    /// Assumes that the polygon has no self-intersections.
+    /// A polygon must have at least 3 points to be considered convex.
+    ///
+    /// If the polygon self-intersects, `false` is returned.
     public func isConvex() -> Bool {
         // Implementation based on:
         // https://math.stackexchange.com/a/1745427
