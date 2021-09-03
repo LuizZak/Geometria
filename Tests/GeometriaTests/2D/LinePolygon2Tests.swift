@@ -30,7 +30,7 @@ extension LinePolygon2Tests {
         XCTAssertTrue(sut.isConvex())
     }
     
-    func testIsConvex_arrow() {
+    func testIsConvex_arrow_returnsFalse() {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0),
             .init(x: 3, y: 3),
@@ -41,7 +41,7 @@ extension LinePolygon2Tests {
         XCTAssertFalse(sut.isConvex())
     }
     
-    func testIsConvex_lineSegment() {
+    func testIsConvex_lineSegment_returnsFalse() {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0),
             .init(x: 3, y: 3)
@@ -50,7 +50,7 @@ extension LinePolygon2Tests {
         XCTAssertFalse(sut.isConvex())
     }
     
-    func testIsConvex_point() {
+    func testIsConvex_point_returnsFalse() {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0)
         ])
@@ -58,8 +58,24 @@ extension LinePolygon2Tests {
         XCTAssertFalse(sut.isConvex())
     }
     
-    func testIsConvex_empty() {
+    func testIsConvex_empty_returnsFalse() {
         let sut = LinePolygon()
+        
+        XCTAssertFalse(sut.isConvex())
+    }
+    
+    func testIsConvex_selfIntersectingWindingShape_returnsFalse() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 0, y: 15),
+            .init(x: 6, y: 10),
+            .init(x: 12, y: 7),
+            .init(x: 10, y: 15),
+            .init(x: 4, y: 12),
+            .init(x: 6, y: 5),
+            .init(x: 13, y: 10),
+            .init(x: 10, y: 20),
+            .init(x: 3, y: 17)
+        ])
         
         XCTAssertFalse(sut.isConvex())
     }

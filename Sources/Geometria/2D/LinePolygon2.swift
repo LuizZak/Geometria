@@ -25,35 +25,100 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     ///
     /// Assumes that the polygon has no self-intersections.
     public func isConvex() -> Bool {
-        // Implementation derived from LÖVE's love.math.isConvex at:
-        // https://github.com/love2d/love/blob/216d5ca4b2ab04bd765daa4c23c00b81b4aedf08/src/modules/math/MathModule.cpp#L155
+        // Implementation based on:
+        // https://math.stackexchange.com/a/1745427
         if vertices.count < 3 {
             return false
         }
         
-        // A polygon is convex if all corners turn in the same direction.
-        //
-        // Turning direction can be determined using the cross-product of
-        // the forward difference vectors
-        var i = vertices.count - 2, j = vertices.count - 1, k = 0
-        var p: Vector = vertices[j] - vertices[i]
-        var q: Vector = vertices[k] - vertices[j]
-        let winding: Vector.Scalar = p.cross(q)
+        var xSign = 0
+        var xFirstSign = 0
+        var xFlips = 0
         
-        while k + 1 < vertices.count {
-            i = j
-            j = k
-            k += 1
+        var ySign = 0
+        var yFirstSign = 0
+        var yFlips = 0
+        
+        let secondToLast = vertices[vertices.count - 2]
+        let last = vertices[vertices.count - 1]
+        
+        let wSign = (last - secondToLast).cross(vertices[0] - last)
+        
+        var curr = secondToLast
+        var next = last
+        
+        for v in vertices {
+            let prev = curr
+            curr = next
+            next = v
             
-            p = vertices[j] - vertices[i]
-            q = vertices[k] - vertices[j]
+            let b = curr - prev
+            let a = next - curr
             
-            let result: Vector.Scalar = p.cross(q) * winding
-            if result < 0 {
+            // Calculate sign flips using the next edge vector, recording the
+            // first sign
+            if a.x > 0 {
+                if xSign == 0 {
+                    xFirstSign = 1
+                } else if xSign < 0 {
+                    xFlips += 1
+                }
+                xSign = 1
+            } else if a.x < 0 {
+                if xSign == 0 {
+                    xFirstSign = -1
+                } else if xSign > 0 {
+                    xFlips += 1
+                }
+                xSign = -1
+            }
+            
+            if xFlips > 2 {
+                return false
+            }
+            
+            if a.y > 0 {
+                if ySign == 0 {
+                    yFirstSign = 1
+                } else if ySign < 0 {
+                    yFlips += 1
+                }
+                ySign = 1
+            } else if a.y < 0 {
+                if ySign == 0 {
+                    yFirstSign = -1
+                } else if ySign > 0 {
+                    yFlips += 1
+                }
+                ySign = -1
+            }
+            
+            if yFlips > 2 {
+                return false
+            }
+            
+            // Find out the orientation of this pair of edges, and ensure it
+            // does not differ from previous ones
+            let w = b.cross(a)
+            if w * wSign < 0 {
                 return false
             }
         }
         
+        // Final/wraparound sign flips:
+        if xSign != 0 && xFirstSign != 0 && xSign != xFirstSign {
+            xFlips = xFlips + 1
+        }
+        if ySign != 0 && yFirstSign != 0 && ySign != yFirstSign {
+            yFlips = yFlips + 1
+        }
+        
+        // Concave polygons have two sign flips along each axis
+        if xFlips != 2 || yFlips != 2 {
+            return false
+        }
+        
+        // This is a convex polygon
         return true
     }
 }
