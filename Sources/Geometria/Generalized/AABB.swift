@@ -302,10 +302,10 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     }
 }
 
-public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
+extension AABB: ConvexType where Vector: VectorFloatingPoint & VectorComparable {
     /// Returns `true` if this AABB's area intersects the given line type.
     @inlinable
-    func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+    public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let beginToEnd = line.b - line.a
         
@@ -348,7 +348,7 @@ public extension AABB where Vector: VectorFloatingPoint & VectorComparable {
     /// two points representing the entrance and exit intersections against this
     /// AABB's outer perimeter.
     @inlinable
-    func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let beginToEnd = line.b - line.a
         
