@@ -8,6 +8,7 @@ public protocol Vector3Additive: Vector3Type, VectorAdditive {
 public extension Vector3Additive {
     /// Creates a new vector with the coordinates of a given ``Vector2Type``,
     /// and 0 on the ``z`` axis.
+    @_transparent
     init<V: Vector2Type>(_ vec: V) where V.Scalar == Scalar {
         self.init(vec, z: .zero)
     }

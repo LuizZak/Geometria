@@ -66,14 +66,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(sut.z, 0)
     }
     
-    func testInitRepeating() {
-        let sut = Vector(repeating: 1)
-        
-        XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 1)
-        XCTAssertEqual(sut.z, 1)
-    }
-    
     func testPointwiseMin() {
         let vec1 = Vector3i(x: 2, y: -3, z: 5)
         let vec2 = Vector3i(x: -1, y: 4, z: -6)

@@ -50,6 +50,12 @@ public extension Vector2Type {
             }
         }
     }
+    
+    /// Creates a new `Vector2` with the given scalar on all coordinates
+    @_transparent
+    init(repeating scalar: Scalar) {
+        self.init(x: scalar, y: scalar)
+    }
 }
 
 public extension Vector2Type where Self: VectorComparable {

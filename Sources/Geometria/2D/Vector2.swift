@@ -29,12 +29,6 @@ public struct Vector2<Scalar>: Vector2Type {
         self.x = x
         self.y = y
     }
-    
-    /// Creates a new `Vector2` with the given scalar on all coordinates
-    @_transparent
-    public init(repeating scalar: Scalar) {
-        self.init(x: scalar, y: scalar)
-    }
 }
 
 extension Vector2: Equatable where Scalar: Equatable { }

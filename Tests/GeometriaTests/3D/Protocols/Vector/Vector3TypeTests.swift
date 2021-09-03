@@ -42,6 +42,14 @@ class Vector3TypeTests: XCTestCase {
         XCTAssertEqual(sut, .init(x: 0, y: 0, z: 3))
     }
     
+    func testInitRepeating() {
+        let sut = Vector3D(repeating: 1)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 1)
+        XCTAssertEqual(sut.z, 1)
+    }
+    
     func testInitWithVector2Z() {
         let v2 = Vector2D(x: 1, y: 2)
         

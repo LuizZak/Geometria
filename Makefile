@@ -1,5 +1,7 @@
+BUNDLE = bundle exec
+
 doc:
-	@bundle exec jazzy \
+	@$(BUNDLE) jazzy \
 		--min-acl public \
 		--no-hide-documentation-coverage \
 		--theme fullwidth \

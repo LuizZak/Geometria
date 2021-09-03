@@ -32,12 +32,6 @@ public struct Vector3<Scalar>: Vector3Type {
         self.y = y
         self.z = z
     }
-    
-    /// Creates a new `Vector3` with the given scalar on all coordinates
-    @_transparent
-    public init(repeating scalar: Scalar) {
-        self.init(x: scalar, y: scalar, z: scalar)
-    }
 }
 
 extension Vector3: Equatable where Scalar: Equatable { }
