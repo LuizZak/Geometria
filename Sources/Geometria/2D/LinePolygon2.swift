@@ -21,9 +21,12 @@ public extension LinePolygon2 {
 }
 
 extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
-    // Implementation derived from LÖVE's love.math.isConvex at:
-    // https://github.com/love2d/love/blob/216d5ca4b2ab04bd765daa4c23c00b81b4aedf08/src/modules/math/MathModule.cpp#L155
+    /// Returns `true` if this polygon is convex.
+    ///
+    /// Assumes that the polygon has no self-intersections.
     public func isConvex() -> Bool {
+        // Implementation derived from LÖVE's love.math.isConvex at:
+        // https://github.com/love2d/love/blob/216d5ca4b2ab04bd765daa4c23c00b81b4aedf08/src/modules/math/MathModule.cpp#L155
         if vertices.count < 3 {
             return false
         }
@@ -35,7 +38,7 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         var i = vertices.count - 2, j = vertices.count - 1, k = 0
         var p: Vector = vertices[j] - vertices[i]
         var q: Vector = vertices[k] - vertices[j]
-        let winding = p.cross(q)
+        let winding: Vector.Scalar = p.cross(q)
         
         while k + 1 < vertices.count {
             i = j
@@ -45,7 +48,8 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
             p = vertices[j] - vertices[i]
             q = vertices[k] - vertices[j]
             
-            if p.cross(q) * winding < 0 {
+            let result: Vector.Scalar = p.cross(q) * winding
+            if result < 0 {
                 return false
             }
         }
@@ -86,11 +90,12 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
             let edgeEnd = vertices[next]
             
             if ((edgeSt.y <= vector.y) && (edgeEnd.y > vector.y)) || ((edgeSt.y > vector.y) && (edgeEnd.y <= vector.y)) {
-                let slopeDiff = edgeEnd - edgeSt
-                let slope = slopeDiff.x / slopeDiff.y
-                let hitX = edgeSt.x + ((vector.y - edgeSt.y) * slope)
+                let edgeSlope = edgeEnd - edgeSt
+                let slopeMag = edgeSlope.x / edgeSlope.y
+                let vecDiff = vector.y - edgeSt.y
+                let hitX = edgeSt.x + vecDiff * slopeMag
                 
-                if (hitX >= vector.x) && (hitX <= endPtX) {
+                if hitX >= vector.x && hitX <= endPtX {
                     inside = !inside
                 }
             }

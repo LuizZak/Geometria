@@ -21,7 +21,8 @@ extension DirectionalRay2: Line2Type {
     /// - precondition: `Vector(x: x2 - x1, y: y2 - y1).length > 0`
     @_transparent
     public init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
-        self.init(start: Vector(x: x1, y: y1), direction: Vector(x: x2 - x1, y: y2 - y1))
+        self.init(start: Vector(x: x1, y: y1),
+                  direction: Vector(x: x2 - x1, y: y2 - y1))
     }
     
     /// Initializes a new Directional Ray with a 2D vector for its position and
@@ -32,7 +33,8 @@ extension DirectionalRay2: Line2Type {
     /// - precondition: `Vector(x: dx, y: dy).length > 0`
     @_transparent
     public init(x: Scalar, y: Scalar, dx: Scalar, dy: Scalar) {
-        self.init(start: Vector(x: x, y: y), direction: Vector(x: dx, y: dy))
+        self.init(start: Vector(x: x, y: y),
+                  direction: Vector(x: dx, y: dy))
     }
 }
 

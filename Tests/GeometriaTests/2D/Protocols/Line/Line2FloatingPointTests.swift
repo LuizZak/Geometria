@@ -69,6 +69,13 @@ class Line2FloatingPointTests: XCTestCase {
         XCTAssertNil(line1.intersection(with: line2))
     }
     
+    func testIntersection_lineSegment_lineSegment_extendingPastEnd_other_returnsNil() {
+        let line1 = LineSegment(x1: 0, y1: 0, x2: 10, y2: 10)
+        let line2 = LineSegment(x1: 0, y1: 10, x2: 3, y2: 7)
+        
+        XCTAssertNil(line1.intersection(with: line2))
+    }
+    
     func testIntersection_ray_lineSegment_extendingPastStartRayStart_returnsNil() {
         let line1 = Ray(x1: 10, y1: 10, x2: 11, y2: 11)
         let line2 = LineSegment(x1: 10, y1: 0, x2: 0, y2: 10)

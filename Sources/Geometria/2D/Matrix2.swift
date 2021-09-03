@@ -266,12 +266,12 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The first matrix to multiply.
     /// - Parameter right: The second matrix to multiply.
     public static func multiply(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
-        let m11: Scalar = left.m11 * right.m11 + left.m12 * right.m21
-        let m12: Scalar = left.m11 * right.m12 + left.m12 * right.m22
-        let m21: Scalar = left.m21 * right.m11 + left.m22 * right.m21
-        let m22: Scalar = left.m21 * right.m12 + left.m22 * right.m22
-        let m31: Scalar = left.m31 * right.m11 + left.m32 * right.m21 + right.m31
-        let m32: Scalar = left.m31 * right.m12 + left.m32 * right.m22 + right.m32
+        let m11: Scalar = (left.m11 * right.m11) as Scalar + (left.m12 * right.m21) as Scalar
+        let m12: Scalar = (left.m11 * right.m12) as Scalar + (left.m12 * right.m22) as Scalar
+        let m21: Scalar = (left.m21 * right.m11) as Scalar + (left.m22 * right.m21) as Scalar
+        let m22: Scalar = (left.m21 * right.m12) as Scalar + (left.m22 * right.m22) as Scalar
+        let m31: Scalar = (left.m31 * right.m11) as Scalar + (left.m32 * right.m21 + right.m31) as Scalar
+        let m32: Scalar = (left.m31 * right.m12) as Scalar + (left.m32 * right.m22 + right.m32) as Scalar
         
         return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }

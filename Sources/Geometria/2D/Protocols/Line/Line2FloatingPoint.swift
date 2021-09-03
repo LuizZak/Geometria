@@ -10,35 +10,33 @@ public extension Line2FloatingPoint {
     func intersection<Line: Line2FloatingPoint>(with other: Line) -> LineIntersectionResult<Vector>? where Line.Vector == Vector {
         typealias Scalar = Vector.Scalar
         
-        let otherA = other.a
-        let otherB = other.b
+        let slope = lineSlope
+        let slopeOther = other.lineSlope
         
-        let denomHalf: Scalar = (b.x - a.x) * (otherB.y - otherA.y)
-        let denom: Scalar = denomHalf - ((b.y - a.y) as Scalar * (otherB.x - otherA.x) as Scalar)
+        let denom = slope.cross(slopeOther)
         
-        if abs(denom) < .leastNonzeroMagnitude {
+        if denom.isApproximatelyEqual(to: 0) {
             return nil
         }
         
-        let UaTopHalf: Scalar = (other.b.x - otherA.x) as Scalar * (a.y - otherA.y)
-        let UaTop: Scalar = UaTopHalf - ((otherB.y - otherA.y) as Scalar * (a.x - otherA.x))
+        let startDiff = a - other.a
         
-        let UbTopHalf: Scalar = (b.x - a.x) as Scalar * (a.y - otherA.y)
-        let UbTop: Scalar = UbTopHalf - ((b.y - a.y) as Scalar * (a.x - otherA.x))
-        
-        let Ua = UaTop / denom
-        let Ub = UbTop / denom
-        
-        if self.containsProjectedNormalizedMagnitude(Ua) && other.containsProjectedNormalizedMagnitude(Ub) {
-            let hitPt = a + ((b - a) * Ua)
-            
-            return LineIntersectionResult(
-                point: hitPt,
-                line1NormalizedMagnitude: Ua,
-                line2NormalizedMagnitude: Ub
-            )
+        let Ua = slopeOther.cross(startDiff) / denom
+        guard self.containsProjectedNormalizedMagnitude(Ua) else {
+            return nil
         }
         
-        return nil
+        let Ub = slope.cross(startDiff) / denom
+        guard other.containsProjectedNormalizedMagnitude(Ub) else {
+            return nil
+        }
+        
+        let hitPt = projectedNormalizedMagnitude(Ua)
+        
+        return LineIntersectionResult(
+            point: hitPt,
+            line1NormalizedMagnitude: Ua,
+            line2NormalizedMagnitude: Ub
+        )
     }
 }

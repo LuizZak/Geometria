@@ -30,6 +30,8 @@ public extension Collection {
             return .zero
         }
         
-        return (reduce(into: .zero) { $0 += $1 } as V) / V.Scalar(count)
+        let accum: V = reduce(into: .zero) { $0 += $1 }
+        
+        return accum / V.Scalar(count)
     }
 }
