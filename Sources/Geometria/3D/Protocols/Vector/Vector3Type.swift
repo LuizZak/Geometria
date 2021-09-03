@@ -11,6 +11,10 @@ public protocol Vector3Type: VectorType {
     
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar, z: Scalar)
+    
+    /// Creates a new vector with the coordinates of a given ``Vector2Type``,
+    /// along with a new value for the ``z`` axis.
+    init<V: Vector2Type>(_ vec: V, z: Scalar) where V.Scalar == Scalar
 }
 
 public extension Vector3Type {
@@ -59,6 +63,12 @@ public extension Vector3Type {
                 preconditionFailure("index >= 0 && index < 3")
             }
         }
+    }
+    
+    /// Creates a new vector with the coordinates of a given ``Vector2Type``,
+    /// along with a new value for the ``z`` axis.
+    init<V: Vector2Type>(_ vec: V, z: Scalar) where V.Scalar == Scalar {
+        self.init(x: vec.x, y: vec.y, z: z)
     }
 }
 

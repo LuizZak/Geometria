@@ -42,6 +42,16 @@ class Vector3TypeTests: XCTestCase {
         XCTAssertEqual(sut, .init(x: 0, y: 0, z: 3))
     }
     
+    func testInitWithVector2Z() {
+        let v2 = Vector2D(x: 1, y: 2)
+        
+        let result = Vector3D(v2, z: 3)
+        
+        XCTAssertEqual(result.x, 1)
+        XCTAssertEqual(result.y, 2)
+        XCTAssertEqual(result.z, 3)
+    }
+    
     func testMaximalComponentIndex() {
         XCTAssertEqual(Vector3D(x: 4, y: 2, z: 3).maximalComponentIndex, 0)
         XCTAssertEqual(Vector3D(x: 4, y: 3, z: 2).maximalComponentIndex, 0)

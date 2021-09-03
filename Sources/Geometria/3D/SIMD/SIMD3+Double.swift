@@ -96,6 +96,10 @@ extension SIMD3: VectorMultiplicative where Scalar == Double {
     }
 }
 
+extension SIMD3: Vector3Additive where Scalar == Double {
+    
+}
+
 extension SIMD3: Vector3Multiplicative where Scalar == Double {
     
 }

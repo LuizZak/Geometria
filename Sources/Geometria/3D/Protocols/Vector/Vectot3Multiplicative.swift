@@ -1,5 +1,5 @@
 /// Protocol for 3D vector types with multiplicable scalars.
-public protocol Vector3Multiplicative: Vector3Type, VectorMultiplicative {
+public protocol Vector3Multiplicative: Vector3Additive, VectorMultiplicative {
     /// Gets the (x: 1, y: 0, z: 0) vector of this type.
     static var unitX: Self { get }
     

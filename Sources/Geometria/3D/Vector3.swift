@@ -201,6 +201,10 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
     }
 }
 
+extension Vector3: Vector3Additive where Scalar: AdditiveArithmetic {
+    
+}
+
 extension Vector3: Vector3Multiplicative where Scalar: Numeric {
     
 }
