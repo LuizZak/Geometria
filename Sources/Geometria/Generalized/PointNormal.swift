@@ -1,4 +1,7 @@
 /// Represents a point along with a normal on the surface of a geometry.
+///
+/// This point-normal pair type has more lax constraints compared to
+/// `PointNormalPlane`.
 public struct PointNormal<Vector: VectorType>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar

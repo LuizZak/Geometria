@@ -8,8 +8,8 @@ public protocol Vector2Multiplicative: Vector2Type, VectorMultiplicative {
     
     /// Calculates the cross product between this and another provided Vector.
     /// The resulting scalar would match the 'z' axis of the cross product
-    /// between 3d vectors matching the x and y coordinates of the operands, with
-    /// the 'z' coordinate being 0.
+    /// between 3d vectors matching the x and y coordinates of the operands,
+    /// with the 'z' coordinate being 0.
     ///
     /// Also called perp-dot product, as it equates to taking the dot product
     /// of `self • other.perpendicular`. Provided in `Vector2Multiplicative` as
