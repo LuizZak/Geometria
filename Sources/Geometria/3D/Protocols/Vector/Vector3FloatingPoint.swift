@@ -1,6 +1,6 @@
 /// Protocol for 3D vector types where the components are floating-point numbers
-public protocol Vector3FloatingPoint: Vector3Type & VectorFloatingPoint {
-    /// Initializes this `Vector3FloatingPoint` with a given binary Vector2
+public protocol Vector3FloatingPoint: Vector3Multiplicative & VectorFloatingPoint {
+    /// Initializes this `Vector3FloatingPoint` with a given binary Vector3
     init<V: Vector3Type>(_ other: V) where V.Scalar: BinaryInteger
     
     static func + <V: Vector3Type>(lhs: Self, rhs: V) -> Self where V.Scalar: BinaryInteger
