@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ConvexLineIntersection Enumeration Reference</title>
+    <title>Vector3Additive Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/ConvexLineIntersection" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/Vector3Additive" class="dashAnchor"></a>
 
-    <a title="ConvexLineIntersection Enumeration Reference"></a>
+    <a title="Vector3Additive Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      ConvexLineIntersection Enumeration Reference
+      Vector3Additive Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -625,17 +625,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>ConvexLineIntersection</h1>
+            <h1>Vector3Additive</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ConvexLineIntersection</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ConvexLineIntersection</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ConvexLineIntersection</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector3Additive</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 
                 </div>
               </div>
-            <p>The result of a convex-line intersection test.</p>
+            <p>Protocol for 3D vector types with additive scalars.</p>
 
           </div>
         </section>
@@ -647,164 +645,34 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO9containedyACyxGAEmAA10VectorTypeRzlF"></a>
-                    <a name="//apple_ref/swift/Element/contained" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO9containedyACyxGAEmAA10VectorTypeRzlF">contained</a>
+                    <a name="/s:9Geometria15Vector3AdditivePyxqd__cAA11Vector2TypeRd__6ScalarQyd__AERtzlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria15Vector3AdditivePyxqd__cAA11Vector2TypeRd__6ScalarQyd__AERtzlufc">init(_:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Represents the case where the line&rsquo;s boundaries are completely contained
-within the bounds of the convex shape.</p>
+                        <p>Creates a new vector with the coordinates of a given <code><a href="../Protocols/Vector2Type.html">Vector2Type</a></code>,
+and 0 on the <code>z</code> axis.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Creates a new vector with the coordinates of a given <code>Vector2Type</code>,
+and 0 on the <code>z</code> axis.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">contained</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO11singlePointyACyxGAA0F6NormalVyxGcAEmAA10VectorTypeRzlF"></a>
-                    <a name="//apple_ref/swift/Element/singlePoint(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO11singlePointyACyxGAA0F6NormalVyxGcAEmAA10VectorTypeRzlF">singlePoint(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents the case where the line crosses the bounds of the convex
-shape on a single vertex, or tangentially, in case of spheroids.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">singlePoint</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO5enteryACyxGAA11PointNormalVyxGcAEmAA10VectorTypeRzlF"></a>
-                    <a name="//apple_ref/swift/Element/enter(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO5enteryACyxGAA11PointNormalVyxGcAEmAA10VectorTypeRzlF">enter(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents cases where the line starts outside the shape and crosses in
-before ending within the shape&rsquo;s bounds.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">enter</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO4exityACyxGAA11PointNormalVyxGcAEmAA10VectorTypeRzlF"></a>
-                    <a name="//apple_ref/swift/Element/exit(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO4exityACyxGAA11PointNormalVyxGcAEmAA10VectorTypeRzlF">exit(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents cases where the line starts within the convex shape and
-intersects the boundaries on the way out.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">exit</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO9enterExityACyxGAA11PointNormalVyxG_AHtcAEmAA10VectorTypeRzlF"></a>
-                    <a name="//apple_ref/swift/Element/enterExit(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO9enterExityACyxGAA11PointNormalVyxG_AHtcAEmAA10VectorTypeRzlF">enterExit(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents cases where the line crosses the convex shape twice: Once on
-the way in, and once again on the way out.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">enterExit</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO02noD0yACyxGAEmAA10VectorTypeRzlF"></a>
-                    <a name="//apple_ref/swift/Element/noIntersection" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO02noD0yACyxGAEmAA10VectorTypeRzlF">noIntersection</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents the case where no intersection occurs at any point.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noIntersection</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">init</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
