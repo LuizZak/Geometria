@@ -15,6 +15,13 @@ public protocol Vector3Type: VectorType where Scalar == SubVector2.Scalar {
     
     /// Gets a ``TakeVector3`` instance for taking pairs of coordinates as
     /// `SubVector2` from this `Vector3Type`.
+    ///
+    /// ```swift
+    /// let vector = Vector3D(x: 3.5, y: 2.1, z: 1.0)
+    ///
+    /// print(vector.take.xz) // Prints "(x: 3.5, y: 1.0)"
+    /// print(vector.take.zy) // Prints "(x: 1.0, y: 2.1)"
+    /// ```
     var take: TakeVector3<Self> { get }
     
     /// Initializes this vector type with the given coordinates.
