@@ -34,7 +34,7 @@ class LineIntersectivePlaneTypeTests: XCTestCase {
     func testUnclampedNormalMagnitudeForIntersection_line_parallel() {
         let sut = Plane(point: .init(x: 0, y: 0, z: 0),
                         normal: .init(x: 0, y: 0, z: 1))
-        let line = Line(x1: 0, y1: 0, z1: 1, x2: 0, y2: 0, z2: 1)
+        let line = Line(x1: 0, y1: 0, z1: 1, x2: 1, y2: 0, z2: 1)
         
         XCTAssertNil(sut.unclampedNormalMagnitudeForIntersection(with: line))
     }

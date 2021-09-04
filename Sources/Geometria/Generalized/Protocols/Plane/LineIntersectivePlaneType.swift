@@ -3,15 +3,17 @@ public protocol LineIntersectivePlaneType: PointProjectivePlaneType {
     /// Returns the normalized magnitude for a line's intersection point on this
     /// plane.
     ///
-    /// Result is `nil` if intersection is not within the line's limits, or if
-    /// the line is parallel to this plane.
+    /// Result is `nil` if intersection is not within the line's limits, the
+    /// line is parallel to this plane, or this plane is a finite plane and the
+    /// line does not cross its bounded area.
     func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line)
         -> Vector.Scalar? where Line.Vector == Vector
     
     /// Returns the result of a line intersection on this plane.
     ///
-    /// Result is `nil` if intersection is not within the line's limits, or if
-    /// the line is parallel to this plane.
+    /// Result is `nil` if intersection is not within the line's limits, the
+    /// line is parallel to this plane, or this plane is a finite plane and the
+    /// line does not cross its bounded area.
     func intersection<Line: LineFloatingPoint>(with line: Line)
         -> Vector? where Line.Vector == Vector
 }
