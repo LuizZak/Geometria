@@ -148,6 +148,9 @@
                 <a class="nav-group-task-link" href="Extensions/SIMD3.html">SIMD3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Sphere3.html">Sphere3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Square2.html">Square2</a>
               </li>
               <li class="nav-group-task">
@@ -239,16 +242,37 @@
                 <a class="nav-group-task-link" href="Protocols/LineFloatingPoint.html">LineFloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/LineIntersectivePlaneType.html">LineIntersectivePlaneType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineType.html">LineType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria20PlaneProjectiveSpaceP">PlaneProjectiveSpace</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/PlaneType.html">PlaneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/PointProjectivePlaneType.html">PointProjectivePlaneType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/PointProjectiveType.html">PointProjectiveType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/ProjectiveSpace.html">ProjectiveSpace</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/RectangleType.html">RectangleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SphereProjectiveSpace.html">SphereProjectiveSpace</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria15Vector2AdditiveP">Vector2Additive</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a>
@@ -319,6 +343,9 @@
                 <a class="nav-group-task-link" href="Structs/DirectionalRay.html">DirectionalRay</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Disk3.html">Disk3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/EdgeInsets2.html">EdgeInsets2</a>
               </li>
               <li class="nav-group-task">
@@ -355,10 +382,19 @@
                 <a class="nav-group-task-link" href="Structs/PointNormalPlane.html">PointNormalPlane</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ProjectivePointNormalPlane3.html">ProjectivePointNormalPlane3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Ray.html">Ray</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/RoundNRectangle.html">RoundNRectangle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/SphereCoordinates.html">SphereCoordinates</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/TakeVector3.html">TakeVector3</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/UnitVector.html">UnitVector</a>
@@ -550,6 +586,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria18PointNormalPlane3Fa">PointNormalPlane3F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria28ProjectivePointNormalPlane3Da">ProjectivePointNormalPlane3D</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria4Ray2a">Ray2</a>
@@ -2814,6 +2853,34 @@ describing a point on the plane and the plane&rsquo;s normal.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria28ProjectivePointNormalPlane3Da"></a>
+                    <a name="//apple_ref/swift/Alias/ProjectivePointNormalPlane3D" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria28ProjectivePointNormalPlane3Da">ProjectivePointNormalPlane3D</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 3D projective plane as a point, normal, right, and up-axis
+vectors in 3D space with double-precision floating-point scalars.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ProjectivePointNormalPlane3D</span> <span class="o">=</span> <span class="kt"><a href="Structs/ProjectivePointNormalPlane3.html">ProjectivePointNormalPlane3</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector3Da">Vector3D</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria5Ray3Da"></a>
                     <a name="//apple_ref/swift/Alias/Ray3D" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria5Ray3Da">Ray3D</a>
@@ -3096,7 +3163,7 @@ and radius parameters.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-03)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-04)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>

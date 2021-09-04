@@ -148,6 +148,9 @@
                 <a class="nav-group-task-link" href="../Extensions/SIMD3.html">SIMD3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Sphere3.html">Sphere3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Square2.html">Square2</a>
               </li>
               <li class="nav-group-task">
@@ -239,16 +242,37 @@
                 <a class="nav-group-task-link" href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LineIntersectivePlaneType.html">LineIntersectivePlaneType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria20PlaneProjectiveSpaceP">PlaneProjectiveSpace</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/PlaneType.html">PlaneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/PointProjectivePlaneType.html">PointProjectivePlaneType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/PointProjectiveType.html">PointProjectiveType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ProjectiveSpace.html">ProjectiveSpace</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SphereProjectiveSpace.html">SphereProjectiveSpace</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria15Vector2AdditiveP">Vector2Additive</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a>
@@ -319,6 +343,9 @@
                 <a class="nav-group-task-link" href="../Structs/DirectionalRay.html">DirectionalRay</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Disk3.html">Disk3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EdgeInsets2.html">EdgeInsets2</a>
               </li>
               <li class="nav-group-task">
@@ -355,10 +382,19 @@
                 <a class="nav-group-task-link" href="../Structs/PointNormalPlane.html">PointNormalPlane</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ProjectivePointNormalPlane3.html">ProjectivePointNormalPlane3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Ray.html">Ray</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RoundNRectangle.html">RoundNRectangle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SphereCoordinates.html">SphereCoordinates</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TakeVector3.html">TakeVector3</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/UnitVector.html">UnitVector</a>
@@ -552,6 +588,9 @@
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria18PointNormalPlane3Fa">PointNormalPlane3F</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria28ProjectivePointNormalPlane3Da">ProjectivePointNormalPlane3D</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria4Ray2a">Ray2</a>
               </li>
               <li class="nav-group-task">
@@ -666,6 +705,34 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria11Vector3TypeP10SubVector2Qa"></a>
+                    <a name="//apple_ref/swift/Alias/SubVector2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector3TypeP10SubVector2Qa">SubVector2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The 2-dimensional vector type for selections of 2-components on this
+vector.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">SubVector2</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector2</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria11Vector3TypeP1x6ScalarQzvp"></a>
                     <a name="//apple_ref/swift/Property/x" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria11Vector3TypeP1x6ScalarQzvp">x</a>
@@ -747,6 +814,46 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria11Vector3TypeP4takeAA04TakeB0VyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/take" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector3TypeP4takeAA04TakeB0VyxGvp">take</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets a <code><a href="../Structs/TakeVector3.html">TakeVector3</a></code> instance for taking pairs of coordinates as
+<code><a href="../Protocols/Vector3Type.html#/s:9Geometria11Vector3TypeP10SubVector2Qa">SubVector2</a></code> from this <code>Vector3Type</code>.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vector</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.1</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="o">.</span><span class="n">take</span><span class="o">.</span><span class="n">xz</span><span class="p">)</span> <span class="c1">// Prints "(x: 3.5, y: 1.0)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="o">.</span><span class="n">take</span><span class="o">.</span><span class="n">zy</span><span class="p">)</span> <span class="c1">// Prints "(x: 1.0, y: 2.1)"</span>
+</code></pre>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">take</span><span class="p">:</span> <span class="kt"><a href="../Structs/TakeVector3.html">TakeVector3</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria11Vector3TypeP1x1y1zx6ScalarQz_A2Htcfc"></a>
                     <a name="//apple_ref/swift/Method/init(x:y:z:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria11Vector3TypeP1x1y1zx6ScalarQz_A2Htcfc">init(x:<wbr>y:<wbr>z:<wbr>)</a>
@@ -793,15 +900,48 @@ along with a new value for the <code><a href="../Protocols/Vector3Type.html#/s:9
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Creates a new vector with the coordinates of a given <code>Vector2Type</code>,
-along with a new value for the <code>z</code> axis.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">init</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="kt">V</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11Vector3TypePyxqd__cAaBRd__6ScalarQyd__ADRtzlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector3TypePyxqd__cAaBRd__6ScalarQyd__ADRtzlufc">init(_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new instance of this <code>Vector3Type</code> type by copying the
+coordinates of another <code>Vector3Type</code> of matching scalar type.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">init</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt">Vector3Type</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -875,36 +1015,6 @@ along with a new value for the <code>z</code> axis.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
 <span class="nf">subscript</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria11Vector3TypePAAE9repeatingx6ScalarQz_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(repeating:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria11Vector3TypePAAE9repeatingx6ScalarQz_tcfc">init(repeating:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes this vector type with the given coordinates.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">repeating</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1058,7 +1168,7 @@ value.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-03)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-04)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
