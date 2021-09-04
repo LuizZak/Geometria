@@ -62,3 +62,29 @@ public extension Ellipsoid3 where Vector: VectorReal {
         contains(Vector(x: x, y: y, z: z))
     }
 }
+
+extension Ellipsoid3: ProjectiveSpace where Vector: Vector3Real {
+    @inlinable
+    public func attemptProjection(_ vector: Vector) -> SphereCoordinates<Scalar>? {
+        if vector == center {
+            return nil
+        }
+        
+        let diff = vector - center
+        
+        return SphereCoordinates(azimuth: diff.azimuth, elevation: diff.elevation)
+    }
+    
+    @inlinable
+    public func projectOut(_ proj: SphereCoordinates<Scalar>) -> Vector {
+        let x = radius.x * Scalar.cos(proj.elevation) * Scalar.cos(proj.azimuth)
+        let y = radius.y * Scalar.cos(proj.elevation) * Scalar.sin(proj.azimuth)
+        let z = radius.z * Scalar.sin(proj.elevation)
+        
+        return Vector(x: x, y: y, z: z)
+    }
+}
+
+extension Ellipsoid3: SphereProjectiveSpace where Vector: Vector3Real {
+    
+}
