@@ -1,5 +1,5 @@
 import XCTest
-import Geometria
+@testable import Geometria
 
 class Vector3TypeTests: XCTestCase {
     func testScalarCount() {
@@ -40,6 +40,12 @@ class Vector3TypeTests: XCTestCase {
         sut[2] = 3
         
         XCTAssertEqual(sut, .init(x: 0, y: 0, z: 3))
+    }
+    
+    func testTake() {
+        let sut = Vector3D(x: 1, y: 2, z: 3)
+        
+        XCTAssertEqual(sut.take.underlying, sut)
     }
     
     func testInitRepeating() {

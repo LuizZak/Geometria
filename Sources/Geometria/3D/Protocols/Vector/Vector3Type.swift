@@ -1,5 +1,9 @@
 /// Protocol for types that can represent 3D vectors.
-public protocol Vector3Type: VectorType {
+public protocol Vector3Type: VectorType where Scalar == SubVector2.Scalar {
+    /// The 2-dimensional vector type for selections of 2-components on this
+    /// vector.
+    associatedtype SubVector2: Vector2Type
+    
     /// The X coordinate of this 3D vector.
     var x: Scalar { get set }
     
@@ -8,6 +12,10 @@ public protocol Vector3Type: VectorType {
     
     /// The Z coordinate of this 3D vector.
     var z: Scalar { get set }
+    
+    /// Gets a ``TakeVector3`` instance for taking pairs of coordinates as
+    /// `SubVector2` from this `Vector3Type`.
+    var take: TakeVector3<Self> { get }
     
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar, z: Scalar)
@@ -67,6 +75,11 @@ public extension Vector3Type {
                 preconditionFailure("index >= 0 && index < 3")
             }
         }
+    }
+    
+    @_transparent
+    var take: TakeVector3<Self> {
+        return TakeVector3(underlying: self)
     }
     
     @_transparent
