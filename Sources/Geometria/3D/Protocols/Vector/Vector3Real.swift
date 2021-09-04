@@ -1,7 +1,7 @@
 import RealModule
 
 /// Protocol for 3D vector types where the components are Real numbers
-public protocol Vector3Real: Vector3Type, VectorReal {
+public protocol Vector3Real: Vector3FloatingPoint, VectorReal where SubVector2: Vector2Real {
     /// The XY-plane angle of this vector
     var azimuth: Scalar { get }
     

@@ -57,7 +57,7 @@ public extension VectorSigned {
     /// ```
     @_transparent
     func withSign(of other: Self) -> Self {
-        absolute * other.sign
+        return absolute * other.sign
     }
 }
 

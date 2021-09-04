@@ -52,6 +52,7 @@ class Vector3Tests: XCTestCase {
     
     func testInitWithVector() {
         struct TestVec3: Vector3Type {
+            typealias SubVector2 = Vector2<Double>
             typealias Scalar = Double
             
             var x: Double

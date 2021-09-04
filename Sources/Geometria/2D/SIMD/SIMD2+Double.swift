@@ -79,6 +79,10 @@ extension SIMD2: VectorAdditive where Scalar: FloatingPoint {
     
 }
 
+extension SIMD2: Vector2Additive where Scalar == Double {
+    
+}
+
 extension SIMD2: VectorMultiplicative where Scalar == Double {
     @inlinable
     public var lengthSquared: Scalar {

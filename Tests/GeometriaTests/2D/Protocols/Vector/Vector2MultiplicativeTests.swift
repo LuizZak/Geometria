@@ -11,4 +11,11 @@ class Vector2MultiplicativeTests: XCTestCase {
     func testUnitY() {
         XCTAssertEqual(Vector.unitY, .init(x: 0, y: 1))
     }
+    
+    func testCross() {
+        let v1 = Vector(x: 10, y: 20)
+        let v2 = Vector(x: 30, y: 40)
+        
+        XCTAssertEqual(v1.cross(v2), -200)
+    }
 }

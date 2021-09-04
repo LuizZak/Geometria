@@ -33,40 +33,42 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
             return false
         }
         
-        var xSign = 0
-        var xFirstSign = 0
-        var xFlips = 0
+        var xSign: Int = 0
+        var xFirstSign: Int = 0
+        var xFlips: Int = 0
         
-        var ySign = 0
-        var yFirstSign = 0
-        var yFlips = 0
+        var ySign: Int = 0
+        var yFirstSign: Int = 0
+        var yFlips: Int = 0
         
-        let secondToLast = vertices[vertices.count - 2]
-        let last = vertices[vertices.count - 1]
+        let secondToLast: Vector = vertices[vertices.count - 2]
+        let last: Vector = vertices[vertices.count - 1]
         
-        let wSign = (last - secondToLast).cross(vertices[0] - last)
+        let diffLast = last - secondToLast
+        let diffFirst = vertices[0] - last
+        let wSign: Scalar = diffLast.cross(diffFirst)
         
-        var curr = secondToLast
-        var next = last
+        var curr: Vector = secondToLast
+        var next: Vector = last
         
         for v in vertices {
             let prev = curr
             curr = next
             next = v
             
-            let b = curr - prev
-            let a = next - curr
+            let b: Vector = curr - prev
+            let a: Vector = next - curr
             
             // Calculate sign flips using the next edge vector, recording the
             // first sign
-            if a.x > 0 {
+            if a.x > Scalar.zero {
                 if xSign == 0 {
                     xFirstSign = 1
                 } else if xSign < 0 {
                     xFlips += 1
                 }
                 xSign = 1
-            } else if a.x < 0 {
+            } else if a.x < Scalar.zero {
                 if xSign == 0 {
                     xFirstSign = -1
                 } else if xSign > 0 {
@@ -79,14 +81,14 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
                 return false
             }
             
-            if a.y > 0 {
+            if a.y > Scalar.zero {
                 if ySign == 0 {
                     yFirstSign = 1
                 } else if ySign < 0 {
                     yFlips += 1
                 }
                 ySign = 1
-            } else if a.y < 0 {
+            } else if a.y < Scalar.zero {
                 if ySign == 0 {
                     yFirstSign = -1
                 } else if ySign > 0 {
@@ -102,7 +104,7 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
             // Find out the orientation of this pair of edges, and ensure it
             // does not differ from previous ones
             let w = b.cross(a)
-            if w * wSign < 0 {
+            if w * wSign < Scalar.zero {
                 return false
             }
         }

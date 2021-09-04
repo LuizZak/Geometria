@@ -1,5 +1,5 @@
 /// Protocol for 2D vector types with multiplicable scalars.
-public protocol Vector2Multiplicative: Vector2Type, VectorMultiplicative {
+public protocol Vector2Multiplicative: Vector2Additive, VectorMultiplicative {
     /// Gets the (x: 1, y: 0) vector of this type.
     static var unitX: Self { get }
     
@@ -15,7 +15,6 @@ public protocol Vector2Multiplicative: Vector2Type, VectorMultiplicative {
     /// of `self • other.perpendicular`. Provided in `Vector2Multiplicative` as
     /// a convenience, as the protocol constraints are more lax than
     /// `Vector2Signed`.
-    @inlinable
     func cross(_ other: Self) -> Scalar
 }
 
@@ -30,5 +29,15 @@ public extension Vector2Multiplicative {
     @_transparent
     static var unitY: Self {
         Self(x: 0, y: 1)
+    }
+    
+    @_transparent
+    func cross(_ other: Self) -> Scalar {
+        // Doing this in separate statements to ease long compilation times in
+        // Xcode 12
+        let d1 = (x * other.y)
+        let d2 = (y * other.x)
+        
+        return d1 - d2
     }
 }

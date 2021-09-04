@@ -87,7 +87,7 @@ extension LineSegment: LineFloatingPoint & PointProjectiveType where Vector: Vec
     /// - precondition: `(self.end - self.start).length > 0`
     @_transparent
     public var asDirectionalRay: DirectionalRay<Vector> {
-        DirectionalRay(start: start, direction: end - start)
+        return DirectionalRay(start: start, direction: end - start)
     }
     
     /// Returns `true` for projected scalars (0-1), which describes a

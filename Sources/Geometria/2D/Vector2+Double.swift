@@ -11,7 +11,7 @@ public extension Vector2D {
     @inlinable
     static func simdMatrix(scale: Self = .one,
                            rotate angle: Scalar = 0,
-                           translate: Self = Self(x: 0, y: 0)) -> double3x3 {
+                           translate: Self = .zero) -> double3x3 {
         
         typealias MatrixType = double3x3
         typealias Vector3Type = SIMD3<Scalar>

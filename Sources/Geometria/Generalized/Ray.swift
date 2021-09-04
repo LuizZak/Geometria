@@ -47,7 +47,7 @@ extension Ray: LineFloatingPoint & PointProjectiveType where Vector: VectorFloat
     /// - precondition: `(self.b - self.start).length > 0`
     @_transparent
     public var asDirectionalRay: DirectionalRay<Vector> {
-        DirectionalRay(start: start, direction: b - start)
+        return DirectionalRay(start: start, direction: b - start)
     }
     
     /// Returns `true` for all positive projected scalars (ray)

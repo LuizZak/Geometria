@@ -6,7 +6,7 @@ extension SIMD3: VectorType {
 }
 
 extension SIMD3: Vector3Type where Scalar == Double {
-    
+    public typealias SubVector2 = SIMD2<Scalar>
 }
 
 extension SIMD3: VectorComparable where Scalar == Double {

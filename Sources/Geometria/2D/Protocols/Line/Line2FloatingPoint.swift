@@ -10,33 +10,33 @@ public extension Line2FloatingPoint {
     func intersection<Line: Line2FloatingPoint>(with other: Line) -> LineIntersectionResult<Vector>? where Line.Vector == Vector {
         typealias Scalar = Vector.Scalar
         
-        let slope = lineSlope
-        let slopeOther = other.lineSlope
+        let slope: Vector = lineSlope
+        let slopeOther: Vector = other.lineSlope
         
-        let denom = slope.cross(slopeOther)
+        let denom: Scalar = slope.cross(slopeOther)
         
-        if denom.isApproximatelyEqual(to: 0) {
+        if denom.isApproximatelyEqual(to: .zero) {
             return nil
         }
         
-        let startDiff = a - other.a
+        let startDiff: Vector = a - other.a
         
-        let Ua = slopeOther.cross(startDiff) / denom
-        guard self.containsProjectedNormalizedMagnitude(Ua) else {
+        let ua: Scalar = slopeOther.cross(startDiff) / denom
+        guard self.containsProjectedNormalizedMagnitude(ua) else {
             return nil
         }
         
-        let Ub = slope.cross(startDiff) / denom
-        guard other.containsProjectedNormalizedMagnitude(Ub) else {
+        let ub: Scalar = slope.cross(startDiff) / denom
+        guard other.containsProjectedNormalizedMagnitude(ub) else {
             return nil
         }
         
-        let hitPt = projectedNormalizedMagnitude(Ua)
+        let hitPt: Vector = projectedNormalizedMagnitude(ua)
         
         return LineIntersectionResult(
             point: hitPt,
-            line1NormalizedMagnitude: Ua,
-            line2NormalizedMagnitude: Ub
+            line1NormalizedMagnitude: ua,
+            line2NormalizedMagnitude: ub
         )
     }
 }

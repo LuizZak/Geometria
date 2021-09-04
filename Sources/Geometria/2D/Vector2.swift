@@ -103,6 +103,10 @@ extension Vector2: AdditiveArithmetic where Scalar: AdditiveArithmetic {
 }
 
 extension Vector2: VectorAdditive where Scalar: AdditiveArithmetic {
+    
+}
+
+extension Vector2: Vector2Additive where Scalar: AdditiveArithmetic {
     /// Initializes a zero-valued `Vector2Type`
     @_transparent
     public init() {
@@ -196,15 +200,7 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
 }
 
 extension Vector2: Vector2Multiplicative where Scalar: Numeric {
-    @_transparent
-    public func cross(_ other: Self) -> Scalar {
-        // Doing this in separate statements to ease long compilation times in
-        // Xcode 12
-        let d1 = (x * other.y)
-        let d2 = (y * other.x)
-        
-        return d1 - d2
-    }
+    
 }
 
 extension Vector2: VectorSigned where Scalar: SignedNumeric & Comparable {
