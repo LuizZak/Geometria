@@ -9,6 +9,144 @@ class Disk3Tests: XCTestCase {
     typealias Ray = Ray3<Vector>
     typealias DirectionalRay = DirectionalRay3<Vector>
     
+    func testEquatable() {
+        let diff = 9.0
+        
+        XCTAssertEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: diff, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: diff, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: 2, z: diff),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: diff, y: 5, z: 6),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: diff, z: 6),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: diff),
+                 radius: 1)
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1),
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: diff)
+        )
+    }
+    
+    func testHashable() {
+        let diff = 9.0
+        
+        XCTAssertEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: diff, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: diff, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: 2, z: diff),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: diff, y: 5, z: 6),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: diff, z: 6),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: diff),
+                 radius: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: 1).hashValue,
+            Disk(center: .init(x: 1, y: 2, z: 3),
+                 normal: .init(x: 4, y: 5, z: 6),
+                 radius: diff).hashValue
+        )
+    }
+    
     // MARK: Radius Intersection Check
     
     func testUnclampedNormalMagnitudeForIntersection_radiusCheck() {
