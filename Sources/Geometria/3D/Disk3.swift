@@ -34,7 +34,7 @@ extension Disk3: LineIntersectivePlaneType {
     @usableFromInline
     func normalMagnitude<Line: LineFloatingPoint>(_ line: Line) -> Vector.Scalar? where Line.Vector == Vector {
         let denom = normal.dot(line.lineSlope)
-        if denom.isApproximatelyEqual(to: 0) {
+        if abs(denom) <= .leastNonzeroMagnitude {
             return nil
         }
         

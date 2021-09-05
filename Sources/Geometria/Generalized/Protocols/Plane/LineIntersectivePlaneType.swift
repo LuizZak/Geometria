@@ -22,7 +22,7 @@ public extension LineIntersectivePlaneType {
     @inlinable
     func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line) -> Vector.Scalar? where Line.Vector == Vector {
         let denom = normal.dot(line.lineSlope)
-        if denom.isApproximatelyEqual(to: 0) {
+        if abs(denom) < .leastNonzeroMagnitude {
             return nil
         }
         

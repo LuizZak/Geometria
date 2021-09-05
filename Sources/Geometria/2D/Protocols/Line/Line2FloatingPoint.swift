@@ -14,8 +14,7 @@ public extension Line2FloatingPoint {
         let slopeOther: Vector = other.lineSlope
         
         let denom: Scalar = slope.cross(slopeOther)
-        
-        if denom.isApproximatelyEqual(to: .zero) {
+        if abs(denom) < .leastNonzeroMagnitude {
             return nil
         }
         

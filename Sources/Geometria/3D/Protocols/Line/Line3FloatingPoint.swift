@@ -32,13 +32,13 @@ public extension Line3FloatingPoint {
         let p43: Vector = p4 - p3
         
         let d4343 = p43.dot(p43)
-        if d4343.isApproximatelyEqual(to: .zero) {
+        if abs(d4343) < .leastNonzeroMagnitude {
             return nil
         }
         
         let p21: Vector = p2 - p1
         let d2121 = p21.dot(p21)
-        if d2121.isApproximatelyEqual(to: .zero) {
+        if abs(d2121) < .leastNonzeroMagnitude {
             return nil
         }
         
@@ -48,7 +48,7 @@ public extension Line3FloatingPoint {
         
         // mua = ( d1343 d4321 - d1321 d4343 ) / ( d2121 d4343 - d4321 d4321 )
         let muaDenom: Scalar = ((d1343 * d4321) as Scalar).addingProduct(-d1321, d4343)
-        if muaDenom.isApproximatelyEqual(to: .zero) {
+        if abs(muaDenom) < .leastNonzeroMagnitude {
             return nil
         }
         let muaNumer: Scalar = d2121 * d4343.addingProduct(-d4321, d4321)
