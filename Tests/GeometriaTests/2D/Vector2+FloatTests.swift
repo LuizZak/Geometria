@@ -1,3 +1,5 @@
+#if canImport(simd)
+
 import XCTest
 import Geometria
 
@@ -74,3 +76,5 @@ class Vector2_FloatTests: XCTestCase {
         assertEqual(vec * matrix, Vector2F(x: 7.5, y: -18.5), accuracy: accuracy)
     }
 }
+
+#endif

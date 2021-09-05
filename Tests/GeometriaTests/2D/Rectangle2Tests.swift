@@ -1,6 +1,5 @@
 import XCTest
 import Geometria
-import simd
 
 class Rectangle2Tests: XCTestCase {
     typealias Rectangle = Rectangle2D

@@ -1,3 +1,5 @@
+#if canImport(simd)
+
 import simd
 
 public extension Vector2F {
@@ -82,3 +84,5 @@ public extension Vector2F {
         return Self(x: transformed.x, y: transformed.y)
     }
 }
+
+#endif
