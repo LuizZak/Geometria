@@ -1,3 +1,5 @@
+#if canImport(simd)
+
 import XCTest
 import Geometria
 
@@ -439,3 +441,5 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(Vector.zero.elevation, 0)
     }
 }
+
+#endif

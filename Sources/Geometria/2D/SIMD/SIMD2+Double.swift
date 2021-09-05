@@ -1,3 +1,5 @@
+#if canImport(simd)
+
 import RealModule
 import simd
 
@@ -306,3 +308,5 @@ extension SIMD2: Vector2Real where Scalar == Double {
         lhs = Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
     }
 }
+
+#endif

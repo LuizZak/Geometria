@@ -1,6 +1,7 @@
+#if canImport(simd)
+
 import XCTest
 import Geometria
-import simd
 
 class SIMD2_DoubleTests: XCTestCase {
     let accuracy: Double = 1.0e-15
@@ -542,3 +543,5 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(Vector(x: 5.0, y: -4.0).sign, .init(x: 1.0, y: -1.0))
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(simd)
+
 import RealModule
 import simd
 
@@ -221,3 +223,5 @@ extension SIMD3: Vector3Real where Scalar == Double {
         return Scalar.asin(z / length)
     }
 }
+
+#endif
