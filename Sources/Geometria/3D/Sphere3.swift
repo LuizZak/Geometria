@@ -27,7 +27,7 @@ extension Sphere3: ProjectiveSpace where Vector: Vector3Real {
         let y = radius * Scalar.cos(proj.elevation) * Scalar.sin(proj.azimuth)
         let z = radius * Scalar.sin(proj.elevation)
         
-        return Vector(x: x, y: y, z: z)
+        return center + Vector(x: x, y: y, z: z)
     }
 }
 
