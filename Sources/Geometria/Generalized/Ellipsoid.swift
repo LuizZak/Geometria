@@ -45,3 +45,38 @@ extension Ellipsoid: VolumetricType where Vector: VectorReal {
         return p.lengthSquared <= 1
     }
 }
+
+extension Ellipsoid: ConvexType where Vector: VectorReal {
+    /// - precondition: `radius.minimalComponent > 0`
+    @inlinable
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+        let majorAxis = radius.maximalComponent
+        let scale = (.one / radius) * majorAxis
+        let revScale = .one / scale
+        
+        let scaledSphere = NSphere<Vector>(center: center * scale, radius: majorAxis)
+        let scaledLine = line.withPointsScaledBy(scale)
+        
+        func scalePointNormal(_ pn: PointNormal<Vector>) -> PointNormal<Vector> {
+            return PointNormal(
+                point: pn.point * revScale,
+                normal: (pn.normal * scale).normalized()
+            )
+        }
+        
+        switch scaledSphere.intersection(with: scaledLine) {
+        case .noIntersection:
+            return .noIntersection
+        case .contained:
+            return .contained
+        case .singlePoint(let pn):
+            return .singlePoint(scalePointNormal(pn))
+        case .enter(let pn):
+            return .enter(scalePointNormal(pn))
+        case .exit(let pn):
+            return .exit(scalePointNormal(pn))
+        case let .enterExit(penter, pexit):
+            return .enterExit(scalePointNormal(penter), scalePointNormal(pexit))
+        }
+    }
+}

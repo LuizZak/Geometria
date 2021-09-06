@@ -150,12 +150,20 @@ public extension Vector3Type where Self: VectorComparable {
     }
     
     /// Returns the greatest scalar component between x, y, z in this vector
+    ///
+    /// ```swift
+    /// Vector3D(x: -3.0, y: 2.5, z: 0).maximalComponent // Returns 2.5
+    /// ```
     @_transparent
     var maximalComponent: Scalar {
         max(max(x, y), z)
     }
     
     /// Returns the least scalar component between x, y, z in this vector
+    ///
+    /// ```swift
+    /// Vector3D(x: -3.0, y: 2.5, z: 0).minimalComponent // Returns -3.0
+    /// ```
     @_transparent
     var minimalComponent: Scalar {
         min(min(x, y), z)

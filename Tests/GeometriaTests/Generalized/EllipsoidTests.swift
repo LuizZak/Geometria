@@ -78,3 +78,237 @@ extension EllipsoidTests {
         XCTAssertFalse(sut.contains(.init(x: 2, y: 2)))
     }
 }
+
+// MARK: ConvexType Conformance
+
+extension EllipsoidTests {
+    
+    // MARK: 2D
+    
+    func testIntersectionWith_line_noIntersection() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: -20, y1: -20, x2: 20, y2: -20)
+        
+        assertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
+    func testIntersectionWith_line_tangent_top() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: -20, y1: -4, x2: 20, y2: -4)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .singlePoint(
+                PointNormal(
+                    point: .init(x: 1.9999999999999973, y: -4.0),
+                    normal: .init(x: -7.105427357601002e-16, y: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_tangent_bottom() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: -20, y1: 10, x2: 20, y2: 10)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .singlePoint(
+                PointNormal(
+                    point: .init(x: 1.9999999999999973, y: 10.0),
+                    normal: .init(x: -7.105427357601002e-16, y: 1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_tangent_left() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: -3, y1: -20, x2: -3, y2: 20)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .singlePoint(
+                PointNormal(
+                    point: .init(x: -2.9999999999999996, y: 2.9999999999999982),
+                    normal: .init(x: -1.0, y: -1.8126090197961737e-16)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_horizontal_fromLeft_acrossCenter() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: -20, y1: 3, x2: 20, y2: 3)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: -3.000000000000003, y: 3.0),
+                    normal: .init(x: -1.0, y: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: 6.999999999999997, y: 3.0),
+                    normal: .init(x: -1.0, y: 0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_horizontal_fromRight_acrossCenter() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: 20, y1: 3, x2: -20, y2: 3)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 7.000000000000002, y: 3.0),
+                    normal: .init(x: 1.0, y: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: -2.9999999999999987, y: 3.0),
+                    normal: .init(x: 1.0, y: 0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_vertical_fromTop_acrossCenter() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: 2, y1: -20, x2: 2, y2: 20)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 2.0, y: -4.000000000000002),
+                    normal: .init(x: 0.0, y: -1.0)
+                ),
+                PointNormal(
+                    point: .init(x: 2.0, y: 10.0),
+                    normal: .init(x: 0.0, y: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_vertical_fromBottom_acrossCenter() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = Line2D(x1: 2, y1: 20, x2: 2, y2: -20)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 2.0, y: 10.0),
+                    normal: .init(x: 0.0, y: 1.0)
+                ),
+                PointNormal(
+                    point: .init(x: 2.0, y: -3.999999999999999),
+                    normal: .init(x: 0.0, y: 1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_across_slanted() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 2, y: 7))
+        let line = LineSegment2D(x1: -2, y1: -3, x2: 8, y2: 12)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 0.16170993996388447, y: 0.24256490994582675),
+                    normal: .init(x: -0.9925863886954069, y: -0.1215411904524988)
+                ),
+                PointNormal(
+                    point: .init(x: 3.8382900600361154, y: 5.757435090054173),
+                    normal: .init(x: -0.9925863886954069, y: -0.1215411904524988)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_contained() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = LineSegment2D(x1: -1, y1: -2, x2: 5, y2: 7)
+        
+        assertEqual(sut.intersection(with: line), .contained)
+    }
+    
+    func testIntersectionWith_lineSegment_enter_slanted() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = LineSegment2D(x1: -2, y1: -3, x2: 5, y2: 7)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enter(
+                PointNormal(
+                    point: .init(x: -1.3961944901412953, y: -2.1374207002018504),
+                    normal: .init(x: -0.7916456562399941, y: -0.6109804865593901)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_enter() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = LineSegment2D(x1: -10, y1: 3, x2: 2, y2: 3)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enter(
+                PointNormal(
+                    point: .init(x: -3.0000000000000004, y: 3.0),
+                    normal: .init(x: -1.0, y: 0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_exit() {
+        let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
+        let line = LineSegment2D(x1: 2, y1: 3, x2: 10, y2: 3)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .exit(
+                PointNormal(
+                    point: .init(x: 6.999999999999998, y: 3.0),
+                    normal: .init(x: -1.0, y: 0.0)
+                )
+            )
+        )
+    }
+    
+    // MARK: 3D
+    
+    func testIntersectionWith3d_lineSegment_enter_slanted() {
+        let sut = Ellipse3D(center: .init(x: 2, y: 3, z: 5), radius: .init(x: 7, y: 5, z: 11))
+        let line = LineSegment3D(x1: -2, y1: -3, z1: -5, x2: 5, y2: 7, z2: 12)
+        
+        ProcessingPrinter.withPrinter { printer in
+            printer.scale = 10
+            printer.add(ellipse3: sut)
+            printer.add(line: line)
+            printer.add(intersection: sut.intersection(with: line))
+        }
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: -0.42803925873589277, y: -0.7543417981941325, z: -1.1823810569300255),
+                    normal: .init(x: -0.29816906779895924, y: -0.9036427383419159, z: -0.30744919653468505)
+                ),
+                PointNormal(
+                    point: .init(x: 4.720656708400321, y: 6.6009381548576025, z: 11.321594863257921),
+                    normal: .init(x: -0.34069861118728206, y: -0.8838292108316562, z: -0.3205782001567621)
+                )
+            )
+        )
+    }
+}

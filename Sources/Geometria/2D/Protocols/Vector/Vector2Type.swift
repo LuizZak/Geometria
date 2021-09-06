@@ -84,12 +84,20 @@ public extension Vector2Type where Self: VectorComparable {
     }
     
     /// Returns the greatest scalar component between x, y in this vector
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).maximalComponent // Returns 2.5
+    /// ```
     @_transparent
     var maximalComponent: Scalar {
         max(x, y)
     }
     
     /// Returns the least scalar component between x, y in this vector
+    ///
+    /// ```swift
+    /// Vector2D(x: -3.0, y: 2.5).minimalComponent // Returns -3.0
+    /// ```
     @_transparent
     var minimalComponent: Scalar {
         min(x, y)
