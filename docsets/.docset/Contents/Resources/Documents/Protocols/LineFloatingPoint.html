@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
            Docs
         </a>
-         (87% documented)
+         (88% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -239,10 +239,16 @@
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LineAdditive.html">LineAdditive</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineIntersectivePlaneType.html">LineIntersectivePlaneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/LineMultiplicative.html">LineMultiplicative</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
@@ -689,12 +695,12 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html">LineType</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineMultiplicative.html">LineMultiplicative</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
             <p>Protocol for objects that form geometric lines with two floating-point
-vectors representing the endpoints of the line.</p>
+vectors representing two points on the line.</p>
 
           </div>
         </section>

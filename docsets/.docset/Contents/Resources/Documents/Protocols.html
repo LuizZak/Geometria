@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (87% documented)
+         (88% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -239,10 +239,16 @@
                 <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/LineAdditive.html">LineAdditive</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineFloatingPoint.html">LineFloatingPoint</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineIntersectivePlaneType.html">LineIntersectivePlaneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/LineMultiplicative.html">LineMultiplicative</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
@@ -1498,6 +1504,35 @@ arbitrary vector onto their surface.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria12LineAdditiveP"></a>
+                    <a name="//apple_ref/swift/Protocol/LineAdditive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineAdditiveP">LineAdditive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol for objects that form geometric lines with two <code><a href="Protocols/VectorAdditive.html">VectorAdditive</a></code>
+vectors representing two points on the line.</p>
+
+                        <a href="Protocols/LineAdditive.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineAdditive</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineType.html">LineType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria17LineFloatingPointP"></a>
                     <a name="//apple_ref/swift/Protocol/LineFloatingPoint" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria17LineFloatingPointP">LineFloatingPoint</a>
@@ -1509,7 +1544,7 @@ arbitrary vector onto their surface.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Protocol for objects that form geometric lines with two floating-point
-vectors representing the endpoints of the line.</p>
+vectors representing two points on the line.</p>
 
                         <a href="Protocols/LineFloatingPoint.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1517,7 +1552,36 @@ vectors representing the endpoints of the line.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineType.html">LineType</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineMultiplicative.html">LineMultiplicative</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria18LineMultiplicativeP"></a>
+                    <a name="//apple_ref/swift/Protocol/LineMultiplicative" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria18LineMultiplicativeP">LineMultiplicative</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol for objects that form geometric lines with two <code><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></code>
+vectors representing two points on the line.</p>
+
+                        <a href="Protocols/LineMultiplicative.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineMultiplicative</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineAdditive.html">LineAdditive</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1537,7 +1601,8 @@ vectors representing the endpoints of the line.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Protocol for objects representing lines with two real vectors.</p>
+                        <p>Protocol for objects that form geometric lines with two <code><a href="Protocols/VectorReal.html">VectorReal</a></code>
+vectors representing two points on the line.</p>
 
                       </div>
                       <div class="declaration">

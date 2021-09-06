@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>RectangleType Protocol Reference</title>
+    <title>LineAdditive Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/RectangleType" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/LineAdditive" class="dashAnchor"></a>
 
-    <a title="RectangleType Protocol Reference"></a>
+    <a title="LineAdditive Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      RectangleType Protocol Reference
+      LineAdditive Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -691,16 +691,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>RectangleType</h1>
+            <h1>LineAdditive</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RectangleType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineAdditive</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html">LineType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol for geometric types defined by vectors that fill enclosed
-rectangular areas with a defined location and size.</p>
+            <p>Protocol for objects that form geometric lines with two <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code>
+vectors representing two points on the line.</p>
 
           </div>
         </section>
@@ -712,9 +712,9 @@ rectangular areas with a defined location and size.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria13RectangleTypeP6VectorQa"></a>
-                    <a name="//apple_ref/swift/Alias/Vector" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a>
+                    <a name="/s:9Geometria12LineAdditiveP8offsetByyx6VectorQzF"></a>
+                    <a name="//apple_ref/swift/Method/offsetBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineAdditiveP8offsetByyx6VectorQzF">offsetBy(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -722,297 +722,15 @@ rectangular areas with a defined location and size.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The vector type associated with this <code>RectangleType</code>.</p>
+                        <p>Returns a new line with the same slope, but with the end-points shifted
+by <code>vector</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypeP8location6VectorQzvp"></a>
-                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypeP8location6VectorQzvp">location</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The starting location of this rectangle with the minimal coordinates
-contained within the rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypeP4size6VectorQzvp"></a>
-                    <a name="//apple_ref/swift/Property/size" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypeP4size6VectorQzvp">size</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The size of this rectangle, which when added to <code><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP8location6VectorQzvp">location</a></code> produce the
-maximal coordinates contained within this rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">size</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60Vector2Type%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector2Type`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Vector2Type%60"></a>
-                  <h3 class="section-name"><p>Available where <code><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></code>: <code><a href="../Protocols/Vector2Type.html">Vector2Type</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE1xAE_6ScalarQZvp"></a>
-                    <a name="//apple_ref/swift/Property/x" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE1xAE_6ScalarQZvp">x</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the X position of this Rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">x</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE1yAE_6ScalarQZvp"></a>
-                    <a name="//apple_ref/swift/Property/y" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE1yAE_6ScalarQZvp">y</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the Y position of this Rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">y</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE5widthAE_6ScalarQZvp"></a>
-                    <a name="//apple_ref/swift/Property/width" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE5widthAE_6ScalarQZvp">width</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the width of this Rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">width</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE6heightAE_6ScalarQZvp"></a>
-                    <a name="//apple_ref/swift/Property/height" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE6heightAE_6ScalarQZvp">height</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the height of this Rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">height</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE3topAE_6ScalarQZvp"></a>
-                    <a name="//apple_ref/swift/Property/top" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE3topAE_6ScalarQZvp">top</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The y coordinate of the top corner of this rectangle.</p>
-
-<p>Alias for <code><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE1yAE_6ScalarQZvp">y</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">top</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE4leftAE_6ScalarQZvp"></a>
-                    <a name="//apple_ref/swift/Property/left" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE4leftAE_6ScalarQZvp">left</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The x coordinate of the left corner of this rectangle.</p>
-
-<p>Alias for <code><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE1xAE_6ScalarQZvp">x</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE7topLeftAFvp"></a>
-                    <a name="//apple_ref/swift/Property/topLeft" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria13RectangleTypePA2A07Vector2C06VectorRpzrlE7topLeftAFvp">topLeft</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The top-left corner of the rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">topLeft</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html#/s:9Geometria13RectangleTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">offsetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>

@@ -499,7 +499,7 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Projection/SphereProjectiveSpace.swift",
-      "line": 7,
+      "line": 8,
       "symbol": "SphereProjectiveSpace.Scalar",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
