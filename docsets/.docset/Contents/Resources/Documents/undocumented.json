@@ -268,28 +268,28 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 212,
+      "line": 214,
       "symbol": "SIMD2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 218,
+      "line": 220,
       "symbol": "SIMD2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 300,
+      "line": 302,
       "symbol": "SIMD2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 305,
+      "line": 307,
       "symbol": "SIMD2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -303,14 +303,14 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2+Double.swift",
-      "line": 77,
+      "line": 79,
       "symbol": "Vector2D.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2+Float.swift",
-      "line": 77,
+      "line": 79,
       "symbol": "Vector2F.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -639,14 +639,14 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 167,
+      "line": 169,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 174,
+      "line": 176,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
