@@ -1,7 +1,12 @@
-/// Represents an N-sphere with a center point and radius.
-public struct NSphere<Vector: VectorType>: GeometricType {
+/// Represents an N-dimensional sphere with a center point and a radius.
+public struct NSphere<Vector: VectorType>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
+    
+    @_transparent
+    public var description: String {
+        "\(type(of: self))(center: \(center), radius: \(radius))"
+    }
     
     public var center: Vector
     public var radius: Scalar
@@ -25,6 +30,14 @@ extension NSphere: BoundableType where Vector: VectorAdditive {
 }
 
 public extension NSphere where Scalar: AdditiveArithmetic {
+    /// Returns a new N-Sphere with the same center point as `self`, but with
+    /// ``radius`` inflated by `value`.
+    ///
+    /// ```swift
+    /// let circle = Circle2D(x: 3, y: 12, radius: 5)
+    ///
+    /// print(circle.expanded(by: 2)) // Prints: (center: (x: 3, y: 12), radius: 7)
+    /// ```
     @inlinable
     func expanded(by value: Scalar) -> NSphere {
         NSphere(center: center, radius: radius + value)

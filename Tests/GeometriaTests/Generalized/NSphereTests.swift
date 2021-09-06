@@ -4,6 +4,12 @@ import Geometria
 class NSphereTests: XCTestCase {
     typealias NSphere = Circle2D
     
+    func testDescription() {
+        let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
+        
+        XCTAssertEqual(sut.description, "NSphere<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 1.0), radius: 2.0)")
+    }
+    
     func testCodable() throws {
         let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
         let encoder = JSONEncoder()
