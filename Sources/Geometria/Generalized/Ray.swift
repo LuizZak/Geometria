@@ -39,6 +39,20 @@ extension Ray: LineType {
     }
 }
 
+extension Ray: LineAdditive where Vector: VectorAdditive {
+    @_transparent
+    public func offsetBy(_ vector: Vector) -> Self {
+        return Self(start: start + vector, b: b + vector)
+    }
+}
+
+extension Ray: LineMultiplicative where Vector: VectorMultiplicative {
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector) -> Self {
+        return Self(start: start * factor, b: b * factor)
+    }
+}
+
 extension Ray: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
     /// matches `self.start` and `ray.direction` matches

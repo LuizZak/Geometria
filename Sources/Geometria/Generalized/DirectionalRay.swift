@@ -84,6 +84,21 @@ public extension DirectionalRay where Vector: VectorAdditive {
     }
 }
 
+extension DirectionalRay: LineAdditive where Vector: VectorAdditive {
+    @_transparent
+    public func offsetBy(_ vector: Vector) -> Self {
+        return Self(start: start + vector, direction: direction)
+    }
+}
+
+extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative {
+    /// - precondition: `factor > Vector.zero`
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector) -> Self {
+        return Self(start: start * factor, direction: direction * factor)
+    }
+}
+
 extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Gets the slope of this directional ray.
     ///

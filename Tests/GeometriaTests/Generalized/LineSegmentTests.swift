@@ -100,7 +100,21 @@ extension LineSegmentTests {
     }
 }
 
-// MARK: VectorMultiplicative Conformance
+// MARK: LineAdditive Conformance
+
+extension LineSegmentTests {
+    func testOffsetBy() {
+        let sut = LineSegment(x1: 1, y1: 2, x2: 3, y2: 5)
+        
+        let result = sut.offsetBy(.init(x: 7, y: 11))
+        
+        XCTAssertEqual(sut.lineSlope, result.lineSlope)
+        XCTAssertEqual(result.start, .init(x: 8, y: 13))
+        XCTAssertEqual(result.end, .init(x: 10, y: 16))
+    }
+}
+
+// MARK: LineMultiplicative Conformance
 
 extension LineSegmentTests {
     func testLengthSquared() {
@@ -108,9 +122,20 @@ extension LineSegmentTests {
         
         XCTAssertEqual(sut.lengthSquared, 13)
     }
+    
+    func testWithPointsScaledBy() {
+        let sut = LineSegment(x1: 1, y1: 2, x2: 3, y2: 5)
+        let factor = Vector2D(x: 7, y: 11)
+        
+        let result = sut.withPointsScaledBy(factor)
+        
+        assertEqual(result.lineSlope, sut.lineSlope * factor, accuracy: 1e-16)
+        XCTAssertEqual(result.start, .init(x: 7, y: 22))
+        XCTAssertEqual(result.end, .init(x: 21, y: 55))
+    }
 }
 
-// MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
+// MARK: LineFloatingPoint Conformance
 
 extension LineSegmentTests {
     func testLength() {

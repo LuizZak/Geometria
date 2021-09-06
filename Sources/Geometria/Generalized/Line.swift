@@ -27,6 +27,20 @@ extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+extension Line: LineAdditive where Vector: VectorAdditive {
+    @_transparent
+    public func offsetBy(_ vector: Vector) -> Self {
+        return Self(a: a + vector, b: b + vector)
+    }
+}
+
+extension Line: LineMultiplicative where Vector: VectorMultiplicative {
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector) -> Self {
+        return Self(a: a * factor, b: b * factor)
+    }
+}
+
 extension Line: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
     /// Returns `true` for all non-NaN scalar values, which describes a
     /// [geometric line].

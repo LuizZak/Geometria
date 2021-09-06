@@ -53,7 +53,36 @@ class LineTests: XCTestCase {
     }
 }
 
-// MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
+// MARK: LineAdditive Conformance
+
+extension LineTests {
+    func testOffsetBy() {
+        let sut = Line(x1: 1, y1: 2, x2: 3, y2: 5)
+        
+        let result = sut.offsetBy(.init(x: 7, y: 11))
+        
+        XCTAssertEqual(sut.lineSlope, result.lineSlope)
+        XCTAssertEqual(result.a, .init(x: 8, y: 13))
+        XCTAssertEqual(result.b, .init(x: 10, y: 16))
+    }
+}
+
+// MARK: LineMultiplicative Conformance
+
+extension LineTests {
+    func testWithPointsScaledBy() {
+        let sut = Line(x1: 1, y1: 2, x2: 3, y2: 5)
+        let factor = Vector2D(x: 7, y: 11)
+        
+        let result = sut.withPointsScaledBy(factor)
+        
+        assertEqual(result.lineSlope, sut.lineSlope * factor, accuracy: 1e-16)
+        XCTAssertEqual(result.a, .init(x: 7, y: 22))
+        XCTAssertEqual(result.b, .init(x: 21, y: 55))
+    }
+}
+
+// MARK: LineFloatingPoint Conformance
 
 extension LineTests {
     func testContainsProjectedNormalizedMagnitude() {

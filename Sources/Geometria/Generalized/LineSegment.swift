@@ -61,13 +61,25 @@ extension LineSegment: BoundableType where Vector: VectorComparable {
     }
 }
 
-public extension LineSegment where Vector: VectorMultiplicative {
+extension LineSegment: LineAdditive where Vector: VectorAdditive {
+    @_transparent
+    public func offsetBy(_ vector: Vector) -> Self {
+        return Self(start: start + vector, end: end + vector)
+    }
+}
+
+extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     /// Returns the squared length of this line.
     ///
     /// - seealso: ``length``
     @_transparent
-    var lengthSquared: Scalar {
+    public var lengthSquared: Scalar {
         (end - start).lengthSquared
+    }
+    
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector) -> Self {
+        return Self(start: start * factor, end: end * factor)
     }
 }
 

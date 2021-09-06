@@ -150,7 +150,38 @@ extension DirectionalRayTests {
     }
 }
 
-// MARK: LineFloatingPoint, Vector: VectorFloatingPoint Conformance
+// MARK: LineAdditive Conformance
+
+extension DirectionalRayTests {
+    func testOffsetBy() {
+        let sut = DirectionalRay(x1: 1, y1: 2, x2: 3, y2: 5)
+        
+        let result = sut.offsetBy(.init(x: 7, y: 11))
+        
+        XCTAssertEqual(result.lineSlope, sut.lineSlope)
+        XCTAssertEqual(result.start, .init(x: 8, y: 13))
+        XCTAssertEqual(result.direction, sut.direction)
+    }
+}
+
+// MARK: LineMultiplicative Conformance
+
+extension DirectionalRayTests {
+    func testWithPointsScaledBy() {
+        let sut = DirectionalRay(x1: 1, y1: 2, x2: 3, y2: 5)
+        let factor = Vector2D(x: 7, y: 11)
+        
+        let result = sut.withPointsScaledBy(factor)
+        
+        assertEqual(result.lineSlope,
+                    (sut.lineSlope * factor).normalized(),
+                    accuracy: 1e-16)
+        XCTAssertEqual(result.start, .init(x: 7, y: 22))
+        XCTAssertEqual(result.direction, .init(x: 0.3905498468561694, y: 0.9205817818752565))
+    }
+}
+
+// MARK: LineFloatingPoint Conformance
 
 extension DirectionalRayTests {
     func testProjectAsScalar2D() {
