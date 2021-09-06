@@ -22,6 +22,26 @@ public enum ConvexLineIntersection<Vector: VectorType> {
     
     /// Represents the case where no intersection occurs at any point.
     case noIntersection
+    
+    /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
+    /// is mapped by a provided closure before being stored back into the same
+    /// enum case and returned.
+    public func mappingPointNormals(_ mapper: (PointNormal<Vector>) -> PointNormal<Vector>) -> ConvexLineIntersection<Vector> {
+        switch self {
+        case .contained:
+            return .contained
+        case .noIntersection:
+            return .noIntersection
+        case .singlePoint(let pointNormal):
+            return .singlePoint(mapper(pointNormal))
+        case .enter(let pointNormal):
+            return .enter(mapper(pointNormal))
+        case .exit(let pointNormal):
+            return .exit(mapper(pointNormal))
+        case let .enterExit(p1, p2):
+            return .enterExit(mapper(p1), mapper(p2))
+        }
+    }
 }
 
 extension ConvexLineIntersection: Equatable where Vector: Equatable { }
