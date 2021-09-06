@@ -47,7 +47,7 @@ public protocol LineFloatingPoint: LineType, PointProjectiveType where Vector: V
     /// `length = self.length * scalar`, lies within the boundaries of this line.
     ///
     /// For infinite lines, all projected scalars lie within the line, while in
-    /// line segments bounded with start/end points, only values lying in (0-1)
+    /// line segments bounded with start/end points, only values laying in (0-1)
     /// are contained on the line.
     func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool
     
