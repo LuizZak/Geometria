@@ -2,7 +2,7 @@
 public protocol PointProjectivePlaneType: PlaneType, PointProjectiveType {
     /// Returns the signed distance of a given point to this plane.
     ///
-    /// By offsetting the point by -(signed distance x ``normal``), the
+    /// By offsetting the point by -(signed distance x ``PlaneType/normal``), the
     /// projected point on the plane is retrieved.
     func signedDistance(to vector: Vector) -> Vector.Scalar
 }
