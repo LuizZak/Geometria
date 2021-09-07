@@ -40,7 +40,7 @@ public extension PointNormalPlane {
     }
 }
 
-extension PointNormalPlane: LineIntersectivePlaneType {
+extension PointNormalPlane: LineIntersectablePlaneType {
     @_transparent
     public var pointOnPlane: Vector { point }
 }

@@ -27,7 +27,7 @@ public struct Disk3<Vector: Vector3FloatingPoint>: GeometricType {
 extension Disk3: Equatable where Vector: Equatable { }
 extension Disk3: Hashable where Vector: Hashable { }
 
-extension Disk3: LineIntersectivePlaneType {
+extension Disk3: LineIntersectablePlaneType {
     @_transparent
     public var pointOnPlane: Vector { center }
     

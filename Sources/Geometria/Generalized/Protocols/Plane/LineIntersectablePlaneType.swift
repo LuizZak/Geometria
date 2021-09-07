@@ -1,5 +1,5 @@
 /// Represents a plane type that has support for line-intersection.
-public protocol LineIntersectivePlaneType: PointProjectablePlaneType {
+public protocol LineIntersectablePlaneType: PointProjectablePlaneType {
     /// Returns the normalized magnitude for a line's intersection point on this
     /// plane.
     ///
@@ -18,7 +18,7 @@ public protocol LineIntersectivePlaneType: PointProjectablePlaneType {
         -> Vector? where Line.Vector == Vector
 }
 
-public extension LineIntersectivePlaneType {
+public extension LineIntersectablePlaneType {
     @inlinable
     func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line) -> Vector.Scalar? where Line.Vector == Vector {
         let denom = normal.dot(line.lineSlope)

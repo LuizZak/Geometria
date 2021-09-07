@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class LineIntersectivePlaneTypeTests: XCTestCase {
+class LineIntersectablePlaneTypeTests: XCTestCase {
     typealias Vector = Vector3D
     typealias Plane = PointNormalPlane3<Vector>
     typealias Line = Line3<Vector>
