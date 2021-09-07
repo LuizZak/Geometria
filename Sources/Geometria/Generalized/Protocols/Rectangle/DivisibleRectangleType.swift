@@ -34,7 +34,12 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     /// while the coordinates of the vectors change to position the rectangle's
     /// center on the provided coordinates.
     var center: Vector {
-        get { return location + size / 2 }
+        @_transparent
+        get {
+            let newSize: Vector = size / 2
+            return location + newSize
+        }
+        @_transparent
         set { self = self.movingCenter(to: newValue) }
     }
     

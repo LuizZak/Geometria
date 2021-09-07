@@ -7,7 +7,7 @@ let geometriaDependencies: [Target.Dependency] = [
 ]
 
 let geometriaTarget: Target
-if let _ = ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] {
+if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] != nil {
     geometriaTarget = .target(
         name: "Geometria",
         dependencies: geometriaDependencies,
@@ -16,7 +16,9 @@ if let _ = ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] {
                 "-Xfrontend",
                 "-warn-long-function-bodies=600",
                 "-Xfrontend",
-                "-warn-long-expression-type-checking=100"
+                "-warn-long-expression-type-checking=50",
+                "-Xfrontend",
+                "-debug-time-function-bodies"
             ])
         ])
 } else {

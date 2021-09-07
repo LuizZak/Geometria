@@ -1,5 +1,8 @@
 BUNDLE = bundle exec
 
+report_build_time:
+	sh ./report-build-time.sh
+
 doc:
 	@$(BUNDLE) jazzy \
 		--min-acl public \

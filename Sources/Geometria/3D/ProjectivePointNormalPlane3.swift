@@ -68,7 +68,9 @@ extension ProjectivePointNormalPlane3: ProjectiveSpace {
     
     @inlinable
     public func projectOut(_ proj: Vector.SubVector2) -> Vector {
-        return point + rightAxis * proj.x + upAxis * proj.y
+        let x: Vector = rightAxis * proj.x
+        let y: Vector = upAxis * proj.y
+        return point + x + y
     }
 }
 
