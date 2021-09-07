@@ -85,7 +85,7 @@ extension NSphereTests {
     }
 }
 
-// MARK: ConvexType & PointProjectiveType Conformance
+// MARK: ConvexType & PointProjectableType Conformance
 
 extension NSphereTests {
     func testProjectUnclampedVector_atCenter() {

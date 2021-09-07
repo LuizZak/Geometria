@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class PointProjectiveTypeTests: XCTestCase {
+class PointProjectableTypeTests: XCTestCase {
     func testDistanceSquaredTo() {
         let sut = TestPointProjective()
         
@@ -15,7 +15,7 @@ class PointProjectiveTypeTests: XCTestCase {
     }
 }
 
-private struct TestPointProjective: PointProjectiveType {
+private struct TestPointProjective: PointProjectableType {
     typealias Vector = Vector2D
     
     func project(_ vector: Vector2D) -> Vector2D {

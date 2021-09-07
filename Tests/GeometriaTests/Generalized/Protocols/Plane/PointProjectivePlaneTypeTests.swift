@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class PointProjectivePlaneType: XCTestCase {
+class PointProjectablePlaneType: XCTestCase {
     typealias Vector = Vector3D
     typealias Plane = PointNormalPlane<Vector>
     

@@ -53,7 +53,7 @@ extension Ray: LineMultiplicative where Vector: VectorMultiplicative {
     }
 }
 
-extension Ray: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
+extension Ray: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
     /// matches `self.start` and `ray.direction` matches
     /// `(self.b - self.start).normalized()`.

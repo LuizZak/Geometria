@@ -1,6 +1,6 @@
 /// Protocol for objects that form geometric lines with two floating-point
 /// vectors representing two points on the line.
-public protocol LineFloatingPoint: LineMultiplicative, PointProjectiveType where Vector: VectorFloatingPoint {
+public protocol LineFloatingPoint: LineMultiplicative, PointProjectableType where Vector: VectorFloatingPoint {
     /// Gets the slope of this line, or the vector that represents `b - a`.
     var lineSlope: Vector { get }
     

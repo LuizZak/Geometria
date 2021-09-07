@@ -99,7 +99,7 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
     }
 }
 
-extension DirectionalRay: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
+extension DirectionalRay: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
     /// Gets the slope of this directional ray.
     ///
     /// For directional rays this value always equates to `direction`.

@@ -1,5 +1,5 @@
 /// Represents a plane type that has support for point-projection.
-public protocol PointProjectivePlaneType: PlaneType, PointProjectiveType {
+public protocol PointProjectablePlaneType: PlaneType, PointProjectableType {
     /// Returns the signed distance of a given point to this plane.
     ///
     /// By offsetting the point by -(signed distance x ``PlaneType/normal``), the
@@ -7,7 +7,7 @@ public protocol PointProjectivePlaneType: PlaneType, PointProjectiveType {
     func signedDistance(to vector: Vector) -> Vector.Scalar
 }
 
-extension PointProjectivePlaneType {
+extension PointProjectablePlaneType {
     @inlinable
     public func signedDistance(to vector: Vector) -> Vector.Scalar {
         let v = vector - pointOnPlane

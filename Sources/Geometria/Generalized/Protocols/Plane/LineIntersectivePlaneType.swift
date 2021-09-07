@@ -1,5 +1,5 @@
 /// Represents a plane type that has support for line-intersection.
-public protocol LineIntersectivePlaneType: PointProjectivePlaneType {
+public protocol LineIntersectivePlaneType: PointProjectablePlaneType {
     /// Returns the normalized magnitude for a line's intersection point on this
     /// plane.
     ///

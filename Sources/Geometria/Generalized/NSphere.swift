@@ -59,7 +59,7 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
     }
 }
 
-extension NSphere: ConvexType & PointProjectiveType where Vector: VectorFloatingPoint {
+extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatingPoint {
     /// Returns the closest point on this sphere's surface to `vector`.
     ///
     /// If `vector` == ``center``, an arbitrary point is chosen, instead.

@@ -2,8 +2,8 @@
 ///
 /// Types conforming to this protocol expose a function that can project an
 /// arbitrary vector onto their surface.
-public protocol PointProjectiveType: GeometricType {
-    /// The vector type associated with this `PointProjectiveType`.
+public protocol PointProjectableType: GeometricType {
+    /// The vector type associated with this `PointProjectableType`.
     associatedtype Vector: VectorType
     
     /// Returns a vector on this geometric type that is the closest to `vector`.
@@ -24,7 +24,7 @@ public protocol PointProjectiveType: GeometricType {
     func distance(to vector: Vector) -> Vector.Scalar
 }
 
-public extension PointProjectiveType where Vector: VectorMultiplicative {
+public extension PointProjectableType where Vector: VectorMultiplicative {
     /// Returns the squared distance between this geometric type and a given
     /// vector.
     ///
@@ -35,7 +35,7 @@ public extension PointProjectiveType where Vector: VectorMultiplicative {
     }
 }
 
-public extension PointProjectiveType where Vector: VectorFloatingPoint {
+public extension PointProjectableType where Vector: VectorFloatingPoint {
     /// Returns the distance between this geometric type and a given vector.
     ///
     /// Equivalent to `self.distanceSquared(to: vector).squareRoot()`.

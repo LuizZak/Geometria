@@ -41,7 +41,7 @@ extension Line: LineMultiplicative where Vector: VectorMultiplicative {
     }
 }
 
-extension Line: LineFloatingPoint & PointProjectiveType where Vector: VectorFloatingPoint {
+extension Line: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
     /// Returns `true` for all non-NaN scalar values, which describes a
     /// [geometric line].
     ///

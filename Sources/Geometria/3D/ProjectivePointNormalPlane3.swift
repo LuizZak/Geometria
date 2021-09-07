@@ -4,7 +4,7 @@ public typealias ProjectivePointNormalPlane3D = ProjectivePointNormalPlane3<Vect
 
 /// A point-normal plane with a separate up and right vector used to control
 /// projection on the axis of the plane and compute the local X and Y axis.
-public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectivePlaneType {
+public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectablePlaneType {
     /// A point on this plane.
     public var point: Vector
     
