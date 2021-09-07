@@ -110,6 +110,12 @@ class ProcessingPrinter {
         addDrawLine("drawNormal(\(vec3String(pointNormal.point)), \(vec3String(pointNormal.normal)));")
     }
     
+    func add<V: Vector2Type>(circle: Circle2<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+        addStrokeWeightSet("1 / scale")
+        addStrokeColorSet("255, 0, 0, 100")
+        addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius));")
+    }
+    
     func add<V: Vector3Type>(sphere: Sphere3<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
         is3D = true
         

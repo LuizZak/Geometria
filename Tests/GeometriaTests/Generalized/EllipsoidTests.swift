@@ -290,13 +290,6 @@ extension EllipsoidTests {
         let sut = Ellipse3D(center: .init(x: 2, y: 3, z: 5), radius: .init(x: 7, y: 5, z: 11))
         let line = LineSegment3D(x1: -2, y1: -3, z1: -5, x2: 5, y2: 7, z2: 12)
         
-        ProcessingPrinter.withPrinter { printer in
-            printer.scale = 10
-            printer.add(ellipse3: sut)
-            printer.add(line: line)
-            printer.add(intersection: sut.intersection(with: line))
-        }
-        
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
