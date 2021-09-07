@@ -2,19 +2,19 @@ import RealModule
 
 /// Represents a 3D ellipse as a double-precision floating-point center with X,
 /// Y, and Z radii.
-public typealias Ellipse3D = Ellipsoid3<Vector3D>
+public typealias Ellipse3D = Ellipse3<Vector3D>
 
 /// Represents a 3D ellipse as a single-precision floating-point center with X,
 /// Y, and Z radii.
-public typealias Ellipse3F = Ellipsoid3<Vector3F>
+public typealias Ellipse3F = Ellipse3<Vector3F>
 
 /// Represents a 3D ellipse as a integer center with X, Y, and Z radii.
-public typealias Ellipse3i = Ellipsoid3<Vector3i>
+public typealias Ellipse3i = Ellipse3<Vector3i>
 
 /// Typealias for `Ellipsoid<V>`, where `V` is constrained to `Vector3Type`.
-public typealias Ellipsoid3<V: Vector3Type> = Ellipsoid<V>
+public typealias Ellipse3<V: Vector3Type> = Ellipsoid<V>
 
-public extension Ellipsoid3 {
+public extension Ellipse3 {
     @_transparent
     var radiusX: Scalar {
         get {
@@ -46,7 +46,7 @@ public extension Ellipsoid3 {
     }
 }
 
-public extension Ellipsoid3 where Vector: VectorReal {
+public extension Ellipse3 where Vector: VectorReal {
     @_transparent
     init(center: Vector, radiusX: Scalar, radiusY: Scalar, radiusZ: Scalar) {
         self.init(center: center, radius: Vector(x: radiusX, y: radiusY, z: radiusZ))
@@ -63,7 +63,7 @@ public extension Ellipsoid3 where Vector: VectorReal {
     }
 }
 
-extension Ellipsoid3: ProjectiveSpace where Vector: Vector3Real {
+extension Ellipse3: ProjectiveSpace where Vector: Vector3Real {
     @inlinable
     public func attemptProjection(_ vector: Vector) -> SphereCoordinates<Scalar>? {
         if vector == center {
@@ -85,6 +85,6 @@ extension Ellipsoid3: ProjectiveSpace where Vector: Vector3Real {
     }
 }
 
-extension Ellipsoid3: SphereProjectiveSpace where Vector: Vector3Real {
+extension Ellipse3: SphereProjectiveSpace where Vector: Vector3Real {
     
 }
