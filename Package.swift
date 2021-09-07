@@ -16,9 +16,7 @@ if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] != nil {
                 "-Xfrontend",
                 "-warn-long-function-bodies=600",
                 "-Xfrontend",
-                "-warn-long-expression-type-checking=50",
-                "-Xfrontend",
-                "-debug-time-function-bodies"
+                "-warn-long-expression-type-checking=50"
             ])
         ])
 } else {

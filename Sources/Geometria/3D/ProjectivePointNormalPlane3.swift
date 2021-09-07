@@ -17,6 +17,9 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectable
     
     /// A normalized vector perpendicular to ``normal`` and ``upAxis`` which
     /// defines the right, or x, axis for the projective plane.
+    ///
+    /// This value is derived from ``normal`` and ``upAxis``, and is provided
+    /// along with those values to reduce recomputations when handling projections.
     @UnitVector public var rightAxis: Vector
     
     @_transparent
@@ -27,6 +30,40 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectable
         self.normal = normal
         self.upAxis = upAxis
         self.rightAxis = rightAxis
+    }
+    
+    /// Updates the value of this instance's ``point``.
+    ///
+    /// All other values remain the same.
+    @_transparent
+    public mutating func changePoint(_ point: Vector) {
+        self = self.changingPoint(point)
+    }
+    
+    /// Returns a new ``ProjectivePointNormalPlane3`` with the same ``normal``,
+    /// ``upAxis``, and ``rightAxis`` as this plane's, but with ``point``
+    /// swapped out to a specified value.
+    @_transparent
+    public func changingPoint(_ point: Vector) -> Self {
+        return .init(point: point, normal: normal, upAxis: upAxis, rightAxis: rightAxis)
+    }
+    
+    /// Replaces this instance with a new ``ProjectivePointNormalPlane3`` with
+    /// the same ``point``, but with ``normal``, ``upAxis``, and ``rightAxis``
+    /// swapped out to specified values. The ``rightAxis`` value is computed
+    /// from the provided `normal` and `upAxis` values.
+    @_transparent
+    public mutating func changeNormal(_ normal: Vector, upAxis: Vector) {
+        self = changingNormal(normal, upAxis: upAxis)
+    }
+    
+    /// Returns a new ``ProjectivePointNormalPlane3`` with the same ``point`` as
+    /// this plane's, but with ``normal`` and ``upAxis``, and ``rightAxis``
+    /// swapped out to specified values. The ``rightAxis`` value is computed
+    /// from the provided `normal` and `upAxis` values.
+    @_transparent
+    public func changingNormal(_ normal: Vector, upAxis: Vector) -> Self {
+        return Self.makeCorrectedPlane(point: point, normal: normal, upAxis: upAxis)
     }
 }
 
@@ -42,6 +79,7 @@ extension ProjectivePointNormalPlane3 {
     ///   - point: The center point (origin) to this projective plane.
     ///   - normal: The normal of the plane.
     ///   - upAxis: The up-axis of the plane.
+    @inlinable
     public static func makeCorrectedPlane(point: Vector, normal: Vector, upAxis: Vector) -> Self {
         let normal = normal.normalized()
         let upAxis = upAxis.normalized()
