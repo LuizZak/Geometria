@@ -91,7 +91,7 @@
                 <a class="nav-group-task-link" href="Extensions/Ellipse2.html">Ellipse2</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/Ellipsoid3.html">Ellipsoid3</a>
+                <a class="nav-group-task-link" href="Extensions/Ellipse3.html">Ellipse3</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions.html#/s:Sf">Float</a>
@@ -245,7 +245,7 @@
                 <a class="nav-group-task-link" href="Protocols/LineFloatingPoint.html">LineFloatingPoint</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/LineIntersectivePlaneType.html">LineIntersectivePlaneType</a>
+                <a class="nav-group-task-link" href="Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineMultiplicative.html">LineMultiplicative</a>
@@ -263,10 +263,10 @@
                 <a class="nav-group-task-link" href="Protocols/PlaneType.html">PlaneType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/PointProjectivePlaneType.html">PointProjectivePlaneType</a>
+                <a class="nav-group-task-link" href="Protocols/PointProjectablePlaneType.html">PointProjectablePlaneType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/PointProjectiveType.html">PointProjectiveType</a>
+                <a class="nav-group-task-link" href="Protocols/PointProjectableType.html">PointProjectableType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ProjectiveSpace.html">ProjectiveSpace</a>
@@ -501,6 +501,9 @@
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Ellipse2ia">Ellipse2i</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria8Ellipse3a">Ellipse3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Ellipse3Da">Ellipse3D</a>
               </li>
               <li class="nav-group-task">
@@ -508,9 +511,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Ellipse3ia">Ellipse3i</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Ellipsoid3a">Ellipsoid3</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria5Line2a">Line2</a>
@@ -1445,9 +1445,9 @@ closed convex shapes.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria19PointProjectiveTypeP"></a>
-                    <a name="//apple_ref/swift/Protocol/PointProjectiveType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria19PointProjectiveTypeP">PointProjectiveType</a>
+                    <a name="/s:9Geometria20PointProjectableTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/PointProjectableType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria20PointProjectableTypeP">PointProjectableType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1460,13 +1460,13 @@ closed convex shapes.</p>
 <p>Types conforming to this protocol expose a function that can project an
 arbitrary vector onto their surface.</p>
 
-                        <a href="Protocols/PointProjectiveType.html" class="slightly-smaller">See more</a>
+                        <a href="Protocols/PointProjectableType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PointProjectiveType</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PointProjectableType</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1552,7 +1552,7 @@ vectors representing two points on the line.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineMultiplicative.html">LineMultiplicative</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectiveType.html">PointProjectiveType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineFloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineMultiplicative.html">LineMultiplicative</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectableType.html">PointProjectableType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1647,9 +1647,9 @@ vectors representing two points on the line.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria25LineIntersectivePlaneTypeP"></a>
-                    <a name="//apple_ref/swift/Protocol/LineIntersectivePlaneType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria25LineIntersectivePlaneTypeP">LineIntersectivePlaneType</a>
+                    <a name="/s:9Geometria26LineIntersectablePlaneTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/LineIntersectablePlaneType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria26LineIntersectablePlaneTypeP">LineIntersectablePlaneType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1659,13 +1659,13 @@ vectors representing two points on the line.</p>
                       <div class="abstract">
                         <p>Represents a plane type that has support for line-intersection.</p>
 
-                        <a href="Protocols/LineIntersectivePlaneType.html" class="slightly-smaller">See more</a>
+                        <a href="Protocols/LineIntersectablePlaneType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineIntersectivePlaneType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PointProjectivePlaneType.html">PointProjectivePlaneType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineIntersectablePlaneType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PointProjectablePlaneType.html">PointProjectablePlaneType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1704,9 +1704,9 @@ vector.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria24PointProjectivePlaneTypeP"></a>
-                    <a name="//apple_ref/swift/Protocol/PointProjectivePlaneType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria24PointProjectivePlaneTypeP">PointProjectivePlaneType</a>
+                    <a name="/s:9Geometria25PointProjectablePlaneTypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/PointProjectablePlaneType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria25PointProjectablePlaneTypeP">PointProjectablePlaneType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1716,13 +1716,13 @@ vector.</p>
                       <div class="abstract">
                         <p>Represents a plane type that has support for point-projection.</p>
 
-                        <a href="Protocols/PointProjectivePlaneType.html" class="slightly-smaller">See more</a>
+                        <a href="Protocols/PointProjectablePlaneType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PointProjectivePlaneType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PlaneType.html">PlaneType</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectiveType.html">PointProjectiveType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PointProjectablePlaneType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PlaneType.html">PlaneType</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/PointProjectableType.html">PointProjectableType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1990,7 +1990,7 @@ operators available.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-06)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-07)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
