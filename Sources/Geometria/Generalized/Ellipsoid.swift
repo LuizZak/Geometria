@@ -34,8 +34,8 @@ extension Ellipsoid: BoundableType where Vector: VectorAdditive {
 extension Ellipsoid: VolumetricType where Vector: VectorReal {
     /// Returns `true` if the given point is contained within this ellipse.
     ///
-    /// The method returns `true` for points that lie on the outer perimeter of
-    /// the ellipse (inclusive).
+    /// The method returns `true` for points that lie on the outermost perimeter
+    /// of the ellipse (inclusive).
     @inlinable
     public func contains(_ point: Vector) -> Bool {
         let r2 = Vector.pow(radius, 2)

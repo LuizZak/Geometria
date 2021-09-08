@@ -168,8 +168,9 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     }
     
     /// Returns whether a given point is contained within this bounding box.
-    /// The check is inclusive, so the edges of the bounding box are considered
-    /// to contain the point as well.
+    ///
+    /// Points at the perimeter of the N-rectangle (distance to nearest edge ==
+    /// 0) are considered as contained within the N-rectangle.
     @_transparent
     public func contains(_ point: Vector) -> Bool {
         point >= minimum && point <= maximum
