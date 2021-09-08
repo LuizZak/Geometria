@@ -19,6 +19,6 @@ private struct TestPointProjective: PointProjectableType {
     typealias Vector = Vector2D
     
     func project(_ vector: Vector2D) -> Vector2D {
-        return .zero
+        .zero
     }
 }

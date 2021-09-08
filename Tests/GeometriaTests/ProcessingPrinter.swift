@@ -208,16 +208,16 @@ class ProcessingPrinter {
     }
     
     private func add3DSpaceBarBoilerplate<T: FloatingPoint>(lineWeight: T) {
-        addDrawLine("if (isSpaceBarPressed) {");
-        addDrawLine(indentString(depth: 1) + "noFill();");
-        addDrawLine(indentString(depth: 1) + "noLights();");
-        addDrawLine(indentString(depth: 1) + "stroke(0, 0, 0, 20);");
-        addDrawLine(indentString(depth: 1) + "strokeWeight(\(1 / lineWeight) / scale);");
-        addDrawLine("} else {");
-        addDrawLine(indentString(depth: 1) + "noStroke();");
-        addDrawLine(indentString(depth: 1) + "fill(255, 255, 255, 255);");
-        addDrawLine(indentString(depth: 1) + "lights();");
-        addDrawLine("}");
+        addDrawLine("if (isSpaceBarPressed) {")
+        addDrawLine(indentString(depth: 1) + "noFill();")
+        addDrawLine(indentString(depth: 1) + "noLights();")
+        addDrawLine(indentString(depth: 1) + "stroke(0, 0, 0, 20);")
+        addDrawLine(indentString(depth: 1) + "strokeWeight(\(1 / lineWeight) / scale);")
+        addDrawLine("} else {")
+        addDrawLine(indentString(depth: 1) + "noStroke();")
+        addDrawLine(indentString(depth: 1) + "fill(255, 255, 255, 255);")
+        addDrawLine(indentString(depth: 1) + "lights();")
+        addDrawLine("}")
     }
     
     private func addStrokeColorSet(_ value: String) {
@@ -379,11 +379,11 @@ class ProcessingPrinter {
     }
     
     private func vec2String<V: Vector2Type>(_ vec: V) -> String where V.Scalar: CustomStringConvertible {
-        return "\(vec.x), \(vec.y)"
+        "\(vec.x), \(vec.y)"
     }
     
     private func indentString() -> String {
-        return indentString(depth: identDepth * currentIndent)
+        indentString(depth: identDepth * currentIndent)
     }
     
     private func indentString(depth: Int) -> String {

@@ -42,14 +42,14 @@ extension Ray: LineType {
 extension Ray: LineAdditive where Vector: VectorAdditive {
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
-        return Self(start: start + vector, b: b + vector)
+        Self(start: start + vector, b: b + vector)
     }
 }
 
 extension Ray: LineMultiplicative where Vector: VectorMultiplicative {
     @_transparent
     public func withPointsScaledBy(_ factor: Vector) -> Self {
-        return Self(start: start * factor, b: b * factor)
+        Self(start: start * factor, b: b * factor)
     }
 }
 
@@ -61,7 +61,7 @@ extension Ray: LineFloatingPoint & PointProjectableType where Vector: VectorFloa
     /// - precondition: `(self.b - self.start).length > 0`
     @_transparent
     public var asDirectionalRay: DirectionalRay<Vector> {
-        return DirectionalRay(start: start, direction: b - start)
+        DirectionalRay(start: start, direction: b - start)
     }
     
     /// Returns `true` for all positive projected scalars (ray)
@@ -76,7 +76,7 @@ extension Ray: LineFloatingPoint & PointProjectableType where Vector: VectorFloa
     /// For ``Ray``, this is a clamped inclusive (0-∞ range.
     @_transparent
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
-        return max(0, scalar)
+        max(0, scalar)
     }
     
     /// Returns the squared distance between this line and a given vector.

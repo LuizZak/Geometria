@@ -49,7 +49,7 @@ extension Ellipsoid: VolumetricType where Vector: VectorReal {
 extension Ellipsoid: ConvexType where Vector: VectorReal {
     /// - precondition: `radius.minimalComponent > 0`
     @inlinable
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
         let majorAxis = radius.maximalComponent
         let scale = (.one / radius) * majorAxis
         let revScale = .one / scale
@@ -58,7 +58,7 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
         let scaledLine = line.withPointsScaledBy(scale)
         
         func scalePointNormal(_ pn: PointNormal<Vector>) -> PointNormal<Vector> {
-            return PointNormal(
+            PointNormal(
                 point: pn.point * revScale,
                 normal: (pn.normal * scale).normalized()
             )

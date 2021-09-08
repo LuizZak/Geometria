@@ -30,14 +30,14 @@ extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
 extension Line: LineAdditive where Vector: VectorAdditive {
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
-        return Self(a: a + vector, b: b + vector)
+        Self(a: a + vector, b: b + vector)
     }
 }
 
 extension Line: LineMultiplicative where Vector: VectorMultiplicative {
     @_transparent
     public func withPointsScaledBy(_ factor: Vector) -> Self {
-        return Self(a: a * factor, b: b * factor)
+        Self(a: a * factor, b: b * factor)
     }
 }
 

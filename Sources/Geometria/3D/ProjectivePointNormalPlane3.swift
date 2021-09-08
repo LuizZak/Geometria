@@ -45,7 +45,7 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectable
     /// swapped out to a specified value.
     @_transparent
     public func changingPoint(_ point: Vector) -> Self {
-        return .init(point: point, normal: normal, upAxis: upAxis, rightAxis: rightAxis)
+        .init(point: point, normal: normal, upAxis: upAxis, rightAxis: rightAxis)
     }
     
     /// Replaces this instance with a new ``ProjectivePointNormalPlane3`` with
@@ -63,7 +63,7 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectable
     /// from the provided `normal` and `upAxis` values.
     @_transparent
     public func changingNormal(_ normal: Vector, upAxis: Vector) -> Self {
-        return Self.makeCorrectedPlane(point: point, normal: normal, upAxis: upAxis)
+        Self.makeCorrectedPlane(point: point, normal: normal, upAxis: upAxis)
     }
 }
 

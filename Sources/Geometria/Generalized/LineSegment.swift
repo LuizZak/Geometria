@@ -64,7 +64,7 @@ extension LineSegment: BoundableType where Vector: VectorComparable {
 extension LineSegment: LineAdditive where Vector: VectorAdditive {
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
-        return Self(start: start + vector, end: end + vector)
+        Self(start: start + vector, end: end + vector)
     }
 }
 
@@ -79,7 +79,7 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     
     @_transparent
     public func withPointsScaledBy(_ factor: Vector) -> Self {
-        return Self(start: start * factor, end: end * factor)
+        Self(start: start * factor, end: end * factor)
     }
 }
 
@@ -99,7 +99,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType where Vector: Ve
     /// - precondition: `(self.end - self.start).length > 0`
     @_transparent
     public var asDirectionalRay: DirectionalRay<Vector> {
-        return DirectionalRay(start: start, direction: end - start)
+        DirectionalRay(start: start, direction: end - start)
     }
     
     /// Returns `true` for projected scalars (0-1), which describes a
@@ -117,7 +117,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType where Vector: Ve
     /// For ``LineSegment``, this is a clamped inclusive (0-1) range.
     @_transparent
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
-        return min(1, max(0, scalar))
+        min(1, max(0, scalar))
     }
     
     /// Returns the squared distance between this line and a given vector.

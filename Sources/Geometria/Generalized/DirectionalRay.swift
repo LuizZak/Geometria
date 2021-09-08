@@ -87,7 +87,7 @@ public extension DirectionalRay where Vector: VectorAdditive {
 extension DirectionalRay: LineAdditive where Vector: VectorAdditive {
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
-        return Self(start: start + vector, direction: direction)
+        Self(start: start + vector, direction: direction)
     }
 }
 
@@ -95,7 +95,7 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
     /// - precondition: `factor > Vector.zero`
     @_transparent
     public func withPointsScaledBy(_ factor: Vector) -> Self {
-        return Self(start: start * factor, direction: direction * factor)
+        Self(start: start * factor, direction: direction * factor)
     }
 }
 
@@ -105,7 +105,7 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType where Vector:
     /// For directional rays this value always equates to `direction`.
     @_transparent
     public var lineSlope: Vector {
-        return direction
+        direction
     }
     
     /// Performs a vector projection of a given vector with respect to this
@@ -164,6 +164,6 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType where Vector:
     /// For ``DirectionalRay``, this is a clamped inclusive (0-∞ range.
     @_transparent
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
-        return max(0, scalar)
+        max(0, scalar)
     }
 }

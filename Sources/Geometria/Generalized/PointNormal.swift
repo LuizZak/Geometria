@@ -38,7 +38,7 @@ extension PointNormal: PlaneType where Vector: VectorFloatingPoint {
     /// parameters.
     @_transparent
     public var asPlane: PointNormalPlane<Vector> {
-        return PointNormalPlane(point: point, normal: normal)
+        PointNormalPlane(point: point, normal: normal)
     }
     
     /// Creates a ``PointNormal`` that wraps the given plane object.

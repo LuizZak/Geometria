@@ -17,19 +17,19 @@ public extension Vector3Multiplicative {
     /// Gets the (x: 1, y: 0, z: 0) vector of this type.
     @_transparent
     static var unitX: Self {
-        return Self(x: 1, y: 0, z: 0)
+        Self(x: 1, y: 0, z: 0)
     }
     
     /// Gets the (x: 0, y: 1, z: 0) vector of this type.
     @_transparent
     static var unitY: Self {
-        return Self(x: 0, y: 1, z: 0)
+        Self(x: 0, y: 1, z: 0)
     }
     
     /// Gets the (x: 0, y: 0, z: 1) vector of this type.
     @_transparent
     static var unitZ: Self {
-        return Self(x: 0, y: 0, z: 1)
+        Self(x: 0, y: 0, z: 1)
     }
     
     @inlinable

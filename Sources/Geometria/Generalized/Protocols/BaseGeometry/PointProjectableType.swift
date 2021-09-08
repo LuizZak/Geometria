@@ -31,7 +31,7 @@ public extension PointProjectableType where Vector: VectorMultiplicative {
     /// - seealso: ``distance(to:)``
     @_transparent
     func distanceSquared(to vector: Vector) -> Vector.Scalar {
-        return project(vector).distanceSquared(to: vector)
+        project(vector).distanceSquared(to: vector)
     }
 }
 
@@ -43,6 +43,6 @@ public extension PointProjectableType where Vector: VectorFloatingPoint {
     /// - seealso: ``distanceSquared(to:)``
     @_transparent
     func distance(to vector: Vector) -> Vector.Scalar {
-        return distanceSquared(to: vector).squareRoot()
+        distanceSquared(to: vector).squareRoot()
     }
 }

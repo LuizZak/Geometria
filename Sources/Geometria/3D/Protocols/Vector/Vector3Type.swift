@@ -86,7 +86,7 @@ public extension Vector3Type {
     
     @_transparent
     var take: TakeVector3<Self> {
-        return TakeVector3(underlying: self)
+        TakeVector3(underlying: self)
     }
     
     @_transparent

@@ -5,7 +5,7 @@ class TakeVector3Tests: XCTestCase {
     typealias TakeVector = TakeVector3<Vector3<Double>>
     
     private func makeSut() -> TakeVector {
-        return TakeVector(underlying: .init(x: 1, y: 2, z: 3))
+        TakeVector(underlying: .init(x: 1, y: 2, z: 3))
     }
     
     func testXY() {

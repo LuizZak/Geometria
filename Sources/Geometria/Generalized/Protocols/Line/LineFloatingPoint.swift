@@ -71,7 +71,7 @@ public protocol LineFloatingPoint: LineMultiplicative, PointProjectableType wher
 public extension LineFloatingPoint {
     @_transparent
     var lineSlope: Vector {
-        return b - a
+        b - a
     }
     
     @inlinable
