@@ -346,6 +346,9 @@
                 <a class="nav-group-task-link" href="../Structs/AABB.html">AABB</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Cylinder3.html">Cylinder3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/DirectionalRay.html">DirectionalRay</a>
               </li>
               <li class="nav-group-task">
@@ -371,6 +374,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Matrix2.html">Matrix2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/NCapsule.html">NCapsule</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/NRectangle.html">NRectangle</a>
@@ -813,6 +819,9 @@ defines the up, or y, axis for the projective plane.</p>
                         <p>A normalized vector perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code> and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code> which
 defines the right, or x, axis for the projective plane.</p>
 
+<p>This value is derived from <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code> and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code>, and is provided
+along with those values to reduce recomputations when handling projections.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -882,6 +891,124 @@ defines the right, or x, axis for the projective plane.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V06changeC0yyxF"></a>
+                    <a name="//apple_ref/swift/Method/changePoint(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V06changeC0yyxF">changePoint(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates the value of this instance&rsquo;s <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V5pointxvp">point</a></code>.</p>
+
+<p>All other values remain the same.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">changePoint</span><span class="p">(</span><span class="n">_</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V08changingC0yACyxGxF"></a>
+                    <a name="//apple_ref/swift/Method/changingPoint(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V08changingC0yACyxGxF">changingPoint(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new <code>ProjectivePointNormalPlane3</code> with the same <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code>,
+<code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code>, and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V9rightAxisxvp">rightAxis</a></code> as this plane&rsquo;s, but with <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V5pointxvp">point</a></code>
+swapped out to a specified value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">changingPoint</span><span class="p">(</span><span class="n">_</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V06changeD0_6upAxisyx_xtF"></a>
+                    <a name="//apple_ref/swift/Method/changeNormal(_:upAxis:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V06changeD0_6upAxisyx_xtF">changeNormal(_:<wbr>upAxis:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replaces this instance with a new <code>ProjectivePointNormalPlane3</code> with
+the same <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V5pointxvp">point</a></code>, but with <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code>, <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code>, and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V9rightAxisxvp">rightAxis</a></code>
+swapped out to specified values. The <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V9rightAxisxvp">rightAxis</a></code> value is computed
+from the provided <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code> and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code> values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">changeNormal</span><span class="p">(</span><span class="n">_</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">upAxis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V08changingD0_6upAxisACyxGx_xtF"></a>
+                    <a name="//apple_ref/swift/Method/changingNormal(_:upAxis:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V08changingD0_6upAxisACyxGx_xtF">changingNormal(_:<wbr>upAxis:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new <code>ProjectivePointNormalPlane3</code> with the same <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V5pointxvp">point</a></code> as
+this plane&rsquo;s, but with <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code> and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code>, and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V9rightAxisxvp">rightAxis</a></code>
+swapped out to specified values. The <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V9rightAxisxvp">rightAxis</a></code> value is computed
+from the provided <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6normalxvp">normal</a></code> and <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria27ProjectivePointNormalPlane3V6upAxisxvp">upAxis</a></code> values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">changingNormal</span><span class="p">(</span><span class="n">_</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">upAxis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria27ProjectivePointNormalPlane3V18makeCorrectedPlane5point6normal6upAxisACyxGx_xxtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeCorrectedPlane(point:normal:upAxis:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V18makeCorrectedPlane5point6normal6upAxisACyxGx_xxtFZ">makeCorrectedPlane(point:<wbr>normal:<wbr>upAxis:<wbr>)</a>
@@ -901,7 +1028,8 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeCorrectedPlane</span><span class="p">(</span><span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">upAxis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeCorrectedPlane</span><span class="p">(</span><span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">upAxis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1039,7 +1167,7 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-07)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-08)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
