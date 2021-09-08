@@ -146,7 +146,37 @@ class Disk3Tests: XCTestCase {
                  radius: diff).hashValue
         )
     }
+}
+
+// MARK: PointProjectableType Conformance
+
+extension Disk3Tests {
+    func testProject_vectorWithinRadius_returnsProjection() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
+                       normal: .init(x: 2, y: 2, z: 2),
+                       radius: 10)
+        let point = Vector3D(x: 3, y: 4, z: 7)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 0.3333333333333326, y: 1.3333333333333326, z: 4.333333333333333))
+    }
     
+    func testProject_vectorOutsideOfRadius_returnsVectorOnRadius() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
+                       normal: .unitZ,
+                       radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: 10)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 3))
+    }
+}
+
+// MARK: LineIntersectablePlaneType Conformance
+
+extension Disk3Tests {
     // MARK: Radius Intersection Check
     
     func testUnclampedNormalMagnitudeForIntersection_radiusCheck() {

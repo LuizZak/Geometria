@@ -27,6 +27,29 @@ public struct Disk3<Vector: Vector3FloatingPoint>: GeometricType {
 extension Disk3: Equatable where Vector: Equatable { }
 extension Disk3: Hashable where Vector: Hashable { }
 
+public extension Disk3 {
+    /// Returns a ``PointNormalPlane3`` with the same point and normal vectors
+    /// as this ``Disk3``.
+    var asPointNormalPlane: PointNormalPlane3<Vector> {
+        return .init(point: center, normal: normal)
+    }
+}
+
+extension Disk3: PointProjectableType {
+    public func project(_ vector: Vector) -> Vector {
+        let plane = asPointNormalPlane
+        let pointOnPlane = plane.project(vector)
+        
+        if pointOnPlane.distanceSquared(to: center) <= radius * radius {
+            return pointOnPlane
+        }
+        
+        let direction = (center - pointOnPlane).normalized()
+        
+        return center + direction * radius
+    }
+}
+
 extension Disk3: LineIntersectablePlaneType {
     @_transparent
     public var pointOnPlane: Vector { center }

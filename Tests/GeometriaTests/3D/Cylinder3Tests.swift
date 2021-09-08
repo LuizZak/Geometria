@@ -72,3 +72,84 @@ extension Cylinder3Tests {
         XCTAssertFalse(sut.contains(x: 14, y: 30, z: 5))
     }
 }
+
+// MARK: PointProjectableType Conformance
+
+extension Cylinder3Tests {
+    func testProject_pointOnTopOfStart_center() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 2, z: 20)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 1, y: 2, z: 10))
+    }
+    
+    func testProject_pointOnTopOfStart_offCenter() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 0, y: -1, z: 20)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 0, y: -1, z: 10))
+    }
+    
+    func testProject_pointOnTopOfStart_offRadius() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: 20)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 10.0))
+    }
+    
+    func testProject_pointBelowEnd_center() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 2, z: -10)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 1, y: 2, z: 0))
+    }
+    
+    func testProject_pointBelowEnd_offCenter() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 0, y: -1, z: -10)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 0, y: -1, z: 0))
+    }
+    
+    func testProject_pointBelowEnd_offRadius() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: -10)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 0.0))
+    }
+    
+    func testProject_betweenEnds() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: 5)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 5))
+    }
+}

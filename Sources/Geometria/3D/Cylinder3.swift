@@ -72,3 +72,21 @@ extension Cylinder3: VolumetricType where Vector: Vector3FloatingPoint {
         return pointOnLine.distanceSquared(to: vector) <= radius * radius
     }
 }
+
+extension Cylinder3: PointProjectableType where Vector: Vector3FloatingPoint {
+    /// Projects a given point onto this cylinder, returning the closest point
+    /// on the outer surface of the cylinder to `vector`.
+    @inlinable
+    public func project(_ vector: Vector) -> Vector {
+        let line = asLineSegment
+        let projected = line.project(vector)
+        
+        // Create a disk with the same radius as this cylinder, with a normal of
+        // the direction of start/end, centered around the projected point on
+        // the imaginary line between start/end, and then use it's .project(_:)
+        // result as a return value.
+        let disk = Disk3(center: projected, normal: start - end, radius: radius)
+        
+        return disk.project(vector)
+    }
+}

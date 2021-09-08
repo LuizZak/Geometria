@@ -2,7 +2,7 @@
 ///
 /// In 2D, a plane equates to a line, while in 3D and higher dimensions it
 /// equates to a flat 2D plane.
-public struct PointNormalPlane<Vector: VectorFloatingPoint>: CustomStringConvertible {
+public struct PointNormalPlane<Vector: VectorFloatingPoint>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
     
@@ -40,7 +40,15 @@ public extension PointNormalPlane {
     }
 }
 
-extension PointNormalPlane: LineIntersectablePlaneType {
+extension PointNormalPlane: PlaneType {
     @_transparent
     public var pointOnPlane: Vector { point }
+}
+
+extension PointNormalPlane: PointProjectablePlaneType {
+    
+}
+
+extension PointNormalPlane: LineIntersectablePlaneType {
+    
 }
