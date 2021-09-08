@@ -15,10 +15,7 @@ public extension Vector2F {
                            rotate angle: Scalar = 0,
                            translate: Self = .zero) -> float3x3 {
         
-        typealias MatrixType = float3x3
-        typealias Vector3Type = SIMD3<Scalar>
-        
-        var matrix = MatrixType(1)
+        var matrix = float3x3(1)
         
         // Prepare matrices
         
@@ -30,10 +27,11 @@ public extension Vector2F {
         //
         
         let cScale =
-            MatrixType(columns:
-                (Vector3Type(scale.x, 0, 0),
-                 Vector3Type(0, scale.y, 0),
-                 Vector3Type(0, 0, 1)))
+        float3x3(
+            .init(scale.x, 0, 0),
+            .init(0, scale.y, 0),
+            .init(0, 0, 1)
+        )
         
         matrix *= cScale
         
@@ -48,10 +46,11 @@ public extension Vector2F {
             let s = sin(-angle)
             
             let cRotation =
-                MatrixType(columns:
-                    (Vector3Type(c, s, 0),
-                     Vector3Type(-s, c, 0),
-                     Vector3Type(0, 0, 1)))
+            float3x3(
+                .init(c, s, 0),
+                .init(-s, c, 0),
+                .init(0, 0, 1)
+            )
             
             matrix *= cRotation
         }
@@ -64,10 +63,11 @@ public extension Vector2F {
         //
         
         let cTranslation =
-            MatrixType(columns:
-                (Vector3Type(1, 0, translate.x),
-                 Vector3Type(0, 1, translate.y),
-                 Vector3Type(0, 0, 1)))
+        float3x3(
+            .init(1, 0, translate.x),
+            .init(0, 1, translate.y),
+            .init(0, 0, 1)
+        )
         
         matrix *= cTranslation
         
