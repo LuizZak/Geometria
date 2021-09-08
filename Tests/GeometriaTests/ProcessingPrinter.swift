@@ -8,9 +8,11 @@ class ProcessingPrinter {
     private let identDepth: Int = 2
     private var currentIndent: Int = 0
     private var draws: [String] = []
+    private var cylinders: [Cylinder3<Vector3D>] = []
     private var shouldPrintDrawNormal: Bool = false
     private var shouldPrintDrawTangent: Bool = false
     private var is3D: Bool = false
+    private var hasCylinders: Bool { !cylinders.isEmpty }
     
     private var buffer: String = ""
     
@@ -140,17 +142,37 @@ class ProcessingPrinter {
         addDrawLine("popMatrix();")
     }
     
+    func add(cylinder: Cylinder3<Vector3D>) {
+        is3D = true
+        
+        cylinders.append(cylinder)
+    }
+    
     func printAll() {
         defer { printBuffer() }
         
         if is3D {
+            printLine("// 3rd party libraries:")
+            printLine("// PeasyCam by Jonathan Feinberg")
             printLine("import peasy.*;")
+            printLine("")
+            printLine("// Shapes 3D by Peter Lager")
+            printLine("import shapes3d.*;")
+            printLine("import shapes3d.contour.*;")
+            printLine("import shapes3d.org.apache.commons.math.*;")
+            printLine("import shapes3d.org.apache.commons.math.geometry.*;")
+            printLine("import shapes3d.path.*;")
+            printLine("import shapes3d.utils.*;")
+            printLine("")
         }
         
         printLine("float scale = \(scale);")
         if is3D {
             printLine("boolean isSpaceBarPressed = false;")
             printLine("PeasyCam cam;")
+        }
+        if hasCylinders {
+            printLine("ArrayList<Tube> cylinders = new ArrayList<Tube>();")
         }
         
         printLine("")
@@ -166,6 +188,13 @@ class ProcessingPrinter {
         if drawGrid {
             printLine("")
             printDrawGrid2D()
+        }
+        
+        if hasCylinders {
+            printLine("")
+            printAddCylinder()
+            printLine("")
+            printDrawCylinders()
         }
         
         if drawOrigin && is3D {
@@ -244,13 +273,27 @@ class ProcessingPrinter {
     // MARK: - Function Printing
     
     private func printSetup() {
+        func printCylinder(_ cylinder: Cylinder3<Vector3D>) {
+            let start = vec3PVectorString(cylinder.start)
+            let end = vec3PVectorString(cylinder.end)
+            
+            printLine("addCylinder(\(start), \(end), \(cylinder.radius));")
+        }
+        
         indentedBlock("void setup() {") {
             if is3D {
                 printLine("size(\(vec2String(size)), P3D);")
+                printLine("perspective(PI / 3, 1, 0.3, 8000); // Corrects default zNear plane being too far for unit measurements")
                 printLine("cam = new PeasyCam(this, 0, 0, 0, 250);")
                 printLine("cam.setWheelScale(0.3);")
             } else {
                 printLine("size(\(vec2String(size)));")
+            }
+            
+            if hasCylinders {
+                for cylinder in cylinders {
+                    printCylinder(cylinder)
+                }
             }
             
             printLine("ellipseMode(RADIUS);")
@@ -266,7 +309,7 @@ class ProcessingPrinter {
                 printLine("scale(scale);")
             }
             printLine("")
-            printLine("strokeWeight(1 / scale);")
+            printLine("strokeWeight(3 / scale);")
             
             if drawGrid {
                 printLine("drawGrid();")
@@ -280,6 +323,10 @@ class ProcessingPrinter {
             for draw in draws {
                 printLine(draw)
             }
+            
+            if hasCylinders {
+                printLine("drawCylinders();")
+            }
         }
     }
     
@@ -287,6 +334,42 @@ class ProcessingPrinter {
         indentedBlock("void keyPressed() {") {
             indentedBlock("if (key == ' ') {") {
                 printLine("isSpaceBarPressed = !isSpaceBarPressed;")
+            }
+            
+            if hasCylinders {
+                indentedBlock("for (Tube t: cylinders) {") {
+                    indentedBlock("if (isSpaceBarPressed) {") {
+                        printLine("t.drawMode(S3D.WIRE);")
+                    }
+                    printLine("else")
+                    indentedBlock("{") {
+                        printLine("t.drawMode(S3D.SOLID);")
+                    }
+                }
+            }
+        }
+    }
+    
+    private func printAddCylinder() {
+        indentedBlock("void addCylinder(PVector start, PVector end, float radius) {") {
+            printLine("Oval base = new Oval(radius, 20);")
+            printLine("Path line = new Linear(start, end, 1);")
+            printLine("")
+            printLine("Tube tube = new Tube(line, base);")
+            printLine("")
+            printLine("tube.drawMode(S3D.SOLID);")
+            printLine("tube.stroke(color(50, 50, 50, 50));")
+            printLine("tube.strokeWeight(1);")
+            printLine("tube.fill(color(200, 200, 200, 50));")
+            printLine("")
+            printLine("cylinders.add(tube);")
+        }
+    }
+    
+    private func printDrawCylinders() {
+        indentedBlock("void drawCylinders() {") {
+            indentedBlock("for (Tube t: cylinders) {") {
+                printLine("t.draw(getGraphics());")
             }
         }
     }
@@ -371,6 +454,10 @@ class ProcessingPrinter {
     private func printBuffer() {
         print(buffer)
         buffer = ""
+    }
+    
+    private func vec3PVectorString<V: Vector3Type>(_ vec: V) -> String where V.Scalar: SignedNumeric & CustomStringConvertible {
+        return "new PVector(\(vec3String(vec)))"
     }
     
     private func vec3String<V: Vector3Type>(_ vec: V) -> String where V.Scalar: SignedNumeric & CustomStringConvertible {
