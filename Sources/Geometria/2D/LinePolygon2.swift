@@ -111,10 +111,10 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         
         // Final/wraparound sign flips:
         if xSign != 0 && xFirstSign != 0 && xSign != xFirstSign {
-            xFlips = xFlips + 1
+            xFlips += 1
         }
         if ySign != 0 && yFirstSign != 0 && ySign != yFirstSign {
-            yFlips = yFlips + 1
+            yFlips += 1
         }
         
         // Concave polygons have two sign flips along each axis
