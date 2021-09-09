@@ -212,6 +212,9 @@
                 <a class="nav-group-task-link" href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Convex3Type.html">Convex3Type</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConvexType.html">ConvexType</a>
               </li>
               <li class="nav-group-task">
@@ -236,7 +239,7 @@
                 <a class="nav-group-task-link" href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a>
+                <a class="nav-group-task-link" href="../Protocols/Line3Type.html">Line3Type</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineAdditive.html">LineAdditive</a>
@@ -701,8 +704,8 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15DirectionalRay3a">DirectionalRay3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15DirectionalRay3a">DirectionalRay3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15DirectionalRay3a">DirectionalRay3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Line3Type.html">Line3Type</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15DirectionalRay3a">DirectionalRay3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span><span class="p">,</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
@@ -713,13 +716,48 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector.SubVector2%60%3A%20%60Vector2FloatingPoint%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector.SubVector2`: `Vector2FloatingPoint`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector.SubVector2%60%3A%20%60Vector2FloatingPoint%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Vector.SubVector2</code>: <code><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></code></p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzrlE2x12y12z12x22y22z2ACyxG6ScalarAA06VectorE0PQz_A5Otcfc"></a>
+                    <a name="/s:9Geometria9Line3TypeP8SubLine2Qa"></a>
+                    <a name="//apple_ref/swift/Alias/SubLine2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Line3TypeP8SubLine2Qa">SubLine2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SubLine2</span> <span class="o">=</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15DirectionalRay2a">DirectionalRay2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzAA20Vector2FloatingPoint03SubF0AaDPRpzrlE2x12y12z12x22y22z2ACyxG6ScalarAA06VectorE0PQz_A5Stcfc"></a>
                     <a name="//apple_ref/swift/Method/init(x1:y1:z1:x2:y2:z2:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzrlE2x12y12z12x22y22z2ACyxG6ScalarAA06VectorE0PQz_A5Otcfc">init(x1:<wbr>y1:<wbr>z1:<wbr>x2:<wbr>y2:<wbr>z2:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzAA20Vector2FloatingPoint03SubF0AaDPRpzrlE2x12y12z12x22y22z2ACyxG6ScalarAA06VectorE0PQz_A5Stcfc">init(x1:<wbr>y1:<wbr>z1:<wbr>x2:<wbr>y2:<wbr>z2:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -752,9 +790,9 @@ and secondary point the ray crosses before projecting towards infinity.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzrlE1x1y1z2dx2dy2dzACyxG6ScalarAA06VectorE0PQz_A5Otcfc"></a>
+                    <a name="/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzAA20Vector2FloatingPoint03SubF0AaDPRpzrlE1x1y1z2dx2dy2dzACyxG6ScalarAA06VectorE0PQz_A5Stcfc"></a>
                     <a name="//apple_ref/swift/Method/init(x:y:z:dx:dy:dz:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzrlE1x1y1z2dx2dy2dzACyxG6ScalarAA06VectorE0PQz_A5Otcfc">init(x:<wbr>y:<wbr>z:<wbr>dx:<wbr>dy:<wbr>dz:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzAA20Vector2FloatingPoint03SubF0AaDPRpzrlE1x1y1z2dx2dy2dzACyxG6ScalarAA06VectorE0PQz_A5Stcfc">init(x:<wbr>y:<wbr>z:<wbr>dx:<wbr>dy:<wbr>dz:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -771,6 +809,33 @@ describing the direction of the ray relative to the position.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">dx</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">dy</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">dz</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzAA20Vector2FloatingPoint03SubF0AaDPRpzrlE10make2DLineyACyAHGAH_AHtF"></a>
+                    <a name="//apple_ref/swift/Method/make2DLine(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria14DirectionalRayVA2A11Vector3TypeRzAA20Vector2FloatingPoint03SubF0AaDPRpzrlE10make2DLineyACyAHGAH_AHtF">make2DLine(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a 2D line of the same underlying type as this line.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">make2DLine</span><span class="p">(</span><span class="n">_</span> <span class="nv">a</span><span class="p">:</span> <span class="kt"><a href="../Extensions/DirectionalRay3.html#/s:9Geometria9Line3TypeP8SubLine2Qa">SubLine2</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="n">_</span> <span class="nv">b</span><span class="p">:</span> <span class="kt"><a href="../Extensions/DirectionalRay3.html#/s:9Geometria9Line3TypeP8SubLine2Qa">SubLine2</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Extensions/DirectionalRay3.html#/s:9Geometria9Line3TypeP8SubLine2Qa">SubLine2</a></span></code></pre>
 
                         </div>
                       </div>

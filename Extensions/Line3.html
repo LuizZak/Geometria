@@ -212,6 +212,9 @@
                 <a class="nav-group-task-link" href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Convex3Type.html">Convex3Type</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConvexType.html">ConvexType</a>
               </li>
               <li class="nav-group-task">
@@ -236,7 +239,7 @@
                 <a class="nav-group-task-link" href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a>
+                <a class="nav-group-task-link" href="../Protocols/Line3Type.html">Line3Type</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineAdditive.html">LineAdditive</a>
@@ -701,8 +704,8 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria5Line3a">Line3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria5Line3a">Line3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria5Line3a">Line3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Line3Type.html">Line3Type</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria5Line3a">Line3</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span><span class="p">,</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
@@ -714,6 +717,32 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Line3TypeP8SubLine2Qa"></a>
+                    <a name="//apple_ref/swift/Alias/SubLine2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Line3TypeP8SubLine2Qa">SubLine2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SubLine2</span> <span class="o">=</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria5Line2a">Line2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -735,6 +764,33 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">x1</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y1</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">z1</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">x2</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y2</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">z2</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria4LineVA2A11Vector3TypeRzrlE10make2DLineyACy10SubVector2QzGAG_AGtF"></a>
+                    <a name="//apple_ref/swift/Method/make2DLine(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria4LineVA2A11Vector3TypeRzrlE10make2DLineyACy10SubVector2QzGAG_AGtF">make2DLine(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a 2D line of the same underlying type as this line.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">make2DLine</span><span class="p">(</span><span class="n">_</span> <span class="nv">a</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">,</span> <span class="n">_</span> <span class="nv">b</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Extensions/Line3.html#/s:9Geometria9Line3TypeP8SubLine2Qa">SubLine2</a></span></code></pre>
 
                         </div>
                       </div>

@@ -212,6 +212,9 @@
                 <a class="nav-group-task-link" href="Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Convex3Type.html">Convex3Type</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ConvexType.html">ConvexType</a>
               </li>
               <li class="nav-group-task">
@@ -236,7 +239,7 @@
                 <a class="nav-group-task-link" href="Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a>
+                <a class="nav-group-task-link" href="Protocols/Line3Type.html">Line3Type</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineAdditive.html">LineAdditive</a>
@@ -1141,6 +1144,35 @@ on the sphere).</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria11Convex3TypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/Convex3Type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Convex3TypeP">Convex3Type</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Protocol for exclusively 3D geometric types defined by floating-point vectors
+that form closed convex shapes.</p>
+
+                        <a href="Protocols/Convex3Type.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Convex3Type</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria18Line3FloatingPointP"></a>
                     <a name="//apple_ref/swift/Protocol/Line3FloatingPoint" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria18Line3FloatingPointP">Line3FloatingPoint</a>
@@ -1159,7 +1191,7 @@ on the sphere).</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Line3FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria9Line3TypeP">Line3Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Line3FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Line3Type.html">Line3Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubLine2</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1181,6 +1213,7 @@ on the sphere).</p>
                       <div class="abstract">
                         <p>A line that is described by two 3-dimensional vectors.</p>
 
+                        <a href="Protocols/Line3Type.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>

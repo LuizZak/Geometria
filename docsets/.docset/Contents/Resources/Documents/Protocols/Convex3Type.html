@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DirectionalRay Structure Reference</title>
+    <title>Convex3Type Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/DirectionalRay" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/Convex3Type" class="dashAnchor"></a>
 
-    <a title="DirectionalRay Structure Reference"></a>
+    <a title="Convex3Type Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      DirectionalRay Structure Reference
+      Convex3Type Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -700,24 +700,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>DirectionalRay</h1>
+            <h1>Convex3Type</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DirectionalRay</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html">LineType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineAdditive.html">LineAdditive</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineMultiplicative.html">LineMultiplicative</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html">PointProjectableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Convex3Type</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Represents an N-dimensional <a href="https://en.wikipedia.org/wiki/Line_(geometry)#Ray">geometric ray</a> which projects a line from a
-starting point in a specified direction to infinity.</p>
+            <p>Protocol for exclusively 3D geometric types defined by floating-point vectors
+that form closed convex shapes.</p>
 
           </div>
         </section>
@@ -729,9 +721,9 @@ starting point in a specified direction to infinity.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria14DirectionalRayV6Scalara"></a>
-                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV6Scalara">Scalar</a>
+                    <a name="/s:9Geometria11Convex3TypeP6VectorQa"></a>
+                    <a name="//apple_ref/swift/Alias/Vector" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Convex3TypeP6VectorQa">Vector</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -739,14 +731,14 @@ starting point in a specified direction to infinity.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The floating-point vector type associated with this <code>Convex3Type</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Scalar</span> <span class="o">=</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -756,9 +748,9 @@ starting point in a specified direction to infinity.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria14DirectionalRayV5startxvp"></a>
-                    <a name="//apple_ref/swift/Property/start" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV5startxvp">start</a>
+                    <a name="/s:9Geometria11Convex3TypeP12intersection4withAA22ConvexLineIntersectionOy6VectorQzGqd___tAA18Line3FloatingPointRd__AHQyd__AIRSlF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Convex3TypeP12intersection4withAA22ConvexLineIntersectionOy6VectorQzGqd___tAA18Line3FloatingPointRd__AHQyd__AIRSlF">intersection(with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -766,526 +758,16 @@ starting point in a specified direction to infinity.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The starting position of this ray</p>
+                        <p>Performs an intersection test against the given line, returning up to
+two points representing the entrance and exit intersections against this
+convex shape&rsquo;s outer perimeter.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">start</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV9directionxvp"></a>
-                    <a name="//apple_ref/swift/Property/direction" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV9directionxvp">direction</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A unit vector relative to <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> which indicates the direction of this
-ray.</p>
-
-<p>Must have <code>length &gt; 0</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd"><a href="../Structs/UnitVector.html">@UnitVector</a></span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">direction</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV5start9directionACyxGx_xtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(start:direction:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV5start9directionACyxGx_xtcfc">init(start:<wbr>direction:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a directional ray with a given start position and direction
-vectors.</p>
-
-<p>The direction will be normalized before initializing.</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <code>direction.length &gt; 0</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">direction</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayVyACyxGqd__c6VectorQyd__RszAA8LineTypeRd__lufc"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayVyACyxGqd__c6VectorQyd__RszAA8LineTypeRd__lufc">init(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a directional ray with a given line&rsquo;s endpoints.</p>
-
-<p>The direction will be normalized before initializing.</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <code>line.length &gt; 0</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html">LineType</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV1a1bACyxGx_xtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(a:b:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV1a1bACyxGx_xtcfc">init(a:<wbr>b:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a directional ray with a line passing through <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV1axvp">a</a></code> and <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV1bxvp">b</a></code>.</p>
-
-<p>The ray&rsquo;s <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> point matches <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV1axvp">a</a></code>.</p>
-
-<p>The direction will be normalized before initializing.</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <code>line.length &gt; 0</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">a</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">b</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV1axvp"></a>
-                    <a name="//apple_ref/swift/Property/a" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV1axvp">a</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Equivalent to <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">a</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV1bxvp"></a>
-                    <a name="//apple_ref/swift/Property/b" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV1bxvp">b</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Equivalent to <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> + <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV9directionxvp">direction</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">b</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV6asLineAA0E0VyxGvp"></a>
-                    <a name="//apple_ref/swift/Property/asLine" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV6asLineAA0E0VyxGvp">asLine</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code><a href="../Structs/Line.html">Line</a></code> representation of this directional ray, where <code>line.a</code>
-matches <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> and <code>line.b</code> matches <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> + <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV9directionxvp">direction</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asLine</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV02asC0AA0C0VyxGvp"></a>
-                    <a name="//apple_ref/swift/Property/asRay" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV02asC0AA0C0VyxGvp">asRay</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a <code><a href="../Structs/Ray.html">Ray</a></code> representation of this directional ray, where <code>ray.start</code>
-matches <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> and <code>ray.b</code> matches <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code> + <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV9directionxvp">direction</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asRay</span><span class="p">:</span> <span class="kt"><a href="../Structs/Ray.html">Ray</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria12LineAdditiveP8offsetByyx6VectorQzF"></a>
-                    <a name="//apple_ref/swift/Method/offsetBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria12LineAdditiveP8offsetByyx6VectorQzF">offsetBy(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">offsetBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DirectionalRay</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorMultiplicative%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorMultiplicative`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorMultiplicative%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorMultiplicative.html">VectorMultiplicative</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV18withPointsScaledByyACyxGxF"></a>
-                    <a name="//apple_ref/swift/Method/withPointsScaledBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV18withPointsScaledByyACyxGxF">withPointsScaledBy(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <code>factor &gt; Vector.zero</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">withPointsScaledBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">factor</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">DirectionalRay</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorFloatingPoint%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorFloatingPoint`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorFloatingPoint%60"></a>
-                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV9lineSlopexvp"></a>
-                    <a name="//apple_ref/swift/Property/lineSlope" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV9lineSlopexvp">lineSlope</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the slope of this directional ray.</p>
-
-<p>For directional rays this value always equates to <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV9directionxvp">direction</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">lineSlope</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV15projectAsScalary0F0QzxF"></a>
-                    <a name="//apple_ref/swift/Method/projectAsScalar(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV15projectAsScalary0F0QzxF">projectAsScalar(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Performs a vector projection of a given vector with respect to this
-directional ray, returning a scalar value representing the magnitude of
-the projected point laying on the infinite line defined by points
-<code>start &lt;-&gt; start + direction</code>.</p>
-
-<p>By multiplying the result of this function by <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV9directionxvp">direction</a></code> and adding
-<code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV5startxvp">start</a></code>, the projected point as it lays on this directional ray line
-can be obtained. This can also be achieved by using
-<code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV18projectedMagnitudeyx6ScalarQzF">projectedMagnitude(_:)</a></code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">ray</span> <span class="o">=</span> <span class="kt">DirectionalRay2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">dx</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">dy</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="nf">print</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="nf">projectAsScalar</span><span class="p">(</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)))</span> <span class="c1">// Prints "4"</span>
-</code></pre>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV18projectedMagnitudeyx6ScalarQzF">projectedMagnitude(_:)</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">projectAsScalar</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV6Scalara">Scalar</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV18projectedMagnitudeyx6ScalarQzF"></a>
-                    <a name="//apple_ref/swift/Method/projectedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV18projectedMagnitudeyx6ScalarQzF">projectedMagnitude(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the result of creating a projection of this ray&rsquo;s start point
-projected in the direction of this ray&rsquo;s direction, with a total
-magnitude of <code>scalar</code>.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">ray</span> <span class="o">=</span> <span class="kt">DirectionalRay2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">dx</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">dy</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="nf">print</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="nf">projectedMagnitude</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="c1">// Prints "(x: 5, y: 0)"</span>
-</code></pre>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV15projectAsScalary0F0QzxF">projectAsScalar(_:)</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">projectedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV36containsProjectedNormalizedMagnitudeySb6ScalarQzF"></a>
-                    <a name="//apple_ref/swift/Method/containsProjectedNormalizedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV36containsProjectedNormalizedMagnitudeySb6ScalarQzF">containsProjectedNormalizedMagnitude(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>true</code> for all positive scalar values, which describes a <a href="https://en.wikipedia.org/wiki/Line_(geometry)#Ray">ray</a>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">containsProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria14DirectionalRayV33clampProjectedNormalizedMagnitudey6ScalarQzAFF"></a>
-                    <a name="//apple_ref/swift/Method/clampProjectedNormalizedMagnitude(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria14DirectionalRayV33clampProjectedNormalizedMagnitudey6ScalarQzAFF">clampProjectedNormalizedMagnitude(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a projected normalized magnitude that is guaranteed to be
-contained in this line.</p>
-
-<p>For <code>DirectionalRay</code>, this is a clamped inclusive (0-∞ range.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clampProjectedNormalizedMagnitude</span><span class="p">(</span><span class="n">_</span> <span class="nv">scalar</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/DirectionalRay.html#/s:9Geometria14DirectionalRayV6Scalara">Scalar</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/Convex3Type.html#/s:9Geometria11Convex3TypeP6VectorQa">Vector</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/Convex3Type.html#/s:9Geometria11Convex3TypeP6VectorQa">Vector</a></span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt"><a href="../Protocols/Convex3Type.html#/s:9Geometria11Convex3TypeP6VectorQa">Vector</a></span></code></pre>
 
                         </div>
                       </div>
