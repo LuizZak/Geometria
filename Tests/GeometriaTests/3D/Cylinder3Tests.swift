@@ -228,6 +228,7 @@ extension Cylinder3Tests {
 extension Cylinder3Tests {
     typealias Line = Line3D
     typealias LineSegment = LineSegment3D
+    typealias Ray = Ray3D
     
     // MARK: Line
     
@@ -667,5 +668,30 @@ extension Cylinder3Tests {
         let result = sut.intersection(with: line)
         
         assertEqual(result, .contained)
+    }
+    
+    // Ray
+    func testIntersectionWith_ray_parallel_alongCenter_endsBeforeCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Ray(x1: -20, y1: 0, z1: 5,
+                       x2: -15, y2: 0, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                .init(
+                    point: .init(x: -5, y: 0, z: 5),
+                    normal: .init(x: -1, y: 0, z: 0)
+                ),
+                .init(
+                    point: .init(x: 5, y: 0, z: 5),
+                    normal: .init(x: -1, y: 0, z: 0)
+                )
+            )
+        )
     }
 }

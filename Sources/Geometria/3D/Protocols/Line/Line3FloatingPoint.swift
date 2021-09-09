@@ -1,5 +1,5 @@
 /// Protocol for 3D line types where the vectors are floating-point vectors.
-public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint {
+public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint where SubLine2: Line2FloatingPoint {
     /// Returns a pair of unclamped, normalized magnitudes, on `self` and
     /// `other`, where the magnitudes when projected on each line result in a
     /// pair of points that form the shortest line between the two original

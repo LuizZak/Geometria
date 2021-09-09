@@ -115,10 +115,10 @@ extension Cylinder3: PointProjectableType where Vector: Vector3FloatingPoint {
     }
 }
 
-extension Cylinder3: ConvexType where Vector: Vector3Real {
+extension Cylinder3: Convex3Type where Vector: Vector3Real {
     /// Returns the intersection points of a given line along this cylinder's
     /// surface.
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: Line3FloatingPoint, Vector == Line.Vector {
         
         typealias Vector2 = Vector.SubVector2
         
@@ -172,7 +172,7 @@ extension Cylinder3: ConvexType where Vector: Vector3Real {
         let lineAProj = pl.project2D(line.a)
         let lineBProj = pl.project2D(line.b)
         
-        let line2d = LineSegment2<Vector2>(start: lineAProj, end: lineBProj)
+        let line2d = line.make2DLine(lineAProj, lineBProj)
         
         let intersection = aabb.intersection(with: line2d)
         

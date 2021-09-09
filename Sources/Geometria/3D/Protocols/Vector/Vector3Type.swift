@@ -1,8 +1,8 @@
 /// Protocol for types that can represent 3D vectors.
-public protocol Vector3Type: VectorType where Scalar == SubVector2.Scalar {
+public protocol Vector3Type: VectorType {
     /// The 2-dimensional vector type for selections of 2-components on this
     /// vector.
-    associatedtype SubVector2: Vector2Type
+    associatedtype SubVector2: Vector2Type where SubVector2.Scalar == Scalar
     
     /// The X coordinate of this 3D vector.
     var x: Scalar { get set }

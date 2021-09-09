@@ -16,6 +16,8 @@ public typealias Ray3i = Ray3<Vector3i>
 public typealias Ray3<V: Vector3Type> = Ray<V>
 
 extension Ray3: Line3Type where Vector: VectorAdditive {
+    public typealias SubLine2 = Ray2<Vector.SubVector2>
+    
     /// Initializes a new Ray with two 3D vectors representing the starting
     /// point of the ray and a secondary point the ray crosses before projecting
     /// towards infinity.
@@ -32,8 +34,14 @@ extension Ray3: Line3Type where Vector: VectorAdditive {
         start = Vector(x: x, y: y, z: z)
         b = start + Vector(x: dx, y: dy, z: dz)
     }
+    
+    /// Creates a 2D line of the same underlying type as this line.
+    @_transparent
+    public func make2DLine(_ a: Vector.SubVector2, _ b: Vector.SubVector2) -> SubLine2 {
+        SubLine2(start: a, b: b)
+    }
 }
 
-extension Ray3: Line3FloatingPoint where Vector: Vector3Type & VectorFloatingPoint {
+extension Ray3: Line3FloatingPoint where Vector: Vector3Type & VectorFloatingPoint, Vector.SubVector2: Vector2FloatingPoint {
     
 }

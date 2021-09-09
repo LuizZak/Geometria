@@ -12,7 +12,9 @@ public typealias DirectionalRay3F = DirectionalRay3<Vector3F>
 /// `Vector3Type & VectorFloatingPoint`.
 public typealias DirectionalRay3<V: Vector3Type & VectorFloatingPoint> = DirectionalRay<V>
 
-extension DirectionalRay3: Line3Type {
+extension DirectionalRay3: Line3Type where Vector.SubVector2: Vector2FloatingPoint {
+    public typealias SubLine2 = DirectionalRay2<Vector.SubVector2>
+    
     /// Initializes a new Directional Ray with 3D vectors describing the start
     /// and secondary point the ray crosses before projecting towards infinity.
     ///
@@ -34,8 +36,13 @@ extension DirectionalRay3: Line3Type {
         self.init(start: Vector(x: x, y: y, z: z),
                   direction: Vector(x: dx, y: dy, z: dz))
     }
+    
+    /// Creates a 2D line of the same underlying type as this line.
+    public func make2DLine(_ a: SubLine2.Vector, _ b: SubLine2.Vector) -> SubLine2 {
+        SubLine2(a: a, b: b)
+    }
 }
 
-extension DirectionalRay3: Line3FloatingPoint where Vector: Vector3Type & VectorFloatingPoint {
+extension DirectionalRay3: Line3FloatingPoint where Vector: Vector3Type & VectorFloatingPoint, Vector.SubVector2: Vector2FloatingPoint {
     
 }
