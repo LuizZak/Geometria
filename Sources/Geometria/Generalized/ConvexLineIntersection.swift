@@ -42,6 +42,26 @@ public enum ConvexLineIntersection<Vector: VectorType> {
             return .enterExit(mapper(p1), mapper(p2))
         }
     }
+    
+    /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
+    /// is replaced by a provided closure before being stored back into the same
+    /// enum case and returned.
+    public func replacingPointNormals<NewVector: VectorType>(_ mapper: (PointNormal<Vector>) -> PointNormal<NewVector>) -> ConvexLineIntersection<NewVector> {
+        switch self {
+        case .contained:
+            return .contained
+        case .noIntersection:
+            return .noIntersection
+        case .singlePoint(let pointNormal):
+            return .singlePoint(mapper(pointNormal))
+        case .enter(let pointNormal):
+            return .enter(mapper(pointNormal))
+        case .exit(let pointNormal):
+            return .exit(mapper(pointNormal))
+        case let .enterExit(p1, p2):
+            return .enterExit(mapper(p1), mapper(p2))
+        }
+    }
 }
 
 extension ConvexLineIntersection: Equatable where Vector: Equatable { }

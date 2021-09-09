@@ -30,12 +30,42 @@ extension Disk3: Hashable where Vector: Hashable { }
 public extension Disk3 {
     /// Returns a ``PointNormalPlane3`` with the same point and normal vectors
     /// as this ``Disk3``.
+    @_transparent
     var asPointNormalPlane: PointNormalPlane3<Vector> {
         return .init(point: center, normal: normal)
     }
 }
 
+extension Disk3: BoundableType {
+    @inlinable
+    public var bounds: AABB<Vector> {
+        // Find an axis to extract a normal from this disk's normal
+        var cross = normal.cross(.unitX)
+        if cross.lengthSquared == 0 {
+            cross = normal.cross(.unitY)
+        }
+        
+        let normCross = cross.normalized() * radius
+        let otherAxis = normCross.cross(normal).normalized() * radius
+        
+        var minimum = center
+        minimum = Vector.pointwiseMin(minimum, center - normCross)
+        minimum = Vector.pointwiseMin(minimum, center + normCross)
+        minimum = Vector.pointwiseMin(minimum, center - otherAxis)
+        minimum = Vector.pointwiseMin(minimum, center + otherAxis)
+        
+        var maximum = center
+        maximum = Vector.pointwiseMax(maximum, center - normCross)
+        maximum = Vector.pointwiseMax(maximum, center + normCross)
+        maximum = Vector.pointwiseMax(maximum, center - otherAxis)
+        maximum = Vector.pointwiseMax(maximum, center + otherAxis)
+        
+        return .init(minimum: minimum, maximum: maximum)
+    }
+}
+
 extension Disk3: PointProjectableType {
+    @inlinable
     public func project(_ vector: Vector) -> Vector {
         let plane = asPointNormalPlane
         let pointOnPlane = plane.project(vector)

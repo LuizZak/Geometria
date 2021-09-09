@@ -148,6 +148,46 @@ class Disk3Tests: XCTestCase {
     }
 }
 
+// MARK: BoundableType Conformance
+
+extension Disk3Tests {
+    func testBounds_alignedDisk_zPlane() {
+        let sut = Disk(center: .init(x: 0, y: 0, z: 0), normal: .unitZ, radius: 3)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -3, y: -3, z: 0))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 3, z: 0))
+    }
+    
+    func testBounds_alignedDisk_xPlane() {
+        let sut = Disk(center: .init(x: 0, y: 0, z: 0), normal: .unitX, radius: 3)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: 0, y: -3, z: -3))
+        XCTAssertEqual(result.maximum, .init(x: 0, y: 3, z: 3))
+    }
+    
+    func testBounds_alignedDisk_yPlane() {
+        let sut = Disk(center: .init(x: 0, y: 0, z: 0), normal: .unitY, radius: 3)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -3, y: 0, z: -3))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 0, z: 3))
+    }
+    
+    func testBounds_alignedDisk_slanted() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3), normal: .one, radius: 3)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -1.4494897427831779, y: -0.12132034355964283, z: 0.8786796564403572))
+        XCTAssertEqual(result.maximum, .init(x: 3.449489742783178, y: 4.121320343559643, z: 5.121320343559643))
+    }
+}
+
 // MARK: PointProjectableType Conformance
 
 extension Disk3Tests {

@@ -802,6 +802,13 @@ extension AABBTests {
         )
     }
     
+    func testIntersectionWith_2d_line_contained() {
+        let sut = Box(left: 0, top: 0, right: 20, bottom: 20)
+        let line = LineSegment2D(start: .one, end: .init(x: 10, y: 10))
+        
+        assertEqual(sut.intersection(with: line), .contained)
+    }
+    
     func testIntersectionWith_2d_ray() {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Ray2D(x1: 2, y1: 9, x2: 15, y2: 5)

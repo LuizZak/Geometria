@@ -84,7 +84,7 @@ class ProcessingPrinter {
         }
     }
     
-    func add<V: Vector3Type>(intersection result: ConvexLineIntersection<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func add<V: Vector3Type>(intersection result: ConvexLineIntersection<V>) where V.Scalar == Double {
         switch result {
         case .contained, .noIntersection:
             break
@@ -108,8 +108,10 @@ class ProcessingPrinter {
         addDrawLine("")
     }
     
-    func add<V: Vector3Type>(pointNormal: PointNormal<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func add<V: Vector3Type>(pointNormal: PointNormal<V>) where V.Scalar == Double {
         shouldPrintDrawNormal = true
+        
+        add(sphere: Sphere3<V>(center: pointNormal.point, radius: 0.5))
         
         addStrokeWeightSet("1 / scale")
         addStrokeColorSet("255, 0, 0, 100")
@@ -122,14 +124,17 @@ class ProcessingPrinter {
         addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius));")
     }
     
+    func add<V: Vector2Additive & VectorDivisible>(aabb: AABB2<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+        addStrokeWeightSet("1 / scale")
+        addStrokeColorSet("255, 0, 0, 100")
+        addNoFill()
+        addDrawLine("rect(\(vec2String(aabb.minimum)), \(vec2String(aabb.maximum)));")
+    }
+    
     func add<V: Vector3Type>(sphere: Sphere3<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
         is3D = true
         
-        add3DSpaceBarBoilerplate(lineWeight: 1.0)
-        addDrawLine("pushMatrix();")
-        addDrawLine("translate(\(vec3String(sphere.center)));")
-        addDrawLine("sphere(\(sphere.radius));")
-        addDrawLine("popMatrix();")
+        addDrawLine("drawSphere(\(vec3String(sphere.center)), \(sphere.radius));")
     }
     
     func add<V: Vector3Additive & VectorDivisible>(aabb: AABB3<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
@@ -216,9 +221,29 @@ class ProcessingPrinter {
             printLine("")
             printDrawTangent2D()
         }
+        
+        if is3D {
+            printLine("")
+            printDrawSphere()
+        }
     }
     
     // MARK: - Expression Printing
+    
+    private func boilerplate3DSpaceBar<T: FloatingPoint>(lineWeight: T) -> [String] {
+        return [
+            "if (isSpaceBarPressed) {",
+            indentString(depth: 1) + "noFill();",
+            indentString(depth: 1) + "noLights();",
+            indentString(depth: 1) + "stroke(0, 0, 0, 20);",
+            indentString(depth: 1) + "strokeWeight(\(1 / lineWeight) / scale);",
+            "} else {",
+            indentString(depth: 1) + "noStroke();",
+            indentString(depth: 1) + "fill(255, 255, 255, 255);",
+            indentString(depth: 1) + "lights();",
+            "}"
+        ]
+    }
     
     private func addDrawLine(_ line: String) {
         draws.append(line)
@@ -237,16 +262,7 @@ class ProcessingPrinter {
     }
     
     private func add3DSpaceBarBoilerplate<T: FloatingPoint>(lineWeight: T) {
-        addDrawLine("if (isSpaceBarPressed) {")
-        addDrawLine(indentString(depth: 1) + "noFill();")
-        addDrawLine(indentString(depth: 1) + "noLights();")
-        addDrawLine(indentString(depth: 1) + "stroke(0, 0, 0, 20);")
-        addDrawLine(indentString(depth: 1) + "strokeWeight(\(1 / lineWeight) / scale);")
-        addDrawLine("} else {")
-        addDrawLine(indentString(depth: 1) + "noStroke();")
-        addDrawLine(indentString(depth: 1) + "fill(255, 255, 255, 255);")
-        addDrawLine(indentString(depth: 1) + "lights();")
-        addDrawLine("}")
+        boilerplate3DSpaceBar(lineWeight: lineWeight).forEach(addDrawLine(_:))
     }
     
     private func addStrokeColorSet(_ value: String) {
@@ -421,12 +437,14 @@ class ProcessingPrinter {
     
     private func printDrawNormal3D() {
         indentedBlock("void drawNormal(float x, float y, float z, float nx, float ny, float nz) {") {
-            printLine("float s = 5.0;")
+            printLine("float s = 10.0;")
             printLine("")
             printLine("float x2 = x + nx * s;")
             printLine("float y2 = y + ny * s;")
             printLine("float z2 = z + nz * s;")
             printLine("")
+            printLine("strokeWeight(5 / scale);")
+            printLine("stroke(255, 0, 0, 200);")
             printLine("line(x, y, z, x2, y2, z2);")
         }
     }
@@ -442,6 +460,17 @@ class ProcessingPrinter {
             printLine("float y2 = y - nx * s;")
             printLine("")
             printLine("line(x1, y1, x2, y2);")
+        }
+    }
+    
+    private func printDrawSphere() {
+        indentedBlock("void drawSphere(float x, float y, float z, float radius) {") {
+            boilerplate3DSpaceBar(lineWeight: 1.0).forEach(printLine)
+            
+            printLine("pushMatrix();")
+            printLine("translate(x, y, z);")
+            printLine("sphere(radius);")
+            printLine("popMatrix();")
         }
     }
     

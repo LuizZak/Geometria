@@ -412,6 +412,11 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint & VectorComparable 
             )
             
         default:
+            // Check for containment
+            if contains(line.a) && contains(line.b) {
+                return .contained
+            }
+            
             return .noIntersection
         }
     }

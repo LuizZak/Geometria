@@ -14,6 +14,75 @@ class Cylinder3Tests: XCTestCase {
         XCTAssertEqual(result.start, .init(x: 1, y: 2, z: 3))
         XCTAssertEqual(result.end, .init(x: 5, y: 7, z: 11))
     }
+    
+    func testIsValid() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
+                           end: .init(x: 1, y: 2, z: 5),
+                           radius: 1)
+        
+        XCTAssertTrue(sut.isValid)
+    }
+    
+    func testIsValid_zeroLengthCylinder_returnsFalse() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
+                           end: .init(x: 1, y: 2, z: 3),
+                           radius: 1)
+        
+        XCTAssertFalse(sut.isValid)
+    }
+    
+    func testIsValid_zeroRadiusCylinder_returnsFalse() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
+                           end: .init(x: 1, y: 2, z: 5),
+                           radius: 0)
+        
+        XCTAssertFalse(sut.isValid)
+    }
+    
+    func testIsValid_negativeRadiusCylinder_returnsFalse() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
+                           end: .init(x: 1, y: 2, z: 5),
+                           radius: -4)
+        
+        XCTAssertFalse(sut.isValid)
+    }
+}
+
+// MARK: BoundableType Conformance
+
+extension Cylinder3Tests {
+    func testBounds_unitLengthCylinder() {
+        let sut = Cylinder(start: .zero,
+                           end: .unitZ,
+                           radius: 1)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -1, y: -1, z: 0))
+        XCTAssertEqual(result.maximum, .init(x: 1, y: 1, z: 1))
+    }
+    
+    func testBounds_verticalCylinder() {
+        let sut = Cylinder(start: .zero,
+                           end: .unitZ * 20,
+                           radius: 3)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -3, y: -3, z: 0))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 3, z: 20))
+    }
+    
+    func testBounds_skewedCylinder() {
+        let sut = Cylinder(start: .init(x: -2, y: 0, z: 0),
+                           end: .init(x: 3, y: 5, z: 40),
+                           radius: 4)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -5.969581307590985, y: -3.9691115068546705, z: -0.4961389383568338))
+        XCTAssertEqual(result.maximum, .init(x: 6.969581307590985, y: 8.96911150685467, z: 40.496138938356836))
+    }
 }
 
 // MARK: VolumetricType Conformance
@@ -151,5 +220,452 @@ extension Cylinder3Tests {
         let result = sut.project(point)
         
         XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 5))
+    }
+}
+
+// MARK: ConvexType Conformance
+
+extension Cylinder3Tests {
+    typealias Line = Line3D
+    typealias LineSegment = LineSegment3D
+    
+    // MARK: Line
+    
+    func testIntersectionWith_line_noIntersection() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: -25, y1: 0, z1: 5,
+                        x2: -20, y2: 0, z2: 15)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(result, .noIntersection)
+    }
+    
+    func testIntersectionWith_line_slantedIntersection() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: -25, y1: 0, z1: 5,
+                        x2: 25, y2: 0, z2: 15)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                PointNormal(
+                    point: .init(x: -5.0, y: 0.0, z: 9.0),
+                    normal: .init(x: -1.0, y: 0.0, z: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: 0.0, y: 0.0, z: 10.0),
+                    normal: .init(x: 0.0, y: 0.0, z: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_parallel_alongCenter() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: -20, y1: 0, z1: 5,
+                        x2: 20, y2: 0, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                .init(
+                    point: .init(x: -5, y: 0, z: 5),
+                    normal: .init(x: -1, y: 0, z: 0)
+                ),
+                .init(
+                    point: .init(x: 5, y: 0, z: 5),
+                    normal: .init(x: -1, y: 0, z: 0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_parallel_offCenter() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: -20, y1: 2, z1: 5,
+                        x2: 20, y2: 2, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                PointNormal(
+                    point: .init(x: -4.582575694955839, y: 2.0, z: 5.0),
+                    normal: .init(x: -0.916515138991168, y: 0.4000000000000001, z: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: 4.582575694955835, y: 2.0, z: 5.0),
+                    normal: .init(x: -0.9165151389911679, y: -0.40000000000000036, z: -0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_slanted_center() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 20),
+                           radius: 5)
+        let line = Line(x1: -7, y1: 0, z1: 8,
+                        x2: 7, y2: 0, z2: 12)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                .init(
+                    point: .init(x: -5.0, y: 0.0, z: 8.571428571428571),
+                    normal: .init(x: -1.0, y: 0.0, z: 0.0)
+                ),
+                .init(
+                    point: .init(x: 5.0, y: 0.0, z: 11.428571428571429),
+                    normal: .init(x: -1.0, y: -0.0, z: 3.552713678800501e-16)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_exitOnEnd() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: -7, y1: 0, z1: 8,
+                        x2: 7, y2: 0, z2: 12)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                PointNormal(
+                    point: .init(x: -5.0, y: 0.0, z: 8.571428571428571),
+                    normal: .init(x: -1.0, y: 0.0, z: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: 0.0, y: 0.0, z: 10.0),
+                    normal: .init(x: -0.0, y: -0.0, z: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_exitOnStart() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: -7, y1: 0, z1: 2,
+                        x2: 7, y2: 0, z2: -2)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                PointNormal(
+                    point: .init(x: -5.0, y: 0.0, z: 1.4285714285714286),
+                    normal: .init(x: -1.0, y: 0.0, z: -4.4408920985006264e-17)
+                ),
+                PointNormal(
+                    point: .init(x: 0.0, y: 0.0, z: 0.0),
+                    normal: .init(x: 0.0, y: 0.0, z: 1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_acrossCylinderHeight() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: 2, y1: 1, z1: -10,
+                        x2: 2, y2: 1, z2: 20)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 2.000000000000002, y: 1.000000000000001, z: 0.0),
+                    normal: .init(x: -0.0, y: -0.0, z: -1.0)
+                ),
+                PointNormal(
+                    point: .init(x: 2.0000000000000044, y: 1.0000000000000022, z: 10.0),
+                    normal: .init(x: -0.0, y: -0.0, z: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_acrossCylinderHeight_offRadiusWithinBounds() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: 4, y1: 4, z1: -10,
+                        x2: 4, y2: 4, z2: 20)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(result, .noIntersection)
+    }
+    
+    func testIntersectionWith_line_acrossCylinderHeight_offRadiusOffBounds() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = Line(x1: 10, y1: 10, z1: -10,
+                        x2: 10, y2: 10, z2: 20)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(result, .noIntersection)
+    }
+    
+    // MARK: Line Segment
+    
+    func testIntersectionWith_lineSegment_parallel_alongCenter_endsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: -20, y1: 0, z1: 5,
+                               x2: 0, y2: 0, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enter(
+                .init(
+                    point: .init(x: -5, y: 0, z: 5),
+                    normal: .init(x: -1, y: 0, z: 0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_parallel_alongCenter_startWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: 0, y1: 0, z1: 5,
+                               x2: 20, y2: 0, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .exit(
+                .init(
+                    point: .init(x: 5, y: 0, z: 5),
+                    normal: .init(x: -1, y: 0, z: 0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_parallel_offCenter_endsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: -20, y1: 2, z1: 5,
+                               x2: 0, y2: 2, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enter(
+                PointNormal(
+                    point: .init(x: -4.582575694955839, y: 2.0, z: 5.0),
+                    normal: .init(x: -0.916515138991168, y: 0.4000000000000001, z: 0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_parallel_offCenter_startsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: 0, y1: 2, z1: 5,
+                               x2: 20, y2: 2, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .exit(
+                PointNormal(
+                    point: .init(x: 4.58257569495584, y: 2.0, z: 5.0),
+                    normal: .init(x: -0.916515138991168, y: -0.4, z: -0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_slanted_center_endsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 20),
+                           radius: 5)
+        let line = LineSegment(x1: -7, y1: 0, z1: 8,
+                               x2: 0, y2: 0, z2: 12)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enter(
+                PointNormal(
+                    point: .init(x: -5.0, y: 0.0, z: 9.142857142857142),
+                    normal: .init(x: -1.0, y: 0.0, z: 0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_slanted_center_startsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 20),
+                           radius: 5)
+        let line = LineSegment(x1: 0, y1: 0, z1: 8,
+                               x2: -7, y2: 0, z2: 12)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .exit(
+                PointNormal(
+                    point: .init(x: -5.0, y: 0.0, z: 10.857142857142858),
+                    normal: .init(x: 1.0, y: -0.0, z: -0.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_exitOnEnd_endsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: -7, y1: 0, z1: 6,
+                               x2: 0, y2: 0, z2: 9)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enter(
+                PointNormal(
+                    point: .init(x: -5.0, y: 0.0, z: 6.857142857142857),
+                    normal: .init(x: -1.0, y: 0.0, z: -1.7763568394002506e-16)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_exitOnEnd_startsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: 0, y1: 0, z1: 8,
+                               x2: 5, y2: 0, z2: 12)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .exit(
+                PointNormal(
+                    point: .init(x: 2.5, y: 0.0, z: 10.0),
+                    normal: .init(x: -0.0, y: -0.0, z: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_exitOnStart_endsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: -7, y1: 0, z1: -2,
+                               x2: 0, y2: 0, z2: 2)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enter(
+                PointNormal(
+                    point: .init(x: -3.5, y: 0.0, z: 0.0),
+                    normal: .init(x: -0.0, y: -0.0, z: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_acrossCylinderHeight_startsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: 2, y1: 1, z1: 2,
+                               x2: 2, y2: 1, z2: 20)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .exit(
+                .init(
+                    point: .init(x: 1.9999999999999996, y: 0.9999999999999998, z: 10.0),
+                    normal: .init(x: 0, y: 0, z: -1)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_acrossCylinderHeight_endsWithinCylinder() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: 2, y1: 1, z1: -10,
+                               x2: 2, y2: 1, z2: 5)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(
+            result,
+            .enter(
+                PointNormal(
+                    point: .init(x: 2.000000000000002, y: 1.000000000000001, z: 0.0),
+                    normal: .init(x: -0.0, y: -0.0, z: -1.0)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_contained() {
+        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
+                           end: .init(x: 0, y: 0, z: 10),
+                           radius: 5)
+        let line = LineSegment(x1: 2, y1: 1, z1: 2,
+                               x2: -2, y2: -1, z2: 7)
+        
+        let result = sut.intersection(with: line)
+        
+        assertEqual(result, .contained)
     }
 }

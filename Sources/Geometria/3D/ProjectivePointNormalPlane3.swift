@@ -4,7 +4,7 @@ public typealias ProjectivePointNormalPlane3D = ProjectivePointNormalPlane3<Vect
 
 /// A point-normal plane with a separate up and right vector used to control
 /// projection on the axis of the plane and compute the local X and Y axis.
-public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectablePlaneType {
+public struct ProjectivePointNormalPlane3<Vector: Vector3FloatingPoint>: PointProjectablePlaneType {
     /// A point on this plane.
     public var point: Vector
     
@@ -70,7 +70,7 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3Real>: PointProjectable
 extension ProjectivePointNormalPlane3: Equatable where Vector: Equatable { }
 extension ProjectivePointNormalPlane3: Hashable where Vector: Hashable { }
 
-extension ProjectivePointNormalPlane3 {
+public extension ProjectivePointNormalPlane3 {
     /// Creates a new ``ProjectivePointNormalPlane3`` by computing ``rightAxis``
     /// as well as correcting ``upAxis`` during creation to ensure it is fully
     /// perpendicular to `normal`.
@@ -80,7 +80,7 @@ extension ProjectivePointNormalPlane3 {
     ///   - normal: The normal of the plane.
     ///   - upAxis: The up-axis of the plane.
     @inlinable
-    public static func makeCorrectedPlane(point: Vector, normal: Vector, upAxis: Vector) -> Self {
+    static func makeCorrectedPlane(point: Vector, normal: Vector, upAxis: Vector) -> Self {
         let normal = normal.normalized()
         let upAxis = upAxis.normalized()
         let rightAxis = normal.cross(upAxis)
@@ -88,13 +88,32 @@ extension ProjectivePointNormalPlane3 {
         
         return Self(point: point, normal: normal, upAxis: newUpAxis, rightAxis: rightAxis)
     }
+    
+    /// Returns a point normal plane with the same point and normal as this
+    /// plane's.
+    var asPointNormalPlane: PointNormalPlane3<Vector> {
+        return PointNormalPlane3(self)
+    }
 }
 
 extension ProjectivePointNormalPlane3: ProjectiveSpace {
     public typealias Coordinates = Vector.SubVector2
     
-    @inlinable
-    public func attemptProjection(_ vector: Vector) -> Vector.SubVector2? {
+    /// With a given line, perform a plane-line intersection and project the
+    /// resulting intersection vector into this projective plane.
+    ///
+    /// Returns `nil` if this plane and the given line do not intersect.
+    public func projectLineIntersection<Line: Line3FloatingPoint>(_ line: Line) -> Coordinates? where Line.Vector == Vector {
+        let plane = asPointNormalPlane
+        guard let point = plane.intersection(with: line) else {
+            return nil
+        }
+        
+        return project2D(point)
+    }
+   
+    /// Performs a projection of a given vector onto this plane.
+    public func project2D(_ vector: Vector) -> Coordinates {
         // Mathematical reference:
         // https://stackoverflow.com/a/23474396
         let diff = vector - point
@@ -105,7 +124,12 @@ extension ProjectivePointNormalPlane3: ProjectiveSpace {
     }
     
     @inlinable
-    public func projectOut(_ proj: Vector.SubVector2) -> Vector {
+    public func attemptProjection(_ vector: Vector) -> Coordinates? {
+        return project2D(vector)
+    }
+    
+    @inlinable
+    public func projectOut(_ proj: Coordinates) -> Vector {
         let x: Vector = rightAxis * proj.x
         let y: Vector = upAxis * proj.y
         return point + x + y
