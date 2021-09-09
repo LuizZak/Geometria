@@ -701,7 +701,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectablePlaneType.html">PointProjectablePlaneType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Real.html">Vector3Real</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectablePlaneType.html">PointProjectablePlaneType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ProjectiveSpace.html">ProjectiveSpace</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria20PlaneProjectiveSpaceP">PlaneProjectiveSpace</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
@@ -1029,7 +1029,7 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeCorrectedPlane</span><span class="p">(</span><span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">upAxis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeCorrectedPlane</span><span class="p">(</span><span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">upAxis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ProjectivePointNormalPlane3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1082,6 +1082,34 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V02ascD5PlaneAA0cdG0VyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/asPointNormalPlane" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V02ascD5PlaneAA0cdG0VyxGvp">asPointNormalPlane</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a point normal plane with the same point and normal as this
+plane&rsquo;s.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asPointNormalPlane</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria17PointNormalPlane3a">PointNormalPlane3</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria15ProjectiveSpaceP11CoordinatesQa"></a>
                     <a name="//apple_ref/swift/Alias/Coordinates" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria15ProjectiveSpaceP11CoordinatesQa">Coordinates</a>
@@ -1108,6 +1136,63 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V23projectLineIntersectiony10SubVector2QzSgqd__6VectorQyd__RszAA013Line3FloatingC0Rd__lF"></a>
+                    <a name="//apple_ref/swift/Method/projectLineIntersection(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V23projectLineIntersectiony10SubVector2QzSgqd__6VectorQyd__RszAA013Line3FloatingC0Rd__lF">projectLineIntersection(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>With a given line, perform a plane-line intersection and project the
+resulting intersection vector into this projective plane.</p>
+
+<p>Returns <code>nil</code> if this plane and the given line do not intersect.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">projectLineIntersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria15ProjectiveSpaceP11CoordinatesQa">Coordinates</a></span><span class="p">?</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria27ProjectivePointNormalPlane3V9project2Dy10SubVector2QzxF"></a>
+                    <a name="//apple_ref/swift/Method/project2D(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria27ProjectivePointNormalPlane3V9project2Dy10SubVector2QzxF">project2D(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs a projection of a given vector onto this plane.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">project2D</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria15ProjectiveSpaceP11CoordinatesQa">Coordinates</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria15ProjectiveSpaceP17attemptProjectiony11CoordinatesQzSg6VectorQzF"></a>
                     <a name="//apple_ref/swift/Method/attemptProjection(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria15ProjectiveSpaceP17attemptProjectiony11CoordinatesQzSg6VectorQzF">attemptProjection(_:<wbr>)</a>
@@ -1125,7 +1210,7 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">attemptProjection</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">?</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">attemptProjection</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria15ProjectiveSpaceP11CoordinatesQa">Coordinates</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1152,7 +1237,7 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">projectOut</span><span class="p">(</span><span class="n">_</span> <span class="nv">proj</span><span class="p">:</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">projectOut</span><span class="p">(</span><span class="n">_</span> <span class="nv">proj</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9Geometria15ProjectiveSpaceP11CoordinatesQa">Coordinates</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
@@ -1167,7 +1252,7 @@ perpendicular to <code><a href="../Structs/ProjectivePointNormalPlane3.html#/s:9
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-08)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-09)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>

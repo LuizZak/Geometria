@@ -268,28 +268,28 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 214,
+      "line": 206,
       "symbol": "SIMD2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 220,
+      "line": 212,
       "symbol": "SIMD2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 302,
+      "line": 295,
       "symbol": "SIMD2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 307,
+      "line": 300,
       "symbol": "SIMD2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -442,6 +442,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Cylinder3.swift",
+      "line": 16,
+      "symbol": "Cylinder3.init(start:end:radius:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Disk3.swift",
       "line": 20,
       "symbol": "Disk3.init(center:normal:radius:)",
@@ -506,7 +513,7 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/ProjectivePointNormalPlane3.swift",
-      "line": 25,
+      "line": 28,
       "symbol": "ProjectivePointNormalPlane3.init(point:normal:upAxis:rightAxis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -639,14 +646,14 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 169,
+      "line": 159,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 176,
+      "line": 166,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -816,6 +823,13 @@
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
       "line": 27,
       "symbol": "LineSegment.init(start:end:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/NCapsule.swift",
+      "line": 24,
+      "symbol": "NCapsule.init(start:end:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },

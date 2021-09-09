@@ -704,8 +704,10 @@
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Cylinder3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Cylinder3</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Cylinder3</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Cylinder3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Cylinder3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Cylinder3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html">PointProjectableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Cylinder3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Real.html">Vector3Real</a></span></code></pre>
 
                 </div>
               </div>
@@ -886,6 +888,50 @@ as a pair of end points and a radius.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60Equatable%60%2C%20%60Scalar%60%3A%20%60Comparable%60%20%26%20%60AdditiveArithmetic%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `Equatable`, `Scalar`: `Comparable` &amp; `AdditiveArithmetic`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Equatable%60%2C%20%60Scalar%60%3A%20%60Comparable%60%20%26%20%60AdditiveArithmetic%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code>Equatable</code>, <code><a href="../Structs/Cylinder3.html#/s:9Geometria9Cylinder3V6Scalara">Scalar</a></code>: <code>Comparable</code> &amp; <code>AdditiveArithmetic</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Cylinder3VAASQRzs18AdditiveArithmetic6ScalarAA10VectorTypePRpzSLAHRQrlE7isValidSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isValid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Cylinder3VAASQRzs18AdditiveArithmetic6ScalarAA10VectorTypePRpzSLAHRQrlE7isValidSbvp">isValid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether this cylinder&rsquo;s parameters produce a valid, non-empty
+cylinder.</p>
+
+<p>A cylinder is valid when <code><a href="../Structs/Cylinder3.html#/s:9Geometria9Cylinder3V5startxvp">start</a></code> != <code><a href="../Structs/Cylinder3.html#/s:9Geometria9Cylinder3V3endxvp">end</a></code> and <code><a href="../Structs/Cylinder3.html#/s:9Geometria9Cylinder3V6radius6ScalarQzvp">radius</a></code> is greater
+than zero.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isValid</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Available%20where%20%60Vector%60%3A%20%60Vector3FloatingPoint%60"></a>
                 <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector3FloatingPoint`" class="dashAnchor"></a>
                 <div class="section-name-container">
@@ -895,6 +941,33 @@ as a pair of end points and a radius.</p>
                 </div>
               </div>
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria13BoundableTypeP6boundsAA4AABBVy6VectorQzGvp"></a>
+                    <a name="//apple_ref/swift/Property/bounds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria13BoundableTypeP6boundsAA4AABBVy6VectorQzGvp">bounds</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">bounds</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1018,13 +1091,54 @@ on the outer surface of the cylinder to <code>vector</code>.</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60Vector3Real%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector3Real`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Vector3Real%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/Vector3Real.html">Vector3Real</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Cylinder3VA2A11Vector3RealRzrlE12intersection4withAA22ConvexLineIntersectionOyxGqd___t6VectorQyd__RszAA0H13FloatingPointRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Cylinder3VA2A11Vector3RealRzrlE12intersection4withAA22ConvexLineIntersectionOyxGqd___t6VectorQyd__RszAA0H13FloatingPointRd__lF">intersection(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the intersection points of a given line along this cylinder&rsquo;s
+surface.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-08)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-09)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
