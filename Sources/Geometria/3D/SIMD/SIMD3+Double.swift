@@ -7,6 +7,14 @@ extension SIMD3: VectorType {
     
 }
 
+extension SIMD3: Vector2TakeableType where Scalar == Double {
+    
+}
+
+extension SIMD3: Vector3TakeableType where Scalar == Double {
+    
+}
+
 extension SIMD3: Vector3Type where Scalar == Double {
     public typealias SubVector2 = SIMD2<Scalar>
 }

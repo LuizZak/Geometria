@@ -7,6 +7,10 @@ extension SIMD2: VectorType {
     
 }
 
+extension SIMD2: Vector2TakeableType where Scalar == Double {
+    
+}
+
 extension SIMD2: Vector2Type where Scalar == Double {
     
 }

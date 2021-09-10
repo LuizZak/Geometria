@@ -1,5 +1,5 @@
 /// Protocol for types that can represent 2D vectors.
-public protocol Vector2Type: VectorType {
+public protocol Vector2Type: Vector2TakeableType {
     /// The X coordinate of this 2D vector.
     var x: Scalar { get set }
     

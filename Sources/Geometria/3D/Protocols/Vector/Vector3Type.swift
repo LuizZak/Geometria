@@ -1,5 +1,5 @@
 /// Protocol for types that can represent 3D vectors.
-public protocol Vector3Type: VectorType {
+public protocol Vector3Type: Vector3TakeableType {
     /// The 2-dimensional vector type for selections of 2-components on this
     /// vector.
     associatedtype SubVector2: Vector2Type where SubVector2.Scalar == Scalar
@@ -29,7 +29,7 @@ public protocol Vector3Type: VectorType {
     
     /// Creates a new vector with the coordinates of a given ``Vector2Type``,
     /// along with a new value for the ``z`` axis.
-    init<V: Vector2Type>(_ vec: V, z: Scalar) where V.Scalar == Scalar
+    init<Vector: Vector2Type>(_ vec: Vector, z: Scalar) where Vector.Scalar == Scalar
     
     /// Initializes a new instance of this `Vector3Type` type by copying the
     /// coordinates of another `Vector3Type` of matching scalar type.
