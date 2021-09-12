@@ -86,6 +86,8 @@ extension Stadium2: BoundableType where Vector: VectorAdditive & VectorComparabl
     }
 }
 
+// TODO: See if we can solve this point-containment check without line.project
+// TODO: to drop Vector2FloatingPoint requirement to a base protocol.
 extension Stadium2: VolumetricType where Vector: Vector2FloatingPoint {
     /// Returns `true` if a given vector is fully contained within this
     /// stadium.
