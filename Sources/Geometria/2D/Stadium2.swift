@@ -1,18 +1,18 @@
-/// Represents a regular 3-dimensional [Cylinder](https://en.wikipedia.org/wiki/Cylinder)
+/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with double-precision floating-point
 /// numbers.
 public typealias Stadium2D = Stadium2<Vector2D>
 
-/// Represents a regular 3-dimensional [Cylinder](https://en.wikipedia.org/wiki/Cylinder)
+/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with stadium-precision floating-point
 /// numbers.
 public typealias Stadium2F = Stadium2<Vector2F>
 
-/// Represents a regular 3-dimensional [Cylinder](https://en.wikipedia.org/wiki/Cylinder)
+/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with integers.
 public typealias Stadium2i = Stadium2<Vector2i>
 
-/// Represents a regular 3-dimensional [Cylinder](https://en.wikipedia.org/wiki/Stadium_(geometry) )
+/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with integers.
 public struct Stadium2<Vector: Vector2Type>: GeometricType {
     /// Convenience for `Vector.Scalar`.
@@ -62,26 +62,20 @@ public extension Stadium2 {
     }
 }
 
-public extension Stadium2 where Vector: Equatable, Scalar: Comparable & AdditiveArithmetic {
+public extension Stadium2 where Scalar: Comparable & AdditiveArithmetic {
     /// Returns whether this stadium's parameters produce a valid, non-empty
     /// stadium.
     ///
-    /// A cylinder is valid when ``start`` != ``end`` and ``radius`` is greater
-    /// than zero.
+    /// A stadium is valid when ``radius`` is greater than zero.
     @_transparent
     var isValid: Bool {
-        start != end && radius > .zero
+        radius > .zero
     }
 }
 
 extension Stadium2: BoundableType where Vector: VectorAdditive & VectorComparable {
     @inlinable
     public var bounds: AABB<Vector> {
-        /// Degenerate stadium
-        if start == end {
-            return .zero
-        }
-        
         return startAsCircle.bounds.union(endAsCircle.bounds)
     }
 }

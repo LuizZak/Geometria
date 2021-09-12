@@ -23,12 +23,12 @@ class Stadium2Tests: XCTestCase {
         XCTAssertTrue(sut.isValid)
     }
     
-    func testIsValid_zeroLengthStadium_returnsFalse() {
+    func testIsValid_zeroLengthStadium_returnsTrue() {
         let sut = Stadium(start: .init(x: 1, y: 2),
                           end: .init(x: 1, y: 2),
                           radius: 1)
         
-        XCTAssertFalse(sut.isValid)
+        XCTAssertTrue(sut.isValid)
     }
     
     func testIsValid_zeroRadiusStadium_returnsFalse() {
@@ -73,6 +73,17 @@ class Stadium2Tests: XCTestCase {
 // MARK: BoundableType Conformance
 
 extension Stadium2Tests {
+    func testBounds_zeroLength_returnsRadiusBounds() {
+        let sut = Stadium(start: .one,
+                          end: .one,
+                          radius: 3)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .init(x: -2, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 4, y: 4))
+    }
+    
     func testBounds_unitLengthStadium() {
         let sut = Stadium(start: .zero,
                           end: .unitY,
