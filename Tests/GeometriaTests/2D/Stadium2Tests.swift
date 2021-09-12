@@ -46,6 +46,28 @@ class Stadium2Tests: XCTestCase {
         
         XCTAssertFalse(sut.isValid)
     }
+    
+    func testStartAsCircle() {
+        let sut = Stadium(start: .init(x: 1, y: 2),
+                          end: .init(x: 29, y: 31),
+                          radius: 5)
+        
+        let result = sut.startAsCircle
+        
+        XCTAssertEqual(result.center, .init(x: 1, y: 2))
+        XCTAssertEqual(result.radius, 5)
+    }
+    
+    func testEndAsCircle() {
+        let sut = Stadium(start: .init(x: 1, y: 2),
+                          end: .init(x: 29, y: 31),
+                          radius: 5)
+        
+        let result = sut.endAsCircle
+        
+        XCTAssertEqual(result.center, .init(x: 29, y: 31))
+        XCTAssertEqual(result.radius, 5)
+    }
 }
 
 // MARK: BoundableType Conformance
@@ -88,28 +110,6 @@ extension Stadium2Tests {
 // MARK: VolumetricType Conformance
 
 extension Stadium2Tests {
-    func testStartAsCircle() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 29, y: 31),
-                          radius: 5)
-        
-        let result = sut.startAsCircle
-        
-        XCTAssertEqual(result.center, .init(x: 1, y: 2))
-        XCTAssertEqual(result.radius, 5)
-    }
-    
-    func testEndAsCircle() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 29, y: 31),
-                          radius: 5)
-        
-        let result = sut.endAsCircle
-        
-        XCTAssertEqual(result.center, .init(x: 29, y: 31))
-        XCTAssertEqual(result.radius, 5)
-    }
-    
     func testContains_withinLineProjection_returnsTrue() {
         let sut = Stadium(start: .init(x: 13, y: 17),
                           end: .init(x: 13, y: 29),

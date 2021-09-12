@@ -14,7 +14,7 @@ public typealias Stadium2i = Stadium2<Vector2i>
 
 /// Represents a regular 3-dimensional [Cylinder](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with integers.
-public struct Stadium2<Vector: VectorType>: GeometricType {
+public struct Stadium2<Vector: Vector2Type>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
     
@@ -44,6 +44,22 @@ public extension Stadium2 {
     var asLineSegment: LineSegment<Vector> {
         LineSegment(start: start, end: end)
     }
+    
+    /// Returns the circle that represents the top- or start, section of this
+    /// stadium, centered around ``start`` with a radius of ``radius``.
+    @inlinable
+    var startAsCircle: Circle2<Vector> {
+        Circle2<Vector>(center: start,
+                        radius: radius)
+    }
+    
+    /// Returns the circle that represents the bottom- or end, section of this
+    /// stadium, centered around ``start`` with a radius of ``radius``.
+    @inlinable
+    var endAsCircle: Circle2<Vector> {
+        Circle2<Vector>(center: end,
+                        radius: radius)
+    }
 }
 
 public extension Stadium2 where Vector: Equatable, Scalar: Comparable & AdditiveArithmetic {
@@ -58,7 +74,7 @@ public extension Stadium2 where Vector: Equatable, Scalar: Comparable & Additive
     }
 }
 
-extension Stadium2: BoundableType where Vector: Vector2FloatingPoint {
+extension Stadium2: BoundableType where Vector: VectorAdditive & VectorComparable {
     @inlinable
     public var bounds: AABB<Vector> {
         /// Degenerate stadium
@@ -71,22 +87,6 @@ extension Stadium2: BoundableType where Vector: Vector2FloatingPoint {
 }
 
 extension Stadium2: VolumetricType where Vector: Vector2FloatingPoint {
-    /// Returns the circle that represents the top- or start, section of this
-    /// stadium, centered around ``start`` with a radius of ``radius``.
-    @inlinable
-    public var startAsCircle: Circle2<Vector> {
-        Circle2<Vector>(center: start,
-                        radius: radius)
-    }
-    
-    /// Returns the circle that represents the bottom- or end, section of this
-    /// stadium, centered around ``start`` with a radius of ``radius``.
-    @inlinable
-    public var endAsCircle: Circle2<Vector> {
-        Circle2<Vector>(center: end,
-                        radius: radius)
-    }
-    
     /// Returns `true` if a given vector is fully contained within this
     /// stadium.
     ///
