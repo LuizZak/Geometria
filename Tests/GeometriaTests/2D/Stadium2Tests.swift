@@ -149,4 +149,33 @@ extension Stadium2Tests {
         XCTAssertTrue(sut.contains(x: 12, y: 16))
         XCTAssertTrue(sut.contains(x: 14, y: 30))
     }
+    
+    func testContains_equalStartEnd_withinLineProjection_returnsTrue() {
+        let sut = Stadium(start: .init(x: 13, y: 17),
+                          end: .init(x: 13, y: 17),
+                          radius: 3)
+        
+        XCTAssertTrue(sut.contains(x: 12, y: 17))
+        XCTAssertTrue(sut.contains(x: 14, y: 17))
+    }
+    
+    func testContains_equalStartEnd_outOfBounds_returnsFalse() {
+        let sut = Stadium(start: .init(x: 13, y: 17),
+                          end: .init(x: 13, y: 17),
+                          radius: 3)
+        
+        XCTAssertFalse(sut.contains(.init(x: 9, y: 20)))
+        XCTAssertFalse(sut.contains(.init(x: 17, y: 20)))
+        XCTAssertFalse(sut.contains(.init(x: 13, y: 13)))
+        XCTAssertFalse(sut.contains(.init(x: 13, y: 33)))
+    }
+    
+    func testContains_equalStartEnd_withinLineDistanceAtEnds_returnsTrue() {
+        let sut = Stadium(start: .init(x: 13, y: 17),
+                          end: .init(x: 13, y: 17),
+                          radius: 3)
+        
+        XCTAssertTrue(sut.contains(x: 12, y: 16))
+        XCTAssertTrue(sut.contains(x: 14, y: 18))
+    }
 }

@@ -1,18 +1,18 @@
-/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
+/// Represents a regular 2-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with double-precision floating-point
 /// numbers.
 public typealias Stadium2D = Stadium2<Vector2D>
 
-/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
+/// Represents a regular 2-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with stadium-precision floating-point
 /// numbers.
 public typealias Stadium2F = Stadium2<Vector2F>
 
-/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
+/// Represents a regular 2-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with integers.
 public typealias Stadium2i = Stadium2<Vector2i>
 
-/// Represents a regular 3-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
+/// Represents a regular 2-dimensional [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) )
 /// as a pair of end points and a radius with integers.
 public struct Stadium2<Vector: Vector2Type>: GeometricType {
     /// Convenience for `Vector.Scalar`.
@@ -76,7 +76,7 @@ public extension Stadium2 where Scalar: Comparable & AdditiveArithmetic {
 extension Stadium2: BoundableType where Vector: VectorAdditive & VectorComparable {
     @inlinable
     public var bounds: AABB<Vector> {
-        return startAsCircle.bounds.union(endAsCircle.bounds)
+        startAsCircle.bounds.union(endAsCircle.bounds)
     }
 }
 
@@ -90,9 +90,15 @@ extension Stadium2: VolumetricType where Vector: Vector2FloatingPoint {
     /// within the stadium (inclusive).
     @inlinable
     public func contains(_ vector: Vector) -> Bool {
-        let line = asLineSegment
+        var projected: Vector
         
-        let projected = line.project(vector)
+        // For start == end, Stadium2 is a circle.
+        if start == end {
+            projected = start
+        } else {
+            let line = asLineSegment
+            projected = line.project(vector)
+        }
         
         return projected.distanceSquared(to: vector) < radius * radius
     }
