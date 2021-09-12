@@ -83,6 +83,10 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     }
 }
 
+extension LineSegment: LineDivisible where Vector: VectorDivisible {
+    
+}
+
 extension LineSegment: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
     /// Returns the length of this line.
     ///

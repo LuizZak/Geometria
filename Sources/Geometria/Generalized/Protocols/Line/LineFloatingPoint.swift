@@ -1,19 +1,6 @@
 /// Protocol for objects that form geometric lines with two floating-point
 /// vectors representing two points on the line.
-public protocol LineFloatingPoint: LineMultiplicative, PointProjectableType where Vector: VectorFloatingPoint {
-    /// Gets the slope of this line, or the vector that represents `b - a`.
-    var lineSlope: Vector { get }
-    
-    /// Performs a vector projection of a given vector with respect to this line,
-    /// returning a scalar value representing the normalized magnitude of the
-    /// projected point between `a <-> b`.
-    ///
-    /// By multiplying the result of this function by `(b - a)` and adding `a`,
-    /// the projected point as it lays on this line can be obtained.
-    ///
-    /// - seealso: ``projectedNormalizedMagnitude(_:)-vyrp``
-    func projectAsScalar(_ vector: Vector) -> Vector.Scalar
-    
+public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by extending
     /// `a <-> b`.
@@ -69,21 +56,6 @@ public protocol LineFloatingPoint: LineMultiplicative, PointProjectableType wher
 }
 
 public extension LineFloatingPoint {
-    @_transparent
-    var lineSlope: Vector {
-        b - a
-    }
-    
-    @inlinable
-    func projectAsScalar(_ vector: Vector) -> Vector.Scalar {
-        let relEnd = lineSlope
-        let relVec = vector - a
-        
-        let proj = relVec.dot(relEnd) / relEnd.lengthSquared
-        
-        return proj
-    }
-    
     @inlinable
     func project(_ vector: Vector) -> Vector {
         let proj = projectAsScalar(vector)
