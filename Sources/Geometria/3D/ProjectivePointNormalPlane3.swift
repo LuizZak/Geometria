@@ -2,6 +2,10 @@
 /// vectors in 3D space with double-precision floating-point scalars.
 public typealias ProjectivePointNormalPlane3D = ProjectivePointNormalPlane3<Vector3D>
 
+/// Represents a 3D projective plane as a point, normal, right, and up-axis
+/// vectors in 3D space with single-precision floating-point scalars.
+public typealias ProjectivePointNormalPlane3F = ProjectivePointNormalPlane3<Vector3F>
+
 /// A point-normal plane with a separate up and right vector used to control
 /// projection on the axis of the plane and compute the local X and Y axis.
 public struct ProjectivePointNormalPlane3<Vector: Vector3FloatingPoint>: PointProjectablePlaneType {
