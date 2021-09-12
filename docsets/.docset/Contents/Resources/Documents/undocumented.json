@@ -485,14 +485,14 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Line3.swift",
-      "line": 18,
+      "line": 20,
       "symbol": "Line3.init(x1:y1:z1:x2:y2:z2:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/LineSegment3.swift",
-      "line": 17,
+      "line": 19,
       "symbol": "LineSegment3.init(x1:y1:z1:x2:y2:z2:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
