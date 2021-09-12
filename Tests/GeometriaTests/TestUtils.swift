@@ -91,7 +91,7 @@ func _assertEqual<T: VectorFloatingPoint>(_ exp: ConvexLineIntersection<T>,
     
     let printPointNormal: (PointNormal<T>) -> String = { pn in
         """
-            PointNormal(
+            .init(
                 point: \(printPoint(pn.point)),
                 normal: \(printPoint(pn.normal))
             )

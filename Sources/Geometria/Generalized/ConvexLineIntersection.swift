@@ -26,41 +26,62 @@ public enum ConvexLineIntersection<Vector: VectorType> {
     /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
     /// is mapped by a provided closure before being stored back into the same
     /// enum case and returned.
-    public func mappingPointNormals(_ mapper: (PointNormal<Vector>) -> PointNormal<Vector>) -> ConvexLineIntersection<Vector> {
+    public func mappingPointNormals(_ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>) -> ConvexLineIntersection<Vector> {
+        
         switch self {
         case .contained:
             return .contained
+        
         case .noIntersection:
             return .noIntersection
+        
         case .singlePoint(let pointNormal):
-            return .singlePoint(mapper(pointNormal))
+            return .singlePoint(mapper(pointNormal, .singlePoint))
+        
         case .enter(let pointNormal):
-            return .enter(mapper(pointNormal))
+            return .enter(mapper(pointNormal, .enter))
+        
         case .exit(let pointNormal):
-            return .exit(mapper(pointNormal))
+            return .exit(mapper(pointNormal, .exit))
+        
         case let .enterExit(p1, p2):
-            return .enterExit(mapper(p1), mapper(p2))
+            return .enterExit(mapper(p1, .enter), mapper(p2, .exit))
         }
     }
     
     /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
     /// is replaced by a provided closure before being stored back into the same
     /// enum case and returned.
-    public func replacingPointNormals<NewVector: VectorType>(_ mapper: (PointNormal<Vector>) -> PointNormal<NewVector>) -> ConvexLineIntersection<NewVector> {
+    public func replacingPointNormals<NewVector: VectorType>(_ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>) -> ConvexLineIntersection<NewVector> {
+        
         switch self {
         case .contained:
             return .contained
+            
         case .noIntersection:
             return .noIntersection
+            
         case .singlePoint(let pointNormal):
-            return .singlePoint(mapper(pointNormal))
+            return .singlePoint(mapper(pointNormal, .singlePoint))
+            
         case .enter(let pointNormal):
-            return .enter(mapper(pointNormal))
+            return .enter(mapper(pointNormal, .enter))
+            
         case .exit(let pointNormal):
-            return .exit(mapper(pointNormal))
+            return .exit(mapper(pointNormal, .exit))
+            
         case let .enterExit(p1, p2):
-            return .enterExit(mapper(p1), mapper(p2))
+            return .enterExit(mapper(p1, .enter), mapper(p2, .exit))
         }
+    }
+    
+    /// Parameter passed along point normals in ``mappingPointNormals`` and
+    /// ``replacingPointNormals`` to specify to the closure which kind of point
+    /// normal was provided.
+    public enum PointNormalKind {
+        case singlePoint
+        case enter
+        case exit
     }
 }
 
