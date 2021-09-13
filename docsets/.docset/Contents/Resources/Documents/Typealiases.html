@@ -157,6 +157,12 @@
                 <a class="nav-group-task-link" href="Extensions/Square2.html">Square2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Triangle2.html">Triangle2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Triangle3.html">Triangle3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions.html#/s:Su">UInt</a>
               </li>
               <li class="nav-group-task">
@@ -419,6 +425,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/TakeVector3.html">TakeVector3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Triangle.html">Triangle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Triangle/Coordinates.html">– Coordinates</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/UnitVector.html">UnitVector</a>
@@ -703,6 +715,30 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Stadium2ia">Stadium2i</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Triangle2a">Triangle2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Triangle2Da">Triangle2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Triangle2Fa">Triangle2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Triangle2ia">Triangle2i</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Triangle3a">Triangle3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Triangle3Da">Triangle3D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Triangle3Fa">Triangle3F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria10Triangle3ia">Triangle3i</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria8Vector2Da">Vector2D</a>
@@ -1640,7 +1676,8 @@ describing a point on the plane and the plane&rsquo;s normal.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Typealias for <code><a href="Structs/PointNormalPlane.html">PointNormalPlane&lt;V&gt;</a></code>, where <code>V</code> is constrained to <code><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></code>.</p>
+                        <p>Typealias for <code><a href="Structs/PointNormalPlane.html">PointNormalPlane&lt;V&gt;</a></code>, where <code>V</code> is constrained to
+<code><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -2182,6 +2219,117 @@ as a pair of end points and a radius with integers.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria10Triangle2Da"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle2D" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10Triangle2Da">Triangle2D</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 2D triangle as a trio of N-dimensional vectors with
+double-precision floating-point components.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle2D</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria9Triangle2a">Triangle2</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector2Da">Vector2D</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10Triangle2Fa"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle2F" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10Triangle2Fa">Triangle2F</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 2D triangle as a trio of N-dimensional vectors with
+single-precision floating-point components.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle2F</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria9Triangle2a">Triangle2</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector2Fa">Vector2F</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10Triangle2ia"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle2i" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10Triangle2ia">Triangle2i</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 2D triangle as a trio of N-dimensional vectors with integer
+components.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle2i</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria9Triangle2a">Triangle2</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector2ia">Vector2i</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Triangle2a"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Triangle2a">Triangle2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Typealias for <code><a href="Structs/Triangle.html">Triangle&lt;V&gt;</a></code>, where <code>V</code> is constrained to <code><a href="Protocols/Vector2Type.html">Vector2Type</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle2</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/Triangle.html">Triangle</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria8Vector2Da"></a>
                     <a name="//apple_ref/swift/Alias/Vector2D" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria8Vector2Da">Vector2D</a>
@@ -2639,14 +2787,14 @@ infinity.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Typealias for <code>DirectionalRay3&lt;V&gt;</code>, where <code>V</code> is constrained to
-<code>Vector3Type &amp; VectorFloatingPoint</code>.</p>
+<code><a href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DirectionalRay3</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/DirectionalRay.html">DirectionalRay</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Type.html">Vector3Type</a></span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DirectionalRay3</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/DirectionalRay.html">DirectionalRay</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -3322,6 +3470,117 @@ and radius parameters.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria10Triangle3Da"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle3D" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10Triangle3Da">Triangle3D</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 3D triangle as a trio of N-dimensional vectors with
+double-precision floating-point components.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle3D</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria9Triangle3a">Triangle3</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector3Da">Vector3D</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10Triangle3Fa"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle3F" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10Triangle3Fa">Triangle3F</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 3D triangle as a trio of N-dimensional vectors with
+single-precision floating-point components.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle3F</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria9Triangle3a">Triangle3</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector3Fa">Vector3F</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10Triangle3ia"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle3i" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10Triangle3ia">Triangle3i</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 3D triangle as a trio of N-dimensional vectors with integer
+components.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle3i</span> <span class="o">=</span> <span class="kt"><a href="Typealiases.html#/s:9Geometria9Triangle3a">Triangle3</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:9Geometria8Vector3ia">Vector3i</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Triangle3a"></a>
+                    <a name="//apple_ref/swift/Alias/Triangle3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Triangle3a">Triangle3</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Typealias for <code><a href="Structs/Triangle.html">Triangle&lt;V&gt;</a></code>, where <code>V</code> is constrained to <code><a href="Protocols/Vector3Type.html">Vector3Type</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Triangle3</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="o">=</span> <span class="kt"><a href="Structs/Triangle.html">Triangle</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Type.html">Vector3Type</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria8Vector3Da"></a>
                     <a name="//apple_ref/swift/Alias/Vector3D" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria8Vector3Da">Vector3D</a>
@@ -3408,7 +3667,7 @@ and radius parameters.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-12)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-13)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
