@@ -81,6 +81,30 @@ extension TriangleTests {
     }
 }
 
+// MARK: Vector: VectorDivisible
+
+extension TriangleTests {
+    func testCenter() {
+        let sut = Triangle(a: .init(x: 1, y: 2),
+                           b: .init(x: 3, y: 5),
+                           c: .init(x: 7, y: 11))
+        
+        let result = sut.center
+        
+        XCTAssertEqual(result.x, 3.6666666666666665)
+        XCTAssertEqual(result.y, 6.0)
+    }
+    
+    func testCenter_zeroTriangle_returnsZero() {
+        let sut = Triangle(a: .zero, b: .zero, c: .zero)
+        
+        let result = sut.center
+        
+        XCTAssertEqual(result.x, 0.0)
+        XCTAssertEqual(result.y, 0.0)
+    }
+}
+
 // MARK: Vector: VectorFloatingPoint
 
 extension TriangleTests {

@@ -54,7 +54,7 @@ public extension Triangle2 where Vector: Vector2Multiplicative & VectorDivisible
     /// - seealso: ``signedDoubleArea``
     @_transparent
     var signedArea: Scalar {
-        return signedDoubleArea / 2
+        signedDoubleArea / 2
     }
 }
 
@@ -103,5 +103,35 @@ extension Triangle2: VolumetricType where Vector: Vector2FloatingPoint {
         }
         
         return true
+    }
+    
+    /// Performs a projection of a given set of coordinates onto this triangle
+    /// as a set of barycentric coordinates.
+    @_transparent
+    public func toBarycentric(x: Scalar, y: Scalar) -> Coordinates {
+        toBarycentric(.init(x: x, y: y))
+    }
+    
+    /// Performs a projection of a given vector onto this triangle as a set of
+    /// barycentric coordinates.
+    ///
+    /// The resulting coordinates might have scalar values `< .zero`, indicating
+    /// points that projected outside the area of the triangle.
+    @inlinable
+    public func toBarycentric(_ vector: Vector) -> Coordinates {
+        let sArea = signedDoubleArea
+        if sArea == .zero {
+            return .zero
+        }
+        
+        let wa = Triangle(a: b, b: c, c: vector).signedDoubleArea
+        let wb = Triangle(a: c, b: a, c: vector).signedDoubleArea
+        let wc = Triangle(a: a, b: b, c: vector).signedDoubleArea
+        
+        return Coordinates(
+            wa: wa / sArea,
+            wb: wb / sArea,
+            wc: wc / sArea
+        )
     }
 }

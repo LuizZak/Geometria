@@ -68,6 +68,14 @@ extension Triangle: BoundableType where Vector: VectorComparable {
     }
 }
 
+public extension Triangle where Vector: VectorDivisible {
+    /// Returns the geometric center of this triangle.
+    @_transparent
+    var center: Vector {
+        (a + b + c) / 3
+    }
+}
+
 public extension Triangle where Vector: VectorFloatingPoint {
     /// Returns the positive area of this triangle.
     ///
