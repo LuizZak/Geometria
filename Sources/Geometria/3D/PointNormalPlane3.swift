@@ -6,5 +6,5 @@ public typealias PointNormalPlane3D = PointNormalPlane3<Vector3D>
 /// describing a point on the plane and the plane's normal.
 public typealias PointNormalPlane3F = PointNormalPlane3<Vector3F>
 
-/// Typealias for `Plane<V>`, where `V` is constrained to `Vector3FloatingPoint`.
+/// Typealias for `Plane<V>`, where `V` is constrained to ``Vector3FloatingPoint``.
 public typealias PointNormalPlane3<V: Vector3FloatingPoint> = PointNormalPlane<V>

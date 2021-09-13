@@ -9,7 +9,7 @@ public typealias LineSegment3F = LineSegment3<Vector3F>
 /// Represents a 3D line as a pair of integer start and end vectors.
 public typealias LineSegment3i = LineSegment3<Vector3i>
 
-/// Typealias for `LineSegment<V>`, where `V` is constrained to `Vector3Type`.
+/// Typealias for `LineSegment<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias LineSegment3<V: Vector3Type> = LineSegment<V>
 
 extension LineSegment3: Line3Type {

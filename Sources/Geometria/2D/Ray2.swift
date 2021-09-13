@@ -12,7 +12,7 @@ public typealias Ray2F = Ray2<Vector2F>
 /// starts and crosses before being projected to infinity.
 public typealias Ray2i = Ray2<Vector2i>
 
-/// Typealias for `Ray<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `Ray<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias Ray2<V: Vector2Type> = Ray<V>
 
 extension Ray2: Line2Type {

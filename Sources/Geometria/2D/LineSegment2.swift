@@ -9,7 +9,7 @@ public typealias LineSegment2F = LineSegment2<Vector2F>
 /// Represents a 2D line segment as a pair of integer start and end vectors.
 public typealias LineSegment2i = LineSegment2<Vector2i>
 
-/// Typealias for `LineSegment<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `LineSegment<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias LineSegment2<V: Vector2Type> = LineSegment<V>
 
 extension LineSegment2: Line2Type {

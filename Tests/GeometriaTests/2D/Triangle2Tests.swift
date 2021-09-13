@@ -4,19 +4,81 @@ import Geometria
 class Triangle2Tests: XCTestCase {
     typealias Vector = Vector2D
     typealias Triangle = Triangle2<Vector>
-    
-    func testIsClockwise() {
-        let sut =
-        Triangle(
-            a: .zero,
-            b: .one,
-            c: .init(x: 1, y: 0)
-        )
+}
+
+// MARK: Vector: Vector2Multiplicative Conformance
+
+extension Triangle2Tests {
+    func testSignedDoubleArea_emptyTriangle() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 0.5, y: 0.5))
         
-        XCTAssertTrue(sut.isClockwise)
+        XCTAssertEqual(sut.signedDoubleArea, 0.0)
     }
     
-    func testIsClockwise_counterClockwise() {
+    func testSignedDoubleArea_allZerosTriangle() {
+        let sut = Triangle(a: .zero, b: .zero, c: .zero)
+        
+        XCTAssertEqual(sut.signedDoubleArea, 0.0)
+    }
+    
+    func testSignedDoubleArea_simpleRightTriangle() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 1, y: 0))
+        
+        XCTAssertEqual(sut.signedDoubleArea, 1.0)
+    }
+    
+    func testSignedDoubleArea_largeTriangle() {
+        let sut = Triangle(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
+        
+        XCTAssertEqual(sut.signedDoubleArea, 21_000.0)
+    }
+    
+    func testSignedDoubleArea_largeTriangle_counterClockwise() {
+        let sut = Triangle(a: .zero, b: .init(x: 97, y: 10), c: .init(x: 131, y: 230))
+        
+        XCTAssertEqual(sut.signedDoubleArea, -21_000.0)
+    }
+}
+
+// MARK: Vector: Vector2Multiplicative & VectorDivisible Conformance
+
+extension Triangle2Tests {
+    func testSignedArea_emptyTriangle() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 0.5, y: 0.5))
+        
+        XCTAssertEqual(sut.signedArea, 0.0)
+    }
+    
+    func testSignedArea_allZerosTriangle() {
+        let sut = Triangle(a: .zero, b: .zero, c: .zero)
+        
+        XCTAssertEqual(sut.signedArea, 0.0)
+    }
+    
+    func testSignedArea_simpleRightTriangle() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 1, y: 0))
+        
+        XCTAssertEqual(sut.signedArea, 0.5)
+    }
+    
+    func testSignedArea_largeTriangle() {
+        let sut = Triangle(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
+        
+        XCTAssertEqual(sut.signedArea, 10500.0)
+    }
+    
+    func testSignedArea_largeTriangle_counterClockwise() {
+        let sut = Triangle(a: .zero, b: .init(x: 97, y: 10), c: .init(x: 131, y: 230))
+        
+        XCTAssertEqual(sut.signedArea, -10500.0)
+    }
+}
+
+// MARK: Vector: Vector2Multiplicative & VectorDivisible, Scalar: Comparable Conformance
+
+extension Triangle2Tests {
+    
+    func testWinding_clockwiseCartesian() {
         let sut =
         Triangle(
             a: .zero,
@@ -24,10 +86,21 @@ class Triangle2Tests: XCTestCase {
             c: .one
         )
         
-        XCTAssertFalse(sut.isClockwise)
+        XCTAssertEqual(sut.winding, -1)
     }
     
-    func testIsClockwise_colinear_returnsFalse() {
+    func testWinding_counterClockwiseCartesian() {
+        let sut =
+        Triangle(
+            a: .zero,
+            b: .one,
+            c: .init(x: 1, y: 0)
+        )
+        
+        XCTAssertEqual(sut.winding, 1)
+    }
+    
+    func testWinding_colinear_returnsZero() {
         let sut =
         Triangle(
             a: .zero,
@@ -35,10 +108,10 @@ class Triangle2Tests: XCTestCase {
             c: .init(x: 2, y: 2)
         )
         
-        XCTAssertFalse(sut.isClockwise)
+        XCTAssertEqual(sut.winding, 0)
     }
     
-    func testIsClockwise_colinear_cBeforeB_returnsFalse() {
+    func testWinding_colinear_cBeforeB_returnsZero() {
         let sut =
         Triangle(
             a: .zero,
@@ -46,7 +119,7 @@ class Triangle2Tests: XCTestCase {
             c: .one
         )
         
-        XCTAssertFalse(sut.isClockwise)
+        XCTAssertEqual(sut.winding, 0)
     }
 }
 
@@ -108,7 +181,7 @@ extension Triangle2Tests {
         XCTAssertFalse(sut.contains(x: 228, y: 270))
     }
     
-    func testContains_trianglePoints_returnsFalse() {
+    func testContains_trianglePoints_returnsTrue() {
         let sut =
         Triangle(
             a: .zero,
@@ -116,9 +189,9 @@ extension Triangle2Tests {
             c: .init(x: 1, y: 0)
         )
         
-        XCTAssertFalse(sut.contains(sut.a))
-        XCTAssertFalse(sut.contains(sut.b))
-        XCTAssertFalse(sut.contains(sut.c))
+        XCTAssertTrue(sut.contains(sut.a))
+        XCTAssertTrue(sut.contains(sut.b))
+        XCTAssertTrue(sut.contains(sut.c))
     }
     
     func testContains_nonEmptyTriangle() {
@@ -132,9 +205,9 @@ extension Triangle2Tests {
         XCTAssertTrue(sut.contains(x: 0.25, y: 0.1))
         XCTAssertTrue(sut.contains(x: 0.5, y: 0.1))
         XCTAssertTrue(sut.contains(x: 0.75, y: 0.5))
-        XCTAssertFalse(sut.contains(x: 0, y: 0))
-        XCTAssertFalse(sut.contains(x: 1, y: 1))
-        XCTAssertFalse(sut.contains(x: 1, y: 0))
+        XCTAssertTrue(sut.contains(x: 0, y: 0))
+        XCTAssertTrue(sut.contains(x: 1, y: 1))
+        XCTAssertTrue(sut.contains(x: 1, y: 0))
         XCTAssertFalse(sut.contains(x: -1, y: 0))
         XCTAssertFalse(sut.contains(x: 0, y: -1))
         XCTAssertFalse(sut.contains(x: 0, y: 1))
@@ -151,9 +224,9 @@ extension Triangle2Tests {
         XCTAssertTrue(sut.contains(x: 0.25, y: 0.1))
         XCTAssertTrue(sut.contains(x: 0.5, y: 0.1))
         XCTAssertTrue(sut.contains(x: 0.75, y: 0.5))
-        XCTAssertFalse(sut.contains(x: 0, y: 0))
-        XCTAssertFalse(sut.contains(x: 1, y: 1))
-        XCTAssertFalse(sut.contains(x: 1, y: 0))
+        XCTAssertTrue(sut.contains(x: 0, y: 0))
+        XCTAssertTrue(sut.contains(x: 1, y: 1))
+        XCTAssertTrue(sut.contains(x: 1, y: 0))
         XCTAssertFalse(sut.contains(x: -1, y: 0))
         XCTAssertFalse(sut.contains(x: 0, y: -1))
         XCTAssertFalse(sut.contains(x: 0, y: 1))

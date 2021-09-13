@@ -12,5 +12,5 @@ public typealias AABB3F = AABB3<Vector3F>
 /// describe the minimal and maximal coordinates of the box's opposite corners.
 public typealias AABB3i = AABB3<Vector3i>
 
-/// Typealias for `AABB<V>`, where `V` is constrained to `Vector3Type`.
+/// Typealias for `AABB<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias AABB3<V: Vector3Type> = AABB<V>

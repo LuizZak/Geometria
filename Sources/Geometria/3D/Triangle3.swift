@@ -10,5 +10,25 @@ public typealias Triangle3F = Triangle3<Vector3F>
 /// components.
 public typealias Triangle3i = Triangle3<Vector3i>
 
-/// Typealias for `Triangle<V>`, where `V` is constrained to `Vector3Type`.
+/// Typealias for `Triangle<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias Triangle3<V: Vector3Type> = Triangle<V>
+
+public extension Triangle3 where Vector: Vector3FloatingPoint {
+    /// Returns normal for this ``Triangle3``. The direction of the normal
+    /// depends on the winding of ``a`` -> ``b`` -> ``c``. The normal is always
+    /// pointing to the direction where the points form an anti-clockwise winding.
+    @_transparent
+    var normal: Vector {
+        let ab = a - b
+        let ac = a - c
+        
+        return ab.cross(ac).normalized()
+    }
+    
+    /// Returns the plane this ``Triangle3`` forms on 3D space, with the normal
+    /// pointing to the winding between ``a`` -> ``b`` -> ``c``.
+    @_transparent
+    var asPlane: PointNormalPlane<Vector> {
+        .init(point: a, normal: normal)
+    }
+}

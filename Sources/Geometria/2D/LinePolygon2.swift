@@ -9,7 +9,7 @@ public typealias LinePolygon2F = LinePolygon2<Vector2F>
 /// Represents a 2D polygon as a series of connected integer 2D vertices.
 public typealias LinePolygon2i = LinePolygon2<Vector2i>
 
-/// Typealias for `LinePolygon<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `LinePolygon<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias LinePolygon2<V: Vector2Type> = LinePolygon<V>
 
 public extension LinePolygon2 {

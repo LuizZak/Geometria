@@ -7,7 +7,7 @@ public typealias Cube3F = NSquare<Vector3F>
 /// Represents an integer 3D cube.
 public typealias Cube3i = NSquare<Vector3i>
 
-/// Typealias for `NSquare<V>`, where `V` is constrained to `Vector3Type`.
+/// Typealias for `NSquare<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias Cube3<V: Vector3Type> = NSquare<V>
 
 public extension Cube3 {

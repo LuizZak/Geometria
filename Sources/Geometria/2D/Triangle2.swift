@@ -10,55 +10,98 @@ public typealias Triangle2F = Triangle2<Vector2F>
 /// components.
 public typealias Triangle2i = Triangle2<Vector2i>
 
-/// Typealias for `Triangle<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `Triangle<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias Triangle2<V: Vector2Type> = Triangle<V>
 
-public extension Triangle2 where Vector: Vector2Multiplicative, Scalar: Comparable {
-    /// Returns `true` if this triangle winds in clockwise order (in Cartesian
-    /// space).
-    var isClockwise: Bool {
-        let ab = a - b
-        let bc = b - c
+public extension Triangle2 where Vector: Vector2Multiplicative {
+    /// Returns the signed doubled area of this triangle.
+    ///
+    /// The triangle has a negative signed area if the parallelogram formed by
+    /// the edge vectors `CA` and `BA` are counter-clockwise (in Cartesian space
+    /// where Y grows positively up).
+    ///
+    /// For a 2D triangle, the doubled area is computed as the cross-product of
+    /// `CA` and `BA`:
+    ///
+    /// ```swift
+    /// (c.x − a.x) * (b.y − a.y) - (c.y − a.y) * (b.x − a.x)
+    /// ```
+    ///
+    /// - seealso: ``signedArea``
+    @_transparent
+    var signedDoubleArea: Scalar {
+        let ca = c - a
+        let ba = b - a
         
-        return ab.cross(bc) < .zero
+        return ca.cross(ba)
+    }
+}
+
+public extension Triangle2 where Vector: Vector2Multiplicative & VectorDivisible {
+    /// Returns the signed area of this triangle.
+    ///
+    /// The triangle has a negative signed area if the parallelogram formed by
+    /// the edge vectors `CA` and `BA` are counter-clockwise (in Cartesian space
+    /// where Y grows positively up).
+    ///
+    /// For a 2D triangle, the area is computed as half of the cross-product of
+    /// `CA` and `BA`:
+    ///
+    /// ```swift
+    /// ((c.x − a.x) * (b.y − a.y) - (c.y − a.y) * (b.x − a.x)) / 2
+    /// ```
+    ///
+    /// - seealso: ``signedDoubleArea``
+    @_transparent
+    var signedArea: Scalar {
+        return signedDoubleArea / 2
+    }
+}
+
+public extension Triangle2 where Vector: Vector2Multiplicative & VectorDivisible & VectorSigned {
+    /// Returns the signed value of this triangle's winding.
+    ///
+    /// In Cartesian space where Y grows positively up, the winding is `-1` for
+    /// clockwise windings and `-1` for counter-clockwise windings.
+    ///
+    /// If the area of this triangle is `== .zerp`, `0` is returned, instead.
+    @_transparent
+    var winding: Scalar {
+        let a = signedDoubleArea
+        
+        return a == .zero ? .zero : (a < .zero ? -1 : 1)
     }
 }
 
 extension Triangle2: VolumetricType where Vector: Vector2FloatingPoint {
-    /// Returns whether the given vector is contained within this triangle.
+    /// Returns whether the given point vector is contained within this triangle.
     ///
     /// Points at the perimeter of the triangle, as well as the points forming
-    /// the corners of the triangle, are not considered as contained within the
-    /// triangle (exclusive).
+    /// the corners of the triangle, are considered as contained within the
+    /// triangle (inclusive).
     ///
-    /// Triangles where `area == .zero` cannot contain points and return `false`
-    /// for any containment check.
+    /// Triangles where ``signedDoubleArea`` `== .zero` cannot contain points
+    /// and return `false` for any containment check.
+    ///
+    /// This function is well-defined for ``signedDoubleArea`` of both negative
+    /// and positive values.
+    @inlinable
     public func contains(_ vector: Vector) -> Bool {
-        let area = self.area
-        if area == .zero {
+        let sign = winding
+        
+        guard sign != 0 else {
+            return false
+        }
+        guard Triangle(a: a, b: b, c: vector).signedDoubleArea * sign >= 0 else {
+            return false
+        }
+        guard Triangle(a: b, b: c, c: vector).signedDoubleArea * sign >= 0 else {
+            return false
+        }
+        guard Triangle(a: c, b: a, c: vector).signedDoubleArea * sign >= 0 else {
             return false
         }
         
-        let sign: Scalar = isClockwise ? -1 : 1
-        
-        let caCross = c.cross(a)
-        let acMinus = a - c
-        let acMinusCross = acMinus.cross(vector)
-        
-        let s: Scalar = (caCross + acMinusCross) * sign
-        if s <= .zero {
-            return false
-        }
-        
-        let abCross = a.cross(b)
-        let baMinus = b - a
-        let baMinusCross = baMinus.cross(vector)
-        
-        let t: Scalar = (abCross + baMinusCross) * sign
-        if t <= .zero {
-            return false
-        }
-        
-        return (s + t) < 2 * area
+        return true
     }
 }

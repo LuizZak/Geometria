@@ -153,8 +153,8 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         }
         
         // Create a 2D version of the problem by cross-sectioning the cylinder
-        // with a plane containing the line and parallel to the cylinder's axis
-        // and solve a bounding-box/line intersection
+        // with a plane which is parallel to both the line and the cylinder's
+        // axis and solve a bounding-box/line intersection
         
         let pl: ProjectivePointNormalPlane3<Vector>
         pl = .makeCorrectedPlane(point: line.a,
@@ -165,7 +165,7 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         // the plane
         
         // Rectangle's height: cylinder's height
-        // Rectangle's width: 2 * √(r ^ 2 − distance-to-center ^ 2)
+        // Rectangle's width: 2 * √(r² − distance-to-center²)
         let rectHeight = cylinderLine.length
         let rectHalfWidth: Scalar
         

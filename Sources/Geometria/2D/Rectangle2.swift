@@ -9,7 +9,7 @@ public typealias Rectangle2F = Rectangle2<Vector2F>
 /// Represents an integer 2D rectangle.
 public typealias Rectangle2i = Rectangle2<Vector2i>
 
-/// Typealias for `NRectangle<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `NRectangle<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias Rectangle2<V: Vector2Type> = NRectangle<V>
 
 extension Rectangle2: CustomStringConvertible {

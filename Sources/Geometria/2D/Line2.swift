@@ -10,7 +10,7 @@ public typealias Line2F = Line2<Vector2F>
 /// crosses.
 public typealias Line2i = Line2<Vector2i>
 
-/// Typealias for `Line<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `Line<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias Line2<V: Vector2Type> = Line<V>
 
 extension Line2: Line2Type {

@@ -116,6 +116,36 @@ extension AABBTests {
         XCTAssertFalse(Box(minimum: .one, maximum: .zero).isValid)
     }
     
+    func testInitOfPoints_2Points() {
+        let result = Box(of: .init(x: -5, y: 6), .init(x: 3, y: -2))
+        
+        XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
+    }
+    
+    func testInitOfPoints_3Points() {
+        let result =
+        Box(of: .init(x: -5, y: 4),
+            .init(x: 3, y: -2),
+            .init(x: 2, y: 6)
+        )
+        
+        XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
+    }
+    
+    func testInitOfPoints_4Points() {
+        let result =
+        Box(of: .init(x: -5, y: 4),
+            .init(x: 3, y: -2),
+            .init(x: 1, y: 3),
+            .init(x: 2, y: 6)
+        )
+        
+        XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
+    }
+    
     func testExpandToIncludePoint() {
         var sut = Box.zero
         
@@ -264,18 +294,30 @@ extension AABBTests {
 // MARK: VectorAdditive & VectorComparable Conformance
 
 extension AABBTests {
-    func testInitOfPoints() {
-        let result = Box(of: .init(x: -1, y: 3), .init(x: 2, y: -5))
+    func testInitOfPoints_variadic() {
+        let result =
+        Box(of: .init(x: -5, y: 4),
+            .init(x: 3, y: -2),
+            .init(x: 1, y: 3),
+            .init(x: 2, y: 1),
+            .init(x: 2, y: 6)
+        )
         
-        XCTAssertEqual(result.minimum, .init(x: -1, y: -5))
-        XCTAssertEqual(result.maximum, .init(x: 2, y: 3))
+        XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
     }
     
     func testInitPoints() {
-        let result = Box(points: [.init(x: -1, y: 3), .init(x: 2, y: -5)])
+        let result = Box(points: [
+            .init(x: -5, y: 4),
+            .init(x: 3, y: -2),
+            .init(x: 1, y: 3),
+            .init(x: 2, y: 1),
+            .init(x: 2, y: 6)
+        ])
         
-        XCTAssertEqual(result.minimum, .init(x: -1, y: -5))
-        XCTAssertEqual(result.maximum, .init(x: 2, y: 3))
+        XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
     }
     
     func testInitPoints_empty() {

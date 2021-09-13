@@ -7,7 +7,7 @@ public typealias Square2F = Square2<Vector2F>
 /// Represents an integer 2D square.
 public typealias Square2i = Square2<Vector2i>
 
-/// Typealias for `NSquare<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `NSquare<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias Square2<V: Vector2Type> = NSquare<V>
 
 public extension Square2 {

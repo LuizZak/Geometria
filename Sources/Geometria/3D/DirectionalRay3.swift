@@ -9,8 +9,8 @@ public typealias DirectionalRay3D = DirectionalRay3<Vector3D>
 public typealias DirectionalRay3F = DirectionalRay3<Vector3F>
 
 /// Typealias for `DirectionalRay3<V>`, where `V` is constrained to
-/// `Vector3Type & VectorFloatingPoint`.
-public typealias DirectionalRay3<V: Vector3Type & VectorFloatingPoint> = DirectionalRay<V>
+/// ``Vector3FloatingPoint``.
+public typealias DirectionalRay3<V: Vector3FloatingPoint> = DirectionalRay<V>
 
 extension DirectionalRay3: Line3Type where Vector.SubVector2: Vector2FloatingPoint {
     public typealias SubLine2 = DirectionalRay2<Vector.SubVector2>

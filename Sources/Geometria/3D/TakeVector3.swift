@@ -1,5 +1,5 @@
-/// When initializes with a Vector3, allows referencing pairs of coordinates
-/// to form `Vector2Type`s out of.
+/// When initialized with a ``Vector3Type``, allows referencing pairs of coordinates
+/// to form ``Vector2Type``s out of.
 public struct TakeVector3<Vector: Vector3Type> {
     /// Convenience for `Vector.SubVector2`
     public typealias SubVector2 = Vector.SubVector2

@@ -9,7 +9,7 @@ public typealias DirectionalRay2D = DirectionalRay2<Vector2D>
 public typealias DirectionalRay2F = DirectionalRay2<Vector2F>
 
 /// Typealias for `DirectionalRay<V>`, where `V` is constrained to
-/// `Vector2FloatingPoint`.
+/// ``Vector2FloatingPoint``.
 public typealias DirectionalRay2<V: Vector2FloatingPoint> = DirectionalRay<V>
 
 extension DirectionalRay2: Line2Type {

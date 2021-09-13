@@ -6,7 +6,7 @@ public typealias Circle2D = Circle2<Vector2D>
 /// and radius parameters.
 public typealias Circle2F = Circle2<Vector2F>
 
-/// Typealias for `NSphere<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `NSphere<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias Circle2<V: Vector2Type> = NSphere<V>
 
 public extension Circle2 {

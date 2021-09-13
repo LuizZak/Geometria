@@ -30,6 +30,33 @@ class TriangleTests: XCTestCase {
         XCTAssertEqual(result.start, .init(x: 1, y: 1))
         XCTAssertEqual(result.end, .init(x: 0.5, y: 0.5))
     }
+    
+    func testLineBA() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 0.5, y: 0.5))
+        
+        let result = sut.lineBA
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 1))
+        XCTAssertEqual(result.end, .init(x: 0, y: 0))
+    }
+    
+    func testLineCA() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 0.5, y: 0.5))
+        
+        let result = sut.lineCA
+        
+        XCTAssertEqual(result.start, .init(x: 0.5, y: 0.5))
+        XCTAssertEqual(result.end, .init(x: 0, y: 0))
+    }
+    
+    func testLineCB() {
+        let sut = Triangle(a: .zero, b: .one, c: .init(x: 0.5, y: 0.5))
+        
+        let result = sut.lineCB
+        
+        XCTAssertEqual(result.start, .init(x: 0.5, y: 0.5))
+        XCTAssertEqual(result.end, .init(x: 1, y: 1))
+    }
 }
 
 // MARK: BoundableType Conformance

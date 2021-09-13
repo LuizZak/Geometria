@@ -62,6 +62,66 @@ extension AABB: VolumetricType where Vector: VectorComparable {
         minimum <= maximum
     }
     
+    /// Initializes a box containing the minimum area capable of containing the
+    /// two supplied points.
+    ///
+    /// ```swift
+    /// let box = AABB2D(of:
+    ///     .init(x: -5, y: 4),
+    ///     .init(x: 3, y: -2)
+    /// )
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 4))"
+    /// ```
+    @_transparent
+    public init(of p1: Vector, _ p2: Vector) {
+        let min = Vector.pointwiseMin(p1, p2)
+        let max = Vector.pointwiseMax(p1, p2)
+        
+        self.init(minimum: min, maximum: max)
+    }
+    
+    /// Initializes a box containing the minimum area capable of containing the
+    /// three supplied points.
+    ///
+    /// ```swift
+    /// let box = AABB2D(of:
+    ///     .init(x: -5, y: 4),
+    ///     .init(x: 3, y: 0),
+    ///     .init(x: 2, y: -2)
+    /// )
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 4))"
+    /// ```
+    @_transparent
+    public init(of p1: Vector, _ p2: Vector, _ p3: Vector) {
+        let min = Vector.pointwiseMin(p1, Vector.pointwiseMin(p2, p3))
+        let max = Vector.pointwiseMax(p1, Vector.pointwiseMax(p2, p3))
+        
+        self.init(minimum: min, maximum: max)
+    }
+    
+    /// Initializes a box containing the minimum area capable of containing the
+    /// four supplied points.
+    ///
+    /// ```swift
+    /// let box = AABB2D(of:
+    ///     .init(x: -2, y: 4),
+    ///     .init(x: 3, y: 0),
+    ///     .init(x: 2, y: -2),
+    ///     .init(x: -5, y: 3)
+    /// )
+    ///
+    /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 4))"
+    /// ```
+    @_transparent
+    public init(of p1: Vector, _ p2: Vector, _ p3: Vector, _ p4: Vector) {
+        let min = Vector.pointwiseMin(p1, Vector.pointwiseMin(p2, Vector.pointwiseMin(p3, p4)))
+        let max = Vector.pointwiseMax(p1, Vector.pointwiseMax(p2, Vector.pointwiseMax(p3, p4)))
+        
+        self.init(minimum: min, maximum: max)
+    }
+    
     /// Expands this box to include the given point.
     ///
     /// The resulting box is the minimal AABB capable of enclosing the original
@@ -265,14 +325,16 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     /// let box = AABB2D(of:
     ///     .init(x: -5, y: 4),
     ///     .init(x: 3, y: -2),
-    ///     .init(x: 1, y: 6)
+    ///     .init(x: 1, y: 3),
+    ///     .init(x: 2, y: 1),
+    ///     .init(x: 2, y: 6)
     /// )
     ///
     /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"
     /// ```
     @_transparent
-    init(of points: Vector...) {
-        self = AABB(points: points)
+    init(of p1: Vector, _ p2: Vector, _ p3: Vector, _ p4: Vector, _ remaining: Vector...) {
+        self = AABB(points: [p1, p2, p3, p4] + remaining)
     }
     
     /// Initializes a box out of a set of points, expanding to the smallest
@@ -282,7 +344,9 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     /// let box = AABB2D(points: [
     ///     .init(x: -5, y: 4),
     ///     .init(x: 3, y: -2),
-    ///     .init(x: 1, y: 6)
+    ///     .init(x: 1, y: 3),
+    ///     .init(x: 2, y: 1),
+    ///     .init(x: 2, y: 6)
     /// ])
     ///
     /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"

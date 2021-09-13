@@ -12,7 +12,7 @@ public typealias Ray3F = Ray3<Vector3F>
 /// starts and crosses before being projected to infinity.
 public typealias Ray3i = Ray3<Vector3i>
 
-/// Typealias for `Ray<V>`, where `V` is constrained to `Vector3Type`.
+/// Typealias for `Ray<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias Ray3<V: Vector3Type> = Ray<V>
 
 extension Ray3: Line3Type where Vector: VectorAdditive {

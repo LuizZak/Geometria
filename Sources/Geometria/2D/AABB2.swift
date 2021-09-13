@@ -12,7 +12,7 @@ public typealias AABB2F = AABB2<Vector2F>
 /// describe the minimal and maximal coordinates of the box's opposite corners.
 public typealias AABB2i = AABB2<Vector2i>
 
-/// Typealias for `AABB<V>`, where `V` is constrained to `Vector2Type`.
+/// Typealias for `AABB<V>`, where `V` is constrained to ``Vector2Type``.
 public typealias AABB2<V: Vector2Type> = AABB<V>
 
 extension AABB2: CustomStringConvertible {
