@@ -124,6 +124,92 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
         XCTAssertEqual(sut.upAxis, .init(x: 0.0, y: 0.05989229072794671, z: 0.9982048454657786))
     }
     
+    func testAsPointNormalPlane() {
+        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
+                        normal: .unitY,
+                        upAxis: .unitZ,
+                        rightAxis: .unitX)
+        
+        let result = sut.asPointNormalPlane
+        
+        XCTAssertEqual(result.point, sut.point)
+        XCTAssertEqual(result.normal, sut.normal)
+    }
+}
+
+// MARK: ProjectiveSpace Conformance
+
+extension ProjectivePointNormalPlane3Tests {
+    func testProjectLineIntersection_line() {
+        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
+                        normal: .unitY,
+                        upAxis: .unitZ,
+                        rightAxis: .unitX)
+        let line = Line3D(a: .zero, b: .one)
+        
+        let result = sut.projectLineIntersection(line)
+        
+        XCTAssertEqual(result, .init(x: -10.0, y: -14.0))
+    }
+    
+    func testProjectLineIntersection_line_parallelLine_returnsNil() {
+        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
+                        normal: .unitY,
+                        upAxis: .unitZ,
+                        rightAxis: .unitX)
+        let line = Line3D(a: .zero, b: .unitZ)
+        
+        let result = sut.projectLineIntersection(line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testProjectLineIntersection_ray_beforeStart_returnsNil() {
+        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
+                        normal: .unitY,
+                        upAxis: .unitZ,
+                        rightAxis: .unitX)
+        let line = Ray3D(start: sut.point + .unitY, b: sut.point + .unitY * 2)
+        
+        let result = sut.projectLineIntersection(line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testProjectLineIntersection_lineSegment_afterEnd_returnsNil() {
+        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
+                        normal: .unitY,
+                        upAxis: .unitZ,
+                        rightAxis: .unitX)
+        let line = LineSegment3D(start: sut.point - .unitY * 2, end: sut.point - .unitY)
+        
+        let result = sut.projectLineIntersection(line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testProject2D() {
+        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
+                        normal: .unitY,
+                        upAxis: .unitZ,
+                        rightAxis: .unitX)
+        let vec = Vector(x: 11, y: 12, z: 23)
+        
+        XCTAssertEqual(sut.project2D(vec), .init(x: -2, y: 6.0))
+    }
+    
+    func testProject2D_skewed() {
+        let sut = Plane
+            .makeCorrectedPlane(
+                point: .init(x: 13.0, y: 3.0, z: 17.0),
+                normal: .init(x: 0.0, y: 5, z: -0.3),
+                upAxis: .unitZ
+            )
+        let vec = Vector(x: 11, y: 12, z: 23)
+        
+        XCTAssertEqual(sut.project2D(vec), .init(x: -2, y: 6.528259689346192))
+    }
+    
     func testAttemptProject() {
         let sut = Plane(point: .init(x: 13, y: 3, z: 17),
                         normal: .unitY,

@@ -25,4 +25,15 @@ class DirectionalRay3Tests: XCTestCase {
         XCTAssertEqual(sut.b.y, 2.5974379912529253)
         XCTAssertEqual(sut.b.z, 3.706063080571639)
     }
+    
+    func testMake2DLine() {
+        let result =
+        DirectionalRay.make2DLine(
+            .init(x: 1, y: 2),
+            .init(x: 3, y: 5)
+        )
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+    }
 }
