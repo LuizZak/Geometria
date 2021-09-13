@@ -1,7 +1,9 @@
 import RealModule
 
-/// Represents a line segment as a pair of start and end N-dimensional vectors
+/// Represents a [line segment] as a pair of start and end N-dimensional vectors
 /// which describe a closed interval.
+///
+/// [line segment]: https://en.wikipedia.org/wiki/Line_segment
 public struct LineSegment<Vector: VectorType>: LineType {
     public typealias Scalar = Vector.Scalar
     

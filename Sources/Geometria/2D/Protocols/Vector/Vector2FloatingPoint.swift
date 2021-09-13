@@ -1,5 +1,5 @@
 /// Protocol for 2D vector types where the components are floating-point numbers.
-public protocol Vector2FloatingPoint: Vector2Multiplicative, VectorFloatingPoint {
+public protocol Vector2FloatingPoint: Vector2Multiplicative, Vector2Signed, VectorFloatingPoint {
     /// Initializes this `Vector2FloatingPoint` with a given binary Vector2
     init<V: Vector2Type>(_ other: V) where V.Scalar: BinaryInteger
     

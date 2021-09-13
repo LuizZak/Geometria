@@ -1,3 +1,6 @@
+// TODO: Consider relaxing validity checks to allow definition of cylinders where
+// TODO: start == end (and project as a disk, like a 2-Stadium can be a sphere.)
+
 /// Represents a regular 3-dimensional [Cylinder](https://en.wikipedia.org/wiki/Cylinder)
 /// as a pair of end points and a radius with double-precision floating-point
 /// numbers.
@@ -61,7 +64,7 @@ public extension Cylinder3 where Vector: Equatable, Scalar: Comparable & Additiv
 extension Cylinder3: BoundableType where Vector: Vector3FloatingPoint {
     @inlinable
     public var bounds: AABB<Vector> {
-        /// Degenerate cylinder
+        // Degenerate cylinder
         if start == end {
             return .zero
         }

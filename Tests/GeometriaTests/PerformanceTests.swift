@@ -292,3 +292,21 @@ extension PerformanceTests {
         }
     }
 }
+
+// MARK: Triangle.area
+
+extension PerformanceTests {
+    func xtestTriangleArea() {
+        typealias Vector = Vector2D
+        
+        let triangle = Triangle<Vector>(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                _=triangle.area
+            }
+        }
+    }
+}

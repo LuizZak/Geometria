@@ -35,8 +35,8 @@ public extension Vector2Multiplicative {
     func cross(_ other: Self) -> Scalar {
         // Doing this in separate statements to ease long compilation times in
         // Xcode 12
-        let d1 = (x * other.y)
-        let d2 = (y * other.x)
+        let d1 = x * other.y
+        let d2 = y * other.x
         
         return d1 - d2
     }
