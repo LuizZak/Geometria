@@ -51,6 +51,17 @@ class Cylinder3Tests: XCTestCase {
 // MARK: BoundableType Conformance
 
 extension Cylinder3Tests {
+    func testBounds_zeroHeightCylinder() {
+        let sut = Cylinder(start: .unitY,
+                           end: .unitY,
+                           radius: 1)
+        
+        let result = sut.bounds
+        
+        XCTAssertEqual(result.minimum, .zero)
+        XCTAssertEqual(result.maximum, .zero)
+    }
+    
     func testBounds_unitLengthCylinder() {
         let sut = Cylinder(start: .zero,
                            end: .unitZ,
