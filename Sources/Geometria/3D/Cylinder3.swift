@@ -189,7 +189,7 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         let lineAProj = pl.project2D(line.a)
         let lineBProj = pl.project2D(line.b)
         
-        let line2d = line.make2DLine(lineAProj, lineBProj)
+        let line2d = Line.make2DLine(lineAProj, lineBProj)
         
         let intersection = aabb.intersection(with: line2d)
         

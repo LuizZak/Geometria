@@ -14,4 +14,15 @@ class Line3Tests: XCTestCase {
         XCTAssertEqual(sut.b.y, 7)
         XCTAssertEqual(sut.b.z, 11)
     }
+    
+    func testMake2DLine() {
+        let result =
+        Line.make2DLine(
+            .init(x: 1, y: 2),
+            .init(x: 3, y: 5)
+        )
+        
+        XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.b, .init(x: 3, y: 5))
+    }
 }

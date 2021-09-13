@@ -25,4 +25,15 @@ class Ray3Tests: XCTestCase {
         XCTAssertEqual(sut.b.y, 13)
         XCTAssertEqual(sut.b.z, 16)
     }
+    
+    func testMake2DLine() {
+        let result =
+        Ray.make2DLine(
+            .init(x: 1, y: 2),
+            .init(x: 3, y: 5)
+        )
+        
+        XCTAssertEqual(result.start, .init(x: 1, y: 2))
+        XCTAssertEqual(result.b, .init(x: 3, y: 5))
+    }
 }
