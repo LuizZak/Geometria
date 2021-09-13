@@ -42,20 +42,19 @@ extension Triangle2: VolumetricType where Vector: Vector2FloatingPoint {
         let sign: Scalar = isClockwise ? -1 : 1
         
         let caCross = c.cross(a)
+        let acMinus = a - c
+        let acMinusCross = acMinus.cross(vector)
         
-        let caMinus = a - c
-        let caMinusCross = caMinus.cross(vector)
-        
-        let s: Scalar = (caCross + caMinusCross) * sign
+        let s: Scalar = (caCross + acMinusCross) * sign
         if s <= .zero {
             return false
         }
         
         let abCross = a.cross(b)
-        let abMinus = a - c
-        let abMinusCross = caMinus.cross(vector)
+        let baMinus = b - a
+        let baMinusCross = baMinus.cross(vector)
         
-        let t: Scalar = (abCross + (a.y - b.y) * vector.x as Scalar + (b.x - a.x) * vector.y as Scalar) * sign
+        let t: Scalar = (abCross + baMinusCross) * sign
         if t <= .zero {
             return false
         }
