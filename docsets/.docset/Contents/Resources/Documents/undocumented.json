@@ -450,7 +450,7 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Cylinder3.swift",
-      "line": 30,
+      "line": 33,
       "symbol": "Cylinder3.init(start:end:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -842,14 +842,14 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
-      "line": 6,
+      "line": 8,
       "symbol": "LineSegment.Scalar",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
-      "line": 27,
+      "line": 29,
       "symbol": "LineSegment.init(start:end:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1059,7 +1059,7 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Ray.swift",
-      "line": 15,
+      "line": 17,
       "symbol": "Ray.init(start:b:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1082,6 +1082,20 @@
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
       "line": 11,
       "symbol": "RoundNRectangle.init(rectangle:radius:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Triangle+Coordinates.swift",
+      "line": 16,
+      "symbol": "Triangle.Coordinates.init(wa:wb:wc:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Triangle.swift",
+      "line": 19,
+      "symbol": "Triangle.init(a:b:c:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }

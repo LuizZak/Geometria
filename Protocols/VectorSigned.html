@@ -799,7 +799,7 @@
                         <p>Returns a <code>VectorSigned</code> where each component is the absolute magnitude
 of the components of this <code>VectorSigned</code>.</p>
 
-<p>Equivalent to calling C&rsquo;s abs() function on each component.</p>
+<p>Equivalent to calling C&rsquo;s <code>abs()</code> function on each component.</p>
 <pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">)</span> <span class="c1">// Prints "(x: 2.0, y: 1.0)"</span>
 </code></pre>
 
@@ -828,9 +828,10 @@ of the components of this <code>VectorSigned</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a <code>VectorSigned</code> where each component is <code>Self.one</code> with the
-signs of each component of this <code>VectorSigned</code>, unless the component is
-<code>Scalar.zero</code>, in which case the value is <code>Scalar.zero</code>, instead.</p>
+                        <p>Returns a <code>VectorSigned</code> where each component is <code><a href="../Protocols/VectorMultiplicative.html#/s:9Geometria20VectorMultiplicativeP3onexvpZ">one</a></code>
+with the signs of each component of this <code>VectorSigned</code>, unless the
+component is <code>Scalar.zero</code>, in which case the value is <code>Scalar.zero</code>,
+instead.</p>
 <pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">sign</span><span class="p">)</span> <span class="c1">// Prints "(x: 1.0, y: -1.0)"</span>
 <span class="nf">print</span><span class="p">(</span><span class="kt">Vector2D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">sign</span><span class="p">)</span> <span class="c1">// Prints "(x: -1.0, y: 0.0)"</span>
 </code></pre>
@@ -867,7 +868,7 @@ signs of each component of this <code>VectorSigned</code>, unless the component 
 of the components of this <code>VectorSigned</code>, but with the signs of a
 secondary <code>VectorSigned</code>.</p>
 
-<p>Equivalent to multiplying <code>self.absolute</code> by <code>other.sign</code>.</p>
+<p>Equivalent to multiplying <code><a href="../Protocols/VectorSigned.html#/s:9Geometria12VectorSignedP8absolutexvp">absolute</a></code> by <code>other.sign</code>.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vec1</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">vec2</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
 
@@ -881,7 +882,7 @@ secondary <code>VectorSigned</code>.</p>
 of the components of this <code>VectorSigned</code>, but with the signs of a
 secondary <code>VectorSigned</code>.</p>
 
-<p>Equivalent to multiplying <code>self.absolute</code> by <code>other.sign</code>.</p>
+<p>Equivalent to multiplying <code>absolute</code> by <code>other.sign</code>.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vec1</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">)</span>
 <span class="k">let</span> <span class="nv">vec2</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
 
@@ -937,7 +938,7 @@ secondary <code>VectorSigned</code>.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-13)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-14)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
