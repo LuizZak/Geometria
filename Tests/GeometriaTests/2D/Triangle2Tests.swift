@@ -322,7 +322,7 @@ extension Triangle2Tests {
         XCTAssertEqual(result.wc, 0.0)
     }
     
-    func testToBarycentric_reversedTriangle() {
+    func testToBarycentric_extrapolated_reversedTriangle() {
         let sut =
         Triangle(
             a: .zero,

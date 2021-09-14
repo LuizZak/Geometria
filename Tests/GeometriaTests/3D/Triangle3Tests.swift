@@ -2,10 +2,11 @@ import XCTest
 import Geometria
 
 class Triangle3Tests: XCTestCase {
-    typealias Triangle = Triangle3D
+    typealias Vector = Vector3D
+    typealias Triangle = Triangle3<Vector>
 }
 
-// MARK: Vector: Vector3FloatingPoint Conformance
+// MARK: PlaneType Conformance
 
 extension Triangle3Tests {
     func testNormal_onPlaneXY() {
@@ -132,7 +133,11 @@ extension Triangle3Tests {
         XCTAssertEqual(result.point, .zero)
         XCTAssertEqual(result.normal, .zero)
     }
-    
+}
+
+// MARK: - LineIntersectablePlaneType Conformance
+
+extension Triangle3Tests {
     func testUnclampedNormalMagnitudeForIntersection_line_withinTriangleBounds() {
         let sut = Triangle(
             a: .zero,
@@ -274,5 +279,109 @@ extension Triangle3Tests {
         let result = sut.intersection(with: line)
         
         XCTAssertNil(result)
+    }
+    
+    func testToBarycentricXYZ() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        
+        let result = sut.toBarycentric(x: 20, y: 20, z: 20)
+        
+        XCTAssertEqual(result.wa, 0.8)
+        XCTAssertEqual(result.wb, 0.0)
+        XCTAssertEqual(result.wc, 0.19999999999999996)
+    }
+    
+    func testToBarycentric_aPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let point = sut.a
+        
+        let result = sut.toBarycentric(point)
+        
+        XCTAssertEqual(result.wa, 1.0)
+        XCTAssertEqual(result.wb, 0.0)
+        XCTAssertEqual(result.wc, 0.0)
+    }
+    
+    func testToBarycentric_bPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let point = sut.b
+        
+        let result = sut.toBarycentric(point)
+        
+        XCTAssertEqual(result.wa, 0.0)
+        XCTAssertEqual(result.wb, 1.0)
+        XCTAssertEqual(result.wc, 0.0)
+    }
+    
+    func testToBarycentric_cPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let point = sut.c
+        
+        let result = sut.toBarycentric(point)
+        
+        XCTAssertEqual(result.wa, 0.0)
+        XCTAssertEqual(result.wb, 0.0)
+        XCTAssertEqual(result.wc, 1.0)
+    }
+    
+    func testToBarycentric_center() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let point = sut.center
+        
+        let result = sut.toBarycentric(point)
+        
+        XCTAssertEqual(result.wa, 0.3333333333333333)
+        XCTAssertEqual(result.wb, 0.3333333333333333)
+        XCTAssertEqual(result.wc, 0.3333333333333334)
+    }
+    
+    func testToBarycentric_extrapolated() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let point = Vector(x: 200, y: 200, z: 200)
+        
+        let result = sut.toBarycentric(point)
+        
+        XCTAssertEqual(result.wa, -1.0)
+        XCTAssertEqual(result.wb, 0.0)
+        XCTAssertEqual(result.wc, 2.0)
+    }
+    
+    func testToBarycentric_extrapolated_reversedTriangle() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 100),
+            c: .init(x: 100, y: 100, z: 0)
+        )
+        let point = Vector(x: 200, y: 200, z: 200)
+        
+        let result = sut.toBarycentric(point)
+        
+        XCTAssertEqual(result.wa, -1.0)
+        XCTAssertEqual(result.wb, 2.0)
+        XCTAssertEqual(result.wc, 0.0)
     }
 }

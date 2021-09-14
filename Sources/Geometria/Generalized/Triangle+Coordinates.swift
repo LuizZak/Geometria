@@ -3,13 +3,13 @@ public extension Triangle where Scalar: Equatable {
     ///
     /// [barycentric coordinates]: https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Barycentric_coordinates_on_triangles
     struct Coordinates: Equatable {
-        /// Weight of vertex ``Triangle/a``.
+        /// Normalized weight of vertex ``Triangle/a``.
         public var wa: Scalar
         
-        /// Weight of vertex ``Triangle/b``.
+        /// Normalized weight of vertex ``Triangle/b``.
         public var wb: Scalar
         
-        /// Weight of vertex ``Triangle/c``.
+        /// Normalized weight of vertex ``Triangle/c``.
         public var wc: Scalar
         
         @_transparent

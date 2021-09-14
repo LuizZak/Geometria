@@ -1,18 +1,19 @@
 /// Vector type where the components are signed numbers.
 public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric & Comparable {
-    /// Returns a `VectorSigned` where each component is the absolute magnitude
-    /// of the components of this `VectorSigned`.
+    /// Returns a ``VectorSigned`` where each component is the absolute magnitude
+    /// of the components of this ``VectorSigned``.
     ///
-    /// Equivalent to calling C's abs() function on each component.
+    /// Equivalent to calling C's `abs()` function on each component.
     ///
     /// ```swift
     /// print(Vector2D(x: 2.0, y: -1.0).absolute) // Prints "(x: 2.0, y: 1.0)"
     /// ```
     var absolute: Self { get }
     
-    /// Returns a `VectorSigned` where each component is `Self.one` with the
-    /// signs of each component of this `VectorSigned`, unless the component is
-    /// `Scalar.zero`, in which case the value is `Scalar.zero`, instead.
+    /// Returns a ``VectorSigned`` where each component is ``VectorMultiplicative/one``
+    /// with the signs of each component of this ``VectorSigned``, unless the
+    /// component is `Scalar.zero`, in which case the value is `Scalar.zero`,
+    /// instead.
     ///
     /// ```swift
     /// print(Vector2D(x: 4.0, y: -2.0).sign) // Prints "(x: 1.0, y: -1.0)"
@@ -20,11 +21,11 @@ public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric &
     /// ```
     var sign: Self { get }
     
-    /// Returns a `VectorSigned` where each component is the absolute magnitude
-    /// of the components of this `VectorSigned`, but with the signs of a
-    /// secondary `VectorSigned`.
+    /// Returns a ``VectorSigned`` where each component is the absolute magnitude
+    /// of the components of this ``VectorSigned``, but with the signs of a
+    /// secondary ``VectorSigned``.
     ///
-    /// Equivalent to multiplying `self.absolute` by `other.sign`.
+    /// Equivalent to multiplying ``absolute`` by `other.sign`.
     ///
     /// ```swift
     /// let vec1 = Vector3D(x: 5.0, y: -4.0, z: 3.0)
@@ -43,11 +44,11 @@ public protocol VectorSigned: VectorMultiplicative where Scalar: SignedNumeric &
 }
 
 public extension VectorSigned {
-    /// Returns a `VectorSigned` where each component is the absolute magnitude
-    /// of the components of this `VectorSigned`, but with the signs of a
-    /// secondary `VectorSigned`.
+    /// Returns a ``VectorSigned`` where each component is the absolute magnitude
+    /// of the components of this ``VectorSigned``, but with the signs of a
+    /// secondary ``VectorSigned``.
     ///
-    /// Equivalent to multiplying `self.absolute` by `other.sign`.
+    /// Equivalent to multiplying ``absolute`` by `other.sign`.
     ///
     /// ```swift
     /// let vec1 = Vector3D(x: 5.0, y: -4.0, z: 3.0)
@@ -61,10 +62,10 @@ public extension VectorSigned {
     }
 }
 
-/// Returns a `VectorSigned` with each component as the absolute value of the
-/// components of a given `VectorSigned`.
+/// Returns a ``VectorSigned`` with each component as the absolute value of the
+/// components of a given ``VectorSigned``.
 ///
-/// Equivalent to calling C's abs() function on each component.
+/// Equivalent to calling C's `abs()` function on each component.
 ///
 /// Convenience for ``VectorSigned/absolute``.
 ///

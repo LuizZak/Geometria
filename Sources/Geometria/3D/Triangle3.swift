@@ -13,6 +13,32 @@ public typealias Triangle3i = Triangle3<Vector3i>
 /// Typealias for `Triangle<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias Triangle3<V: Vector3Type> = Triangle<V>
 
+public extension Triangle3 where Vector: Vector3Multiplicative {
+    /// Returns the cross product of the edges `BA` and `CA` on this triangle.
+    ///
+    /// The resulting cross vector can be used to compute the area of the
+    /// triangle, its normal, and its winding.
+    ///
+    /// For a 3D triangle, the cossed area is computed as the cross-product of
+    /// `BA` and `CA`:
+    ///
+    /// ```swift
+    /// let ba = b - a
+    /// let ca = c - a
+    ///
+    /// return ba.cross(ca)
+    /// ```
+    ///
+    /// - seealso: ``signedArea``
+    @_transparent
+    var crossedArea: Vector {
+        let ba = b - a
+        let ca = c - a
+        
+        return ba.cross(ca)
+    }
+}
+
 extension Triangle3: PlaneType where Vector: Vector3FloatingPoint {
     @_transparent
     public var pointOnPlane: Vector { a }
@@ -22,10 +48,7 @@ extension Triangle3: PlaneType where Vector: Vector3FloatingPoint {
     /// pointing to the direction where the points form an anti-clockwise winding.
     @_transparent
     public var normal: Vector {
-        let ab = a - b
-        let ac = a - c
-        
-        return ab.cross(ac).normalized()
+        crossedArea.normalized()
     }
 }
 
@@ -103,8 +126,6 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         return point
     }
     
-    // TODO: Unit test these methods separately.
-    
     /// Performs a projection of a given set of coordinates onto this triangle
     /// as a set of barycentric coordinates.
     @_transparent
@@ -123,23 +144,16 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     /// [coplanar]: https://en.wikipedia.org/wiki/Coplanarity
     @inlinable
     public func toBarycentric(_ vector: Vector) -> Coordinates {
-        let ba = b - a
-        let ca = c - a
-        let n = ba.cross(ca)
-        
+        let n = crossedArea
         let denom = n.dot(n)
         
         // a
-        let e0 = c - b
-        let c0 = vector - b
-        
-        let wa = n.dot(e0.cross(c0)) / denom
+        let wav = Triangle3(a: b, b: c, c: vector)
+        let wa = n.dot(wav.crossedArea) / denom
         
         // b
-        let e1 = a - c
-        let c1 = vector - c
-        
-        let wb = n.dot(e1.cross(c1)) / denom
+        let wbv = Triangle3(a: c, b: a, c: vector)
+        let wb = n.dot(wbv.crossedArea) / denom
         
         return Coordinates(
             wa: wa,
