@@ -48,10 +48,12 @@ extension Disk3: BoundableType {
         let normCross = cross.normalized() * radius
         let otherAxis = normCross.cross(normal).normalized() * radius
         
-        return .init(of: center - normCross,
-                     center + normCross,
-                     center - otherAxis,
-                     center + otherAxis)
+        let a = center - normCross
+        let b = center + normCross
+        let c = center - otherAxis
+        let d = center + otherAxis
+        
+        return .init(of: a, b, c, d)
     }
 }
 

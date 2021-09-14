@@ -31,6 +31,10 @@ extension Triangle where Vector: VectorMultiplicative {
     /// Projects the given barycentric coordinates back into world space.
     @inlinable
     public func projectToWorld(_ proj: Coordinates) -> Vector {
-        proj.wa * a + proj.wb * b + proj.wc * c
+        let pa = proj.wa * a
+        let pb = proj.wb * b
+        let pc = proj.wc * c
+        
+        return pa + pb + pc
     }
 }
