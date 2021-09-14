@@ -118,8 +118,8 @@ public extension VectorFloatingPoint {
 /// Rounds the components of a given `VectorFloatingPoint` using
 /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
 ///
-/// Equivalent to calling C's round() function on each component.
-@inlinable
+/// Equivalent to calling C's `round()` function on each component.
+@_transparent
 public func round<V: VectorFloatingPoint>(_ x: V) -> V {
     x.rounded(.toNearestOrAwayFromZero)
 }
@@ -127,8 +127,8 @@ public func round<V: VectorFloatingPoint>(_ x: V) -> V {
 /// Rounds up the components of a given `VectorFloatingPoint` using
 /// `FloatingPointRoundingRule.up`.
 ///
-/// Equivalent to calling C's ceil() function on each component.
-@inlinable
+/// Equivalent to calling C's `ceil()` function on each component.
+@_transparent
 public func ceil<V: VectorFloatingPoint>(_ x: V) -> V {
     x.rounded(.up)
 }
@@ -136,8 +136,8 @@ public func ceil<V: VectorFloatingPoint>(_ x: V) -> V {
 /// Rounds down the components of a given `VectorFloatingPoint` using
 /// `FloatingPointRoundingRule.down`.
 ///
-/// Equivalent to calling C's floor() function on each component.
-@inlinable
+/// Equivalent to calling C's `floor()` function on each component.
+@_transparent
 public func floor<V: VectorFloatingPoint>(_ x: V) -> V {
     x.rounded(.down)
 }

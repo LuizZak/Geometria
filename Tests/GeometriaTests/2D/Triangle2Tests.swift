@@ -9,6 +9,14 @@ class Triangle2Tests: XCTestCase {
 // MARK: Vector: Vector2Multiplicative Conformance
 
 extension Triangle2Tests {
+    func testUnitTriangle() {
+        let sut = Triangle.unitTriangle
+        
+        XCTAssertEqual(sut.a, .init(x: 0, y: 0))
+        XCTAssertEqual(sut.b, .init(x: 1, y: 0))
+        XCTAssertEqual(sut.c, .init(x: 0, y: 1))
+    }
+    
     func testSignedDoubleArea_emptyTriangle() {
         let sut = Triangle(a: .zero, b: .one, c: .init(x: 0.5, y: 0.5))
         

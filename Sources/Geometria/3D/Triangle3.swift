@@ -126,6 +126,53 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         return point
     }
     
+    /// Performs [Möller-Trumbore intersection algorithm] against a line.
+    /// Returns scalars for the line's magnitude, and [barycentric coordinates]
+    /// for the triangle's position on the intersection.
+    ///
+    /// Intersections that happen outside the line's range (see
+    /// ``LineFloatingPoint/containsProjectedNormalizedMagnitude(_:)``) return
+    /// `nil`, instead.
+    ///
+    /// [Möller-Trumbore intersection algorithm]: https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
+    /// [barycentric coordinates]: https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Barycentric_coordinates_on_triangles
+    @inlinable
+    public func mollerTrumboreIntersect<Line: LineFloatingPoint>(with line: Line) -> (lineMagnitude: Scalar, Coordinates)? where Line.Vector == Vector {
+        let orig = line.a
+        let slope = line.lineSlope
+        let dir = slope.normalized()
+        
+        let v0v1 = b - a
+        let v0v2 = c - a
+        let pvec = dir.cross(v0v2)
+        let det = v0v1.dot(pvec)
+        
+        if abs(det) < .leastNonzeroMagnitude {
+            return nil
+        }
+        
+        let invDet: Scalar = 1 / det
+        
+        let tvec = orig - a
+        let u: Scalar = tvec.dot(pvec) * invDet
+        if u < 0 || u > 1 {
+            return nil
+        }
+        
+        let qvec = tvec.cross(v0v1)
+        let v: Scalar = dir.dot(qvec) * invDet
+        if v < 0 || u + v > 1 {
+            return nil
+        }
+        
+        let magnitude: Scalar = (v0v2.dot(qvec) * invDet) / slope.length
+        if !line.containsProjectedNormalizedMagnitude(magnitude) {
+            return nil
+        }
+        
+        return (magnitude, Coordinates(wa: 1 - u - v, wb: u, wc: v))
+    }
+    
     /// Performs a projection of a given set of coordinates onto this triangle
     /// as a set of barycentric coordinates.
     @_transparent

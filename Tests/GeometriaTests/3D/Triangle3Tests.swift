@@ -281,6 +281,92 @@ extension Triangle3Tests {
         XCTAssertNil(result)
     }
     
+    func testMollerTrumboreIntersectWith_line_withinTriangleBounds() throws {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let line = Line3D(x1: 50, y1: 0, z1: 25, x2: 50, y2: 5, z2: 25)
+        
+        let result = try XCTUnwrap(sut.mollerTrumboreIntersect(with: line))
+        
+        XCTAssertEqual(result.lineMagnitude, 10.0)
+        XCTAssertEqual(result.1.wa, 0.50)
+        XCTAssertEqual(result.1.wb, 0.25)
+        XCTAssertEqual(result.1.wc, 0.25)
+        XCTAssertEqual(sut.projectToWorld(result.1), .init(x: 50.0, y: 50.0, z: 25.0))
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let line = Line3D(x1: 25, y1: 0, z1: 50, x2: 25, y2: 1, z2: 50)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_parallel() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let line = Line3D(x1: 25, y1: 0, z1: 0, x2: 25, y2: 0, z2: 50)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_ray_afterEndOfLine() throws {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let line = Ray3D(x1: 50, y1: 0, z1: 25, x2: 50, y2: 1, z2: 25)
+        
+        let result = try XCTUnwrap(sut.mollerTrumboreIntersect(with: line))
+        
+        XCTAssertEqual(result.lineMagnitude, 50.0)
+        XCTAssertEqual(result.1.wa, 0.50)
+        XCTAssertEqual(result.1.wb, 0.25)
+        XCTAssertEqual(result.1.wc, 0.25)
+        XCTAssertEqual(sut.projectToWorld(result.1), .init(x: 50.0, y: 50.0, z: 25.0))
+    }
+    
+    func testMollerTrumboreIntersectWith_ray_beforeStartOfLine() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let line = Ray3D(x1: 50, y1: 150, z1: 25, x2: 50, y2: 151, z2: 25)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_lineSegment_afterEndOfLine() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 100, z: 0),
+            c: .init(x: 100, y: 100, z: 100)
+        )
+        let line = LineSegment3D(x1: 50, y1: 0, z1: 25, x2: 50, y2: 1, z2: 25)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
     func testToBarycentricXYZ() {
         let sut = Triangle(
             a: .zero,

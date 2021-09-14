@@ -14,6 +14,21 @@ public typealias Triangle2i = Triangle2<Vector2i>
 public typealias Triangle2<V: Vector2Type> = Triangle<V>
 
 public extension Triangle2 where Vector: Vector2Multiplicative {
+    /// Returns a unit triangle where ``a``, ``b``, and ``c`` take the following
+    /// values:
+    ///
+    /// ```swift
+    /// a = Vector(x: 0, y: 0)
+    /// b = Vector(x: 1, y: 0)
+    /// c = Vector(x: 0, y: 1)
+    /// ```
+    @_transparent
+    static var unitTriangle: Self {
+        .init(a: .init(x: .zero, y: .zero),
+              b: .init(x: 1, y: .zero),
+              c: .init(x: .zero, y: 1))
+    }
+    
     /// Returns the signed doubled area of this triangle.
     ///
     /// The triangle has a negative signed area if the parallelogram formed by

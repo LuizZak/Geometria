@@ -310,3 +310,63 @@ extension PerformanceTests {
         }
     }
 }
+
+// MARK: Triangle / line intersection
+
+extension PerformanceTests {
+    func xtestTriangleIntersectionWith() {
+        typealias Vector = Vector3D
+        
+        let triangle = Triangle<Vector>(
+            a: .init(x: 0, y: 1, z: 2),
+            b: .init(x: 2, y: 130, z: 5),
+            c: .init(x: 121, y: 5, z: 11)
+        )
+        
+        var line = Line<Vector>(
+            x1: -10,
+            y1: 0,
+            z1: 70,
+            x2: 10,
+            y2: 50,
+            z2: -20
+        )
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                line.a.x += 1
+                _=triangle.intersection(with: line)
+            }
+        }
+    }
+    
+    func xtestTriangleMollerTrumboreIntersect() {
+        typealias Vector = Vector3D
+        
+        let triangle = Triangle<Vector>(
+            a: .init(x: 0, y: 1, z: 2),
+            b: .init(x: 2, y: 130, z: 5),
+            c: .init(x: 121, y: 5, z: 11)
+        )
+        
+        var line = Line<Vector>(
+            x1: -10,
+            y1: 0,
+            z1: 70,
+            x2: 10,
+            y2: 50,
+            z2: -20
+        )
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                line.a.x += 1
+                _=triangle.mollerTrumboreIntersect(with: line)
+            }
+        }
+    }
+}
