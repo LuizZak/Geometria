@@ -51,19 +51,21 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     @usableFromInline
     func containsProjectedPoint(_ vector: Vector) -> Bool {
         let n = normal
-        let e0 = b - a
-        let e1 = c - b
-        let e2 = a - c
-        let c0 = vector - a
-        let c1 = vector - b
-        let c2 = vector - c
         
+        let e0 = b - a
+        let c0 = vector - a
         guard e0.cross(c0).dot(n) > 0 else {
             return false
         }
+        
+        let e1 = c - b
+        let c1 = vector - b
         guard e1.cross(c1).dot(n) > 0 else {
             return false
         }
+        
+        let e2 = a - c
+        let c2 = vector - c
         guard e2.cross(c2).dot(n) > 0 else {
             return false
         }
