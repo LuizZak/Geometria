@@ -124,14 +124,14 @@ extension Triangle2: VolumetricType where Vector: Vector2FloatingPoint {
             return .zero
         }
         
-        let wa = Triangle(a: b, b: c, c: vector).signedDoubleArea
-        let wb = Triangle(a: c, b: a, c: vector).signedDoubleArea
-        let wc = Triangle(a: a, b: b, c: vector).signedDoubleArea
+        let wa = Triangle(a: b, b: c, c: vector).signedDoubleArea / sArea
+        let wb = Triangle(a: c, b: a, c: vector).signedDoubleArea / sArea
+        let wc = 1 - wa - wb
         
         return Coordinates(
-            wa: wa / sArea,
-            wb: wb / sArea,
-            wc: wc / sArea
+            wa: wa,
+            wb: wb,
+            wc: wc
         )
     }
 }

@@ -39,38 +39,21 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     
     @usableFromInline
     func normalMagnitude<Line: LineFloatingPoint>(_ line: Line) -> Vector.Scalar? where Line.Vector == Vector {
-        let denom = normal.dot(line.lineSlope)
+        let n = normal
+        let denom = n.dot(line.lineSlope)
         if abs(denom) <= .leastNonzeroMagnitude {
             return nil
         }
         
-        let numer = normal.dot(pointOnPlane - line.a)
+        let numer = n.dot(pointOnPlane - line.a)
         return numer / denom
     }
     
     @usableFromInline
     func containsProjectedPoint(_ vector: Vector) -> Bool {
-        let n = normal
+        let bary = toBarycentric(vector)
         
-        let e0 = b - a
-        let c0 = vector - a
-        guard e0.cross(c0).dot(n) > 0 else {
-            return false
-        }
-        
-        let e1 = c - b
-        let c1 = vector - b
-        guard e1.cross(c1).dot(n) > 0 else {
-            return false
-        }
-        
-        let e2 = a - c
-        let c2 = vector - c
-        guard e2.cross(c2).dot(n) > 0 else {
-            return false
-        }
-        
-        return true
+        return bary.wa >= 0 && bary.wb >= 0 && bary.wc >= 0 && (bary.wa + bary.wb + bary.wc) <= 1
     }
     
     /// Returns the normalized magnitude for a line's intersection point on this
@@ -115,5 +98,50 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         }
         
         return point
+    }
+    
+    // TODO: Unit test these methods separately.
+    
+    /// Performs a projection of a given set of coordinates onto this triangle
+    /// as a set of barycentric coordinates.
+    @_transparent
+    public func toBarycentric(x: Scalar, y: Scalar, z: Scalar) -> Coordinates {
+        toBarycentric(.init(x: x, y: y, z: z))
+    }
+    
+    /// Performs a projection of a given vector onto this triangle as a set of
+    /// barycentric coordinates.
+    ///
+    /// The resulting coordinates might have scalar values `< .zero`, indicating
+    /// points that projected outside the area of the triangle.
+    ///
+    /// The method assumes `vector` is [coplanar] with ``a``, ``b``, and ``c``.
+    ///
+    /// [coplanar]: https://en.wikipedia.org/wiki/Coplanarity
+    @inlinable
+    public func toBarycentric(_ vector: Vector) -> Coordinates {
+        let ba = b - a
+        let ca = c - a
+        let n = ba.cross(ca)
+        
+        let denom = n.dot(n)
+        
+        // a
+        let e0 = c - b
+        let c0 = vector - b
+        
+        let wa = n.dot(e0.cross(c0)) / denom
+        
+        // b
+        let e1 = a - c
+        let c1 = vector - c
+        
+        let wb = n.dot(e1.cross(c1)) / denom
+        
+        return Coordinates(
+            wa: wa,
+            wb: wb,
+            wc: 1 - wa - wb
+        )
     }
 }
