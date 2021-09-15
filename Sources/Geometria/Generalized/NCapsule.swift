@@ -34,6 +34,7 @@ extension NCapsule: Hashable where Vector: Hashable, Scalar: Hashable { }
 public extension NCapsule {
     /// Returns a line segment with the same ``LineSegment/start`` and
     /// ``LineSegment/end`` points of this N-capsule.
+    @_transparent
     var asLineSegment: LineSegment<Vector> {
         LineSegment(start: start, end: end)
     }

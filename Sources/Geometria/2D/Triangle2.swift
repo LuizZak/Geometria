@@ -150,3 +150,95 @@ extension Triangle2: VolumetricType where Vector: Vector2FloatingPoint {
         )
     }
 }
+
+extension Triangle2: Convex2Type where Vector: Vector2FloatingPoint {
+    // TODO: Find a more properly optimized line-triangle intersection algorithm.
+    
+    /// Performs an intersection test against the given line, returning up to
+    /// two points representing the entrance and exit intersections against this
+    /// 2D triangle's outer perimeter.
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : Line2FloatingPoint, Vector == Line.Vector {
+        var minUA: Scalar = .infinity
+        var minNorm: Vector = .zero
+        
+        var maxUA: Scalar = -.infinity
+        var maxNorm: Vector = .zero
+        
+        func processEdge(_ l: LineSegment<Vector>) {
+            guard let inters = line.intersection(with: l) else {
+                return
+            }
+            
+            let edgeSlope = l.lineSlope
+            let lineSlope = line.lineSlope
+            
+            // Use the edge line slope direction that minimizes the dot product
+            // against the query line (aka use the edge normal that points in the
+            // opposite direction of the line).
+            let norm: Vector
+            if edgeSlope.leftRotated().dot(lineSlope) < edgeSlope.rightRotated().dot(lineSlope) {
+                norm = edgeSlope.leftRotated()
+            } else {
+                norm = edgeSlope.rightRotated()
+            }
+            
+            minUA = Scalar.minimum(minUA, inters.line1NormalizedMagnitude)
+            minNorm = norm
+            
+            maxUA = Scalar.maximum(maxUA, inters.line1NormalizedMagnitude)
+            maxNorm = norm
+        }
+        
+        processEdge(lineAB)
+        processEdge(lineBC)
+        processEdge(lineCA)
+        
+        let pnEnter: PointNormal<Vector>?
+        let pnExit: PointNormal<Vector>?
+        
+        if minUA < .infinity {
+            pnEnter = PointNormal(
+                point: line.projectedNormalizedMagnitude(minUA),
+                normal: minNorm.normalized()
+            )
+        } else {
+            pnEnter = nil
+        }
+        
+        if maxUA > -.infinity {
+            pnExit = PointNormal(
+                point: line.projectedNormalizedMagnitude(maxUA),
+                normal: maxNorm.normalized()
+            )
+        } else {
+            pnExit = nil
+        }
+        
+        switch (pnEnter, pnExit) {
+        // Single-point: Enter, exit, or single-point
+        case let (en?, ex?) where en.point == ex.point:
+            if contains(line.a) {
+                return .exit(en)
+            }
+            if contains(line.b) {
+                return .enter(en)
+            }
+            
+            return .singlePoint(en)
+        
+        // Dual-point: enter-exit
+        case let (en?, ex?):
+            return .enterExit(en, ex)
+        
+        // No intersection, or full containment
+        case (nil, nil):
+            if contains(line.a) && contains(line.b) {
+                return .contained
+            }
+            
+            return .noIntersection
+        default:
+            return .noIntersection
+        }
+    }
+}

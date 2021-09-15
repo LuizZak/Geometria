@@ -355,3 +355,194 @@ extension Triangle2Tests {
         XCTAssertEqual(result.wc, 0.0)
     }
 }
+
+// MARK: ConvexType Conformance
+
+extension Triangle2Tests {
+    typealias Line = Line2D
+    typealias LineSegment = LineSegment2D
+    
+    func testIntersectionWith_line_noIntersection() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = Line(x1: 0, y1: 9, x2: 10, y2: 9)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .noIntersection
+        )
+    }
+    
+    // TODO: Fix normal of point intersections to be an average of the two edge
+    // TODO: normals.
+    func testIntersectionWith_line_singlePoint() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = Line(x1: 0, y1: 8, x2: 4, y2: 8)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .singlePoint(
+                .init(
+                    point: .init(x: 2.0, y: 8.0),
+                    normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_acrossEdge() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = Line(x1: 0, y1: 2, x2: 10, y2: 2)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                .init(
+                    point: .init(x: 1.0, y: 2.0),
+                    normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
+                ),
+                .init(
+                    point: .init(x: 7.0, y: 2.0),
+                    normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_enterExit_across_pointingRight() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = Line(x1: 0, y1: 5, x2: 10, y2: 5)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                .init(
+                    point: .init(x: 1.5, y: 5.0),
+                    normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
+                ),
+                .init(
+                    point: .init(x: 4.5, y: 5.0),
+                    normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_line_enterExit_across_pointingLeft() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = Line(x1: 10, y1: 5, x2: 0, y2: 5)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                .init(
+                    point: .init(x: 4.5, y: 5.0),
+                    normal: .init(x: 0.9863939238321437, y: -0.1643989873053573)
+                ),
+                .init(
+                    point: .init(x: 1.5000000000000002, y: 5.0),
+                    normal: .init(x: 0.9863939238321437, y: -0.1643989873053573)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_enter() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = LineSegment(x1: 0, y1: 5, x2: 2, y2: 5)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enter(
+                .init(
+                    point: .init(x: 1.5, y: 5.0),
+                    normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_exit() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = LineSegment(x1: 2, y1: 5, x2: 10, y2: 5)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .exit(
+                .init(
+                    point: .init(x: 4.5, y: 5.0),
+                    normal: .init(x: -0.7682212795973759, y: -0.6401843996644799)
+                )
+            )
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_contained() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = LineSegment(x1: 2, y1: 3, x2: 3, y2: 3)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .contained
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_startsAfterIntersection() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = LineSegment(x1: 10, y1: 5, x2: 11, y2: 5)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .noIntersection
+        )
+    }
+    
+    func testIntersectionWith_lineSegment_endsBeforeIntersection() {
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 7, y: 2),
+            c: .init(x: 2, y: 8)
+        )
+        let line = LineSegment(x1: -1, y1: 5, x2: 0, y2: 5)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .noIntersection
+        )
+    }
+}

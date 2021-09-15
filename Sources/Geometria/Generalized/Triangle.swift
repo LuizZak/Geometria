@@ -24,37 +24,37 @@ public struct Triangle<Vector: VectorType>: GeometricType {
 }
 
 public extension Triangle {
-    /// Returns a line segment between the points ``a`` and ``b``.
+    /// Returns a line segment for the edge between the points ``a`` `->` ``b``.
     @_transparent
     var lineAB: LineSegment<Vector> {
         .init(start: a, end: b)
     }
     
-    /// Returns a line segment between the points ``a`` and ``c``.
+    /// Returns a line segment for the edge between the points ``a`` `->` ``c``.
     @_transparent
     var lineAC: LineSegment<Vector> {
         .init(start: a, end: c)
     }
     
-    /// Returns a line segment between the points ``b`` and ``c``.
+    /// Returns a line segment for the edge between the points ``b`` `->` ``c``.
     @_transparent
     var lineBC: LineSegment<Vector> {
         .init(start: b, end: c)
     }
     
-    /// Returns a line segment between the points ``b`` and ``a``.
+    /// Returns a line segment for the edge between the points ``b`` `->` ``a``.
     @_transparent
     var lineBA: LineSegment<Vector> {
         .init(start: b, end: a)
     }
     
-    /// Returns a line segment between the points ``c`` and ``a``.
+    /// Returns a line segment for the edge between the points ``c`` `->` ``a``.
     @_transparent
     var lineCA: LineSegment<Vector> {
         .init(start: c, end: a)
     }
     
-    /// Returns a line segment between the points ``c`` and ``b``.
+    /// Returns a line segment for the edge between the points ``c`` `->` ``b``.
     @_transparent
     var lineCB: LineSegment<Vector> {
         .init(start: c, end: b)

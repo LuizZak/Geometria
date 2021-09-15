@@ -1,4 +1,5 @@
-/// Represents an N-dimensional sphere with a center point and a radius.
+/// Represents an [N-dimensional sphere](https://en.wikipedia.org/wiki/N-sphere)
+/// with a center point and a radius.
 public struct NSphere<Vector: VectorType>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
@@ -8,7 +9,10 @@ public struct NSphere<Vector: VectorType>: GeometricType, CustomStringConvertibl
         "\(type(of: self))(center: \(center), radius: \(radius))"
     }
     
+    /// The center point of this N-sphere.
     public var center: Vector
+    
+    /// The radius of this N-sphere.
     public var radius: Scalar
     
     @_transparent
