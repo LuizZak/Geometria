@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
            Docs
         </a>
-         (88% documented)
+         (89% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -219,6 +219,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Convex2Type.html">Convex2Type</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Convex3Type.html">Convex3Type</a>
@@ -1001,6 +1004,40 @@ within this triangle&rsquo;s area.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria8TriangleVA2A20Vector3FloatingPointRzrlE23mollerTrumboreIntersect4with6ScalarQz13lineMagnitude_AcASQAHRQrlE11CoordinatesVyx_GtSgqd___t6VectorQyd__RszAA04LinedE0Rd__lF"></a>
+                    <a name="//apple_ref/swift/Method/mollerTrumboreIntersect(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria8TriangleVA2A20Vector3FloatingPointRzrlE23mollerTrumboreIntersect4with6ScalarQz13lineMagnitude_AcASQAHRQrlE11CoordinatesVyx_GtSgqd___t6VectorQyd__RszAA04LinedE0Rd__lF">mollerTrumboreIntersect(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs <a href="https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm">Möller-Trumbore intersection algorithm</a> against a line.
+Returns scalars for the line&rsquo;s magnitude, and <a href="https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Barycentric_coordinates_on_triangles">barycentric coordinates</a>
+for the triangle&rsquo;s position on the intersection.</p>
+
+<p>Intersections that happen outside the line&rsquo;s range (see
+<code><a href="../Protocols/LineFloatingPoint.html#/s:9Geometria17LineFloatingPointP36containsProjectedNormalizedMagnitudeySb6Vector_6ScalarQZF">containsProjectedNormalizedMagnitude(_:)</a></code>) return
+<code>nil</code>, instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">mollerTrumboreIntersect</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">lineMagnitude</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="kt">Coordinates</span><span class="p">)?</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria8TriangleVA2A20Vector3FloatingPointRzrlE13toBarycentric1x1y1zAcASQ6ScalarRpzrlE11CoordinatesVyx_GAJ_A2JtF"></a>
                     <a name="//apple_ref/swift/Method/toBarycentric(x:y:z:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria8TriangleVA2A20Vector3FloatingPointRzrlE13toBarycentric1x1y1zAcASQ6ScalarRpzrlE11CoordinatesVyx_GAJ_A2JtF">toBarycentric(x:<wbr>y:<wbr>z:<wbr>)</a>
@@ -1068,7 +1105,7 @@ points that projected outside the area of the triangle.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-14)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-15)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>

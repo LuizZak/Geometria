@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PointProjectableType Protocol Reference</title>
+    <title>Convex2Type Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/PointProjectableType" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/Convex2Type" class="dashAnchor"></a>
 
-    <a title="PointProjectableType Protocol Reference"></a>
+    <a title="Convex2Type Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      PointProjectableType Protocol Reference
+      Convex2Type Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -769,18 +769,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>PointProjectableType</h1>
+            <h1>Convex2Type</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PointProjectableType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Convex2Type</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol for geometric types that support vector projection operations.</p>
-
-<p>Types conforming to this protocol expose a function that can project an
-arbitrary vector onto their surface.</p>
+            <p>Protocol for exclusively 2D geometric types defined by floating-point vectors
+that form closed convex shapes.</p>
 
           </div>
         </section>
@@ -792,9 +790,9 @@ arbitrary vector onto their surface.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria20PointProjectableTypeP6VectorQa"></a>
+                    <a name="/s:9Geometria11Convex2TypeP6VectorQa"></a>
                     <a name="//apple_ref/swift/Alias/Vector" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a>
+                    <a class="token" href="#/s:9Geometria11Convex2TypeP6VectorQa">Vector</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -802,14 +800,14 @@ arbitrary vector onto their surface.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The vector type associated with this <code>PointProjectableType</code>.</p>
+                        <p>The floating-point vector type associated with this <code>Convex2Type</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -819,9 +817,9 @@ arbitrary vector onto their surface.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria20PointProjectableTypeP7projecty6VectorQzAFF"></a>
-                    <a name="//apple_ref/swift/Method/project(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypeP7projecty6VectorQzAFF">project(_:<wbr>)</a>
+                    <a name="/s:9Geometria11Convex2TypeP12intersection4withAA22ConvexLineIntersectionOy6VectorQzGqd___tAA18Line2FloatingPointRd__AHQyd__AIRSlF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Convex2TypeP12intersection4withAA22ConvexLineIntersectionOy6VectorQzGqd___tAA18Line2FloatingPointRd__AHQyd__AIRSlF">intersection(with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -829,189 +827,16 @@ arbitrary vector onto their surface.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a vector on this geometric type that is the closest to <code>vector</code>.</p>
+                        <p>Performs an intersection test against the given line, returning up to
+two points representing the entrance and exit intersections against this
+convex shape&rsquo;s outer perimeter.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">project</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20PointProjectableTypeP15distanceSquared2to6Vector_6ScalarQZAFQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/distanceSquared(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypeP15distanceSquared2to6Vector_6ScalarQZAFQz_tF">distanceSquared(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the squared distance between the closest point in this geometric
-type&rsquo;s surface to a given vector.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP8distance2to6Vector_6ScalarQZAFQz_tF">distance(to:)</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">distanceSquared</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20PointProjectableTypeP8distance2to6Vector_6ScalarQZAFQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/distance(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypeP8distance2to6Vector_6ScalarQZAFQz_tF">distance(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns the distance between the closest point in this geometric type to
-a given vector.</p>
-
-<p>Equivalent to <code>self.distanceSquared(to: vector).squareRoot()</code>.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP15distanceSquared2to6Vector_6ScalarQZAFQz_tF">distanceSquared(to:)</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">distance</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorMultiplicative%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorMultiplicative`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorMultiplicative%60"></a>
-                  <h3 class="section-name"><p>Available where <code><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></code>: <code><a href="../Protocols/VectorMultiplicative.html">VectorMultiplicative</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20PointProjectableTypePA2A20VectorMultiplicative0E0RpzrlE15distanceSquared2toAE_6ScalarQZAF_tF"></a>
-                    <a name="//apple_ref/swift/Method/distanceSquared(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypePA2A20VectorMultiplicative0E0RpzrlE15distanceSquared2toAE_6ScalarQZAF_tF">distanceSquared(to:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Returns the squared distance between this geometric type and a given
-vector.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code>distance(to:)</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">distanceSquared</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorFloatingPoint%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorFloatingPoint`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorFloatingPoint%60"></a>
-                  <h3 class="section-name"><p>Available where <code><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></code>: <code><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></code></p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20PointProjectableTypePA2A014VectorFloatingB00E0RpzrlE8distance2toAE_6ScalarQZAF_tF"></a>
-                    <a name="//apple_ref/swift/Method/distance(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypePA2A014VectorFloatingB00E0RpzrlE8distance2toAE_6ScalarQZAF_tF">distance(to:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Returns the distance between this geometric type and a given vector.</p>
-
-<p>Equivalent to <code>self.distanceSquared(to: vector).squareRoot()</code>.</p>
-<div class="aside aside-seealso">
-    <p class="aside-title">Seealso</p>
-    <code>distanceSquared(to:)</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">distance</span><span class="p">(</span><span class="n">to</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html#/s:9Geometria20PointProjectableTypeP6VectorQa">Vector</a></span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/Convex2Type.html#/s:9Geometria11Convex2TypeP6VectorQa">Vector</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt"><a href="../Protocols/Convex2Type.html#/s:9Geometria11Convex2TypeP6VectorQa">Vector</a></span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt"><a href="../Protocols/Convex2Type.html#/s:9Geometria11Convex2TypeP6VectorQa">Vector</a></span></code></pre>
 
                         </div>
                       </div>
