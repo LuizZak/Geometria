@@ -54,9 +54,7 @@ extension NSquare: VolumetricType where Vector: VectorAdditive & VectorComparabl
 extension NSquare: ConvexType where Vector: VectorFloatingPoint {
     /// Returns whether a given line intersects with this square.
     public func intersects<Line>(line: Line) -> Bool where Line: LineFloatingPoint, Line.Vector == Vector {
-        let inter = intersection(with: line)
-        
-        return inter != .noIntersection
+        bounds.intersects(line: line)
     }
     
     public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {

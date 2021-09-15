@@ -219,3 +219,14 @@ public extension NRectangle where Vector: VectorMultiplicative {
 extension NRectangle: DivisibleRectangleType where Vector: VectorDivisible {
     
 }
+
+extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
+    /// Returns `true` if this AABB's area intersects the given line type.
+    public func intersects<Line>(line: Line) -> Bool where Line : LineFloatingPoint, Vector == Line.Vector {
+        bounds.intersects(line: line)
+    }
+    
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+        bounds.intersection(with: line)
+    }
+}
