@@ -366,7 +366,7 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     }
 }
 
-extension AABB: ConvexType where Vector: VectorFloatingPoint & VectorComparable {
+extension AABB: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this AABB's area intersects the given line type.
     @inlinable
     public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {

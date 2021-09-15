@@ -22,6 +22,7 @@ extension RoundNRectangle: Decodable where Vector: Decodable, Scalar: Decodable 
 extension RoundNRectangle: BoundableType where Vector: VectorAdditive {
     /// Returns the minimal ``AABB`` capable of containing this round rectangle's
     /// bounds.
+    @_transparent
     public var bounds: AABB<Vector> {
         rectangle.bounds
     }

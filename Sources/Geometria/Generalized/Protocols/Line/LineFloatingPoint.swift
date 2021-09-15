@@ -15,7 +15,7 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vec
     ///
     /// - parameter scalar: A non-normalized magnitude that describes the length
     /// along the slope of this line to generate the point out of.
-    func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector
+    func projectedMagnitude(_ scalar: Magnitude) -> Vector
 
     /// Returns the result of creating a projection of this line's start point
     /// projected towards this line's end point, with a normalized magnitude of
@@ -27,7 +27,7 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vec
     /// along the slope of this line to generate the point out of. Values
     /// outside the range [0, 1] are allowed and equate to projections past the
     /// endpoints of the line.
-    func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector
+    func projectedNormalizedMagnitude(_ scalar: Magnitude) -> Vector
     
     /// Returns `true` if a normalized, projected `scalar` representing a segment
     /// of this line with the same starting point and direction, with
@@ -36,11 +36,11 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vec
     /// For infinite lines, all projected scalars lie within the line, while in
     /// line segments bounded with start/end points, only values laying in (0-1)
     /// are contained on the line.
-    func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool
+    func containsProjectedNormalizedMagnitude(_ scalar: Magnitude) -> Bool
     
     /// Returns a projected normalized magnitude that is guaranteed to be
     /// contained in this line.
-    func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar
+    func clampProjectedNormalizedMagnitude(_ scalar: Magnitude) -> Magnitude
     
     /// Returns the squared distance between this line and a given vector.
     ///
@@ -72,12 +72,12 @@ public extension LineFloatingPoint {
     }
     
     @inlinable
-    func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
+    func projectedMagnitude(_ scalar: Magnitude) -> Vector {
         a.addingProduct(lineSlope.normalized(), scalar)
     }
     
     @inlinable
-    func projectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector {
+    func projectedNormalizedMagnitude(_ scalar: Magnitude) -> Vector {
         a.addingProduct(lineSlope, scalar)
     }
     

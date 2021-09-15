@@ -50,3 +50,16 @@ extension NSquare: VolumetricType where Vector: VectorAdditive & VectorComparabl
         return vector >= location && vector <= max
     }
 }
+
+extension NSquare: ConvexType where Vector: VectorFloatingPoint {
+    /// Returns whether a given line intersects with this square.
+    public func intersects<Line>(line: Line) -> Bool where Line: LineFloatingPoint, Line.Vector == Vector {
+        let inter = intersection(with: line)
+        
+        return inter != .noIntersection
+    }
+    
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+        bounds.intersection(with: line)
+    }
+}
