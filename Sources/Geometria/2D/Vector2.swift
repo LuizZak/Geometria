@@ -280,6 +280,11 @@ extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
     }
     
     @_transparent
+    public static func / (lhs: Scalar, rhs: Self) -> Self {
+        Self(x: lhs / rhs.x, y: lhs / rhs.y)
+    }
+    
+    @_transparent
     public static func /= (lhs: inout Self, rhs: Self) {
         lhs = lhs / rhs
     }

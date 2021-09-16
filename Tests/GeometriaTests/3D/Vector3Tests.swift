@@ -246,13 +246,22 @@ class Vector3Tests: XCTestCase {
                        Vector3F(x: 1.5, y: 1.6666666, z: 1.4))
     }
     
-    func testDivision_withScalar() {
+    func testDivision_withScalarOnRHS() {
         XCTAssertEqual(Vector(x: 1, y: 4, z: 7) / 3,
                        Vector(x: 0, y: 1, z: 2))
         XCTAssertEqual(Vector3D(x: 1, y: 4, z: 7) / 3,
                        Vector3D(x: 0.3333333333333333, y: 1.3333333333333333, z: 2.3333333333333335))
         XCTAssertEqual(Vector3F(x: 1, y: 4, z: 7) / 3,
                        Vector3F(x: 0.33333334, y: 1.3333334, z: 2.3333333))
+    }
+    
+    func testDivision_withScalarOnLHS() {
+        XCTAssertEqual(3 / Vector(x: 1, y: 2, z: 7),
+                       Vector(x: 3, y: 1, z: 0))
+        XCTAssertEqual(3 / Vector3D(x: 3.0, y: 4, z: 7),
+                       Vector3D(x: 1.0, y: 0.75, z: 0.42857142857142855))
+        XCTAssertEqual(3 / Vector3F(x: 1.0, y: 4, z: 7),
+                       Vector3F(x: 3.0, y: 0.75, z: 0.42857143))
     }
     
     func testAddition_inPlace() {
