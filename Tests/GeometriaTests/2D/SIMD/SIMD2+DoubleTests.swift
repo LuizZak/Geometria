@@ -475,14 +475,14 @@ class SIMD2_DoubleTests: XCTestCase {
     }
     
     func testMultiplyMatrix() {
-        let matrix = Matrix2D(m11: 2, m12: 3, m21: 4, m22: 5, m31: 6, m32: 7)
+        let matrix = Matrix3x2D(m11: 2, m12: 3, m21: 4, m22: 5, m31: 6, m32: 7)
         let vec = Vector(x: 1, y: 2)
         
         assertEqual(vec * matrix, Vector(x: 16.0, y: 20.0), accuracy: accuracy)
     }
     
     func testMultiplyMatrix_inPlace() {
-        let matrix = Matrix2D.translation(x: 10, y: 20)
+        let matrix = Matrix3x2D.translation(x: 10, y: 20)
         var vec = Vector(x: 1, y: 2)
         
         vec *= matrix

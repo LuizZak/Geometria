@@ -50,10 +50,10 @@ import Foundation
  */
 
 /// Plain Matrix3x2 with double-precision floating-point components.
-public typealias Matrix2D = Matrix2<Double>
+public typealias Matrix3x2D = Matrix3x2<Double>
 
 /// Plain Matrix3x2 with floating-point components.
-public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, CustomStringConvertible {
+public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, CustomStringConvertible {
     public typealias Vector = Vector2<Scalar>
     
     /// Gets the identity matrix.
@@ -103,7 +103,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// Gets a value indicating whether this instance is an identity matrix.
     ///
     /// `true` if this instance is an identity matrix; otherwise, `false`.
-    public var isIdentity: Bool { Matrix2.identity == self }
+    public var isIdentity: Bool { Matrix3x2.identity == self }
     
     /// Gets or sets the component at the specified index.
     ///
@@ -149,7 +149,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         "[M11:\(m11) M12:\(m12)] [M21:\(m21) M22:\(m22)] [M31:\(m31) M32:\(m32)]"
     }
     
-    /// Initializes a new instance of the `Matrix2` struct.
+    /// Initializes a new instance of the `Matrix3x2` struct.
     ///
     /// - Parameter value: The value that will be assigned to all components.
     public init(value: Scalar) {
@@ -161,7 +161,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         m32 = value
     }
     
-    /// Initializes a new instance of the `Matrix2` struct.
+    /// Initializes a new instance of the `Matrix3x2` struct.
     ///
     /// - Parameter m11: The value to assign at row 1 column 1 of the matrix.
     /// - Parameter m12: The value to assign at row 1 column 2 of the matrix.
@@ -178,7 +178,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         self.m32 = m32
     }
     
-    /// Initializes a new instance of the `Matrix2` struct.
+    /// Initializes a new instance of the `Matrix3x2` struct.
     ///
     /// - Parameter values: The values to assign to the components of the matrix.
     /// This must be an array with six elements, otherwise a runtime error is thrown
@@ -212,15 +212,15 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     }
     
     /// Calculates the inverse of this matrix instance.
-    public func inverted() -> Matrix2 {
-        Matrix2.invert(self)
+    public func inverted() -> Matrix3x2 {
+        Matrix3x2.invert(self)
     }
     
     /// Determines the sum of two matrices.
     ///
     /// - Parameter left: The first matrix to add.
     /// - Parameter right: The second matrix to add.
-    public static func add(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
+    public static func add(_ left: Matrix3x2, _ right: Matrix3x2) -> Matrix3x2 {
         let m11 = left.m11 + right.m11
         let m12 = left.m12 + right.m12
         let m21 = left.m21 + right.m21
@@ -228,14 +228,14 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31 = left.m31 + right.m31
         let m32 = left.m32 + right.m32
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Determines the difference between two matrices.
     ///
     /// - Parameter left: The first matrix to subtract.
     /// - Parameter right: The second matrix to subtract.
-    public static func subtract(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
+    public static func subtract(_ left: Matrix3x2, _ right: Matrix3x2) -> Matrix3x2 {
         let m11 = left.m11 - right.m11
         let m12 = left.m12 - right.m12
         let m21 = left.m21 - right.m21
@@ -243,14 +243,14 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31 = left.m31 - right.m31
         let m32 = left.m32 - right.m32
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Scales a matrix by the given value.
     ///
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale.
-    public static func multiply(_ left: Matrix2, _ right: Scalar) -> Matrix2 {
+    public static func multiply(_ left: Matrix3x2, _ right: Scalar) -> Matrix3x2 {
         let m11 = left.m11 * right
         let m12 = left.m12 * right
         let m21 = left.m21 * right
@@ -258,14 +258,14 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31 = left.m31 * right
         let m32 = left.m32 * right
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Determines the product of two matrices.
     ///
     /// - Parameter left: The first matrix to multiply.
     /// - Parameter right: The second matrix to multiply.
-    public static func multiply(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
+    public static func multiply(_ left: Matrix3x2, _ right: Matrix3x2) -> Matrix3x2 {
         let m11: Scalar = (left.m11 * right.m11) as Scalar + (left.m12 * right.m21) as Scalar
         let m12: Scalar = (left.m11 * right.m12) as Scalar + (left.m12 * right.m22) as Scalar
         let m21: Scalar = (left.m21 * right.m11) as Scalar + (left.m22 * right.m21) as Scalar
@@ -273,14 +273,14 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31: Scalar = (left.m31 * right.m11) as Scalar + (left.m32 * right.m21 + right.m31) as Scalar
         let m32: Scalar = (left.m31 * right.m12) as Scalar + (left.m32 * right.m22 + right.m32) as Scalar
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Scales a matrix by the given value.
     ///
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale. Must be greater than zero
-    public static func divide(_ left: Matrix2, _ right: Scalar) -> Matrix2 {
+    public static func divide(_ left: Matrix3x2, _ right: Scalar) -> Matrix3x2 {
         let inv = Scalar(1) / right
         
         let m11 = left.m11 * inv
@@ -290,14 +290,14 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31 = left.m31 * inv
         let m32 = left.m32 * inv
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Determines the quotient of two matrices.
     ///
     /// - Parameter left: The first matrix to divide.
     /// - Parameter right: The second matrix to divide.
-    public static func divide(_ left: Matrix2, _ right: Matrix2) -> Matrix2 {
+    public static func divide(_ left: Matrix3x2, _ right: Matrix3x2) -> Matrix3x2 {
         let m11 = left.m11 / right.m11
         let m12 = left.m12 / right.m12
         let m21 = left.m21 / right.m21
@@ -305,13 +305,13 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31 = left.m31 / right.m31
         let m32 = left.m32 / right.m32
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Negates a matrix.
     ///
     /// - Parameter value: The matrix to be negated.
-    public static func negate(_ value: Matrix2) -> Matrix2 {
+    public static func negate(_ value: Matrix3x2) -> Matrix3x2 {
         let m11 = -value.m11
         let m12 = -value.m12
         let m21 = -value.m21
@@ -319,7 +319,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31 = -value.m31
         let m32 = -value.m32
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Performs a linear interpolation between two matrices.
@@ -330,21 +330,21 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter start: Start matrix.
     /// - Parameter end: End matrix.
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
-    public static func lerp(start: Matrix2, end: Matrix2, amount: Scalar) -> Matrix2 {
-        let m11 = Matrix2.lerp(from: start.m11, to: end.m11, amount: amount)
-        let m12 = Matrix2.lerp(from: start.m12, to: end.m12, amount: amount)
-        let m21 = Matrix2.lerp(from: start.m21, to: end.m21, amount: amount)
-        let m22 = Matrix2.lerp(from: start.m22, to: end.m22, amount: amount)
-        let m31 = Matrix2.lerp(from: start.m31, to: end.m31, amount: amount)
-        let m32 = Matrix2.lerp(from: start.m32, to: end.m32, amount: amount)
+    public static func lerp(start: Matrix3x2, end: Matrix3x2, amount: Scalar) -> Matrix3x2 {
+        let m11 = Matrix3x2.lerp(from: start.m11, to: end.m11, amount: amount)
+        let m12 = Matrix3x2.lerp(from: start.m12, to: end.m12, amount: amount)
+        let m21 = Matrix3x2.lerp(from: start.m21, to: end.m21, amount: amount)
+        let m22 = Matrix3x2.lerp(from: start.m22, to: end.m22, amount: amount)
+        let m31 = Matrix3x2.lerp(from: start.m31, to: end.m31, amount: amount)
+        let m32 = Matrix3x2.lerp(from: start.m32, to: end.m32, amount: amount)
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Creates a matrix that scales along the x-axis and y-axis.
     ///
     /// - Parameter scale: Scaling factor for both axes.
-    public static func scaling(scale: Vector) -> Matrix2 {
+    public static func scaling(scale: Vector) -> Matrix3x2 {
         scaling(x: scale.x, y: scale.y)
     }
     
@@ -352,8 +352,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter x: Scaling factor that is applied along the x-axis.
     /// - Parameter y: Scaling factor that is applied along the y-axis.
-    public static func scaling(x: Scalar, y: Scalar) -> Matrix2 {
-        Matrix2(m11: x, m12: 0,
+    public static func scaling(x: Scalar, y: Scalar) -> Matrix3x2 {
+        Matrix3x2(m11: x, m12: 0,
                 m21: 0, m22: y,
                 m31: 0, m32: 0)
     }
@@ -361,8 +361,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// Creates a matrix that uniformly scales along both axes.
     ///
     /// - Parameter scale: The uniform scale that is applied along both axes.
-    public static func scaling(scale: Scalar) -> Matrix2 {
-        Matrix2(m11: scale, m12: 0,
+    public static func scaling(scale: Scalar) -> Matrix3x2 {
+        Matrix3x2(m11: scale, m12: 0,
                 m21: 0, m22: scale,
                 m31: 0, m32: 0)
     }
@@ -372,8 +372,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter x: Scaling factor that is applied along the x-axis.
     /// - Parameter y: Scaling factor that is applied along the y-axis.
     /// - Parameter center: The center of the scaling.
-    public static func scaling(x: Scalar, y: Scalar, center: Vector) -> Matrix2 {
-        Matrix2(m11: x, m12: 0,
+    public static func scaling(x: Scalar, y: Scalar, center: Vector) -> Matrix3x2 {
+        Matrix3x2(m11: x, m12: 0,
                 m21: 0, m22: y,
                 m31: center.x - x * center.x, m32: center.y - y * center.y)
     }
@@ -384,11 +384,11 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// clockwise when looking along the rotation axis.
     /// - Parameter result: When the method completes, contains the created
     /// rotation matrix.
-    public static func rotation(angle: Scalar) -> Matrix2 {
+    public static func rotation(angle: Scalar) -> Matrix3x2 {
         let cosAngle = Scalar.cos(angle)
         let sinAngle = Scalar.sin(angle)
         
-        return Matrix2(m11: cosAngle, m12: sinAngle,
+        return Matrix3x2(m11: cosAngle, m12: sinAngle,
                        m21: -sinAngle, m22: cosAngle,
                        m31: 0, m32: 0)
     }
@@ -398,7 +398,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter angle: Angle of rotation in radians. Angles are measured
     /// clockwise when looking along the rotation axis.
     /// - Parameter center: The center of the rotation.
-    public static func rotation(angle: Scalar, center: Vector) -> Matrix2 {
+    public static func rotation(angle: Scalar, center: Vector) -> Matrix3x2 {
         translation(-center) * rotation(angle: angle) * translation(center)
     }
     
@@ -407,7 +407,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter value: The offset for both coordinate planes.
     /// - Parameter result: When the method completes, contains the created
     /// translation matrix.
-    public static func translation(_ value: Vector) -> Matrix2 {
+    public static func translation(_ value: Vector) -> Matrix3x2 {
         translation(x: value.x, y: value.y)
     }
     
@@ -415,8 +415,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter x: X-coordinate offset.
     /// - Parameter y: Y-coordinate offset.
-    public static func translation(x: Scalar, y: Scalar) -> Matrix2 {
-        Matrix2(m11: 1, m12: 0,
+    public static func translation(x: Scalar, y: Scalar) -> Matrix3x2 {
+        Matrix3x2(m11: 1, m12: 0,
                 m21: 0, m22: 1,
                 m31: x, m32: y)
     }
@@ -433,7 +433,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
                                       yScale: Scalar,
                                       angle: Scalar,
                                       xOffset: Scalar,
-                                      yOffset: Scalar) -> Matrix2 {
+                                      yOffset: Scalar) -> Matrix3x2 {
 
         scaling(x: xScale, y: yScale)
                 * rotation(angle: angle)
@@ -446,7 +446,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter point: The original vector to apply the transformation.
     /// - Returns: The result of the transformation for the input vector.
     @inlinable
-    public static func transformPoint(matrix: Matrix2, point: Vector) -> Vector {
+    public static func transformPoint(matrix: Matrix3x2, point: Vector) -> Vector {
         let x = (point.x * matrix.m11) as Scalar + (point.y * matrix.m21) as Scalar + matrix.m31
         let y = (point.x * matrix.m12) as Scalar + (point.y * matrix.m22) as Scalar + matrix.m32
         
@@ -459,7 +459,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter point: The original vector to apply the transformation.
     /// - Returns: The result of the transformation for the input vector.
     @inlinable
-    public static func transformPoint<V: Vector2Type>(matrix: Matrix2, point: V) -> V where V.Scalar == Scalar {
+    public static func transformPoint<V: Vector2Type>(matrix: Matrix3x2, point: V) -> V where V.Scalar == Scalar {
         let x = (point.x * matrix.m11) as Scalar + (point.y * matrix.m21) as Scalar + matrix.m31
         let y = (point.x * matrix.m12) as Scalar + (point.y * matrix.m22) as Scalar + matrix.m32
         
@@ -470,8 +470,8 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter angleX: Angle of skew along the X-axis in radians.
     /// - Parameter angleY: Angle of skew along the Y-axis in radians.
-    public static func skew(angleX: Scalar, angleY: Scalar) -> Matrix2 {
-        Matrix2(m11: 1, m12: Scalar.tan(angleX),
+    public static func skew(angleX: Scalar, angleY: Scalar) -> Matrix3x2 {
+        Matrix3x2(m11: 1, m12: Scalar.tan(angleX),
                 m21: Scalar.tan(angleY), m22: 1,
                 m31: 0, m32: 0)
     }
@@ -480,10 +480,10 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter value: The matrix whose inverse is to be calculated.
     /// - Parameter result: When the method completes, contains the inverse of the specified matrix.
-    public static func invert(_ value: Matrix2) -> Matrix2 {
+    public static func invert(_ value: Matrix3x2) -> Matrix3x2 {
         let determinant = value.determinant()
         
-        if Matrix2.isZero(determinant) {
+        if Matrix3x2.isZero(determinant) {
             return identity
         }
         
@@ -498,7 +498,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
         let m31: Scalar = ((value.m21 * offsetY as Scalar - offsetX * value.m22) as Scalar) * invdet
         let m32: Scalar = ((offsetX * value.m12 as Scalar - value.m11 * offsetY) as Scalar) * invdet
         
-        return Matrix2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
+        return Matrix3x2(m11: m11, m12: m12, m21: m21, m22: m22, m31: m31, m32: m32)
     }
     
     /// Adds two matrices.
@@ -506,7 +506,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The first matrix to add.
     /// - Parameter right: The second matrix to add.
     /// - Returns: The sum of the two matrices.
-    public static func + (left: Matrix2, right: Matrix2) -> Matrix2 {
+    public static func + (left: Matrix3x2, right: Matrix3x2) -> Matrix3x2 {
         add(left, right)
     }
     
@@ -514,7 +514,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter value: The matrix to assert (unchanged).
     /// - Returns: The asserted (unchanged) matrix.
-    public static prefix func + (value: Matrix2) -> Matrix2 {
+    public static prefix func + (value: Matrix3x2) -> Matrix3x2 {
         value
     }
     
@@ -523,7 +523,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The first matrix to subtract.
     /// - Parameter right: The second matrix to subtract.
     /// - Returns: The difference between the two matrices.
-    public static func - (left: Matrix2, right: Matrix2) -> Matrix2 {
+    public static func - (left: Matrix3x2, right: Matrix3x2) -> Matrix3x2 {
         subtract(left, right)
     }
     
@@ -531,7 +531,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     ///
     /// - Parameter value: The matrix to negate.
     /// - Returns: The negated matrix.
-    public static prefix func - (value: Matrix2) -> Matrix2 {
+    public static prefix func - (value: Matrix3x2) -> Matrix3x2 {
         negate(value)
     }
     
@@ -540,7 +540,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter right: The matrix to scale.
     /// - Parameter left: The amount by which to scale.
     /// - Returns: The scaled matrix.
-    public static func * (left: Scalar, right: Matrix2) -> Matrix2 {
+    public static func * (left: Scalar, right: Matrix3x2) -> Matrix3x2 {
         multiply(right, left)
     }
     
@@ -549,7 +549,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale.
     /// - Returns: The scaled matrix.
-    public static func * (left: Matrix2, right: Scalar) -> Matrix2 {
+    public static func * (left: Matrix3x2, right: Scalar) -> Matrix3x2 {
         multiply(left, right)
     }
     
@@ -558,7 +558,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The first matrix to multiply.
     /// - Parameter right: The second matrix to multiply.
     /// - Returns: The product of the two matrices.
-    public static func * (left: Matrix2, right: Matrix2) -> Matrix2 {
+    public static func * (left: Matrix3x2, right: Matrix3x2) -> Matrix3x2 {
         multiply(left, right)
     }
     
@@ -567,7 +567,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The matrix to scale.
     /// - Parameter right: The amount by which to scale.
     /// - Returns: The scaled matrix.
-    public static func / (left: Matrix2, right: Scalar) -> Matrix2 {
+    public static func / (left: Matrix3x2, right: Scalar) -> Matrix3x2 {
         divide(left, right)
     }
     
@@ -575,7 +575,7 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
     /// - Parameter left: The first matrix to divide.
     /// - Parameter right: The second matrix to divide.
     /// - Returns: The quotient of the two matrices.
-    public static func / (left: Matrix2, right: Matrix2) -> Matrix2 {
+    public static func / (left: Matrix3x2, right: Matrix3x2) -> Matrix3x2 {
         divide(left, right)
     }
     
@@ -606,12 +606,12 @@ public struct Matrix2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cu
 
 // MARK: Conformances
 
-extension Matrix2: Encodable where Scalar: Encodable { }
-extension Matrix2: Decodable where Scalar: Decodable { }
+extension Matrix3x2: Encodable where Scalar: Encodable { }
+extension Matrix3x2: Decodable where Scalar: Decodable { }
 
 // MARK: Geometry transformation
 
-public extension Matrix2 {
+public extension Matrix3x2 {
     /// Transforms a given rectangle's bounds using this transformation matrix.
     ///
     /// The scale and rotation transformations use the origin (0, 0) for the base
