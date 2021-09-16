@@ -26,3 +26,7 @@ public extension Circle2 where Vector: VectorMultiplicative, Scalar: Comparable 
         contains(.init(x: x, y: y))
     }
 }
+
+extension Circle2: Convex2Type where Vector: Vector2FloatingPoint {
+    
+}

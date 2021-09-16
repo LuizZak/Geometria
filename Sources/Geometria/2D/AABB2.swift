@@ -114,3 +114,7 @@ public extension AABB2 where Vector: VectorAdditive {
         self.init(minimum: minimum, maximum: maximum)
     }
 }
+
+extension AABB2: Convex2Type where Vector: Vector2FloatingPoint {
+    
+}

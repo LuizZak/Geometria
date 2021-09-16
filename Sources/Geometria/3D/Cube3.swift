@@ -16,3 +16,7 @@ public extension Cube3 {
         self.init(location: .init(x: x, y: y, z: z), sideLength: sideLength)
     }
 }
+
+extension Cube3: Convex3Type where Vector: Vector3FloatingPoint {
+    
+}

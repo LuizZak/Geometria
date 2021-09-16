@@ -48,6 +48,9 @@ extension NCapsule: VolumetricType where Vector: VectorFloatingPoint {
     /// are considered as contained within the N-capsule.
     @inlinable
     public func contains(_ vector: Vector) -> Bool {
-        return asLineSegment.distanceSquared(to: vector) <= radius * radius
+        // TODO: Doing this in separate statements to ease long compilation times in Xcode 12
+        let radSquare: Scalar = radius * radius
+        
+        return asLineSegment.distanceSquared(to: vector) <= radSquare
     }
 }

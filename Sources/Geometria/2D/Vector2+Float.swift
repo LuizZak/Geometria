@@ -28,9 +28,9 @@ public extension Vector2F {
         
         let cScale =
         float3x3(
-            .init(scale.x, 0, 0),
-            .init(0, scale.y, 0),
-            .init(0, 0, 1)
+            SIMD3<Float>(scale.x, 0, 0),
+            SIMD3<Float>(0, scale.y, 0),
+            SIMD3<Float>(0, 0, 1)
         )
         
         matrix *= cScale
@@ -44,12 +44,11 @@ public extension Vector2F {
         if angle != 0 {
             let c = cos(-angle)
             let s = sin(-angle)
-            
             let cRotation =
             float3x3(
-                .init(c, s, 0),
-                .init(-s, c, 0),
-                .init(0, 0, 1)
+                SIMD3<Float>(c, s, 0),
+                SIMD3<Float>(-s, c, 0),
+                SIMD3<Float>(0, 0, 1)
             )
             
             matrix *= cRotation
@@ -64,9 +63,9 @@ public extension Vector2F {
         
         let cTranslation =
         float3x3(
-            .init(1, 0, translate.x),
-            .init(0, 1, translate.y),
-            .init(0, 0, 1)
+            SIMD3<Float>(1, 0, translate.x),
+            SIMD3<Float>(0, 1, translate.y),
+            SIMD3<Float>(0, 0, 1)
         )
         
         matrix *= cTranslation
@@ -77,9 +76,8 @@ public extension Vector2F {
     // Matrix multiplication
     @inlinable
     static func * (lhs: Self, rhs: float3x3) -> Self {
-        let homog = SIMD3<Scalar>(lhs.x, lhs.y, 1)
-        
-        let transformed = homog * rhs
+        let homog: SIMD3<Scalar> = SIMD3<Scalar>(lhs.x, lhs.y, 1)
+        let transformed: SIMD3<Scalar> = homog * rhs
         
         return Self(x: transformed.x, y: transformed.y)
     }

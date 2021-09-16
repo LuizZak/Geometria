@@ -21,8 +21,11 @@ extension DirectionalRay2: Line2Type {
     /// - precondition: `Vector(x: x2 - x1, y: y2 - y1).length > 0`
     @_transparent
     public init(x1: Scalar, y1: Scalar, x2: Scalar, y2: Scalar) {
-        self.init(start: Vector(x: x1, y: y1),
-                  direction: Vector(x: x2 - x1, y: y2 - y1))
+        // TODO: Doing this in separate statements to ease long compilation times in Xcode 12
+        let start = Vector(x: x1, y: y1)
+        let end = Vector(x: x2, y: y2)
+        
+        self.init(start: start, direction: end - start)
     }
     
     /// Initializes a new Directional Ray with a 2D vector for its position and

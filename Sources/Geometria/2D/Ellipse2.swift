@@ -44,3 +44,7 @@ public extension Ellipse2 where Vector: VectorReal {
         contains(Vector(x: x, y: y))
     }
 }
+
+extension Ellipse2: Convex2Type where Vector: Vector2Real {
+    
+}

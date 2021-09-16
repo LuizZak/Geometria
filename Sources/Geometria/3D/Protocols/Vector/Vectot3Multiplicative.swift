@@ -34,9 +34,10 @@ public extension Vector3Multiplicative {
     
     @inlinable
     func cross(_ other: Self) -> Self {
-        let cx: Scalar = y * other.z - z * other.y
-        let cy: Scalar = z * other.x - x * other.z
-        let cz: Scalar = x * other.y - y * other.x
+        // TODO: Doing this in separate statements to ease long compilation times in Xcode 12
+        let cx: Scalar = take.yz.cross(other.take.yz)
+        let cy: Scalar = take.zx.cross(other.take.zx)
+        let cz: Scalar = take.xy.cross(other.take.xy)
         
         return Self(x: cx, y: cy, z: cz)
     }

@@ -79,7 +79,9 @@ public extension VectorMultiplicative {
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
     @_transparent
     static func lerp(start: Self, end: Self, amount: Scalar) -> Self {
-        let s: Self = start * (1 - amount)
+        // TODO: Doing this in separate statements to ease long compilation times in Xcode 12
+        let sf: Scalar = 1 - amount
+        let s: Self = start * sf
         let e: Self = end * amount
         
         return s + e

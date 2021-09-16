@@ -226,7 +226,7 @@ extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
         bounds.intersects(line: line)
     }
     
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
         bounds.intersection(with: line)
     }
 }

@@ -88,3 +88,7 @@ extension Ellipse3: ProjectiveSpace where Vector: Vector3Real {
 extension Ellipse3: SphereProjectiveSpace where Vector: Vector3Real {
     
 }
+
+extension Ellipse3: Convex3Type where Vector: Vector3Real {
+    
+}

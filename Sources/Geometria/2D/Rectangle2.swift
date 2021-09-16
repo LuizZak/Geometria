@@ -181,3 +181,7 @@ public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparab
         return nil
     }
 }
+
+extension Rectangle2: Convex2Type where Vector: Vector2FloatingPoint {
+    
+}

@@ -14,3 +14,7 @@ public typealias AABB3i = AABB3<Vector3i>
 
 /// Typealias for `AABB<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias AABB3<V: Vector3Type> = AABB<V>
+
+extension AABB3: Convex3Type where Vector: Vector3FloatingPoint {
+    
+}

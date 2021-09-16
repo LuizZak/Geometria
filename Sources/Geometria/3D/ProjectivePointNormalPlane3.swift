@@ -136,7 +136,7 @@ extension ProjectivePointNormalPlane3: ProjectiveSpace {
     public func projectOut(_ proj: Coordinates) -> Vector {
         let x: Vector = rightAxis * proj.x
         let y: Vector = upAxis * proj.y
-        return point + x + y
+        return (point + x) as Vector + y
     }
 }
 

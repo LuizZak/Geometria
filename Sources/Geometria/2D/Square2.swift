@@ -16,3 +16,7 @@ public extension Square2 {
         self.init(location: .init(x: x, y: y), sideLength: sideLength)
     }
 }
+
+extension Square2: Convex2Type where Vector: Vector2FloatingPoint {
+    
+}
