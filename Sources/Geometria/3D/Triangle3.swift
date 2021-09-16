@@ -142,10 +142,10 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         let slope = line.lineSlope
         let dir = slope.normalized()
         
-        let v0v1 = b - a
-        let v0v2 = c - a
-        let pvec = dir.cross(v0v2)
-        let det = v0v1.dot(pvec)
+        let ba = b - a
+        let ca = c - a
+        let pvec = dir.cross(ca)
+        let det = ba.dot(pvec)
         
         if abs(det) < .leastNonzeroMagnitude {
             return nil
@@ -154,23 +154,28 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         let invDet: Scalar = 1 / det
         
         let tvec = orig - a
-        let u: Scalar = tvec.dot(pvec) * invDet
-        if u < 0 || u > 1 {
+        let wb: Scalar = tvec.dot(pvec) * invDet
+        if wb < 0 || wb > 1 {
             return nil
         }
         
-        let qvec = tvec.cross(v0v1)
-        let v: Scalar = dir.dot(qvec) * invDet
-        if v < 0 || u + v > 1 {
+        let qvec = tvec.cross(ba)
+        let wc: Scalar = dir.dot(qvec) * invDet
+        if wc < 0 {
             return nil
         }
         
-        let magnitude: Scalar = (v0v2.dot(qvec) * invDet) / slope.length
+        let wa = 1 - wb - wc
+        if wa < .zero {
+            return nil
+        }
+        
+        let magnitude: Scalar = (ca.dot(qvec) * invDet) / slope.length
         if !line.containsProjectedNormalizedMagnitude(magnitude) {
             return nil
         }
         
-        return (magnitude, Coordinates(wa: 1 - u - v, wb: u, wc: v))
+        return (magnitude, Coordinates(wa: wa, wb: wb, wc: wc))
     }
     
     /// Performs a projection of a given set of coordinates onto this triangle

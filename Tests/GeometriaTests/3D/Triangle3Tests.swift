@@ -229,6 +229,84 @@ extension Triangle3Tests {
         XCTAssertNil(result)
     }
     
+    func testIntersectionWith_line_outsideTriangleBounds_pastAPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: -1, y1: -1, z1: 1, x2: -1, y2: -1, z2: -1)
+        
+        let result = sut.intersection(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testIntersectionWith_line_outsideTriangleBounds_pastBPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: 120, y1: -10, z1: 1, x2: 120, y2: -10, z2: -1)
+        
+        let result = sut.intersection(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testIntersectionWith_line_outsideTriangleBounds_pastCPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: -10, y1: 120, z1: 1, x2: -10, y2: 120, z2: -1)
+        
+        let result = sut.intersection(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testIntersectionWith_line_outsideTriangleBounds_pastAEdge() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: 60, y1: 60, z1: 1, x2: 60, y2: 60, z2: -1)
+        
+        let result = sut.intersection(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testIntersectionWith_line_outsideTriangleBounds_pastBEdge() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: -10, y1: 50, z1: 1, x2: -10, y2: 50, z2: -1)
+        
+        let result = sut.intersection(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testIntersectionWith_line_outsideTriangleBounds_pastCEdge() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: 50, y1: -10, z1: 1, x2: 50, y2: -10, z2: -1)
+        
+        let result = sut.intersection(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
     func testIntersectionWith_line_parallel() {
         let sut = Triangle(
             a: .zero,
@@ -305,6 +383,84 @@ extension Triangle3Tests {
             c: .init(x: 100, y: 100, z: 100)
         )
         let line = Line3D(x1: 25, y1: 0, z1: 50, x2: 25, y2: 1, z2: 50)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastAPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: -1, y1: -1, z1: 1, x2: -1, y2: -1, z2: -1)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastBPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: 120, y1: -10, z1: 1, x2: 120, y2: -10, z2: -1)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastCPoint() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: -10, y1: 120, z1: 1, x2: -10, y2: 120, z2: -1)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastAEdge() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: 60, y1: 60, z1: 1, x2: 60, y2: 60, z2: -1)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastBEdge() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: -10, y1: 50, z1: 1, x2: -10, y2: 50, z2: -1)
+        
+        let result = sut.mollerTrumboreIntersect(with: line)
+        
+        XCTAssertNil(result)
+    }
+    
+    func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastCEdge() {
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 100, y: 0, z: 0),
+            c: .init(x: 0, y: 100, z: 0)
+        )
+        let line = Line3D(x1: 50, y1: -10, z1: 1, x2: 50, y2: -10, z2: -1)
         
         let result = sut.mollerTrumboreIntersect(with: line)
         
