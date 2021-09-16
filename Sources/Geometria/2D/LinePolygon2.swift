@@ -29,17 +29,13 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     public func isConvex() -> Bool {
         // Implementation based on:
         // https://math.stackexchange.com/a/1745427
+        
         if vertices.count < 3 {
             return false
         }
         
-        var xSign: Int = 0
-        var xFirstSign: Int = 0
-        var xFlips: Int = 0
-        
-        var ySign: Int = 0
-        var yFirstSign: Int = 0
-        var yFlips: Int = 0
+        var xSign = SignFlipHandler()
+        var ySign = SignFlipHandler()
         
         let secondToLast: Vector = vertices[vertices.count - 2]
         let last: Vector = vertices[vertices.count - 1]
@@ -61,43 +57,7 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
             
             // Calculate sign flips using the next edge vector, recording the
             // first sign
-            if a.x > Scalar.zero {
-                if xSign == 0 {
-                    xFirstSign = 1
-                } else if xSign < 0 {
-                    xFlips += 1
-                }
-                xSign = 1
-            } else if a.x < Scalar.zero {
-                if xSign == 0 {
-                    xFirstSign = -1
-                } else if xSign > 0 {
-                    xFlips += 1
-                }
-                xSign = -1
-            }
-            
-            if xFlips > 2 {
-                return false
-            }
-            
-            if a.y > Scalar.zero {
-                if ySign == 0 {
-                    yFirstSign = 1
-                } else if ySign < 0 {
-                    yFlips += 1
-                }
-                ySign = 1
-            } else if a.y < Scalar.zero {
-                if ySign == 0 {
-                    yFirstSign = -1
-                } else if ySign > 0 {
-                    yFlips += 1
-                }
-                ySign = -1
-            }
-            
-            if yFlips > 2 {
+            if xSign.hasFlippedTwice(a.x) || ySign.hasFlippedTwice(a.y) {
                 return false
             }
             
@@ -110,20 +70,55 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         }
         
         // Final/wraparound sign flips:
-        if xSign != 0 && xFirstSign != 0 && xSign != xFirstSign {
-            xFlips += 1
-        }
-        if ySign != 0 && yFirstSign != 0 && ySign != yFirstSign {
-            yFlips += 1
-        }
+        xSign.finish()
+        ySign.finish()
         
         // Concave polygons have two sign flips along each axis
-        if xFlips != 2 || yFlips != 2 {
+        if xSign.flips != 2 || ySign.flips != 2 {
             return false
         }
         
         // This is a convex polygon
         return true
+    }
+    
+    // Auxiliary struct for LinePolygon2.isConvex used to track value sign changes
+    struct SignFlipHandler {
+        var sign: Int = 0
+        var firstSign: Int = 0
+        var flips: Int = 0
+        
+        /// Returns `true` when the sign of a scalar value has flipped at least
+        /// two times since this method was invoked.
+        mutating func hasFlippedTwice(_ value: Scalar) -> Bool {
+            if value > Scalar.zero {
+                if sign == 0 {
+                    firstSign = 1
+                } else if sign < 0 {
+                    flips += 1
+                }
+                sign = 1
+            } else if value < Scalar.zero {
+                if sign == 0 {
+                    firstSign = -1
+                } else if sign > 0 {
+                    flips += 1
+                }
+                sign = -1
+            }
+            
+            if flips > 2 {
+                return true
+            }
+            
+            return false
+        }
+        
+        mutating func finish() {
+            if sign != 0 && firstSign != 0 && sign != firstSign {
+                flips += 1
+            }
+        }
     }
 }
 
@@ -158,11 +153,11 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
             
             let edgeEnd = vertices[next]
             
-            if ((edgeSt.y <= vector.y) && (edgeEnd.y > vector.y)) || ((edgeSt.y > vector.y) && (edgeEnd.y <= vector.y)) {
-                let edgeSlope = edgeEnd - edgeSt
-                let slopeMag = edgeSlope.x / edgeSlope.y
-                let vecDiff = vector.y - edgeSt.y
-                let hitX = edgeSt.x + vecDiff * slopeMag
+            if ((edgeSt.y <= vector.y) && (edgeEnd.y > vector.y)) || ((edgeEnd.y <= vector.y) && (edgeSt.y > vector.y)) {
+                let edge: Vector = edgeEnd - edgeSt
+                let slope: Scalar = edge.x / edge.y
+                let vecDiff: Scalar = vector.y - edgeSt.y
+                let hitX: Scalar = edgeSt.x + vecDiff * slope
                 
                 if hitX >= vector.x && hitX <= endPtX {
                     inside = !inside
