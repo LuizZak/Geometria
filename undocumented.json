@@ -302,13 +302,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Stadium2.swift",
-      "line": 30,
-      "symbol": "Stadium2.init(start:end:radius:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2+Double.swift",
       "line": 79,
       "symbol": "Vector2D.*(_:_:)",
@@ -317,7 +310,7 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2+Float.swift",
-      "line": 79,
+      "line": 78,
       "symbol": "Vector2F.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"

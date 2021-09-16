@@ -73,6 +73,9 @@
                 <a class="nav-group-task-link" href="../Extensions/AABB2.html">AABB2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions.html#/s:9Geometria5AABB3a">AABB3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Circle2.html">Circle2</a>
               </li>
               <li class="nav-group-task">
@@ -424,9 +427,6 @@
                 <a class="nav-group-task-link" href="../Structs/SphereCoordinates.html">SphereCoordinates</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Stadium2.html">Stadium2</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/TakeVector3.html">TakeVector3</a>
               </li>
               <li class="nav-group-task">
@@ -711,6 +711,9 @@
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria8Square2ia">Square2i</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria8Stadium2a">Stadium2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria9Stadium2Da">Stadium2D</a>
               </li>
               <li class="nav-group-task">
@@ -776,6 +779,7 @@
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NCapsule</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
                 </div>
@@ -950,6 +954,148 @@ are considered within the geometry.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asLineSegment</span><span class="p">:</span> <span class="kt"><a href="../Structs/LineSegment.html">LineSegment</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria8NCapsuleV13startAsSphereAA7NSphereVyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/startAsSphere" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria8NCapsuleV13startAsSphereAA7NSphereVyxGvp">startAsSphere</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the <code><a href="../Structs/NSphere.html">NSphere</a></code> that represents the top- or start, section of
+this N-capsule, centered around <code><a href="../Structs/NCapsule.html#/s:9Geometria8NCapsuleV5startxvp">start</a></code> with a radius of <code><a href="../Structs/NCapsule.html#/s:9Geometria8NCapsuleV6radius6ScalarQzvp">radius</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">startAsSphere</span><span class="p">:</span> <span class="kt"><a href="../Structs/NSphere.html">NSphere</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria8NCapsuleV11endAsSphereAA7NSphereVyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/endAsSphere" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria8NCapsuleV11endAsSphereAA7NSphereVyxGvp">endAsSphere</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the <code><a href="../Structs/NSphere.html">NSphere</a></code> that represents the bottom- or end, section of
+this N-capsule, centered around <code><a href="../Structs/NCapsule.html#/s:9Geometria8NCapsuleV5startxvp">start</a></code> with a radius of <code><a href="../Structs/NCapsule.html#/s:9Geometria8NCapsuleV6radius6ScalarQzvp">radius</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">endAsSphere</span><span class="p">:</span> <span class="kt"><a href="../Structs/NSphere.html">NSphere</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Scalar%60%3A%20%60Comparable%60%20%26%20%60AdditiveArithmetic%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Scalar`: `Comparable` &amp; `AdditiveArithmetic`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Scalar%60%3A%20%60Comparable%60%20%26%20%60AdditiveArithmetic%60"></a>
+                  <h3 class="section-name"><p>Available where <code><a href="../Structs/NCapsule.html#/s:9Geometria8NCapsuleV6Scalara">Scalar</a></code>: <code>Comparable</code> &amp; <code>AdditiveArithmetic</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria8NCapsuleVAAs18AdditiveArithmetic6ScalarRpzSLAFRQrlE7isValidSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isValid" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria8NCapsuleVAAs18AdditiveArithmetic6ScalarRpzSLAFRQrlE7isValidSbvp">isValid</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether this N-capsule&rsquo;s parameters produce a valid, non-empty
+stadium.</p>
+
+<p>An N-capsule is valid when <code><a href="../Structs/NCapsule.html#/s:9Geometria8NCapsuleV6radius6ScalarQzvp">radius</a></code> is greater than zero.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isValid</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive` &amp; `VectorComparable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code> &amp; <code><a href="../Protocols/VectorComparable.html">VectorComparable</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria8NCapsuleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE6boundsAA4AABBVyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/bounds" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria8NCapsuleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE6boundsAA4AABBVyxGvp">bounds</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the minimal bounds capable of fully containing this N-capsule&rsquo;s
+area.</p>
+
+<p>Is equivalent to a union of the start and end N-spheres of this N-capsule.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bounds</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

@@ -73,6 +73,9 @@
                 <a class="nav-group-task-link" href="Extensions/AABB2.html">AABB2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/s:9Geometria5AABB3a">AABB3</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Circle2.html">Circle2</a>
               </li>
               <li class="nav-group-task">
@@ -424,9 +427,6 @@
                 <a class="nav-group-task-link" href="Structs/SphereCoordinates.html">SphereCoordinates</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/Stadium2.html">Stadium2</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/TakeVector3.html">TakeVector3</a>
               </li>
               <li class="nav-group-task">
@@ -711,6 +711,9 @@
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria8Square2ia">Square2i</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria8Stadium2a">Stadium2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Stadium2Da">Stadium2D</a>
               </li>
               <li class="nav-group-task">
@@ -872,39 +875,6 @@ edges of a rectangular 2D perimeter.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Matrix2</span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">ElementaryFunctions</span><span class="p">,</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix2</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix2</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria8Stadium2V"></a>
-                    <a name="//apple_ref/swift/Struct/Stadium2" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria8Stadium2V">Stadium2</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Represents a regular 2-dimensional <a href="https://en.wikipedia.org/wiki/Stadium_(geometry)">Stadium</a>
-as a pair of end points and a radius with integers.</p>
-
-                        <a href="Structs/Stadium2.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Stadium2</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Stadium2</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Stadium2</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Stadium2</span><span class="p">:</span> <span class="kt"><a href="Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Stadium2</span><span class="p">:</span> <span class="kt"><a href="Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1415,6 +1385,7 @@ are considered within the geometry.</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NCapsule</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorType.html">VectorType</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt"><a href="Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NCapsule</span><span class="p">:</span> <span class="kt"><a href="Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
                         </div>
