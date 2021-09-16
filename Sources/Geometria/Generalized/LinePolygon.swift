@@ -36,8 +36,23 @@ extension LinePolygon: Decodable where Vector: Decodable, Scalar: Decodable { }
 extension LinePolygon: BoundableType where Vector: VectorAdditive & VectorComparable {
     /// Returns the minimal ``AABB`` capable of containing all points from this
     /// line polygon.
+    ///
+    /// If ``vertices`` is empty, a zero AABB is returned, instead.
     @inlinable
     public var bounds: AABB<Vector> {
         AABB(points: vertices)
+    }
+}
+
+public extension LinePolygon where Vector: VectorFloatingPoint {
+    /// Returns a vector with the coordinates of the [arithmetic mean] of all
+    /// vectors in ``vertices``.
+    ///
+    /// If the vertices array is empty, `Vector.zero` is returned, instead.
+    ///
+    /// [arithmetic mean]: https://en.wikipedia.org/wiki/Arithmetic_mean
+    @inlinable
+    var average: Vector {
+        vertices.reduce(.zero, +) / max(1, Scalar(vertices.count))
     }
 }

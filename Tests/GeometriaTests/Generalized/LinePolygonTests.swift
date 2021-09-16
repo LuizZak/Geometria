@@ -85,3 +85,32 @@ extension LinePolygonTests {
         XCTAssertEqual(result.maximum, .zero)
     }
 }
+
+// MARK: VectorFloatingPoint Conformance
+
+extension LinePolygonTests {
+    func testAverage_emptyVertices() {
+        let sut = LinePolygon(vertices: [])
+        
+        XCTAssertEqual(sut.average, .zero)
+    }
+    
+    func testAverage_singleVertex() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 1, y: 2)
+        ])
+        
+        XCTAssertEqual(sut.average, .init(x: 1, y: 2))
+    }
+    
+    func testAverage_multiVertices() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 1, y: 2),
+            .init(x: 3, y: 5),
+            .init(x: 7, y: 11),
+            .init(x: 13, y: 17),
+        ])
+        
+        XCTAssertEqual(sut.average, .init(x: 6, y: 8.75))
+    }
+}
