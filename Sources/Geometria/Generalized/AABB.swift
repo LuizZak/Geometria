@@ -371,22 +371,22 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
     @inlinable
     public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
-        let beginToEnd = line.b - line.a
+        let lineSlope = line.lineSlope
         
-        let beginToMin = minimum - line.a
-        let beginToMax = maximum - line.a
+        let lineToMin = minimum - line.a
+        let lineToMax = maximum - line.a
         var tNear = -Scalar.infinity
         var tFar = Scalar.infinity
         
-        let t1 = beginToMin / beginToEnd
-        let t2 = beginToMax / beginToEnd
+        let t1 = lineToMin / lineSlope
+        let t2 = lineToMax / lineSlope
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
         
         var index = 0
-        while index < beginToEnd.scalarCount {
+        while index < lineSlope.scalarCount {
             defer { index += 1 }
-            guard beginToEnd[index] != 0 else {
+            guard lineSlope[index] != 0 else {
                 continue
             }
             
@@ -401,8 +401,8 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         let near = line.projectedNormalizedMagnitude(tNear)
         let far = line.projectedNormalizedMagnitude(tFar)
         
-        let nearNormDotLine = normalMagnitude(for: near).dot(beginToEnd)
-        let farNormDotLine = normalMagnitude(for: far).dot(beginToEnd)
+        let nearNormDotLine = normalMagnitude(for: near).dot(lineSlope)
+        let farNormDotLine = normalMagnitude(for: far).dot(lineSlope)
         
         return (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero) ||
                (line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero)
@@ -414,22 +414,22 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
     @inlinable
     public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
-        let beginToEnd = line.b - line.a
+        let lineSlope = line.lineSlope
         
-        let beginToMin = minimum - line.a
-        let beginToMax = maximum - line.a
+        let lineToMin = minimum - line.a
+        let lineToMax = maximum - line.a
         var tNear = -Scalar.infinity
         var tFar = Scalar.infinity
         
-        let t1 = beginToMin / beginToEnd
-        let t2 = beginToMax / beginToEnd
+        let t1 = lineToMin / lineSlope
+        let t2 = lineToMax / lineSlope
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
         
         var index = 0
-        while index < beginToEnd.scalarCount {
+        while index < lineSlope.scalarCount {
             defer { index += 1 }
-            guard beginToEnd[index] != 0 else {
+            guard lineSlope[index] != 0 else {
                 continue
             }
             
@@ -447,15 +447,15 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             
             return PointNormal(
                 point: point,
-                normal: normal.withSign(of: -beginToEnd)
+                normal: normal.withSign(of: -lineSlope)
             )
         }
         
         let near = line.projectedNormalizedMagnitude(tNear)
         let far = line.projectedNormalizedMagnitude(tFar)
         
-        let nearNormDotLine = normalMagnitude(for: near).dot(beginToEnd)
-        let farNormDotLine = normalMagnitude(for: far).dot(beginToEnd)
+        let nearNormDotLine = normalMagnitude(for: near).dot(lineSlope)
+        let farNormDotLine = normalMagnitude(for: far).dot(lineSlope)
         
         switch (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero,
                 line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero) {

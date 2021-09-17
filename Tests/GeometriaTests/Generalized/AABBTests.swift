@@ -964,7 +964,7 @@ extension AABBTests {
             sut.intersection(with: line),
             .exit(
                 PointNormal(
-                    point: .init(x: 5.999999999999998, y: 6.999999999999998),
+                    point: .init(x: 6.0, y: 7.0),
                     normal: .init(x: 0.0, y: -1.0)
                 )
             )
@@ -1230,7 +1230,7 @@ extension AABBTests {
                     normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 ),
                 PointNormal(
-                    point: .init(x: 20.0, y: 20.000000000000004, z: 3.6666666666666665),
+                    point: .init(x: 20.0, y: 20.0, z: 3.666666666666667),
                     normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 )
             )
@@ -1250,11 +1250,11 @@ extension AABBTests {
             sut.intersection(with: line),
             .enterExit(
                 PointNormal(
-                    point: .init(x: 20.0, y: 3.000000000000001, z: 5.933333333333334),
+                    point: .init(x: 20.0, y: 2.999999999999999, z: 5.933333333333334),
                     normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 ),
                 PointNormal(
-                    point: .init(x: 20.0, y: 17.49999999999996, z: 4.000000000000005),
+                    point: .init(x: 20.0, y: 17.5, z: 4.0),
                     normal: .init(x: 0.0, y: 0.0, z: 1.0)
                 )
             )
