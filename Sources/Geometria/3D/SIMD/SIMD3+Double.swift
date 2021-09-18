@@ -88,13 +88,6 @@ extension SIMD3: VectorMultiplicative where Scalar == Double {
     }
 }
 
-extension SIMD3: SignedSquaredDistanceMeasurableType where Scalar == Double {
-    @_transparent
-    public func signedSquaredDistance(to point: Self) -> Scalar {
-        (self - point).lengthSquared
-    }
-}
-
 extension SIMD3: Vector3Additive where Scalar == Double {
     
 }

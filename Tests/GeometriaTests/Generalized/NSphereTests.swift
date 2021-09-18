@@ -85,6 +85,34 @@ extension NSphereTests {
     }
 }
 
+// MARK: SignedDistanceMeasurableType Conformance
+
+extension NSphereTests {
+    func testSignedDistanceTo_center() {
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: sut.center), -3)
+    }
+    
+    func testSignedDistanceTo_withinBounds() {
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3.5, y: 2)), -0.5)
+    }
+    
+    func testSignedDistanceTo_onRadius() {
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 4, y: 2)), 0.0)
+    }
+    
+    func testSignedDistanceTo_outOfBounds() {
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 6, y: 2)), 2)
+    }
+}
+
 // MARK: ConvexType & PointProjectableType Conformance
 
 extension NSphereTests {

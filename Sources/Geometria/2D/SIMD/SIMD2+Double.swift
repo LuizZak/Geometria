@@ -92,13 +92,6 @@ extension SIMD2: VectorMultiplicative where Scalar == Double {
     }
 }
 
-extension SIMD2: SignedSquaredDistanceMeasurableType where Scalar == Double {
-    @_transparent
-    public func signedSquaredDistance(to point: Self) -> Scalar {
-        (self - point).lengthSquared
-    }
-}
-
 extension SIMD2: Vector2Multiplicative where Scalar == Double {
     @_transparent
     public func cross(_ other: Self) -> Scalar {

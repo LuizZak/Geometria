@@ -1298,3 +1298,55 @@ extension AABBTests {
         )
     }
 }
+
+// MARK: SignedDistanceMeasurableType Conformance
+
+extension AABBTests {
+    func testSignedDistanceTo_center() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: sut.center), -2.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_left() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 1, y: 5)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_top() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 7)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_right() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 5, y: 5)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_bottom() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 2)), 0.0)
+    }
+    
+    func testSignedDistanceTo_outside_bottomEdge() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 0)), 2.0)
+    }
+    
+    func testSignedDistanceTo_outside_rightEdge() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 7, y: 5)), 2.0)
+    }
+    
+    func testSignedDistanceTo_outside_bottomLeftEdge() {
+        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 0, y: 0)), 2.23606797749979)
+    }
+}

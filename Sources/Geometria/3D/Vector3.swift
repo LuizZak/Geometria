@@ -209,13 +209,6 @@ extension Vector3: Vector3Multiplicative where Scalar: Numeric {
     
 }
 
-extension Vector3: SignedSquaredDistanceMeasurableType where Scalar: Numeric {
-    @_transparent
-    public func signedSquaredDistance(to point: Self) -> Scalar {
-        (self - point).lengthSquared
-    }
-}
-
 extension Vector3: VectorSigned where Scalar: SignedNumeric & Comparable {
     /// Returns a `Vector3` where each component is the absolute value of the
     /// components of this `Vector3`.

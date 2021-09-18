@@ -199,13 +199,6 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     }
 }
 
-extension Vector2: SignedSquaredDistanceMeasurableType where Scalar: Numeric {
-    @_transparent
-    public func signedSquaredDistance(to point: Self) -> Scalar {
-        (self - point).lengthSquared
-    }
-}
-
 extension Vector2: Vector2Multiplicative where Scalar: Numeric {
     
 }

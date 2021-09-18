@@ -143,13 +143,6 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(v1.cross(v2), -200)
     }
     
-    func testSignedSquaredDistanceTo() {
-        let vec = Vector(x: -2, y: 3)
-        
-        XCTAssertEqual(vec.signedSquaredDistance(to: vec), 0.0)
-        XCTAssertEqual(vec.signedSquaredDistance(to: .init(x: 2, y: 5)), 20.0)
-    }
-    
     func testPerpendicular() {
         let vec = Vector(x: 5, y: 1)
         

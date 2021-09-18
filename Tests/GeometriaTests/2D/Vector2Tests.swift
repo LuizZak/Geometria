@@ -292,13 +292,6 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(vec1, Vector(x: 0, y: 1))
     }
     
-    func testSignedSquaredDistanceTo() {
-        let vec = Vector2D(x: -2, y: 3)
-        
-        XCTAssertEqual(vec.signedSquaredDistance(to: vec), 0.0)
-        XCTAssertEqual(vec.signedSquaredDistance(to: .init(x: 2, y: 5)), 20.0)
-    }
-    
     func testAbsolute() {
         let vec = Vector2D(x: -1, y: -2)
         

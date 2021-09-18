@@ -331,13 +331,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(vec1, Vector(x: 0, y: 1, z: 4))
     }
     
-    func testSignedSquaredDistanceTo() {
-        let vec = Vector3D(x: -2, y: 3, z: 1)
-        
-        XCTAssertEqual(vec.signedSquaredDistance(to: vec), 0.0)
-        XCTAssertEqual(vec.signedSquaredDistance(to: .init(x: 2, y: 5, z: 2)), 21.0)
-    }
-    
     func testAbsolute() {
         let vec = Vector3D(x: -1, y: -2, z: -3)
         
