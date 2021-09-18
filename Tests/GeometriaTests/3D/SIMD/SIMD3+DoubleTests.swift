@@ -158,6 +158,13 @@ class SIMD3_DoubleTests: XCTestCase {
         XCTAssertEqual(v1.dot(v2), 3200)
     }
     
+    func testSignedSquaredDistanceTo() {
+        let vec = Vector3D(x: -2, y: 3, z: 1)
+        
+        XCTAssertEqual(vec.signedSquaredDistance(to: vec), 0.0)
+        XCTAssertEqual(vec.signedSquaredDistance(to: .init(x: 2, y: 5, z: 2)), 21.0)
+    }
+    
     func testAbsolute() {
         let vec = Vector(x: -1, y: -2, z: -3)
         
@@ -379,6 +386,13 @@ class SIMD3_DoubleTests: XCTestCase {
         let vec = Vector(x: 10, y: 20, z: 30)
         
         XCTAssertEqual(vec.distance(to: vec), 0.0)
+    }
+    
+    func testSignedDistanceTo() {
+        let vec = Vector3D(x: -2, y: 3, z: 1)
+        
+        XCTAssertEqual(vec.signedDistance(to: vec), 0.0)
+        XCTAssertEqual(vec.signedDistance(to: .init(x: 2, y: 5, z: 2)), 4.58257569495584)
     }
     
     func testNormalize() {

@@ -645,7 +645,7 @@ extension NSquareTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    point: .init(x: 12.999999999999993, y: 13.999999999999993),
+                    point: .init(x: 13.0, y: 14.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
             )

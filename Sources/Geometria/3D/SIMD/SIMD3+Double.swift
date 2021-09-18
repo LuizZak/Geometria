@@ -88,6 +88,13 @@ extension SIMD3: VectorMultiplicative where Scalar == Double {
     }
 }
 
+extension SIMD3: SignedSquaredDistanceMeasurableType where Scalar == Double {
+    @_transparent
+    public func signedSquaredDistance(to point: Self) -> Scalar {
+        (self - point).lengthSquared
+    }
+}
+
 extension SIMD3: Vector3Additive where Scalar == Double {
     
 }
@@ -167,6 +174,13 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
              y: lhs.y.truncatingRemainder(dividingBy: rhs),
              z: lhs.z.truncatingRemainder(dividingBy: rhs))
+    }
+}
+
+extension SIMD3: SignedDistanceMeasurableType where Scalar == Double {
+    @_transparent
+    public func signedDistance(to other: Self) -> Scalar {
+        (self - other).length
     }
 }
 

@@ -199,6 +199,13 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     }
 }
 
+extension Vector2: SignedSquaredDistanceMeasurableType where Scalar: Numeric {
+    @_transparent
+    public func signedSquaredDistance(to point: Self) -> Scalar {
+        (self - point).lengthSquared
+    }
+}
+
 extension Vector2: Vector2Multiplicative where Scalar: Numeric {
     
 }
@@ -233,35 +240,35 @@ extension Vector2: Vector2Signed where Scalar: SignedNumeric & Comparable {
         self = perpendicular()
     }
     
-    /// Returns a Vector perpendicular to this Vector relative to the origin
+    /// Returns a Vector perpendicular to this Vector relative to the origin.
     @_transparent
     public func perpendicular() -> Self {
         Self(x: -y, y: x)
     }
     
     /// Returns a vector that represents this vector's point, rotated 90º counter
-    /// clockwise relative to the origin.
+    /// clockwise (in Cartesian space with Y growing up) relative to the origin.
     @_transparent
     public func leftRotated() -> Self {
         Self(x: -y, y: x)
     }
     
-    /// Rotates this vector 90º counter clockwise relative to the origin.
-    /// This alters the vector instance.
+    /// Rotates this vector 90º counter clockwise (in Cartesian space with Y
+    /// growing up) relative to the origin. This alters the vector instance.
     @_transparent
     public mutating func formLeftRotated() {
         self = leftRotated()
     }
     
     /// Returns a vector that represents this vector's point, rotated 90º clockwise
-    /// clockwise relative to the origin.
+    /// clockwise (in Cartesian space with Y growing up) relative to the origin.
     @_transparent
     public func rightRotated() -> Self {
         Self(x: y, y: -x)
     }
     
-    /// Rotates this vector 90º clockwise relative to the origin.
-    /// This alters the vector instance.
+    /// Rotates this vector 90º clockwise relative (in Cartesian space with Y
+    /// growing up) to the origin. This alters the vector instance.
     @_transparent
     public mutating func formRightRotated() {
         self = rightRotated()
@@ -380,6 +387,13 @@ extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
              y: lhs.y.truncatingRemainder(dividingBy: rhs))
+    }
+}
+
+extension Vector2: SignedDistanceMeasurableType where Scalar: DivisibleArithmetic & FloatingPoint {
+    @_transparent
+    public func signedDistance(to other: Self) -> Scalar {
+        (self - other).length
     }
 }
 
