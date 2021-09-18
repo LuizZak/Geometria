@@ -51,7 +51,7 @@ extension NSquareTests {
     }
 }
 
-// MARK: VectorAdditive & VectorComparable Conformance
+// MARK: Vector: VectorAdditive & VectorComparable Conformance
 
 extension NSquareTests {
     func testContainsVector_center() {
@@ -70,6 +70,16 @@ extension NSquareTests {
         XCTAssertFalse(sut.contains(.init(x: 0, y: 0)))
         XCTAssertFalse(sut.contains(.init(x: 1, y: 2)))
         XCTAssertFalse(sut.contains(.init(x: 5, y: 6)))
+    }
+}
+
+// MARK: Vector: VectorDivisible Conformance
+
+extension NSquareTests {
+    func testCenter() {
+        let sut = Square(x: 2, y: 3, sideLength: 5)
+        
+        XCTAssertEqual(sut.center, .init(x: 4.5, y: 5.5))
     }
 }
 
@@ -669,5 +679,57 @@ extension NSquareTests {
                 )
             )
         )
+    }
+}
+
+// MARK: SignedDistanceMeasurableType Conformance
+
+extension NSquareTests {
+    func testSignedDistanceTo_center() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: sut.center), -2.5)
+    }
+    
+    func testSignedDistanceTo_onEdge_left() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 1, y: 5)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_top() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 7)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_right() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 6, y: 5)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_bottom() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 2)), 0.0)
+    }
+    
+    func testSignedDistanceTo_outside_bottomEdge() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 0)), 2.0)
+    }
+    
+    func testSignedDistanceTo_outside_rightEdge() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 8, y: 5)), 2.0)
+    }
+    
+    func testSignedDistanceTo_outside_bottomLeftEdge() {
+        let sut = Square(location: .init(x: 1, y: 2), sideLength: 5)
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 0, y: 0)), 2.23606797749979)
     }
 }
