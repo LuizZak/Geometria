@@ -847,7 +847,7 @@ extension NRectangleTests {
             sut.intersection(with: line),
             .exit(
                 PointNormal(
-                    point: .init(x: 5.999999999999998, y: 6.999999999999998),
+                    point: .init(x: 6.0, y: 7.0),
                     normal: .init(x: 0.0, y: -1.0)
                 )
             )
@@ -1113,7 +1113,7 @@ extension NRectangleTests {
                     normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 ),
                 PointNormal(
-                    point: .init(x: 20.0, y: 20.000000000000004, z: 3.6666666666666665),
+                    point: .init(x: 20.0, y: 20.0, z: 3.666666666666667),
                     normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 )
             )
@@ -1133,14 +1133,66 @@ extension NRectangleTests {
             sut.intersection(with: line),
             .enterExit(
                 PointNormal(
-                    point: .init(x: 20.0, y: 3.000000000000001, z: 5.933333333333334),
+                    point: .init(x: 20.0, y: 2.999999999999999, z: 5.933333333333334),
                     normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 ),
                 PointNormal(
-                    point: .init(x: 20.0, y: 17.49999999999996, z: 4.000000000000005),
+                    point: .init(x: 20.0, y: 17.5, z: 4.0),
                     normal: .init(x: 0.0, y: 0.0, z: 1.0)
                 )
             )
         )
+    }
+}
+
+// MARK: SignedDistanceMeasurableType Conformance
+
+extension NRectangleTests {
+    func testSignedDistanceTo_center() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: sut.center), -2.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_left() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 1, y: 5)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_top() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 7)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_right() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 5, y: 5)), 0.0)
+    }
+    
+    func testSignedDistanceTo_onEdge_bottom() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 2)), 0.0)
+    }
+    
+    func testSignedDistanceTo_outside_bottomEdge() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 0)), 2.0)
+    }
+    
+    func testSignedDistanceTo_outside_rightEdge() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 7, y: 5)), 2.0)
+    }
+    
+    func testSignedDistanceTo_outside_bottomLeftEdge() {
+        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        
+        XCTAssertEqual(sut.signedDistance(to: .init(x: 0, y: 0)), 2.23606797749979)
     }
 }

@@ -243,6 +243,11 @@ extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
     }
     
     @_transparent
+    public static func / (lhs: Scalar, rhs: Self) -> Self {
+        Self(x: lhs / rhs.x, y: lhs / rhs.y, z: lhs / rhs.z)
+    }
+    
+    @_transparent
     public static func /= (lhs: inout Self, rhs: Self) {
         lhs = lhs / rhs
     }
@@ -343,6 +348,13 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
         Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
              y: lhs.y.truncatingRemainder(dividingBy: rhs),
              z: lhs.z.truncatingRemainder(dividingBy: rhs))
+    }
+}
+
+extension Vector3: SignedDistanceMeasurableType where Scalar: DivisibleArithmetic & FloatingPoint {
+    @_transparent
+    public func signedDistance(to other: Self) -> Scalar {
+        (self - other).length
     }
 }
 

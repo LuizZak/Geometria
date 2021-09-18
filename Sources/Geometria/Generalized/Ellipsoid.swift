@@ -50,16 +50,15 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
     /// - precondition: `radius.minimalComponent > 0`
     @inlinable
     public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
-        let majorAxis = radius.maximalComponent
-        let scale = (.one / radius) * majorAxis
-        let revScale = .one / scale
+        let axisToKeep = radius.minimalComponent
+        let scale = axisToKeep / radius
         
-        let scaledSphere = NSphere<Vector>(center: center * scale, radius: majorAxis)
+        let scaledSphere = NSphere<Vector>(center: center * scale, radius: axisToKeep)
         let scaledLine = line.withPointsScaledBy(scale)
         
         func scalePointNormal(_ pn: PointNormal<Vector>) -> PointNormal<Vector> {
-            PointNormal(
-                point: pn.point * revScale,
+            .init(
+                point: pn.point / scale,
                 normal: (pn.normal * scale).normalized()
             )
         }

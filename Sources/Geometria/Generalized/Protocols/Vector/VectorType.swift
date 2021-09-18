@@ -1,5 +1,5 @@
 /// Protocol for N-dimensional vector types.
-public protocol VectorType {
+public protocol VectorType: GeometricType {
     /// The scalar type associated with this `VectorType`.
     associatedtype Scalar
     

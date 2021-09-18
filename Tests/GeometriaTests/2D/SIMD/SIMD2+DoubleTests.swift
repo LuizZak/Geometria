@@ -542,6 +542,13 @@ class SIMD2_DoubleTests: XCTestCase {
         XCTAssertEqual(Vector(x: -1.0, y: 1.0).sign, .init(x: -1.0, y: 1.0))
         XCTAssertEqual(Vector(x: 5.0, y: -4.0).sign, .init(x: 1.0, y: -1.0))
     }
+    
+    func testSignedDistanceTo() {
+        let vec = Vector(x: -2, y: 3)
+        
+        XCTAssertEqual(vec.signedDistance(to: vec), 0.0)
+        XCTAssertEqual(vec.signedDistance(to: .init(x: 2, y: 5)), 4.47213595499958)
+    }
 }
 
 #endif

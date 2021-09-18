@@ -170,6 +170,13 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     }
 }
 
+extension SIMD3: SignedDistanceMeasurableType where Scalar == Double {
+    @_transparent
+    public func signedDistance(to other: Self) -> Scalar {
+        (self - other).length
+    }
+}
+
 extension SIMD3: Vector3FloatingPoint where Scalar == Double {
     @_transparent
     public init<V>(_ other: V) where V: Vector3Type, V.Scalar: BinaryInteger {

@@ -63,6 +63,12 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
     }
 }
 
+extension NSphere: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    public func signedDistance(to point: Vector) -> Vector.Scalar {
+        (center - point).length - radius
+    }
+}
+
 extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatingPoint {
     /// Returns the closest point on this sphere's surface to `vector`.
     ///

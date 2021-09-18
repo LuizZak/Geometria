@@ -230,3 +230,9 @@ extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
         bounds.intersection(with: line)
     }
 }
+
+extension NRectangle: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    public func signedDistance(to point: Vector) -> Vector.Scalar {
+        bounds.signedDistance(to: point)
+    }
+}
