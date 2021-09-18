@@ -123,34 +123,119 @@ extension SIMD4_DoubleTests {
 
 extension SIMD4_DoubleTests {
     func testAddition() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3, w: 4) + Vector(x: 5, y: 6, z: 7, w: 8),
-                       Vector(x: 6, y: 8, z: 10, w: 12))
+        let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let vec2 = Vector(x: 5, y: 6, z: 7, w: 8)
+        
+        let result = vec1 + vec2
+        
+        XCTAssertEqual(result.x, 6)
+        XCTAssertEqual(result.y, 8)
+        XCTAssertEqual(result.z, 10)
+        XCTAssertEqual(result.w, 12)
     }
     
     func testAddition_isCommutative() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3, w: 4) + Vector(x: 5, y: 6, z: 7, w: 8),
-                       Vector(x: 5, y: 6, z: 7, w: 8) + Vector(x: 1, y: 2, z: 3, w: 4))
+        let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let vec2 = Vector(x: 5, y: 6, z: 7, w: 8)
+        
+        XCTAssertEqual(vec1 + vec2, vec2 + vec1)
     }
     
     func testAddition_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3, w: 4) + 5,
-                       Vector(x: 6, y: 7, z: 8, w: 9))
+        let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let num = 5.0
+        
+        let result = vec1 + num
+        
+        XCTAssertEqual(result.x, 6)
+        XCTAssertEqual(result.y, 7)
+        XCTAssertEqual(result.z, 8)
+        XCTAssertEqual(result.w, 9)
     }
     
     func testSubtraction() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3, w: 4) - Vector(x: 7, y: 11, z: 13, w: 17),
-                       Vector(x: -6, y: -9, z: -10, w: -13))
+        let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let vec2 = Vector(x: 7, y: 11, z: 13, w: 17)
+        
+        let result = vec1 - vec2
+        
+        XCTAssertEqual(result.x, -6)
+        XCTAssertEqual(result.y, -9)
+        XCTAssertEqual(result.z, -10)
+        XCTAssertEqual(result.w, -13)
     }
     
     func testSubtraction_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3, w: 5) - 7,
-                       Vector(x: -6, y: -5, z: -4, w: -2))
+        let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let num = 5.0
+        
+        let result = vec1 - num
+        
+        XCTAssertEqual(result.x, -4)
+        XCTAssertEqual(result.y, -3)
+        XCTAssertEqual(result.z, -2)
+        XCTAssertEqual(result.w, -1)
+    }
+    
+    func testAddition_inPlace() {
+        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let vec2 = Vector(x: 5, y: 6, z: 7, w: 8)
+        
+        vec1 += vec2
+        
+        XCTAssertEqual(vec1.x, 6)
+        XCTAssertEqual(vec1.y, 8)
+        XCTAssertEqual(vec1.z, 10)
+        XCTAssertEqual(vec1.w, 12)
+    }
+    
+    func testAddition_withScalar_inPlace() {
+        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        
+        vec1 += 5.0
+        
+        XCTAssertEqual(vec1.x, 6)
+        XCTAssertEqual(vec1.y, 7)
+        XCTAssertEqual(vec1.z, 8)
+        XCTAssertEqual(vec1.w, 9)
+    }
+    
+    func testSubtraction_inPlace() {
+        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        let vec2 = Vector(x: 7, y: 11, z: 13, w: 17)
+        
+        vec1 -= vec2
+        
+        XCTAssertEqual(vec1.x, -6)
+        XCTAssertEqual(vec1.y, -9)
+        XCTAssertEqual(vec1.z, -10)
+        XCTAssertEqual(vec1.w, -13)
+    }
+    
+    func testSubtraction_withScalar_inPlace() {
+        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
+        
+        vec1 -= 5.0
+        
+        XCTAssertEqual(vec1.x, -4)
+        XCTAssertEqual(vec1.y, -3)
+        XCTAssertEqual(vec1.z, -2)
+        XCTAssertEqual(vec1.w, -1)
     }
 }
 
 // MARK: VectorMultiplicative Conformance
 
 extension SIMD4_DoubleTests {
+    func testOne() {
+        let result = Vector.one
+        
+        XCTAssertEqual(result.x, 1)
+        XCTAssertEqual(result.y, 1)
+        XCTAssertEqual(result.z, 1)
+        XCTAssertEqual(result.w, 1)
+    }
+    
     func testDot() {
         let vec1 = Vector(x: 1, y: 2, z: 3, w: -5)
         let vec2 = Vector(x: -7, y: 11, z: 13, w: 17)
@@ -237,7 +322,7 @@ extension SIMD4_DoubleTests {
         XCTAssertEqual(result.w, 3)
     }
     
-    func testSign() {
+    func testSign_mixedSigns() {
         let sut = Vector(x: 0, y: -1, z: 2, w: -3)
         
         let result = sut.sign
@@ -245,6 +330,39 @@ extension SIMD4_DoubleTests {
         XCTAssertEqual(result.x, 0)
         XCTAssertEqual(result.y, -1)
         XCTAssertEqual(result.z, 1)
+        XCTAssertEqual(result.w, -1)
+    }
+    
+    func testSign_allZeros() {
+        let sut = Vector(x: 0, y: 0, z: 0, w: 0)
+        
+        let result = sut.sign
+        
+        XCTAssertEqual(result.x, 0)
+        XCTAssertEqual(result.y, 0)
+        XCTAssertEqual(result.z, 0)
+        XCTAssertEqual(result.w, 0)
+    }
+    
+    func testSign_allPositives() {
+        let sut = Vector(x: 1, y: 1, z: 1, w: 1)
+        
+        let result = sut.sign
+        
+        XCTAssertEqual(result.x, 1)
+        XCTAssertEqual(result.y, 1)
+        XCTAssertEqual(result.z, 1)
+        XCTAssertEqual(result.w, 1)
+    }
+    
+    func testSign_allNegatives() {
+        let sut = Vector(x: -1, y: -2, z: -3, w: -4)
+        
+        let result = sut.sign
+        
+        XCTAssertEqual(result.x, -1)
+        XCTAssertEqual(result.y, -1)
+        XCTAssertEqual(result.z, -1)
         XCTAssertEqual(result.w, -1)
     }
     
@@ -286,7 +404,7 @@ extension SIMD4_DoubleTests {
         XCTAssertEqual(vec1.w, -0.75)
     }
     
-    func testDivide_withScalar() {
+    func testDivide_withScalarOnRHS() {
         let vec1 = Vector(x: 0, y: 1, z: -2, w: 3)
         let num = 5.0
         
@@ -298,7 +416,7 @@ extension SIMD4_DoubleTests {
         XCTAssertEqual(result.w, 0.6)
     }
     
-    func testDivide_withScalar_inPlace() {
+    func testDivide_withScalarOnRHS_inPlace() {
         var vec1 = Vector(x: 0, y: 1, z: -2, w: 3)
         let num = 5.0
         
@@ -308,6 +426,18 @@ extension SIMD4_DoubleTests {
         XCTAssertEqual(vec1.y, 0.2)
         XCTAssertEqual(vec1.z, -0.4)
         XCTAssertEqual(vec1.w, 0.6)
+    }
+    
+    func testDivide_withScalarOnLHS() {
+        let num = 5.0
+        let vec1 = Vector(x: 1, y: 2, z: -3, w: 4.5)
+        
+        let result = num / vec1
+        
+        XCTAssertEqual(result.x, 5.0)
+        XCTAssertEqual(result.y, 2.5)
+        XCTAssertEqual(result.z, -1.6666666666666667)
+        XCTAssertEqual(result.w, 1.1111111111111112)
     }
 }
 
@@ -447,5 +577,77 @@ extension SIMD4_DoubleTests {
         let result = vec1.signedDistance(to: vec2)
         
         XCTAssertEqual(result, 38.39270764090493)
+    }
+}
+
+// MARK: VectorReal Conformance
+
+extension SIMD4_DoubleTests {
+    func testPowFactor_double() {
+        let vec = Vector(x: 2, y: 3, z: 5, w: 7)
+        
+        let result = Vector.pow(vec, 6.0)
+        
+        XCTAssertEqual(result.x, 64.0)
+        XCTAssertEqual(result.y, 729.0)
+        XCTAssertEqual(result.z, 15625.0)
+        XCTAssertEqual(result.w, 117649.0)
+    }
+    
+    func testPowFactor_double_negativeBase() {
+        let vec = Vector(x: -2, y: -3, z: -5, w: -7)
+        
+        let result = Vector.pow(vec, 6.0)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
+        XCTAssertTrue(result.z.isNaN)
+        XCTAssertTrue(result.w.isNaN)
+    }
+    
+    func testPowFactor_integer() {
+        let vec = Vector(x: 2, y: 3, z: 5, w: 7)
+        
+        let result = Vector.pow(vec, 6)
+        
+        XCTAssertEqual(result.x, 64.0)
+        XCTAssertEqual(result.y, 729.0)
+        XCTAssertEqual(result.z, 15625.0)
+        XCTAssertEqual(result.w, 117649.0)
+    }
+    
+    func testPowFactor_integer_negativeBase() {
+        let vec = Vector(x: -2, y: -3, z: -5, w: -7)
+        
+        let result = Vector.pow(vec, 6)
+        
+        XCTAssertEqual(result.x, 64.0)
+        XCTAssertEqual(result.y, 729.0)
+        XCTAssertEqual(result.z, 15625.0)
+        XCTAssertEqual(result.w, 117649.0)
+    }
+    
+    func testPowVector() {
+        let vec = Vector(x: 2, y: 3, z: 5, w: 6)
+        let power = Vector(x: 7, y: 8, z: 9, w: 10)
+        
+        let result = Vector.pow(vec, power)
+        
+        XCTAssertEqual(result.x, 128.0)
+        XCTAssertEqual(result.y, 6561.0)
+        XCTAssertEqual(result.z, 1953125.0)
+        XCTAssertEqual(result.w, 60466176.0)
+    }
+    
+    func testPowVector_negativeBase() {
+        let vec = Vector(x: -2, y: -3, z: -5, w: -6)
+        let power = Vector(x: 7, y: 8, z: 9, w: 10)
+        
+        let result = Vector.pow(vec, power)
+        
+        XCTAssertTrue(result.x.isNaN)
+        XCTAssertTrue(result.y.isNaN)
+        XCTAssertTrue(result.z.isNaN)
+        XCTAssertTrue(result.w.isNaN)
     }
 }

@@ -76,4 +76,22 @@ extension SIMD4: SignedDistanceMeasurableType where Scalar == Double {
     }
 }
 
+extension SIMD4: VectorReal where Scalar == Double {
+    @_transparent
+    public static func pow(_ vec: Self, _ exponent: Int) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent),
+             y: Scalar.pow(vec.y, exponent),
+             z: Scalar.pow(vec.z, exponent),
+             w: Scalar.pow(vec.w, exponent))
+    }
+    
+    @_transparent
+    public static func pow(_ vec: Self, _ exponent: Self) -> Self {
+        Self(x: Scalar.pow(vec.x, exponent.x),
+             y: Scalar.pow(vec.y, exponent.y),
+             z: Scalar.pow(vec.z, exponent.z),
+             w: Scalar.pow(vec.w, exponent.w))
+    }
+}
+
 #endif
