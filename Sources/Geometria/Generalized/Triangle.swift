@@ -110,7 +110,7 @@ public extension Triangle where Vector: VectorFloatingPoint {
         
         let resL: Scalar = abL * acL
         let resR: Scalar = (abacD * abacD)
-        let res: Scalar = resL + resR
+        let res: Scalar = resL - resR
         
         return res.squareRoot() / 2
     }
