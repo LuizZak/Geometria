@@ -42,6 +42,12 @@ public struct Vector4<Scalar>: Vector4Type {
         self.z = z
         self.w = w
     }
+    
+    /// Initializes this ``Vector4`` with the values from a given tuple.
+    @_transparent
+    public init(_ tuple: (Scalar, Scalar, Scalar, Scalar)) {
+        (x, y, z, w) = tuple
+    }
 }
 
 extension Vector4: Equatable where Scalar: Equatable { }

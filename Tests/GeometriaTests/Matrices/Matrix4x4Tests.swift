@@ -137,6 +137,30 @@ class Matrix4x4Tests: XCTestCase {
                       "\(sut.m)")
     }
     
+    func testRowsAsVectors() {
+        let sut = Matrix(rows: ((0, 1, 2, 3),
+                                (4, 5, 6, 7),
+                                (8, 9, 10, 11),
+                                (12, 13, 14, 15)))
+        
+        XCTAssertEqual(sut.r0Vec, Vector4D(x: 0, y: 1, z: 2, w: 3))
+        XCTAssertEqual(sut.r1Vec, Vector4D(x: 4, y: 5, z: 6, w: 7))
+        XCTAssertEqual(sut.r2Vec, Vector4D(x: 8, y: 9, z: 10, w: 11))
+        XCTAssertEqual(sut.r3Vec, Vector4D(x: 12, y: 13, z: 14, w: 15))
+    }
+    
+    func testColumnsAsVector() {
+        let sut = Matrix(rows: ((0, 1, 2, 3),
+                                (4, 5, 6, 7),
+                                (8, 9, 10, 11),
+                                (12, 13, 14, 15)))
+        
+        XCTAssertEqual(sut.c0Vec, Vector4D(x: 0.0, y: 4.0, z: 8.0, w: 12.0))
+        XCTAssertEqual(sut.c1Vec, Vector4D(x: 1.0, y: 5.0, z: 9.0, w: 13.0))
+        XCTAssertEqual(sut.c2Vec, Vector4D(x: 2.0, y: 6.0, z: 10.0, w: 14.0))
+        XCTAssertEqual(sut.c3Vec, Vector4D(x: 3.0, y: 7.0, z: 11.0, w: 15.0))
+    }
+    
     func testSubscript() {
         let sut = Matrix(rows: ((0, 1, 2, 3),
                                 (4, 5, 6, 7),
@@ -256,27 +280,5 @@ class Matrix4x4Tests: XCTestCase {
                                 (856.0, 894.0, 932.0, 970.0),
                                 (1208.0, 1262.0, 1316.0, 1370.0)),
                       "\(lhs.m)")
-    }
-}
-
-// MARK: Global functions
-
-extension Matrix4x4Tests {
-    func testMultiply4Tuple() {
-        let lhs: Matrix.Row = (1, 2, 3, 5)
-        let rhs: Matrix.Row = (7, 11, 13, 17)
-        
-        let result = lhs * rhs
-        
-        XCTAssertTrue(result == (7.0, 22.0, 39.0, 85.0), "\(result)")
-    }
-    
-    func testMultiplyAdd4Tuple() {
-        let lhs: Matrix.Row = (1, 2, 3, 5)
-        let rhs: Matrix.Row = (7, 11, 13, 17)
-        
-        let result = multAdd(lhs, rhs)
-        
-        XCTAssertTrue(result == 153.0, "\(result)")
     }
 }

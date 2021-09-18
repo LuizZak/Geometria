@@ -94,6 +94,54 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         set { (r0.3, r1.3, r2.3, r3.3) = newValue }
     }
     
+    /// Gets the first row of this matrix in a Vector4.
+    public var r0Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(r0) }
+    }
+    
+    /// Gets the second row of this matrix in a Vector4.
+    public var r1Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(r1) }
+    }
+    
+    /// Gets the third row of this matrix in a Vector4.
+    public var r2Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(r2) }
+    }
+    
+    /// Gets the fourth row of this matrix in a Vector4.
+    public var r3Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(r3) }
+    }
+    
+    /// Gets the first column of this matrix in a Vector4.
+    public var c0Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(c0) }
+    }
+    
+    /// Gets the second column of this matrix in a Vector4.
+    public var c1Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(c1) }
+    }
+    
+    /// Gets the third column of this matrix in a Vector4.
+    public var c2Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(c2) }
+    }
+    
+    /// Gets the fourth column of this matrix in a Vector4.
+    public var c3Vec: Vector4<Scalar> {
+        @_transparent
+        get { Vector4(c3) }
+    }
+    
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -178,25 +226,22 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
-        let r00 = multAdd(lhs.r0, rhs.c0)
-        let r01 = multAdd(lhs.r0, rhs.c1)
-        let r02 = multAdd(lhs.r0, rhs.c2)
-        let r03 = multAdd(lhs.r0, rhs.c3)
-        
-        let r10 = multAdd(lhs.r1, rhs.c0)
-        let r11 = multAdd(lhs.r1, rhs.c1)
-        let r12 = multAdd(lhs.r1, rhs.c2)
-        let r13 = multAdd(lhs.r1, rhs.c3)
-        
-        let r20 = multAdd(lhs.r2, rhs.c0)
-        let r21 = multAdd(lhs.r2, rhs.c1)
-        let r22 = multAdd(lhs.r2, rhs.c2)
-        let r23 = multAdd(lhs.r2, rhs.c3)
-        
-        let r30 = multAdd(lhs.r3, rhs.c0)
-        let r31 = multAdd(lhs.r3, rhs.c1)
-        let r32 = multAdd(lhs.r3, rhs.c2)
-        let r33 = multAdd(lhs.r3, rhs.c3)
+        let r00 = lhs.r0Vec.dot(rhs.c0Vec)
+        let r01 = lhs.r0Vec.dot(rhs.c1Vec)
+        let r02 = lhs.r0Vec.dot(rhs.c2Vec)
+        let r03 = lhs.r0Vec.dot(rhs.c3Vec)
+        let r10 = lhs.r1Vec.dot(rhs.c0Vec)
+        let r11 = lhs.r1Vec.dot(rhs.c1Vec)
+        let r12 = lhs.r1Vec.dot(rhs.c2Vec)
+        let r13 = lhs.r1Vec.dot(rhs.c3Vec)
+        let r20 = lhs.r2Vec.dot(rhs.c0Vec)
+        let r21 = lhs.r2Vec.dot(rhs.c1Vec)
+        let r22 = lhs.r2Vec.dot(rhs.c2Vec)
+        let r23 = lhs.r2Vec.dot(rhs.c3Vec)
+        let r30 = lhs.r3Vec.dot(rhs.c0Vec)
+        let r31 = lhs.r3Vec.dot(rhs.c1Vec)
+        let r32 = lhs.r3Vec.dot(rhs.c2Vec)
+        let r33 = lhs.r3Vec.dot(rhs.c3Vec)
         
         return Self(rows: ((r00, r01, r02, r03),
                            (r10, r11, r12, r13),
@@ -224,20 +269,4 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
 @_transparent
 public func == <T>(_ lhs: Matrix4x4<T>.M, _ rhs: Matrix4x4<T>.M) -> Bool {
     lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2 && lhs.3 == rhs.3
-}
-
-/// Internal multiplier for matrix rows
-@_transparent
-@usableFromInline
-internal func * <T>(_ lhs: Matrix4x4<T>.Row, _ rhs: Matrix4x4<T>.Row) -> Matrix4x4<T>.Row {
-    (lhs.0 * rhs.0, lhs.1 * rhs.1, lhs.2 * rhs.2, lhs.3 * rhs.3)
-}
-
-/// Internal multiplier + adder for matrix rows
-@_transparent
-@usableFromInline
-internal func multAdd<T>(_ lhs: Matrix4x4<T>.Row, _ rhs: Matrix4x4<T>.Row) -> T {
-    let mult = lhs * rhs
-    
-    return (mult.0 + mult.1 + mult.2 + mult.3)
 }
