@@ -153,12 +153,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     
     /// Returns a `String` that represents this instance.
     public var description: String {
-        """
-        [M00:\(r0.0) M01:\(r0.1) M02:\(r0.2) M03:\(r0.3)]\
-        [M10:\(r1.0) M11:\(r1.1) M12:\(r1.2) M13:\(r1.3)]\
-        [M20:\(r2.0) M21:\(r2.1) M22:\(r2.2) M23:\(r2.3)]\
-        [M30:\(r3.0) M31:\(r3.1) M32:\(r3.2) M33:\(r3.3)]
-        """
+        "\(type(of: self))(rows: \(m))"
     }
     
     /// Initializes an identity matrix.
@@ -174,12 +169,66 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
+    /// the result.
+    ///
+    /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication
+    public static func * (lhs: Self, rhs: Self) -> Self {
+        let r00 = multAdd(lhs.r0, rhs.c0)
+        let r01 = multAdd(lhs.r0, rhs.c1)
+        let r02 = multAdd(lhs.r0, rhs.c2)
+        let r03 = multAdd(lhs.r0, rhs.c3)
+        
+        let r10 = multAdd(lhs.r1, rhs.c0)
+        let r11 = multAdd(lhs.r1, rhs.c1)
+        let r12 = multAdd(lhs.r1, rhs.c2)
+        let r13 = multAdd(lhs.r1, rhs.c3)
+        
+        let r20 = multAdd(lhs.r2, rhs.c0)
+        let r21 = multAdd(lhs.r2, rhs.c1)
+        let r22 = multAdd(lhs.r2, rhs.c2)
+        let r23 = multAdd(lhs.r2, rhs.c3)
+        
+        let r30 = multAdd(lhs.r3, rhs.c0)
+        let r31 = multAdd(lhs.r3, rhs.c1)
+        let r32 = multAdd(lhs.r3, rhs.c2)
+        let r33 = multAdd(lhs.r3, rhs.c3)
+        
+        return Self(rows: ((r00, r01, r02, r03),
+                           (r10, r11, r12, r13),
+                           (r20, r21, r22, r23),
+                           (r30, r31, r32, r33)))
+    }
+    
+    /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`,
+    /// and stores the result back to `lhs`.
+    ///
+    /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication
+    public static func *= (lhs: inout Self, rhs: Self) {
+        lhs = lhs * rhs
+    }
+    
+    /// Returns `true` iff all coefficients from `lhs` and `rhs` are equal.
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.m == rhs.m
     }
 }
 
 /// Performs an equality check over a tuple of ``Matrix4x4`` values.
-public func == <T: Equatable>(_ lhs: Matrix4x4<T>.M, _ rhs: Matrix4x4<T>.M) -> Bool {
+public func == <T>(_ lhs: Matrix4x4<T>.M, _ rhs: Matrix4x4<T>.M) -> Bool {
     lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2 && lhs.3 == rhs.3
+}
+
+/// Internal multiplier for matrix rows
+@_transparent
+internal func * <T>(_ lhs: Matrix4x4<T>.Row, _ rhs: Matrix4x4<T>.Row) -> Matrix4x4<T>.Row {
+    (lhs.0 * rhs.0, lhs.1 * rhs.1, lhs.2 * rhs.2, lhs.3 * rhs.3)
+}
+
+/// Internal multiplier + adder for matrix rows
+@_transparent
+internal func multAdd<T>(_ lhs: Matrix4x4<T>.Row, _ rhs: Matrix4x4<T>.Row) -> T {
+    let mult = lhs * rhs
+    
+    return (mult.0 + mult.1 + mult.2 + mult.3)
 }

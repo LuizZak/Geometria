@@ -1,5 +1,5 @@
 import XCTest
-import Geometria
+@testable import Geometria
 
 class Matrix4x4Tests: XCTestCase {
     typealias Matrix = Matrix4x4<Double>
@@ -206,12 +206,67 @@ class Matrix4x4Tests: XCTestCase {
         
         XCTAssertEqual(
             sut.description,
-            """
-            [M00:0.0 M01:1.0 M02:2.0 M03:3.0]\
-            [M10:4.0 M11:5.0 M12:6.0 M13:7.0]\
-            [M20:8.0 M21:9.0 M22:10.0 M23:11.0]\
-            [M30:12.0 M31:13.0 M32:14.0 M33:15.0]
-            """
+            "Matrix4x4<Double>(rows: ((0.0, 1.0, 2.0, 3.0), (4.0, 5.0, 6.0, 7.0), (8.0, 9.0, 10.0, 11.0), (12.0, 13.0, 14.0, 15.0)))"
         )
+    }
+    
+    func testMultiply() {
+        let lhs = Matrix(rows: ((0, 1, 2, 3),
+                                (4, 5, 6, 7),
+                                (8, 9, 10, 11),
+                                (12, 13, 14, 15)))
+        let rhs = Matrix(rows: ((16, 17, 18, 19),
+                                (20, 21, 22, 23),
+                                (24, 25, 26, 27),
+                                (28, 29, 30, 31)))
+        
+        let result = lhs * rhs
+        
+        XCTAssertTrue(result.m == ((152.0, 158.0, 164.0, 170.0),
+                                   (504.0, 526.0, 548.0, 570.0),
+                                   (856.0, 894.0, 932.0, 970.0),
+                                   (1208.0, 1262.0, 1316.0, 1370.0)),
+                      "\(result.m)")
+    }
+    
+    func testMultiply_inPlace() {
+        var lhs = Matrix(rows: ((0, 1, 2, 3),
+                                (4, 5, 6, 7),
+                                (8, 9, 10, 11),
+                                (12, 13, 14, 15)))
+        let rhs = Matrix(rows: ((16, 17, 18, 19),
+                                (20, 21, 22, 23),
+                                (24, 25, 26, 27),
+                                (28, 29, 30, 31)))
+        
+        lhs *= rhs
+        
+        XCTAssertTrue(lhs.m == ((152.0, 158.0, 164.0, 170.0),
+                                (504.0, 526.0, 548.0, 570.0),
+                                (856.0, 894.0, 932.0, 970.0),
+                                (1208.0, 1262.0, 1316.0, 1370.0)),
+                      "\(lhs.m)")
+    }
+}
+
+// MARK: Global functions
+
+extension Matrix4x4Tests {
+    func testMultiply4Tuple() {
+        let lhs: Matrix.Row = (1, 2, 3, 5)
+        let rhs: Matrix.Row = (7, 11, 13, 17)
+        
+        let result = lhs * rhs
+        
+        XCTAssertTrue(result == (7.0, 22.0, 39.0, 85.0), "\(result)")
+    }
+    
+    func testMultiplyAdd4Tuple() {
+        let lhs: Matrix.Row = (1, 2, 3, 5)
+        let rhs: Matrix.Row = (7, 11, 13, 17)
+        
+        let result = multAdd(lhs, rhs)
+        
+        XCTAssertTrue(result == 153.0, "\(result)")
     }
 }
