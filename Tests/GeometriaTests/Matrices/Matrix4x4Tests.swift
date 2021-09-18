@@ -244,6 +244,27 @@ class Matrix4x4Tests: XCTestCase {
                   "\(sut.m)")
     }
     
+    func testMakeScaleXYZ() {
+        let sut = Matrix.makeScale(x: 1, y: 2, z: 3)
+        
+        XCTAssert(sut.m == ((1, 0, 0, 0),
+                            (0, 2, 0, 0),
+                            (0, 0, 3, 0),
+                            (0, 0, 0, 1)),
+                  "\(sut.m)")
+    }
+    
+    func testMakeScaleVector() {
+        let vec = Vector3D(x: 1, y: 2, z: 3)
+        let sut = Matrix.makeScale(vec)
+        
+        XCTAssert(sut.m == ((1, 0, 0, 0),
+                            (0, 2, 0, 0),
+                            (0, 0, 3, 0),
+                            (0, 0, 0, 1)),
+                  "\(sut.m)")
+    }
+    
     func testMultiply() {
         let lhs = Matrix(rows: ((0, 1, 2, 3),
                                 (4, 5, 6, 7),

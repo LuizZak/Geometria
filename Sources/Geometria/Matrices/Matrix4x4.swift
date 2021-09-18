@@ -220,6 +220,23 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Creates a matrix that when applied to a vector, scales each coordinate
+    /// by the given ammount.
+    public static func makeScale(x: Scalar, y: Scalar, z: Scalar) -> Self {
+        Self(rows: (
+            (x, 0, 0, 0),
+            (0, y, 0, 0),
+            (0, 0, z, 0),
+            (0, 0, 0, 1)
+        ))
+    }
+    
+    /// Creates a matrix that when applied to a vector, scales each coordinate
+    /// by the corresponding coordinate on a supplied vector.
+    public static func makeScale<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+        makeScale(x: vec.x, y: vec.y, z: vec.z)
+    }
+    
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
