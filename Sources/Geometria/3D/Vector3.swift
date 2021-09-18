@@ -108,12 +108,6 @@ extension Vector3: AdditiveArithmetic where Scalar: AdditiveArithmetic {
 }
 
 extension Vector3: VectorAdditive where Scalar: AdditiveArithmetic {
-    /// Initializes a zero-valued `Vector3Type`
-    @_transparent
-    public init() {
-        self = .zero
-    }
-    
     @_transparent
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)

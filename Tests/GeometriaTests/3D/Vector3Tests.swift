@@ -92,14 +92,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertNotEqual(Vector(x: 0, y: 1, z: 0).hashValue, Vector(x: 0, y: 1, z: 2).hashValue)
     }
     
-    func testInitZero() {
-        let sut = Vector()
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 0)
-        XCTAssertEqual(sut.z, 0)
-    }
-    
     func testPointwiseMin() {
         let vec1 = Vector3i(x: 2, y: -3, z: 5)
         let vec2 = Vector3i(x: -1, y: 4, z: -6)
