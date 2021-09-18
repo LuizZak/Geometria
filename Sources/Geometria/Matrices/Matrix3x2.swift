@@ -135,11 +135,11 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
     /// - Returns: The value of the component at the specified index.
     ///
     /// - precondition: `row >= 0 && row <= 2 && column >= 0 && column <= 1`
-    public subscript(row row: Int, column column: Int) -> Scalar {
+    public subscript(column column: Int, row row: Int) -> Scalar {
         precondition(row >= 0 || row <= 2,
-                     "Rows for matrices run from 0 to 2, inclusive.")
+                     "Rows for Matrix3x2 run from 0 to 2, inclusive.")
         precondition(column >= 0 || column <= 1,
-                     "Rows and columns for matrices run from 0 to 1, inclusive.")
+                     "Rows and columns for Matrix3x2 run from 0 to 1, inclusive.")
         
         return self[index: row * 2 + column]
     }

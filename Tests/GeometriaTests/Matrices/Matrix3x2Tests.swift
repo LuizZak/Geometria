@@ -76,12 +76,12 @@ class Matrix3x2Tests: XCTestCase {
     func testSubscriptRowColumn() {
         let sut = makeSut()
         
-        XCTAssertEqual(sut[row: 0, column: 0], sut.m11)
-        XCTAssertEqual(sut[row: 0, column: 1], sut.m12)
-        XCTAssertEqual(sut[row: 1, column: 0], sut.m21)
-        XCTAssertEqual(sut[row: 1, column: 1], sut.m22)
-        XCTAssertEqual(sut[row: 2, column: 0], sut.m31)
-        XCTAssertEqual(sut[row: 2, column: 1], sut.m32)
+        XCTAssertEqual(sut[column: 0, row: 0], sut.m11)
+        XCTAssertEqual(sut[column: 1, row: 0], sut.m12)
+        XCTAssertEqual(sut[column: 0, row: 1], sut.m21)
+        XCTAssertEqual(sut[column: 1, row: 1], sut.m22)
+        XCTAssertEqual(sut[column: 0, row: 2], sut.m31)
+        XCTAssertEqual(sut[column: 1, row: 2], sut.m32)
     }
     
     func testDescription() {
