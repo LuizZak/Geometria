@@ -366,6 +366,10 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     }
 }
 
+extension AABB: DivisibleRectangleType where Vector: VectorDivisible {
+    
+}
+
 extension AABB: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this AABB's area intersects the given line type.
     @inlinable
@@ -492,9 +496,13 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         var max = -Scalar.infinity
         
         offsetPoint -= center
+        offsetPoint = abs(offsetPoint) / size
         
-        for index in 0..<offsetPoint.scalarCount {
-            let distance = abs(offsetPoint[index]) / size[index]
+        var index = 0
+        while index < offsetPoint.scalarCount {
+            defer { index += 1 }
+            
+            let distance = offsetPoint[index]
             
             if distance > max {
                 max = distance
@@ -508,8 +516,4 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         
         return normal
     }
-}
-
-extension AABB: DivisibleRectangleType where Vector: VectorDivisible {
-    
 }
