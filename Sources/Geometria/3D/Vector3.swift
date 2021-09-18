@@ -154,7 +154,7 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
     /// representation of `1`.
     @_transparent
     public static var one: Self {
-        Self(x: 1, y: 1, z: 1)
+        Self(repeating: 1)
     }
     
     /// Calculates the dot product between this and another provided `Vector3Type`
