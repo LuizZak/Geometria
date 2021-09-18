@@ -535,8 +535,8 @@ class Vector3Tests: XCTestCase {
     }
     
     func testElevation() {
-        XCTAssertEqual(Vector3D(x: 0, y: 0, z: 1).elevation, .pi / 2)
-        XCTAssertEqual(Vector3D(x: 0, y: 0, z: -1).elevation, -.pi / 2)
+        XCTAssertEqual(Vector3D(x: 0, y: 0, z: 1).elevation, Double.pi / 2)
+        XCTAssertEqual(Vector3D(x: 0, y: 0, z: -1).elevation, -Double.pi / 2)
         XCTAssertEqual(Vector3D(x: -1, y: -1, z: 1).elevation, 0.6154797086703875)
         XCTAssertEqual(Vector3D(x: 1, y: -1, z: 1).elevation, 0.6154797086703875)
         XCTAssertEqual(Vector3D(x: 1, y: 1, z: 1).elevation, 0.6154797086703875)

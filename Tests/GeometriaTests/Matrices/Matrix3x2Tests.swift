@@ -322,7 +322,7 @@ class Matrix3x2Tests: XCTestCase {
     }
     
     func testRotationAngle() {
-        let sut = Matrix.rotation(angle: .pi / 2)
+        let sut = Matrix.rotation(angle: Double.pi / 2)
         
         XCTAssertEqual(sut.m11, 0, accuracy: 1e-15)
         XCTAssertEqual(sut.m12, 1, accuracy: 1e-15)
@@ -333,7 +333,7 @@ class Matrix3x2Tests: XCTestCase {
     }
     
     func testRotationAngleCenter() {
-        let sut = Matrix.rotation(angle: .pi / 2, center: .init(x: 2, y: 3))
+        let sut = Matrix.rotation(angle: Double.pi / 2, center: .init(x: 2, y: 3))
         
         XCTAssertEqual(sut.m11, 0, accuracy: 1e-15)
         XCTAssertEqual(sut.m12, 1, accuracy: 1e-15)
@@ -369,7 +369,7 @@ class Matrix3x2Tests: XCTestCase {
         let sut = Matrix
             .transformation(xScale: 2,
                             yScale: 3,
-                            angle: .pi / 2,
+                            angle: Double.pi / 2,
                             xOffset: 4,
                             yOffset: 5)
         
@@ -391,7 +391,7 @@ class Matrix3x2Tests: XCTestCase {
     }
     
     func testSkew() {
-        let sut = Matrix.skew(angleX: .pi / 4, angleY: -.pi / 4)
+        let sut = Matrix.skew(angleX: Double.pi / 4, angleY: -Double.pi / 4)
         
         XCTAssertEqual(sut.m11, 1, accuracy: 1e-15)
         XCTAssertEqual(sut.m12, 1, accuracy: 1e-15)
@@ -577,7 +577,7 @@ extension Matrix3x2Tests {
         Matrix
             .transformation(xScale: 2,
                             yScale: 3,
-                            angle: .pi / 2,
+                            angle: Double.pi / 2,
                             xOffset: 4,
                             yOffset: 5)
     }

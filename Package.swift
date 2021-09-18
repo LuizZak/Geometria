@@ -5,24 +5,38 @@ import class Foundation.ProcessInfo
 let geometriaDependencies: [Target.Dependency] = [
     .product(name: "Numerics", package: "swift-numerics")
 ]
+let reportingSwiftSettings: [SwiftSetting] = [
+    .unsafeFlags([
+        "-Xfrontend",
+        "-warn-long-function-bodies=600",
+        "-Xfrontend",
+        "-warn-long-expression-type-checking=50"
+    ])
+]
 
 let geometriaTarget: Target
+let geometriaTestsTarget: Target
 if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] != nil {
     geometriaTarget = .target(
         name: "Geometria",
         dependencies: geometriaDependencies,
-        swiftSettings: [
-            .unsafeFlags([
-                "-Xfrontend",
-                "-warn-long-function-bodies=600",
-                "-Xfrontend",
-                "-warn-long-expression-type-checking=50"
-            ])
-        ])
+        swiftSettings: reportingSwiftSettings)
+    
+    geometriaTestsTarget = .testTarget(
+        name: "GeometriaTests",
+        dependencies: ["Geometria"],
+        swiftSettings: reportingSwiftSettings
+    )
 } else {
     geometriaTarget = .target(
         name: "Geometria",
-        dependencies: geometriaDependencies)
+        dependencies: geometriaDependencies
+    )
+    
+    geometriaTestsTarget = .testTarget(
+        name: "GeometriaTests",
+        dependencies: ["Geometria"]
+    )
 }
 
 let package = Package(
@@ -37,8 +51,6 @@ let package = Package(
     ],
     targets: [
         geometriaTarget,
-        .testTarget(
-            name: "GeometriaTests",
-            dependencies: ["Geometria"]),
+        geometriaTestsTarget,
     ]
 )

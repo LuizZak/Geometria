@@ -37,8 +37,8 @@ class PerformanceTests: XCTestCase {
     func xtestLineProject2D_simd() {
         typealias Vector = SIMD2<Double>
         
-        let line = Line<Vector>(x1: 0, y1: 0, x2: 10, y2: 10)
-        let point = Vector(x: 0, y: 10)
+        let line = Line<Vector>(x1: 0.0, y1: 0.0, x2: 10.0, y2: 10.0)
+        let point = Vector(x: 0.0, y: 10.0)
         
         measure {
             var i = 0
@@ -52,8 +52,8 @@ class PerformanceTests: XCTestCase {
     func xtestLineProject3D_simd() {
         typealias Vector = SIMD3<Double>
         
-        let line = Line<Vector>(x1: 0, y1: 0, z1: 0, x2: 10, y2: 10, z2: 10)
-        let point = Vector(x: 10, y: 10, z: 0)
+        let line = Line<Vector>(x1: 0.0, y1: 0.0, z1: 0.0, x2: 10.0, y2: 10.0, z2: 10.0)
+        let point = Vector(x: 10.0, y: 10.0, z: 0.0)
         
         measure {
             var i = 0

@@ -9,7 +9,7 @@ class SIMD2_DoubleTests: XCTestCase {
     typealias Vector = SIMD2<Double>
     
     func testInitRepeating() {
-        let result = Vector(repeating: 1)
+        let result = Vector(repeating: 1.0)
         
         XCTAssertEqual(result.x, 1)
         XCTAssertEqual(result.y, 1)
