@@ -123,6 +123,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
                 preconditionFailure("Rows/columns for Matrix4x4 run from 0 to 3, inclusive.")
             }
         }
+        @_transparent
         set {
             switch (row, column) {
             // Row 0
@@ -157,6 +158,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     }
     
     /// Initializes an identity matrix.
+    @_transparent
     public init() {
         m = ((1, 0, 0, 0),
              (0, 1, 0, 0),
@@ -165,6 +167,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     }
     
     /// Initializes a new matrix with the given row values.
+    @_transparent
     public init(rows: (Row, Row, Row, Row)) {
         m = rows
     }
@@ -173,6 +176,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// the result.
     ///
     /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication
+    @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         let r00 = multAdd(lhs.r0, rhs.c0)
         let r01 = multAdd(lhs.r0, rhs.c1)
@@ -204,29 +208,34 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// and stores the result back to `lhs`.
     ///
     /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication
+    @_transparent
     public static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }
     
     /// Returns `true` iff all coefficients from `lhs` and `rhs` are equal.
+    @_transparent
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.m == rhs.m
     }
 }
 
 /// Performs an equality check over a tuple of ``Matrix4x4`` values.
+@_transparent
 public func == <T>(_ lhs: Matrix4x4<T>.M, _ rhs: Matrix4x4<T>.M) -> Bool {
     lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2 && lhs.3 == rhs.3
 }
 
 /// Internal multiplier for matrix rows
 @_transparent
+@usableFromInline
 internal func * <T>(_ lhs: Matrix4x4<T>.Row, _ rhs: Matrix4x4<T>.Row) -> Matrix4x4<T>.Row {
     (lhs.0 * rhs.0, lhs.1 * rhs.1, lhs.2 * rhs.2, lhs.3 * rhs.3)
 }
 
 /// Internal multiplier + adder for matrix rows
 @_transparent
+@usableFromInline
 internal func multAdd<T>(_ lhs: Matrix4x4<T>.Row, _ rhs: Matrix4x4<T>.Row) -> T {
     let mult = lhs * rhs
     

@@ -210,6 +210,16 @@ class Matrix4x4Tests: XCTestCase {
         )
     }
     
+    func testIdentity() {
+        let sut = Matrix()
+        
+        XCTAssert(sut.m == ((1, 0, 0, 0),
+                            (0, 1, 0, 0),
+                            (0, 0, 1, 0),
+                            (0, 0, 0, 1)),
+                  "\(sut.m)")
+    }
+    
     func testMultiply() {
         let lhs = Matrix(rows: ((0, 1, 2, 3),
                                 (4, 5, 6, 7),
