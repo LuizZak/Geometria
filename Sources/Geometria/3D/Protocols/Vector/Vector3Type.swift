@@ -109,15 +109,9 @@ public extension Vector3Type where Self: VectorComparable {
     /// ```
     @_transparent
     var maximalComponentIndex: Int {
-        if x > y {
-            if y > z {
-                return 0
-            }
-            if x > z {
-                return 0
-            }
+        if x > y && x > z {
+            return 0
         }
-        
         if y > z {
             return 1
         }
@@ -133,15 +127,9 @@ public extension Vector3Type where Self: VectorComparable {
     /// ```
     @_transparent
     var minimalComponentIndex: Int {
-        if x < y {
-            if y < z {
-                return 0
-            }
-            if x < z {
-                return 0
-            }
+        if x < y && x < z {
+            return 0
         }
-        
         if y < z {
             return 1
         }

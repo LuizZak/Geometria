@@ -25,3 +25,9 @@ public protocol VectorAdditive: VectorType, AdditiveArithmetic where Scalar: Add
     
     static func -= (lhs: inout Self, rhs: Scalar)
 }
+
+public extension VectorAdditive {
+    init() {
+        self.init(repeating: .zero)
+    }
+}
