@@ -31,16 +31,16 @@ public struct Vector4<Scalar>: Vector4Type {
     }
     
     @_transparent
-    public init(repeating scalar: Scalar) {
-        (x, y, z, w) = (scalar, scalar, scalar, scalar)
-    }
-    
-    @_transparent
     public init(x: Scalar, y: Scalar, z: Scalar, w: Scalar) {
         self.x = x
         self.y = y
         self.z = z
         self.w = w
+    }
+    
+    @_transparent
+    public init(repeating scalar: Scalar) {
+        (x, y, z, w) = (scalar, scalar, scalar, scalar)
     }
     
     /// Initializes this ``Vector4`` with the values from a given tuple.

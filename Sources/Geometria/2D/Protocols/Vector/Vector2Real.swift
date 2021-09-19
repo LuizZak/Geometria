@@ -18,8 +18,8 @@ public protocol Vector2Real: Vector2FloatingPoint & VectorReal {
     static func rotate(_ vec: Self, by angleInRadians: Scalar) -> Self
     
     @inlinable
-    static func * (lhs: Self, rhs: Matrix2x3<Scalar>) -> Self
+    static func * (lhs: Self, rhs: Matrix3x2<Scalar>) -> Self
     
     @inlinable
-    static func *= (lhs: inout Self, rhs: Matrix2x3<Scalar>)
+    static func *= (lhs: inout Self, rhs: Matrix3x2<Scalar>)
 }

@@ -48,6 +48,13 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(sut.y, 1)
     }
     
+    func testInitWithTuple() {
+        let sut = Vector((1, 2))
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 2)
+    }
+    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
         XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))

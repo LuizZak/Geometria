@@ -289,9 +289,9 @@ extension SIMD2: Vector2Real where Scalar == Double {
     @inlinable
     public static func matrix(scale: Self = .one,
                               rotate angle: Scalar = 0,
-                              translate: Self = Self(x: 0, y: 0)) -> Matrix2x3<Scalar> {
+                              translate: Self = Self(x: 0, y: 0)) -> Matrix3x2<Scalar> {
         
-        Matrix2x3<Scalar>.transformation(xScale: scale.x,
+        Matrix3x2<Scalar>.transformation(xScale: scale.x,
                                        yScale: scale.y,
                                        angle: angle,
                                        xOffset: translate.x,
@@ -299,13 +299,13 @@ extension SIMD2: Vector2Real where Scalar == Double {
     }
     
     @inlinable
-    public static func * (lhs: Self, rhs: Matrix2x3<Scalar>) -> Self {
-        Matrix2x3<Scalar>.transformPoint(matrix: rhs, point: lhs)
+    public static func * (lhs: Self, rhs: Matrix3x2<Scalar>) -> Self {
+        Matrix3x2<Scalar>.transformPoint(matrix: rhs, point: lhs)
     }
     
     @inlinable
-    public static func *= (lhs: inout Self, rhs: Matrix2x3<Scalar>) {
-        lhs = Matrix2x3<Scalar>.transformPoint(matrix: rhs, point: lhs)
+    public static func *= (lhs: inout Self, rhs: Matrix3x2<Scalar>) {
+        lhs = Matrix3x2<Scalar>.transformPoint(matrix: rhs, point: lhs)
     }
 }
 

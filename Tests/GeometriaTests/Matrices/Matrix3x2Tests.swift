@@ -1,7 +1,7 @@
 import XCTest
 import Geometria
 
-class Matrix2x3Tests: XCTestCase {
+class Matrix3x2Tests: XCTestCase {
     typealias Matrix = Matrix3x2D
     
     func testIdentity() {
@@ -413,7 +413,7 @@ class Matrix2x3Tests: XCTestCase {
     }
     
     func testInvert_zeroDeterminant() {
-        let sut = Matrix2x3(m11: 0, m12: 0, m21: 0, m22: 0, m31: 0, m32: 0)
+        let sut = Matrix3x2(m11: 0, m12: 0, m21: 0, m22: 0, m31: 0, m32: 0)
         
         XCTAssertEqual(sut.inverted(), .identity)
     }
@@ -561,7 +561,7 @@ class Matrix2x3Tests: XCTestCase {
     }
 }
 
-extension Matrix2x3Tests {
+extension Matrix3x2Tests {
     /// Creates a test `Matrix` with `Matrix(m11: 1, m12: 2, m21: 3, m22: 4, m31: 5, m32: 6)`
     func makeSut() -> Matrix {
         Matrix(m11: 1, m12: 2, m21: 3, m22: 4, m31: 5, m32: 6)

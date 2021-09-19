@@ -38,6 +38,12 @@ public struct Vector3<Scalar>: Vector3Type {
     public init(repeating scalar: Scalar) {
         self.init(x: scalar, y: scalar, z: scalar)
     }
+    
+    /// Initializes this ``Vector3`` with the values from a given tuple.
+    @_transparent
+    public init(_ tuple: (Scalar, Scalar, Scalar)) {
+        (x, y, z) = tuple
+    }
 }
 
 extension Vector3: Equatable where Scalar: Equatable { }

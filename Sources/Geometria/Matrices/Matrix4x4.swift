@@ -1,7 +1,19 @@
 import RealModule
 
-/// Plain Matrix4x4 with floating-point components.
+/// Plain 4-row 4-column Matrix with floating-point components.
 public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable, CustomStringConvertible {
+    /// Returns a 4x4 [identity matrix].
+    ///
+    /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
+    public static var idendity: Self {
+        Self.init(rows: (
+            (1, 0, 0, 0),
+            (0, 1, 0, 0),
+            (0, 0, 1, 0),
+            (0, 0, 0, 1)
+        ))
+    }
+    
     /// The full type of this matrix's backing, as a tuple of columns.
     public typealias M = (Row, Row, Row, Row)
     
@@ -57,7 +69,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// The first column of this matrix
     ///
     /// Equivalent to `(self.r0.0, self.r1.0, self.r2.0, self.r3.0)`.
-    public var c0: Row {
+    public var c0: Column {
         @_transparent
         get { (r0.0, r1.0, r2.0, r3.0) }
         @_transparent
@@ -67,7 +79,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// The second column of this matrix
     ///
     /// Equivalent to `(self.r0.1, self.r1.1, self.r2.1, self.r3.1)`.
-    public var c1: Row {
+    public var c1: Column {
         @_transparent
         get { (r0.1, r1.1, r2.1, r3.1) }
         @_transparent
@@ -77,7 +89,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// The third column of this matrix
     ///
     /// Equivalent to `(self.r0.2, self.r1.2, self.r2.2, self.r3.2)`.
-    public var c2: Row {
+    public var c2: Column {
         @_transparent
         get { (r0.2, r1.2, r2.2, r3.2) }
         @_transparent
@@ -87,7 +99,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// The fourth column of this matrix
     ///
     /// Equivalent to `(self.r0.3, self.r1.3, self.r2.3, self.r3.3)`.
-    public var c3: Row {
+    public var c3: Column {
         @_transparent
         get { (r0.3, r1.3, r2.3, r3.3) }
         @_transparent
@@ -162,13 +174,13 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
             case (2, 1): return r2.1
             case (2, 2): return r2.2
             case (2, 3): return r2.3
-            // Row 2
+            // Row 3
             case (3, 0): return r3.0
             case (3, 1): return r3.1
             case (3, 2): return r3.2
             case (3, 3): return r3.3
             default:
-                preconditionFailure("Rows/columns for Matrix4x4 run from 0 to 3, inclusive.")
+                preconditionFailure("Rows/columns for Matrix4x4 run from [0, 0] to [3, 3], inclusive.")
             }
         }
         @_transparent
@@ -189,13 +201,13 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
             case (2, 1): r2.1 = newValue
             case (2, 2): r2.2 = newValue
             case (2, 3): r2.3 = newValue
-            // Row 2
+            // Row 3
             case (3, 0): r3.0 = newValue
             case (3, 1): r3.1 = newValue
             case (3, 2): r3.2 = newValue
             case (3, 3): r3.3 = newValue
             default:
-                preconditionFailure("Columns and rows for Matrix4x4 run from 0 to 3, inclusive.")
+                preconditionFailure("Rows/columns for Matrix4x4 run from [0, 0] to [3, 3], inclusive.")
             }
         }
     }
@@ -374,10 +386,12 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         let r32 = lhs.r3Vec.dot(rhs.c2Vec)
         let r33 = lhs.r3Vec.dot(rhs.c3Vec)
         
-        return Self(rows: ((r00, r01, r02, r03),
-                           (r10, r11, r12, r13),
-                           (r20, r21, r22, r23),
-                           (r30, r31, r32, r33)))
+        return Self(rows: (
+            (r00, r01, r02, r03),
+            (r10, r11, r12, r13),
+            (r20, r21, r22, r23),
+            (r30, r31, r32, r33)
+        ))
     }
     
     /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`,

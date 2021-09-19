@@ -33,7 +33,7 @@ class Vector4Tests: XCTestCase {
         XCTAssertEqual(sut.w, 1)
     }
     
-    func testInitTuple() {
+    func testInitWithTuple() {
         let sut = Vector((1, 2, 3, 4))
         
         XCTAssertEqual(sut.x, 1)

@@ -57,6 +57,18 @@ func assertEqual<T>(_ values1: [T],
 
 // MARK: FloatingPoint tuple equality
 
+func assertEqual<T>(_ values1: (T, T, T),
+                    _ values2: (T, T, T),
+                    accuracy: T,
+                    messagePrefix: @escaping @autoclosure () -> String = "",
+                    file: StaticString = #file,
+                    line: UInt = #line) where T: FloatingPoint {
+    
+    XCTAssertEqual(values1.0, values2.0, accuracy: accuracy, "\(messagePrefix())0", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, accuracy: accuracy, "\(messagePrefix())1", file: file, line: line)
+    XCTAssertEqual(values1.2, values2.2, accuracy: accuracy, "\(messagePrefix())2", file: file, line: line)
+}
+
 func assertEqual<T>(_ values1: (T, T, T, T),
                     _ values2: (T, T, T, T),
                     accuracy: T,

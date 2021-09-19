@@ -6,6 +6,16 @@ class Matrix4x4Tests: XCTestCase {
     
     typealias Matrix = Matrix4x4<Double>
     
+    func testIdentity() {
+        let sut = Matrix.idendity
+        
+        XCTAssert(sut.m == ((1, 0, 0, 0),
+                            (0, 1, 0, 0),
+                            (0, 0, 1, 0),
+                            (0, 0, 0, 1)),
+                  "\(sut.m)")
+    }
+    
     func testEquality() {
         let sut = Matrix(rows: ((0, 1, 2, 3),
                                 (4, 5, 6, 7),
@@ -197,22 +207,22 @@ class Matrix4x4Tests: XCTestCase {
                                 (8.0, 9.0, 10.0, 11.0),
                                 (12.0, 13.0, 14.0, 15.0)))
         
-        // Row 1
+        // Row 0
         sut[0, 0] = 0 * 2 + 1
         sut[1, 0] = 1 * 2 + 1
         sut[2, 0] = 2 * 2 + 1
         sut[3, 0] = 3 * 2 + 1
-        // Row 2
+        // Row 1
         sut[0, 1] = 4 * 2 + 1
         sut[1, 1] = 5 * 2 + 1
         sut[2, 1] = 6 * 2 + 1
         sut[3, 1] = 7 * 2 + 1
-        // Row 3
+        // Row 2
         sut[0, 2] = 8 * 2 + 1
         sut[1, 2] = 9 * 2 + 1
         sut[2, 2] = 10 * 2 + 1
         sut[3, 2] = 11 * 2 + 1
-        // Row 4
+        // Row 3
         sut[0, 3] = 12 * 2 + 1
         sut[1, 3] = 13 * 2 + 1
         sut[2, 3] = 14 * 2 + 1
@@ -324,16 +334,6 @@ class Matrix4x4Tests: XCTestCase {
                   "\(sut.m)")
     }
     
-    func testIdentity() {
-        let sut = Matrix()
-        
-        XCTAssert(sut.m == ((1, 0, 0, 0),
-                            (0, 1, 0, 0),
-                            (0, 0, 1, 0),
-                            (0, 0, 0, 1)),
-                  "\(sut.m)")
-    }
-    
     func testMakeScaleXYZ() {
         let sut = Matrix.makeScale(x: 1, y: 2, z: 3)
         
@@ -381,7 +381,6 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r2, (0, 1,  0, 0), accuracy: accuracy)
         assertEqual(sut.r3, (0, 0,  0, 1), accuracy: accuracy)
     }
-    
     
     func testMakeYRotation() {
         let sut = Matrix.makeYRotation(.pi / 3)

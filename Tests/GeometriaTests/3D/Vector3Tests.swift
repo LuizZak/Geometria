@@ -42,14 +42,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(sut.z, 2)
     }
     
-    func testInitRepeating() {
-        let sut = Vector(repeating: 1)
-        
-        XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 1)
-        XCTAssertEqual(sut.z, 1)
-    }
-    
     func testInitWithVector() {
         struct TestVec3: Vector3Type {
             typealias SubVector2 = Vector2<Double>
@@ -70,6 +62,22 @@ class Vector3Tests: XCTestCase {
         
         let testVec = TestVec3(x: 1, y: 2, z: 3)
         let sut = Vector3D(testVec)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 2)
+        XCTAssertEqual(sut.z, 3)
+    }
+    
+    func testInitRepeating() {
+        let sut = Vector(repeating: 1)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 1)
+        XCTAssertEqual(sut.z, 1)
+    }
+    
+    func testInitWithTuple() {
+        let sut = Vector((1, 2, 3))
         
         XCTAssertEqual(sut.x, 1)
         XCTAssertEqual(sut.y, 2)
