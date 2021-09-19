@@ -155,6 +155,23 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         )
     }
     
+    /// Initializes a matrix with the given scalars laid out on the diagonal,
+    /// with all remaining elements being `.zero`.
+    @_transparent
+    public init(diagonal: (Scalar, Scalar)) {
+        m = (
+            (diagonal.0,          0),
+            (         0, diagonal.1)
+        )
+    }
+    
+    /// Initializes a matrix with the given scalar laid out on the diagonal,
+    /// with all remaining elements being `.zero`.
+    @_transparent
+    public init(diagonal: Scalar) {
+        self.init(diagonal: (diagonal, diagonal))
+    }
+    
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant

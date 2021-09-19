@@ -256,6 +256,25 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         )
     }
     
+    /// Initializes a matrix with the given scalars laid out on the diagonal,
+    /// with all remaining elements being `.zero`.
+    @_transparent
+    public init(diagonal: (Scalar, Scalar, Scalar, Scalar)) {
+        m = (
+            (diagonal.0,          0,          0,          0),
+            (         0, diagonal.1,          0,          0),
+            (         0,          0, diagonal.2,          0),
+            (         0,          0,          0, diagonal.3)
+        )
+    }
+    
+    /// Initializes a matrix with the given scalar laid out on the diagonal,
+    /// with all remaining elements being `.zero`.
+    @_transparent
+    public init(diagonal: Scalar) {
+        self.init(diagonal: (diagonal, diagonal, diagonal, diagonal))
+    }
+    
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant

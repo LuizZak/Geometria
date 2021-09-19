@@ -313,6 +313,24 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r3, (1, 1, 1, 1))
     }
     
+    func testInitWithDiagonal() {
+        let sut = Matrix(diagonal: (1, 2, 3, 4))
+        
+        assertEqual(sut.r0, (1, 0, 0, 0))
+        assertEqual(sut.r1, (0, 2, 0, 0))
+        assertEqual(sut.r2, (0, 0, 3, 0))
+        assertEqual(sut.r3, (0, 0, 0, 4))
+    }
+    
+    func testInitWithScalarDiagonal() {
+        let sut = Matrix(diagonal: 2)
+        
+        assertEqual(sut.r0, (2, 0, 0, 0))
+        assertEqual(sut.r1, (0, 2, 0, 0))
+        assertEqual(sut.r2, (0, 0, 2, 0))
+        assertEqual(sut.r3, (0, 0, 0, 2))
+    }
+    
     func testDeterminant() {
         let sut =
         Matrix(rows: (

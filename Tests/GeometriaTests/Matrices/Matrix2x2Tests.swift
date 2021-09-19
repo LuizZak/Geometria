@@ -194,6 +194,20 @@ class Matrix2x2Tests: XCTestCase {
         assertEqual(sut.r1, (1, 1))
     }
     
+    func testInitWithDiagonal() {
+        let sut = Matrix(diagonal: (1, 2))
+        
+        assertEqual(sut.r0, (1, 0))
+        assertEqual(sut.r1, (0, 2))
+    }
+    
+    func testInitWithScalarDiagonal() {
+        let sut = Matrix(diagonal: 2)
+        
+        assertEqual(sut.r0, (2, 0))
+        assertEqual(sut.r1, (0, 2))
+    }
+    
     func testDeterminant() {
         let sut =
         Matrix(rows: (
