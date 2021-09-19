@@ -468,6 +468,56 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         return Self(rows: (r0, r1, r2, r3))
     }
     
+    /// Performs a [matrix addition] between `lhs` and `rhs` and stores the
+    /// result back into `lhs`.
+    ///
+    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
+    public static func += (lhs: inout Self, rhs: Self) {
+        lhs = lhs + rhs
+    }
+    
+    /// Performs a [matrix subtraction] between `lhs` and `rhs` and returns the
+    /// result.
+    ///
+    /// [matrix subtraction]: https://en.wikipedia.org/wiki/Matrix_addition
+    public static func - (lhs: Self, rhs: Self) -> Self {
+        let r0 = lhs.r0Vec - rhs.r0Vec
+        let r1 = lhs.r1Vec - rhs.r1Vec
+        let r2 = lhs.r2Vec - rhs.r2Vec
+        let r3 = lhs.r3Vec - rhs.r3Vec
+        
+        return Self(rows: (r0, r1, r2, r3))
+    }
+    
+    /// Performs a [matrix subtraction] between `lhs` and `rhs` and stores the
+    /// result back into `lhs`.
+    ///
+    /// [matrix subtraction]: https://en.wikipedia.org/wiki/Matrix_addition
+    public static func -= (lhs: inout Self, rhs: Self) {
+        lhs = lhs - rhs
+    }
+    
+    /// Performs a [scalar multiplication] between `lhs` and `rhs` and returns
+    /// the result.
+    ///
+    /// [scalar multiplication]: https://en.wikipedia.org/wiki/Scalar_multiplication
+    public static func * (lhs: Self, rhs: Scalar) -> Self {
+        let r0 = lhs.r0Vec * rhs
+        let r1 = lhs.r1Vec * rhs
+        let r2 = lhs.r2Vec * rhs
+        let r3 = lhs.r3Vec * rhs
+        
+        return Self(rows: (r0, r1, r2, r3))
+    }
+    
+    /// Performs a [scalar multiplication] between `lhs` and `rhs` and stores
+    /// the result back into `lhs`.
+    ///
+    /// [scalar multiplication]: https://en.wikipedia.org/wiki/Scalar_multiplication
+    public static func *= (lhs: inout Self, rhs: Scalar) {
+        lhs = lhs * rhs
+    }
+    
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -499,7 +549,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         ))
     }
     
-    /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`,
+    /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`
     /// and stores the result back to `lhs`.
     ///
     /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication

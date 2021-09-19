@@ -417,6 +417,99 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(result.r2, (21, 23, 25))
     }
     
+    func testAddition_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        let rhs =
+        Matrix(rows: (
+            ( 9, 10, 11),
+            (12, 13, 14),
+            (15, 16, 17)
+        ))
+        
+        lhs += rhs
+        
+        assertEqual(lhs.r0, ( 9, 11, 13))
+        assertEqual(lhs.r1, (15, 17, 19))
+        assertEqual(lhs.r2, (21, 23, 25))
+    }
+    
+    func testSubtraction() {
+        let lhs =
+        Matrix(rows: (
+            (3, 5, 4),
+            (0, 2, 1),
+            (6, 8, 7)
+        ))
+        let rhs =
+        Matrix(rows: (
+            ( 9, 10, 11),
+            (12, 13, 14),
+            (15, 16, 17)
+        ))
+        
+        let result = lhs - rhs
+        
+        assertEqual(result.r0, ( -6,  -5,  -7))
+        assertEqual(result.r1, (-12, -11, -13))
+        assertEqual(result.r2, ( -9,  -8, -10))
+    }
+    
+    func testSubtraction_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            (3, 5, 4),
+            (0, 2, 1),
+            (6, 8, 7)
+        ))
+        let rhs =
+        Matrix(rows: (
+            ( 9, 10, 11),
+            (12, 13, 14),
+            (15, 16, 17)
+        ))
+        
+        lhs -= rhs
+        
+        assertEqual(lhs.r0, ( -6,  -5,  -7))
+        assertEqual(lhs.r1, (-12, -11, -13))
+        assertEqual(lhs.r2, ( -9,  -8, -10))
+    }
+    
+    func testMultiplication_withScalar() {
+        let lhs =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        
+        let result = lhs * 2
+        
+        assertEqual(result.r0, ( 0,  2,  4))
+        assertEqual(result.r1, ( 6,  8, 10))
+        assertEqual(result.r2, (12, 14, 16))
+    }
+    
+    func testMultiplication_withScalar_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        
+        lhs *= 2
+        
+        assertEqual(lhs.r0, ( 0,  2,  4))
+        assertEqual(lhs.r1, ( 6,  8, 10))
+        assertEqual(lhs.r2, (12, 14, 16))
+    }
+    
     func testMultiply() {
         let lhs =
         Matrix(rows: (

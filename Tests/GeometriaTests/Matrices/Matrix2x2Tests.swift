@@ -260,6 +260,80 @@ class Matrix2x2Tests: XCTestCase {
         assertEqual(result.r1, (8, 10))
     }
     
+    func testAddition_inPlace() {
+        var lhs = Matrix(rows: (
+            (0, 1),
+            (2, 3)
+        ))
+        let rhs = Matrix(rows: (
+            (4, 5),
+            (6, 7)
+        ))
+        
+        lhs += rhs
+        
+        assertEqual(lhs.r0, (4,  6))
+        assertEqual(lhs.r1, (8, 10))
+    }
+    
+    func testSubtraction() {
+        let lhs = Matrix(rows: (
+            (1, 3),
+            (2, 0)
+        ))
+        let rhs = Matrix(rows: (
+            (4, 5),
+            (6, 7)
+        ))
+        
+        let result = lhs - rhs
+        
+        assertEqual(result.r0, (-3, -2))
+        assertEqual(result.r1, (-4, -7))
+    }
+    
+    func testSubtraction_inPlace() {
+        var lhs = Matrix(rows: (
+            (1, 3),
+            (2, 0)
+        ))
+        let rhs = Matrix(rows: (
+            (4, 5),
+            (6, 7)
+        ))
+        
+        lhs -= rhs
+        
+        assertEqual(lhs.r0, (-3, -2))
+        assertEqual(lhs.r1, (-4, -7))
+    }
+    
+    func testMultiplication_withScalar() {
+        let lhs =
+        Matrix(rows: (
+            (0, 1),
+            (2, 3)
+        ))
+        
+        let result = lhs * 2
+        
+        assertEqual(result.r0, (0, 2))
+        assertEqual(result.r1, (4, 6))
+    }
+    
+    func testMultiplication_withScalar_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            (0, 1),
+            (2, 3)
+        ))
+        
+        lhs *= 2
+        
+        assertEqual(lhs.r0, (0, 2))
+        assertEqual(lhs.r1, (4, 6))
+    }
+    
     func testMultiply() {
         let lhs = Matrix(rows: (
             (0, 1),
