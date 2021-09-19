@@ -221,7 +221,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     }
     
     /// Creates a matrix that when applied to a vector, scales each coordinate
-    /// by the given ammount.
+    /// by the given amount.
     public static func makeScale(x: Scalar, y: Scalar, z: Scalar) -> Self {
         Self(rows: (
             (x, 0, 0, 0),
@@ -235,6 +235,48 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// by the corresponding coordinate on a supplied vector.
     public static func makeScale<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
         makeScale(x: vec.x, y: vec.y, z: vec.z)
+    }
+    
+    /// Creates an X rotation matrix that when applied to a vector, rotates it
+    /// around the X axis by a specified radian amount.
+    public static func makeXRotation(_ angleInRadians: Scalar) -> Self {
+        let c = Scalar.cos(angleInRadians)
+        let s = Scalar.sin(angleInRadians)
+        
+        return Self(rows: (
+            (1,  0, 0, 0),
+            (0,  c, s, 0),
+            (0, -s, c, 0),
+            (0,  0, 0, 1)
+        ))
+    }
+    
+    /// Creates an Y rotation matrix that when applied to a vector, rotates it
+    /// around the Y axis by a specified radian amount.
+    public static func makeYRotation(_ angleInRadians: Scalar) -> Self {
+        let c = Scalar.cos(angleInRadians)
+        let s = Scalar.sin(angleInRadians)
+        
+        return Self(rows: (
+            (c, 0, -s, 0),
+            (0, 1,  0, 0),
+            (s, 0,  c, 0),
+            (0, 0,  0, 1)
+        ))
+    }
+    
+    /// Creates a Z rotation matrix that when applied to a vector, rotates it
+    /// around the Z axis by a specified radian amount.
+    public static func makeZRotation(_ angleInRadians: Scalar) -> Self {
+        let c = Scalar.cos(angleInRadians)
+        let s = Scalar.sin(angleInRadians)
+        
+        return Self(rows: (
+            ( c, s, 0, 0),
+            (-s, c, 0, 0),
+            ( 0, 0, 1, 0),
+            ( 0, 0, 0, 1)
+        ))
     }
     
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns

@@ -2,6 +2,8 @@ import XCTest
 @testable import Geometria
 
 class Matrix4x4Tests: XCTestCase {
+    let accuracy: Double = 1e-16
+    
     typealias Matrix = Matrix4x4<Double>
     
     func testEquality() {
@@ -263,6 +265,88 @@ class Matrix4x4Tests: XCTestCase {
                             (0, 0, 3, 0),
                             (0, 0, 0, 1)),
                   "\(sut.m)")
+    }
+    
+    func testMakeXRotation() {
+        let sut = Matrix.makeXRotation(.pi / 3)
+        
+        assertEqual(sut.r0, (1, 0, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (0,  0.5000000000000001, 0.8660254037844386, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (0, -0.8660254037844386, 0.5000000000000001, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeXRotation_halfPi() {
+        let sut = Matrix.makeXRotation(.pi / 2)
+        
+        assertEqual(sut.r0, (1,  0, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (0,  0, 1, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (0, -1, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0,  0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeXRotation_minusHalfPi() {
+        let sut = Matrix.makeXRotation(-.pi / 2)
+        
+        assertEqual(sut.r0, (1, 0,  0, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (0, 0, -1, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (0, 1,  0, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0,  0, 1), accuracy: accuracy)
+    }
+    
+    
+    func testMakeYRotation() {
+        let sut = Matrix.makeYRotation(.pi / 3)
+        
+        assertEqual(sut.r0, (0.5000000000000001, 0, -0.8660254037844386, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (0, 1, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (0.8660254037844386, 0, 0.5000000000000001, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeYRotation_halfPi() {
+        let sut = Matrix.makeYRotation(.pi / 2)
+        
+        assertEqual(sut.r0, (0, 0, -1, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (0, 1,  0, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (1, 0,  0, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0,  0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeYRotation_minusHalfPi() {
+        let sut = Matrix.makeYRotation(-.pi / 2)
+        
+        assertEqual(sut.r0, ( 0, 0, 1, 0), accuracy: accuracy)
+        assertEqual(sut.r1, ( 0, 1, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (-1, 0, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r3, ( 0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeZRotation() {
+        let sut = Matrix.makeZRotation(.pi / 3)
+        
+        assertEqual(sut.r0, ( 0.5000000000000001, 0.8660254037844386, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (-0.8660254037844386, 0.5000000000000001, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (0, 0, 1, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeZRotation_halfPi() {
+        let sut = Matrix.makeZRotation(.pi / 2)
+        
+        assertEqual(sut.r0, ( 0, 1, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (-1, 0, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r2, ( 0, 0, 1, 0), accuracy: accuracy)
+        assertEqual(sut.r3, ( 0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeZRotation_minusHalfPi() {
+        let sut = Matrix.makeZRotation(-.pi / 2)
+        
+        assertEqual(sut.r0, (0, -1, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r1, (1,  0, 0, 0), accuracy: accuracy)
+        assertEqual(sut.r2, (0,  0, 1, 0), accuracy: accuracy)
+        assertEqual(sut.r3, (0,  0, 0, 1), accuracy: accuracy)
     }
     
     func testMultiply() {
