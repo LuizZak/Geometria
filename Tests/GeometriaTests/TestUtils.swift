@@ -57,29 +57,67 @@ func assertEqual<T>(_ values1: [T],
 
 // MARK: FloatingPoint tuple equality
 
-func assertEqual<T>(_ values1: (T, T, T),
-                    _ values2: (T, T, T),
+func assertEqual<T>(_ values1: (T, T),
+                    _ values2: (T, T),
                     accuracy: T,
-                    messagePrefix: @escaping @autoclosure () -> String = "",
                     file: StaticString = #file,
                     line: UInt = #line) where T: FloatingPoint {
     
-    XCTAssertEqual(values1.0, values2.0, accuracy: accuracy, "\(messagePrefix())0", file: file, line: line)
-    XCTAssertEqual(values1.1, values2.1, accuracy: accuracy, "\(messagePrefix())1", file: file, line: line)
-    XCTAssertEqual(values1.2, values2.2, accuracy: accuracy, "\(messagePrefix())2", file: file, line: line)
+    XCTAssertEqual(values1.0, values2.0, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+}
+
+func assertEqual<T>(_ values1: (T, T),
+                    _ values2: (T, T),
+                    file: StaticString = #file,
+                    line: UInt = #line) where T: FloatingPoint {
+    
+    XCTAssertEqual(values1.0, values2.0, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, "\(values1) != \(values2)", file: file, line: line)
+}
+
+func assertEqual<T>(_ values1: (T, T, T),
+                    _ values2: (T, T, T),
+                    accuracy: T,
+                    file: StaticString = #file,
+                    line: UInt = #line) where T: FloatingPoint {
+    
+    XCTAssertEqual(values1.0, values2.0, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.2, values2.2, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+}
+
+func assertEqual<T>(_ values1: (T, T, T),
+                    _ values2: (T, T, T),
+                    file: StaticString = #file,
+                    line: UInt = #line) where T: FloatingPoint {
+    
+    XCTAssertEqual(values1.0, values2.0, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.2, values2.2, "\(values1) != \(values2)", file: file, line: line)
 }
 
 func assertEqual<T>(_ values1: (T, T, T, T),
                     _ values2: (T, T, T, T),
                     accuracy: T,
-                    messagePrefix: @escaping @autoclosure () -> String = "",
                     file: StaticString = #file,
                     line: UInt = #line) where T: FloatingPoint {
     
-    XCTAssertEqual(values1.0, values2.0, accuracy: accuracy, "\(messagePrefix())0", file: file, line: line)
-    XCTAssertEqual(values1.1, values2.1, accuracy: accuracy, "\(messagePrefix())1", file: file, line: line)
-    XCTAssertEqual(values1.2, values2.2, accuracy: accuracy, "\(messagePrefix())2", file: file, line: line)
-    XCTAssertEqual(values1.3, values2.3, accuracy: accuracy, "\(messagePrefix())3", file: file, line: line)
+    XCTAssertEqual(values1.0, values2.0, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.2, values2.2, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.3, values2.3, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line)
+}
+
+func assertEqual<T>(_ values1: (T, T, T, T),
+                    _ values2: (T, T, T, T),
+                    file: StaticString = #file,
+                    line: UInt = #line) where T: FloatingPoint {
+    
+    XCTAssertEqual(values1.0, values2.0, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.1, values2.1, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.2, values2.2, "\(values1) != \(values2)", file: file, line: line)
+    XCTAssertEqual(values1.3, values2.3, "\(values1) != \(values2)", file: file, line: line)
 }
 
 // MARK: SIMD3 equality

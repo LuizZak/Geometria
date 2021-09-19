@@ -9,9 +9,8 @@ class Matrix2x2Tests: XCTestCase {
     func testIdentity() {
         let sut = Matrix.idendity
         
-        XCTAssert(sut.m == ((1, 0),
-                            (0, 1)),
-                  "\(sut.m)")
+        assertEqual(sut.r0, (1, 0))
+        assertEqual(sut.r1, (0, 1))
     }
     
     func testEquality() {
@@ -50,49 +49,50 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testRows() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
         
-        XCTAssertTrue(sut.r0 == (0, 1), "\(sut.r0)")
-        XCTAssertTrue(sut.r1 == (2, 3), "\(sut.r1)")
+        assertEqual(sut.r0, (0, 1))
+        assertEqual(sut.r1, (2, 3))
     }
     
     func testRows_set() {
-        var sut = Matrix(rows: ((0, 0), (0, 0)))
+        var sut = Matrix(repeating: 0)
         
         sut.r0 = (0, 1)
         sut.r1 = (2, 3)
         
-        XCTAssertTrue(sut.m == ((0, 1),
-                                (2, 3)),
-                      "\(sut.m)")
+        assertEqual(sut.r0, (0, 1))
+        assertEqual(sut.r1, (2, 3))
     }
     
     func testColumns() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
         
-        XCTAssertTrue(sut.c0 == (0, 2), "\(sut.c0)")
-        XCTAssertTrue(sut.c1 == (1, 3), "\(sut.c1)")
+        assertEqual(sut.c0, (0, 2))
+        assertEqual(sut.c1, (1, 3))
     }
     
     func testColumns_set() {
-        var sut = Matrix(rows: ((0, 0), (0, 0)))
+        var sut = Matrix(repeating: 0)
         
         sut.c0 = (0, 1)
         sut.c1 = (2, 3)
         
-        XCTAssertTrue(sut.m == ((0, 2),
-                                (1, 3)),
-                      "\(sut.m)")
+        assertEqual(sut.r0, (0, 2))
+        assertEqual(sut.r1, (1, 3))
     }
     
     func testRowsAsVectors() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -102,7 +102,8 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testColumnsAsVector() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -112,7 +113,8 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testSubscript() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -126,7 +128,8 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testSubscript_set() {
-        var sut = Matrix(rows: (
+        var sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -138,12 +141,13 @@ class Matrix2x2Tests: XCTestCase {
         sut[0, 1] = 2 * 2 + 1
         sut[1, 1] = 3 * 2 + 1
         
-        XCTAssertTrue(sut.r0 == (1.0, 3.0), "\(sut.r0)")
-        XCTAssertTrue(sut.r1 == (5.0, 7.0), "\(sut.r1)")
+        assertEqual(sut.r0, (1.0, 3.0))
+        assertEqual(sut.r1, (5.0, 7.0))
     }
     
     func testDescription() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -154,8 +158,34 @@ class Matrix2x2Tests: XCTestCase {
         )
     }
     
+    func testInit() {
+        let sut = Matrix()
+        
+        assertEqual(sut.r0, (1, 0))
+        assertEqual(sut.r1, (0, 1))
+    }
+    
+    func testInitWithRows() {
+        let sut =
+        Matrix(rows: (
+            (0, 1),
+            (2, 3)
+        ))
+        
+        assertEqual(sut.r0, (0, 1))
+        assertEqual(sut.r1, (2, 3))
+    }
+    
+    func testInitRepeating() {
+        let sut = Matrix(repeating: 1)
+        
+        assertEqual(sut.r0, (1, 1))
+        assertEqual(sut.r1, (1, 1))
+    }
+    
     func testDeterminant() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (1, 2),
             (3, 5)
         ))
@@ -186,9 +216,8 @@ class Matrix2x2Tests: XCTestCase {
         
         let result = sut.transposed()
         
-        XCTAssert(result.m == ((0, 2),
-                               (1, 3)),
-                  "\(result.m)")
+        assertEqual(result.r0, (0, 2))
+        assertEqual(result.r1, (1, 3))
     }
     
     func testTranspose() {
@@ -200,9 +229,8 @@ class Matrix2x2Tests: XCTestCase {
         
         sut.transpose()
         
-        XCTAssert(sut.m == ((0, 2),
-                            (1, 3)),
-                  "\(sut.m)")
+        assertEqual(sut.r0, (0, 2))
+        assertEqual(sut.r1, (1, 3))
     }
     
     func testMultiply() {
@@ -217,9 +245,8 @@ class Matrix2x2Tests: XCTestCase {
         
         let result = lhs * rhs
         
-        XCTAssertTrue(result.m == (( 6.0,  7.0),
-                                   (26.0, 31.0)),
-                      "\(result.m)")
+        assertEqual(result.r0, ( 6.0,  7.0))
+        assertEqual(result.r1, (26.0, 31.0))
     }
     
     func testMultiply_inPlace() {
@@ -234,8 +261,7 @@ class Matrix2x2Tests: XCTestCase {
         
         lhs *= rhs
         
-        XCTAssertTrue(lhs.m == (( 6.0,  7.0),
-                                (26.0, 31.0)),
-                      "\(lhs.m)")
+        assertEqual(lhs.r0, ( 6.0,  7.0))
+        assertEqual(lhs.r1, (26.0, 31.0))
     }
 }

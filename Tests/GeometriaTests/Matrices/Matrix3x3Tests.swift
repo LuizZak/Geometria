@@ -9,10 +9,9 @@ class Matrix3x3Tests: XCTestCase {
     func testIdentity() {
         let sut = Matrix.idendity
         
-        XCTAssert(sut.m == ((1, 0, 0),
-                            (0, 1, 0),
-                            (0, 0, 1)),
-                  "\(sut.m)")
+        assertEqual(sut.r0, (1, 0, 0))
+        assertEqual(sut.r1, (0, 1, 0))
+        assertEqual(sut.r2, (0, 0, 1))
     }
     
     func testEquality() {
@@ -73,57 +72,58 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testRows() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
         
-        XCTAssertTrue(sut.r0 == (0, 1, 2), "\(sut.r0)")
-        XCTAssertTrue(sut.r1 == (3, 4, 5), "\(sut.r1)")
-        XCTAssertTrue(sut.r2 == (6, 7, 8), "\(sut.r2)")
+        assertEqual(sut.r0, (0, 1, 2))
+        assertEqual(sut.r1, (3, 4, 5))
+        assertEqual(sut.r2, (6, 7, 8))
     }
     
     func testRows_set() {
-        var sut = Matrix(rows: ((0, 0, 0), (0, 0, 0), (0, 0, 0)))
+        var sut = Matrix(repeating: 0)
         
         sut.r0 = (0, 1, 2)
         sut.r1 = (3, 4, 5)
         sut.r2 = (6, 7, 8)
         
-        XCTAssertTrue(sut.m == ((0, 1, 2),
-                                (3, 4, 5),
-                                (6, 7, 8)),
-                      "\(sut.m)")
+        assertEqual(sut.r0, (0, 1, 2))
+        assertEqual(sut.r1, (3, 4, 5))
+        assertEqual(sut.r2, (6, 7, 8))
     }
     
     func testColumns() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
         
-        XCTAssertTrue(sut.c0 == (0, 3, 6), "\(sut.c0)")
-        XCTAssertTrue(sut.c1 == (1, 4, 7), "\(sut.c1)")
-        XCTAssertTrue(sut.c2 == (2, 5, 8), "\(sut.c2)")
+        assertEqual(sut.c0, (0, 3, 6))
+        assertEqual(sut.c1, (1, 4, 7))
+        assertEqual(sut.c2, (2, 5, 8))
     }
     
     func testColumns_set() {
-        var sut = Matrix(rows: ((0, 0, 0), (0, 0, 0), (0, 0, 0)))
+        var sut = Matrix(repeating: 0)
         
         sut.c0 = (0, 1, 2)
         sut.c1 = (3, 4, 5)
         sut.c2 = (6, 7, 8)
         
-        XCTAssertTrue(sut.m == ((0, 3, 6),
-                                (1, 4, 7),
-                                (2, 5, 8)),
-                      "\(sut.m)")
+        assertEqual(sut.r0, (0, 3, 6))
+        assertEqual(sut.r1, (1, 4, 7))
+        assertEqual(sut.r2, (2, 5, 8))
     }
     
     func testRowsAsVectors() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -135,7 +135,8 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testColumnsAsVector() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -147,7 +148,8 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testSubscript() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -168,7 +170,8 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testSubscript_set() {
-        var sut = Matrix(rows: (
+        var sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -187,13 +190,14 @@ class Matrix3x3Tests: XCTestCase {
         sut[1, 2] = 9 * 2 + 1
         sut[2, 2] = 10 * 2 + 1
         
-        XCTAssertTrue(sut.r0 == (1.0,   3.0,  5.0), "\(sut.r0)")
-        XCTAssertTrue(sut.r1 == (9.0,  11.0, 13.0), "\(sut.r1)")
-        XCTAssertTrue(sut.r2 == (17.0, 19.0, 21.0), "\(sut.r2)")
+        assertEqual(sut.r0, ( 1,  3,  5))
+        assertEqual(sut.r1, ( 9, 11, 13))
+        assertEqual(sut.r2, (17, 19, 21))
     }
     
     func testDescription() {
-        let sut = Matrix(rows: (
+        let sut =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -205,10 +209,40 @@ class Matrix3x3Tests: XCTestCase {
         )
     }
     
+    func testInit() {
+        let sut = Matrix()
+        
+        assertEqual(sut.r0, (1, 0, 0))
+        assertEqual(sut.r1, (0, 1, 0))
+        assertEqual(sut.r2, (0, 0, 1))
+    }
+    
+    func testInitWithRows() {
+        let sut =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        
+        assertEqual(sut.r0, (0, 1, 2))
+        assertEqual(sut.r1, (3, 4, 5))
+        assertEqual(sut.r2, (6, 7, 8))
+    }
+    
+    func testInitRepeating() {
+        let sut = Matrix(repeating: 1)
+        
+        assertEqual(sut.r0, (1, 1, 1))
+        assertEqual(sut.r1, (1, 1, 1))
+        assertEqual(sut.r2, (1, 1, 1))
+    }
+    
     func testDeterminant() {
-        let sut = Matrix(rows: (
-            (1, 2, 3),
-            (5, 7, 11),
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3),
+            ( 5,  7, 11),
             (13, 17, 19)
         ))
         
@@ -271,10 +305,9 @@ class Matrix3x3Tests: XCTestCase {
         
         let result = sut.transposed()
         
-        XCTAssert(result.m == ((0, 3, 6),
-                               (1, 4, 7),
-                               (2, 5, 8)),
-                  "\(result.m)")
+        assertEqual(result.r0, (0, 3, 6))
+        assertEqual(result.r1, (1, 4, 7))
+        assertEqual(result.r2, (2, 5, 8))
     }
     
     func testTranspose() {
@@ -287,29 +320,26 @@ class Matrix3x3Tests: XCTestCase {
         
         sut.transpose()
         
-        XCTAssert(sut.m == ((0, 3, 6),
-                            (1, 4, 7),
-                            (2, 5, 8)),
-                  "\(sut.m)")
+        assertEqual(sut.r0, (0, 3, 6))
+        assertEqual(sut.r1, (1, 4, 7))
+        assertEqual(sut.r2, (2, 5, 8))
     }
     
     func testMakeScaleXY() {
         let sut = Matrix.makeScale(x: 1, y: 2)
         
-        XCTAssert(sut.m == ((1, 0, 0),
-                            (0, 2, 0),
-                            (0, 0, 1)),
-                  "\(sut.m)")
+        assertEqual(sut.r0, (1, 0, 0))
+        assertEqual(sut.r1, (0, 2, 0))
+        assertEqual(sut.r2, (0, 0, 1))
     }
     
     func testMakeScaleVector() {
         let vec = Vector2D(x: 1, y: 2)
         let sut = Matrix.makeScale(vec)
         
-        XCTAssert(sut.m == ((1, 0, 0),
-                            (0, 2, 0),
-                            (0, 0, 1)),
-                  "\(sut.m)")
+        assertEqual(sut.r0, (1, 0, 0))
+        assertEqual(sut.r1, (0, 2, 0))
+        assertEqual(sut.r2, (0, 0, 1))
     }
     
     func testMakeZRotation() {
@@ -354,12 +384,14 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testMultiply() {
-        let lhs = Matrix(rows: (
+        let lhs =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
-        let rhs = Matrix(rows: (
+        let rhs =
+        Matrix(rows: (
             (9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -367,19 +399,20 @@ class Matrix3x3Tests: XCTestCase {
         
         let result = lhs * rhs
         
-        XCTAssertTrue(result.m == (( 42.0,  45.0,  48.0),
-                                   (150.0, 162.0, 174.0),
-                                   (258.0, 279.0, 300.0)),
-                      "\(result.m)")
+        assertEqual(result.r0, ( 42.0,  45.0,  48.0))
+        assertEqual(result.r1, (150.0, 162.0, 174.0))
+        assertEqual(result.r2, (258.0, 279.0, 300.0))
     }
     
     func testMultiply_inPlace() {
-        var lhs = Matrix(rows: (
+        var lhs =
+        Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
-        let rhs = Matrix(rows: (
+        let rhs =
+        Matrix(rows: (
             (9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -387,9 +420,8 @@ class Matrix3x3Tests: XCTestCase {
         
         lhs *= rhs
         
-        XCTAssertTrue(lhs.m == (( 42.0,  45.0,  48.0),
-                                (150.0, 162.0, 174.0),
-                                (258.0, 279.0, 300.0)),
-                      "\(lhs.m)")
+        assertEqual(lhs.r0, ( 42.0,  45.0,  48.0))
+        assertEqual(lhs.r1, (150.0, 162.0, 174.0))
+        assertEqual(lhs.r2, (258.0, 279.0, 300.0))
     }
 }

@@ -232,6 +232,17 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Initializes a matrix with the given scalar on all positions.
+    @_transparent
+    public init(repeating scalar: Scalar) {
+        m = (
+            (scalar, scalar, scalar, scalar),
+            (scalar, scalar, scalar, scalar),
+            (scalar, scalar, scalar, scalar),
+            (scalar, scalar, scalar, scalar)
+        )
+    }
+    
     // TODO: Support specifying row-major/column-major when multiplying vectors.
     
     /// Transforms a given vector as a point, applying scaling, rotation and

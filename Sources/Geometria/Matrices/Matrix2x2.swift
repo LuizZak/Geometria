@@ -135,6 +135,15 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Initializes a matrix with the given scalar on all positions.
+    @_transparent
+    public init(repeating scalar: Scalar) {
+        m = (
+            (scalar, scalar),
+            (scalar, scalar)
+        )
+    }
+    
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant
