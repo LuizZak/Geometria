@@ -120,7 +120,7 @@ public extension Rectangle2 where Vector: VectorReal {
     /// Applies the given Matrix on all corners of this Rectangle, returning a new
     /// minimal Rectangle capable of containing the transformed points.
     @_transparent
-    func transformedBounds(_ matrix: Matrix3x2<Scalar>) -> Self {
+    func transformedBounds(_ matrix: Matrix2x3<Scalar>) -> Self {
         matrix.transform(self)
     }
 }
