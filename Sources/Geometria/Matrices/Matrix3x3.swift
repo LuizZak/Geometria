@@ -370,6 +370,15 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         lhs = lhs - rhs
     }
     
+    /// Negates (i.e. flips) the signs of all the values of this matrix.
+    public static prefix func - (value: Self) -> Self {
+        let r0 = -value.r0Vec
+        let r1 = -value.r1Vec
+        let r2 = -value.r2Vec
+        
+        return Self(rows: (r0, r1, r2))
+    }
+    
     /// Performs a [scalar multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///

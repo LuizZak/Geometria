@@ -626,6 +626,23 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(lhs.r3, (-28, -27, -29, -28))
     }
     
+    func testNegate() {
+        let lhs =
+        Matrix(rows: (
+            (-0,  1,   2,   3),
+            (-4,  5,  -6,   7),
+            ( 8, -9,  10, -11),
+            (12, 13, -14,  15)
+        ))
+        
+        let result = -lhs
+        
+        assertEqual(result.r0, (  0,  -1,  -2,  -3))
+        assertEqual(result.r1, (  4,  -5,   6,  -7))
+        assertEqual(result.r2, ( -8,   9, -10,  11))
+        assertEqual(result.r3, (-12, -13,  14, -15))
+    }
+    
     func testMultiplication_withScalar() {
         let lhs =
         Matrix(rows: (

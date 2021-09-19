@@ -480,6 +480,21 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(lhs.r2, ( -9,  -8, -10))
     }
     
+    func testNegate() {
+        let lhs =
+        Matrix(rows: (
+            (-0,  1,   2),
+            (-4,  5,  -6),
+            ( 8, -9,  10)
+        ))
+        
+        let result = -lhs
+        
+        assertEqual(result.r0, (  0,  -1,  -2))
+        assertEqual(result.r1, (  4,  -5,   6))
+        assertEqual(result.r2, ( -8,   9, -10))
+    }
+    
     func testMultiplication_withScalar() {
         let lhs =
         Matrix(rows: (
