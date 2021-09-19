@@ -220,6 +220,8 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    // TODO: Support specifying row-major/column-major when multiplying vectors.
+    
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
@@ -246,6 +248,24 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         }
         
         return Vector(x: result.x, y: result.y, z: result.z)
+    }
+    
+    /// Returns a new ``Matrix4x4`` that is a [transposition] of this matrix.
+    ///
+    /// [transposition]: https://en.wikipedia.org/wiki/Transpose
+    @_transparent
+    public func transposed() -> Self {
+        Self(rows: (
+            c0, c1, c2, c3
+        ))
+    }
+    
+    /// Performs an in-place [transposition] of this matrix.
+    ///
+    /// [transposition]: https://en.wikipedia.org/wiki/Transpose
+    @_transparent
+    public mutating func transpose() {
+        self = transposed()
     }
     
     /// Creates a matrix that when applied to a vector, scales each coordinate

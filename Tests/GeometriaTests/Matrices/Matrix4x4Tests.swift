@@ -288,6 +288,42 @@ class Matrix4x4Tests: XCTestCase {
         XCTAssertEqual(result.z, 9)
     }
     
+    func testTransposed() {
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  6,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15, 16)
+        ))
+        
+        let result = sut.transposed()
+        
+        XCTAssert(result.m == ((1, 5,  9, 13),
+                               (2, 6, 10, 14),
+                               (3, 7, 11, 15),
+                               (4, 8, 12, 16)),
+                  "\(sut.m)")
+    }
+    
+    func testTranspose() {
+        var sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  6,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15, 16)
+        ))
+        
+        sut.transpose()
+        
+        XCTAssert(sut.m == ((1, 5,  9, 13),
+                            (2, 6, 10, 14),
+                            (3, 7, 11, 15),
+                            (4, 8, 12, 16)),
+                  "\(sut.m)")
+    }
+    
     func testIdentity() {
         let sut = Matrix()
         
