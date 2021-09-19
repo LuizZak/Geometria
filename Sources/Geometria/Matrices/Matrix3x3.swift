@@ -1,7 +1,7 @@
 import RealModule
 
 /// Plain 3-row 3-column Matrix with floating-point components.
-public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable, CustomStringConvertible {
+public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType, CustomStringConvertible {
     /// Returns a 3x3 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
@@ -122,6 +122,16 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         get { Vector3(c2) }
     }
     
+    /// Returns the number of rows in this matrix.
+    ///
+    /// For ``Matrix3x3`` instances, this value is always `3`.
+    public let rowCount: Int = 3
+    
+    /// Returns the number of columns in this matrix.
+    ///
+    /// For ``Matrix3x3`` instances, this value is always `3`.
+    public let columnCount: Int = 3
+    
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -162,6 +172,19 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
                 preconditionFailure("Rows/columns for Matrix3x3 run from [0, 0] to [2, 2], inclusive.")
             }
         }
+    }
+    
+    /// Returns the [trace] of this matrix, i.e. the sum of all the values on
+    /// its diagonal:
+    ///
+    /// ```swift
+    /// self[0, 0] + self[1, 1] + self[2, 2]
+    /// ```
+    ///
+    /// [trace]: https://en.wikipedia.org/wiki/Trace_(linear_algebra)
+    @_transparent
+    public var trace: Scalar {
+        r0.0 + r1.1 + r2.2
     }
     
     /// Returns a `String` that represents this instance.

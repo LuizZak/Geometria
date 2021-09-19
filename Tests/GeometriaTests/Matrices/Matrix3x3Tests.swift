@@ -147,6 +147,13 @@ class Matrix3x3Tests: XCTestCase {
         XCTAssertEqual(sut.c2Vec, Vector3D(x: 2, y: 5, z: 8))
     }
     
+    func testRowColumnCount() {
+        let sut = Matrix()
+        
+        XCTAssertEqual(sut.rowCount, 3)
+        XCTAssertEqual(sut.columnCount, 3)
+    }
+    
     func testSubscript() {
         let sut =
         Matrix(rows: (
@@ -193,6 +200,17 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(sut.r0, ( 1,  3,  5))
         assertEqual(sut.r1, ( 9, 11, 13))
         assertEqual(sut.r2, (17, 19, 21))
+    }
+    
+    func testTrace() {
+        let sut =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        
+        XCTAssertEqual(sut.trace, 12)
     }
     
     func testDescription() {

@@ -1,7 +1,7 @@
 import RealModule
 
 /// Plain 2-row 2-column Matrix with floating-point components.
-public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable, CustomStringConvertible {
+public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType, CustomStringConvertible {
     /// Returns a 2x2 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
@@ -89,6 +89,16 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         get { Vector2(c1) }
     }
     
+    /// Returns the number of rows in this matrix.
+    ///
+    /// For ``Matrix2x2`` instances, this value is always `2`.
+    public let rowCount: Int = 2
+    
+    /// Returns the number of columns in this matrix.
+    ///
+    /// For ``Matrix2x2`` instances, this value is always `2`.
+    public let columnCount: Int = 2
+    
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -117,6 +127,19 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
                 preconditionFailure("Rows/columns for Matrix2x2 run from [0, 0] to [1, 1], inclusive.")
             }
         }
+    }
+    
+    /// Returns the [trace] of this matrix, i.e. the sum of all the values on
+    /// its diagonal:
+    ///
+    /// ```swift
+    /// self[0, 0] + self[1, 1]
+    /// ```
+    ///
+    /// [trace]: https://en.wikipedia.org/wiki/Trace_(linear_algebra)
+    @_transparent
+    public var trace: Scalar {
+        r0.0 + r1.1
     }
     
     /// Returns a `String` that represents this instance.

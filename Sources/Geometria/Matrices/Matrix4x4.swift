@@ -1,7 +1,7 @@
 import RealModule
 
 /// Plain 4-row 4-column Matrix with floating-point components.
-public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable, CustomStringConvertible {
+public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType, CustomStringConvertible {
     /// Returns a 4x4 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
@@ -155,6 +155,16 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         get { Vector4(c3) }
     }
     
+    /// Returns the number of rows in this matrix.
+    ///
+    /// For ``Matrix4x4`` instances, this value is always `4`.
+    public let rowCount: Int = 4
+    
+    /// Returns the number of columns in this matrix.
+    ///
+    /// For ``Matrix4x4`` instances, this value is always `4`.
+    public let columnCount: Int = 4
+    
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -211,6 +221,19 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
                 preconditionFailure("Rows/columns for Matrix4x4 run from [0, 0] to [3, 3], inclusive.")
             }
         }
+    }
+    
+    /// Returns the [trace] of this matrix, i.e. the sum of all the values on
+    /// its diagonal:
+    ///
+    /// ```swift
+    /// self[0, 0] + self[1, 1] + self[2, 2] + self[3, 3]
+    /// ```
+    ///
+    /// [trace]: https://en.wikipedia.org/wiki/Trace_(linear_algebra)
+    @_transparent
+    public var trace: Scalar {
+        r0.0 + r1.1 + r2.2 + r3.3
     }
     
     /// Returns a `String` that represents this instance.
