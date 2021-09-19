@@ -388,10 +388,11 @@ extension Vector3: Vector3Real where Scalar: DivisibleArithmetic & Real {
     /// Returns zero, if the vector's length is zero.
     @inlinable
     public var elevation: Scalar {
-        if length == .zero {
+        let l = length
+        if l == .zero {
             return .zero
         }
         
-        return Scalar.asin(z / length)
+        return Scalar.asin(z / l)
     }
 }
