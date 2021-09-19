@@ -220,8 +220,37 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Transforms a given vector as a point, applying scaling, rotation and
+    /// translation to the vector.
+    @_transparent
+    public func transformPoint<Vector: Vector4FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+        let px = vec.dot(.init(r0Vec))
+        let py = vec.dot(.init(r1Vec))
+        let pz = vec.dot(.init(r2Vec))
+        let pw = vec.dot(.init(r3Vec))
+        
+        return Vector(x: px, y: py, z: pz, w: pw)
+    }
+    
+    /// Transforms a given vector as a point, applying scaling, rotation and
+    /// translation to the vector.
+    @_transparent
+    public func transformPoint<Vector: Vector3FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+        let vec4 = Vector4(vec, w: 1)
+        
+        let result = transformPoint(vec4)
+        
+        // Normalize w component
+        if result.w != 0 && result.w != 1 {
+            return Vector(x: result.x, y: result.y, z: result.z) / result.w
+        }
+        
+        return Vector(x: result.x, y: result.y, z: result.z)
+    }
+    
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the given amount.
+    @_transparent
     public static func makeScale(x: Scalar, y: Scalar, z: Scalar) -> Self {
         Self(rows: (
             (x, 0, 0, 0),
@@ -233,12 +262,14 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the corresponding coordinate on a supplied vector.
+    @_transparent
     public static func makeScale<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
         makeScale(x: vec.x, y: vec.y, z: vec.z)
     }
     
     /// Creates an X rotation matrix that when applied to a vector, rotates it
     /// around the X axis by a specified radian amount.
+    @_transparent
     public static func makeXRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
@@ -253,6 +284,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     
     /// Creates an Y rotation matrix that when applied to a vector, rotates it
     /// around the Y axis by a specified radian amount.
+    @_transparent
     public static func makeYRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
@@ -267,6 +299,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     
     /// Creates a Z rotation matrix that when applied to a vector, rotates it
     /// around the Z axis by a specified radian amount.
+    @_transparent
     public static func makeZRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
@@ -277,6 +310,25 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
             ( 0, 0, 1, 0),
             ( 0, 0, 0, 1)
         ))
+    }
+    
+    /// Creates a translation matrix that when applied to a vector, moves it
+    /// according to the specified amounts.
+    @_transparent
+    public static func makeTranslation(x: Scalar, y: Scalar, z: Scalar) -> Self {
+        Self(rows: (
+            (1, 0, 0, x),
+            (0, 1, 0, y),
+            (0, 0, 1, z),
+            (0, 0, 0, 1)
+        ))
+    }
+    
+    /// Creates a translation matrix that when applied to a vector, moves it
+    /// according to the specified amounts.
+    @_transparent
+    public static func makeTranslation<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+        makeTranslation(x: vec.x, y: vec.y, z: vec.z)
     }
     
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns

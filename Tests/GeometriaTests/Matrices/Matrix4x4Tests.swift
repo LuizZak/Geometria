@@ -236,6 +236,58 @@ class Matrix4x4Tests: XCTestCase {
         )
     }
     
+    func testTransformPointVector4() {
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  6,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15, 16)
+        ))
+        let vec = Vector4D(x: 0, y: 1, z: 2, w: 3)
+        
+        let result = sut.transformPoint(vec)
+        
+        XCTAssertEqual(result.x, 20.0)
+        XCTAssertEqual(result.y, 44.0)
+        XCTAssertEqual(result.z, 68.0)
+        XCTAssertEqual(result.w, 92.0)
+    }
+    
+    func testTransformPointVector3() {
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  6,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15, 16)
+        ))
+        let vec = Vector3D(x: 0, y: 1, z: 2)
+        
+        let result = sut.transformPoint(vec)
+        
+        XCTAssertEqual(result.x, 0.2)
+        XCTAssertEqual(result.y, 0.4666666666666667)
+        XCTAssertEqual(result.z, 0.7333333333333333)
+    }
+    
+    func testTransformPointVector3_translate() {
+        let sut =
+        Matrix(rows: (
+            (1, 0, 0,  4),
+            (0, 1, 0, -5),
+            (0, 0, 1,  6),
+            (0, 0, 0,  1)
+        ))
+        let vec = Vector3D(x: 1, y: 2, z: 3)
+        
+        let result = sut.transformPoint(vec)
+        
+        XCTAssertEqual(result.x, 5)
+        XCTAssertEqual(result.y, -3)
+        XCTAssertEqual(result.z, 9)
+    }
+    
     func testIdentity() {
         let sut = Matrix()
         
@@ -347,6 +399,25 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r1, (1,  0, 0, 0), accuracy: accuracy)
         assertEqual(sut.r2, (0,  0, 1, 0), accuracy: accuracy)
         assertEqual(sut.r3, (0,  0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeTranslationXYZ() {
+        let sut = Matrix.makeTranslation(x: 1, y: 2, z: 3)
+        
+        assertEqual(sut.r0, (1, 0, 0, 1), accuracy: accuracy)
+        assertEqual(sut.r1, (0, 1, 0, 2), accuracy: accuracy)
+        assertEqual(sut.r2, (0, 0, 1, 3), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testMakeTranslationVector() {
+        let vec = Vector3D(x: 1, y: 2, z: 3)
+        let sut = Matrix.makeTranslation(vec)
+        
+        assertEqual(sut.r0, (1, 0, 0, 1), accuracy: accuracy)
+        assertEqual(sut.r1, (0, 1, 0, 2), accuracy: accuracy)
+        assertEqual(sut.r2, (0, 0, 1, 3), accuracy: accuracy)
+        assertEqual(sut.r3, (0, 0, 0, 1), accuracy: accuracy)
     }
     
     func testMultiply() {
