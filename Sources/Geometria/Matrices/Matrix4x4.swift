@@ -5,6 +5,7 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// Returns a 4x4 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
+    @_transparent
     public static var idendity: Self {
         Self.init(rows: (
             (1, 0, 0, 0),
@@ -241,6 +242,74 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
             (scalar, scalar, scalar, scalar),
             (scalar, scalar, scalar, scalar)
         )
+    }
+    
+    /// Returns the [determinant] of this matrix.
+    ///
+    /// [determinant]: https://en.wikipedia.org/wiki/Determinant
+    @inlinable
+    public func determinant() -> Scalar {
+        // Produce a determinant by multiplying the first row with the determinant
+        // of the 3x3 matrices formed by the rows bellow:
+        //
+        // | a b c d |   | r0 |
+        // | e f g h | = | r1 |
+        // | i j k l |   | r2 |
+        // | m n o p |   | r3 |
+        //
+        //
+        // | a       |   |   b     |   |     c   |   |       d |
+        // |   f g h | - | e   g h | + | e f   h | - | e f g   |
+        // |   j k l |   | i   k l |   | i j   l |   | i j k   |
+        // |   n o p |   | m   o p |   | m n   p |   | m n o   |
+        //
+        //                           |
+        //                           V
+        //
+        //       | f g h |         | e g h |         | e f h |         | e f g |
+        // a det | j k l | - b det | i k l | + c det | i j l | - d det | i j k |
+        //       | n o p |         | m o p |         | m n p |         | m n o |
+        
+        let (a, b, c, d) = r0
+        let (e, f, g, h) = r1
+        let (i, j, k, l) = r2
+        let (m, n, o, p) = r3
+        
+        let aMatrix =
+        Matrix3x3<Scalar>(rows: (
+            (f, g, h),
+            (j, k, l),
+            (n, o, p)
+        ))
+        
+        let bMatrix =
+        Matrix3x3<Scalar>(rows: (
+            (e, g, h),
+            (i, k, l),
+            (m, o, p)
+        ))
+        
+        let cMatrix =
+        Matrix3x3<Scalar>(rows: (
+            (e, f, h),
+            (i, j, l),
+            (m, n, p)
+        ))
+        
+        let dMatrix =
+        Matrix3x3<Scalar>(rows: (
+            (e, f, g),
+            (i, j, k),
+            (m, n, o)
+        ))
+        
+        var det: Scalar = 0
+        det.addProduct( a, aMatrix.determinant())
+        det.addProduct(-b, bMatrix.determinant())
+        det.addProduct( c, cMatrix.determinant())
+        det.addProduct(-d, dMatrix.determinant())
+        
+        return det
     }
     
     // TODO: Support specifying row-major/column-major when multiplying vectors.

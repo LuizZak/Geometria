@@ -5,6 +5,7 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// Returns a 2x2 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
+    @_transparent
     public static var idendity: Self {
         Self.init(rows: (
             (1, 0),
@@ -147,6 +148,7 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant
+    @inlinable
     public func determinant() -> Scalar {
         let (a, b) = r0
         let (c, d) = r1

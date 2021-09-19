@@ -5,6 +5,7 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// Returns a 3x3 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
+    @_transparent
     public static var idendity: Self {
         Self.init(rows: (
             (1, 0, 0),
@@ -195,6 +196,7 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant
+    @inlinable
     public func determinant() -> Scalar {
         // Use Rule os Sarrus (https://en.wikipedia.org/wiki/Rule_of_Sarrus)
         // to simplify 3x3 det computation here

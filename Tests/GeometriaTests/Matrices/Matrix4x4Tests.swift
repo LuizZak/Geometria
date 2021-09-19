@@ -298,6 +298,18 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r3, (1, 1, 1, 1))
     }
     
+    func testDeterminant() {
+        let sut =
+        Matrix(rows: (
+            ( 2,  3,  5,  7),
+            (11, 13, 17, 19),
+            (23, 29, 31, 37),
+            (41, 43, 47, 51)
+        ))
+        
+        XCTAssertEqual(sut.determinant(), 740)
+    }
+    
     func testTransformPointVector4() {
         let sut =
         Matrix(rows: (
