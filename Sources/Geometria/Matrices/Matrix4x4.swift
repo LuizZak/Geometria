@@ -233,6 +233,18 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Initializes a new matrix with the given ``Vector4`` values as the values
+    /// for each row.
+    @_transparent
+    public init<Vector: Vector4Type>(rows: (Vector, Vector, Vector, Vector)) where Vector.Scalar == Scalar {
+        self.init(rows: (
+            (rows.0.x, rows.0.y, rows.0.z, rows.0.w),
+            (rows.1.x, rows.1.y, rows.1.z, rows.1.w),
+            (rows.2.x, rows.2.y, rows.2.z, rows.2.w),
+            (rows.3.x, rows.3.y, rows.3.z, rows.3.w)
+        ))
+    }
+    
     /// Initializes a matrix with the given scalar on all positions.
     @_transparent
     public init(repeating scalar: Scalar) {
@@ -441,6 +453,19 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     @_transparent
     public static func makeTranslation<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
         makeTranslation(x: vec.x, y: vec.y, z: vec.z)
+    }
+    
+    /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
+    /// result.
+    ///
+    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
+    public static func + (lhs: Self, rhs: Self) -> Self {
+        let r0 = lhs.r0Vec + rhs.r0Vec
+        let r1 = lhs.r1Vec + rhs.r1Vec
+        let r2 = lhs.r2Vec + rhs.r2Vec
+        let r3 = lhs.r3Vec + rhs.r3Vec
+        
+        return Self(rows: (r0, r1, r2, r3))
     }
     
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns

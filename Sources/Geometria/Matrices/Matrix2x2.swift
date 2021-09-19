@@ -136,6 +136,16 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Initializes a new matrix with the given ``Vector2Type`` values as the
+    /// values for each row.
+    @_transparent
+    public init<Vector: Vector2Type>(rows: (Vector, Vector)) where Vector.Scalar == Scalar {
+        self.init(rows: (
+            (rows.0.x, rows.0.y),
+            (rows.1.x, rows.1.y)
+        ))
+    }
+    
     /// Initializes a matrix with the given scalar on all positions.
     @_transparent
     public init(repeating scalar: Scalar) {
@@ -184,6 +194,17 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     @_transparent
     public mutating func transpose() {
         self = transposed()
+    }
+    
+    /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
+    /// result.
+    ///
+    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
+    public static func + (lhs: Self, rhs: Self) -> Self {
+        let r0 = lhs.r0Vec + rhs.r0Vec
+        let r1 = lhs.r1Vec + rhs.r1Vec
+        
+        return Self(rows: (r0, r1))
     }
     
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns

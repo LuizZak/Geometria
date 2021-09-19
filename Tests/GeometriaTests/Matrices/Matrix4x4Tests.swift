@@ -289,6 +289,21 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r3, (12, 13, 14, 15))
     }
     
+    func testInitWithVectorRows() {
+        let sut =
+        Matrix(rows: (
+            Vector4D(x:  0, y:  1, z:  2, w:  3),
+            Vector4D(x:  4, y:  5, z:  6, w:  7),
+            Vector4D(x:  8, y:  9, z: 10, w: 11),
+            Vector4D(x: 12, y: 13, z: 14, w: 15)
+        ))
+        
+        assertEqual(sut.r0, ( 0,  1,  2,  3))
+        assertEqual(sut.r1, ( 4,  5,  6,  7))
+        assertEqual(sut.r2, ( 8,  9, 10, 11))
+        assertEqual(sut.r3, (12, 13, 14, 15))
+    }
+    
     func testInitRepeating() {
         let sut = Matrix(repeating: 1)
         
@@ -513,6 +528,30 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r1, (0, 1, 0, 2), accuracy: accuracy)
         assertEqual(sut.r2, (0, 0, 1, 3), accuracy: accuracy)
         assertEqual(sut.r3, (0, 0, 0, 1), accuracy: accuracy)
+    }
+    
+    func testAddition() {
+        let lhs =
+        Matrix(rows: (
+            ( 0,  1,  2,  3),
+            ( 4,  5,  6,  7),
+            ( 8,  9, 10, 11),
+            (12, 13, 14, 15)
+        ))
+        let rhs =
+        Matrix(rows: (
+            (16, 17, 18, 19),
+            (20, 21, 22, 23),
+            (24, 25, 26, 27),
+            (28, 29, 30, 31)
+        ))
+        
+        let result = lhs + rhs
+        
+        assertEqual(result.r0, (16, 18, 20, 22))
+        assertEqual(result.r1, (24, 26, 28, 30))
+        assertEqual(result.r2, (32, 34, 36, 38))
+        assertEqual(result.r3, (40, 42, 44, 46))
     }
     
     func testMultiply() {

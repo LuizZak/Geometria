@@ -176,6 +176,17 @@ class Matrix2x2Tests: XCTestCase {
         assertEqual(sut.r1, (2, 3))
     }
     
+    func testInitWithVectorRows() {
+        let sut =
+        Matrix(rows: (
+            Vector2D(x: 0, y: 1),
+            Vector2D(x: 2, y: 3)
+        ))
+        
+        assertEqual(sut.r0, (0, 1))
+        assertEqual(sut.r1, (2, 3))
+    }
+    
     func testInitRepeating() {
         let sut = Matrix(repeating: 1)
         
@@ -231,6 +242,22 @@ class Matrix2x2Tests: XCTestCase {
         
         assertEqual(sut.r0, (0, 2))
         assertEqual(sut.r1, (1, 3))
+    }
+    
+    func testAddition() {
+        let lhs = Matrix(rows: (
+            (0, 1),
+            (2, 3)
+        ))
+        let rhs = Matrix(rows: (
+            (4, 5),
+            (6, 7)
+        ))
+        
+        let result = lhs + rhs
+        
+        assertEqual(result.r0, (4,  6))
+        assertEqual(result.r1, (8, 10))
     }
     
     func testMultiply() {

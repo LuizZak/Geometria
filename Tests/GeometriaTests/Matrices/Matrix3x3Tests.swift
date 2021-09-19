@@ -230,6 +230,19 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(sut.r2, (6, 7, 8))
     }
     
+    func testInitWithVectorRows() {
+        let sut =
+        Matrix(rows: (
+            Vector3D(x: 0, y: 1, z: 2),
+            Vector3D(x: 3, y: 4, z: 5),
+            Vector3D(x: 6, y: 7, z: 8)
+        ))
+        
+        assertEqual(sut.r0, (0, 1, 2))
+        assertEqual(sut.r1, (3, 4, 5))
+        assertEqual(sut.r2, (6, 7, 8))
+    }
+    
     func testInitRepeating() {
         let sut = Matrix(repeating: 1)
         
@@ -383,6 +396,27 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(sut.r2, (0, 0, 1), accuracy: accuracy)
     }
     
+    func testAddition() {
+        let lhs =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        let rhs =
+        Matrix(rows: (
+            ( 9, 10, 11),
+            (12, 13, 14),
+            (15, 16, 17)
+        ))
+        
+        let result = lhs + rhs
+        
+        assertEqual(result.r0, ( 9, 11, 13))
+        assertEqual(result.r1, (15, 17, 19))
+        assertEqual(result.r2, (21, 23, 25))
+    }
+    
     func testMultiply() {
         let lhs =
         Matrix(rows: (
@@ -392,7 +426,7 @@ class Matrix3x3Tests: XCTestCase {
         ))
         let rhs =
         Matrix(rows: (
-            (9, 10, 11),
+            ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
         ))
@@ -413,7 +447,7 @@ class Matrix3x3Tests: XCTestCase {
         ))
         let rhs =
         Matrix(rows: (
-            (9, 10, 11),
+            ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
         ))

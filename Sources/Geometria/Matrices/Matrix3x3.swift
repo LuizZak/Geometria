@@ -183,6 +183,17 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
         m = rows
     }
     
+    /// Initializes a new matrix with the given ``Vector3Type`` values as the
+    /// values for each row.
+    @_transparent
+    public init<Vector: Vector3Type>(rows: (Vector, Vector, Vector)) where Vector.Scalar == Scalar {
+        self.init(rows: (
+            (rows.0.x, rows.0.y, rows.0.z),
+            (rows.1.x, rows.1.y, rows.1.z),
+            (rows.2.x, rows.2.y, rows.2.z)
+        ))
+    }
+    
     /// Initializes a matrix with the given scalar on all positions.
     @_transparent
     public init(repeating scalar: Scalar) {
@@ -317,6 +328,18 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: Equatable,
     @_transparent
     public static func makeTranslation<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
         makeTranslation(x: vec.x, y: vec.y)
+    }
+    
+    /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
+    /// result.
+    ///
+    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
+    public static func + (lhs: Self, rhs: Self) -> Self {
+        let r0 = lhs.r0Vec + rhs.r0Vec
+        let r1 = lhs.r1Vec + rhs.r1Vec
+        let r2 = lhs.r2Vec + rhs.r2Vec
+        
+        return Self(rows: (r0, r1, r2))
     }
     
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
