@@ -383,14 +383,6 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType
         return Self(rows: (r0, r1, r2))
     }
     
-    /// Performs a [matrix addition] between `lhs` and `rhs` and stores the
-    /// result back into `lhs`.
-    ///
-    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
-    public static func += (lhs: inout Self, rhs: Self) {
-        lhs = lhs + rhs
-    }
-    
     /// Performs a [matrix subtraction] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -401,14 +393,6 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType
         let r2 = lhs.r2Vec - rhs.r2Vec
         
         return Self(rows: (r0, r1, r2))
-    }
-    
-    /// Performs a [matrix subtraction] between `lhs` and `rhs` and stores the
-    /// result back into `lhs`.
-    ///
-    /// [matrix subtraction]: https://en.wikipedia.org/wiki/Matrix_addition
-    public static func -= (lhs: inout Self, rhs: Self) {
-        lhs = lhs - rhs
     }
     
     /// Negates (i.e. flips) the signs of all the values of this matrix.
@@ -430,14 +414,6 @@ public struct Matrix3x3<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType
         let r2 = lhs.r2Vec * rhs
         
         return Self(rows: (r0, r1, r2))
-    }
-    
-    /// Performs a [scalar multiplication] between `lhs` and `rhs` and stores
-    /// the result back into `lhs`.
-    ///
-    /// [scalar multiplication]: https://en.wikipedia.org/wiki/Scalar_multiplication
-    public static func *= (lhs: inout Self, rhs: Scalar) {
-        lhs = lhs * rhs
     }
     
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
