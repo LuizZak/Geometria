@@ -237,7 +237,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: VectorMultiplicative
+// MARK: Vector: VectorMultiplicative Conformance
 
 extension Rectangle2Tests {
     func testScaledByXY() {
@@ -261,7 +261,7 @@ extension Rectangle2Tests {
     }
 }
 
-// MARK: VectorMultiplicative, Scalar: Comparable Conformance
+// MARK: Vector: VectorMultiplicative, Scalar: Comparable Conformance
 
 extension Rectangle2Tests {
     func testIntersection_sameRectangle() {

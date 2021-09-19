@@ -366,6 +366,14 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     }
 }
 
+public extension AABB where Vector: VectorMultiplicative {
+    /// Returns an ``AABB`` with minimum `.zero` and maximum `.one`.
+    @_transparent
+    static var unit: Self {
+        Self(minimum: .zero, maximum: .one)
+    }
+}
+
 extension AABB: DivisibleRectangleType where Vector: VectorDivisible {
     
 }

@@ -208,6 +208,12 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
 }
 
 public extension NRectangle where Vector: VectorMultiplicative {
+    /// Returns an ``NRectangle`` with location `.zero` and size `.one`.
+    @_transparent
+    static var unit: Self {
+        Self(location: .zero, size: .one)
+    }
+    
     /// Returns a NRectangle with the same position as this NRectangle, with its
     /// size multiplied by the coordinates of the given vector.
     @inlinable
@@ -221,17 +227,20 @@ extension NRectangle: DivisibleRectangleType where Vector: VectorDivisible {
 }
 
 extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
-    /// Returns `true` if this AABB's area intersects the given line type.
+    /// Returns `true` if this NRectangle's area intersects the given line type.
+    @_transparent
     public func intersects<Line>(line: Line) -> Bool where Line : LineFloatingPoint, Vector == Line.Vector {
         bounds.intersects(line: line)
     }
     
+    @_transparent
     public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
         bounds.intersection(with: line)
     }
 }
 
 extension NRectangle: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    @_transparent
     public func signedDistance(to point: Vector) -> Vector.Scalar {
         bounds.signedDistance(to: point)
     }

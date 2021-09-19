@@ -29,6 +29,7 @@ extension NSquare: Hashable where Vector: Hashable, Scalar: Hashable { }
 
 extension NSquare: RectangleType & BoundableType where Vector: VectorAdditive {
     /// Returns the span of this ``NSquare``.
+    @_transparent
     public var size: Vector {
         Vector(repeating: sideLength)
     }
@@ -46,6 +47,14 @@ extension NSquare: VolumetricType where Vector: VectorAdditive & VectorComparabl
     @inlinable
     public func contains(_ vector: Vector) -> Bool {
         return vector >= location && vector <= location + sideLength
+    }
+}
+
+public extension NSquare where Vector: VectorMultiplicative {
+    /// Returns an ``NSquare`` with position `.zero` and side length `1`.
+    @_transparent
+    static var unit: Self {
+        Self(location: .zero, sideLength: 1)
     }
 }
 

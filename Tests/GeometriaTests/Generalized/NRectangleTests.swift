@@ -260,9 +260,16 @@ extension NRectangleTests {
     
 }
 
-// MARK: VectorMultiplicative Conformance
+// MARK: Vector: VectorMultiplicative Conformance
 
 extension NRectangleTests {
+    func testUnit() {
+        let sut = Rectangle.unit
+        
+        XCTAssertEqual(sut.location, .zero)
+        XCTAssertEqual(sut.size, .one)
+    }
+    
     func testScaledByVector() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 5)
         

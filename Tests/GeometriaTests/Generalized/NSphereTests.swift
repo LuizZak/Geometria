@@ -60,10 +60,20 @@ extension NSphereTests {
         XCTAssertEqual(result.center, .init(x: 0, y: 1))
         XCTAssertEqual(result.radius, 5)
     }
-    
 }
 
-// MARK: VectorMultiplicative, Scalar: Comparable Conformance
+// MARK: Vector: VectorMultiplicative
+
+extension NSphereTests {
+    func testUnit() {
+        let sut = NSphere.unit
+        
+        XCTAssertEqual(sut.center, .zero)
+        XCTAssertEqual(sut.radius, 1)
+    }
+}
+
+// MARK: Vector: VectorMultiplicative, Scalar: Comparable Conformance
 
 extension NSphereTests {
     func testContainsVector() {
