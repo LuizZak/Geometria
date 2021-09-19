@@ -73,6 +73,17 @@ extension NSquareTests {
     }
 }
 
+// MARK: Vector: VectorMultiplicative Conformance
+
+extension NSquareTests {
+    func testUnit() {
+        let sut = Square.unit
+        
+        XCTAssertEqual(sut.location, .zero)
+        XCTAssertEqual(sut.sideLength, 1)
+    }
+}
+
 // MARK: Vector: VectorDivisible Conformance
 
 extension NSquareTests {

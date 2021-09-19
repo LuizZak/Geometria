@@ -65,7 +65,18 @@ extension EllipsoidTests {
     }
 }
 
-// MARK: VectorReal Conformance
+// MARK: Vector: VectorMultiplicative Conformance
+
+extension EllipsoidTests {
+    func testUnit() {
+        let sut = Ellipsoid.unit
+        
+        XCTAssertEqual(sut.center, .zero)
+        XCTAssertEqual(sut.radius, .one)
+    }
+}
+
+// MARK: Vector: VectorReal Conformance
 
 extension EllipsoidTests {
     func testContainsVector() {

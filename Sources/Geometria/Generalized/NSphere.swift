@@ -48,6 +48,14 @@ public extension NSphere where Scalar: AdditiveArithmetic {
     }
 }
 
+public extension NSphere where Vector: VectorMultiplicative {
+    /// Retunrs an ``NSphere`` with center `.zero` and radius `1`.
+    @_transparent
+    static var unit: Self {
+        Self(center: .zero, radius: 1)
+    }
+}
+
 public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable {
     /// Returns `true` if this N-sphere's area contains a given point by checking
     /// if the distance from the center of this N-sphere to the point is less than

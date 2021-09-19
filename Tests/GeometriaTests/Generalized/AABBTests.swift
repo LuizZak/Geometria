@@ -328,7 +328,7 @@ extension AABBTests {
     }
 }
 
-// MARK: VectorMultiplicative Conformance
+// MARK: Vector: VectorMultiplicative Conformance
 
 extension AABBTests {
     func testCenter() {
@@ -387,6 +387,17 @@ extension AABBTests {
         
         XCTAssertEqual(result.location, .init(x: 1.5, y: 7.5))
         XCTAssertEqual(result.size, .init(x: 7, y: 11))
+    }
+}
+
+// MARK: Vector: VectorMultiplicative Tests
+
+extension AABBTests {
+    func testUnit() {
+        let sut = Box.unit
+        
+        XCTAssertEqual(sut.minimum, .zero)
+        XCTAssertEqual(sut.maximum, .one)
     }
 }
 
