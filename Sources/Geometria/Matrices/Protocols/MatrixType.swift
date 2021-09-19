@@ -3,7 +3,12 @@ import RealModule
 /// Protocol for Matrix types.
 public protocol MatrixType: Equatable {
     /// The scalar value associated with each element of this matrix.
-    associatedtype Scalar: FloatingPoint & ElementaryFunctions
+    associatedtype Scalar: FloatingPoint & ElementaryFunctions & DivisibleArithmetic
+    
+    /// Gets the [identity matrix] for this matrix type.
+    ///
+    /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
+    static var identity: Self { get }
     
     /// Gets the number of rows in this matrix.
     var rowCount: Int { get }
@@ -52,6 +57,14 @@ public protocol MatrixType: Equatable {
     ///
     /// [scalar multiplication]: https://en.wikipedia.org/wiki/Scalar_multiplication
     static func *= (lhs: inout Self, rhs: Scalar)
+    
+    /// Performs a scalar division between the elements of `lhs` and `rhs` and
+    /// returns the result.
+    static func / (lhs: Self, rhs: Scalar) -> Self
+    
+    /// Performs a scalar division between the elements of `lhs` and `rhs` and
+    /// stores the result back into `lhs`.
+    static func /= (lhs: inout Self, rhs: Scalar)
 }
 
 public extension MatrixType {
@@ -59,6 +72,7 @@ public extension MatrixType {
     /// result back into `lhs`.
     ///
     /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
+    @_transparent
     static func += (lhs: inout Self, rhs: Self) {
         lhs = lhs + rhs
     }
@@ -67,6 +81,7 @@ public extension MatrixType {
     /// result back into `lhs`.
     ///
     /// [matrix subtraction]: https://en.wikipedia.org/wiki/Matrix_addition
+    @_transparent
     static func -= (lhs: inout Self, rhs: Self) {
         lhs = lhs - rhs
     }
@@ -75,7 +90,14 @@ public extension MatrixType {
     /// the result back into `lhs`.
     ///
     /// [scalar multiplication]: https://en.wikipedia.org/wiki/Scalar_multiplication
+    @_transparent
     static func *= (lhs: inout Self, rhs: Scalar) {
         lhs = lhs * rhs
+    }
+    
+    /// Performs a scalar division between the elements of `lhs` and `rhs` and
+    /// stores the result back into `lhs`.
+    static func /= (lhs: inout Self, rhs: Scalar) {
+        lhs = lhs / rhs
     }
 }

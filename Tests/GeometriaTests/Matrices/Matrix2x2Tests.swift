@@ -7,7 +7,7 @@ class Matrix2x2Tests: XCTestCase {
     typealias Matrix = Matrix2x2<Double>
     
     func testIdentity() {
-        let sut = Matrix.idendity
+        let sut = Matrix.identity
         
         assertEqual(sut.r0, (1, 0))
         assertEqual(sut.r1, (0, 1))
@@ -275,6 +275,38 @@ class Matrix2x2Tests: XCTestCase {
         assertEqual(sut.r1, (1, 3))
     }
     
+    func testInverted() throws {
+        let sut =
+        Matrix(rows: (
+            ( 1, 2),
+            (-7, 2)
+        ))
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, ( 0.125, -0.125), accuracy: accuracy)
+        assertEqual(result.r1, (0.4375, 0.0625), accuracy: accuracy)
+    }
+    
+    func testInverted_identity_returnsIdentity() throws {
+        let sut = Matrix.identity
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, Matrix.identity.r0, accuracy: accuracy)
+        assertEqual(result.r1, Matrix.identity.r1, accuracy: accuracy)
+    }
+    
+    func testInverted_0DeterminantMatrix_returnsNil() {
+        let sut =
+        Matrix(rows: (
+            (1, 2),
+            (2, 4)
+        ))
+        
+        XCTAssertNil(sut.inverted())
+    }
+    
     func testAddition() {
         let lhs = Matrix(rows: (
             (0, 1),
@@ -376,6 +408,32 @@ class Matrix2x2Tests: XCTestCase {
         
         assertEqual(lhs.r0, (0, 2))
         assertEqual(lhs.r1, (4, 6))
+    }
+    
+    func testDivision_withScalar() {
+        let lhs =
+        Matrix(rows: (
+            (0, 2),
+            (4, 6)
+        ))
+        
+        let result = lhs / 2
+        
+        assertEqual(result.r0, (0, 1))
+        assertEqual(result.r1, (2, 3))
+    }
+    
+    func testDivision_withScalar_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            (0, 2),
+            (4, 6)
+        ))
+        
+        lhs /= 2
+        
+        assertEqual(lhs.r0, (0, 1))
+        assertEqual(lhs.r1, (2, 3))
     }
     
     func testMultiply() {

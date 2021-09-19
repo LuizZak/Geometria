@@ -360,8 +360,8 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
     /// - Parameter y: Scaling factor that is applied along the y-axis.
     public static func scaling(x: Scalar, y: Scalar) -> Matrix3x2 {
         Matrix3x2(m11: x, m12: 0,
-                m21: 0, m22: y,
-                m31: 0, m32: 0)
+                  m21: 0, m22: y,
+                  m31: 0, m32: 0)
     }
     
     /// Creates a matrix that uniformly scales along both axes.
@@ -369,8 +369,8 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
     /// - Parameter scale: The uniform scale that is applied along both axes.
     public static func scaling(scale: Scalar) -> Matrix3x2 {
         Matrix3x2(m11: scale, m12: 0,
-                m21: 0, m22: scale,
-                m31: 0, m32: 0)
+                  m21: 0, m22: scale,
+                  m31: 0, m32: 0)
     }
     
     /// Creates a matrix that is scaling from a specified center.
@@ -380,8 +380,8 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
     /// - Parameter center: The center of the scaling.
     public static func scaling(x: Scalar, y: Scalar, center: Vector) -> Matrix3x2 {
         Matrix3x2(m11: x, m12: 0,
-                m21: 0, m22: y,
-                m31: center.x - x * center.x, m32: center.y - y * center.y)
+                  m21: 0, m22: y,
+                  m31: center.x - x * center.x, m32: center.y - y * center.y)
     }
     
     /// Creates a matrix that rotates.
@@ -395,8 +395,8 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
         let sinAngle = Scalar.sin(angle)
         
         return Matrix3x2(m11: cosAngle, m12: sinAngle,
-                       m21: -sinAngle, m22: cosAngle,
-                       m31: 0, m32: 0)
+                         m21: -sinAngle, m22: cosAngle,
+                         m31: 0, m32: 0)
     }
     
     /// Creates a matrix that rotates about a specified center.
@@ -423,8 +423,8 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
     /// - Parameter y: Y-coordinate offset.
     public static func translation(x: Scalar, y: Scalar) -> Matrix3x2 {
         Matrix3x2(m11: 1, m12: 0,
-                m21: 0, m22: 1,
-                m31: x, m32: y)
+                  m21: 0, m22: 1,
+                  m31: x, m32: y)
     }
     
     /// Creates a transformation matrix.
@@ -440,10 +440,10 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
                                       angle: Scalar,
                                       xOffset: Scalar,
                                       yOffset: Scalar) -> Matrix3x2 {
-
+        
         scaling(x: xScale, y: yScale)
-                * rotation(angle: angle)
-                * translation(x: xOffset, y: yOffset)
+        * rotation(angle: angle)
+        * translation(x: xOffset, y: yOffset)
     }
     
     /// Transforms a vector by this matrix.
@@ -478,8 +478,8 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
     /// - Parameter angleY: Angle of skew along the Y-axis in radians.
     public static func skew(angleX: Scalar, angleY: Scalar) -> Matrix3x2 {
         Matrix3x2(m11: 1, m12: Scalar.tan(angleX),
-                m21: Scalar.tan(angleY), m22: 1,
-                m31: 0, m32: 0)
+                  m21: Scalar.tan(angleY), m22: 1,
+                  m31: 0, m32: 0)
     }
     
     /// Calculates the inverse of the specified matrix.

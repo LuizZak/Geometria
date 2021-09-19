@@ -1,12 +1,12 @@
 import RealModule
 
 /// Plain 4-row 4-column Matrix with floating-point components.
-public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType, CustomStringConvertible {
+public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
     /// Returns a 4x4 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
     @_transparent
-    public static var idendity: Self {
+    public static var identity: Self {
         Self.init(rows: (
             (1, 0, 0, 0),
             (0, 1, 0, 0),
@@ -542,6 +542,17 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType
         let r1 = lhs.r1Vec * rhs
         let r2 = lhs.r2Vec * rhs
         let r3 = lhs.r3Vec * rhs
+        
+        return Self(rows: (r0, r1, r2, r3))
+    }
+    
+    /// Performs a scalar division between the elements of `lhs` and `rhs` and
+    /// returns the result.
+    public static func / (lhs: Self, rhs: Scalar) -> Self {
+        let r0 = lhs.r0Vec / rhs
+        let r1 = lhs.r1Vec / rhs
+        let r2 = lhs.r2Vec / rhs
+        let r3 = lhs.r3Vec / rhs
         
         return Self(rows: (r0, r1, r2, r3))
     }

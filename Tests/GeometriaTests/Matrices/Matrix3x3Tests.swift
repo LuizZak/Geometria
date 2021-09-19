@@ -7,7 +7,7 @@ class Matrix3x3Tests: XCTestCase {
     typealias Matrix = Matrix3x3<Double>
     
     func testIdentity() {
-        let sut = Matrix.idendity
+        let sut = Matrix.identity
         
         assertEqual(sut.r0, (1, 0, 0))
         assertEqual(sut.r1, (0, 1, 0))
@@ -372,6 +372,42 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(sut.r2, (2, 5, 8))
     }
     
+    func testInverted() throws {
+        let sut =
+        Matrix(rows: (
+            ( 1, 2, 1),
+            (-7, 2, 4),
+            ( 5, 0, 3)
+        ))
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, (0.07692307692307692, -0.07692307692307692,  0.07692307692307692), accuracy: accuracy)
+        assertEqual(result.r1, (0.52564102564102562, -0.02564102564102564, -0.14102564102564102), accuracy: accuracy)
+        assertEqual(result.r2, (-0.1282051282051282,   0.1282051282051282,  0.20512820512820512), accuracy: accuracy)
+    }
+    
+    func testInverted_identity_returnsIdentity() throws {
+        let sut = Matrix.identity
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, Matrix.identity.r0, accuracy: accuracy)
+        assertEqual(result.r1, Matrix.identity.r1, accuracy: accuracy)
+        assertEqual(result.r2, Matrix.identity.r2, accuracy: accuracy)
+    }
+    
+    func testInverted_0DeterminantMatrix_returnsNil() {
+        let sut =
+        Matrix(rows: (
+            (1, 2, 3),
+            (4, 5, 6),
+            (7, 8, 9)
+        ))
+        
+        XCTAssertNil(sut.inverted())
+    }
+    
     func testMakeScaleXY() {
         let sut = Matrix.makeScale(x: 1, y: 2)
         
@@ -557,6 +593,36 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(lhs.r0, ( 0,  2,  4))
         assertEqual(lhs.r1, ( 6,  8, 10))
         assertEqual(lhs.r2, (12, 14, 16))
+    }
+    
+    func testDivision_withScalar() {
+        let lhs =
+        Matrix(rows: (
+            ( 0,  2,  4),
+            ( 6,  8, 10),
+            (12, 14, 16)
+        ))
+        
+        let result = lhs / 2
+        
+        assertEqual(result.r0, (0, 1, 2))
+        assertEqual(result.r1, (3, 4, 5))
+        assertEqual(result.r2, (6, 7, 8))
+    }
+    
+    func testDivision_withScalar_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            ( 0,  2,  4),
+            ( 6,  8, 10),
+            (12, 14, 16)
+        ))
+        
+        lhs /= 2
+        
+        assertEqual(lhs.r0, (0, 1, 2))
+        assertEqual(lhs.r1, (3, 4, 5))
+        assertEqual(lhs.r2, (6, 7, 8))
     }
     
     func testMultiply() {

@@ -7,7 +7,7 @@ class Matrix4x4Tests: XCTestCase {
     typealias Matrix = Matrix4x4<Double>
     
     func testIdentity() {
-        let sut = Matrix.idendity
+        let sut = Matrix.identity
         
         assertEqual(sut.r0, (1, 0, 0, 0))
         assertEqual(sut.r1, (0, 1, 0, 0))
@@ -712,6 +712,40 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(lhs.r1, ( 8, 10, 12, 14))
         assertEqual(lhs.r2, (16, 18, 20, 22))
         assertEqual(lhs.r3, (24, 26, 28, 30))
+    }
+    
+    func testDivision_withScalar() {
+        let lhs =
+        Matrix(rows: (
+            ( 0,  2,  4,  6),
+            ( 8, 10, 12, 14),
+            (16, 18, 20, 22),
+            (24, 26, 28, 30)
+        ))
+        
+        let result = lhs / 2
+        
+        assertEqual(result.r0, ( 0,  1,  2,  3))
+        assertEqual(result.r1, ( 4,  5,  6,  7))
+        assertEqual(result.r2, ( 8,  9, 10, 11))
+        assertEqual(result.r3, (12, 13, 14, 15))
+    }
+    
+    func testDivision_withScalar_inPlace() {
+        var lhs =
+        Matrix(rows: (
+            ( 0,  2,  4,  6),
+            ( 8, 10, 12, 14),
+            (16, 18, 20, 22),
+            (24, 26, 28, 30)
+        ))
+        
+        lhs /= 2
+        
+        assertEqual(lhs.r0, ( 0,  1,  2,  3))
+        assertEqual(lhs.r1, ( 4,  5,  6,  7))
+        assertEqual(lhs.r2, ( 8,  9, 10, 11))
+        assertEqual(lhs.r3, (12, 13, 14, 15))
     }
     
     func testMultiply() {

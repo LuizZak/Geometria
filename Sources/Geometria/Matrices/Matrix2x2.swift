@@ -1,12 +1,12 @@
 import RealModule
 
 /// Plain 2-row 2-column Matrix with floating-point components.
-public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType, CustomStringConvertible {
+public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
     /// Returns a 2x2 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
     @_transparent
-    public static var idendity: Self {
+    public static var identity: Self {
         Self.init(rows: (
             (1, 0),
             (0, 1)
@@ -236,6 +236,35 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType
         self = transposed()
     }
     
+    /// Returns the [inverse of this matrix](https://en.wikipedia.org/wiki/Invertible_matrix).
+    ///
+    /// If this matrix has no inversion, `nil` is returned, instead.
+    @_transparent
+    public func inverted() -> Self? {
+        // Use technique described in:
+        // https://en.wikipedia.org/wiki/Invertible_matrix#Inversion_of_2_%C3%97_2_matrices
+        
+        let det = determinant()
+        if det.isZero {
+            return nil
+        }
+        
+        let a = r0.0
+        let b = r0.1
+        let c = r1.0
+        let d = r1.1
+        
+        let invDet = 1 / det
+        
+        let intermediary =
+        Self(rows: (
+            ( d, -b),
+            (-c,  a)
+        ))
+        
+        return intermediary * invDet
+    }
+    
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -273,6 +302,15 @@ public struct Matrix2x2<Scalar: FloatingPoint & ElementaryFunctions>: MatrixType
     public static func * (lhs: Self, rhs: Scalar) -> Self {
         let r0 = lhs.r0Vec * rhs
         let r1 = lhs.r1Vec * rhs
+        
+        return Self(rows: (r0, r1))
+    }
+    
+    /// Performs a scalar division between the elements of `lhs` and `rhs` and
+    /// returns the result.
+    public static func / (lhs: Self, rhs: Scalar) -> Self {
+        let r0 = lhs.r0Vec / rhs
+        let r1 = lhs.r1Vec / rhs
         
         return Self(rows: (r0, r1))
     }
