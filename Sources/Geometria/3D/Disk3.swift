@@ -73,6 +73,12 @@ extension Disk3: PointProjectableType {
     }
 }
 
+extension Disk3: SignedDistanceMeasurableType {
+    public func signedDistance(to point: Vector) -> Vector.Scalar {
+        project(point).distance(to: point)
+    }
+}
+
 extension Disk3: LineIntersectablePlaneType {
     @_transparent
     public var pointOnPlane: Vector { center }

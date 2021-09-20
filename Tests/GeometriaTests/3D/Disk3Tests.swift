@@ -214,6 +214,43 @@ extension Disk3Tests {
     }
 }
 
+// MARK: SignedDistanceMeasurableType Conformance
+
+extension Disk3Tests {
+    func testSignedDistanceTo_vectorOnDisk() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
+                       normal: .init(x: 2, y: 2, z: 2),
+                       radius: 10)
+        let point = Vector3D(x: 1, y: 2, z: 3)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 0.0)
+    }
+    
+    func testSignedDistanceTo_vectorWithinRadius() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
+                       normal: .init(x: 2, y: 2, z: 2),
+                       radius: 10)
+        let point = Vector3D(x: 3, y: 4, z: 7)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 4.618802153517007)
+    }
+    
+    func testProject_vectorOutsideOfRadius() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
+                       normal: .unitZ,
+                       radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: 10)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 13.274479049627633)
+    }
+}
+
 // MARK: LineIntersectablePlaneType Conformance
 
 extension Disk3Tests {
