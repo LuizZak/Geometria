@@ -1,7 +1,33 @@
+/*
+ Matrix inversion source code's license:
+ 
+ MIT License
+
+ Copyright (c) 2017 Wildan Mubarok
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+*/
+
 import RealModule
 
-/// Plain 4-row 4-column Matrix with floating-point components.
-public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
+/// Plain 4-row 4-column Matrix with real components.
+public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
     /// Returns a 4x4 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
@@ -412,6 +438,59 @@ public struct Matrix4x4<Scalar: FloatingPoint & ElementaryFunctions & DivisibleA
     @_transparent
     public mutating func transpose() {
         self = transposed()
+    }
+    
+    /// Returns the [inverse of this matrix](https://en.wikipedia.org/wiki/Invertible_matrix).
+    ///
+    /// If this matrix has no inversion, `nil` is returned, instead.
+    public func inverted() -> Self? {
+        let a2323: Scalar = r2.2 * r3.3 - r2.3 * r3.2
+        let a1323: Scalar = r2.1 * r3.3 - r2.3 * r3.1
+        let a1223: Scalar = r2.1 * r3.2 - r2.2 * r3.1
+        let a0323: Scalar = r2.0 * r3.3 - r2.3 * r3.0
+        let a0223: Scalar = r2.0 * r3.2 - r2.2 * r3.0
+        let a0123: Scalar = r2.0 * r3.1 - r2.1 * r3.0
+        let a2313: Scalar = r1.2 * r3.3 - r1.3 * r3.2
+        let a1313: Scalar = r1.1 * r3.3 - r1.3 * r3.1
+        let a1213: Scalar = r1.1 * r3.2 - r1.2 * r3.1
+        let a2312: Scalar = r1.2 * r2.3 - r1.3 * r2.2
+        let a1312: Scalar = r1.1 * r2.3 - r1.3 * r2.1
+        let a1212: Scalar = r1.1 * r2.2 - r1.2 * r2.1
+        let a0313: Scalar = r1.0 * r3.3 - r1.3 * r3.0
+        let a0213: Scalar = r1.0 * r3.2 - r1.2 * r3.0
+        let a0312: Scalar = r1.0 * r2.3 - r1.3 * r2.0
+        let a0212: Scalar = r1.0 * r2.2 - r1.2 * r2.0
+        let a0113: Scalar = r1.0 * r3.1 - r1.1 * r3.0
+        let a0112: Scalar = r1.0 * r2.1 - r1.1 * r2.0
+        
+        var det = determinant()
+        if det == 0 {
+            return nil
+        }
+        
+        det = 1 / det
+        
+        let row0: Row = (det *  ((r1.1 * a2323) as Scalar - (r1.2 * a1323) as Scalar + r1.3 * a1223) as Scalar,
+                         det * -((r0.1 * a2323) as Scalar - (r0.2 * a1323) as Scalar + r0.3 * a1223) as Scalar,
+                         det *  ((r0.1 * a2313) as Scalar - (r0.2 * a1313) as Scalar + r0.3 * a1213) as Scalar,
+                         det * -((r0.1 * a2312) as Scalar - (r0.2 * a1312) as Scalar + r0.3 * a1212) as Scalar)
+        
+        let row1: Row = (det * -((r1.0 * a2323) as Scalar - (r1.2 * a0323) as Scalar + r1.3 * a0223) as Scalar,
+                         det *  ((r0.0 * a2323) as Scalar - (r0.2 * a0323) as Scalar + r0.3 * a0223) as Scalar,
+                         det * -((r0.0 * a2313) as Scalar - (r0.2 * a0313) as Scalar + r0.3 * a0213) as Scalar,
+                         det *  ((r0.0 * a2312) as Scalar - (r0.2 * a0312) as Scalar + r0.3 * a0212) as Scalar)
+        
+        let row2: Row = (det *  ((r1.0 * a1323) as Scalar - (r1.1 * a0323) as Scalar + r1.3 * a0123) as Scalar,
+                         det * -((r0.0 * a1323) as Scalar - (r0.1 * a0323) as Scalar + r0.3 * a0123) as Scalar,
+                         det *  ((r0.0 * a1313) as Scalar - (r0.1 * a0313) as Scalar + r0.3 * a0113) as Scalar,
+                         det * -((r0.0 * a1312) as Scalar - (r0.1 * a0312) as Scalar + r0.3 * a0112) as Scalar)
+        
+        let row3: Row = (det * -((r1.0 * a1223) as Scalar - (r1.1 * a0223) as Scalar + r1.2 * a0123) as Scalar,
+                         det *  ((r0.0 * a1223) as Scalar - (r0.1 * a0223) as Scalar + r0.2 * a0123) as Scalar,
+                         det * -((r0.0 * a1213) as Scalar - (r0.1 * a0213) as Scalar + r0.2 * a0113) as Scalar,
+                         det *  ((r0.0 * a1212) as Scalar - (r0.1 * a0212) as Scalar + r0.2 * a0112) as Scalar)
+        
+        return Self(rows: (row0, row1, row2, row3))
     }
     
     /// Creates a matrix that when applied to a vector, scales each coordinate

@@ -448,6 +448,63 @@ class Matrix4x4Tests: XCTestCase {
         assertEqual(sut.r3, (4, 8, 12, 16))
     }
     
+    func testInverted() throws {
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  1,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15,  1)
+        ))
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, (-0.754166666666666727,  0.100000000000000008,  0.187500000000000015, -0.033333333333333336), accuracy: accuracy)
+        assertEqual(result.r1, ( 0.100000000000000008, -0.200000000000000016,  0.100000000000000008,  0                   ), accuracy: accuracy)
+        assertEqual(result.r2, ( 0.562500000000000045,  0.100000000000000008, -0.262500000000000021,  0.100000000000000008), accuracy: accuracy)
+        assertEqual(result.r3, (-0.033333333333333336,  0                   ,  0.100000000000000008, -0.066666666666666672), accuracy: accuracy)
+    }
+    
+    func testInverted_zerosOnDiagonal() throws {
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  0,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15,  0)
+        ))
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, (-0.7447916666666665904,  0.0833333333333333248,  0.1927083333333333136, -0.0312499999999999968), accuracy: accuracy)
+        assertEqual(result.r1, ( 0.0833333333333333248, -0.1666666666666666496,  0.0833333333333333248,  0                    ), accuracy: accuracy)
+        assertEqual(result.r2, ( 0.5677083333333332752,  0.0833333333333333248, -0.2447916666666666416,  0.0937499999999999904), accuracy: accuracy)
+        assertEqual(result.r3, (-0.0312499999999999968,  0                    ,  0.0937499999999999904, -0.0624999999999999936), accuracy: accuracy)
+    }
+    
+    func testInverted_identity_returnsIdentity() throws {
+        let sut = Matrix.identity
+        
+        let result = try XCTUnwrap(sut.inverted())
+        
+        assertEqual(result.r0, Matrix.identity.r0, accuracy: accuracy)
+        assertEqual(result.r1, Matrix.identity.r1, accuracy: accuracy)
+        assertEqual(result.r2, Matrix.identity.r2, accuracy: accuracy)
+        assertEqual(result.r3, Matrix.identity.r3, accuracy: accuracy)
+    }
+    
+    func testInverted_0DeterminantMatrix_returnsNil() {
+        let sut =
+        Matrix(rows: (
+            ( 1,  2,  3,  4),
+            ( 5,  6,  7,  8),
+            ( 9, 10, 11, 12),
+            (13, 14, 15, 16)
+        ))
+        
+        XCTAssertNil(sut.inverted())
+    }
+    
     func testMakeScaleXYZ() {
         let sut = Matrix.makeScale(x: 1, y: 2, z: 3)
         
