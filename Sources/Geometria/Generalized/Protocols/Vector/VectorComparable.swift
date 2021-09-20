@@ -52,6 +52,8 @@ public protocol VectorComparable: VectorType & Equatable where Scalar: Comparabl
     /// ```
     static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self
     
+    // MARK: - Vector/vector comparison
+    
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than `rhs`.
     ///
@@ -103,6 +105,80 @@ public protocol VectorComparable: VectorType & Equatable where Scalar: Comparabl
     /// print(v3 >= v1) // Prints "true"
     /// ```
     static func >= (lhs: Self, rhs: Self) -> Bool
+    
+    // MARK: - Vector/scalar comparision
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 == 1.0) // Prints "false"
+    /// print(v2 == 0.0) // Prints "true"
+    /// ```
+    static func == (lhs: Self, rhs: Scalar) -> Bool
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `rhs` are equal to `lhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(1.0 == v1) // Prints "false"
+    /// print(0.0 == v2) // Prints "true"
+    /// ```
+    static func == (lhs: Scalar, rhs: Self) -> Bool
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are greater than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 > -3.0) // Prints "true"
+    /// print(v2 >  0.0) // Prints "false"
+    /// ```
+    static func > (lhs: Self, rhs: Scalar) -> Bool
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are greater than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 >= -2.0) // Prints "true"
+    /// print(v2 >=  0.0) // Prints "true"
+    /// ```
+    static func >= (lhs: Self, rhs: Scalar) -> Bool
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are less than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 < 2.0) // Prints "true"
+    /// print(v2 < 0.0) // Prints "false"
+    /// ```
+    static func < (lhs: Self, rhs: Scalar) -> Bool
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are less than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 <= -1.0) // Prints "true"
+    /// print(v2 <=  0.0) // Prints "true"
+    /// ```
+    static func <= (lhs: Self, rhs: Scalar) -> Bool
 }
 
 public extension VectorComparable {
@@ -260,6 +336,90 @@ public extension VectorComparable {
         }
         
         return true
+    }
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 == 1.0) // Prints "false"
+    /// print(v2 == 0.0) // Prints "true"
+    /// ```
+    static func == (lhs: Self, rhs: Scalar) -> Bool {
+        lhs == Self(repeating: rhs)
+    }
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `rhs` are equal to `lhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(1.0 == v1) // Prints "false"
+    /// print(0.0 == v2) // Prints "true"
+    /// ```
+    static func == (lhs: Scalar, rhs: Self) -> Bool {
+        rhs == Self(repeating: lhs)
+    }
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are greater than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 > -3.0) // Prints "true"
+    /// print(v2 >  0.0) // Prints "false"
+    /// ```
+    static func > (lhs: Self, rhs: Scalar) -> Bool {
+        lhs > Self(repeating: rhs)
+    }
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are greater than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 >= -2.0) // Prints "true"
+    /// print(v2 >=  0.0) // Prints "true"
+    /// ```
+    static func >= (lhs: Self, rhs: Scalar) -> Bool {
+        lhs >= Self(repeating: rhs)
+    }
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are less than `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 < 2.0) // Prints "true"
+    /// print(v2 < 0.0) // Prints "false"
+    /// ```
+    static func < (lhs: Self, rhs: Scalar) -> Bool {
+        lhs < Self(repeating: rhs)
+    }
+    
+    /// Compares every scalar from a vector and returns `true` if all
+    /// components of `lhs` are less than or equal to `rhs`.
+    ///
+    /// ```swift
+    /// let v1 = Vector2D(x: -2.0, y: 1.0)
+    /// let v2 = Vector2D(y: 0.0, y: 0.0)
+    ///
+    /// print(v1 <= -1.0) // Prints "true"
+    /// print(v2 <=  0.0) // Prints "true"
+    /// ```
+    static func <= (lhs: Self, rhs: Scalar) -> Bool {
+        lhs <= Self(repeating: rhs)
     }
 }
 

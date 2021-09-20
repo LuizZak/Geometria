@@ -120,7 +120,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     /// Returns `true` if `size >= .zero`.
     @_transparent
     public var isValid: Bool {
-        size >= .zero
+        size >= Vector.zero
     }
     
     /// Initializes a NRectangle containing the minimum area capable of containing

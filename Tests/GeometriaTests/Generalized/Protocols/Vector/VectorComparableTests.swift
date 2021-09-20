@@ -34,62 +34,6 @@ class VectorComparableTests: XCTestCase {
         XCTAssertEqual(TestVectorComparable(x: 1, y: 1).maximalComponentIndex, 1)
     }
     
-    func testGreaterThan() {
-        XCTAssertTrue(TestVectorComparable(x: 1, y: 1) > TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: 1) > TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 0) > TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: 0) > TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: -1, y: 0) > TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: -1) > TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) > TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testGreaterThan_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 1, scalarCount: 1) > TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testGreaterThanOrEqualTo() {
-        XCTAssertTrue(TestVectorComparable(x: 1, y: 1) >= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: 0, y: 1) >= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: 1, y: 0) >= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: 0, y: 0) >= TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: -1, y: 0) >= TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: -1) >= TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) >= TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testGreaterThanOrEqualTo_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 1, scalarCount: 1) >= TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testLessThan() {
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 1) < TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: 1) < TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 0) < TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: 0) < TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: -1, y: 0) < TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: -1) < TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: -1, y: -1) < TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testLessThan_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: -1, y: -1, scalarCount: 1) < TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testLessThanOrEqualTo() {
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 1) <= TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 0, y: 1) <= TestVectorComparable(x: 0, y: 0))
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 0) <= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: 0, y: 0) <= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: -1, y: 0) <= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: 0, y: -1) <= TestVectorComparable(x: 0, y: 0))
-        XCTAssertTrue(TestVectorComparable(x: -1, y: -1) <= TestVectorComparable(x: 0, y: 0))
-    }
-    
-    func testLessThanOrEqualTo_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: -1, y: -1, scalarCount: 1) <= TestVectorComparable(x: 0, y: 0))
-    }
-    
     func testMinimalComponent() {
         XCTAssertEqual(TestVectorComparable(x: -1, y: 2).minimalComponent, -1)
         XCTAssertEqual(TestVectorComparable(x: 1, y: -2).minimalComponent, -2)
@@ -98,6 +42,126 @@ class VectorComparableTests: XCTestCase {
     func testMaximalComponent() {
         XCTAssertEqual(TestVectorComparable(x: -1, y: 2).maximalComponent, 2)
         XCTAssertEqual(TestVectorComparable(x: 1, y: -2).maximalComponent, 1)
+    }
+    
+    // MARK: Vector/vector comparison
+    
+    func testGreaterThan() {
+        XCTAssertTrue (TestVectorComparable(x:  1, y:  1) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  0) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) > TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testGreaterThan_mismatchedScalarCount_returnsFalse() {
+        XCTAssertFalse(TestVectorComparable(x: 1, y: 1, scalarCount: 1) > TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testGreaterThanOrEqualTo() {
+        XCTAssertTrue (TestVectorComparable(x:  1, y:  1) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  1) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x:  1, y:  0) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  0) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) >= TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testGreaterThanOrEqualTo_mismatchedScalarCount_returnsFalse() {
+        XCTAssertFalse(TestVectorComparable(x: 1, y: 1, scalarCount: 1) >= TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testLessThan() {
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  1) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  0) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x: -1, y: -1) < TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testLessThan_mismatchedScalarCount_returnsFalse() {
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1, scalarCount: 1) < TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testLessThanOrEqualTo() {
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  1) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  0) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x: -1, y:  0) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x:  0, y: -1) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertTrue (TestVectorComparable(x: -1, y: -1) <= TestVectorComparable(x: 0, y: 0))
+    }
+    
+    func testLessThanOrEqualTo_mismatchedScalarCount_returnsFalse() {
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1, scalarCount: 1) <= TestVectorComparable(x: 0, y: 0))
+    }
+    
+    // MARK: Vector/scalar comparison
+    
+    func testEqualTo_withScalarOnRHS() {
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  1) == 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) == 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) == 0.0)
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  0) == 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) == 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) == 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) == 0.0)
+    }
+    
+    func testEqualTo_withScalarOnLHS() {
+        XCTAssertFalse(0.0 == TestVectorComparable(x:  1, y:  1))
+        XCTAssertFalse(0.0 == TestVectorComparable(x:  0, y:  1))
+        XCTAssertFalse(0.0 == TestVectorComparable(x:  1, y:  0))
+        XCTAssertTrue (0.0 == TestVectorComparable(x:  0, y:  0))
+        XCTAssertFalse(0.0 == TestVectorComparable(x: -1, y:  0))
+        XCTAssertFalse(0.0 == TestVectorComparable(x:  0, y: -1))
+        XCTAssertFalse(0.0 == TestVectorComparable(x: -1, y: -1))
+    }
+    
+    func testGreaterThan_withScalar() {
+        XCTAssertTrue( TestVectorComparable(x:  1, y:  1) > 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) > 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) > 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  0) > 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) > 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) > 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) > 0.0)
+    }
+    
+    func testGreaterThanOrEqualTo_withScalar() {
+        XCTAssertTrue (TestVectorComparable(x:  1, y:  1) >= 0.0)
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  1) >= 0.0)
+        XCTAssertTrue (TestVectorComparable(x:  1, y:  0) >= 0.0)
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  0) >= 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) >= 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) >= 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y: -1) >= 0.0)
+    }
+    
+    func testLessThan_withScalar() {
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  1) < 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) < 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) < 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  0) < 0.0)
+        XCTAssertFalse(TestVectorComparable(x: -1, y:  0) < 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y: -1) < 0.0)
+        XCTAssertTrue (TestVectorComparable(x: -1, y: -1) < 0.0)
+    }
+    
+    func testLessThanOrEqualTo_withScalar() {
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  1) <= 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  0, y:  1) <= 0.0)
+        XCTAssertFalse(TestVectorComparable(x:  1, y:  0) <= 0.0)
+        XCTAssertTrue (TestVectorComparable(x:  0, y:  0) <= 0.0)
+        XCTAssertTrue (TestVectorComparable(x: -1, y:  0) <= 0.0)
+        XCTAssertTrue (TestVectorComparable(x:  0, y: -1) <= 0.0)
+        XCTAssertTrue (TestVectorComparable(x: -1, y: -1) <= 0.0)
     }
 }
 
