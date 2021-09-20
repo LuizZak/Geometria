@@ -34,6 +34,15 @@ class NSphereTests: XCTestCase {
         XCTAssertEqual(sut.center, .init(x: 0, y: 1))
         XCTAssertEqual(sut.radius, 2)
     }
+    
+    func testAsEllipsoid() {
+        let sut = NSphere(x: 1, y: 2, radius: 3)
+        
+        let result = sut.asEllipsoid
+        
+        XCTAssertEqual(result.center, sut.center)
+        XCTAssertEqual(result.radius, .init(repeating: sut.radius))
+    }
 }
 
 // MARK: BoundableType Conformance

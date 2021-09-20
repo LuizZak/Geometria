@@ -27,6 +27,14 @@ extension NSphere: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension NSphere: Encodable where Vector: Encodable, Scalar: Encodable { }
 extension NSphere: Decodable where Vector: Decodable, Scalar: Decodable { }
 
+public extension NSphere {
+    /// Returns an ellipsoid with the same center point and radius parameters as
+    /// this N-sphere.
+    var asEllipsoid: Ellipsoid<Vector> {
+        Ellipsoid(center: center, radius: .init(repeating: radius))
+    }
+}
+
 extension NSphere: BoundableType where Vector: VectorAdditive {
     public var bounds: AABB<Vector> {
         AABB(minimum: center - radius, maximum: center + radius)

@@ -47,6 +47,12 @@ public extension Cylinder3 {
     var asLineSegment: LineSegment<Vector> {
         LineSegment(start: start, end: end)
     }
+    
+    /// Returns a ``Capsule3`` with the same ``start``, ``end``, and ``radius``
+    /// parameter sas this cylinder.
+    var asCapsule: Capsule3<Vector> {
+        Capsule3(start: start, end: end, radius: radius)
+    }
 }
 
 public extension Cylinder3 where Vector: Equatable, Scalar: Comparable & AdditiveArithmetic {

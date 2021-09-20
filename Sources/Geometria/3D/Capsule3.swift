@@ -19,6 +19,14 @@ public typealias Capsule3i = Capsule3<Vector3i>
 /// Typealias for `NCapsule<V>`, where `V` is constrained to ``Vector3Type``.
 public typealias Capsule3<V: Vector3Type> = NCapsule<V>
 
+public extension Capsule3 {
+    /// Returns a ``Cylinder3`` with the same ``start``, ``end``, and ``radius``
+    /// parameter sas this capsule.
+    var asCylinder: Cylinder3<Vector> {
+        Cylinder3(start: start, end: end, radius: radius)
+    }
+}
+
 extension Capsule3: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     public func signedDistance(to point: Vector) -> Vector.Scalar {
         // Derived from:

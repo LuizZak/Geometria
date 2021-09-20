@@ -16,6 +16,18 @@ class Cylinder3Tests: XCTestCase {
         XCTAssertEqual(result.end, .init(x: 5, y: 7, z: 11))
     }
     
+    func testAsCapsule() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
+                           end: .init(x: 5, y: 7, z: 11),
+                           radius: 1)
+        
+        let result = sut.asCapsule
+        
+        XCTAssertEqual(result.start, sut.start)
+        XCTAssertEqual(result.end, sut.end)
+        XCTAssertEqual(result.radius, sut.radius)
+    }
+    
     func testIsValid() {
         let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
                            end: .init(x: 1, y: 2, z: 5),
