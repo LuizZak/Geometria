@@ -1,3 +1,5 @@
+import RealModule
+
 /// Represents a 2D polygon as a series of connected double-precision
 /// floating-point 2D vertices.
 public typealias LinePolygon2D = LinePolygon2<Vector2D>

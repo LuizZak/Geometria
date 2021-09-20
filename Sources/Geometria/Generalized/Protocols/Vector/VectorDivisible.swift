@@ -1,5 +1,7 @@
+import RealModule
+
 /// Represents a `VectorType` with support for division.
-public protocol VectorDivisible: VectorMultiplicative where Scalar: DivisibleArithmetic {
+public protocol VectorDivisible: VectorMultiplicative where Scalar: AlgebraicField {
     static func / (lhs: Self, rhs: Self) -> Self
     
     static func / (lhs: Self, rhs: Scalar) -> Self

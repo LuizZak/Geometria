@@ -1,3 +1,5 @@
+import RealModule
+
 /// Represents an N-dimensional square with an origin point and a scalar value
 /// for the side length of each edge.
 public struct NSquare<Vector: VectorType>: GeometricType {

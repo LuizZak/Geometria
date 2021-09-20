@@ -199,8 +199,6 @@ class Vector2Tests: XCTestCase {
     }
     
     func testDivision() {
-        XCTAssertEqual(Vector(x: 3, y: 5) / Vector(x: 2, y: 3),
-                       Vector(x: 1, y: 1))
         XCTAssertEqual(Vector2D(x: 3, y: 5) / Vector2D(x: 2, y: 3),
                        Vector2D(x: 1.5, y: 1.6666666666666667))
         XCTAssertEqual(Vector2F(x: 3, y: 5) / Vector2F(x: 2, y: 3),
@@ -208,8 +206,6 @@ class Vector2Tests: XCTestCase {
     }
     
     func testDivision_withScalarOnRHS() {
-        XCTAssertEqual(Vector(x: 1, y: 4) / 3,
-                       Vector(x: 0, y: 1))
         XCTAssertEqual(Vector2D(x: 1, y: 2) / 3,
                        Vector2D(x: 0.3333333333333333, y: 0.6666666666666666))
         XCTAssertEqual(Vector2F(x: 1, y: 2) / 3,
@@ -217,8 +213,6 @@ class Vector2Tests: XCTestCase {
     }
     
     func testDivision_withScalarOnLHS() {
-        XCTAssertEqual(3 / Vector(x: 4, y: 2),
-                       Vector(x: 0, y: 1))
         XCTAssertEqual(3 / Vector2D(x: 1, y: 2),
                        Vector2D(x: 3.0, y: 1.5))
         XCTAssertEqual(3 / Vector2F(x: 1, y: 2),
@@ -277,19 +271,19 @@ class Vector2Tests: XCTestCase {
     }
     
     func testDivision_inPlace() {
-        var vec1 = Vector(x: 3, y: 5)
+        var vec1 = Vector2D(x: 3, y: 5)
         
-        vec1 /= Vector(x: 2, y: 3)
+        vec1 /= Vector2D(x: 2, y: 3)
         
-        XCTAssertEqual(vec1, Vector(x: 1, y: 1))
+        XCTAssertEqual(vec1, Vector2D(x: 1, y: 1))
     }
     
     func testDivision_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 4)
+        var vec1 = Vector2D(x: 1, y: 4)
         
         vec1 /= 3
         
-        XCTAssertEqual(vec1, Vector(x: 0, y: 1))
+        XCTAssertEqual(vec1, Vector2D(x: 0, y: 1))
     }
     
     func testAbsolute() {

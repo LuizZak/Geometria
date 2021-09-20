@@ -1,3 +1,5 @@
+import RealModule
+
 /// Protocol for objects that form geometric lines with two ``VectorDivisible``
 /// vectors representing two points on the line.
 public protocol LineDivisible: LineMultiplicative where Vector: VectorDivisible {

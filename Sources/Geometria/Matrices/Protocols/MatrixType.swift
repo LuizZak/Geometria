@@ -3,7 +3,7 @@ import RealModule
 /// Protocol for Matrix types.
 public protocol MatrixType: Equatable {
     /// The scalar value associated with each element of this matrix.
-    associatedtype Scalar: Real & DivisibleArithmetic
+    associatedtype Scalar: Real
     
     /// Gets the [identity matrix] for this matrix type.
     ///

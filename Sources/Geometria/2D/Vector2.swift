@@ -268,7 +268,7 @@ extension Vector2: Vector2Signed where Scalar: SignedNumeric & Comparable {
     }
 }
 
-extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
+extension Vector2: VectorDivisible where Scalar: AlgebraicField {
     @_transparent
     public static func / (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y)
@@ -296,7 +296,7 @@ extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
 }
 // swiftlint:enable shorthand_operator
 
-extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector2: VectorFloatingPoint where Scalar: AlgebraicField & FloatingPoint {
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
     ///
@@ -383,21 +383,21 @@ extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     }
 }
 
-extension Vector2: SignedDistanceMeasurableType where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector2: SignedDistanceMeasurableType where Scalar: AlgebraicField & FloatingPoint {
     @_transparent
     public func signedDistance(to other: Self) -> Scalar {
         (self - other).length
     }
 }
 
-extension Vector2: Vector2FloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector2: Vector2FloatingPoint where Scalar: AlgebraicField & FloatingPoint {
     @_transparent
     public init<V: Vector2Type>(_ vec: V) where V.Scalar: BinaryInteger {
         self.init(x: Scalar(vec.x), y: Scalar(vec.y))
     }
 }
 
-extension Vector2: VectorReal where Scalar: DivisibleArithmetic & Real {
+extension Vector2: VectorReal where Scalar: AlgebraicField & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
         Self(x: Scalar.pow(vec.x, exponent),
@@ -411,7 +411,7 @@ extension Vector2: VectorReal where Scalar: DivisibleArithmetic & Real {
     }
 }
 
-extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
+extension Vector2: Vector2Real where Scalar: AlgebraicField & Real {
     /// Returns the angle in radians of the line formed by tracing from the
     /// origin (0, 0) to this `Vector2`.
     @_transparent

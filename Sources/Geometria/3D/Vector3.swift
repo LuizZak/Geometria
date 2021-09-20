@@ -231,7 +231,7 @@ extension Vector3: VectorSigned where Scalar: SignedNumeric & Comparable {
     }
 }
 
-extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
+extension Vector3: VectorDivisible where Scalar: AlgebraicField {
     @_transparent
     public static func / (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y, z: lhs.z / rhs.z)
@@ -259,7 +259,7 @@ extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
 }
 // swiftlint:enable shorthand_operator
 
-extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector3: VectorFloatingPoint where Scalar: AlgebraicField & FloatingPoint {
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
     ///
@@ -351,21 +351,21 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     }
 }
 
-extension Vector3: SignedDistanceMeasurableType where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector3: SignedDistanceMeasurableType where Scalar: AlgebraicField & FloatingPoint {
     @_transparent
     public func signedDistance(to other: Self) -> Scalar {
         (self - other).length
     }
 }
 
-extension Vector3: Vector3FloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector3: Vector3FloatingPoint where Scalar: AlgebraicField & FloatingPoint {
     @_transparent
     public init<V: Vector3Type>(_ vec: V) where V.Scalar: BinaryInteger {
         self.init(x: Scalar(vec.x), y: Scalar(vec.y), z: Scalar(vec.z))
     }
 }
 
-extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
+extension Vector3: VectorReal where Scalar: AlgebraicField & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
         Self(x: Scalar.pow(vec.x, exponent),
@@ -381,7 +381,7 @@ extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
     }
 }
 
-extension Vector3: Vector3Real where Scalar: DivisibleArithmetic & Real {
+extension Vector3: Vector3Real where Scalar: AlgebraicField & Real {
     /// The XY-plane angle of this vector
     @_transparent
     public var azimuth: Scalar {

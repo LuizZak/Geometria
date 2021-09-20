@@ -1,3 +1,5 @@
+import RealModule
+
 /// Represents a 2D triangle as a trio of N-dimensional vectors with
 /// double-precision floating-point components.
 public typealias Triangle2D = Triangle2<Vector2D>

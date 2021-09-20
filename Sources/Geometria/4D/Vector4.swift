@@ -233,7 +233,7 @@ extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
     }
 }
 
-extension Vector4: VectorDivisible where Scalar: DivisibleArithmetic {
+extension Vector4: VectorDivisible where Scalar: AlgebraicField {
     @_transparent
     public static func / (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y, z: lhs.z / rhs.z, w: lhs.w / rhs.w)
@@ -261,7 +261,7 @@ extension Vector4: VectorDivisible where Scalar: DivisibleArithmetic {
 }
 // swiftlint:enable shorthand_operator
 
-extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector4: VectorFloatingPoint where Scalar: AlgebraicField & FloatingPoint {
     /// Returns the result of adding the product of the two given vectors to this
     /// vector, computed without intermediate rounding.
     ///
@@ -367,14 +367,14 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     }
 }
 
-extension Vector4: SignedDistanceMeasurableType where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector4: SignedDistanceMeasurableType where Scalar: AlgebraicField & FloatingPoint {
     @_transparent
     public func signedDistance(to other: Self) -> Scalar {
         (self - other).length
     }
 }
 
-extension Vector4: Vector4FloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
+extension Vector4: Vector4FloatingPoint where Scalar: AlgebraicField & FloatingPoint {
     @_transparent
     public init<V: Vector4Type>(_ vec: V) where V.Scalar: BinaryInteger {
         self.init(x: Scalar(vec.x),
@@ -384,7 +384,7 @@ extension Vector4: Vector4FloatingPoint where Scalar: DivisibleArithmetic & Floa
     }
 }
 
-extension Vector4: VectorReal where Scalar: DivisibleArithmetic & Real {
+extension Vector4: VectorReal where Scalar: AlgebraicField & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
         Self(x: Scalar.pow(vec.x, exponent),
