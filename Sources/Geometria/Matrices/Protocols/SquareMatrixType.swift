@@ -1,7 +1,7 @@
-import RealModule
-import simd
-
-/// Protocol for matrices where the number of rows and columns are the same.
+/// Protocol for [square matrices], or matrices with the same number of rows and
+/// columns.
+///
+/// [square matrices]: https://en.wikipedia.org/wiki/Square_matrix
 public protocol SquareMatrixType: MatrixType {
     /// Returns the [determinant] of this square matrix.
     ///
