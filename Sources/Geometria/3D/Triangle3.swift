@@ -214,3 +214,32 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         )
     }
 }
+
+extension Triangle3: SignedDistanceMeasurableType where Vector: Vector3FloatingPoint {
+    public func signedDistance(to point: Vector) -> Vector.Scalar {
+        // Derived from:
+        // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+        let ba = b - a
+        let pa = point - a
+        let cb = c - b
+        let pb = point - b
+        let ac = a - c
+        let pc = point - c
+        let nor = ba.cross(ac)
+        
+        let sign: Scalar =
+        signValue(ba.cross(nor).dot(pa)) +
+        signValue(cb.cross(nor).dot(pb)) +
+        signValue(ac.cross(nor).dot(pc))
+        
+        if sign < 2 {
+            let fba: Scalar = (ba * clamp(ba.dot(pa) / ba.lengthSquared, min: 0, max: 1) - pa).lengthSquared
+            let fcb: Scalar = (cb * clamp(cb.dot(pb) / cb.lengthSquared, min: 0, max: 1) - pb).lengthSquared
+            let fac: Scalar = (ac * clamp(ac.dot(pc) / ac.lengthSquared, min: 0, max: 1) - pc).lengthSquared
+            
+            return min(min(fba, fcb), fac).squareRoot()
+        }
+        
+        return (nor.dot(pa) * nor.dot(pa) / nor.lengthSquared).squareRoot()
+    }
+}

@@ -9,7 +9,7 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// Performs the computation `x0 * x0 + x1 * x1 + ... + xN * xN` for any
     /// N-dimensional vector type, and is equivalent to the squared distance to
     /// the origin of the vector space, or the ``dot(_:)`` product of the vector
-    /// by itself.
+    /// with itself.
     var lengthSquared: Scalar { get }
     
     /// Returns the squared distance between this `VectorType` and another

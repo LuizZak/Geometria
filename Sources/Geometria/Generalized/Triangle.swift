@@ -70,6 +70,12 @@ extension Triangle: BoundableType where Vector: VectorComparable {
 
 public extension Triangle where Vector: VectorDivisible {
     /// Returns the geometric center of this triangle.
+    ///
+    /// Equivalent to the arithmetic mean of the three points of this triangle:
+    ///
+    /// ```swift
+    /// (a + b + c) / 3
+    /// ```
     @_transparent
     var center: Vector {
         (a + b + c) / 3
