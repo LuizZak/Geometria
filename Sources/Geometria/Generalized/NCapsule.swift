@@ -11,13 +11,13 @@ public struct NCapsule<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
     
-    /// Gets the starting point of this stadium's geometry.
+    /// Gets the starting point of this capsule's geometry.
     public var start: Vector
     
-    /// Gets the end point of this stadium's geometry.
+    /// Gets the end point of this capsule's geometry.
     public var end: Vector
     
-    /// The radius of this stadium.
+    /// The radius of this capsule.
     public var radius: Scalar
     
     @_transparent
@@ -56,7 +56,7 @@ public extension NCapsule {
 
 public extension NCapsule where Scalar: Comparable & AdditiveArithmetic {
     /// Returns whether this N-capsule's parameters produce a valid, non-empty
-    /// stadium.
+    /// capsule.
     ///
     /// An N-capsule is valid when ``radius`` is greater than zero.
     @_transparent

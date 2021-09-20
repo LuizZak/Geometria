@@ -1,5 +1,5 @@
 /// Represents a plane type that has support for point-projection.
-public protocol PointProjectablePlaneType: PlaneType, PointProjectableType {
+public protocol PointProjectablePlaneType: PlaneType, PointProjectableType, SignedDistanceMeasurableType {
     /// Returns the signed distance of a given point to this plane.
     ///
     /// By offsetting the point by -(signed distance x ``PlaneType/normal``), the
