@@ -8,3 +8,4 @@ DerivedData/
 .idea/
 lint-results.html
 docs/
+.swiftpm/
