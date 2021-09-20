@@ -33,6 +33,12 @@ public struct Vector2<Scalar>: Vector2Type {
     public init(repeating scalar: Scalar) {
         self.init(x: scalar, y: scalar)
     }
+    
+    /// Initializes this ``Vector2`` with the values from a given tuple.
+    @_transparent
+    public init(_ tuple: (Scalar, Scalar)) {
+        (x, y) = tuple
+    }
 }
 
 extension Vector2: Equatable where Scalar: Equatable { }
@@ -107,12 +113,6 @@ extension Vector2: VectorAdditive where Scalar: AdditiveArithmetic {
 }
 
 extension Vector2: Vector2Additive where Scalar: AdditiveArithmetic {
-    /// Initializes a zero-valued `Vector2Type`
-    @_transparent
-    public init() {
-        self = .zero
-    }
-    
     @_transparent
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
@@ -460,9 +460,9 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
     @_transparent
     public static func matrix(scale: Self = .one,
                               rotate angle: Scalar = 0,
-                              translate: Self = Self(x: 0, y: 0)) -> Matrix2<Scalar> {
+                              translate: Self = Self(x: 0, y: 0)) -> Matrix3x2<Scalar> {
         
-        Matrix2<Scalar>.transformation(xScale: scale.x,
+        Matrix3x2<Scalar>.transformation(xScale: scale.x,
                                        yScale: scale.y,
                                        angle: angle,
                                        xOffset: translate.x,
@@ -470,12 +470,12 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
     }
     
     @_transparent
-    public static func * (lhs: Self, rhs: Matrix2<Scalar>) -> Self {
-        Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
+    public static func * (lhs: Self, rhs: Matrix3x2<Scalar>) -> Self {
+        Matrix3x2<Scalar>.transformPoint(matrix: rhs, point: lhs)
     }
     
     @_transparent
-    public static func *= (lhs: inout Self, rhs: Matrix2<Scalar>) {
-        lhs = Matrix2<Scalar>.transformPoint(matrix: rhs, point: lhs)
+    public static func *= (lhs: inout Self, rhs: Matrix3x2<Scalar>) {
+        lhs = Matrix3x2<Scalar>.transformPoint(matrix: rhs, point: lhs)
     }
 }

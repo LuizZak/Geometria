@@ -130,7 +130,7 @@ extension Rectangle2Tests {
 extension Rectangle2Tests {
     func testTransformedBounds_scale() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        let matrix = Matrix2D
+        let matrix = Matrix3x2D
             .transformation(xScale: 2,
                             yScale: 3,
                             angle: 0,
@@ -145,7 +145,7 @@ extension Rectangle2Tests {
     
     func testTransformedBounds_rotation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        let matrix = Matrix2D
+        let matrix = Matrix3x2D
             .transformation(xScale: 1,
                             yScale: 1,
                             angle: .pi / 2,
@@ -160,7 +160,7 @@ extension Rectangle2Tests {
     
     func testTransformedBounds_translate() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        let matrix = Matrix2D
+        let matrix = Matrix3x2D
             .transformation(xScale: 1,
                             yScale: 1,
                             angle: 0,
@@ -175,7 +175,7 @@ extension Rectangle2Tests {
     
     func testTransformedBounds_scaleRotation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        let matrix = Matrix2D
+        let matrix = Matrix3x2D
             .transformation(xScale: 2,
                             yScale: 3,
                             angle: .pi / 2,
@@ -190,7 +190,7 @@ extension Rectangle2Tests {
     
     func testTransformedBounds_rotationTranslation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        let matrix = Matrix2D
+        let matrix = Matrix3x2D
             .transformation(xScale: 1,
                             yScale: 1,
                             angle: .pi / 2,
@@ -205,7 +205,7 @@ extension Rectangle2Tests {
     
     func testTransformedBounds_scaleRotationTranslation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
-        let matrix = Matrix2D
+        let matrix = Matrix3x2D
             .transformation(xScale: 2,
                             yScale: 3,
                             angle: .pi / 2,

@@ -48,6 +48,13 @@ class Vector2Tests: XCTestCase {
         XCTAssertEqual(sut.y, 1)
     }
     
+    func testInitWithTuple() {
+        let sut = Vector((1, 2))
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 2)
+    }
+    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1), Vector(x: 0, y: 1))
         XCTAssertNotEqual(Vector(x: 1, y: 1), Vector(x: 0, y: 1))
@@ -60,13 +67,6 @@ class Vector2Tests: XCTestCase {
         XCTAssertNotEqual(Vector(x: 1, y: 1).hashValue, Vector(x: 0, y: 1).hashValue)
         XCTAssertNotEqual(Vector(x: 1, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
         XCTAssertNotEqual(Vector(x: 0, y: 0).hashValue, Vector(x: 0, y: 1).hashValue)
-    }
-    
-    func testInitZero() {
-        let sut = Vector()
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 0)
     }
     
     func testPointwiseMin() {
@@ -657,14 +657,14 @@ class Vector2Tests: XCTestCase {
     }
     
     func testMultiplyMatrix() {
-        let matrix = Matrix2D(m11: 2, m12: 3, m21: 4, m22: 5, m31: 6, m32: 7)
+        let matrix = Matrix3x2D(m11: 2, m12: 3, m21: 4, m22: 5, m31: 6, m32: 7)
         let vec = Vector2D(x: 1, y: 2)
         
         assertEqual(vec * matrix, Vector2D(x: 16.0, y: 20.0), accuracy: accuracy)
     }
     
     func testMultiplyMatrix_inPlace() {
-        let matrix = Matrix2D.translation(x: 10, y: 20)
+        let matrix = Matrix3x2D.translation(x: 10, y: 20)
         var vec = Vector2D(x: 1, y: 2)
         
         vec *= matrix

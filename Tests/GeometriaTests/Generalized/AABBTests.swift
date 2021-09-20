@@ -1282,10 +1282,11 @@ extension AABBTests {
         // Issue turned out to be the inverted Y min-max axis above, but we leave
         // the test here to reference it in the future just in case.
         //
+        typealias Vector = SIMD3<Double>
         
-        let sut = AABB<SIMD3<Double>>(minimum: .init(x: -20.0, y: 90.0, z: 80.0),
-                                      maximum: .init(x: 60.0, y: 110.0, z: 95.0))
-        let ray = DirectionalRay<SIMD3<Double>>(
+        let sut = AABB<Vector>(minimum: .init(x: -20.0, y: 90.0, z: 80.0),
+                               maximum: .init(x: 60.0, y: 110.0, z: 95.0))
+        let ray = DirectionalRay<Vector>(
             start: .init(x: -7.8, y: 0.0, z: 87.0),
             direction: .init(
                 x: -0.08629543594487392,

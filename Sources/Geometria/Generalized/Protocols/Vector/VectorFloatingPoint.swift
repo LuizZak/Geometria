@@ -113,6 +113,33 @@ public extension VectorFloatingPoint {
     func distance(to vec: Self) -> Scalar {
         (vec - self).length
     }
+    
+    /// Rounds the components of this `VectorFloatingPoint` using a given
+    /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
+    ///
+    /// Equivalent to calling C's round() function on each component.
+    @_transparent
+    func rounded() -> Self {
+        rounded(.toNearestOrAwayFromZero)
+    }
+    
+    /// Rounds the components of this `VectorFloatingPoint` using a given
+    /// `FloatingPointRoundingRule.up`.
+    ///
+    /// Equivalent to calling C's ceil() function on each component.
+    @_transparent
+    func ceil() -> Self {
+        rounded(.up)
+    }
+    
+    /// Rounds the components of this `VectorFloatingPoint` using a given
+    /// `FloatingPointRoundingRule.down`.
+    ///
+    /// Equivalent to calling C's floor() function on each component.
+    @_transparent
+    func floor() -> Self {
+        rounded(.down)
+    }
 }
 
 /// Rounds the components of a given `VectorFloatingPoint` using

@@ -9,7 +9,7 @@ class SIMD3_DoubleTests: XCTestCase {
     typealias Vector = SIMD3<Double>
     
     func testInitRepeating() {
-        let result = Vector(repeating: 1)
+        let result = Vector(repeating: 1.0)
         
         XCTAssertEqual(result.x, 1)
         XCTAssertEqual(result.y, 1)
@@ -429,8 +429,8 @@ class SIMD3_DoubleTests: XCTestCase {
     }
     
     func testElevation() {
-        XCTAssertEqual(Vector(x: 0, y: 0, z: 1).elevation, .pi / 2)
-        XCTAssertEqual(Vector(x: 0, y: 0, z: -1).elevation, -.pi / 2)
+        XCTAssertEqual(Vector(x: 0, y: 0, z: 1).elevation, Double.pi / 2)
+        XCTAssertEqual(Vector(x: 0, y: 0, z: -1).elevation, -Double.pi / 2)
         XCTAssertEqual(Vector(x: -1, y: -1, z: 1).elevation, 0.6154797086703875)
         XCTAssertEqual(Vector(x: 1, y: -1, z: 1).elevation, 0.6154797086703875)
         XCTAssertEqual(Vector(x: 1, y: 1, z: 1).elevation, 0.6154797086703875)

@@ -42,14 +42,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(sut.z, 2)
     }
     
-    func testInitRepeating() {
-        let sut = Vector(repeating: 1)
-        
-        XCTAssertEqual(sut.x, 1)
-        XCTAssertEqual(sut.y, 1)
-        XCTAssertEqual(sut.z, 1)
-    }
-    
     func testInitWithVector() {
         struct TestVec3: Vector3Type {
             typealias SubVector2 = Vector2<Double>
@@ -76,6 +68,22 @@ class Vector3Tests: XCTestCase {
         XCTAssertEqual(sut.z, 3)
     }
     
+    func testInitRepeating() {
+        let sut = Vector(repeating: 1)
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 1)
+        XCTAssertEqual(sut.z, 1)
+    }
+    
+    func testInitWithTuple() {
+        let sut = Vector((1, 2, 3))
+        
+        XCTAssertEqual(sut.x, 1)
+        XCTAssertEqual(sut.y, 2)
+        XCTAssertEqual(sut.z, 3)
+    }
+    
     func testEquatable() {
         XCTAssertEqual(Vector(x: 0, y: 1, z: 2), Vector(x: 0, y: 1, z: 2))
         XCTAssertNotEqual(Vector(x: 1, y: 1, z: 2), Vector(x: 0, y: 1, z: 2))
@@ -90,14 +98,6 @@ class Vector3Tests: XCTestCase {
         XCTAssertNotEqual(Vector(x: 1, y: 0, z: 2).hashValue, Vector(x: 0, y: 1, z: 2).hashValue)
         XCTAssertNotEqual(Vector(x: 0, y: 0, z: 2).hashValue, Vector(x: 0, y: 1, z: 2).hashValue)
         XCTAssertNotEqual(Vector(x: 0, y: 1, z: 0).hashValue, Vector(x: 0, y: 1, z: 2).hashValue)
-    }
-    
-    func testInitZero() {
-        let sut = Vector()
-        
-        XCTAssertEqual(sut.x, 0)
-        XCTAssertEqual(sut.y, 0)
-        XCTAssertEqual(sut.z, 0)
     }
     
     func testPointwiseMin() {
@@ -543,8 +543,8 @@ class Vector3Tests: XCTestCase {
     }
     
     func testElevation() {
-        XCTAssertEqual(Vector3D(x: 0, y: 0, z: 1).elevation, .pi / 2)
-        XCTAssertEqual(Vector3D(x: 0, y: 0, z: -1).elevation, -.pi / 2)
+        XCTAssertEqual(Vector3D(x: 0, y: 0, z: 1).elevation, Double.pi / 2)
+        XCTAssertEqual(Vector3D(x: 0, y: 0, z: -1).elevation, -Double.pi / 2)
         XCTAssertEqual(Vector3D(x: -1, y: -1, z: 1).elevation, 0.6154797086703875)
         XCTAssertEqual(Vector3D(x: 1, y: -1, z: 1).elevation, 0.6154797086703875)
         XCTAssertEqual(Vector3D(x: 1, y: 1, z: 1).elevation, 0.6154797086703875)
