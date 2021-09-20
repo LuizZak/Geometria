@@ -120,15 +120,67 @@ extension Cylinder3: PointProjectableType where Vector: Vector3FloatingPoint {
     @inlinable
     public func project(_ vector: Vector) -> Vector {
         let line = asLineSegment
+        let projectedScalar = line.projectAsScalar(vector)
         let projected = line.project(vector)
+        
+        // If the point when projected onto the line is within its bounds,
+        // compute a direction to the vector and return a point on the radius
+        // of the cylinder.
+        if line.containsProjectedNormalizedMagnitude(projectedScalar) {
+            var direction = (vector - projected)
+            // Can choose any axis here
+            if direction == .zero {
+                direction = .unitX
+            }
+            
+            let onEdge = projected + direction.normalized() * radius
+            let onEdgeDist = vector.distanceSquared(to: onEdge)
+            
+            // Check that the point is not closer to one of the ends of the
+            // cylinder instead of the edges
+            let onStartDisk = startAsDisk.project(vector)
+            if onStartDisk.distanceSquared(to: vector) < onEdgeDist {
+                return onStartDisk
+            }
+            let onEndDisk = endAsDisk.project(vector)
+            if onEndDisk.distanceSquared(to: vector) < onEdgeDist {
+                return onEndDisk
+            }
+            
+            return onEdge
+        }
         
         // Create a disk with the same radius as this cylinder, with a normal of
         // the direction of start/end, centered around the projected point on
         // the imaginary line between start/end, and then use it's .project(_:)
         // result as a return value.
         let disk = Disk3(center: projected, normal: start - end, radius: radius)
-        
         return disk.project(vector)
+    }
+}
+
+extension Cylinder3: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    public func signedDistance(to point: Vector) -> Vector.Scalar {
+        // Derived from:
+        // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
+        
+        let ba = end - start
+        let pa = point - start
+        let baba: Scalar = ba.dot(ba)
+        let paba: Scalar = pa.dot(ba)
+        let half: Scalar = 1 / 2
+        let x: Scalar = (pa * baba - ba * paba).length - radius * baba
+        let y: Scalar = abs(paba - baba * half) - baba * half
+        let x2: Scalar = x * x
+        let y2: Scalar = y * y * baba
+        let d: Scalar
+        if max(x, y) < .zero {
+            d = -min(x2, y2)
+        } else {
+            d = ((x > .zero) ? x2 : .zero) + ((y > .zero) ? y2 : .zero)
+        }
+        
+        return d.signValue * abs(d).squareRoot() / baba
     }
 }
 
@@ -136,6 +188,14 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
     /// Returns the intersection points of a given line along this cylinder's
     /// surface.
     public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: Line3FloatingPoint, Vector == Line.Vector {
+        
+        // Procedure:
+        // 1: Create a plane along the line
+        // 2: Pin the normal of this plane to the perpendicular of the cylinder's
+        //    line
+        // 3: Project cylinder onto plane as an AABB
+        // 4: Perform 2D line-aabb intersection
+        // 5: Compute 3D coordinates and normal
         
         typealias Vector2 = Vector.SubVector2
         
@@ -181,7 +241,7 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         rectHalfWidth = Scalar.sqrt(radiusSquared - depthSquared)
         
         let cylinStartProj = pl.project2D(start)
-        let cylinEndProj = cylinStartProj + Vector2(x: 0, y: rectHeight) // pl.project2D(end)
+        let cylinEndProj = cylinStartProj + Vector2(x: 0, y: rectHeight)
         
         let aabb = AABB2<Vector2>(minimum: cylinStartProj - Vector2(x: rectHalfWidth, y: 0),
                                   maximum: cylinEndProj + Vector2(x: rectHalfWidth, y: 0))

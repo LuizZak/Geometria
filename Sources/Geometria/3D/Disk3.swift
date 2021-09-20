@@ -67,7 +67,7 @@ extension Disk3: PointProjectableType {
             return pointOnPlane
         }
         
-        let direction = (center - pointOnPlane).normalized()
+        let direction = (pointOnPlane - center).normalized()
         
         return center + direction * radius
     }

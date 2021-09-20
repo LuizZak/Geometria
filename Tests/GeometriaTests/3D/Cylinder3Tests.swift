@@ -2,6 +2,7 @@ import XCTest
 import Geometria
 
 class Cylinder3Tests: XCTestCase {
+    let accuracy: Double = 1e-14
     typealias Cylinder = Cylinder3<Vector3D>
     
     func testAsLine() {
@@ -186,7 +187,7 @@ extension Cylinder3Tests {
         
         let result = sut.project(point)
         
-        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 10.0))
+        XCTAssertEqual(result, .init(x: -2.3786231425867315, y: -1.6857707010037073, z: 10.0))
     }
     
     func testProject_pointBelowEnd_center() {
@@ -219,7 +220,7 @@ extension Cylinder3Tests {
         
         let result = sut.project(point)
         
-        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 0.0))
+        XCTAssertEqual(result, .init(x: -2.3786231425867315, y: -1.6857707010037073, z: 0.0))
     }
     
     func testProject_betweenEnds() {
@@ -230,7 +231,187 @@ extension Cylinder3Tests {
         
         let result = sut.project(point)
         
-        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 5))
+        XCTAssertEqual(result, .init(x: -2.3786231425867315, y: -1.6857707010037073, z: 5.0))
+    }
+    
+    func testProject_withinCylinder_closerToEdge() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -1, y: -2, z: 5)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: -1.2360679774997898, y: -2.4721359549995796, z: 5.0))
+    }
+    
+    func testProjection_withinCylinder_closerToStartEdge() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 1, z: 9)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 1, y: 1, z: 10.0))
+    }
+    
+    func testProjection_withinCylinder_closerToEndEdge() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 1, z: 1)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 1, y: 1, z: 0.0))
+    }
+    
+    func testProject_withinCylinder_onLine() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 2, z: 5)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 6.0, y: 2.0, z: 5.0))
+    }
+}
+
+// MARK: SignedDistanceMeasurableType Conformance
+
+extension Cylinder3Tests {
+    func testSignedDistanceTo_pointOnTopOfStart_center() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 2, z: 20)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 10.0)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_pointOnTopOfStart_offCenter() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 0, y: -1, z: 20)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 10.0)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_pointOnTopOfStart_offRadius() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: 20)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 15.073546166678991)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_pointBelowEnd_center() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 2, z: -10)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 10.0)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_pointBelowEnd_offCenter() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 0, y: -1, z: -10)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 10.0)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_pointBelowEnd_offRadius() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: -10)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 15.073546166678991)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_betweenEnds() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -10, y: -10, z: 5)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, 11.278820596099706)
+        XCTAssertEqual(result, sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_withinCylinder_closerToEdge() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: -1, y: -2, z: 5)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, -0.5278640450004207)
+        XCTAssertEqual(result, -sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_withinCylinder_closerToStart() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 1, z: 9)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, -1.0)
+        XCTAssertEqual(result, -sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_withinCylinder_closerToEnd() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 1, z: 1)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, -1.0)
+        XCTAssertEqual(result, -sut.project(point).distance(to: point), accuracy: accuracy)
+    }
+    
+    func testSignedDistanceTo_withinCylinder_onLine() {
+        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
+                           end: .init(x: 1, y: 2, z: 0),
+                           radius: 5)
+        let point = Vector3D(x: 1, y: 2, z: 5)
+        
+        let result = sut.signedDistance(to: point)
+        
+        XCTAssertEqual(result, -5.0)
+        XCTAssertEqual(result, -sut.project(point).distance(to: point), accuracy: accuracy)
     }
 }
 

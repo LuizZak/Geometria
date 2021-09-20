@@ -210,7 +210,7 @@ extension Disk3Tests {
         
         let result = sut.project(point)
         
-        XCTAssertEqual(result, .init(x: 4.378623142586731, y: 5.685770701003707, z: 3))
+        XCTAssertEqual(result, .init(x: -2.3786231425867315, y: -1.6857707010037073, z: 3.0))
     }
 }
 
