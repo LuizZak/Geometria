@@ -191,6 +191,17 @@ extension Disk3Tests {
 // MARK: PointProjectableType Conformance
 
 extension Disk3Tests {
+    func testProject_vectorOnCenter_returnsCenterPoint() {
+        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
+                       normal: .init(x: 2, y: 2, z: 2),
+                       radius: 10)
+        let point = Vector3D(x: 1, y: 2, z: 3)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 1, y: 2, z: 3))
+    }
+    
     func testProject_vectorWithinRadius_returnsProjection() {
         let sut = Disk(center: .init(x: 1, y: 2, z: 3),
                        normal: .init(x: 2, y: 2, z: 2),

@@ -50,6 +50,7 @@ public extension Cylinder3 {
     
     /// Returns a ``Capsule3`` with the same ``start``, ``end``, and ``radius``
     /// parameter sas this cylinder.
+    @_transparent
     var asCapsule: Capsule3<Vector> {
         Capsule3(start: start, end: end, radius: radius)
     }
@@ -166,6 +167,7 @@ extension Cylinder3: PointProjectableType where Vector: Vector3FloatingPoint {
 }
 
 extension Cylinder3: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    @inlinable
     public func signedDistance(to point: Vector) -> Vector.Scalar {
         // Derived from:
         // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm

@@ -1,6 +1,6 @@
 /// Protocol for objects that form geometric lines with two floating-point
 /// vectors representing two points on the line.
-public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vector: VectorFloatingPoint {
+public protocol LineFloatingPoint: LineDivisible, PointProjectableType, SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by extending
     /// `a <-> b`.
@@ -100,5 +100,10 @@ public extension LineFloatingPoint {
     @_transparent
     func distance(to vector: Vector) -> Vector.Scalar {
         distanceSquared(to: vector).squareRoot()
+    }
+    
+    @_transparent
+    func signedDistance(to point: Vector) -> Vector.Scalar {
+        distance(to: point)
     }
 }

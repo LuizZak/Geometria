@@ -169,4 +169,44 @@ class LineFloatingPointTests: XCTestCase {
         
         XCTAssertEqual(sut.distance(to: point), 0.816496580927726, accuracy: 1e-15)
     }
+    
+    func testSignedDistance_line() {
+        let sut = Line3(x1:  1, y1: 2, z1: 3,
+                        x2: 10, y2: 2, z2: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 2, z: 3)), 0.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: -5, y: 0, z: 0)), 3.605551275463989)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 0, z: 0)), 3.605551275463989)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: 15, y: 0, z: 0)), 3.605551275463989)
+    }
+    
+    func testSignedDistance_ray() {
+        let sut = Ray3D(x1: 1, y1: 2, z1: 3,
+                        x2: 2, y2: 2, z2: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 2, z: 3)), 0.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: -5, y: 0, z: 0)), 7.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 0, z: 0)), 3.605551275463989)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: 15, y: 0, z: 0)), 3.605551275463989)
+    }
+    
+    func testSignedDistance_directionalRay() {
+        let sut = DirectionalRay3D(x1: 1, y1: 2, z1: 3,
+                                   x2: 2, y2: 2, z2: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 2, z: 3)), 0.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: -5, y: 0, z: 0)), 7.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 0, z: 0)), 3.605551275463989)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: 15, y: 0, z: 0)), 3.605551275463989)
+    }
+    
+    func testSignedDistance_lineSegment() {
+        let sut = LineSegment3D(x1:  1, y1: 2, z1: 3,
+                                x2: 10, y2: 2, z2: 3)
+        
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 2, z: 3)), 0.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: -5, y: 0, z: 0)), 7.0)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x:  5, y: 0, z: 0)), 3.605551275463989)
+        XCTAssertEqual(sut.signedDistance(to: Vector3D(x: 15, y: 0, z: 0)), 6.164414002968976)
+    }
 }

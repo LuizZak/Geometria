@@ -89,7 +89,7 @@ extension LineSegment: LineDivisible where Vector: VectorDivisible {
     
 }
 
-extension LineSegment: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
+extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     /// Returns the length of this line.
     ///
     /// - seealso: ``lengthSquared``

@@ -15,31 +15,34 @@ public typealias Ellipse3i = Ellipse3<Vector3i>
 public typealias Ellipse3<V: Vector3Type> = Ellipsoid<V>
 
 public extension Ellipse3 {
-    @_transparent
     var radiusX: Scalar {
+        @_transparent
         get {
             radius.x
         }
+        @_transparent
         set {
             radius.x = newValue
         }
     }
     
-    @_transparent
     var radiusY: Scalar {
+        @_transparent
         get {
             radius.y
         }
+        @_transparent
         set {
             radius.y = newValue
         }
     }
     
-    @_transparent
     var radiusZ: Scalar {
+        @_transparent
         get {
             radius.z
         }
+        @_transparent
         set {
             radius.z = newValue
         }

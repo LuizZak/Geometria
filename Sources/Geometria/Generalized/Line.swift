@@ -45,7 +45,7 @@ extension Line: LineDivisible where Vector: VectorDivisible {
     
 }
 
-extension Line: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
+extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     /// Returns `true` for all non-NaN scalar values, which describes a
     /// [geometric line].
     ///

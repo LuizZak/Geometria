@@ -74,6 +74,7 @@ extension Disk3: PointProjectableType {
 }
 
 extension Disk3: SignedDistanceMeasurableType {
+    @inlinable
     public func signedDistance(to point: Vector) -> Vector.Scalar {
         project(point).distance(to: point)
     }
