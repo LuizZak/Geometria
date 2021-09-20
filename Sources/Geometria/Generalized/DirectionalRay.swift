@@ -85,6 +85,14 @@ public extension DirectionalRay where Vector: VectorAdditive {
 }
 
 extension DirectionalRay: LineAdditive where Vector: VectorAdditive {
+    /// Gets the slope of this directional ray.
+    ///
+    /// For directional rays this value always equates to `direction`.
+    @_transparent
+    public var lineSlope: Vector {
+        direction
+    }
+    
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
         Self(start: start + vector, direction: direction)
@@ -100,14 +108,6 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
 }
 
 extension DirectionalRay: LineFloatingPoint & PointProjectableType where Vector: VectorFloatingPoint {
-    /// Gets the slope of this directional ray.
-    ///
-    /// For directional rays this value always equates to `direction`.
-    @_transparent
-    public var lineSlope: Vector {
-        direction
-    }
-    
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the infinite line defined by points

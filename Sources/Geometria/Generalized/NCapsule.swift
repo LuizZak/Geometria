@@ -90,3 +90,26 @@ extension NCapsule: VolumetricType where Vector: VectorFloatingPoint {
         return asLineSegment.distanceSquared(to: vector) <= radSquare
     }
 }
+
+extension NCapsule: PointProjectableType where Vector: VectorFloatingPoint {
+    /// Returns the closest point on this N-capsule's surface to `vector`.
+    ///
+    /// If the distance between `vector` and its point on the projected line
+    /// ``asLineSegment`` is `== .zero`, an arbitrary closest point along the
+    /// outer surface of the capsule is returned, instead.
+    public func project(_ vector: Vector) -> Vector {
+        let line = asLineSegment
+        
+        var projected = line.project(vector)
+        
+        // If the vector is along the line exactly, pick a different point to
+        // create the projective line with.
+        if projected == vector {
+            projected += .one
+        }
+        
+        let projectedLine = LineSegment(start: projected, end: vector)
+        
+        return projectedLine.projectedMagnitude(radius)
+    }
+}

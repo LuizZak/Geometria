@@ -4,6 +4,8 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vec
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by extending
     /// `a <-> b`.
+    ///
+    /// ``project(_:)``
     func projectUnclamped(_ vector: Vector) -> Vector
     
     /// Returns the result of creating a projection of this line's start point
@@ -56,6 +58,13 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType where Vec
 }
 
 public extension LineFloatingPoint {
+    /// Returns the closest point on this line to a given point.
+    ///
+    /// The point is limited to the line's bounds using
+    /// ``clampProjectedNormalizedMagnitude``, so it's guaranteed to be within
+    /// `a <-> b`.
+    ///
+    /// - seealso: ``projectUnclamped(_:)-7kmi0``
     @inlinable
     func project(_ vector: Vector) -> Vector {
         let proj = projectAsScalar(vector)

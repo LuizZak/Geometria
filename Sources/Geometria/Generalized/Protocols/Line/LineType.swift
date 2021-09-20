@@ -1,4 +1,5 @@
-/// Protocol for objects that form geometric lines with at least two points.
+/// Protocol for objects that form geometric lines with at least two distinct
+/// points the line is guaranteed to cross.
 public protocol LineType: GeometricType {
     /// The vector type associated with this `LineType`.
     associatedtype Vector: VectorType

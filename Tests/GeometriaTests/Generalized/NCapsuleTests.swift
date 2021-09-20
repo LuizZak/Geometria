@@ -180,3 +180,147 @@ extension NCapsuleTests {
         XCTAssertTrue(sut.contains(x: 14, y: 18))
     }
 }
+
+// MARK: PointProjectableType
+
+extension NCapsuleTests {
+    func testProject_withinCapsule_closerToLineSegment() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 3, y: 2, z: 25)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 4.160251471689219, y: 2.773500981126146, z: 25.0))
+    }
+    
+    func testProject_withinCapsule_withinStartSphere() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 3, y: 2, z: -3)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 3.1980107453341566, y: 2.132007163556104, z: -3.1980107453341566))
+    }
+    
+    func testProject_withinCapsule_withinEndSphere() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 3, y: 2, z: 53)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 3.1980107453341566, y: 2.132007163556104, z: 53.19801074533416))
+    }
+    
+    func testProject_withinCapsule_onLine() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 0, y: 0, z: 25)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: -1.886751345948129, y: -1.886751345948129, z: 23.11324865405187))
+    }
+    
+    func testProject_onEdge_withinLineSegment() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 5, y: 0, z: 25)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 5, y: 0, z: 25))
+    }
+    
+    func testProject_onEdge_onStartSphere() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 1, y: 1, z: -1)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 2.886751345948129, y: 2.886751345948129, z: -2.886751345948129))
+    }
+    
+    func testProject_onEdge_onEndSphere() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 1, y: 1, z: 51)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 2.886751345948129, y: 2.886751345948129, z: 52.88675134594813))
+    }
+    
+    func testProject_outOfBounds_closerToLineSegment() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 10, y: 10, z: 25)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 3.5355339059327373, y: 3.5355339059327373, z: 25.0))
+    }
+    
+    func testProject_outOfBounds_closerToStartSphere() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 5, y: 5, z: -4)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 3.077287274483318, y: 3.077287274483318, z: -2.4618298195866544))
+    }
+    
+    func testProject_outOfBounds_closerToEndSphere() {
+        let sut =
+        Capsule(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 50),
+            radius: 5
+        )
+        let point = Vector3D(x: 10, y: 10, z: 52)
+        
+        let result = sut.project(point)
+        
+        XCTAssertEqual(result, .init(x: 3.500700210070024, y: 3.500700210070024, z: 50.700140042014006))
+    }
+}

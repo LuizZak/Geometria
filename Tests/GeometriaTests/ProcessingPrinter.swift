@@ -8,6 +8,7 @@ class ProcessingPrinter {
     private let identDepth: Int = 2
     private var currentIndent: Int = 0
     private var draws: [String] = []
+    var cameraLookAt: Vector3D = .zero
     var cylinders: [Cylinder3<Vector3D>] = []
     var shouldPrintDrawNormal: Bool = false
     var shouldPrintDrawTangent: Bool = false
@@ -25,6 +26,12 @@ class ProcessingPrinter {
     init(size: Vector2i = .init(x: 800, y: 600), scale: Double = 25.0) {
         self.size = size
         self.scale = scale
+    }
+    
+    // MARK: - Geometry
+    
+    func add<Vector: Vector3Type>(point: Vector) where Vector.Scalar: SignedNumeric & CustomStringConvertible {
+        add(sphere: Sphere3(center: point, radius: 1))
     }
     
     func add<V: Vector2Type>(ellipse: Ellipsoid<V>) where V.Scalar: CustomStringConvertible {
@@ -147,11 +154,19 @@ class ProcessingPrinter {
         addDrawLine("popMatrix();")
     }
     
-    func add(cylinder: Cylinder3<Vector3D>) {
+    func add(cylinder: Cylinder3D) {
         is3D = true
         
         cylinders.append(cylinder)
     }
+    
+    func add(capsule: Capsule3D) {
+        add(cylinder: Cylinder3D(start: capsule.start, end: capsule.end, radius: capsule.radius))
+        add(sphere: capsule.startAsSphere)
+        add(sphere: capsule.endAsSphere)
+    }
+    
+    // MARK: - Printing
     
     func printAll() {
         defer { printBuffer() }
@@ -232,7 +247,7 @@ class ProcessingPrinter {
         }
     }
     
-    // MARK: - Expression Printing
+    // MARK: Expression Printing
     
     func boilerplate3DSpaceBar<T: FloatingPoint>(lineWeight: T) -> [String] {
         return [
@@ -290,7 +305,7 @@ class ProcessingPrinter {
         addDrawLine("fill(\(value));")
     }
     
-    // MARK: - Methods for subclasses
+    // MARK: Methods for subclasses
     
     func prepareCustomPreFile() {
         
@@ -312,7 +327,7 @@ class ProcessingPrinter {
         
     }
     
-    // MARK: - Function Printing
+    // MARK: Function Printing
     
     func printSetup() {
         func printCylinder(_ cylinder: Cylinder3<Vector3D>) {
@@ -328,6 +343,10 @@ class ProcessingPrinter {
                 printLine("perspective(PI / 3, 1, 0.3, 8000); // Corrects default zNear plane being too far for unit measurements")
                 printLine("cam = new PeasyCam(this, 250);")
                 printLine("cam.setWheelScale(0.3);")
+                
+                if cameraLookAt != .zero {
+                    printLine("cam.lookAt(\(vec3String_pCoordinates(cameraLookAt)), 200);")
+                }
             } else {
                 printLine("size(\(vec2String(size)));")
             }
@@ -510,7 +529,7 @@ class ProcessingPrinter {
         }
     }
     
-    // MARK: - String printing
+    // MARK: String printing
     
     func vec3PVectorString<V: Vector3Type>(_ vec: V) -> String where V.Scalar: SignedNumeric & CustomStringConvertible {
         return "new PVector(\(vec3String(vec)))"

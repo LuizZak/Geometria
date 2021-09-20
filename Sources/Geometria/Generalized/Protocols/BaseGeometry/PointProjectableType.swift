@@ -6,7 +6,8 @@ public protocol PointProjectableType: GeometricType {
     /// The vector type associated with this `PointProjectableType`.
     associatedtype Vector: VectorType
     
-    /// Returns a vector on this geometric type that is the closest to `vector`.
+    /// Returns a vector on the surface of this geometric type that is the
+    /// closest to `vector`.
     func project(_ vector: Vector) -> Vector
     
     /// Returns the squared distance between the closest point in this geometric
@@ -15,8 +16,8 @@ public protocol PointProjectableType: GeometricType {
     /// - seealso: ``distance(to:)``
     func distanceSquared(to vector: Vector) -> Vector.Scalar
     
-    /// Returns the distance between the closest point in this geometric type to
-    /// a given vector.
+    /// Returns the distance between the closest point in this geometric type's
+    /// surface to a given vector.
     ///
     /// Equivalent to `self.distanceSquared(to: vector).squareRoot()`.
     ///
@@ -25,8 +26,8 @@ public protocol PointProjectableType: GeometricType {
 }
 
 public extension PointProjectableType where Vector: VectorMultiplicative {
-    /// Returns the squared distance between this geometric type and a given
-    /// vector.
+    /// Returns the squared distance between the closest point in this geometric
+    /// type's surface to a given vector.
     ///
     /// - seealso: ``distance(to:)``
     @_transparent
@@ -36,7 +37,8 @@ public extension PointProjectableType where Vector: VectorMultiplicative {
 }
 
 public extension PointProjectableType where Vector: VectorFloatingPoint {
-    /// Returns the distance between this geometric type and a given vector.
+    /// Returns the distance between the closest point in this geometric type's
+    /// surface to a given vector.
     ///
     /// Equivalent to `self.distanceSquared(to: vector).squareRoot()`.
     ///
