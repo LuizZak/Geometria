@@ -275,7 +275,7 @@ class Vector2Tests: XCTestCase {
         
         vec1 /= Vector2D(x: 2, y: 3)
         
-        XCTAssertEqual(vec1, Vector2D(x: 1, y: 1))
+        XCTAssertEqual(vec1, Vector2D(x: 1.5, y: 1.6666666666666667))
     }
     
     func testDivision_withScalar_inPlace() {
@@ -283,7 +283,7 @@ class Vector2Tests: XCTestCase {
         
         vec1 /= 3
         
-        XCTAssertEqual(vec1, Vector2D(x: 0, y: 1))
+        XCTAssertEqual(vec1, Vector2D(x: 0.3333333333333333, y: 1.3333333333333333))
     }
     
     func testAbsolute() {
