@@ -1,6 +1,12 @@
 import XCTest
 import Geometria
 
+#if canImport(simd)
+
+import simd
+
+#endif
+
 class PerformanceTests: XCTestCase {
     // MARK: Line - Vector projection
     
@@ -34,6 +40,8 @@ class PerformanceTests: XCTestCase {
         }
     }
     
+    #if canImport(simd)
+
     func xtestLineProject2D_simd() {
         typealias Vector = SIMD2<Double>
         
@@ -63,6 +71,8 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
+
+    #endif
     
     func xtestDirectionalRayProject2D() {
         typealias Vector = Vector2D
@@ -94,6 +104,8 @@ class PerformanceTests: XCTestCase {
         }
     }
     
+    #if canImport(simd)
+
     func xtestDirectionalRayProject2D_simd() {
         typealias Vector = SIMD2<Double>
         
@@ -123,6 +135,8 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
+
+    #endif
 }
 
 // MARK: AABB - Line intersection
@@ -143,6 +157,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #if canImport(simd)
     
     func xtestAABBLineIntersects2D_simd() {
         typealias Vector = SIMD2<Double>
@@ -159,6 +175,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #endif
     
     func xtestAABBLineIntersection2D() {
         typealias Vector = Vector2D
@@ -176,6 +194,8 @@ extension PerformanceTests {
         }
     }
     
+    #if canImport(simd)
+
     func xtestAABBLineIntersection2D_simd() {
         typealias Vector = SIMD2<Double>
         
@@ -191,6 +211,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #endif
 }
 
 // MARK: Sphere - Line intersection
@@ -212,6 +234,8 @@ extension PerformanceTests {
         }
     }
     
+    #if canImport(simd)
+
     func xtestSphereLineIntersects2D_simd() {
         typealias Vector = SIMD2<Double>
         
@@ -227,6 +251,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #endif
     
     func xtestSphereLineIntersection2D() {
         typealias Vector = Vector2D
@@ -243,6 +269,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #if canImport(simd)
     
     func xtestSphereLineIntersection2D_simd() {
         typealias Vector = SIMD2<Double>
@@ -259,6 +287,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #endif
     
     func xtestSphereDirectionalRayIntersection2D() {
         typealias Vector = Vector2D
@@ -275,6 +305,8 @@ extension PerformanceTests {
             }
         }
     }
+
+    #if canImport(simd)
     
     func xtestSphereDirectionalRayIntersection2D_simd() {
         typealias Vector = SIMD2<Double>
@@ -291,6 +323,8 @@ extension PerformanceTests {
             }
         }
     }
+    
+    #endif
 }
 
 // MARK: Triangle.area

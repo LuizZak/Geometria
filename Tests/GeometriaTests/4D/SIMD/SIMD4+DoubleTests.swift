@@ -1,3 +1,5 @@
+#if canImport(simd)
+
 import XCTest
 import Geometria
 
@@ -651,3 +653,5 @@ extension SIMD4_DoubleTests {
         XCTAssertTrue(result.w.isNaN)
     }
 }
+
+#endif

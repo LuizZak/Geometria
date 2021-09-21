@@ -1271,6 +1271,8 @@ extension AABBTests {
             )
         )
     }
+
+    #if canImport(simd)
     
     func testIntersectionWith_3d_ray_normalBug1() {
         // From GeometriaApp commit 8bf1b3021ef3fd133c46ca6c3e959c90a84df2f5
@@ -1309,6 +1311,8 @@ extension AABBTests {
             )
         )
     }
+
+    #endif
 }
 
 // MARK: SignedDistanceMeasurableType Conformance
