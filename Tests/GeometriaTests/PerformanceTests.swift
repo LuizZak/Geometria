@@ -10,11 +10,13 @@ import simd
 class PerformanceTests: XCTestCase {
     // MARK: Line - Vector projection
     
-    func xtestLineProject2D() {
+    func testLineProject2D() {
         typealias Vector = Vector2D
         
         let line = Line<Vector>(x1: 0, y1: 0, x2: 10, y2: 10)
         let point = Vector(x: 0, y: 10)
+
+        return
         
         measure {
             var i = 0
