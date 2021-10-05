@@ -242,7 +242,7 @@ extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & Ve
         minimum <= box.maximum && maximum >= box.minimum
     }
     
-    /// Creates a rectangle which is equal to the non-zero area shared between
+    /// Creates a rectangle which is equal to the positive area shared between
     /// this rectangle and `other`.
     ///
     /// If the AABBs do not intersect (i.e. produce a rectangle with < 0 bounds),

@@ -14,7 +14,7 @@ public protocol SelfIntersectableRectangleType: RectangleType {
     /// rectangle and `other`.
     func union(_ other: Self) -> Self
     
-    /// Creates a rectangle which is equal to the non-zero area shared between
+    /// Creates a rectangle which is equal to the positive area shared between
     /// this rectangle and `other`.
     ///
     /// If the rectangles do not intersect (i.e. produce a rectangle with < 0
