@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SphereProjectiveSpace Protocol Reference</title>
+    <title>SelfIntersectableRectangleType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/SphereProjectiveSpace" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/SelfIntersectableRectangleType" class="dashAnchor"></a>
 
-    <a title="SphereProjectiveSpace Protocol Reference"></a>
+    <a title="SelfIntersectableRectangleType Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      SphereProjectiveSpace Protocol Reference
+      SelfIntersectableRectangleType Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -841,18 +841,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>SphereProjectiveSpace</h1>
+            <h1>SelfIntersectableRectangleType</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SphereProjectiveSpace</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ProjectiveSpace.html">ProjectiveSpace</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SelfIntersectableRectangleType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html">RectangleType</a></span></code></pre>
 
                 </div>
               </div>
-            <p>A projected space laying on the surface of a 3-dimensional sphere, with a
-2-dimensional underlying space where vectors represent the azimuth (XY angle
-of the points) and elevation (the angle between the point and the XY-plane
-on the sphere).</p>
+            <p>Protocol for rectangle geometric types that can be combined as intersection
+and unions with other rectangles of the same type.</p>
 
           </div>
         </section>
@@ -864,9 +862,9 @@ on the sphere).</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria21SphereProjectiveSpaceP6ScalarQa"></a>
-                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria21SphereProjectiveSpaceP6ScalarQa">Scalar</a>
+                    <a name="/s:9Geometria30SelfIntersectableRectangleTypeP8containsySbxF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria30SelfIntersectableRectangleTypeP8containsySbxF">contains(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -874,14 +872,103 @@ on the sphere).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns whether a given rectangle rests completely inside the boundaries
+of this rectangle.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">Real</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Coordinates</span> <span class="o">==</span> <span class="kt"><a href="../Structs/SphereCoordinates.html">SphereCoordinates</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria30SelfIntersectableRectangleTypeP10intersectsySbxF"></a>
+                    <a name="//apple_ref/swift/Method/intersects(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria30SelfIntersectableRectangleTypeP10intersectsySbxF">intersects(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether this rectangle intersects the given rectangle instance.
+This check is inclusive, so the edges of the bounding box are considered
+to intersect the other bounding box&rsquo;s edges as well.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">intersects</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria30SelfIntersectableRectangleTypeP5unionyxxF"></a>
+                    <a name="//apple_ref/swift/Method/union(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria30SelfIntersectableRectangleTypeP5unionyxxF">union(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a rectangle which is the minimum rectangle that can fit this
+rectangle and <code>other</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">union</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria30SelfIntersectableRectangleTypeP12intersectionyxSgxF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria30SelfIntersectableRectangleTypeP12intersectionyxSgxF">intersection(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a rectangle which is equal to the non-zero area shared between
+this rectangle and <code>other</code>.</p>
+
+<p>If the rectangles do not intersect (i.e. produce a rectangle with &lt; 0
+bounds), <code>nil</code> is returned, instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">intersection</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>

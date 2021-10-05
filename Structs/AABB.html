@@ -314,6 +314,9 @@
                 <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SelfIntersectableRectangleType.html">SelfIntersectableRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a>
               </li>
               <li class="nav-group-task">
@@ -849,6 +852,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SelfIntersectableRectangleType.html">SelfIntersectableRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html">RectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
@@ -1378,12 +1382,25 @@ contain the point as well.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive` &amp; `VectorComparable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
+                  <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code> &amp; <code><a href="../Protocols/VectorComparable.html">VectorComparable</a></code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria4AABBVA2A16VectorComparableRzrlE8contains3boxSbACyxG_tF"></a>
-                    <a name="//apple_ref/swift/Method/contains(box:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria4AABBVA2A16VectorComparableRzrlE8contains3boxSbACyxG_tF">contains(box:<wbr>)</a>
+                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE8containsySbACyxGF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE8containsySbACyxGF">contains(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1409,7 +1426,7 @@ boundaries of this box.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="nv">box</span><span class="p">:</span> <span class="kt">AABB</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">AABB</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1419,9 +1436,9 @@ boundaries of this box.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria4AABBVA2A16VectorComparableRzrlE10intersectsySbACyxGF"></a>
+                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE10intersectsySbACyxGF"></a>
                     <a name="//apple_ref/swift/Method/intersects(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria4AABBVA2A16VectorComparableRzrlE10intersectsySbACyxGF">intersects(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE10intersectsySbACyxGF">intersects(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1459,9 +1476,41 @@ the other bounding box&rsquo;s edges as well.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria4AABBVA2A16VectorComparableRzrlE5unionyACyxGAFF"></a>
+                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE12intersectionyACyxGSgAGF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE12intersectionyACyxGSgAGF">intersection(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a rectangle which is equal to the non-zero area shared between
+this rectangle and <code>other</code>.</p>
+
+<p>If the AABBs do not intersect (i.e. produce a rectangle with &lt; 0 bounds),
+<code>nil</code> is returned, instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersection</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE5unionyACyxGAGF"></a>
                     <a name="//apple_ref/swift/Method/union(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria4AABBVA2A16VectorComparableRzrlE5unionyACyxGAFF">union(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE5unionyACyxGAGF">union(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1494,9 +1543,9 @@ given box.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria4AABBVA2A16VectorComparableRzrlE5unionyACyxGAF_AFtFZ"></a>
+                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE5unionyACyxGAG_AGtFZ"></a>
                     <a name="//apple_ref/swift/Method/union(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria4AABBVA2A16VectorComparableRzrlE5unionyACyxGAF_AFtFZ">union(_:<wbr>_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE5unionyACyxGAG_AGtFZ">union(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1706,10 +1755,10 @@ with a given location and size.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
+                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%602"></a>
                 <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive` &amp; `VectorComparable`" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%602"></a>
                   <h3 class="section-name"><p>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code> &amp; <code><a href="../Protocols/VectorComparable.html">VectorComparable</a></code></p>
 </h3>
                 </div>
@@ -1941,7 +1990,7 @@ AABB&rsquo;s outer perimeter.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-20)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>

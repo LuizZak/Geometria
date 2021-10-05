@@ -314,6 +314,9 @@
                 <a class="nav-group-task-link" href="../Protocols/RectangleType.html">RectangleType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SelfIntersectableRectangleType.html">SelfIntersectableRectangleType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a>
               </li>
               <li class="nav-group-task">
@@ -850,6 +853,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SelfIntersectableRectangleType.html">SelfIntersectableRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NRectangle</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
@@ -1469,9 +1473,9 @@ If the array is empty, nothing is done.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE8contains9rectangleSbACyxG_tF"></a>
-                    <a name="//apple_ref/swift/Method/contains(rectangle:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE8contains9rectangleSbACyxG_tF">contains(rectangle:<wbr>)</a>
+                    <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE8containsySbACyxGF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE8containsySbACyxGF">contains(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1487,7 +1491,7 @@ of this NRectangle.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="nv">rectangle</span><span class="p">:</span> <span class="kt">NRectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1516,7 +1520,7 @@ to intersect the other bounding box&rsquo;s edges as well.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersects</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">NRectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersects</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1544,7 +1548,39 @@ NRectangle with another given NRectangle.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">union</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">NRectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">union</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10NRectangleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE12intersectionyACyxGSgAGF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10NRectangleVA2A14VectorAdditiveRzAA0C10ComparableRzrlE12intersectionyACyxGSgAGF">intersection(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a rectangle which is equal to the non-zero area shared between
+this rectangle and <code>other</code>.</p>
+
+<p>If the rectangles do not intersect (i.e. produce a rectangle with &lt; 0
+bounds), <code>nil</code> is returned, instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersection</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`?</span></code></pre>
 
                         </div>
                       </div>
@@ -1572,7 +1608,7 @@ given Rectangles.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">union</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">NRectangle</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">NRectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">union</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1641,7 +1677,7 @@ size multiplied by the coordinates of the given vector.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">scaledBy</span><span class="p">(</span><span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span></code></pre>
+<span class="kd">func</span> <span class="nf">scaledBy</span><span class="p">(</span><span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NRectangle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1748,7 +1784,7 @@ size multiplied by the coordinates of the given vector.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-09-20)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
