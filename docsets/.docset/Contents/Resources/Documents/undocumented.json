@@ -443,7 +443,7 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
-      "line": 19,
+      "line": 18,
       "symbol": "Ellipse3.radiusX",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -457,14 +457,14 @@
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
-      "line": 39,
+      "line": 40,
       "symbol": "Ellipse3.radiusZ",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
-      "line": 51,
+      "line": 54,
       "symbol": "Ellipse3.init(center:radiusX:radiusY:radiusZ:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
