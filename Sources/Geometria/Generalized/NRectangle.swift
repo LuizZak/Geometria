@@ -129,7 +129,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     /// If no points are supplied, an empty NRectangle is created instead.
     @_transparent
     public init(of points: Vector...) {
-        self = NRectangle(points: points)
+        self = Self(points: points)
     }
     
     /// Initializes a NRectangle out of a set of points, expanding to the
@@ -175,35 +175,54 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     public func contains(_ point: Vector) -> Bool {
         point >= minimum && point <= maximum
     }
-    
+}
+
+extension NRectangle: SelfIntersectableRectangleType where Vector: VectorAdditive & VectorComparable {
     /// Returns whether a given NRectangle rests completely inside the boundaries
     /// of this NRectangle.
     @_transparent
-    public func contains(rectangle: NRectangle) -> Bool {
-        rectangle.minimum >= minimum && rectangle.maximum <= maximum
+    public func contains(_ other: Self) -> Bool {
+        other.minimum >= minimum && other.maximum <= maximum
     }
     
     /// Returns whether this NRectangle intersects the given NRectangle instance.
     /// This check is inclusive, so the edges of the bounding box are considered
     /// to intersect the other bounding box's edges as well.
     @_transparent
-    public func intersects(_ other: NRectangle) -> Bool {
+    public func intersects(_ other: Self) -> Bool {
         minimum <= other.maximum && maximum >= other.minimum
     }
     
     /// Returns a NRectangle which is the minimum NRectangle that can fit this
     /// NRectangle with another given NRectangle.
     @_transparent
-    public func union(_ other: NRectangle) -> NRectangle {
-        NRectangle.union(self, other)
+    public func union(_ other: Self) -> Self {
+        Self.union(self, other)
+    }
+    
+    /// Creates a rectangle which is equal to the non-zero area shared between
+    /// this rectangle and `other`.
+    ///
+    /// If the rectangles do not intersect (i.e. produce a rectangle with < 0
+    /// bounds), `nil` is returned, instead.
+    @inlinable
+    public func intersection(_ other: Self) -> Self? {
+        let min = Vector.pointwiseMax(minimum, other.minimum)
+        let max = Vector.pointwiseMin(maximum, other.maximum)
+        
+        if min > max {
+            return nil
+        }
+        
+        return Self(minimum: min, maximum: max)
     }
     
     /// Returns a NRectangle which is the minimum NRectangle that can fit two
     /// given Rectangles.
     @_transparent
-    public static func union(_ left: NRectangle, _ right: NRectangle) -> NRectangle {
-        NRectangle(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-                   maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+    public static func union(_ left: Self, _ right: Self) -> Self {
+        Self(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
+             maximum: Vector.pointwiseMax(left.maximum, right.maximum))
     }
 }
 
@@ -217,8 +236,8 @@ public extension NRectangle where Vector: VectorMultiplicative {
     /// Returns a NRectangle with the same position as this NRectangle, with its
     /// size multiplied by the coordinates of the given vector.
     @inlinable
-    func scaledBy(vector: Vector) -> NRectangle {
-        NRectangle(location: location, size: size * vector)
+    func scaledBy(vector: Vector) -> Self {
+        Self(location: location, size: size * vector)
     }
 }
 

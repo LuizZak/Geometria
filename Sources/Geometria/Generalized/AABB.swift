@@ -199,7 +199,9 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     public func contains(_ point: Vector) -> Bool {
         point >= minimum && point <= maximum
     }
-    
+}
+
+extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & VectorComparable {
     /// Returns whether a given box is completely contained inside the
     /// boundaries of this box.
     ///
@@ -215,8 +217,8 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// print(box1.contains(box: box3)) // Prints "false"
     /// ```
     @_transparent
-    public func contains(box: AABB) -> Bool {
-        box.minimum >= minimum && box.maximum <= maximum
+    public func contains(_ other: AABB) -> Bool {
+        other.minimum >= minimum && other.maximum <= maximum
     }
     
     /// Returns whether this box intersects the given box instance.
@@ -238,6 +240,23 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     @_transparent
     public func intersects(_ box: AABB) -> Bool {
         minimum <= box.maximum && maximum >= box.minimum
+    }
+    
+    /// Creates a rectangle which is equal to the non-zero area shared between
+    /// this rectangle and `other`.
+    ///
+    /// If the AABBs do not intersect (i.e. produce a rectangle with < 0 bounds),
+    /// `nil` is returned, instead.
+    @inlinable
+    public func intersection(_ other: Self) -> Self? {
+        let min = Vector.pointwiseMax(minimum, other.minimum)
+        let max = Vector.pointwiseMin(maximum, other.maximum)
+        
+        if min > max {
+            return nil
+        }
+        
+        return Self(minimum: min, maximum: max)
     }
     
     /// Returns a box which is the minimum box capable of fitting `self` and the

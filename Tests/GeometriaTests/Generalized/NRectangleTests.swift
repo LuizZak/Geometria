@@ -213,21 +213,25 @@ extension NRectangleTests {
         XCTAssertFalse(sut.contains(.init(x: 6, y: 7)))
         XCTAssertFalse(sut.contains(.init(x: 5, y: 0)))
     }
-    
+}
+
+// MARK: SelfIntersectableRectangleType Conformance
+
+extension NRectangleTests {
     func testContainsRectangle() {
         let sut = Rectangle(x: 0, y: 1, width: 5, height: 7)
         
-        XCTAssertTrue(sut.contains(rectangle: Rectangle(x: 1, y: 2, width: 3, height: 4)))
-        XCTAssertFalse(sut.contains(rectangle: Rectangle(x: -1, y: 2, width: 3, height: 4)))
-        XCTAssertFalse(sut.contains(rectangle: Rectangle(x: 1, y: -2, width: 3, height: 4)))
-        XCTAssertFalse(sut.contains(rectangle: Rectangle(x: 1, y: 2, width: 5, height: 4)))
-        XCTAssertFalse(sut.contains(rectangle: Rectangle(x: 1, y: 2, width: 3, height: 7)))
+        XCTAssertTrue(sut.contains(Rectangle(x: 1, y: 2, width: 3, height: 4)))
+        XCTAssertFalse(sut.contains(Rectangle(x: -1, y: 2, width: 3, height: 4)))
+        XCTAssertFalse(sut.contains(Rectangle(x: 1, y: -2, width: 3, height: 4)))
+        XCTAssertFalse(sut.contains(Rectangle(x: 1, y: 2, width: 5, height: 4)))
+        XCTAssertFalse(sut.contains(Rectangle(x: 1, y: 2, width: 3, height: 7)))
     }
     
     func testContainsRectangle_returnsTrueForEqualRectangle() {
         let sut = Rectangle(x: 0, y: 1, width: 5, height: 7)
         
-        XCTAssertTrue(sut.contains(rectangle: sut))
+        XCTAssertTrue(sut.contains(sut))
     }
     
     func testIntersectsRectangle() {
@@ -258,6 +262,49 @@ extension NRectangleTests {
         XCTAssertEqual(result.size, .init(x: 23, y: 30))
     }
     
+    func testIntersection_sameRectangle_matchesInitialRectangle() {
+        let rect = Rectangle(x: 1, y: 2, width: 3, height: 4)
+        
+        let result = rect.intersection(rect)
+        
+        XCTAssertEqual(result, rect)
+    }
+    
+    func testIntersection_overlappingRectangle() {
+        let rect1 = Rectangle(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Rectangle(x: -1, y: 1, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertEqual(result, Rectangle(x: 1, y: 2, width: 1, height: 3))
+    }
+    
+    func testIntersection_edgeOnly() {
+        let rect1 = Rectangle(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Rectangle(x: -2, y: 2, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertEqual(result, Rectangle(x: 1, y: 2, width: 0, height: 4))
+    }
+    
+    func testIntersection_cornerOnly() {
+        let rect1 = Rectangle(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Rectangle(x: -2, y: -2, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertEqual(result, Rectangle(x: 1, y: 2, width: 0, height: 0))
+    }
+    
+    func testIntersection_noIntersection() {
+        let rect1 = Rectangle(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Rectangle(x: -3, y: -3, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertNil(result)
+    }
 }
 
 // MARK: Vector: VectorMultiplicative Conformance
