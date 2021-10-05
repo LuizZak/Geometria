@@ -153,35 +153,6 @@ public extension Rectangle2 where Scalar: FloatingPoint {
     }
 }
 
-public extension Rectangle2 where Vector: VectorMultiplicative, Scalar: Comparable {
-    /// Returns an `Rectangle2` that is the intersection between this and another
-    /// `Rectangle` instance.
-    ///
-    /// Return is `nil`, if they do not intersect.
-    @inlinable
-    func intersection(_ other: NRectangle) -> Self? {
-        Self.intersect(self, other)
-    }
-    
-    /// Returns an `Rectangle2` that is the intersection between two rectangle
-    /// instances.
-    ///
-    /// Return is `nil`, if they do not intersect.
-    @inlinable
-    static func intersect(_ a: Self, _ b: Self) -> Self? {
-        let x1 = max(a.left, b.left)
-        let x2 = min(a.right, b.right)
-        let y1 = max(a.top, b.top)
-        let y2 = min(a.bottom, b.bottom)
-        
-        if x2 >= x1 && y2 >= y1 {
-            return Self(left: x1, top: y1, right: x2, bottom: y2)
-        }
-        
-        return nil
-    }
-}
-
 extension Rectangle2: Convex2Type where Vector: Vector2FloatingPoint {
     
 }

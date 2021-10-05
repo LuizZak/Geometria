@@ -89,7 +89,7 @@ extension Ellipse3Tests {
 
 // MARK: SphereProjectiveSpace Conformance
 
-extension EllipsoidTests {
+extension Ellipse3Tests {
     func testAttemptProject() throws {
         let sut = Ellipse3D(center: .zero, radius: .init(x: 5, y: 7, z: 9))
         let point = Vector3D(x: 10, y: 10, z: 10)

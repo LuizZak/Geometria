@@ -193,25 +193,29 @@ extension AABBTests {
         XCTAssertFalse(sut.contains(.init(x: 6, y: 7)))
         XCTAssertFalse(sut.contains(.init(x: 5, y: 0)))
     }
-    
-    func testContainsBox() {
-        let sut = Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 5, y: 8))
+}
+
+// MARK: SelfIntersectableRectangleType Conformance
+
+extension AABBTests {
+    func testContainsAABB() {
+        let sut = Box(x: 0, y: 1, width: 5, height: 7)
         
-        XCTAssertTrue(sut.contains(box: Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 6))))
-        XCTAssertFalse(sut.contains(box: Box(x: -1, y: 2, width: 3, height: 4)))
-        XCTAssertFalse(sut.contains(box: Box(x: 1, y: -2, width: 3, height: 4)))
-        XCTAssertFalse(sut.contains(box: Box(x: 1, y: 2, width: 5, height: 4)))
-        XCTAssertFalse(sut.contains(box: Box(x: 1, y: 2, width: 3, height: 7)))
+        XCTAssertTrue(sut.contains(Box(x: 1, y: 2, width: 3, height: 4)))
+        XCTAssertFalse(sut.contains(Box(x: -1, y: 2, width: 3, height: 4)))
+        XCTAssertFalse(sut.contains(Box(x: 1, y: -2, width: 3, height: 4)))
+        XCTAssertFalse(sut.contains(Box(x: 1, y: 2, width: 5, height: 4)))
+        XCTAssertFalse(sut.contains(Box(x: 1, y: 2, width: 3, height: 7)))
     }
     
-    func testContainsBox_returnsTrueForEqualBox() {
-        let sut = Box(minimum: .init(x: 0, y: 1), maximum: .init(x: 5, y: 8))
+    func testContainsAABB_returnsTrueForEqualBox() {
+        let sut = Box(x: 0, y: 1, width: 5, height: 7)
         
-        XCTAssertTrue(sut.contains(box: sut))
+        XCTAssertTrue(sut.contains(sut))
     }
     
-    func testIntersectsBox() {
-        let sut = Box(minimum: .init(x: 0, y: 0), maximum: .init(x: 3, y: 3))
+    func testIntersectsAABB() {
+        let sut = Box(x: 0, y: 0, width: 3, height: 3)
         
         XCTAssertTrue(sut.intersects(Box(x: -1, y: -1, width: 2, height: 2)))
         XCTAssertFalse(sut.intersects(Box(x: -3, y: 0, width: 2, height: 2)))
@@ -220,8 +224,8 @@ extension AABBTests {
         XCTAssertFalse(sut.intersects(Box(x: 0, y: 4, width: 2, height: 2)))
     }
     
-    func testIntersectsBox_edgeIntersections() {
-        let sut = Box(minimum: .init(x: 0, y: 0), maximum: .init(x: 3, y: 3))
+    func testIntersectsAABB_edgeIntersections() {
+        let sut = Box(x: 0, y: 0, width: 3, height: 3)
         
         XCTAssertTrue(sut.intersects(Box(x: -2, y: -2, width: 2, height: 2)))
         XCTAssertTrue(sut.intersects(Box(x: -2, y: 3, width: 2, height: 2)))
@@ -230,22 +234,56 @@ extension AABBTests {
     }
     
     func testUnion() {
-        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 4, y: 7))
+        let sut = Box(x: 1, y: 2, width: 3, height: 5)
         
-        let result = sut.union(.init(minimum: .init(x: -7, y: 13),
-                                     maximum: .init(x: 23, y: 30)))
+        let result = sut.union(.init(x: 7, y: 13, width: 17, height: 19))
         
-        XCTAssertEqual(result.minimum, .init(x: -7, y: 2))
-        XCTAssertEqual(result.maximum, .init(x: 23, y: 30))
+        XCTAssertEqual(result.location, .init(x: 1, y: 2))
+        XCTAssertEqual(result.size, .init(x: 23, y: 30))
     }
     
-    func testUnion_returnsSelfForEqualBox() {
-        let sut = Box(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 5))
+    func testIntersection_sameAABB() {
+        let rect = Box(x: 1, y: 2, width: 3, height: 4)
         
-        let result = sut.union(sut)
+        let result = rect.intersection(rect)
         
-        XCTAssertEqual(result.minimum, .init(x: 1, y: 2))
-        XCTAssertEqual(result.maximum, .init(x: 3, y: 5))
+        XCTAssertEqual(result, rect)
+    }
+    
+    func testIntersection_overlappingAABB() {
+        let rect1 = Box(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Box(x: -1, y: 1, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertEqual(result, Box(x: 1, y: 2, width: 1, height: 3))
+    }
+    
+    func testIntersection_edgeOnly() {
+        let rect1 = Box(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Box(x: -2, y: 2, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertEqual(result, Box(x: 1, y: 2, width: 0, height: 4))
+    }
+    
+    func testIntersection_cornerOnly() {
+        let rect1 = Box(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Box(x: -2, y: -2, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertEqual(result, Box(x: 1, y: 2, width: 0, height: 0))
+    }
+    
+    func testIntersection_noIntersection() {
+        let rect1 = Box(x: 1, y: 2, width: 3, height: 4)
+        let rect2 = Box(x: -3, y: -3, width: 3, height: 4)
+        
+        let result = rect1.intersection(rect2)
+        
+        XCTAssertNil(result)
     }
 }
 
@@ -1271,6 +1309,8 @@ extension AABBTests {
             )
         )
     }
+
+    #if canImport(simd)
     
     func testIntersectionWith_3d_ray_normalBug1() {
         // From GeometriaApp commit 8bf1b3021ef3fd133c46ca6c3e959c90a84df2f5
@@ -1309,6 +1349,8 @@ extension AABBTests {
             )
         )
     }
+
+    #endif
 }
 
 // MARK: SignedDistanceMeasurableType Conformance

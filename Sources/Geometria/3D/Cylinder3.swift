@@ -177,8 +177,8 @@ extension Cylinder3: SignedDistanceMeasurableType where Vector: VectorFloatingPo
         let baba: Scalar = ba.lengthSquared
         let paba: Scalar = pa.dot(ba)
         let half: Scalar = 1 / 2
-        let x: Scalar = (pa * baba - ba * paba).length - radius * baba
-        let y: Scalar = abs(paba - baba * half) - baba * half
+        let x: Scalar = ((pa * baba) as Vector - (ba * paba) as Vector).length - (radius * baba) as Scalar
+        let y: Scalar = abs(paba - baba * half) as Scalar - (baba * half) as Scalar
         let x2: Scalar = x * x
         let y2: Scalar = y * y * baba
         let d: Scalar
