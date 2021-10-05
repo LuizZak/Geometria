@@ -1,7 +1,7 @@
 import RealModule
 
 /// Plain 2-row 2-column Matrix with real components.
-public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
+public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, CustomStringConvertible {
     /// Returns a 2x2 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix

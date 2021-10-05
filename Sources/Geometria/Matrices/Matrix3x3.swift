@@ -1,7 +1,7 @@
 import RealModule
 
 /// Plain 3-row 3-column Matrix with real components.
-public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
+public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, CustomStringConvertible {
     /// Returns a 3x3 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix

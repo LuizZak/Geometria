@@ -27,7 +27,7 @@
 import RealModule
 
 /// Plain 4-row 4-column Matrix with real components.
-public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: MatrixType, CustomStringConvertible {
+public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, CustomStringConvertible {
     /// Returns a 4x4 [identity matrix].
     ///
     /// [identity matrix]: https://en.wikipedia.org/wiki/Identity_matrix
