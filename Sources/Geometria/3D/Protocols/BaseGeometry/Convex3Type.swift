@@ -1,5 +1,5 @@
-/// Protocol for exclusively 3D geometric types defined by floating-point vectors
-/// that form closed convex shapes.
+/// Protocol for 3D geometric types defined by floating-point vectors that form
+/// closed convex shapes.
 public protocol Convex3Type: GeometricType {
     /// The floating-point vector type associated with this ``Convex3Type``.
     associatedtype Vector: Vector3FloatingPoint
