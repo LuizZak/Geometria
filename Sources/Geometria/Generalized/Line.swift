@@ -39,6 +39,14 @@ extension Line: LineMultiplicative where Vector: VectorMultiplicative {
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(a: a * factor, b: b * factor)
     }
+    
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
+        let newA: Vector = (a - center) * factor + center
+        let newB: Vector = (b - center) * factor + center
+        
+        return Self(a: newA, b: newB)
+    }
 }
 
 extension Line: LineDivisible where Vector: VectorDivisible {

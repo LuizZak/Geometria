@@ -80,6 +80,18 @@ extension LineTests {
         XCTAssertEqual(result.a, .init(x: 7, y: 22))
         XCTAssertEqual(result.b, .init(x: 21, y: 55))
     }
+    
+    func testWithPointsScaledByAroundCenter() {
+        let sut = Line(x1: 1, y1: 2, x2: 3, y2: 5)
+        let factor = Vector2D(x: 7, y: 11)
+        let center = Vector2D(x: 5, y: 2)
+        
+        let result = sut.withPointsScaledBy(factor, around: center)
+        
+        assertEqual(result.lineSlope, sut.lineSlope * factor, accuracy: 1e-16)
+        XCTAssertEqual(result.a, .init(x: -23, y: 2.0))
+        XCTAssertEqual(result.b, .init(x: -9.0, y: 35.0))
+    }
 }
 
 // MARK: LineFloatingPoint Conformance

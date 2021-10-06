@@ -53,6 +53,14 @@ extension Ray: LineMultiplicative where Vector: VectorMultiplicative {
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(start: start * factor, b: b * factor)
     }
+    
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
+        let newStart: Vector = (start - center) * factor + center
+        let newB: Vector = (b - center) * factor + center
+        
+        return Self(start: newStart, b: newB)
+    }
 }
 
 extension Ray: LineDivisible where Vector: VectorDivisible {

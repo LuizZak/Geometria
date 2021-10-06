@@ -133,6 +133,49 @@ extension LineSegmentTests {
         XCTAssertEqual(result.start, .init(x: 7, y: 22))
         XCTAssertEqual(result.end, .init(x: 21, y: 55))
     }
+    
+    func testWithPointsScaledByAroundCenter() {
+        let sut = LineSegment(x1: 1, y1: 2, x2: 3, y2: 5)
+        let factor = Vector2D(x: 7, y: 11)
+        let center = Vector2D(x: 5, y: 2)
+        
+        let result = sut.withPointsScaledBy(factor, around: center)
+        
+        assertEqual(result.lineSlope, sut.lineSlope * factor, accuracy: 1e-16)
+        XCTAssertEqual(result.start, .init(x: -23, y: 2.0))
+        XCTAssertEqual(result.end, .init(x: -9.0, y: 35.0))
+    }
+}
+
+// MARK: LineDivisible Conformance
+
+extension LineSegmentTests {
+    func testCenter() {
+        let sut = LineSegment(x1: 1, y1: 2, x2: 3, y2: 5)
+        
+        let result = sut.center
+        
+        XCTAssertEqual(result.x, 2)
+        XCTAssertEqual(result.y, 3.5)
+    }
+    
+    func testCenter_zeroLine() {
+        let sut = LineSegment(x1: 0, y1: 0, x2: 0, y2: 0)
+        
+        let result = sut.center
+        
+        XCTAssertEqual(result.x, 0.0)
+        XCTAssertEqual(result.y, 0.0)
+    }
+    
+    func testCenter_mixedSigns() {
+        let sut = LineSegment(x1: -2, y1: 2, x2: 5, y2: -7)
+        
+        let result = sut.center
+        
+        XCTAssertEqual(result.x, 1.5)
+        XCTAssertEqual(result.y, -2.5)
+    }
 }
 
 // MARK: LineFloatingPoint Conformance

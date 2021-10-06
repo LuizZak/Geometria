@@ -179,6 +179,20 @@ extension DirectionalRayTests {
         XCTAssertEqual(result.start, .init(x: 7, y: 22))
         XCTAssertEqual(result.direction, .init(x: 0.3905498468561694, y: 0.9205817818752565))
     }
+    
+    func testWithPointsScaledByAroundCenter() {
+        let sut = DirectionalRay(x1: 1, y1: 2, x2: 3, y2: 5)
+        let factor = Vector2D(x: 7, y: 11)
+        let center = Vector2D(x: 5, y: 2)
+        
+        let result = sut.withPointsScaledBy(factor, around: center)
+        
+        assertEqual(result.lineSlope,
+                    (sut.lineSlope * factor).normalized(),
+                    accuracy: 1e-16)
+        XCTAssertEqual(result.start, .init(x: -23, y: 2.0))
+        XCTAssertEqual(result.direction, .init(x: 0.3905498468561694, y: 0.9205817818752565))
+    }
 }
 
 // MARK: LineFloatingPoint Conformance

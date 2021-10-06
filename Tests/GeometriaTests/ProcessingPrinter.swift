@@ -131,7 +131,7 @@ class ProcessingPrinter {
         addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius));")
     }
     
-    func add<V: Vector2Additive & VectorDivisible>(aabb: AABB2<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func add<V: Vector2Additive & VectorDivisible>(aabb: AABB2<V>) where V.Scalar: CustomStringConvertible {
         addStrokeWeightSet("1 / scale")
         addStrokeColorSet("255, 0, 0, 100")
         addNoFill()

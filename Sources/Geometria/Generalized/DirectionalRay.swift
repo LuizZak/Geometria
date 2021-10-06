@@ -105,6 +105,13 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(start: start * factor, direction: direction * factor)
     }
+    
+    @_transparent
+    public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
+        let newStart: Vector = (start - center) * factor + center
+        
+        return Self(start: newStart, direction: direction * factor)
+    }
 }
 
 extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
