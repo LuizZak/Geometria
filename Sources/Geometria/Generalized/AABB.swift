@@ -495,34 +495,34 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             }
         }
         
+        let nearIndexOnSlope = lineSlope[nearNormalIndex]
+        let farIndexOnSlope = lineSlope[nearNormalIndex]
+        
         @_transparent
         var nearNormal: Vector {
             var nearNormal: Vector = .zero
-            nearNormal[nearNormalIndex] = 1
+            nearNormal[nearNormalIndex] = nearIndexOnSlope > 0 ? -1 : 1
             return nearNormal
         }
 
         @_transparent
         var farNormal: Vector {
             var farNormal: Vector = .zero
-            farNormal[farNormalIndex] = 1
+            farNormal[farNormalIndex] = farIndexOnSlope > 0 ? -1 : 1
             return farNormal
         }
 
-        let nearIndexOnSlope = lineSlope[nearNormalIndex]
-        let farIndexOnSlope = lineSlope[nearNormalIndex]
-        
         switch (line.containsProjectedNormalizedMagnitude(tNear) && nearIndexOnSlope != .zero,
                 line.containsProjectedNormalizedMagnitude(tFar) && farIndexOnSlope != .zero) {
         case (true, true):
             return .enterExit(
                 PointNormal(
                     point: line.projectedNormalizedMagnitude(tNear),
-                    normal: nearIndexOnSlope > 0 ? -nearNormal : nearNormal
+                    normal: nearNormal
                 ),
                 PointNormal(
                     point: line.projectedNormalizedMagnitude(tFar),
-                    normal: farIndexOnSlope > 0 ? -farNormal : farNormal
+                    normal: farNormal
                 )
             )
             
@@ -530,7 +530,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             return .enter(
                 PointNormal(
                     point: line.projectedNormalizedMagnitude(tNear),
-                    normal: nearIndexOnSlope > 0 ? -nearNormal : nearNormal
+                    normal: nearNormal
                 )
             )
             
@@ -538,7 +538,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             return .exit(
                 PointNormal(
                     point: line.projectedNormalizedMagnitude(tFar),
-                    normal: farIndexOnSlope > 0 ? -farNormal : farNormal
+                    normal: farNormal
                 )
             )
             
