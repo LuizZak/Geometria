@@ -61,4 +61,22 @@ class DivisibleRectangleTypeTests: XCTestCase {
         XCTAssertEqual(result.location, .init(x: 1.5, y: 7.5))
         XCTAssertEqual(result.size, .init(x: 7, y: 11))
     }
+    
+    func testScaledBy() {
+        let sut = Rectangle(x: 1, y: 2, width: 7, height: 11)
+        
+        let result = sut.scaledBy(0.5, around: .zero)
+
+        XCTAssertEqual(result.location, .init(x: 0.5, y: 1.0))
+        XCTAssertEqual(result.size, .init(x: 3.5, y: 5.5))
+    }
+    
+    func testScaledAroundCenterBy() {
+        let sut = Rectangle(x: 1, y: 2, width: 7, height: 11)
+        
+        let result = sut.scaledAroundCenterBy(2.0)
+        
+        XCTAssertEqual(result.location, .init(x: -2.5, y: -3.5))
+        XCTAssertEqual(result.size, .init(x: 14.0, y: 22.0))
+    }
 }

@@ -25,6 +25,14 @@ public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: Vect
     /// Returns a new rectangle with the same size as the current instance,
     /// where the center of the boundaries lay on `center`.
     func movingCenter(to center: Vector) -> Self
+
+    /// Returns a new rectangle with its bounds scaled around a given center point
+    /// by a given factor.
+    func scaledBy(_ factor: Vector.Scalar, around center: Vector) -> Self
+
+    /// Returns a new rectangle with the same center point as the current instance,
+    /// where the size of the rectangle is multiplied by a given numerical factor.
+    func scaledAroundCenterBy(_ factor: Vector.Scalar) -> Self
 }
 
 public extension DivisibleRectangleType where Self: ConstructableRectangleType {
@@ -70,5 +78,22 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     @_transparent
     func movingCenter(to center: Vector) -> Self {
         Self(location: center - size / 2, size: size)
+    }
+
+    /// Returns a new rectangle with the same center point as the current instance,
+    /// where the size of the rectangle is multiplied by a given numerical factor.
+    @_transparent
+    func scaledBy(_ factor: Vector.Scalar, around center: Vector) -> Self {
+        let scaledLocation: Vector = (location - center) * factor + center
+        let size = size * factor
+
+        return Self(location: scaledLocation, size: size)
+    }
+
+    /// Returns a new rectangle with the same center point as the current instance,
+    /// where the size of the rectangle is multiplied by a given numerical factor.
+    @_transparent
+    func scaledAroundCenterBy(_ factor: Vector.Scalar) -> Self {
+        scaledBy(factor, around: center)
     }
 }
