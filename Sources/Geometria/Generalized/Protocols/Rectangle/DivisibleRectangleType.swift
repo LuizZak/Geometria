@@ -85,9 +85,9 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     @_transparent
     func scaledBy(_ factor: Vector.Scalar, around center: Vector) -> Self {
         let scaledLocation: Vector = (location - center) * factor + center
-        let size = size * factor
+        let scaledSize = size * factor
 
-        return Self(location: scaledLocation, size: size)
+        return Self(location: scaledLocation, size: scaledSize)
     }
 
     /// Returns a new rectangle with the same center point as the current instance,
