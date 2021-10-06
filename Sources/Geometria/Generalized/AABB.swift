@@ -414,6 +414,9 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
         
+        var nearNormalIndex: Int = 0
+        var farNormalIndex: Int = 0
+
         var index = 0
         while index < lineSlope.scalarCount {
             defer { index += 1 }
@@ -421,22 +424,33 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
                 continue
             }
             
-            tNear = max(tNear, tMin[index])
-            tFar = min(tFar, tMax[index])
+            if tNear < tMin[index] {
+                tNear = tMin[index]
+                nearNormalIndex = index
+            }
+            if tFar > tMax[index] {
+                tFar = tMax[index]
+                farNormalIndex = index
+            }
             
             if tNear > tFar {
                 return false
             }
         }
         
-        let near = line.projectedNormalizedMagnitude(tNear)
-        let far = line.projectedNormalizedMagnitude(tFar)
+        if line.containsProjectedNormalizedMagnitude(tNear) {
+            if lineSlope[nearNormalIndex] != .zero {
+                return true
+            }
+        }
         
-        let nearNormDotLine = normalMagnitude(for: near).dot(lineSlope)
-        let farNormDotLine = normalMagnitude(for: far).dot(lineSlope)
-        
-        return (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero) ||
-               (line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero)
+        if line.containsProjectedNormalizedMagnitude(tFar) {
+            if lineSlope[farNormalIndex] != .zero {
+                return true
+            }
+        }
+
+        return false
     }
     
     /// Performs an intersection test against the given line, returning up to
@@ -456,7 +470,10 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         let t2 = lineToMax / lineSlope
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
-        
+
+        var nearNormalIndex: Int = 0
+        var farNormalIndex: Int = 0
+
         var index = 0
         while index < lineSlope.scalarCount {
             defer { index += 1 }
@@ -464,46 +481,65 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
                 continue
             }
             
-            tNear = max(tNear, tMin[index])
-            tFar = min(tFar, tMax[index])
-            
+            if tNear < tMin[index] {
+                tNear = tMin[index]
+                nearNormalIndex = index
+            }
+            if tFar > tMax[index] {
+                tFar = tMax[index]
+                farNormalIndex = index
+            }
+
             if tNear > tFar {
                 return .noIntersection
             }
         }
         
-        // TODO: Attempt to derive normal during computation above
-        func makePointNormal(_ point: Vector) -> PointNormal<Vector> {
-            let normal = normalMagnitude(for: point)
-            
-            return PointNormal(
-                point: point,
-                normal: normal.withSign(of: -lineSlope)
-            )
+        @_transparent
+        var nearNormal: Vector {
+            var nearNormal: Vector = .zero
+            nearNormal[nearNormalIndex] = 1
+            return nearNormal
         }
+
+        @_transparent
+        var farNormal: Vector {
+            var farNormal: Vector = .zero
+            farNormal[farNormalIndex] = 1
+            return farNormal
+        }
+
+        let nearIndexOnSlope = lineSlope[nearNormalIndex]
+        let farIndexOnSlope = lineSlope[nearNormalIndex]
         
-        let near = line.projectedNormalizedMagnitude(tNear)
-        let far = line.projectedNormalizedMagnitude(tFar)
-        
-        let nearNormDotLine = normalMagnitude(for: near).dot(lineSlope)
-        let farNormDotLine = normalMagnitude(for: far).dot(lineSlope)
-        
-        switch (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero,
-                line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero) {
+        switch (line.containsProjectedNormalizedMagnitude(tNear) && nearIndexOnSlope != .zero,
+                line.containsProjectedNormalizedMagnitude(tFar) && farIndexOnSlope != .zero) {
         case (true, true):
             return .enterExit(
-                makePointNormal(near),
-                makePointNormal(far)
+                PointNormal(
+                    point: line.projectedNormalizedMagnitude(tNear),
+                    normal: nearIndexOnSlope > 0 ? -nearNormal : nearNormal
+                ),
+                PointNormal(
+                    point: line.projectedNormalizedMagnitude(tFar),
+                    normal: farIndexOnSlope > 0 ? -farNormal : farNormal
+                )
             )
             
         case (true, false):
             return .enter(
-                makePointNormal(near)
+                PointNormal(
+                    point: line.projectedNormalizedMagnitude(tNear),
+                    normal: nearIndexOnSlope > 0 ? -nearNormal : nearNormal
+                )
             )
             
         case (false, true):
             return .exit(
-                makePointNormal(far)
+                PointNormal(
+                    point: line.projectedNormalizedMagnitude(tFar),
+                    normal: farIndexOnSlope > 0 ? -farNormal : farNormal
+                )
             )
             
         default:
@@ -514,34 +550,6 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             
             return .noIntersection
         }
-    }
-    
-    @usableFromInline
-    internal func normalMagnitude(for point: Vector) -> Vector {
-        var offsetPoint = point
-        var normalIndex = 0
-        var max = -Scalar.infinity
-        
-        offsetPoint -= center
-        offsetPoint = abs(offsetPoint) / size
-        
-        var index = 0
-        while index < offsetPoint.scalarCount {
-            defer { index += 1 }
-            
-            let distance = offsetPoint[index]
-            
-            if distance > max {
-                max = distance
-                normalIndex = index
-            }
-        }
-        
-        var normal = Vector.zero
-        
-        normal[normalIndex] = 1
-        
-        return normal
     }
 }
 
