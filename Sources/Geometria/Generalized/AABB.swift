@@ -496,7 +496,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         }
         
         let nearIndexOnSlope = lineSlope[nearNormalIndex]
-        let farIndexOnSlope = lineSlope[nearNormalIndex]
+        let farIndexOnSlope = lineSlope[farNormalIndex]
         
         @_transparent
         var nearNormal: Vector {
