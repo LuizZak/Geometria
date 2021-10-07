@@ -790,6 +790,13 @@ extension AABBTests {
         assertEqual(sut.intersection(with: line), .noIntersection)
     }
     
+    func testIntersectionWith_2d_line_noIntersection_top_horizontal_long_line() {
+        let sut = Box(left: 2, top: 3, right: 4, bottom: 7)
+        let line = Line2D(x1: -50, y1: 2.5, x2: 50, y2: 2.5)
+        
+        assertEqual(sut.intersection(with: line), .noIntersection)
+    }
+    
     func testIntersectionWith_2d_line_noIntersection_left_vertical() {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
         let line = Line2D(x1: 1, y1: 2, x2: 1, y2: 3)
