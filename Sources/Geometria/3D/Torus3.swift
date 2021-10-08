@@ -75,3 +75,39 @@ extension Torus3: BoundableType {
         return top.union(bot)
     }
 }
+
+extension Torus3: VolumetricType {
+    /// Returns `true` if a given point vector is enclosed within the volume of
+    /// this `Torus3`.
+    public func contains(_ vector: Vector) -> Bool {
+        // Pick the closest center point on the outer tube to 'vector' and check
+        // its distance against `minorRadius`
+
+        let plane = PointNormalPlane(point: center, normal: axis)
+        let projected = plane.project(vector)
+
+        let fromCenter = projected - center
+        let norm: Vector
+        if fromCenter != .zero {
+            let length = fromCenter.length
+
+            // If the point is farther away than majorRadius + minorRadius, we
+            // can be sure that is is not within reach of the torus.
+            if length > majorRadius + minorRadius {
+                return false
+            }
+
+            norm = fromCenter / length
+        } else {
+            var cross = axis.cross(.unitX)
+            if cross == .zero {
+                cross = axis.cross(.unitY)
+            }
+
+            norm = axis.cross(cross).normalized()
+        }
+
+        let tubeCenter = center + norm * majorRadius
+        return tubeCenter.distanceSquared(to: vector) <= minorRadius * minorRadius
+    }
+}

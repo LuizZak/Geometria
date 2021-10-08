@@ -2,7 +2,8 @@ import XCTest
 import Geometria
 
 class Torus3Tests: XCTestCase {
-    typealias Torus = Torus3D
+    typealias Vector = Vector3D
+    typealias Torus = Torus3<Vector>
 
     func testEquatable() {
         let diff = 9.0
@@ -241,7 +242,7 @@ extension Torus3Tests {
     func testBounds_tiltedTorus() {
         let sut = Torus(
             center: .zero,
-            axis: .init(x: 1, y: 1, z: 1),
+            axis: .one,
             majorRadius: 20,
             minorRadius: 5
         )
@@ -274,5 +275,88 @@ extension Torus3Tests {
                 maximum: .init(x: 10, y: 10, z: 10)
             )
         )
+    }
+
+    
+
+    func testBounds_minorRadiusZero() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 10,
+            minorRadius: 0
+        )
+
+        let result = sut.bounds
+
+        XCTAssertEqual(
+            result,
+            AABB(
+                minimum: .init(x: -10, y: -10, z: 0),
+                maximum: .init(x: 10, y: 10, z: 0)
+            )
+        )
+    }
+}
+
+extension Torus3Tests {
+    func testContains_pointOnTubeCenter() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 20, y: 0, z: 0)
+
+        XCTAssertTrue(sut.contains(point))
+    }
+
+    func testContains_pointOnCenter_degenerateTorus() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 0,
+            minorRadius: 5
+        )
+        let point = Vector(x: 0, y: 0, z: 0)
+
+        XCTAssertTrue(sut.contains(point))
+    }
+
+    func testContains_tiltedTorus_pointOnTube() {
+        let sut = Torus(
+            center: .init(x: 10, y: 20, z: 30),
+            axis: .one,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 5, y: 15, z: 45)
+
+        XCTAssertTrue(sut.contains(point))
+    }
+
+    func testContains_pointOusideOfBounds() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 30, y: 30, z: 15)
+
+        XCTAssertFalse(sut.contains(point))
+    }
+
+    func testContains_pointOnCenter() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 0, y: 0, z: 0)
+
+        XCTAssertFalse(sut.contains(point))
     }
 }
