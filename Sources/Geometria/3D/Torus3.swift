@@ -1,10 +1,22 @@
 /// Represents a three dimensional [torus] shape as a center point, an axis of
 /// rotation around that center point, and two radii describing the radius of
 /// a circle, and the radius of the axis of rotation of the circle around the
+/// center point of the torus with double-precision floating-point numbers.
+public typealias Torus3D = Torus3<Vector3D>
+
+/// Represents a three dimensional [torus] shape as a center point, an axis of
+/// rotation around that center point, and two radii describing the radius of
+/// a circle, and the radius of the axis of rotation of the circle around the
+/// center point of the torus with single-precision floating-point numbers.
+public typealias Torus3F = Torus3<Vector3F>
+
+/// Represents a three dimensional [torus] shape as a center point, an axis of
+/// rotation around that center point, and two radii describing the radius of
+/// a circle, and the radius of the axis of rotation of the circle around the
 /// center point of the torus.
 ///
 /// [torus]: https://en.wikipedia.org/wiki/Torus
-public struct Torus3<Vector: Vector3Type> {
+public struct Torus3<Vector: Vector3FloatingPoint> {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
     
@@ -21,9 +33,13 @@ public struct Torus3<Vector: Vector3Type> {
     public var minorRadius: Scalar
     
     @_transparent
-    public init(center: Vector, majorTorus: Torus3<Vector>.Scalar, minorRadius: Torus3<Vector>.Scalar) {
+    public init(center: Vector, axis: Vector, majorTorus: Torus3<Vector>.Scalar, minorRadius: Torus3<Vector>.Scalar) {
         self.center = center
+        self.axis = axis
         self.majorTorus = majorTorus
         self.minorRadius = minorRadius
     }
 }
+
+extension Torus3: Equatable where Vector: Equatable, Scalar: Equatable { }
+extension Torus3: Hashable where Vector: Hashable, Scalar: Hashable { }
