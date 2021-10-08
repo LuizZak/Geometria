@@ -139,8 +139,7 @@
 			},
 		],
 		"ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
-		"ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
-		"ShortcutMenuBar.userButton03Command": "workbench.action.tasks.runTask|Build (release)"
+		"ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test"
 	},
 	"extensions": {
 		"recommendations": [
