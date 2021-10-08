@@ -27,16 +27,16 @@ public struct Torus3<Vector: Vector3FloatingPoint> {
     @UnitVector public var axis: Vector
     
     /// The radius from the center of the torus to the center of the tube.
-    public var majorTorus: Scalar
+    public var majorRadius: Scalar
     
     /// The radius of the tube of the torus.
     public var minorRadius: Scalar
     
     @_transparent
-    public init(center: Vector, axis: Vector, majorTorus: Torus3<Vector>.Scalar, minorRadius: Torus3<Vector>.Scalar) {
+    public init(center: Vector, axis: Vector, majorRadius: Scalar, minorRadius: Scalar) {
         self.center = center
         self.axis = axis
-        self.majorTorus = majorTorus
+        self.majorRadius = majorRadius
         self.minorRadius = minorRadius
     }
 }
