@@ -196,3 +196,83 @@ class Torus3Tests: XCTestCase {
         )
     }
 }
+
+// MARK: BoundableType Conformance
+
+extension Torus3Tests {
+    func testBounds_xyAxisAlignedTorus() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+
+        let result = sut.bounds
+
+        XCTAssertEqual(
+            result,
+            AABB(
+                minimum: .init(x: -25, y: -25, z: -5),
+                maximum: .init(x: 25, y: 25, z: 5)
+            )
+        )
+    }
+
+    func testBounds_xyAxisAlignedTorus_offCenter() {
+        let sut = Torus(
+            center: .init(x: 1, y: 2, z: 3),
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+
+        let result = sut.bounds
+
+        XCTAssertEqual(
+            result,
+            AABB(
+                minimum: .init(x: -24, y: -23, z: -2),
+                maximum: .init(x: 26, y: 27, z: 8)
+            )
+        )
+    }
+    
+    func testBounds_tiltedTorus() {
+        let sut = Torus(
+            center: .zero,
+            axis: .init(x: 1, y: 1, z: 1),
+            majorRadius: 20,
+            minorRadius: 5
+        )
+
+        let result = sut.bounds
+
+        XCTAssertEqual(
+            result,
+            AABB(
+                minimum: .init(x: -23.299165869141277, y: -20.564420875611816, z: -20.564420875611816),
+                maximum: .init(x: 23.299165869141277, y: 20.564420875611816, z: 20.564420875611816)
+            )
+        )
+    }
+
+    func testBounds_majorRadiusZero() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 0,
+            minorRadius: 10
+        )
+
+        let result = sut.bounds
+
+        XCTAssertEqual(
+            result,
+            AABB(
+                minimum: .init(x: -10, y: -10, z: -10),
+                maximum: .init(x: 10, y: 10, z: 10)
+            )
+        )
+    }
+}

@@ -16,7 +16,7 @@ public typealias Torus3F = Torus3<Vector3F>
 /// center point of the torus.
 ///
 /// [torus]: https://en.wikipedia.org/wiki/Torus
-public struct Torus3<Vector: Vector3FloatingPoint> {
+public struct Torus3<Vector: Vector3FloatingPoint>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
     
@@ -24,6 +24,8 @@ public struct Torus3<Vector: Vector3FloatingPoint> {
     public var center: Vector
     
     /// The axis of revolution of the circle forming the torus in three-space.
+    /// The major radius of the torus expands perpendicular to this axis by
+    /// ``majorRadius``.
     @UnitVector public var axis: Vector
     
     /// The radius from the center of the torus to the center of the tube.
@@ -43,3 +45,33 @@ public struct Torus3<Vector: Vector3FloatingPoint> {
 
 extension Torus3: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Torus3: Hashable where Vector: Hashable, Scalar: Hashable { }
+
+extension Torus3: BoundableType {
+    /// Gets the minimal bounding box capable of fully containing all the points
+    /// of this ``Torus3``.
+    @inlinable
+    public var bounds: AABB<Vector> {
+        // Find an axis to extract a normal from this torus's axis of rotation
+        var cross = axis.cross(.unitX)
+        if cross.lengthSquared == 0 {
+            cross = axis.cross(.unitY)
+        }
+
+        let radius = majorRadius + minorRadius
+        
+        let normCross = cross.normalized() * radius
+        let otherAxis = normCross.cross(axis).normalized() * radius
+
+        let minorRadiusSpan = axis * minorRadius
+        
+        let a = center - normCross
+        let b = center + normCross
+        let c = center - otherAxis
+        let d = center + otherAxis
+
+        let top = AABB(of: a - minorRadiusSpan, b - minorRadiusSpan, c - minorRadiusSpan, d - minorRadiusSpan)
+        let bot = AABB(of: a + minorRadiusSpan, b + minorRadiusSpan, c + minorRadiusSpan, d + minorRadiusSpan)
+
+        return top.union(bot)
+    }
+}
