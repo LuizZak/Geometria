@@ -23,9 +23,10 @@ public struct Torus3<Vector: Vector3FloatingPoint>: GeometricType {
     /// The geometric center point of the torus.
     public var center: Vector
     
-    /// The axis of revolution of the circle forming the torus in three-space.
-    /// The major radius of the torus expands perpendicular to this axis by
-    /// ``majorRadius``.
+    /// The axis of revolution of the circle that composes the tube of the torus.
+    /// The major radius of the torus expands from ``center``, perpendicular to 
+    /// this axis by ``majorRadius``, and sweeps around forming the tube of the 
+    /// torus.
     @UnitVector public var axis: Vector
     
     /// The radius from the center of the torus to the center of the tube.

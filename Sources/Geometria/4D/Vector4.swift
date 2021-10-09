@@ -170,8 +170,7 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
     /// Calculates the dot product between this and another provided `Vector4Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
-        // Doing this in separate statements to ease long compilation times in
-        // Xcode 12
+        // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
         let dx = x * other.x
         let dy = y * other.y
         let dz = z * other.z
