@@ -212,3 +212,56 @@ func _assertEqual<T: VectorFloatingPoint>(_ act: ConvexLineIntersection<T>,
     
     print(buffer)
 }
+
+func padded(_ str: String, _ hasNeg: Bool, count: Int) -> String {
+    var pre = ""
+    var suf = String(repeating: " ", count: count - str.count)
+    
+    if hasNeg && !str.hasPrefix("-") && !suf.isEmpty {
+        pre = String(suf.removeLast())
+    }
+
+    return "\(pre)\(str)\(suf)"
+}
+
+func printAssertMatrix<Matrix: MatrixType>(_ matrix: Matrix) where Matrix.Scalar: CustomStringConvertible {
+    func value(_ col: Int, _ row: Int) -> String {
+        matrix[col, row].description
+    }
+
+    let matrix = matrix
+    var hasNegCol: [Bool] = []
+    var lenCol: [Int] = []
+    
+    for col in 0..<matrix.columnCount {
+        var hasNegative = false
+        var maxLength = 0
+        for row in 0..<matrix.rowCount {
+            hasNegative = hasNegative || matrix[col, row] < 0
+        }
+
+        hasNegCol.append(hasNegative)
+
+        for row in 0..<matrix.rowCount {
+            var length = value(col, row).count
+            if hasNegative && matrix[col, row] >= 0 {
+                length += 1
+            }
+
+            maxLength = max(maxLength, length)
+        }
+        
+        lenCol.append(maxLength)
+    }
+
+    for row in 0..<matrix.rowCount {
+        var args: [String] = []
+        for col in 0..<matrix.columnCount {
+            args.append(
+                padded(value(col, row), hasNegCol[col], count: lenCol[col])
+            )
+        }
+
+        print("        assertEqual(sut.r\(row), (\(args.joined(separator: ", "))))")
+    }
+}
