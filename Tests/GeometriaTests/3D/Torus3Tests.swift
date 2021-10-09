@@ -324,7 +324,7 @@ extension Torus3Tests {
         XCTAssertTrue(sut.contains(point))
     }
 
-    func testContains_tiltedTorus_pointOnTube() {
+    func testContains_tiltedTorus_pointInTube() {
         let sut = Torus(
             center: .init(x: 10, y: 20, z: 30),
             axis: .one,
