@@ -353,7 +353,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the given amount.
     @_transparent
-    public static func makeScale(x: Scalar, y: Scalar) -> Self {
+    public static func make2DScale(x: Scalar, y: Scalar) -> Self {
         Self(rows: (
             (x, 0, 0),
             (0, y, 0),
@@ -364,14 +364,14 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the corresponding coordinate on a supplied vector.
     @_transparent
-    public static func makeScale<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
-        makeScale(x: vec.x, y: vec.y)
+    public static func make2DScale<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+        make2DScale(x: vec.x, y: vec.y)
     }
     
-    /// Creates a rotation matrix that when applied to a vector, rotates it
-    /// around the origin by a specified radian amount.
+    /// Creates a rotation matrix that when applied to a 2-dimensional vector, 
+    /// rotates it around the origin (Z-axis) by a specified radian amount.
     @_transparent
-    public static func makeRotation(_ angleInRadians: Scalar) -> Self {
+    public static func make2DRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
         
@@ -385,7 +385,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
-    public static func makeTranslation(x: Scalar, y: Scalar) -> Self {
+    public static func make2DTranslation(x: Scalar, y: Scalar) -> Self {
         Self(rows: (
             (1, 0, x),
             (0, 1, y),
@@ -396,8 +396,8 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
-    public static func makeTranslation<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
-        makeTranslation(x: vec.x, y: vec.y)
+    public static func make2DTranslation<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+        make2DTranslation(x: vec.x, y: vec.y)
     }
     
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
