@@ -50,64 +50,64 @@ public extension RotationMatrix3 {
 
         switch order {
         case .xyz:
-            r1 = rotX(orientation, angle1InRadians)
-            r2 = rotY(orientation, angle2InRadians)
-            r3 = rotZ(orientation, angle3InRadians)
+            r1 = rotX(angle1InRadians, orientation)
+            r2 = rotY(angle2InRadians, orientation)
+            r3 = rotZ(angle3InRadians, orientation)
 
         case .xzy:
-            r1 = rotX(orientation, angle1InRadians)
-            r2 = rotZ(orientation, angle2InRadians)
-            r3 = rotY(orientation, angle3InRadians)
+            r1 = rotX(angle1InRadians, orientation)
+            r2 = rotZ(angle2InRadians, orientation)
+            r3 = rotY(angle3InRadians, orientation)
 
         case .yxz:
-            r1 = rotY(orientation, angle1InRadians)
-            r2 = rotX(orientation, angle2InRadians)
-            r3 = rotZ(orientation, angle3InRadians)
+            r1 = rotY(angle1InRadians, orientation)
+            r2 = rotX(angle2InRadians, orientation)
+            r3 = rotZ(angle3InRadians, orientation)
 
         case .yzx:
-            r1 = rotY(orientation, angle1InRadians)
-            r2 = rotZ(orientation, angle2InRadians)
-            r3 = rotX(orientation, angle3InRadians)
+            r1 = rotY(angle1InRadians, orientation)
+            r2 = rotZ(angle2InRadians, orientation)
+            r3 = rotX(angle3InRadians, orientation)
 
         case .zyx:
-            r1 = rotZ(orientation, angle1InRadians)
-            r2 = rotY(orientation, angle2InRadians)
-            r3 = rotX(orientation, angle3InRadians)
+            r1 = rotZ(angle1InRadians, orientation)
+            r2 = rotY(angle2InRadians, orientation)
+            r3 = rotX(angle3InRadians, orientation)
 
         case .zxy:
-            r1 = rotZ(orientation, angle1InRadians)
-            r2 = rotX(orientation, angle2InRadians)
-            r3 = rotY(orientation, angle3InRadians)
+            r1 = rotZ(angle1InRadians, orientation)
+            r2 = rotX(angle2InRadians, orientation)
+            r3 = rotY(angle3InRadians, orientation)
 
         case .zxz:
-            r1 = rotZ(orientation, angle1InRadians)
-            r2 = rotX(orientation, angle2InRadians)
-            r3 = rotZ(orientation, angle3InRadians)
+            r1 = rotZ(angle1InRadians, orientation)
+            r2 = rotX(angle2InRadians, orientation)
+            r3 = rotZ(angle3InRadians, orientation)
 
         case .xzx:
-            r1 = rotX(orientation, angle1InRadians)
-            r2 = rotZ(orientation, angle2InRadians)
-            r3 = rotX(orientation, angle3InRadians)
+            r1 = rotX(angle1InRadians, orientation)
+            r2 = rotZ(angle2InRadians, orientation)
+            r3 = rotX(angle3InRadians, orientation)
 
         case .yxy:
-            r1 = rotY(orientation, angle1InRadians)
-            r2 = rotX(orientation, angle2InRadians)
-            r3 = rotY(orientation, angle3InRadians)
+            r1 = rotY(angle1InRadians, orientation)
+            r2 = rotX(angle2InRadians, orientation)
+            r3 = rotY(angle3InRadians, orientation)
 
         case .xyx:
-            r1 = rotX(orientation, angle1InRadians)
-            r2 = rotY(orientation, angle2InRadians)
-            r3 = rotX(orientation, angle3InRadians)
+            r1 = rotX(angle1InRadians, orientation)
+            r2 = rotY(angle2InRadians, orientation)
+            r3 = rotX(angle3InRadians, orientation)
 
         case .zyz:
-            r1 = rotZ(orientation, angle1InRadians)
-            r2 = rotY(orientation, angle2InRadians)
-            r3 = rotZ(orientation, angle3InRadians)
+            r1 = rotZ(angle1InRadians, orientation)
+            r2 = rotY(angle2InRadians, orientation)
+            r3 = rotZ(angle3InRadians, orientation)
 
         case .yzy:
-            r1 = rotY(orientation, angle1InRadians)
-            r2 = rotZ(orientation, angle2InRadians)
-            r3 = rotY(orientation, angle3InRadians)
+            r1 = rotY(angle1InRadians, orientation)
+            r2 = rotZ(angle2InRadians, orientation)
+            r3 = rotY(angle3InRadians, orientation)
         }
 
         return r1 * r2 * r3
@@ -119,7 +119,7 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotationX(orientation: Orientation3, _ angleInRadians: Scalar) -> RotationMatrix3 {
+    static func make3DRotationX(_ angleInRadians: Scalar, orientation: Orientation3) -> RotationMatrix3 {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(orientation == .rightHanded ? angleInRadians : -angleInRadians)
         
@@ -136,7 +136,7 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotationY(orientation: Orientation3, _ angleInRadians: Scalar) -> RotationMatrix3 {
+    static func make3DRotationY(_ angleInRadians: Scalar, orientation: Orientation3) -> RotationMatrix3 {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(orientation == .rightHanded ? angleInRadians : -angleInRadians)
         
@@ -153,8 +153,39 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotationZ(orientation: Orientation3, _ angleInRadians: Scalar) -> RotationMatrix3 {
+    static func make3DRotationZ(_ angleInRadians: Scalar, orientation: Orientation3) -> RotationMatrix3 {
         // Same as 2D rotation (around Z axis)
         make2DRotation(orientation == .rightHanded ? angleInRadians : -angleInRadians)
+    }
+
+    /// Creates a 3-dimensional [rotation matrix] that [rotates around the given
+    /// axis](https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle) 
+    /// with a given [orientation] (handedness), by a given angle in radians.
+    ///
+    /// `axis` is normalized pior to the creation of the rotation matrix is.
+    ///
+    /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
+    /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
+    static func make3DRotationFromAxisAngle<Vector: Vector3FloatingPoint>(axis: Vector, _ angleInRadians: Scalar, orientation: Orientation3) -> RotationMatrix3 where Vector.Scalar == Scalar {
+        let axis = axis.normalized()
+
+        let c = Scalar.cos(angleInRadians)
+        let s = Scalar.sin(orientation == .rightHanded ? angleInRadians : -angleInRadians)
+        let t = 1 - c
+
+        // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
+        let x = axis.x, xx = x * x
+        let y = axis.y, yy = y * y, yx = y * x
+        let z = axis.z, zz = z * z, zx = z * x, zy = z * y
+
+        let xs = x * s
+        let ys = y * s
+        let zs = z * s
+
+        let r1: Self.Row = (t * xx + c,  t * yx - zs, t * zx + ys)
+        let r2: Self.Row = (t * yx + zs, t * yy + c,  t * zy - xs)
+        let r3: Self.Row = (t * zx - ys, t * zy + xs, t * zz + c)
+
+        return Self(rows: (r1, r2, r3))
     }
 }
