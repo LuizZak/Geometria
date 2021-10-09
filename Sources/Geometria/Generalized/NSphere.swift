@@ -140,7 +140,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
             return .noIntersection
         }
         
-        let th = (radiusSquared - d).squareRoot() / lineSlopeLengthSquared.squareRoot()
+        let th = ((radiusSquared - d) / lineSlopeLengthSquared).squareRoot()
         let t0 = projection - th
         let t1 = projection + th
         
