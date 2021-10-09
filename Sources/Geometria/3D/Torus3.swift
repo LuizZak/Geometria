@@ -112,3 +112,33 @@ extension Torus3: VolumetricType {
         return tubeCenter.distanceSquared(to: vector) <= minorRadius * minorRadius
     }
 }
+
+extension Torus3: PointProjectableType {
+    public func project(_ vector: Vector) -> Vector {
+        let plane = PointNormalPlane(point: center, normal: axis)
+        let projected = plane.project(vector)
+
+        let fromCenter = projected - center
+        let norm: Vector
+        if fromCenter != .zero {
+            norm = fromCenter.normalized()
+        } else {
+            var cross = axis.cross(.unitX)
+            if cross == .zero {
+                cross = axis.cross(.unitY)
+            }
+
+            norm = axis.cross(cross).normalized()
+        }
+
+        let tubeCenter = center + norm * majorRadius
+        var fromTubeCenter = vector - tubeCenter
+        if fromTubeCenter == .zero {
+            fromTubeCenter = tubeCenter - center
+        }
+
+        fromTubeCenter.normalize()
+
+        return tubeCenter + fromTubeCenter * minorRadius
+    }
+}

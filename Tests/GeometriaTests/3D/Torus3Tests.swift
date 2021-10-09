@@ -2,6 +2,7 @@ import XCTest
 import Geometria
 
 class Torus3Tests: XCTestCase {
+    let accuracy = 1e-16
     typealias Vector = Vector3D
     typealias Torus = Torus3<Vector>
 
@@ -277,8 +278,6 @@ extension Torus3Tests {
         )
     }
 
-    
-
     func testBounds_minorRadiusZero() {
         let sut = Torus(
             center: .zero,
@@ -298,6 +297,8 @@ extension Torus3Tests {
         )
     }
 }
+
+// MARK: VolumetricType Conformance
 
 extension Torus3Tests {
     func testContains_pointOnTubeCenter() {
@@ -358,5 +359,79 @@ extension Torus3Tests {
         let point = Vector(x: 0, y: 0, z: 0)
 
         XCTAssertFalse(sut.contains(point))
+    }
+}
+
+// MARK: PointProjectableType Conformance
+
+extension Torus3Tests {
+    func testProject_pointOutsideTorus() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 30, y: 30, z: 5)
+
+        let result = sut.project(point)
+
+        assertEqual(result, .init(x: 17.592944348069327, y: 17.592944348069327, z: 1.0880433337235615), accuracy: accuracy)
+    }
+
+    func testProject_pointInTube() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 23, y: 0, z: 1)
+
+        let result = sut.project(point)
+
+        assertEqual(result, .init(x: 24.74341649025257, y: 0.0, z: 1.5811388300841898), accuracy: accuracy)
+    }
+
+    func testProject_pointInsideMajorRadius() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 5, y: 0, z: 5)
+
+        let result = sut.project(point)
+
+        assertEqual(result, .init(x: 15.256583509747431, y: 0.0, z: 1.5811388300841898), accuracy: accuracy)
+    }
+
+    func testProject_pointOnTubeCenter() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 20, y: 0, z: 0)
+
+        let result = sut.project(point)
+
+        assertEqual(result, .init(x: 25.0, y: 0.0, z: 0.0), accuracy: accuracy)
+    }
+
+    func testProject_pointOnCenter() {
+        let sut = Torus(
+            center: .zero,
+            axis: .unitZ,
+            majorRadius: 20,
+            minorRadius: 5
+        )
+        let point = Vector(x: 0, y: 0, z: 0)
+
+        let result = sut.project(point)
+
+        assertEqual(result, .init(x: -15.0, y: 0.0, z: 0.0), accuracy: accuracy)
     }
 }
