@@ -8,11 +8,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xyz,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xyz,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 0.35355339059327384, 0.3535533905932738,  0.8660254037844386))
@@ -24,11 +24,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xyz,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xyz,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, ( 0.35355339059327384, -0.3535533905932738, -0.8660254037844386))
@@ -40,11 +40,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xzy,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xzy,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 0.35355339059327384,  0.8660254037844386    ,  1.2195787943777123  ))
@@ -56,11 +56,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xzy,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xzy,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, ( 0.35355339059327384, -0.8660254037844386    , -1.2195787943777123 ))
@@ -72,11 +72,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yxz,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yxz,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, (-0.6123724356957945 ,  0.6123724356957946 ,  0.5000000000000001    ))
@@ -88,11 +88,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yxz,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yxz,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, ( 0.6123724356957945  ,  0.6123724356957946 , -0.5000000000000001    ))
@@ -104,11 +104,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yzx,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yzx,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 3.0616169978683836e-17,  0.7071067811865475, 0.7071067811865476))
@@ -120,11 +120,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yzx,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yzx,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (3.0616169978683836e-17,  0.7071067811865475, -0.7071067811865476))
@@ -136,11 +136,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zxy,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zxy,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 0.6123724356957945, 0.5000000000000001    , -0.11237243569579447))
@@ -152,11 +152,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zxy,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zxy,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (-0.6123724356957945, -0.5000000000000001    , -1.1123724356957947))
@@ -168,11 +168,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zyx,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zyx,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 3.0616169978683836e-17,  1.414213562373095 ,  1.1102230246251565e-16))
@@ -184,11 +184,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zyx,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zyx,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (3.0616169978683836e-17, -1.1102230246251565e-16, -1.414213562373095  ))
@@ -200,11 +200,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zxz,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zxz,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, (-0.35355339059327373,  0.3535533905932739, -0.8660254037844386   ))
@@ -216,11 +216,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zxz,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zxz,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (-0.35355339059327373, -0.3535533905932739, -0.8660254037844386   ))
@@ -232,11 +232,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xzx,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xzx,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 0.5000000000000001   ,  0.6123724356957946, -0.6123724356957945 ))
@@ -248,11 +248,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xzx,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xzx,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, ( 0.5000000000000001   , -0.6123724356957946, -0.6123724356957945 ))
@@ -264,11 +264,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yxy,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yxy,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, (-0.35355339059327373, 0.8660254037844386   ,  1.2195787943777123))
@@ -280,11 +280,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yxy,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yxy,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (-0.35355339059327373,  0.8660254037844386   ,  0.5124720131911648))
@@ -296,11 +296,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xyx,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xyx,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, ( 0.5000000000000001   ,  0.6123724356957945,  0.6123724356957946    ))
@@ -312,11 +312,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .xyx,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .xyx,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (0.5000000000000001   ,  0.6123724356957945    , -0.6123724356957946))
@@ -328,11 +328,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zyz,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zyz,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, (-0.7071067811865475,  0.7071067811865476 ,  1.0               ))
@@ -344,11 +344,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .zyz,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .zyz,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (-0.7071067811865475, -0.7071067811865476 , -1.0               ))
@@ -360,11 +360,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yzy,
-            orientation: .rightHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yzy,
+            orientation: .rightHanded
         )
 
         assertEqual(sut.r0, (-0.7071067811865475,  5.302876193624534e-17,  0.7071067811865477))
@@ -376,11 +376,11 @@ class RotationMatrix3Tests: XCTestCase {
         let sut = 
         RotationMatrix
         .make3DRotation(
-            order: .yzy,
-            orientation: .leftHanded,
             .pi / 2,
             .pi / 3,
-            .pi / 4
+            .pi / 4,
+            order: .yzy,
+            orientation: .leftHanded
         )
 
         assertEqual(sut.r0, (-0.7071067811865475, -5.302876193624534e-17, -0.7071067811865477))

@@ -34,11 +34,11 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotation(order: RotationOrder3,
-                               orientation: Orientation3,
-                               _ angle1InRadians: Scalar,
+    static func make3DRotation(_ angle1InRadians: Scalar,
                                _ angle2InRadians: Scalar,
-                               _ angle3InRadians: Scalar) -> Self {
+                               _ angle3InRadians: Scalar,
+                               order: RotationOrder3,
+                               orientation: Orientation3) -> Self {
         
         let r1: Self
         let r2: Self
