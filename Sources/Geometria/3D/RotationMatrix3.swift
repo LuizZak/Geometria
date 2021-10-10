@@ -189,4 +189,35 @@ public extension RotationMatrix3 {
 
         return Self(rows: (r1, r2, r3))
     }
+
+    /// Creates a 3-dimensional [rotation matrix] that [rotates around a single
+    /// axis](https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle) 
+    /// with an angle and direction that when applied to `vectorA`, turns it into
+    /// the same direction as `vectorB`, with a given [orientation] (handedness).
+    ///
+    /// `vectorA` and `vectorB` are assumed to be directional vectors, and will 
+    /// be normalized pior to the creation of the rotation matrix.
+    ///
+    /// If `vectorA` and `vectorB` point on the same direction, an identity matrix
+    /// is returned, instead.
+    ///
+    /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
+    /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
+    static func make3DRotationBetween<Vector: Vector3FloatingPoint>(_ vectorA: Vector, 
+                                                                    _ vectorB: Vector,
+                                                                    orientation: Orientation3 = .rightHanded) -> RotationMatrix3 where Vector.Scalar == Scalar {
+        
+        let vectorA = vectorA.normalized()
+        let vectorB = vectorB.normalized()
+
+        if vectorA == vectorB {
+            return .identity
+        }
+
+        let rAxis = vectorA.cross(vectorB) * (orientation == .rightHanded ? 1 : -1)
+        let angle = Scalar.acos(vectorA.dot(vectorB))
+        let m = RotationMatrix3.make3DRotationFromAxisAngle(axis: rAxis, angle)
+
+        return m
+    }
 }

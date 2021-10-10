@@ -162,10 +162,8 @@ class P5Printer {
         let target = torus.axis
         let crossY = target.cross(origin)
         if crossY != .zero {
-            let axis = crossY
-            let angle = Double.acos(target.dot(origin))
+            let matrix = RotationMatrix3.make3DRotationBetween(origin, target)
 
-            let matrix = RotationMatrix3.make3DRotationFromAxisAngle(axis: axis, angle)
             applyMatrix3DString(matrix).forEach(addDrawLine)
         }
         
@@ -187,10 +185,8 @@ class P5Printer {
         let target = line.lineSlope
         let crossY = target.cross(origin)
         if crossY != .zero {
-            let axis = crossY
-            let angle = Double.acos(target.dot(origin))
+            let matrix = RotationMatrix3.make3DRotationBetween(origin, target)
 
-            let matrix = RotationMatrix3.make3DRotationFromAxisAngle(axis: axis, angle)
             applyMatrix3DString(matrix).forEach(addDrawLine)
         }
         

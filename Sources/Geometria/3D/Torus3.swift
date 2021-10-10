@@ -109,10 +109,6 @@ extension Torus3: VolumetricType {
         }
 
         let tubeCenter = center + norm * majorRadius
-        print(center)
-        print(axis)
-        print(projected)
-        print(tubeCenter)
         return tubeCenter.distanceSquared(to: vector) <= minorRadius * minorRadius
     }
 }
@@ -158,12 +154,7 @@ extension Torus3: SignedDistanceMeasurableType where Vector.Scalar: Real {
         // step.
         var transformed = point - center
         if axis != .unitZ && axis != -.unitZ {
-            let origin = Vector.unitZ
-            let target = axis
-
-            let rAxis = origin.cross(target)
-            let angle = Scalar.acos(origin.dot(target))
-            let m = RotationMatrix3.make3DRotationFromAxisAngle(axis: rAxis, angle)
+            let m = RotationMatrix3.make3DRotationBetween(.unitZ, axis)
 
             transformed = m.transformPoint(transformed)
         }
