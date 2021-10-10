@@ -18,6 +18,21 @@ public protocol MatrixType: Equatable {
     
     /// Gets or sets the scalar value on a given column/row in this matrix.
     subscript(column: Int, row: Int) -> Scalar { get set }
+
+    /// Returns a flat array of each scalar value from this matrix ordered as a
+    /// [row major] list.
+    ///
+    /// [row major]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    func rowMajorValues() -> [Scalar]
+
+    /// Returns a flat array of each scalar value from this matrix ordered as a
+    /// [column major] list.
+    ///
+    /// [column major]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    func columnMajorValues() -> [Scalar]
+    
+    /// Negates (i.e. flips) the signs of all the values of this matrix.
+    static prefix func - (value: Self) -> Self
     
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
     /// result.
@@ -25,17 +40,17 @@ public protocol MatrixType: Equatable {
     /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
     static func + (lhs: Self, rhs: Self) -> Self
     
-    /// Performs a [matrix addition] between `lhs` and `rhs` and stores the
-    /// result back into `lhs`.
-    ///
-    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
-    static func += (lhs: inout Self, rhs: Self)
-    
     /// Performs a [matrix subtraction] between `lhs` and `rhs` and returns the
     /// result.
     ///
     /// [matrix subtraction]: https://en.wikipedia.org/wiki/Matrix_addition
     static func - (lhs: Self, rhs: Self) -> Self
+    
+    /// Performs a [matrix addition] between `lhs` and `rhs` and stores the
+    /// result back into `lhs`.
+    ///
+    /// [matrix addition]: https://en.wikipedia.org/wiki/Matrix_addition
+    static func += (lhs: inout Self, rhs: Self)
     
     /// Performs a [matrix subtraction] between `lhs` and `rhs` and stores the
     /// result back into `lhs`.
@@ -43,14 +58,15 @@ public protocol MatrixType: Equatable {
     /// [matrix subtraction]: https://en.wikipedia.org/wiki/Matrix_addition
     static func -= (lhs: inout Self, rhs: Self)
     
-    /// Negates (i.e. flips) the signs of all the values of this matrix.
-    static prefix func - (value: Self) -> Self
-    
     /// Performs a [scalar multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
     /// [scalar multiplication]: https://en.wikipedia.org/wiki/Scalar_multiplication
     static func * (lhs: Self, rhs: Scalar) -> Self
+    
+    /// Performs a scalar division between the elements of `lhs` and `rhs` and
+    /// returns the result.
+    static func / (lhs: Self, rhs: Scalar) -> Self
     
     /// Performs a [scalar multiplication] between `lhs` and `rhs` and stores
     /// the result back into `lhs`.
@@ -59,15 +75,43 @@ public protocol MatrixType: Equatable {
     static func *= (lhs: inout Self, rhs: Scalar)
     
     /// Performs a scalar division between the elements of `lhs` and `rhs` and
-    /// returns the result.
-    static func / (lhs: Self, rhs: Scalar) -> Self
-    
-    /// Performs a scalar division between the elements of `lhs` and `rhs` and
     /// stores the result back into `lhs`.
     static func /= (lhs: inout Self, rhs: Scalar)
 }
 
 public extension MatrixType {
+    /// Returns a flat array of each scalar value from this matrix ordered as a
+    /// [row major] list.
+    ///
+    /// [row major]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    func rowMajorValues() -> [Scalar] {
+        var values: [Scalar] = .init(repeating: 0, count: columnCount * rowCount)
+
+        for row in 0..<rowCount {
+            for column in 0..<columnCount {
+                values[column + row * columnCount] = self[column, row]
+            }
+        }
+
+        return values
+    }
+
+    /// Returns a flat array of each scalar value from this matrix ordered as a
+    /// [column major] list.
+    ///
+    /// [column major]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    func columnMajorValues() -> [Scalar] {
+        var values: [Scalar] = .init(repeating: 0, count: columnCount * rowCount)
+
+        for row in 0..<rowCount {
+            for column in 0..<columnCount {
+                values[row + column * rowCount] = self[column, row]
+            }
+        }
+
+        return values
+    }
+    
     /// Performs a [matrix addition] between `lhs` and `rhs` and stores the
     /// result back into `lhs`.
     ///
