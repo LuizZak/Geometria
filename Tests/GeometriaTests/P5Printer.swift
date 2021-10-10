@@ -150,6 +150,27 @@ class P5Printer {
         addDrawLine("pop()")
     }
     
+    func add(_ torus: Torus3D) {
+        is3D = true
+
+        addDrawLine("push()")
+        addDrawLine("translate(\(vec3String(torus.center)))")
+        
+        // Create matrix that will rotate the torus from laying on the Z-axis
+        // to laying in the direction of its axis
+        let origin = Vector3D.unitZ
+        let target = torus.axis
+        let crossY = target.cross(origin)
+        if crossY != .zero {
+            let matrix = RotationMatrix3.make3DRotationBetween(origin, target)
+
+            applyMatrix3DString(matrix).forEach(addDrawLine)
+        }
+        
+        addDrawLine("torus(\(torus.majorRadius), \(torus.minorRadius))")
+        addDrawLine("pop()")
+    }
+    
     func add(_ cylinder: Cylinder3D) {
         is3D = true
 
@@ -164,10 +185,8 @@ class P5Printer {
         let target = line.lineSlope
         let crossY = target.cross(origin)
         if crossY != .zero {
-            let axis = crossY
-            let angle = Double.acos(target.dot(origin))
+            let matrix = RotationMatrix3.make3DRotationBetween(origin, target)
 
-            let matrix = RotationMatrix3.make3DRotationFromAxisAngle(axis: axis, angle)
             applyMatrix3DString(matrix).forEach(addDrawLine)
         }
         

@@ -1,3 +1,5 @@
+// TODO: Add Line3IntersectableType conformance
+
 /// Protocol for 3D geometric types defined by floating-point vectors that form
 /// closed convex shapes.
 public protocol Convex3Type: GeometricType {

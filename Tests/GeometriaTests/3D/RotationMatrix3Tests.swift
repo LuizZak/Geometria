@@ -5,6 +5,8 @@ class RotationMatrix3Tests: XCTestCase {
     typealias RotationMatrix = RotationMatrix3D
     typealias Vector = Vector3D
 
+    let accuracy: Double = 1e-16
+
     // MARK: Full 3-axis rotations
 
     func testMake3DRotation_xyz_rightHanded() {
@@ -499,5 +501,68 @@ class RotationMatrix3Tests: XCTestCase {
         assertEqual(sut.r0, ( 0.07142857142857148, 0.9446408685944161 , -0.3202367695391345))
         assertEqual(sut.r1, (-0.6589265828801303 , 0.28571428571428575,  0.6958326704838529))
         assertEqual(sut.r2, ( 0.7488081981105631 , 0.16131018665900415,  0.6428571428571429))
+    }
+
+    // MARK: Angle between vectors rotation
+
+    func testMake3DRotationBetween_axialVectors_rightHanded() {
+        let a = Vector(x: 1, y: 0, z: 0)
+        let b = Vector(x: 0, y: 1, z: 0)
+
+        let sut = RotationMatrix.make3DRotationBetween(a, b, orientation: .rightHanded)
+
+        let rotated = sut.transformPoint(a)
+        assertEqual(rotated, b, accuracy: accuracy)
+        assertEqual(sut.r0, (6.123233995736766e-17, -1.0                  , 0.0))
+        assertEqual(sut.r1, (1.0                  ,  6.123233995736766e-17, 0.0))
+        assertEqual(sut.r2, (0.0                  ,  0.0                  , 1.0))
+    }
+
+    func testMake3DRotationBetween_axialVectors_leftHanded() {
+        let a = Vector(x: 1, y: 0, z: 0)
+        let b = Vector(x: 0, y: 1, z: 0)
+
+        let sut = RotationMatrix.make3DRotationBetween(a, b, orientation: .leftHanded)
+
+        let rotated = sut.transformPoint(a)
+        assertEqual(rotated, -b, accuracy: accuracy)
+        assertEqual(sut.r0, ( 6.123233995736766e-17, 1.0                  , 0.0))
+        assertEqual(sut.r1, (-1.0                  , 6.123233995736766e-17, 0.0))
+        assertEqual(sut.r2, ( 0.0                  , 0.0                  , 1.0))
+    }
+
+    func testMake3DRotationBetween_equalDirectionVectors() {
+        let a = Vector(x: 1, y: 0, z: 0)
+        let b = Vector(x: 2, y: 0, z: 0)
+
+        let sut = RotationMatrix.make3DRotationBetween(a, b, orientation: .rightHanded)
+
+        XCTAssertEqual(sut, .identity)
+    }
+
+    func testMake3DRotationBetween_oppositeDirectionVectors_rightHanded() {
+        let a = Vector(x: 1, y: 0, z: 0)
+        let b = Vector(x: -1, y: 0, z: 0)
+
+        let sut = RotationMatrix.make3DRotationBetween(a, b, orientation: .rightHanded)
+
+        let rotated = sut.transformPoint(a)
+        assertEqual(rotated, b, accuracy: accuracy)
+        assertEqual(sut.r0, (-1.0,  0.0,  0.0))
+        assertEqual(sut.r1, ( 0.0, -1.0,  0.0))
+        assertEqual(sut.r2, ( 0.0,  0.0, -1.0))
+    }
+
+    func testMake3DRotationBetween_oppositeDirectionVectors_leftHanded() {
+        let a = Vector(x: 1, y: 0, z: 0)
+        let b = Vector(x: -1, y: 0, z: 0)
+
+        let sut = RotationMatrix.make3DRotationBetween(a, b, orientation: .leftHanded)
+
+        let rotated = sut.transformPoint(a)
+        assertEqual(rotated, b, accuracy: accuracy)
+        assertEqual(sut.r0, (-1.0,  0.0,  0.0))
+        assertEqual(sut.r1, ( 0.0, -1.0,  0.0))
+        assertEqual(sut.r2, ( 0.0,  0.0, -1.0))
     }
 }

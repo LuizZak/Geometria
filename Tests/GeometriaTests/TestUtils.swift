@@ -135,37 +135,37 @@ func assertEqual<T>(_ simd1: SIMD3<T>,
 
 // MARK: ConvexLineIntersection equality
 
-func assertEqual<T: Vector2FloatingPoint>(_ expected: ConvexLineIntersection<T>,
-                                          _ actual: ConvexLineIntersection<T>,
+func assertEqual<T: Vector2FloatingPoint>(_ actual: ConvexLineIntersection<T>,
+                                          _ expected: ConvexLineIntersection<T>,
                                           file: StaticString = #file,
                                           line: UInt = #line) {
     
-    _assertEqual(expected, actual, file: file, line: line) { point -> String in
+    _assertEqual(actual, expected, file: file, line: line) { point -> String in
         ".init(x: \(point.x), y: \(point.y))"
     }
 }
 
-func assertEqual<T: Vector3FloatingPoint>(_ expected: ConvexLineIntersection<T>,
-                                          _ actual: ConvexLineIntersection<T>,
+func assertEqual<T: Vector3FloatingPoint>(_ actual: ConvexLineIntersection<T>,
+                                          _ expected: ConvexLineIntersection<T>,
                                           file: StaticString = #file,
                                           line: UInt = #line) {
     
-    _assertEqual(expected, actual, file: file, line: line) { point -> String in
+    _assertEqual(actual, expected, file: file, line: line) { point -> String in
         ".init(x: \(point.x), y: \(point.y), z: \(point.z))"
     }
 }
 
-func _assertEqual<T: VectorFloatingPoint>(_ exp: ConvexLineIntersection<T>,
-                                          _ act: ConvexLineIntersection<T>,
+func _assertEqual<T: VectorFloatingPoint>(_ act: ConvexLineIntersection<T>,
+                                          _ exp: ConvexLineIntersection<T>,
                                           file: StaticString,
                                           line: UInt,
                                           printPoint: @escaping (T) -> String) {
     
-    guard exp != act else {
+    guard act != exp else {
         return
     }
     
-    XCTFail("\(exp) is not equal to \(act)", file: file, line: line)
+    XCTFail("\(act) is not equal to \(exp)", file: file, line: line)
     
     let printPointNormal: (PointNormal<T>) -> String = { pn in
         """
@@ -178,7 +178,7 @@ func _assertEqual<T: VectorFloatingPoint>(_ exp: ConvexLineIntersection<T>,
     
     var buffer = ""
     
-    switch exp {
+    switch act {
     case .contained:
         buffer = ".contained"
     case .noIntersection:

@@ -33,7 +33,7 @@ public extension Vector2Multiplicative {
     
     @_transparent
     func cross(_ other: Self) -> Scalar {
-        // TODO: Doing this in separate statements to ease long compilation times in Xcode 12
+        // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
         let d1 = x * other.y
         let d2 = y * other.x
         

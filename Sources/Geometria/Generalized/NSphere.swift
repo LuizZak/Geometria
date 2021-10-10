@@ -121,8 +121,9 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         
         let lineSlope = line.lineSlope
         let relVec = center - line.a
+        let lineSlopeLengthSquared = lineSlope.lengthSquared
         
-        let projection = relVec.dot(lineSlope) / lineSlope.lengthSquared
+        let projection = relVec.dot(lineSlope) / lineSlopeLengthSquared
         let projected = line.projectedNormalizedMagnitude(projection)
         let d = projected.distanceSquared(to: center)
         let radiusSquared = radius * radius
@@ -139,7 +140,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
             return .noIntersection
         }
         
-        let th = (radiusSquared - d).squareRoot() / lineSlope.length
+        let th = ((radiusSquared - d) / lineSlopeLengthSquared).squareRoot()
         let t0 = projection - th
         let t1 = projection + th
         
