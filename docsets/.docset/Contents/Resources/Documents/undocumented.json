@@ -1,1370 +1,1384 @@
 {
   "warnings": [
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 16,
       "symbol": "EdgeInsets2.left",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 17,
       "symbol": "EdgeInsets2.top",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 18,
       "symbol": "EdgeInsets2.right",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 19,
       "symbol": "EdgeInsets2.bottom",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 22,
       "symbol": "EdgeInsets2.init(left:top:right:bottom:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 34,
       "symbol": "EdgeInsets2.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 49,
       "symbol": "EdgeInsets2.zero",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/EdgeInsets2.swift",
       "line": 54,
       "symbol": "EdgeInsets2.inset(rectangle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Ellipse2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Ellipse2.swift",
       "line": 19,
       "symbol": "Ellipse2.radiusX",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Ellipse2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Ellipse2.swift",
       "line": 25,
       "symbol": "Ellipse2.radiusY",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Ellipse2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Ellipse2.swift",
       "line": 33,
       "symbol": "Ellipse2.init(center:radiusX:radiusY:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Line2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Line2.swift",
       "line": 18,
       "symbol": "Line2.init(x1:y1:x2:y2:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/LineIntersectionResult.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/LineIntersectionResult.swift",
       "line": 21,
       "symbol": "LineIntersectionResult.init(point:line1NormalizedMagnitude:line2NormalizedMagnitude:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/LineSegment2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/LineSegment2.swift",
       "line": 17,
       "symbol": "LineSegment2.init(x1:y1:x2:y2:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 6,
       "symbol": "Vector2FloatingPoint.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 8,
       "symbol": "Vector2FloatingPoint.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 10,
       "symbol": "Vector2FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 12,
       "symbol": "Vector2FloatingPoint.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 14,
       "symbol": "Vector2FloatingPoint.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 16,
       "symbol": "Vector2FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 18,
       "symbol": "Vector2FloatingPoint.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 20,
       "symbol": "Vector2FloatingPoint.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 22,
       "symbol": "Vector2FloatingPoint.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 24,
       "symbol": "Vector2FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 26,
       "symbol": "Vector2FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 28,
       "symbol": "Vector2FloatingPoint./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 44,
       "symbol": "Vector2FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 59,
       "symbol": "Vector2FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 74,
       "symbol": "Vector2FloatingPoint.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 79,
       "symbol": "Vector2FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 84,
       "symbol": "Vector2FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 89,
       "symbol": "Vector2FloatingPoint./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2Real.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2Real.swift",
       "line": 21,
       "symbol": "Vector2Real.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2Real.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2Real.swift",
       "line": 24,
       "symbol": "Vector2Real.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/RoundRectangle2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/RoundRectangle2.swift",
       "line": 17,
       "symbol": "RoundRectangle2.init(rectangle:radiusX:radiusY:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
       "line": 206,
       "symbol": "SIMD2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
       "line": 212,
       "symbol": "SIMD2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
       "line": 302,
       "symbol": "SIMD2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
       "line": 307,
       "symbol": "SIMD2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Square2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Square2.swift",
       "line": 15,
       "symbol": "Square2.init(x:y:sideLength:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2+Double.swift",
       "line": 79,
       "symbol": "Vector2D.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2+Float.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2+Float.swift",
       "line": 78,
       "symbol": "Vector2F.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 127,
       "symbol": "Vector2.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 132,
       "symbol": "Vector2.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 147,
       "symbol": "Vector2.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 152,
       "symbol": "Vector2.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 177,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 176,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 182,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 181,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 187,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 186,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 192,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 191,
       "symbol": "Vector2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 197,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 196,
       "symbol": "Vector2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 273,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 272,
       "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 278,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 277,
       "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 283,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 282,
       "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 288,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 287,
       "symbol": "Vector2./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 293,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 292,
       "symbol": "Vector2./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 374,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 373,
       "symbol": "Vector2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 380,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 379,
       "symbol": "Vector2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 473,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 472,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 478,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 477,
       "symbol": "Vector2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Cube3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Cube3.swift",
       "line": 15,
       "symbol": "Cube3.init(x:y:z:sideLength:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Cylinder3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Cylinder3.swift",
       "line": 33,
       "symbol": "Cylinder3.init(start:end:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Disk3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Disk3.swift",
       "line": 20,
       "symbol": "Disk3.init(center:normal:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Ellipse3.swift",
       "line": 18,
       "symbol": "Ellipse3.radiusX",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Ellipse3.swift",
       "line": 29,
       "symbol": "Ellipse3.radiusY",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Ellipse3.swift",
       "line": 40,
       "symbol": "Ellipse3.radiusZ",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Ellipse3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Ellipse3.swift",
       "line": 54,
       "symbol": "Ellipse3.init(center:radiusX:radiusY:radiusZ:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Line3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Line3.swift",
       "line": 20,
       "symbol": "Line3.init(x1:y1:z1:x2:y2:z2:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/LineSegment3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/LineSegment3.swift",
       "line": 19,
       "symbol": "LineSegment3.init(x1:y1:z1:x2:y2:z2:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Projection/SphereCoordinates.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Projection/SphereCoordinates.swift",
       "line": 14,
       "symbol": "SphereCoordinates.init(azimuth:elevation:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Projection/SphereProjectiveSpace.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Projection/SphereProjectiveSpace.swift",
       "line": 8,
       "symbol": "SphereProjectiveSpace.Scalar",
       "symbol_kind": "source.lang.swift.decl.associatedtype",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/ProjectivePointNormalPlane3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/ProjectivePointNormalPlane3.swift",
       "line": 32,
       "symbol": "ProjectivePointNormalPlane3.init(point:normal:upAxis:rightAxis:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 6,
       "symbol": "Vector3FloatingPoint.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 8,
       "symbol": "Vector3FloatingPoint.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 10,
       "symbol": "Vector3FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 12,
       "symbol": "Vector3FloatingPoint.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 14,
       "symbol": "Vector3FloatingPoint.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 16,
       "symbol": "Vector3FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 18,
       "symbol": "Vector3FloatingPoint.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 20,
       "symbol": "Vector3FloatingPoint.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 22,
       "symbol": "Vector3FloatingPoint.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 24,
       "symbol": "Vector3FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 26,
       "symbol": "Vector3FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 28,
       "symbol": "Vector3FloatingPoint./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 45,
       "symbol": "Vector3FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 60,
       "symbol": "Vector3FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 75,
       "symbol": "Vector3FloatingPoint.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 80,
       "symbol": "Vector3FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 85,
       "symbol": "Vector3FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 90,
       "symbol": "Vector3FloatingPoint./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
       "line": 159,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
       "line": 166,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/TakeVector3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/TakeVector3.swift",
       "line": 47,
       "symbol": "TakeVector3.init(underlying:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Torus3.swift",
+      "line": 41,
+      "symbol": "Torus3.init(center:axis:majorRadius:minorRadius:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
       "line": 128,
       "symbol": "Vector3.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
       "line": 133,
       "symbol": "Vector3.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
       "line": 148,
       "symbol": "Vector3.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
       "line": 153,
       "symbol": "Vector3.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 179,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 178,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 184,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 183,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 189,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 188,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 194,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 193,
       "symbol": "Vector3.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 199,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 198,
       "symbol": "Vector3.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 236,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 235,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 241,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 240,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 246,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 245,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 251,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 250,
       "symbol": "Vector3./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 256,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 255,
       "symbol": "Vector3./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 340,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 339,
       "symbol": "Vector3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 347,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
+      "line": 346,
       "symbol": "Vector3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 6,
       "symbol": "Vector4FloatingPoint.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 8,
       "symbol": "Vector4FloatingPoint.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 10,
       "symbol": "Vector4FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 12,
       "symbol": "Vector4FloatingPoint.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 14,
       "symbol": "Vector4FloatingPoint.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 16,
       "symbol": "Vector4FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 18,
       "symbol": "Vector4FloatingPoint.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 20,
       "symbol": "Vector4FloatingPoint.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 22,
       "symbol": "Vector4FloatingPoint.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 24,
       "symbol": "Vector4FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 26,
       "symbol": "Vector4FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 28,
       "symbol": "Vector4FloatingPoint./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 45,
       "symbol": "Vector4FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 60,
       "symbol": "Vector4FloatingPoint.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 75,
       "symbol": "Vector4FloatingPoint.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 80,
       "symbol": "Vector4FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 85,
       "symbol": "Vector4FloatingPoint./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4FloatingPoint.swift",
       "line": 90,
       "symbol": "Vector4FloatingPoint./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
       "line": 44,
       "symbol": "SIMD4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
       "line": 51,
       "symbol": "SIMD4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
       "line": 132,
       "symbol": "Vector4.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
       "line": 137,
       "symbol": "Vector4.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
       "line": 152,
       "symbol": "Vector4.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
       "line": 157,
       "symbol": "Vector4.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 184,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 183,
       "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 189,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 188,
       "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 194,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 193,
       "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 199,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 198,
       "symbol": "Vector4.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 204,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 203,
       "symbol": "Vector4.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 238,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 237,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 243,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 242,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 248,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 247,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 253,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 252,
       "symbol": "Vector4./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 258,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 257,
       "symbol": "Vector4./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 354,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 353,
       "symbol": "Vector4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 362,
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
+      "line": 361,
       "symbol": "Vector4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/ConvexLineIntersection.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/ConvexLineIntersection.swift",
       "line": 82,
       "symbol": "ConvexLineIntersection.PointNormalKind.singlePoint",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/ConvexLineIntersection.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/ConvexLineIntersection.swift",
       "line": 83,
       "symbol": "ConvexLineIntersection.PointNormalKind.enter",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/ConvexLineIntersection.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/ConvexLineIntersection.swift",
       "line": 84,
       "symbol": "ConvexLineIntersection.PointNormalKind.exit",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/DirectionalRay.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/DirectionalRay.swift",
       "line": 6,
       "symbol": "DirectionalRay.Scalar",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Ellipsoid.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Ellipsoid.swift",
       "line": 15,
       "symbol": "Ellipsoid.init(center:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Line.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Line.swift",
       "line": 8,
       "symbol": "Line.Scalar",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Line.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Line.swift",
       "line": 19,
       "symbol": "Line.init(a:b:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LinePolygon.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/LineIntersection.swift",
+      "line": 11,
+      "symbol": "LineIntersection.init(isContained:intersections:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/LinePolygon.swift",
       "line": 7,
       "symbol": "LinePolygon.Scalar",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LinePolygon.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/LinePolygon.swift",
       "line": 20,
       "symbol": "LinePolygon.init(vertices:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
       "line": 8,
       "symbol": "LineSegment.Scalar",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
       "line": 29,
       "symbol": "LineSegment.init(start:end:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/NCapsule.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/NCapsule.swift",
       "line": 24,
       "symbol": "NCapsule.init(start:end:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/NSphere.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/NSphere.swift",
       "line": 19,
       "symbol": "NSphere.init(center:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/NSquare.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/NSquare.swift",
       "line": 21,
       "symbol": "NSquare.init(location:sideLength:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/NSquare.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/NSquare.swift",
       "line": 63,
       "symbol": "NSquare.center",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/PointNormal.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/PointNormal.swift",
       "line": 24,
       "symbol": "PointNormal.init(point:normal:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/PointNormalPlane.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/PointNormalPlane.swift",
       "line": 20,
       "symbol": "PointNormalPlane.init(point:normal:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
       "line": 94,
       "symbol": "LineFloatingPoint.distanceSquared(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Line/LineFloatingPoint.swift",
       "line": 101,
       "symbol": "LineFloatingPoint.distance(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Plane/PointProjectablePlaneType.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Plane/PointProjectablePlaneType.swift",
       "line": 12,
       "symbol": "PointProjectablePlaneType.signedDistance(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 12,
       "symbol": "VectorAdditive.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 14,
       "symbol": "VectorAdditive.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 16,
       "symbol": "VectorAdditive.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 18,
       "symbol": "VectorAdditive.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 20,
       "symbol": "VectorAdditive.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 22,
       "symbol": "VectorAdditive.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 24,
       "symbol": "VectorAdditive.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
       "line": 26,
       "symbol": "VectorAdditive.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
       "line": 3,
       "symbol": "VectorDivisible./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
       "line": 5,
       "symbol": "VectorDivisible./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
       "line": 7,
       "symbol": "VectorDivisible./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
       "line": 9,
       "symbol": "VectorDivisible./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
       "line": 11,
       "symbol": "VectorDivisible./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorFloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorFloatingPoint.swift",
       "line": 76,
       "symbol": "VectorFloatingPoint.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorFloatingPoint.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorFloatingPoint.swift",
       "line": 78,
       "symbol": "VectorFloatingPoint.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
       "line": 45,
       "symbol": "VectorMultiplicative.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
       "line": 47,
       "symbol": "VectorMultiplicative.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
       "line": 49,
       "symbol": "VectorMultiplicative.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
       "line": 51,
       "symbol": "VectorMultiplicative.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
       "line": 53,
       "symbol": "VectorMultiplicative.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorReal.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorReal.swift",
       "line": 25,
       "symbol": "VectorReal.pow(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Ray.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Ray.swift",
       "line": 17,
       "symbol": "Ray.init(start:b:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
       "line": 7,
       "symbol": "RoundNRectangle.rectangle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
       "line": 8,
       "symbol": "RoundNRectangle.radius",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/RoundNRectangle.swift",
       "line": 11,
       "symbol": "RoundNRectangle.init(rectangle:radius:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Triangle+Coordinates.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Triangle+Coordinates.swift",
       "line": 16,
       "symbol": "Triangle.Coordinates.init(wa:wb:wc:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Generalized/Triangle.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Triangle.swift",
       "line": 19,
       "symbol": "Triangle.init(a:b:c:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Matrices/Matrix3x2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Matrices/Matrix3x2.swift",
       "line": 63,
       "symbol": "Matrix3x2.Vector",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Matrices/Matrix3x2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Matrices/Matrix3x2.swift",
       "line": 645,
       "symbol": "Matrix3x2.transform(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/luizfernandosilva/Documents/Projetos/Geometria/Sources/Geometria/Matrices/Matrix3x2.swift",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Matrices/Matrix3x2.swift",
       "line": 650,
       "symbol": "Matrix3x2.transform(points:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/luizfernandosilva/Documents/Projetos/Geometria"
+  "source_directory": "/Users/runner/work/Geometria/Geometria"
 }
