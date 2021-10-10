@@ -144,7 +144,8 @@
 			"swift"
 		],
 		"cSpell.words": [
-			"aabb",
+			"AABB",
+			"Boundable",
 			"exodiusstudios",
 			"Sarrus",
 			"swiftpm",

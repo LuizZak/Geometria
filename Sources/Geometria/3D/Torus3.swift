@@ -1,3 +1,5 @@
+import RealModule
+
 /// Represents a three dimensional [torus] shape as a center point, an axis of
 /// rotation around that center point, and two radii describing the radius of
 /// a circle, and the radius of the axis of rotation of the circle around the
@@ -100,15 +102,17 @@ extension Torus3: VolumetricType {
 
             norm = fromCenter / length
         } else {
-            var cross = axis.cross(.unitX)
-            if cross == .zero {
-                cross = axis.cross(.unitY)
-            }
-
-            norm = axis.cross(cross).normalized()
+            // Points on the center of the torus are only contained within the
+            // torus if the major radius is less than the minor radius, i.e the
+            // tube overlaps the center point.
+            return majorRadius < minorRadius
         }
 
         let tubeCenter = center + norm * majorRadius
+        print(center)
+        print(axis)
+        print(projected)
+        print(tubeCenter)
         return tubeCenter.distanceSquared(to: vector) <= minorRadius * minorRadius
     }
 }
@@ -140,5 +144,31 @@ extension Torus3: PointProjectableType {
         fromTubeCenter.normalize()
 
         return tubeCenter + fromTubeCenter * minorRadius
+    }
+}
+
+extension Torus3: SignedDistanceMeasurableType where Vector.Scalar: Real {
+    public func signedDistance(to point: Vector) -> Vector.Scalar {
+        // Distance function derived from: https://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+        
+        // Re-orient the vector according to the orientation of the axis of the
+        // torus, as the algorithm expects the torus to be lying flat along the
+        // Z axis, centered around the origin.
+        // If the torus' axis is pointing up or down the Z axis, skip the rotation
+        // step.
+        var transformed = point - center
+        if axis != .unitZ && axis != -.unitZ {
+            let origin = Vector.unitZ
+            let target = axis
+
+            let rAxis = origin.cross(target)
+            let angle = Scalar.acos(origin.dot(target))
+            let m = RotationMatrix3.make3DRotationFromAxisAngle(axis: rAxis, angle)
+
+            transformed = m.transformPoint(transformed)
+        }
+
+        let q = Vector.SubVector2(x: transformed.take.xz.length - majorRadius, y: transformed.y)
+        return q.length - minorRadius
     }
 }

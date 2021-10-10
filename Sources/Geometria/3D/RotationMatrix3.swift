@@ -162,7 +162,7 @@ public extension RotationMatrix3 {
     /// axis](https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle) 
     /// with a given [orientation] (handedness), by a given angle in radians.
     ///
-    /// `axis` is normalized pior to the creation of the rotation matrix is.
+    /// `axis` is normalized pior to the creation of the rotation matrix.
     ///
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
