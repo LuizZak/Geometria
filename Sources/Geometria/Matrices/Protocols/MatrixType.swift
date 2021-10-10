@@ -19,6 +19,26 @@ public protocol MatrixType: Equatable {
     /// Gets or sets the scalar value on a given column/row in this matrix.
     subscript(column: Int, row: Int) -> Scalar { get set }
 
+    /// Initializes a matrix with a flat list of values that are read in
+    /// [row-major order].
+    ///
+    /// The list should have at least `rowCount * columnCount` elements.
+    ///
+    /// [row major order]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    ///
+    /// - precondition: `values.count >= rowCount * columnCount`
+    init(rowMajorValues values: [Scalar])
+
+    /// Initializes a matrix with a flat list of values that are read in
+    /// [column-major order].
+    ///
+    /// The list should have at least `rowCount * columnCount` elements.
+    ///
+    /// [column major order]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    ///
+    /// - precondition: `values.count >= rowCount * columnCount`
+    init(columnMajorValues values: [Scalar])
+
     /// Returns a flat array of each scalar value from this matrix ordered as a
     /// [row major] list.
     ///
@@ -80,6 +100,46 @@ public protocol MatrixType: Equatable {
 }
 
 public extension MatrixType {
+    /// Initializes a matrix with a flat list of values that are read in
+    /// [row-major order].
+    ///
+    /// The list should have at least `rowCount * columnCount` elements.
+    ///
+    /// [row major order]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    ///
+    /// - precondition: `values.count >= rowCount * columnCount`
+    init(rowMajorValues values: [Scalar]) {
+        self = .identity
+        
+        var index = 0
+        for row in 0..<rowCount {
+            for column in 0..<columnCount {
+                self[column, row] = values[index]
+                index += 1
+            }
+        }
+    }
+
+    /// Initializes a matrix with a flat list of values that are read in
+    /// [column-major order].
+    ///
+    /// The list should have at least `rowCount * columnCount` elements.
+    ///
+    /// [column major order]: https://en.wikipedia.org/wiki/Row-_and_column-major_order
+    ///
+    /// - precondition: `values.count >= rowCount * columnCount`
+    init(columnMajorValues values: [Scalar]) {
+        self = .identity
+        
+        var index = 0
+        for column in 0..<columnCount {
+            for row in 0..<rowCount {
+                self[column, row] = values[index]
+                index += 1
+            }
+        }
+    }
+
     /// Returns a flat array of each scalar value from this matrix ordered as a
     /// [row major] list.
     ///
@@ -87,9 +147,11 @@ public extension MatrixType {
     func rowMajorValues() -> [Scalar] {
         var values: [Scalar] = .init(repeating: 0, count: columnCount * rowCount)
 
+        var index = 0
         for row in 0..<rowCount {
             for column in 0..<columnCount {
-                values[column + row * columnCount] = self[column, row]
+                values[index] = self[column, row]
+                index += 1
             }
         }
 
@@ -103,9 +165,11 @@ public extension MatrixType {
     func columnMajorValues() -> [Scalar] {
         var values: [Scalar] = .init(repeating: 0, count: columnCount * rowCount)
 
-        for row in 0..<rowCount {
-            for column in 0..<columnCount {
-                values[row + column * rowCount] = self[column, row]
+        var index = 0
+        for column in 0..<columnCount {
+            for row in 0..<rowCount {
+                values[index] = self[column, row]
+                index += 1
             }
         }
 
