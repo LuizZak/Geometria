@@ -64,6 +64,12 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/ConvexLineIntersection/PointNormalKind.html">– PointNormalKind</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Orientation3.html">Orientation3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/RotationOrder3.html">RotationOrder3</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -146,6 +152,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Rectangle2.html">Rectangle2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/RotationMatrix3.html">RotationMatrix3</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/RoundRectangle2.html">RoundRectangle2</a>
@@ -269,6 +278,9 @@
                 <a class="nav-group-task-link" href="Protocols/Line3FloatingPoint.html">Line3FloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Line3IntersectableType.html">Line3IntersectableType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Line3Type.html">Line3Type</a>
               </li>
               <li class="nav-group-task">
@@ -282,6 +294,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/LineIntersectableType.html">LineIntersectableType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/LineMultiplicative.html">LineMultiplicative</a>
@@ -421,6 +436,12 @@
                 <a class="nav-group-task-link" href="Structs/Line.html">Line</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/LineIntersection.html">LineIntersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/LineIntersection/Intersection.html">– Intersection</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/LineIntersectionResult.html">LineIntersectionResult</a>
               </li>
               <li class="nav-group-task">
@@ -473,6 +494,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/TakeVector3.html">TakeVector3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Torus3.html">Torus3</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Triangle.html">Triangle</a>
@@ -738,6 +762,15 @@
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria11Rectangle2ia">Rectangle2i</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria16RotationMatrix3Da">RotationMatrix3D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria16RotationMatrix3Fa">RotationMatrix3F</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria15RoundRectangle2a">RoundRectangle2</a>
               </li>
               <li class="nav-group-task">
@@ -781,6 +814,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Stadium2ia">Stadium2i</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria7Torus3Da">Torus3D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria7Torus3Fa">Torus3F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Triangle2a">Triangle2</a>
@@ -1133,6 +1172,43 @@ to form <code><a href="Protocols/Vector2Type.html">Vector2Type</a></code>s out o
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria6Torus3V"></a>
+                    <a name="//apple_ref/swift/Struct/Torus3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria6Torus3V">Torus3</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a three dimensional <a href="https://en.wikipedia.org/wiki/Torus">torus</a> shape as a center point, an axis of
+rotation around that center point, and two radii describing the radius of
+a circle, and the radius of the axis of rotation of the circle around the
+center point of the torus.</p>
+
+                        <a href="Structs/Torus3.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Torus3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="Protocols/BoundableType.html">BoundableType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="Protocols/VolumetricType.html">VolumetricType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="Protocols/PointProjectableType.html">PointProjectableType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Real</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria7Vector3V"></a>
                     <a name="//apple_ref/swift/Struct/Vector3" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria7Vector3V">Vector3</a>
@@ -1363,6 +1439,36 @@ which describe the two points an infinite line crosses.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Line</span><span class="p">:</span> <span class="kt"><a href="Protocols/LineDivisible.html">LineDivisible</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Line</span><span class="p">:</span> <span class="kt"><a href="Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/PointProjectableType.html">PointProjectableType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Line</span><span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria8LineRealP">LineReal</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorReal.html">VectorReal</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria16LineIntersectionV"></a>
+                    <a name="//apple_ref/swift/Struct/LineIntersection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria16LineIntersectionV">LineIntersection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The result of a <code><a href="Protocols/LineIntersectableType.html">LineIntersectableType</a></code>-line intersection test.</p>
+
+                        <a href="Structs/LineIntersection.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LineIntersection</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorType.html">VectorType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">LineIntersection</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">LineIntersection</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -1927,7 +2033,7 @@ components.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-10-05)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="noopener" rel="external"></a>. All rights reserved. (Last updated: 2021-10-10)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="noopener" rel="external">jazzy ♪♫ v0.14.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="noopener" rel="external">Realm</a> project.</p>
     </section>
   </body>
