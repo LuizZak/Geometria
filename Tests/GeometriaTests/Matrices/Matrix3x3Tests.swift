@@ -459,6 +459,7 @@ class Matrix3x3Tests: XCTestCase {
     
     func testMake2DTranslationVector() {
         let vec = Vector2D(x: 1, y: 2)
+        
         let sut = Matrix.make2DTranslation(vec)
         
         assertEqual(sut.r0, (1, 0, 1), accuracy: accuracy)
@@ -466,6 +467,52 @@ class Matrix3x3Tests: XCTestCase {
         assertEqual(sut.r2, (0, 0, 1), accuracy: accuracy)
     }
     
+    func test3DMakeSkewSymmetricCrossProduct_rightHanded() {
+        let a = Vector3D(x: 1, y: 2, z: 3)
+
+        let sut = Matrix.make3DSkewSymmetricCrossProduct(a, orientation: .rightHanded)
+
+        assertEqual(sut.r0, ( 0, -3,  2), accuracy: accuracy)
+        assertEqual(sut.r1, ( 3,  0, -1), accuracy: accuracy)
+        assertEqual(sut.r2, (-2,  1,  0), accuracy: accuracy)
+    }
+    
+    func test3DMakeSkewSymmetricCrossProduct_leftHanded() {
+        let a = Vector3D(x: 1, y: 2, z: 3)
+
+        let sut = Matrix.make3DSkewSymmetricCrossProduct(a, orientation: .leftHanded)
+
+        assertEqual(sut.r0, ( 0,  3, -2), accuracy: accuracy)
+        assertEqual(sut.r1, (-3,  0,  1), accuracy: accuracy)
+        assertEqual(sut.r2, ( 2, -1,  0), accuracy: accuracy)
+    }
+    
+    func test3DMakeSkewSymmetricCrossProduct_multiplyingProducesCrossProduct_rightHanded() {
+        let a = Vector3D(x: 1, y: 0, z: 0)
+        let b = Vector3D(x: 0, y: 1, z: 0)
+        let cross = a.cross(b)
+        let sut = Matrix.make3DSkewSymmetricCrossProduct(a, orientation: .rightHanded)
+
+        let result = sut.transformPoint(b)
+
+        XCTAssertEqual(result.x, cross.x)
+        XCTAssertEqual(result.y, cross.y)
+        XCTAssertEqual(result.z, cross.z)
+    }
+    
+    func test3DMakeSkewSymmetricCrossProduct_multiplyingProducesCrossProduct_leftHanded() {
+        let a = Vector3D(x: 1, y: 0, z: 0)
+        let b = Vector3D(x: 0, y: 1, z: 0)
+        let cross = -a.cross(b)
+        let sut = Matrix.make3DSkewSymmetricCrossProduct(a, orientation: .leftHanded)
+
+        let result = sut.transformPoint(b)
+
+        XCTAssertEqual(result.x, cross.x)
+        XCTAssertEqual(result.y, cross.y)
+        XCTAssertEqual(result.z, cross.z)
+    }
+
     func testAddition() {
         let lhs =
         Matrix(rows: (

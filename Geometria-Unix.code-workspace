@@ -139,7 +139,16 @@
 			},
 		],
 		"ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
-		"ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test"
+		"ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
+		"cSpell.enableFiletypes": [
+			"swift"
+		],
+		"cSpell.words": [
+			"exodiusstudios",
+			"Sarrus",
+			"swiftpm",
+			"Unequality"
+		]
 	},
 	"extensions": {
 		"recommendations": [
