@@ -399,6 +399,33 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func make2DTranslation<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
         make2DTranslation(x: vec.x, y: vec.y)
     }
+
+    /// Creates a [skew-symmetric cross product] matrix for a given vector.
+    ///
+    /// When a skew-symmetric matrix `m` is created using this method with a 
+    /// vector `a`, a vector `b` multiplied by the matrix is equivalent to the 
+    /// result of `a × b`.
+    ///
+    /// Changing the [orientation] parameter results in a matrix that flips the
+    /// sign of the resulting cross product.
+    ///
+    /// [skew-symmetric cross product]: https://en.wikipedia.org/wiki/Skew-symmetric_matrix#Cross_product
+    /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
+    @_transparent
+    public static func make3DSkewSymmetricCrossProduct<Vector: Vector3Type>(_ vector: Vector, 
+                                                                            orientation: Orientation3 = .rightHanded) -> Self where Vector.Scalar == Scalar {
+        let x = vector.x
+        let y = vector.y
+        let z = vector.z
+
+        let m = Self(rows: (
+            ( 0, -z,  y),
+            ( z,  0, -x),
+            (-y,  x,  0)
+        ))
+
+        return orientation == .rightHanded ? m : m.transposed()
+    }
     
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
     /// result.
