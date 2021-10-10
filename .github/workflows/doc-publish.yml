@@ -15,7 +15,7 @@ jobs:
   publish:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.4
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
     # change this to (see https://github.com/ruby/setup-ruby#versioning):
@@ -23,5 +23,12 @@ jobs:
       uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
       with:
         bundler: Gemfile.lock
+    - run: |
+        bundle install
+        mkdir docs
+    - uses: actions/checkout@v2.3.4
+      with:
+        ref: gh-pages
+        path: docs
     - name: Publish documentation
       run: make doc-publish
