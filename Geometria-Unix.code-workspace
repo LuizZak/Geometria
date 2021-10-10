@@ -89,19 +89,6 @@
 			"path": ".build/x86_64-unknown-linux-gnu"
 		}
 	],
-	"launch": {
-		"configurations": [
-			{
-				"type": "lldb",
-				"request": "launch",
-				"name": "Launch",
-				"program": "${workspaceFolder:Build}/<your program>",
-				"args": [],
-				"cwd": "${workspaceFolder}"
-			}
-		],
-		"compounds": []
-	},
 	"settings": {
 		"files.eol": "\n",
 		"files.insertFinalNewline": true,
