@@ -101,25 +101,25 @@
 		"commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor,.build,.swiftpm}/**/*",
 		"commentAnchors.tags.list": [
 			{
-				"tag": "MARK",
+				"tag": "MARK:",
 				"iconColor": "default",
 				"highlightColor": "#A8C023",
 				"scope": "file"
 			},
 			{
-				"tag": "TODO",
+				"tag": "TODO:",
 				"iconColor": "blue",
 				"highlightColor": "#3ea8ff",
 				"scope": "workspace"
 			},
 			{
-				"tag": "FIXME",
+				"tag": "FIXME:",
 				"iconColor": "red",
 				"highlightColor": "#F44336",
 				"scope": "workspace"
 			},
 			{
-				"tag": "NOTE",
+				"tag": "NOTE:",
 				"iconColor": "orange",
 				"highlightColor": "#FFB300",
 				"scope": "file"
