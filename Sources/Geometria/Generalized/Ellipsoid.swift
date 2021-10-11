@@ -32,7 +32,7 @@ extension Ellipsoid: BoundableType where Vector: VectorAdditive {
 }
 
 public extension Ellipsoid where Vector: VectorMultiplicative {
-    /// Retunrs an ``Ellipsoid`` with center `.zero` and radius `.one`.
+    /// Returns an ``Ellipsoid`` with center `.zero` and radius `.one`.
     @_transparent
     static var unit: Self {
         Self(center: .zero, radius: .one)

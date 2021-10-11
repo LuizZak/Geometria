@@ -1,4 +1,4 @@
-/// Clamps the given value between a range specied by `minimum` and `maximum`.
+/// Clamps the given value between a range specified by `minimum` and `maximum`.
 ///
 /// ```swift
 /// let a = 7.0
@@ -14,7 +14,7 @@ func clamp<T: Comparable>(_ value: T, min: T, max: T) -> T {
 }
 
 extension Comparable {
-    /// Clamps the given value between a range specied by `minimum` and `maximum`.
+    /// Clamps the given value between a range specified by `minimum` and `maximum`.
     ///
     /// ```swift
     /// let a = 7.0

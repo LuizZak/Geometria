@@ -134,6 +134,7 @@
 			"AABB",
 			"Boundable",
 			"exodiusstudios",
+			"Intersectable",
 			"Sarrus",
 			"swiftpm",
 			"Unequality"
