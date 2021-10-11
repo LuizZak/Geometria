@@ -502,7 +502,7 @@ extension Torus3Tests {
 
         let result = sut.signedDistance(to: point)
 
-        XCTAssertEqual(result, 26.75606231793161, accuracy: accuracy)
+        XCTAssertEqual(result, 17.977026029325163, accuracy: accuracy)
     }
 
     func testSignedDistance_pointInTube() {
@@ -516,7 +516,7 @@ extension Torus3Tests {
 
         let result = sut.signedDistance(to: point)
 
-        XCTAssertEqual(result, -1.9782711335573246, accuracy: accuracy)
+        XCTAssertEqual(result, -1.8377223398316205, accuracy: accuracy)
     }
 
     func testSignedDistance_pointInsideMajorRadius() {
@@ -530,7 +530,7 @@ extension Torus3Tests {
 
         let result = sut.signedDistance(to: point)
 
-        XCTAssertEqual(result, 7.9289321881345245, accuracy: accuracy)
+        XCTAssertEqual(result, 10.811388300841896, accuracy: accuracy)
     }
 
     func testSignedDistance_pointOnTubeCenter() {
@@ -600,9 +600,7 @@ extension Torus3Tests {
 
         let result = sut.signedDistance(to: point)
 
-        print(sut.axis.cross(.unitZ))
-
-        XCTAssertEqual(result, -2.887474488316567, accuracy: accuracy)
+        XCTAssertEqual(result, -2.4544854750067215, accuracy: accuracy)
     }
 
     func testSignedDistance_tiltedTorus_pointOnCenter() {

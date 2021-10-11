@@ -156,15 +156,14 @@ class P5Printer {
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(torus.center)))")
         
-        // Create matrix that will rotate the torus from laying on the Z-axis
+        // Create matrix that will rotate the torus from laying on the Y-axis
         // to laying in the direction of its axis
-        let origin = Vector3D.unitZ
+        let origin = Vector3D.unitY
         let target = torus.axis
-        let crossY = target.cross(origin)
-        if crossY != .zero {
-            let matrix = RotationMatrix3.make3DRotationBetween(origin, target)
-
-            applyMatrix3DString(matrix).forEach(addDrawLine)
+        if origin != target && origin != -target {
+            let axis = origin.cross(target)
+            let angle = Double.acos(origin.dot(target))
+            addDrawLine("rotate(\(-angle), \(vec3PVectorString(vec3ToP5Vec(axis))))")
         }
         
         addDrawLine("torus(\(torus.majorRadius), \(torus.minorRadius))")
@@ -183,11 +182,10 @@ class P5Printer {
         // to growing in the direction of its line
         let origin = Vector3D.unitY
         let target = line.lineSlope
-        let crossY = target.cross(origin)
-        if crossY != .zero {
-            let matrix = RotationMatrix3.make3DRotationBetween(origin, target)
-
-            applyMatrix3DString(matrix).forEach(addDrawLine)
+        if origin != target && origin != -target {
+            let axis = origin.cross(target)
+            let angle = Double.acos(origin.dot(target))
+            addDrawLine("rotate(\(-angle), \(vec3PVectorString(vec3ToP5Vec(axis))))")
         }
         
         addDrawLine("cylinder(\(cylinder.radius), \(line.length))")
@@ -483,23 +481,29 @@ class P5Printer {
             printLine("pop()")
         }
     }
+
+    // MARK: Transformations
+
+    func vec3ToP5Vec<Vector: Vector3Type>(_ vec: Vector) -> Vector where Vector.Scalar: SignedNumeric {
+        return .init(x: vec.x, y: vec.z, z: -vec.y)
+    }
     
     // MARK: String printing
     
-    func vec3PVectorString<V: Vector3Type>(_ vec: V) -> String where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func vec3PVectorString<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         return "createVector(\(vec3String(vec)))"
     }
     
-    func vec3String<V: Vector3Type>(_ vec: V) -> String where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func vec3String<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         return "\(vec.x), \(vec.y), \(vec.z)"
     }
     
-    func vec3String_pCoordinates<V: Vector3Type>(_ vec: V) -> String where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func vec3String_pCoordinates<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         // Flip Y-Z axis (in Processing positive Y axis is down and positive Z axis is towards the screen)
         return "\(vec.x), \(-vec.z), \(-vec.y)"
     }
     
-    func vec2String<V: Vector2Type>(_ vec: V) -> String where V.Scalar: CustomStringConvertible {
+    func vec2String<Vector: Vector2Type>(_ vec: Vector) -> String where Vector.Scalar: CustomStringConvertible {
         "\(vec.x), \(vec.y)"
     }
 
