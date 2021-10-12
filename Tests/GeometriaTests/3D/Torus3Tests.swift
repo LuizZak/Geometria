@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 
 class Torus3Tests: XCTestCase {
-    let accuracy = 1e-16
+    let accuracy = 1e-13
     typealias Vector = Vector3D
     typealias Torus = Torus3<Vector>
 
