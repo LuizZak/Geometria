@@ -35,8 +35,7 @@
 				"command": "swift",
 				"args": [
 					"build",
-					"--configuration",
-					"debug"
+					"--configuration", "debug"
 				],
 				"presentation": {
 					"reveal": "always"
@@ -44,6 +43,11 @@
 				"group": {
 					"kind": "build",
 					"isDefault": true
+				},
+				"options": {
+					"env": {
+						"REPORT_BUILD_TIME": "NO"
+					}
 				}
 			},
 			{
@@ -52,8 +56,7 @@
 				"command": "swift",
 				"args": [
 					"test",
-					"--configuration",
-					"debug"
+					"--configuration", "debug"
 				],
 				"presentation": {
 					"reveal": "always"
@@ -61,6 +64,11 @@
 				"group": {
 					"kind": "test",
 					"isDefault": true
+				},
+				"options": {
+					"env": {
+						"REPORT_BUILD_TIME": "NO"
+					}
 				}
 			},
 			{
@@ -69,11 +77,34 @@
 				"command": "swift",
 				"args": [
 					"build",
-					"-c",
-					"release"
+					"--configuration", "release"
 				],
-				"group": "build"
-			}
+				"group": "build",
+				"options": {
+					"env": {
+						"REPORT_BUILD_TIME": "NO"
+					}
+				}
+			},
+			{
+				"label": "Build (time)",
+				"type": "shell",
+				"command": "time",
+				"args": [
+					"swift",
+					"build",
+					"--configuration", "debug",
+				],
+				"presentation": {
+					"reveal": "always"
+				},
+				"group": "build",
+				"options": {
+					"env": {
+						"REPORT_BUILD_TIME": "YES"
+					}
+				}
+			},
 		]
 	},
 	"folders": [
@@ -127,6 +158,7 @@
 		],
 		"ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
 		"ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
+		"ShortcutMenuBar.userButton03Command": "workbench.action.tasks.runTask|Build (time)",
 		"cSpell.enableFiletypes": [
 			"swift"
 		],

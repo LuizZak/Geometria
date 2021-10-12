@@ -53,6 +53,6 @@ public extension LinePolygon where Vector: VectorFloatingPoint {
     /// [arithmetic mean]: https://en.wikipedia.org/wiki/Arithmetic_mean
     @inlinable
     var average: Vector {
-        vertices.reduce(.zero, +) / max(1, Scalar(vertices.count))
+        (vertices.reduce(.zero, +) as Vector) / (max(1, Scalar(vertices.count)) as Scalar)
     }
 }

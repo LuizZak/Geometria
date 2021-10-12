@@ -19,7 +19,7 @@ public extension Triangle3 where Vector: Vector3Multiplicative {
     /// The resulting cross vector can be used to compute the area of the
     /// triangle, its normal, and its winding.
     ///
-    /// For a 3D triangle, the cossed area is computed as the cross-product of
+    /// For a 3D triangle, the crossed area is computed as the cross-product of
     /// `BA` and `CA`:
     ///
     /// ```swift
@@ -219,23 +219,23 @@ extension Triangle3: SignedDistanceMeasurableType where Vector: Vector3FloatingP
     public func signedDistance(to point: Vector) -> Vector.Scalar {
         // Derived from:
         // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
-        let ba = b - a
-        let pa = point - a
-        let cb = c - b
-        let pb = point - b
-        let ac = a - c
-        let pc = point - c
-        let nor = ba.cross(ac)
+        let ba: Vector = b - a
+        let pa: Vector = point - a
+        let cb: Vector = c - b
+        let pb: Vector = point - b
+        let ac: Vector = a - c
+        let pc: Vector = point - c
+        let nor: Vector = ba.cross(ac)
         
-        let sign: Scalar =
-        signValue(ba.cross(nor).dot(pa)) +
-        signValue(cb.cross(nor).dot(pb)) +
-        signValue(ac.cross(nor).dot(pc))
+        var sign: Scalar = .zero
+        sign += signValue(ba.cross(nor).dot(pa)) as Scalar
+        sign += signValue(cb.cross(nor).dot(pb)) as Scalar
+        sign += signValue(ac.cross(nor).dot(pc)) as Scalar
         
         if sign < 2 {
-            let fba: Scalar = (ba * clamp(ba.dot(pa) / ba.lengthSquared, min: 0, max: 1) - pa).lengthSquared
-            let fcb: Scalar = (cb * clamp(cb.dot(pb) / cb.lengthSquared, min: 0, max: 1) - pb).lengthSquared
-            let fac: Scalar = (ac * clamp(ac.dot(pc) / ac.lengthSquared, min: 0, max: 1) - pc).lengthSquared
+            let fba: Scalar = ((ba * clamp(ba.dot(pa) as Scalar / ba.lengthSquared as Scalar, min: 0, max: 1) as Vector - pa) as Vector).lengthSquared
+            let fcb: Scalar = ((cb * clamp(cb.dot(pb) as Scalar / cb.lengthSquared as Scalar, min: 0, max: 1) as Vector - pb) as Vector).lengthSquared
+            let fac: Scalar = ((ac * clamp(ac.dot(pc) as Scalar / ac.lengthSquared as Scalar, min: 0, max: 1) as Vector - pc) as Vector).lengthSquared
             
             return min(min(fba, fcb), fac).squareRoot()
         }

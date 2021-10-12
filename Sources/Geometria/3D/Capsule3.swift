@@ -33,8 +33,8 @@ extension Capsule3: SignedDistanceMeasurableType where Vector: VectorFloatingPoi
         // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
         let pa = point - start
         let ba = end - start
-        let h = clamp(pa.dot(ba) / ba.lengthSquared, min: 0, max: 1)
+        let h = clamp(pa.dot(ba) as Scalar / ba.lengthSquared as Scalar, min: 0, max: 1)
         
-        return (pa - ba * h).length - radius
+        return ((pa - (ba * h) as Vector) as Vector).length - radius
     }
 }

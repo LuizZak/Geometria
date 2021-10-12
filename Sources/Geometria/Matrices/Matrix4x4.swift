@@ -444,24 +444,24 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     ///
     /// If this matrix has no inversion, `nil` is returned, instead.
     public func inverted() -> Self? {
-        let a2323: Scalar = r2.2 * r3.3 - r2.3 * r3.2
-        let a1323: Scalar = r2.1 * r3.3 - r2.3 * r3.1
-        let a1223: Scalar = r2.1 * r3.2 - r2.2 * r3.1
-        let a0323: Scalar = r2.0 * r3.3 - r2.3 * r3.0
-        let a0223: Scalar = r2.0 * r3.2 - r2.2 * r3.0
-        let a0123: Scalar = r2.0 * r3.1 - r2.1 * r3.0
-        let a2313: Scalar = r1.2 * r3.3 - r1.3 * r3.2
-        let a1313: Scalar = r1.1 * r3.3 - r1.3 * r3.1
-        let a1213: Scalar = r1.1 * r3.2 - r1.2 * r3.1
-        let a2312: Scalar = r1.2 * r2.3 - r1.3 * r2.2
-        let a1312: Scalar = r1.1 * r2.3 - r1.3 * r2.1
-        let a1212: Scalar = r1.1 * r2.2 - r1.2 * r2.1
-        let a0313: Scalar = r1.0 * r3.3 - r1.3 * r3.0
-        let a0213: Scalar = r1.0 * r3.2 - r1.2 * r3.0
-        let a0312: Scalar = r1.0 * r2.3 - r1.3 * r2.0
-        let a0212: Scalar = r1.0 * r2.2 - r1.2 * r2.0
-        let a0113: Scalar = r1.0 * r3.1 - r1.1 * r3.0
-        let a0112: Scalar = r1.0 * r2.1 - r1.1 * r2.0
+        let a2323: Scalar = (r2.2 * r3.3) as Scalar - (r2.3 * r3.2) as Scalar
+        let a1323: Scalar = (r2.1 * r3.3) as Scalar - (r2.3 * r3.1) as Scalar
+        let a1223: Scalar = (r2.1 * r3.2) as Scalar - (r2.2 * r3.1) as Scalar
+        let a0323: Scalar = (r2.0 * r3.3) as Scalar - (r2.3 * r3.0) as Scalar
+        let a0223: Scalar = (r2.0 * r3.2) as Scalar - (r2.2 * r3.0) as Scalar
+        let a0123: Scalar = (r2.0 * r3.1) as Scalar - (r2.1 * r3.0) as Scalar
+        let a2313: Scalar = (r1.2 * r3.3) as Scalar - (r1.3 * r3.2) as Scalar
+        let a1313: Scalar = (r1.1 * r3.3) as Scalar - (r1.3 * r3.1) as Scalar
+        let a1213: Scalar = (r1.1 * r3.2) as Scalar - (r1.2 * r3.1) as Scalar
+        let a2312: Scalar = (r1.2 * r2.3) as Scalar - (r1.3 * r2.2) as Scalar
+        let a1312: Scalar = (r1.1 * r2.3) as Scalar - (r1.3 * r2.1) as Scalar
+        let a1212: Scalar = (r1.1 * r2.2) as Scalar - (r1.2 * r2.1) as Scalar
+        let a0313: Scalar = (r1.0 * r3.3) as Scalar - (r1.3 * r3.0) as Scalar
+        let a0213: Scalar = (r1.0 * r3.2) as Scalar - (r1.2 * r3.0) as Scalar
+        let a0312: Scalar = (r1.0 * r2.3) as Scalar - (r1.3 * r2.0) as Scalar
+        let a0212: Scalar = (r1.0 * r2.2) as Scalar - (r1.2 * r2.0) as Scalar
+        let a0113: Scalar = (r1.0 * r3.1) as Scalar - (r1.1 * r3.0) as Scalar
+        let a0112: Scalar = (r1.0 * r2.1) as Scalar - (r1.1 * r2.0) as Scalar
         
         var det = determinant()
         if det == 0 {
@@ -469,28 +469,31 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         }
         
         det = 1 / det
-        
-        let row0: Row = (det *  ((r1.1 * a2323) as Scalar - (r1.2 * a1323) as Scalar + r1.3 * a1223) as Scalar,
-                         det * -((r0.1 * a2323) as Scalar - (r0.2 * a1323) as Scalar + r0.3 * a1223) as Scalar,
-                         det *  ((r0.1 * a2313) as Scalar - (r0.2 * a1313) as Scalar + r0.3 * a1213) as Scalar,
-                         det * -((r0.1 * a2312) as Scalar - (r0.2 * a1312) as Scalar + r0.3 * a1212) as Scalar)
-        
-        let row1: Row = (det * -((r1.0 * a2323) as Scalar - (r1.2 * a0323) as Scalar + r1.3 * a0223) as Scalar,
-                         det *  ((r0.0 * a2323) as Scalar - (r0.2 * a0323) as Scalar + r0.3 * a0223) as Scalar,
-                         det * -((r0.0 * a2313) as Scalar - (r0.2 * a0313) as Scalar + r0.3 * a0213) as Scalar,
-                         det *  ((r0.0 * a2312) as Scalar - (r0.2 * a0312) as Scalar + r0.3 * a0212) as Scalar)
-        
-        let row2: Row = (det *  ((r1.0 * a1323) as Scalar - (r1.1 * a0323) as Scalar + r1.3 * a0123) as Scalar,
-                         det * -((r0.0 * a1323) as Scalar - (r0.1 * a0323) as Scalar + r0.3 * a0123) as Scalar,
-                         det *  ((r0.0 * a1313) as Scalar - (r0.1 * a0313) as Scalar + r0.3 * a0113) as Scalar,
-                         det * -((r0.0 * a1312) as Scalar - (r0.1 * a0312) as Scalar + r0.3 * a0112) as Scalar)
-        
-        let row3: Row = (det * -((r1.0 * a1223) as Scalar - (r1.1 * a0223) as Scalar + r1.2 * a0123) as Scalar,
-                         det *  ((r0.0 * a1223) as Scalar - (r0.1 * a0223) as Scalar + r0.2 * a0123) as Scalar,
-                         det * -((r0.0 * a1213) as Scalar - (r0.1 * a0213) as Scalar + r0.2 * a0113) as Scalar,
-                         det *  ((r0.0 * a1212) as Scalar - (r0.1 * a0212) as Scalar + r0.2 * a0112) as Scalar)
-        
-        return Self(rows: (row0, row1, row2, row3))
+
+        // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
+        let m00: Scalar = det *  ((r1.1 * a2323) as Scalar - (r1.2 * a1323) as Scalar + (r1.3 * a1223) as Scalar) as Scalar
+        let m10: Scalar = det * -((r0.1 * a2323) as Scalar - (r0.2 * a1323) as Scalar + (r0.3 * a1223) as Scalar) as Scalar
+        let m20: Scalar = det *  ((r0.1 * a2313) as Scalar - (r0.2 * a1313) as Scalar + (r0.3 * a1213) as Scalar) as Scalar
+        let m30: Scalar = det * -((r0.1 * a2312) as Scalar - (r0.2 * a1312) as Scalar + (r0.3 * a1212) as Scalar) as Scalar
+        let m01: Scalar = det * -((r1.0 * a2323) as Scalar - (r1.2 * a0323) as Scalar + (r1.3 * a0223) as Scalar) as Scalar
+        let m11: Scalar = det *  ((r0.0 * a2323) as Scalar - (r0.2 * a0323) as Scalar + (r0.3 * a0223) as Scalar) as Scalar
+        let m21: Scalar = det * -((r0.0 * a2313) as Scalar - (r0.2 * a0313) as Scalar + (r0.3 * a0213) as Scalar) as Scalar
+        let m31: Scalar = det *  ((r0.0 * a2312) as Scalar - (r0.2 * a0312) as Scalar + (r0.3 * a0212) as Scalar) as Scalar
+        let m02: Scalar = det *  ((r1.0 * a1323) as Scalar - (r1.1 * a0323) as Scalar + (r1.3 * a0123) as Scalar) as Scalar
+        let m12: Scalar = det * -((r0.0 * a1323) as Scalar - (r0.1 * a0323) as Scalar + (r0.3 * a0123) as Scalar) as Scalar
+        let m22: Scalar = det *  ((r0.0 * a1313) as Scalar - (r0.1 * a0313) as Scalar + (r0.3 * a0113) as Scalar) as Scalar
+        let m32: Scalar = det * -((r0.0 * a1312) as Scalar - (r0.1 * a0312) as Scalar + (r0.3 * a0112) as Scalar) as Scalar
+        let m03: Scalar = det * -((r1.0 * a1223) as Scalar - (r1.1 * a0223) as Scalar + (r1.2 * a0123) as Scalar) as Scalar
+        let m13: Scalar = det *  ((r0.0 * a1223) as Scalar - (r0.1 * a0223) as Scalar + (r0.2 * a0123) as Scalar) as Scalar
+        let m23: Scalar = det * -((r0.0 * a1213) as Scalar - (r0.1 * a0213) as Scalar + (r0.2 * a0113) as Scalar) as Scalar
+        let m33: Scalar = det *  ((r0.0 * a1212) as Scalar - (r0.1 * a0212) as Scalar + (r0.2 * a0112) as Scalar) as Scalar
+
+        return Self(rows: (
+            (m00, m10, m20, m30) as Row,
+            (m01, m11, m21, m31) as Row,
+            (m02, m12, m22, m32) as Row,
+            (m03, m13, m23, m33) as Row
+        ))
     }
     
     /// Creates a matrix that when applied to a vector, scales each coordinate

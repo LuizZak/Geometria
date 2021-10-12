@@ -78,7 +78,7 @@ public extension Triangle where Vector: VectorDivisible {
     /// ```
     @_transparent
     var center: Vector {
-        (a + b + c) / 3
+        return (a + b + c) / 3
     }
 }
 

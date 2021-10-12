@@ -7,8 +7,9 @@ let geometriaDependencies: [Target.Dependency] = [
 ]
 let reportingSwiftSettings: [SwiftSetting] = [
     .unsafeFlags([
+        "-driver-time-compilation",
         "-Xfrontend",
-        "-warn-long-function-bodies=600",
+        "-warn-long-function-bodies=500",
         "-Xfrontend",
         "-warn-long-expression-type-checking=50"
     ])
@@ -16,7 +17,7 @@ let reportingSwiftSettings: [SwiftSetting] = [
 
 let geometriaTarget: Target
 let geometriaTestsTarget: Target
-if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] != nil {
+if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" {
     geometriaTarget = .target(
         name: "Geometria",
         dependencies: geometriaDependencies,
