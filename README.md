@@ -117,7 +117,7 @@ A collection of definitions and algorithms for working with 2- and 3- dimensiona
             <a href="https://en.wikipedia.org/wiki/Hypercube">N-dimensional cube (Hypercube)</a>
         </td>
         <td>
-            <a href="Sources/Geometria/Generalized/NCube.swift">NCube.swift</a>
+            <a href="Sources/Geometria/Generalized/NSquare.swift">NSquare.swift</a>
         </td>
         <td>
             Generalized for any dimension.
