@@ -30,8 +30,22 @@
 		],
 		"tasks": [
 			{
+				"label": "Clean",
+				"type": "shell",
+				"detail": "swift package clean",
+				"command": "swift",
+				"args": [
+					"package",
+					"clean"
+				],
+				"presentation": {
+					"reveal": "silent"
+				}
+			},
+			{
 				"label": "Build (debug)",
 				"type": "shell",
+				"detail": "swift build --configuration debug",
 				"command": "swift",
 				"args": [
 					"build",
@@ -53,6 +67,7 @@
 			{
 				"label": "Test",
 				"type": "shell",
+				"detail": "swift test --configuration debug",
 				"command": "swift",
 				"args": [
 					"test",
@@ -74,6 +89,7 @@
 			{
 				"label": "Build (Release)",
 				"type": "shell",
+				"detail": "swift test --configuration release",
 				"command": "swift",
 				"args": [
 					"build",
@@ -89,6 +105,8 @@
 			{
 				"label": "Build (time)",
 				"type": "shell",
+				"detail": "Runs clean build and reports compilation time of function bodies and expressions",
+				"dependsOn": "Clean",
 				"command": "time",
 				"args": [
 					"swift",
@@ -166,6 +184,7 @@
 			"AABB",
 			"Boundable",
 			"exodiusstudios",
+			"Hyperrectangle",
 			"Intersectable",
 			"Sarrus",
 			"swiftpm",
