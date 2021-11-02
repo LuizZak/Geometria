@@ -186,8 +186,10 @@
 			"exodiusstudios",
 			"Hyperrectangle",
 			"Intersectable",
+			"Möller",
 			"Sarrus",
 			"swiftpm",
+			"Trumbore",
 			"Unequality"
 		]
 	},

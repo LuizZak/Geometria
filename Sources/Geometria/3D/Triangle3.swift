@@ -68,8 +68,8 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
             return nil
         }
         
-        let numer = n.dot(pointOnPlane - line.a)
-        return numer / denom
+        let numerator = n.dot(pointOnPlane - line.a)
+        return numerator / denom
     }
     
     @usableFromInline
@@ -144,8 +144,8 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         
         let ba = b - a
         let ca = c - a
-        let pvec = dir.cross(ca)
-        let det = ba.dot(pvec)
+        let pVec = dir.cross(ca)
+        let det = ba.dot(pVec)
         
         if abs(det) < .leastNonzeroMagnitude {
             return nil
@@ -153,14 +153,14 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
         
         let invDet: Scalar = 1 / det
         
-        let tvec = orig - a
-        let wb: Scalar = tvec.dot(pvec) * invDet
+        let tVec = orig - a
+        let wb: Scalar = tVec.dot(pVec) * invDet
         if wb < 0 || wb > 1 {
             return nil
         }
         
-        let qvec = tvec.cross(ba)
-        let wc: Scalar = dir.dot(qvec) * invDet
+        let qVec = tVec.cross(ba)
+        let wc: Scalar = dir.dot(qVec) * invDet
         if wc < 0 {
             return nil
         }
@@ -170,7 +170,7 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
             return nil
         }
         
-        let magnitude: Scalar = (ca.dot(qvec) * invDet) / slope.length
+        let magnitude: Scalar = (ca.dot(qVec) * invDet) / slope.length
         if !line.containsProjectedNormalizedMagnitude(magnitude) {
             return nil
         }
