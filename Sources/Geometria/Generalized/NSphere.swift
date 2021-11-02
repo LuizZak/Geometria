@@ -119,6 +119,51 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
             )
         }
         
+        #if USE_QUADRATIC_FORMULA
+        
+        let oc = line.a - center
+        let direction = line.lineSlope
+        
+        let a = direction.lengthSquared
+        let b = 2 * oc.dot(direction)
+        let c = oc.lengthSquared - radius * radius
+
+        let disc: Scalar = (b * b) as Scalar - (4 * a * c) as Scalar
+        
+        if disc < .zero {
+            return .noIntersection
+        }
+        
+        let a2 = 2 * a
+        let discSq = disc.squareRoot()
+        
+        let t0 = (-b - discSq) / a2
+        let t0p = line.projectedNormalizedMagnitude(t0)
+        
+        if disc == .zero {
+            if line.containsProjectedNormalizedMagnitude(t0) {
+                return .singlePoint(makePointNormal(at: t0p))
+            }
+            
+            return .noIntersection
+        }
+        
+        let t1 = (-b + discSq) / a2
+        let t1p = line.projectedNormalizedMagnitude(t1)
+        
+        switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
+        case (true, true):
+            return .enterExit(makePointNormal(at: t0p), makePointNormal(at: t1p, inverted: true))
+        case (true, false):
+            return .enter(makePointNormal(at: t0p))
+        case (false, true):
+            return .exit(makePointNormal(at: t1p, inverted: true))
+        case (false, false):
+            return t0.sign == t1.sign ? .noIntersection : .contained
+        }
+        
+        #else
+        
         let lineSlope = line.lineSlope
         let relVec = center - line.a
         let lineSlopeLengthSquared = lineSlope.lengthSquared
@@ -157,5 +202,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
+        
+        #endif
     }
 }

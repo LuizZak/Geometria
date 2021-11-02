@@ -75,8 +75,8 @@ public enum ConvexLineIntersection<Vector: VectorType> {
         }
     }
     
-    /// Parameter passed along point normals in ``mappingPointNormals`` and
-    /// ``replacingPointNormals`` to specify to the closure which kind of point
+    /// Parameter passed along point normals in ``mappingPointNormals(_:)`` and
+    /// ``replacingPointNormals(_:)`` to specify to the closure which kind of point
     /// normal was provided.
     public enum PointNormalKind {
         case singlePoint

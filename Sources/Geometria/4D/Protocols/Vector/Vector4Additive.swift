@@ -1,11 +1,11 @@
 /// Protocol for 4D vector types with additive scalars.
 public protocol Vector4Additive: Vector4Type, VectorAdditive where SubVector3: Vector3Additive {
     /// Creates a new vector with the coordinates of a given ``Vector2Type``,
-    /// and 0 on the ``z`` and ``w`` axis.
+    /// and 0 on the ``Vector4Type/z`` and ``Vector4Type/w`` axis.
     init<V: Vector2Type>(_ vec: V) where V.Scalar == Scalar
     
     /// Creates a new vector with the coordinates of a given ``Vector3Type``,
-    /// and 0 on the ``w`` axis.
+    /// and 0 on the ``Vector4Type/w`` axis.
     init<V: Vector3Type>(_ vec: V) where V.Scalar == Scalar
 }
 

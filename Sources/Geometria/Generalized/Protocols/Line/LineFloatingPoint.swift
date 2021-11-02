@@ -61,7 +61,7 @@ public extension LineFloatingPoint {
     /// Returns the closest point on this line to a given point.
     ///
     /// The point is limited to the line's bounds using
-    /// ``clampProjectedNormalizedMagnitude``, so it's guaranteed to be within
+    /// ``clampProjectedNormalizedMagnitude(_:)``, so it's guaranteed to be within
     /// `a <-> b`.
     ///
     /// - seealso: ``projectUnclamped(_:)-7kmi0``

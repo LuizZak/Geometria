@@ -290,6 +290,25 @@ extension PerformanceTests {
 
     #endif
     
+    func xtestSphereLineIntersection3D() {
+        typealias Vector = Vector3D
+        
+        var sphere = Sphere3<Vector>(center: .init(x: 1, y: 2, z: 3), radius: 3)
+        let line = Line<Vector>(
+            x1: -5, y1: 2, z1: 3,
+            x2:  5, y2: 2, z2: 3
+        )
+        
+        measure {
+            var i = 0
+            while i < 100_000 {
+                defer { i += 1 }
+                sphere.center += 1
+                _ = sphere.intersection(with: line)
+            }
+        }
+    }
+    
     func xtestSphereDirectionalRayIntersection2D() {
         typealias Vector = Vector2D
         
