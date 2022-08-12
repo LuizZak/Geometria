@@ -20,7 +20,7 @@ A collection of definitions and algorithms for working with 2- and 3- dimensiona
             <marker id="arrow-length" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#00f"/>
             </marker>
-            <marker id="circle" markerWidth="8" markerHeight="8" refX="4" refY="4">
+            <marker id="circle" markerWidth="8" markerHeight="8" refX="4" refY="4" markerUnits="userSpaceOnUse">
                 <use href="#dot" x="4" y="4"/>
             </marker>
         </defs>

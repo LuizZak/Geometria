@@ -9,3 +9,4 @@ DerivedData/
 lint-results.html
 docs/
 .swiftpm/
+*.profraw

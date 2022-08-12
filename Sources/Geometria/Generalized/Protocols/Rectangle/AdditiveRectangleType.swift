@@ -1,3 +1,5 @@
+import Foundation
+
 /// Protocol refining ``RectangleType`` with ``VectorAdditive`` extensions.
 public protocol AdditiveRectangleType: RectangleType where Vector: VectorAdditive {
     /// Returns a copy of this rectangle with its location offset by a given
@@ -7,6 +9,54 @@ public protocol AdditiveRectangleType: RectangleType where Vector: VectorAdditiv
     /// Returns a copy of this rectangle with its size increased by a given
     /// Vector amount.
     func resizedBy(_ vector: Vector) -> Self
+
+    /// Returns a list of vertices corresponding to the extremes of this rectangle.
+    ///
+    /// - precondition: Currently limited to vectors with < 64 scalars.
+    ///
+    /// Order of vertices in the result is not defined.
+    var vertices: [Vector] { get }
+}
+
+extension AdditiveRectangleType {
+    /// Returns a list of vertices corresponding to the extremes of this rectangle.
+    ///
+    /// Order of vertices in the result is not defined.
+    ///
+    /// - precondition: Currently limited to vectors with < 64 scalars.
+    //@_transparent
+    public var vertices: [Vector] {
+        assert(location.scalarCount == size.scalarCount)
+
+        let count = location.scalarCount
+
+        let min = location
+        let max = location + size
+
+        var result: [Vector] = []
+
+        // Bit mask toggle for each scalar in the two vectors.
+        var toggle: UInt = 0
+        let maxToggle: UInt = UInt(1 << count)
+
+        repeat {
+            defer { toggle += 1 }
+
+            var vec = min
+
+            for i in 0..<count {
+                let bitIndex = i
+                let bit = (toggle >> bitIndex) & 1
+                if bit == 1 {
+                    vec[i] = max[i]
+                }
+            }
+
+            result.append(vec)
+        } while toggle < maxToggle
+
+        return result
+    }
 }
 
 public extension AdditiveRectangleType where Self: ConstructableRectangleType {
