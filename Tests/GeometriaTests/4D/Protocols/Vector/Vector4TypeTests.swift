@@ -147,6 +147,7 @@ extension Vector4TypeTests {
     fileprivate struct TestVector: Vector4Type, VectorComparable {
         typealias Scalar = Double
         typealias SubVector3 = Vector3D
+        typealias TakeDimensions = Vector4D.TakeDimensions
         
         var x: Scalar
         var y: Scalar

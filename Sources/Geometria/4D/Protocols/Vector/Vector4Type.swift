@@ -1,8 +1,6 @@
 /// Protocol for types that can represent 4D vectors.
-public protocol Vector4Type: VectorType {
-    /// The 2-dimensional vector type for selections of 3-components on this
-    /// vector.
-    associatedtype SubVector3: Vector3Type where SubVector3.Scalar == Scalar
+public protocol Vector4Type: VectorTakeable {
+    associatedtype SubVector4 = Self
     
     /// The X coordinate of this 4D vector.
     var x: Scalar { get set }

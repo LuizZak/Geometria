@@ -39,6 +39,11 @@ public struct Vector2<Scalar>: Vector2Type {
     public init(_ tuple: (Scalar, Scalar)) {
         (x, y) = tuple
     }
+
+    public enum TakeDimensions: Int {
+        case x
+        case y
+    }
 }
 
 extension Vector2: Equatable where Scalar: Equatable { }

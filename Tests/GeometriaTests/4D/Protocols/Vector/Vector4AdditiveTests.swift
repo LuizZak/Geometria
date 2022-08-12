@@ -35,6 +35,7 @@ extension Vector4AdditiveTests {
         
         typealias Scalar = Double
         typealias SubVector3 = Vector3D
+        typealias TakeDimensions = Vector4D.TakeDimensions
         
         var x: Scalar
         var y: Scalar

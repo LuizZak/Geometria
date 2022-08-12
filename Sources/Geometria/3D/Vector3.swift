@@ -11,7 +11,7 @@ public typealias Vector3i = Vector3<Int>
 
 /// A three-component vector type
 public struct Vector3<Scalar>: Vector3Type {
-    public typealias SubVector2 = Vector2<Scalar>
+    public typealias SubVector3 = Self
     
     /// X coordinate of this vector
     public var x: Scalar
@@ -43,6 +43,13 @@ public struct Vector3<Scalar>: Vector3Type {
     @_transparent
     public init(_ tuple: (Scalar, Scalar, Scalar)) {
         (x, y, z) = tuple
+    }
+
+    /// Defines the dimension of an indexed takeable getter.
+    public enum TakeDimensions: Int {
+        case x
+        case y
+        case z
     }
 }
 

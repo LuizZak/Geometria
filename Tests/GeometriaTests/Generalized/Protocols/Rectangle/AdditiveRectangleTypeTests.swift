@@ -27,7 +27,7 @@ class AdditiveRectangleTypeTests: XCTestCase {
 
         let result = sut.vertices
 
-        XCTAssertEqual(result, [
+        XCTAssertEqual(Set(result), [
             .init(x: 1, y: 2),
             .init(x: 3, y: 2),
             .init(x: 1, y: 5),
@@ -40,7 +40,7 @@ class AdditiveRectangleTypeTests: XCTestCase {
 
         let result = sut.vertices
 
-        XCTAssertEqual(result, [
+        XCTAssertEqual(Set(result), [
             .init(x: 1, y: 2, z: 3),
             .init(x: 5, y: 2, z: 3),
             .init(x: 1, y: 7, z: 3),

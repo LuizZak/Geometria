@@ -33,6 +33,7 @@ class Vector2TypeTests: XCTestCase {
     func testInitWithVector() {
         struct TestVec2: Vector2Type {
             // swiftlint:ignore:next nesting
+            typealias TakeDimensions = Vector2D.TakeDimensions
             typealias Scalar = Double
             
             var x: Double

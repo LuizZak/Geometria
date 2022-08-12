@@ -1,5 +1,6 @@
 /// When initialized with a ``Vector3Type``, allows referencing pairs of coordinates
 /// to form ``Vector2Type``s out of.
+@available(*, deprecated, message: "Replaced with VectorTakeable protocol. Use `vector[.x, .y, .z, ...]` as a replacement.")
 public struct TakeVector3<Vector: Vector3Type> {
     /// Convenience for `Vector.SubVector2`
     public typealias SubVector2 = Vector.SubVector2

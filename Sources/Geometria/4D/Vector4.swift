@@ -11,8 +11,6 @@ public typealias Vector4i = Vector4<Int>
 
 /// A four-component vector type
 public struct Vector4<Scalar>: Vector4Type {
-    public typealias SubVector3 = Vector3<Scalar>
-    
     /// X coordinate of this vector
     public var x: Scalar
     
@@ -47,6 +45,13 @@ public struct Vector4<Scalar>: Vector4Type {
     @_transparent
     public init(_ tuple: (Scalar, Scalar, Scalar, Scalar)) {
         (x, y, z, w) = tuple
+    }
+
+    public enum TakeDimensions: Int {
+        case x
+        case y
+        case z
+        case w
     }
 }
 

@@ -1,8 +1,8 @@
 /// Protocol for types that can represent 3D vectors.
-public protocol Vector3Type: VectorType {
+public protocol Vector3Type: VectorTakeable {
     /// The 2-dimensional vector type for selections of 2-components on this
     /// vector.
-    associatedtype SubVector2: Vector2Type where SubVector2.Scalar == Scalar
+    associatedtype SubVector3 = Self
     
     /// The X coordinate of this 3D vector.
     var x: Scalar { get set }
@@ -22,8 +22,9 @@ public protocol Vector3Type: VectorType {
     /// print(vector.take.xz) // Prints "(x: 3.5, y: 1.0)"
     /// print(vector.take.zy) // Prints "(x: 1.0, y: 2.1)"
     /// ```
+    @available(*, deprecated, message: "Replaced with VectorTakeable protocol. Use `vector[.x, .y, .z, ...]` as a replacement.")
     var take: TakeVector3<Self> { get }
-    
+
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar, z: Scalar)
     

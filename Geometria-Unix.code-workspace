@@ -50,7 +50,8 @@
 				"args": [
 					"build",
 					"--configuration", "debug",
-					"--built-tests",
+					"--build-tests",
+					"--enable-code-coverage",
 				],
 				"presentation": {
 					"reveal": "always"
@@ -72,7 +73,8 @@
 				"command": "swift",
 				"args": [
 					"test",
-					"--configuration", "debug"
+					"--configuration", "debug",
+					"--enable-code-coverage",
 				],
 				"presentation": {
 					"reveal": "always"
@@ -95,7 +97,8 @@
 				"args": [
 					"build",
 					"--configuration", "release",
-					"--built-tests",
+					"--build-tests",
+					"--enable-code-coverage",
 				],
 				"group": "build",
 				"options": {
@@ -114,7 +117,8 @@
 					"swift",
 					"build",
 					"--configuration", "debug",
-					"--built-tests",
+					"--build-tests",
+					"--enable-code-coverage",
 				],
 				"presentation": {
 					"reveal": "always"
@@ -131,7 +135,7 @@
 				"args": [
 					"build",
 					"--build-tests",
-					"--enable-code-coverage"
+					"--enable-code-coverage",
 				],
 				"cwd": "/home/luiz/dev/Geometria",
 				"problemMatcher": [
