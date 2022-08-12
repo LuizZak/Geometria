@@ -2,7 +2,7 @@
 
 import simd
 
-extension SIMD4: GeometricType, VectorType, Vector4Type where Scalar == Double {
+extension SIMD4: VectorTakeable where Scalar == Double {
     public typealias SubVector2 = SIMD2<Scalar>
     public typealias SubVector4 = SIMD4<Scalar>
 
@@ -13,6 +13,10 @@ extension SIMD4: GeometricType, VectorType, Vector4Type where Scalar == Double {
         case z
         case w
     }
+}
+
+extension SIMD4: GeometricType, VectorType, Vector4Type where Scalar == Double {
+    
 }
 
 extension SIMD4: AdditiveArithmetic, VectorAdditive where Scalar == Double {
