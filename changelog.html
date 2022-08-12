@@ -22,7 +22,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (89% documented)
+         (88% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -165,10 +165,19 @@
                 <a class="nav-group-task-link" href="Extensions/SIMD2.html">SIMD2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/SIMD2/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/SIMD3.html">SIMD3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/SIMD3/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/SIMD4.html">SIMD4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/SIMD4/TakeDimensions.html">– TakeDimensions</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Sphere3.html">Sphere3</a>
@@ -406,6 +415,9 @@
                 <a class="nav-group-task-link" href="Protocols/VectorSigned.html">VectorSigned</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/VectorTakeable.html">VectorTakeable</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/VectorType.html">VectorType</a>
               </li>
               <li class="nav-group-task">
@@ -513,10 +525,19 @@
                 <a class="nav-group-task-link" href="Structs/Vector2.html">Vector2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Vector2/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Vector3.html">Vector3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Vector3/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Vector4.html">Vector4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Vector4/TakeDimensions.html">– TakeDimensions</a>
               </li>
             </ul>
           </li>
@@ -884,6 +905,22 @@
           <div class="section-content top-matter">
             
             <h1 id='changelog' class='heading'>Changelog</h1>
+<h2 id='main' class='heading'>[main]</h2>
+
+<ul>
+<li>Added <code><a href="Protocols/VectorTakeable.html">VectorTakeable</a></code> protocol, and making all vector protocols conform to it. With it, it&rsquo;s possible to index into a vector type to produce different vector types based on combinations of dimensions of a vector:</li>
+</ul>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vector</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.1</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">.</span><span class="n">z</span><span class="p">])</span> <span class="c1">// Prints "(x: 3.5, y: 1.0)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="o">.</span><span class="n">y</span><span class="p">])</span> <span class="c1">// Prints "(x: 3.5, y: 1.0, z: 2.1)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">.</span><span class="n">x</span><span class="p">])</span> <span class="c1">// Prints "(x: 1.0, y: 2.1, x: 3.5)"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">.</span><span class="n">z</span><span class="p">])</span> <span class="c1">// Prints "(x: 1.0, y: 2.1, x: 3.5, w: 1.0)"</span>
+</code></pre>
+
+<ul>
+<li>Added <code>AdditiveRectangle.vertices</code> getter, which is automatically synthesized for any conforming type.</li>
+</ul>
 <h2 id='v0-0-1' class='heading'>v0.0.1</h2>
 
 <p>Initial release</p>

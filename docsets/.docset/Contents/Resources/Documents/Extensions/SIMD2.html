@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
            Docs
         </a>
-         (89% documented)
+         (88% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -166,10 +166,19 @@
                 <a class="nav-group-task-link" href="../Extensions/SIMD2.html">SIMD2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SIMD2/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/SIMD3.html">SIMD3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SIMD3/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/SIMD4.html">SIMD4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SIMD4/TakeDimensions.html">– TakeDimensions</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Sphere3.html">Sphere3</a>
@@ -407,6 +416,9 @@
                 <a class="nav-group-task-link" href="../Protocols/VectorSigned.html">VectorSigned</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/VectorTakeable.html">VectorTakeable</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/VectorType.html">VectorType</a>
               </li>
               <li class="nav-group-task">
@@ -514,10 +526,19 @@
                 <a class="nav-group-task-link" href="../Structs/Vector2.html">Vector2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector2/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Vector3.html">Vector3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector3/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Vector4.html">Vector4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector4/TakeDimensions.html">– TakeDimensions</a>
               </li>
             </ul>
           </li>
@@ -888,6 +909,7 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorTakeable.html">VectorTakeable</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SIMD2</span><span class="p">:</span> <span class="kt">AdditiveArithmetic</span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
@@ -923,6 +945,86 @@
                 </div>
               </div>
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria14VectorTakeableP10SubVector2Qa"></a>
+                    <a name="//apple_ref/swift/Alias/SubVector2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria14VectorTakeableP10SubVector2Qa">SubVector2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SubVector2</span> <span class="o">=</span> <span class="kt">SIMD2</span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria14VectorTakeableP10SubVector4Qa"></a>
+                    <a name="//apple_ref/swift/Alias/SubVector4" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria14VectorTakeableP10SubVector4Qa">SubVector4</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SubVector4</span> <span class="o">=</span> <span class="kt">SIMD4</span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s5SIMD2V9GeometriaSdRszrlE14TakeDimensionsO"></a>
+                    <a name="//apple_ref/swift/Enum/TakeDimensions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s5SIMD2V9GeometriaSdRszrlE14TakeDimensionsO">TakeDimensions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines the dimension of an indexed takeable getter.</p>
+
+                        <a href="../Extensions/SIMD2/TakeDimensions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TakeDimensions</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>

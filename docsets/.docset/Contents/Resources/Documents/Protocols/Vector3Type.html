@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
            Docs
         </a>
-         (89% documented)
+         (88% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -166,10 +166,19 @@
                 <a class="nav-group-task-link" href="../Extensions/SIMD2.html">SIMD2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SIMD2/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/SIMD3.html">SIMD3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SIMD3/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/SIMD4.html">SIMD4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SIMD4/TakeDimensions.html">– TakeDimensions</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Sphere3.html">Sphere3</a>
@@ -407,6 +416,9 @@
                 <a class="nav-group-task-link" href="../Protocols/VectorSigned.html">VectorSigned</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/VectorTakeable.html">VectorTakeable</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/VectorType.html">VectorType</a>
               </li>
               <li class="nav-group-task">
@@ -514,10 +526,19 @@
                 <a class="nav-group-task-link" href="../Structs/Vector2.html">Vector2</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector2/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Vector3.html">Vector3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector3/TakeDimensions.html">– TakeDimensions</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Vector4.html">Vector4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector4/TakeDimensions.html">– TakeDimensions</a>
               </li>
             </ul>
           </li>
@@ -887,7 +908,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector3Type</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector3Type</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorTakeable.html">VectorTakeable</a></span></code></pre>
 
                 </div>
               </div>
@@ -903,9 +924,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria11Vector3TypeP10SubVector2Qa"></a>
-                    <a name="//apple_ref/swift/Alias/SubVector2" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria11Vector3TypeP10SubVector2Qa">SubVector2</a>
+                    <a name="/s:9Geometria11Vector3TypeP03SubB0Qa"></a>
+                    <a name="//apple_ref/swift/Alias/SubVector3" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector3TypeP03SubB0Qa">SubVector3</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -921,7 +942,7 @@ vector.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">SubVector2</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector2</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">SubVector3</span> <span class="o">=</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -1026,7 +1047,7 @@ vector.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Gets a <code><a href="../Structs/TakeVector3.html">TakeVector3</a></code> instance for taking pairs of coordinates as
-<code><a href="../Protocols/Vector3Type.html#/s:9Geometria11Vector3TypeP10SubVector2Qa">SubVector2</a></code> from this <code>Vector3Type</code>.</p>
+<code>SubVector2</code> from this <code>Vector3Type</code>.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vector</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.1</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="nf">print</span><span class="p">(</span><span class="n">vector</span><span class="o">.</span><span class="n">take</span><span class="o">.</span><span class="n">xz</span><span class="p">)</span> <span class="c1">// Prints "(x: 3.5, y: 1.0)"</span>
@@ -1042,7 +1063,8 @@ vector.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">take</span><span class="p">:</span> <span class="kt"><a href="../Structs/TakeVector3.html">TakeVector3</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Replaced with VectorTakeable protocol. Use `vector[.x, .y, .z, ...]` as a replacement."</span><span class="p">)</span>
+<span class="k">var</span> <span class="nv">take</span><span class="p">:</span> <span class="kt"><a href="../Structs/TakeVector3.html">TakeVector3</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
