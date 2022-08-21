@@ -13,6 +13,8 @@ print(vector[.z, .y, .x]) // Prints "(x: 1.0, y: 2.1, x: 3.5)"
 print(vector[.z, .y, .x, .z]) // Prints "(x: 1.0, y: 2.1, x: 3.5, w: 1.0)"
 ```
 
+- Added `Vector<2/3/4>TakeDimensions` to accompany the `VectorTakeable` protocol and serve as a default conformance to `Vector<2/3/4>Type` protocols.
+
 - Added `AdditiveRectangle.vertices` getter, which is automatically synthesized for any conforming type.
 
 ## v0.0.1

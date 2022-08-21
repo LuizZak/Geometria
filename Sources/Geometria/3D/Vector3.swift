@@ -44,13 +44,6 @@ public struct Vector3<Scalar>: Vector3Type {
     public init(_ tuple: (Scalar, Scalar, Scalar)) {
         (x, y, z) = tuple
     }
-
-    /// Defines the dimension of an indexed takeable getter.
-    public enum TakeDimensions: Int {
-        case x
-        case y
-        case z
-    }
 }
 
 extension Vector3: Equatable where Scalar: Equatable { }

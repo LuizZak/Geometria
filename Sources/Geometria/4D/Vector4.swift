@@ -46,13 +46,6 @@ public struct Vector4<Scalar>: Vector4Type {
     public init(_ tuple: (Scalar, Scalar, Scalar, Scalar)) {
         (x, y, z, w) = tuple
     }
-
-    public enum TakeDimensions: Int {
-        case x
-        case y
-        case z
-        case w
-    }
 }
 
 extension Vector4: Equatable where Scalar: Equatable { }

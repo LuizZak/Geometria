@@ -1,5 +1,5 @@
 /// Protocol for types that can represent 3D vectors.
-public protocol Vector3Type: VectorTakeable {
+public protocol Vector3Type: VectorTakeable where TakeDimensions == Vector3TakeDimensions {
     /// The 2-dimensional vector type for selections of 2-components on this
     /// vector.
     associatedtype SubVector3 = Self
@@ -35,6 +35,13 @@ public protocol Vector3Type: VectorTakeable {
     /// Initializes a new instance of this `Vector3Type` type by copying the
     /// coordinates of another `Vector3Type` of matching scalar type.
     init<Vector: Vector3Type>(_ vector: Vector) where Vector.Scalar == Scalar
+}
+
+/// Defines the dimension of an indexed takeable getter for a Vector 3 type.
+public enum Vector3TakeDimensions: Int {
+    case x
+    case y
+    case z
 }
 
 public extension Vector3Type {

@@ -161,7 +161,7 @@ extension Torus3: SignedDistanceMeasurableType where Vector.Scalar: Real {
             transformed = m.transformPoint(transformed)
         }
 
-        let q = Vector.SubVector2(x: transformed.take.xz.length - majorRadius, y: transformed.y)
+        let q = Vector.SubVector2(x: transformed[.x, .z].length - majorRadius, y: transformed.y)
         return q.length - minorRadius
     }
 }

@@ -1,5 +1,5 @@
 /// Protocol for types that can represent 4D vectors.
-public protocol Vector4Type: VectorTakeable {
+public protocol Vector4Type: VectorTakeable where TakeDimensions == Vector4TakeDimensions {
     associatedtype SubVector4 = Self
     
     /// The X coordinate of this 4D vector.
@@ -28,6 +28,14 @@ public protocol Vector4Type: VectorTakeable {
     /// Initializes a new instance of this `Vector4Type` type by copying the
     /// coordinates of another `Vector4Type` of matching scalar type.
     init<Vector: Vector4Type>(_ vector: Vector) where Vector.Scalar == Scalar
+}
+
+/// Defines the dimension of an indexed takeable getter for a Vector 3 type.
+public enum Vector4TakeDimensions: Int {
+    case x
+    case y
+    case z
+    case w
 }
 
 public extension Vector4Type {
