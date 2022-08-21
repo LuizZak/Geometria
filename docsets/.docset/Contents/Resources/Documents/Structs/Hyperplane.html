@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LineType Protocol Reference</title>
+    <title>Hyperplane Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/LineType" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/Hyperplane" class="dashAnchor"></a>
 
-    <a title="LineType Protocol Reference"></a>
+    <a title="Hyperplane Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      LineType Protocol Reference
+      Hyperplane Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -925,16 +925,29 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>LineType</h1>
+            <h1>Hyperplane</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LineType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Hyperplane</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span><span class="p">,</span> <span class="kt">CustomStringConvertible</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PlaneType.html">PlaneType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectablePlaneType.html">PointProjectablePlaneType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Hyperplane</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol for objects that form geometric lines with at least two distinct
-points the line is guaranteed to cross.</p>
+            <p>Represents a <a href="https://en.wikipedia.org/wiki/Hyperplane">hyperplane</a> with a
+point and a normal.</p>
+
+<p>In 2D, a plane equates to a line, while in 3D and higher dimensions it
+equates to a flat 2D plane.</p>
+
+<p>Hyperplanes divides the space it is contained within, producing an
+infinitely-spanning volume of space bound at a specific point and angle.</p>
 
           </div>
         </section>
@@ -946,9 +959,9 @@ points the line is guaranteed to cross.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria8LineTypeP6VectorQa"></a>
-                    <a name="//apple_ref/swift/Alias/Vector" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria8LineTypeP6VectorQa">Vector</a>
+                    <a name="/s:9Geometria10HyperplaneV6Scalara"></a>
+                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV6Scalara">Scalar</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -956,14 +969,14 @@ points the line is guaranteed to cross.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The vector type associated with this <code>LineType</code>.</p>
+                        <p>Convenience for <code>Vector.Scalar</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Scalar</span> <span class="o">=</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -973,9 +986,9 @@ points the line is guaranteed to cross.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria8LineTypeP1a6VectorQzvp"></a>
-                    <a name="//apple_ref/swift/Property/a" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria8LineTypeP1a6VectorQzvp">a</a>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -983,14 +996,13 @@ points the line is guaranteed to cross.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Gets the first point that defines the line of this <code>LineType</code>.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">a</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html#/s:9Geometria8LineTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1000,9 +1012,9 @@ points the line is guaranteed to cross.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria8LineTypeP1b6VectorQzvp"></a>
-                    <a name="//apple_ref/swift/Property/b" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria8LineTypeP1b6VectorQzvp">b</a>
+                    <a name="/s:9Geometria10HyperplaneV5pointxvp"></a>
+                    <a name="//apple_ref/swift/Property/point" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV5pointxvp">point</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1010,14 +1022,210 @@ points the line is guaranteed to cross.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Gets the second point that defines the line of this <code>LineType</code>.</p>
+                        <p>A point on this plane.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">b</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineType.html#/s:9Geometria8LineTypeP6VectorQa">Vector</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10HyperplaneV6normalxvp"></a>
+                    <a name="//apple_ref/swift/Property/normal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV6normalxvp">normal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The normal of the plane&rsquo;s surface.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd"><a href="../Structs/UnitVector.html">@UnitVector</a></span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10HyperplaneV5point6normalACyxGx_xtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(point:normal:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV5point6normalACyxGx_xtcfc">init(point:<wbr>normal:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10HyperplaneVyACyxGqd__c6VectorQyd__RszAA9PlaneTypeRd__lufc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneVyACyxGqd__c6VectorQyd__RszAA9PlaneTypeRd__lufc">init(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/PointNormalPlane.html">PointNormalPlane</a></code> that wraps the given plane object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">Plane</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">plane</span><span class="p">:</span> <span class="kt">Plane</span><span class="p">)</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt">Plane</span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt">Plane</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/PlaneType.html">PlaneType</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10HyperplaneV13asPointNormalAA0dE0VyxGvp"></a>
+                    <a name="//apple_ref/swift/Property/asPointNormal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV13asPointNormalAA0dE0VyxGvp">asPointNormal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a <code><a href="../Structs/PointNormal.html">PointNormal</a></code> value initialized with this plane&rsquo;s parameters.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asPointNormal</span><span class="p">:</span> <span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9PlaneTypeP07pointOnB06VectorQzvp"></a>
+                    <a name="//apple_ref/swift/Property/pointOnPlane" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9PlaneTypeP07pointOnB06VectorQzvp">pointOnPlane</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">pointOnPlane</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10HyperplaneV12intersection4withAA22ConvexLineIntersectionOyxGqd___t6VectorQyd__RszAA0F13FloatingPointRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV12intersection4withAA22ConvexLineIntersectionOyxGqd___t6VectorQyd__RszAA0F13FloatingPointRd__lF">intersection(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the result of a line intersection against this hyperplane.</p>
+
+<p>Note that hyperplanes are infinitely bounded, thus intersections with
+lines will consist of at most one point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span><span class="p">,</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10HyperplaneV8containsySbxF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10HyperplaneV8containsySbxF">contains(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>true</code> if a given vector is contained within the enclosed space
+of this hyperplane.</p>
+
+<p>Points laying exactly on top of the plane&rsquo;s limit (signed distance == 0)
+are considered to be part of the hyperplane (a closed half-space).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

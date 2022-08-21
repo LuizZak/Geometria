@@ -447,6 +447,9 @@
                 <a class="nav-group-task-link" href="Structs/Ellipsoid.html">Ellipsoid</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Hyperplane.html">Hyperplane</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Line.html">Line</a>
               </li>
               <li class="nav-group-task">
@@ -651,6 +654,33 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria9Ellipse3ia">Ellipse3i</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria11Hyperplane2a">Hyperplane2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria12Hyperplane2Da">Hyperplane2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria12Hyperplane2Fa">Hyperplane2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria11Hyperplane3a">Hyperplane3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria12Hyperplane3Da">Hyperplane3D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria12Hyperplane3Fa">Hyperplane3F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria11Hyperplane4a">Hyperplane4</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria12Hyperplane4Da">Hyperplane4D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria12Hyperplane4Fa">Hyperplane4F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria5Line2a">Line2</a>
@@ -899,7 +929,8 @@
 <h2 id='main' class='heading'>[main]</h2>
 
 <ul>
-<li>Added <code><a href="Protocols/VectorTakeable.html">VectorTakeable</a></code> protocol, and making all vector protocols conform to it. With it, it&rsquo;s possible to index into a vector type to produce different vector types based on combinations of dimensions of a vector:</li>
+<li><p>Added <code><a href="Structs/Hyperplane.html">Hyperplane</a></code> protocol to represent <a href="https://en.wikipedia.org/wiki/Hyperplane">hyperplanes</a>, along with proper type aliases for 2-, 3-, and 4-dimensional hyperplanes.</p></li>
+<li><p>Added <code><a href="Protocols/VectorTakeable.html">VectorTakeable</a></code> protocol, and making all vector protocols conform to it. With it, it&rsquo;s possible to index into a vector type to produce different vector types based on combinations of dimensions of a vector:</p></li>
 </ul>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">vector</span> <span class="o">=</span> <span class="kt">Vector3D</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mf">2.1</span><span class="p">,</span> <span class="nv">z</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
 

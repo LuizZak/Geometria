@@ -246,6 +246,20 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2Type.swift",
+      "line": 21,
+      "symbol": "Vector2TakeDimensions.x",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2Type.swift",
+      "line": 22,
+      "symbol": "Vector2TakeDimensions.y",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/RoundRectangle2.swift",
       "line": 17,
       "symbol": "RoundRectangle2.init(rectangle:radiusX:radiusY:)",
@@ -254,16 +268,9 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 16,
-      "symbol": "SIMD2.TakeDimensions.x",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 17,
-      "symbol": "SIMD2.TakeDimensions.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "line": 211,
+      "symbol": "SIMD2.%(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
@@ -275,21 +282,14 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 223,
-      "symbol": "SIMD2.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 313,
+      "line": 307,
       "symbol": "SIMD2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 318,
+      "line": 312,
       "symbol": "SIMD2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -317,43 +317,36 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 44,
-      "symbol": "Vector2.TakeDimensions.x",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 45,
-      "symbol": "Vector2.TakeDimensions.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 132,
+      "line": 127,
       "symbol": "Vector2.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 137,
+      "line": 132,
       "symbol": "Vector2.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 152,
+      "line": 147,
       "symbol": "Vector2.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 157,
+      "line": 152,
       "symbol": "Vector2.-=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
+      "line": 176,
+      "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -374,7 +367,7 @@
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 191,
-      "symbol": "Vector2.*(_:_:)",
+      "symbol": "Vector2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -387,8 +380,8 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 201,
-      "symbol": "Vector2.*=(_:_:)",
+      "line": 272,
+      "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -409,7 +402,7 @@
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 287,
-      "symbol": "Vector2./(_:_:)",
+      "symbol": "Vector2./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -422,35 +415,28 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 297,
-      "symbol": "Vector2./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 378,
+      "line": 373,
       "symbol": "Vector2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 384,
+      "line": 379,
       "symbol": "Vector2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 477,
+      "line": 472,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 482,
+      "line": 477,
       "symbol": "Vector2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -666,36 +652,36 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 16,
-      "symbol": "SIMD3.TakeDimensions.x",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3Type.swift",
+      "line": 42,
+      "symbol": "Vector3TakeDimensions.x",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3Type.swift",
+      "line": 43,
+      "symbol": "Vector3TakeDimensions.y",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3Type.swift",
+      "line": 44,
+      "symbol": "Vector3TakeDimensions.z",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 17,
-      "symbol": "SIMD3.TakeDimensions.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 18,
-      "symbol": "SIMD3.TakeDimensions.z",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 171,
+      "line": 164,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 178,
+      "line": 171,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -716,133 +702,112 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 50,
-      "symbol": "Vector3.TakeDimensions.x",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 51,
-      "symbol": "Vector3.TakeDimensions.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 52,
-      "symbol": "Vector3.TakeDimensions.z",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 135,
+      "line": 128,
       "symbol": "Vector3.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 140,
+      "line": 133,
       "symbol": "Vector3.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 155,
+      "line": 148,
       "symbol": "Vector3.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 160,
+      "line": 153,
       "symbol": "Vector3.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 185,
+      "line": 178,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 190,
+      "line": 183,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 195,
+      "line": 188,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 200,
+      "line": 193,
       "symbol": "Vector3.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 205,
+      "line": 198,
       "symbol": "Vector3.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 242,
+      "line": 235,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 247,
+      "line": 240,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 252,
+      "line": 245,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 257,
+      "line": 250,
       "symbol": "Vector3./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 262,
+      "line": 255,
       "symbol": "Vector3./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 346,
+      "line": 339,
       "symbol": "Vector3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 353,
+      "line": 346,
       "symbol": "Vector3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -981,183 +946,155 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 11,
-      "symbol": "SIMD4.TakeDimensions.x",
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4Type.swift",
+      "line": 35,
+      "symbol": "Vector4TakeDimensions.x",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4Type.swift",
+      "line": 36,
+      "symbol": "Vector4TakeDimensions.y",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4Type.swift",
+      "line": 37,
+      "symbol": "Vector4TakeDimensions.z",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Protocols/Vector/Vector4Type.swift",
+      "line": 38,
+      "symbol": "Vector4TakeDimensions.w",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 12,
-      "symbol": "SIMD4.TakeDimensions.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 13,
-      "symbol": "SIMD4.TakeDimensions.z",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 14,
-      "symbol": "SIMD4.TakeDimensions.w",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 57,
+      "line": 49,
       "symbol": "SIMD4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 64,
+      "line": 56,
       "symbol": "SIMD4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 51,
-      "symbol": "Vector4.TakeDimensions.x",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 52,
-      "symbol": "Vector4.TakeDimensions.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 53,
-      "symbol": "Vector4.TakeDimensions.z",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 54,
-      "symbol": "Vector4.TakeDimensions.w",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 137,
+      "line": 130,
       "symbol": "Vector4.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 142,
+      "line": 135,
       "symbol": "Vector4.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 157,
+      "line": 150,
       "symbol": "Vector4.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 162,
+      "line": 155,
       "symbol": "Vector4.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 188,
+      "line": 181,
       "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 193,
+      "line": 186,
       "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 198,
+      "line": 191,
       "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 203,
+      "line": 196,
       "symbol": "Vector4.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 208,
+      "line": 201,
       "symbol": "Vector4.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 242,
+      "line": 235,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 247,
+      "line": 240,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 252,
+      "line": 245,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 257,
+      "line": 250,
       "symbol": "Vector4./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 262,
+      "line": 255,
       "symbol": "Vector4./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 358,
+      "line": 351,
       "symbol": "Vector4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 366,
+      "line": 359,
       "symbol": "Vector4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
