@@ -113,6 +113,60 @@ A collection of definitions and algorithms for working with 2- and 3- dimensiona
     </tr>
     <tr>
         <td>
+            <a href="https://en.wikipedia.org/wiki/Hyperplane">Hyperplane</a>
+        </td>
+        <td>
+            <svg width="100" height="100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <rect fill="white" height="100%" width="100%" x="0" y="0"/>
+                    <g stroke-linejoin="round" stroke-width="0.75">
+                    <g stroke="#c0c0c0">
+                        <path d="m-10.12,-13.11l0,128.38"/>
+                        <path d="m2.71,-13.11l0,128.38"/>
+                        <path d="m15.55,-13.11l0,128.38"/>
+                        <path d="m28.39,-13.11l0,128.38"/>
+                        <path d="m41.23,-13.11l0,128.38"/>
+                        <path d="m54.07,-13.11l0,128.38"/>
+                        <path d="m66.91,-13.11l0,128.38"/>
+                        <path d="m79.74,-13.11l0,128.38"/>
+                        <path d="m92.58,-13.11l0,128.38"/>
+                        <path d="m105.42,-13.11l0,128.38"/>
+                        <path d="m118.26,-13.11l0,128.38"/>
+                        <path d="m-16.54,-6.69l128.38,0"/>
+                        <path d="m-16.54,6.14l128.38,0"/>
+                        <path d="m-16.54,18.98l128.38,0"/>
+                        <path d="m-3.7,31.82l128.38,0"/>
+                        <path d="m-3.7,44.66l128.38,0"/>
+                        <path d="m-3.7,57.5l128.38,0"/>
+                        <path d="m-3.7,70.34l128.38,0"/>
+                        <path d="m-3.7,83.17l128.38,0"/>
+                        <path d="m-3.7,96.01l128.38,0"/>
+                    </g>
+                    </g>
+                </g>
+                <g>
+                    <line fill="none" stroke="black" stroke-linecap="round" x1="-5.22" x2="115.73" y1="83.16" y2="83.16"/>
+                    <line fill="none" stroke="black" stroke-linecap="round" x1="15.55" x2="15.55" y1="-6.98" y2="105.91"/>
+                </g>
+                <g stroke-width="2">
+                    <line stroke="black" stroke-linecap="round" x1="-0.95" x2="102.34" y1="-0.95" y2="102.38"/>
+                    <path d="m-2.5,-2.58l106.26,106.81l-106.34,0.7l-1.88,-97.18l1.96,-10.33z" fill="#3478e5" fill-opacity="0.31" stroke="black" stroke-linecap="round" stroke-width="0"/>
+                </g>
+                <g stroke-width="1.5">
+                    <line stroke="red" stroke-linecap="round" x1="50" y1="50" x2="60" y2="40" marker-end="url(#arrow-unit)"/>
+                    <use href="#dot" x="50" y="50"/>
+                </g>
+            </svg>
+        </td>
+        <td>
+            <a href="Sources/Geometria/Generalized/Hyperplane.swift">Hyperplane.swift</a>
+        </td>
+        <td>
+            Defined as a point vector on the plane and a <a href="https://en.wikipedia.org/wiki/Unit_vector">unit vector</a> orthogonal to the hyperplane's surface. Defines a split between two half-spaces of the space it is contained within. Is considered a convex, volumetric space that can be intersected against lines and contain points.
+        </td>
+    </tr> 
+    <tr>
+        <td>
             <a href="https://en.wikipedia.org/wiki/Line_(geometry)">Line</a>
         </td>
         <td>
@@ -383,7 +437,7 @@ A collection of definitions and algorithms for working with 2- and 3- dimensiona
         <td>
             Defined as a point vector on the plane and a <a href="https://en.wikipedia.org/wiki/Unit_vector">unit vector</a> orthogonal to the plane's surface.
         </td>
-    </tr>    
+    </tr>
     <tr>
         <td>
             <a href="https://en.wikipedia.org/wiki/Line_(geometry)#Ray">Ray (two-point)</a>

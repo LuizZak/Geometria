@@ -1,6 +1,6 @@
 // TODO: Add ConvexType support once we figure out how to do N-dimensional
 // TODO: capsule intersection tests, or split into Stadium/Capsule for 2D/3D and
-// TODO: specialize eaach individually.
+// TODO: specialize each individually.
 
 /// Represents an N-dimensional capsule (A
 /// [Stadium](https://en.wikipedia.org/wiki/Stadium_(geometry) ) in 2D, and a
