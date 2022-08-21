@@ -162,7 +162,7 @@ A collection of definitions and algorithms for working with 2- and 3- dimensiona
             <a href="Sources/Geometria/Generalized/Hyperplane.swift">Hyperplane.swift</a>
         </td>
         <td>
-            Defined as a point vector on the plane and a <a href="https://en.wikipedia.org/wiki/Unit_vector">unit vector</a> orthogonal to the hyperplane's surface. Defines a split between two half-spaces of the space it is contained within. Is considered a convex, volumetric space that can be intersected against lines and contain points.
+            Defined as a point vector on the plane and a <a href="https://en.wikipedia.org/wiki/Unit_vector">unit vector</a> orthogonal to the hyperplane's surface. Defines a split between two <a href="https://en.wikipedia.org/wiki/Half-space_(geometry)">half-spaces</a> of the space it is contained within. Is considered a convex, volumetric space that can be intersected against lines and contain points.
         </td>
     </tr> 
     <tr>

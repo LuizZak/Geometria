@@ -88,7 +88,7 @@ extension Hyperplane: VolumetricType {
     /// of this hyperplane.
     ///
     /// Points laying exactly on top of the plane's limit (signed distance == 0)
-    /// are considered to be part of the hyperplane.
+    /// are considered to be part of the hyperplane (a closed half-space).
     public func contains(_ vector: Vector) -> Bool {
         return signedDistance(to: vector) >= .zero
     }
