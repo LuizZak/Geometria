@@ -76,7 +76,7 @@ class HyperplaneTests: XCTestCase {
     }
 
     func testIntersectionWithLine_lineSegment_exit() {
-        let plane = Hyperplane(
+        let sut = Hyperplane(
             point: .init(x: 1, y: 2, z: 3),
             normal: .init(x: 1, y: 0, z: 0)
         )
@@ -85,7 +85,7 @@ class HyperplaneTests: XCTestCase {
             x2: 2, y2: 0, z2: 3
         )
 
-        let result = plane.intersection(with: line)
+        let result = sut.intersection(with: line)
 
         XCTAssertEqual(
             result,
@@ -97,7 +97,7 @@ class HyperplaneTests: XCTestCase {
     }
 
     func testIntersectionWithLine_lineSegment_enter() {
-        let plane = Hyperplane(
+        let sut = Hyperplane(
             point: .init(x: 1, y: 2, z: 3),
             normal: .init(x: 1, y: 0, z: 0)
         )
@@ -106,7 +106,7 @@ class HyperplaneTests: XCTestCase {
             x2: 0, y2: 0, z2: 3
         )
 
-        let result = plane.intersection(with: line)
+        let result = sut.intersection(with: line)
 
         XCTAssertEqual(
             result,
@@ -118,7 +118,7 @@ class HyperplaneTests: XCTestCase {
     }
 
     func testIntersectionWithLine_lineSegment_noIntersection_contained() {
-        let plane = Hyperplane(
+        let sut = Hyperplane(
             point: .init(x: 1, y: 2, z: 3),
             normal: .init(x: 1, y: 0, z: 0)
         )
@@ -127,13 +127,13 @@ class HyperplaneTests: XCTestCase {
             x2: 0, y2: 0, z2: 3
         )
 
-        let result = plane.intersection(with: line)
+        let result = sut.intersection(with: line)
 
         XCTAssertEqual(result, .contained)
     }
 
     func testIntersectionWithLine_lineSegment_noIntersection_notContained() {
-        let plane = Hyperplane(
+        let sut = Hyperplane(
             point: .init(x: 1, y: 2, z: 3),
             normal: .init(x: 1, y: 0, z: 0)
         )
@@ -142,8 +142,19 @@ class HyperplaneTests: XCTestCase {
             x2: 3, y2: 0, z2: 3
         )
 
-        let result = plane.intersection(with: line)
+        let result = sut.intersection(with: line)
 
         XCTAssertEqual(result, .noIntersection)
+    }
+
+    func testContains() {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+
+        XCTAssertTrue(sut.contains(x: 0, y: 2, z: 3))
+        XCTAssertTrue(sut.contains(x: 1, y: 2, z: 3))
+        XCTAssertFalse(sut.contains(x: 2, y: 2, z: 3))
     }
 }
