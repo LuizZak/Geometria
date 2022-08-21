@@ -10,13 +10,6 @@ extension SIMD3: VectorType {
 extension SIMD3: VectorTakeable where Scalar == Double {
     public typealias SubVector2 = SIMD2<Scalar>
     public typealias SubVector4 = SIMD4<Scalar>
-
-    /// Defines the dimension of an indexed takeable getter.
-    public enum TakeDimensions: Int {
-        case x
-        case y
-        case z
-    }
 }
 
 extension SIMD3: Vector3Type where Scalar == Double {
