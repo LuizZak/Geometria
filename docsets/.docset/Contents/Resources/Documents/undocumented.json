@@ -1135,6 +1135,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Hyperplane.swift",
+      "line": 24,
+      "symbol": "Hyperplane.init(point:normal:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Line.swift",
       "line": 8,
       "symbol": "Line.Scalar",
