@@ -2,6 +2,8 @@
 
 ## [main]
 
+## v0.0.2
+
 - Added `Hyperplane` protocol to represent [hyperplanes](https://en.wikipedia.org/wiki/Hyperplane), along with proper type aliases for 2-, 3-, and 4-dimensional hyperplanes.
 
 - Added `VectorTakeable` protocol, and making all vector protocols conform to it. With it, it's possible to index into a vector type to produce different vector types based on combinations of dimensions of a vector:
