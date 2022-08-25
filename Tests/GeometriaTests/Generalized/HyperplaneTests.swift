@@ -146,6 +146,21 @@ class HyperplaneTests: XCTestCase {
 
         XCTAssertEqual(result, .noIntersection)
     }
+    
+    func testIntersectionWithLine_ray_noIntersection_contained() {
+        let sut = Hyperplane(
+            point: .init(x: 2, y: 3, z: 5),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+        let line = Ray3D(
+            x1: 1, y1: 0, z1: 3,
+            x2: 0, y2: 1, z2: 3
+        )
+
+        let result = sut.intersection(with: line)
+
+        XCTAssertEqual(result, .contained)
+    }
 
     func testContains() {
         let sut = Hyperplane(
