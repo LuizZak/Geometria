@@ -544,6 +544,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         var offsetPoint = point
         var normalIndex = 0
         var max = -Scalar.infinity
+        let size = self.size
         
         offsetPoint -= center
         offsetPoint = abs(offsetPoint) / size
@@ -551,6 +552,13 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         var index = 0
         while index < offsetPoint.scalarCount {
             defer { index += 1 }
+            
+            // If any of the sizes of this AABB is zero, the normal will behave like
+            // a plane and thus will always match the normal of the zero-length
+            // dimension.
+            if size[index] == .zero {
+                return index
+            }
             
             let distance = offsetPoint[index]
             

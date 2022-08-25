@@ -1086,6 +1086,13 @@ extension AABBTests {
         XCTAssertTrue(sut.intersects(line: line))
     }
     
+    func testIntersectsLine_3d_line_zeroDepth_headOn() {
+        let sut = AABB3(minimum: .init(x: 0, y: 5, z: 0), maximum: .init(x: 10, y: 5, z: 10))
+        let line = Line3D(x1: 5, y1: -5, z1: 7, x2: 5, y2: 5, z2: 7)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+    
     // MARK: intersection(with:)
     
     // MARK: X - Positive
@@ -1263,6 +1270,27 @@ extension AABBTests {
                 PointNormal(
                     point: .init(x: 2.220446049250313e-15, y: 7.0, z: 5.0),
                     normal: .init(x: 1.0, y: 0.0, z: 0.0)
+                )
+            )
+        )
+    }
+    
+    // MARK: Y - Positive - Zero-depth AABB
+    
+    func testIntersectionWith_3d_line_zeroDepth_headOn() {
+        let sut = AABB3(minimum: .init(x: 0, y: 5, z: 0), maximum: .init(x: 10, y: 5, z: 10))
+        let line = Line3D(x1: 5, y1: -5, z1: 7, x2: 5, y2: 5, z2: 7)
+        
+        assertEqual(
+            sut.intersection(with: line),
+            .enterExit(
+                PointNormal(
+                    point: .init(x: 5.0, y: 5.0, z: 7.0),
+                    normal: .init(x: 0.0, y: -1.0, z: 0.0)
+                ),
+                PointNormal(
+                    point: .init(x: 5.0, y: 5.0, z: 7.0),
+                    normal: .init(x: 0.0, y: -1.0, z: 0.0)
                 )
             )
         )
