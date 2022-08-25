@@ -553,9 +553,9 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
         while index < offsetPoint.scalarCount {
             defer { index += 1 }
             
-            // If any of the sizes of this AABB is zero, the normal will behave like
-            // a plane and thus will always match the normal of the zero-length
-            // dimension.
+            // If any of the sizes of this AABB is zero, it will behave like a
+            // plane and thus its normal always equals the normal of its zero-length
+            // side.
             if size[index] == .zero {
                 return index
             }
