@@ -29,3 +29,7 @@ public extension Hyperplane2 {
         return line1.intersection(with: line2)?.point
     }
 }
+
+extension Hyperplane2: Convex2Type {
+    
+}

@@ -45,3 +45,7 @@ public extension Hyperplane3 {
         return Line(a: pointOnPlane, b: pointOnPlane + lineDirection)
     }
 }
+
+extension Hyperplane3: Convex3Type {
+    
+}
