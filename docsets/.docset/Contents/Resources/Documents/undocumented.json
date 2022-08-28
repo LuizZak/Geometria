@@ -526,6 +526,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Plane/PlaneIntersectablePlane3Type.swift",
+      "line": 13,
+      "symbol": "PlaneIntersectablePlane3Type.intersection(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3FloatingPoint.swift",
       "line": 6,
       "symbol": "Vector3FloatingPoint.+(_:_:)",

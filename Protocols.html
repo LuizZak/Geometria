@@ -127,7 +127,7 @@
                 <a class="nav-group-task-link" href="Extensions.html#/s:s7Float80V">Float80</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/Hyperplane2.html">Hyperplane2</a>
+                <a class="nav-group-task-link" href="Extensions.html#/s:9Geometria11Hyperplane2a">Hyperplane2</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions.html#/s:9Geometria11Hyperplane3a">Hyperplane3</a>
@@ -161,6 +161,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/LineSegment3.html">LineSegment3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/s:9Geometria17PointNormalPlane2a">PointNormalPlane2</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions.html#/s:9Geometria17PointNormalPlane3a">PointNormalPlane3</a>
@@ -333,6 +336,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols.html#/s:9Geometria10Plane3TypeP">Plane3Type</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/PlaneIntersectablePlane2Type.html">PlaneIntersectablePlane2Type</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/PlaneIntersectablePlane3Type.html">PlaneIntersectablePlane3Type</a>
@@ -1085,6 +1091,37 @@ be queried with Vectors for containment checks.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Line2Type</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineType.html">LineType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria28PlaneIntersectablePlane2TypeP"></a>
+                    <a name="//apple_ref/swift/Protocol/PlaneIntersectablePlane2Type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria28PlaneIntersectablePlane2TypeP">PlaneIntersectablePlane2Type</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A 1D plane in 2D space that can be intersected with other intersectable
+planes, producing intersection lines.</p>
+
+<p>A plane-intersectable plane is implicitly a line-intersectable plane as well.</p>
+
+                        <a href="Protocols/PlaneIntersectablePlane2Type.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlaneIntersectablePlane2Type</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span></code></pre>
 
                         </div>
                       </div>
