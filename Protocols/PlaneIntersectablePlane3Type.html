@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Torus3 Structure Reference</title>
+    <title>PlaneIntersectablePlane3Type Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Torus3" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/PlaneIntersectablePlane3Type" class="dashAnchor"></a>
 
-    <a title="Torus3 Structure Reference"></a>
+    <a title="PlaneIntersectablePlane3Type Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      Torus3 Structure Reference
+      PlaneIntersectablePlane3Type Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -940,24 +940,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Torus3</h1>
+            <h1>PlaneIntersectablePlane3Type</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Torus3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/BoundableType.html">BoundableType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PointProjectableType.html">PointProjectableType</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Torus3</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Real</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PlaneIntersectablePlane3Type</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Represents a three dimensional <a href="https://en.wikipedia.org/wiki/Torus">torus</a> shape as a center point, an axis of
-rotation around that center point, and two radii describing the radius of
-a circle, and the radius of the axis of rotation of the circle around the
-center point of the torus.</p>
+            <p>A 2D plane in 3D space that can be intersected with other intersectable
+planes, producing intersection lines.</p>
+
+<p>A plane-intersectable plane is implicitly a line-intersectable plane as well.</p>
 
           </div>
         </section>
@@ -969,9 +963,9 @@ center point of the torus.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria6Torus3V6Scalara"></a>
-                    <a name="//apple_ref/swift/Alias/Scalar" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V6Scalara">Scalar</a>
+                    <a name="/s:9Geometria28PlaneIntersectablePlane3TypeP12intersection4withAA4LineVy6VectorQzGSgqd___tAA0hcbE0Rd__AHQyd__AIRSlF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria28PlaneIntersectablePlane3TypeP12intersection4withAA4LineVy6VectorQzGSgqd___tAA0hcbE0Rd__AHQyd__AIRSlF">intersection(with:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -979,236 +973,16 @@ center point of the torus.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Convenience for <code>Vector.Scalar</code>.</p>
+                        <p>Returns the intersection of this 3 dimensional plane with another
+plane as a line, or <code>nil</code>, if the hyperplanes are parallel or
+<a href="https://en.wikipedia.org/wiki/Coplanarity">coplanar</a>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Scalar</span> <span class="o">=</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V6centerxvp"></a>
-                    <a name="//apple_ref/swift/Property/center" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V6centerxvp">center</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The geometric center point of the torus.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V4axisxvp"></a>
-                    <a name="//apple_ref/swift/Property/axis" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V4axisxvp">axis</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The axis of revolution of the circle that composes the tube of the torus.
-The major radius of the torus expands from <code><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V6centerxvp">center</a></code>, perpendicular to 
-this axis by <code><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V11majorRadius6ScalarQzvp">majorRadius</a></code>, and sweeps around forming the tube of the 
-torus.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd"><a href="../Structs/UnitVector.html">@UnitVector</a></span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">axis</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V11majorRadius6ScalarQzvp"></a>
-                    <a name="//apple_ref/swift/Property/majorRadius" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V11majorRadius6ScalarQzvp">majorRadius</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The radius from the center of the torus to the center of the tube.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">majorRadius</span><span class="p">:</span> <span class="kt"><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V6Scalara">Scalar</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V11minorRadius6ScalarQzvp"></a>
-                    <a name="//apple_ref/swift/Property/minorRadius" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V11minorRadius6ScalarQzvp">minorRadius</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The radius of the tube of the torus.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">minorRadius</span><span class="p">:</span> <span class="kt"><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V6Scalara">Scalar</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V6center4axis11majorRadius05minorF0ACyxGx_x6ScalarQzAJtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(center:axis:majorRadius:minorRadius:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V6center4axis11majorRadius05minorF0ACyxGx_x6ScalarQzAJtcfc">init(center:<wbr>axis:<wbr>majorRadius:<wbr>minorRadius:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">center</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">axis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">majorRadius</span><span class="p">:</span> <span class="kt"><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V6Scalara">Scalar</a></span><span class="p">,</span> <span class="nv">minorRadius</span><span class="p">:</span> <span class="kt"><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V6Scalara">Scalar</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V6boundsAA4AABBVyxGvp"></a>
-                    <a name="//apple_ref/swift/Property/bounds" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V6boundsAA4AABBVyxGvp">bounds</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Gets the minimal bounding box capable of fully containing all the points
-of this <code>Torus3</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">bounds</span><span class="p">:</span> <span class="kt"><a href="../Structs/AABB.html">AABB</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria6Torus3V8containsySbxF"></a>
-                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria6Torus3V8containsySbxF">contains(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns <code>true</code> if a given point vector is enclosed within the volume of
-this <code>Torus3</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria20PointProjectableTypeP7projecty6VectorQzAFF"></a>
-                    <a name="//apple_ref/swift/Method/project(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria20PointProjectableTypeP7projecty6VectorQzAFF">project(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">project</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt">Plane</span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">Plane</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">?</span> <span class="k">where</span> <span class="kt">Plane</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="o">==</span> <span class="kt">Plane</span><span class="o">.</span><span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
@@ -1219,11 +993,11 @@ this <code>Torus3</code>.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector.Scalar%60%3A%20%60Real%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector.Scalar`: `Real`" class="dashAnchor"></a>
+                <a name="/Available%20where%20%60Vector%60%3A%20%60Vector3Multiplicative%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector3Multiplicative`" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector.Scalar%60%3A%20%60Real%60"></a>
-                  <h3 class="section-name"><span>Available where <code>Vector.Scalar</code>: <code>Real</code></span>
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Vector3Multiplicative%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/Vector3Multiplicative.html">Vector3Multiplicative</a></code></span>
 </h3>
                 </div>
               </div>
@@ -1231,10 +1005,13 @@ this <code>Torus3</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria28SignedDistanceMeasurableTypeP06signedC02to6Vector_6ScalarQZAFQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/signedDistance(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria28SignedDistanceMeasurableTypeP06signedC02to6Vector_6ScalarQZAFQz_tF">signedDistance(to:<wbr>)</a>
+                    <a name="/s:9Geometria28PlaneIntersectablePlane3TypePA2A21Vector3Multiplicative6VectorRpzrlE12intersection4withAA4LineVyAFGSgqd___tAA0kcbE0Rd__AEQyd__AFRSlF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria28PlaneIntersectablePlane3TypePA2A21Vector3Multiplicative6VectorRpzrlE12intersection4withAA4LineVyAFGSgqd___tAA0kcbE0Rd__AEQyd__AFRSlF">intersection(with:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -1243,11 +1020,16 @@ this <code>Torus3</code>.</p>
                       <div class="abstract">
                         
                       </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Undocumented</p>
+
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signedDistance</span><span class="p">(</span><span class="n">to</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/Torus3.html#/s:9Geometria6Torus3V6Scalara">Scalar</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt">Plane</span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">other</span><span class="p">:</span> <span class="kt">Plane</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">?</span> <span class="k">where</span> <span class="kt">Plane</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineIntersectablePlaneType.html">LineIntersectablePlaneType</a></span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Vector</span> <span class="o">==</span> <span class="kt">Plane</span><span class="o">.</span><span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
