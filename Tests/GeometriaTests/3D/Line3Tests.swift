@@ -24,5 +24,6 @@ class Line3Tests: XCTestCase {
         
         XCTAssertEqual(result.a, .init(x: 1, y: 2))
         XCTAssertEqual(result.b, .init(x: 3, y: 5))
+        XCTAssertEqual(result.category, .line)
     }
 }

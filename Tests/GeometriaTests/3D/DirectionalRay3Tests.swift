@@ -35,5 +35,6 @@ class DirectionalRay3Tests: XCTestCase {
         
         XCTAssertEqual(result.start, .init(x: 1, y: 2))
         XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(result.category, .ray)
     }
 }

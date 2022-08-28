@@ -35,5 +35,6 @@ class Ray3Tests: XCTestCase {
         
         XCTAssertEqual(result.start, .init(x: 1, y: 2))
         XCTAssertEqual(result.b, .init(x: 3, y: 5))
+        XCTAssertEqual(result.category, .ray)
     }
 }
