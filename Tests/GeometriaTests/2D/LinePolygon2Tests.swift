@@ -12,8 +12,74 @@ class LinePolygon2Tests: XCTestCase {
         
         XCTAssertEqual(sut.vertices, [
             .init(x: 1, y: 2),
-            .init(x: 3, y: 5)
+            .init(x: 3, y: 5),
         ])
+    }
+}
+
+// MARK: Vector2Multiplicative Conformance
+
+extension LinePolygon2Tests {
+    func testWinding_clockwise() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 3, y: 0),
+            .init(x: 3, y: 3),
+            .init(x: 0, y: 0),
+        ])
+
+        XCTAssertEqual(sut.winding(), 9.0)
+    }
+
+    func testWinding_counterClockwise() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 0, y: 0),
+            .init(x: 3, y: 3),
+            .init(x: 3, y: 0),
+        ])
+
+        XCTAssertEqual(sut.winding(), -9.0)
+    }
+
+    func testWinding_twoPoints() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 3, y: 0),
+            .init(x: 3, y: 3),
+        ])
+
+        XCTAssertEqual(sut.winding(), 0.0)
+    }
+}
+
+// MARK: Vector2Multiplicative, Scalar: DivisibleArithmetic Conformance
+
+extension LinePolygon2Tests {
+    func testArea_clockwise() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 3, y: 0),
+            .init(x: 3, y: 3),
+            .init(x: 0, y: 0),
+        ])
+
+        XCTAssertEqual(sut.area(), 4.5)
+    }
+
+    func testArea_counterClockwise() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 0, y: 0),
+            .init(x: 3, y: 3),
+            .init(x: 3, y: 0),
+        ])
+
+        XCTAssertEqual(sut.area(), -4.5)
+    }
+
+    func testArea_twoPoints() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 3, y: 0),
+            .init(x: 3, y: 3),
+        ])
+
+        XCTAssertEqual(sut.area(), 0.0)
     }
 }
 
@@ -24,7 +90,7 @@ extension LinePolygon2Tests {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0),
             .init(x: 3, y: 3),
-            .init(x: 3, y: 0)
+            .init(x: 3, y: 0),
         ])
         
         XCTAssertTrue(sut.isConvex())
@@ -34,7 +100,7 @@ extension LinePolygon2Tests {
         let sut = LinePolygon(vertices: [
             .init(x: 3, y: 0),
             .init(x: 3, y: 3),
-            .init(x: 0, y: 0)
+            .init(x: 0, y: 0),
         ])
         
         XCTAssertTrue(sut.isConvex())
@@ -45,7 +111,7 @@ extension LinePolygon2Tests {
             .init(x: 0, y: 0),
             .init(x: 3, y: 3),
             .init(x: 1.5, y: 2),
-            .init(x: 3, y: 0)
+            .init(x: 3, y: 0),
         ])
         
         XCTAssertFalse(sut.isConvex())
@@ -54,7 +120,7 @@ extension LinePolygon2Tests {
     func testIsConvex_lineSegment_returnsFalse() {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0),
-            .init(x: 3, y: 3)
+            .init(x: 3, y: 3),
         ])
         
         XCTAssertFalse(sut.isConvex())
@@ -62,7 +128,7 @@ extension LinePolygon2Tests {
     
     func testIsConvex_point_returnsFalse() {
         let sut = LinePolygon(vertices: [
-            .init(x: 0, y: 0)
+            .init(x: 0, y: 0),
         ])
         
         XCTAssertFalse(sut.isConvex())
@@ -84,7 +150,7 @@ extension LinePolygon2Tests {
             .init(x: 6, y: 5),
             .init(x: 13, y: 10),
             .init(x: 10, y: 20),
-            .init(x: 3, y: 17)
+            .init(x: 3, y: 17),
         ])
         
         XCTAssertFalse(sut.isConvex())
@@ -100,7 +166,7 @@ extension LinePolygon2Tests {
             .init(x: -5.0, y: 6.0),
             .init(x: -10.0, y: 13.0),
             .init(x: -20.0, y: 10.0),
-            .init(x: -17.0, y: 3.0)
+            .init(x: -17.0, y: 3.0),
         ])
         
         XCTAssertFalse(sut.isConvex())
@@ -133,7 +199,7 @@ extension LinePolygon2Tests {
             .init(x: 0, y: 0),
             .init(x: 2, y: 0),
             .init(x: 2, y: 2),
-            .init(x: 0, y: 2)
+            .init(x: 0, y: 2),
         ])
         
         XCTAssertTrue(sut.contains(x: 0.5, y: 0.5))
@@ -147,7 +213,7 @@ extension LinePolygon2Tests {
             .init(x: 0, y: 0),
             .init(x: 2, y: 0),
             .init(x: 2, y: 2),
-            .init(x: 0, y: 2)
+            .init(x: 0, y: 2),
         ])
         
         XCTAssertFalse(sut.contains(x: -1, y: -1))
@@ -168,7 +234,7 @@ extension LinePolygon2Tests {
             .init(x: 1, y: 1),
             .init(x: 2, y: 0),
             .init(x: 2, y: 2),
-            .init(x: 0, y: 2)
+            .init(x: 0, y: 2),
         ])
         
         XCTAssertTrue(sut.contains(x: 0.5, y: 0.5))

@@ -20,6 +20,42 @@ public extension LinePolygon2 {
     }
 }
 
+extension LinePolygon2 where Vector: Vector2Multiplicative {
+    /// Returns the winding number for this polygon.
+    ///
+    /// The winding number is the sum of the cross products of each adjacent
+    /// edge's slope.
+    ///
+    /// Positive values indicate clockwise orientation in an (X-Right, Y-Up)
+    /// space, while negative indicate counter-clockwise.
+    ///
+    /// If this polygon has less than 3 points, `.zero` is returned instead.
+    public func winding() -> Vector.Scalar {
+        guard var v2 = vertices.last else {
+            return 0
+        }
+        
+        var winding: Vector.Scalar = 0
+        
+        for p in vertices {
+            winding += v2.cross(p)
+            v2 = p
+        }
+        
+        return winding
+    }
+}
+
+extension LinePolygon2 where Vector: Vector2Multiplicative, Vector.Scalar: DivisibleArithmetic {
+    /// Returns the signed area of this 2D polygon.
+    ///
+    /// Positive values indicate clockwise orientation in an (X-Right, Y-Up)
+    /// space, while negative indicate counter-clockwise.
+    public func area() -> Vector.Scalar {
+        return winding() / 2
+    }
+}
+
 extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     /// Returns `true` if this polygon is convex.
     ///
@@ -44,16 +80,16 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         let diffFirst = vertices[0] - last
         let wSign: Scalar = diffLast.cross(diffFirst)
         
-        var curr: Vector = secondToLast
+        var current: Vector = secondToLast
         var next: Vector = last
         
         for v in vertices {
-            let prev = curr
-            curr = next
+            let prev = current
+            current = next
             next = v
             
-            let b: Vector = curr - prev
-            let a: Vector = next - curr
+            let b: Vector = current - prev
+            let a: Vector = next - current
             
             // Calculate sign flips using the next edge vector, recording the
             // first sign
