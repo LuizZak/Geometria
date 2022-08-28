@@ -936,6 +936,8 @@
                 <div class="language">
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></span><span class="p">,</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 
@@ -970,6 +972,97 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">addVertex</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60Vector2Multiplicative%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector2Multiplicative`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Vector2Multiplicative%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></code></span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11LinePolygonVA2A21Vector2MultiplicativeRzrlE7winding6ScalarQzyF"></a>
+                    <a name="//apple_ref/swift/Method/winding()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11LinePolygonVA2A21Vector2MultiplicativeRzrlE7winding6ScalarQzyF">winding()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the winding number for this polygon.</p>
+
+<p>The winding number is the sum of the cross products of each adjacent
+edge&rsquo;s slope.</p>
+
+<p>Positive values indicate clockwise orientation in an (X-Right, Y-Up)
+space, while negative indicate counter-clockwise.</p>
+
+<p>If this polygon has less than 3 points, <code>.zero</code> is returned instead.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">winding</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60Vector2Multiplicative%60%2C%20%60Vector.Scalar%60%3A%20%60DivisibleArithmetic%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector2Multiplicative`, `Vector.Scalar`: `DivisibleArithmetic`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Vector2Multiplicative%60%2C%20%60Vector.Scalar%60%3A%20%60DivisibleArithmetic%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></code>, <code>Vector.Scalar</code>: <code><a href="../Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a></code></span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11LinePolygonVA2A21Vector2MultiplicativeRzAA19DivisibleArithmetic6ScalarRpzrlE4areaAGyF"></a>
+                    <a name="//apple_ref/swift/Method/area()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11LinePolygonVA2A21Vector2MultiplicativeRzAA19DivisibleArithmetic6ScalarRpzrlE4areaAGyF">area()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the signed area of this 2D polygon.</p>
+
+<p>Positive values indicate clockwise orientation in an (X-Right, Y-Up)
+space, while negative indicate counter-clockwise.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">area</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
