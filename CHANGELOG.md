@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `PlaneIntersectablePlane3Type` to generalize line intersection of 2D planes in 3D spaces.
+
 ## v0.0.2
 
 - Added `Hyperplane` protocol to represent [hyperplanes](https://en.wikipedia.org/wiki/Hyperplane), along with proper type aliases for 2-, 3-, and 4-dimensional hyperplanes.

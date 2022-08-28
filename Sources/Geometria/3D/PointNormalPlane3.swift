@@ -8,3 +8,7 @@ public typealias PointNormalPlane3F = PointNormalPlane3<Vector3F>
 
 /// Typealias for `PointNormalPlane<V>`, where `V` is constrained to ``Vector3FloatingPoint``.
 public typealias PointNormalPlane3<V: Vector3FloatingPoint> = PointNormalPlane<V>
+
+extension PointNormalPlane3: PlaneIntersectablePlane3Type {
+    
+}
