@@ -57,7 +57,7 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
             
             // Calculate sign flips using the next edge vector, recording the
             // first sign
-            if xSign.hasFlippedTwice(a.x) || ySign.hasFlippedTwice(a.y) {
+            if xSign.recordValue(a.x) || ySign.recordValue(a.y) {
                 return false
             }
             
@@ -73,7 +73,7 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         xSign.finish()
         ySign.finish()
         
-        // Concave polygons have two sign flips along each axis
+        // Convex polygons have exactly two sign flips along each axis
         if xSign.flips != 2 || ySign.flips != 2 {
             return false
         }
@@ -84,29 +84,38 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     
     // Auxiliary struct for LinePolygon2.isConvex used to track value sign changes
     struct SignFlipHandler {
-        var sign: Int = 0
-        var firstSign: Int = 0
+        private var sign: Sign = .indeterminate
+        private var firstSign: Sign = .indeterminate
         var flips: Int = 0
+
+        /// Records a signed value to derive the sign flips from.
+        ///
+        /// Also returns whether the sign has been flipped two or more times.
+        mutating func recordValue(_ value: Scalar) -> Bool {
+            if value > Scalar.zero {
+                if sign == .indeterminate {
+                    firstSign = .positive
+                } else if sign == .negative {
+                    flips += 1
+                }
+
+                sign = .positive
+            } else if value < Scalar.zero {
+                if sign == .indeterminate {
+                    firstSign = .negative
+                } else if sign == .positive {
+                    flips += 1
+                }
+
+                sign = .negative
+            }
+
+            return hasFlippedTwice()
+        }
         
         /// Returns `true` when the sign of a scalar value has flipped at least
-        /// two times since this method was invoked.
-        mutating func hasFlippedTwice(_ value: Scalar) -> Bool {
-            if value > Scalar.zero {
-                if sign == 0 {
-                    firstSign = 1
-                } else if sign < 0 {
-                    flips += 1
-                }
-                sign = 1
-            } else if value < Scalar.zero {
-                if sign == 0 {
-                    firstSign = -1
-                } else if sign > 0 {
-                    flips += 1
-                }
-                sign = -1
-            }
-            
+        /// two times.
+        func hasFlippedTwice() -> Bool {
             if flips > 2 {
                 return true
             }
@@ -115,9 +124,15 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         }
         
         mutating func finish() {
-            if sign != 0 && firstSign != 0 && sign != firstSign {
+            if sign != .indeterminate && firstSign != .indeterminate && sign != firstSign {
                 flips += 1
             }
+        }
+
+        enum Sign {
+            case positive
+            case negative
+            case indeterminate
         }
     }
 }

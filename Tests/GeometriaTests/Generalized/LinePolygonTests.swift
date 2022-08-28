@@ -8,7 +8,7 @@ class LinePolygonTests: XCTestCase {
         let sut = LinePolygon(vertices: [
             .init(x: 0, y: 0),
             .init(x: 1, y: 0),
-            .init(x: 1, y: 1)
+            .init(x: 1, y: 1),
         ])
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
@@ -55,7 +55,39 @@ class LinePolygonTests: XCTestCase {
         
         XCTAssertEqual(sut.vertices, [
             .init(x: 1, y: 2),
-            .init(x: 3, y: 5)
+            .init(x: 3, y: 5),
+        ])
+    }
+
+    func testReverse() {
+        var sut = LinePolygon(vertices: [
+            .init(x: 0, y: 0),
+            .init(x: 1, y: 0),
+            .init(x: 1, y: 1),
+        ])
+
+        sut.reverse()
+
+        XCTAssertEqual(sut.vertices, [
+            .init(x: 1, y: 1),
+            .init(x: 1, y: 0),
+            .init(x: 0, y: 0),
+        ])
+    }
+
+    func testReversed() {
+        let sut = LinePolygon(vertices: [
+            .init(x: 0, y: 0),
+            .init(x: 1, y: 0),
+            .init(x: 1, y: 1),
+        ])
+
+        let result = sut.reversed()
+
+        XCTAssertEqual(result.vertices, [
+            .init(x: 1, y: 1),
+            .init(x: 1, y: 0),
+            .init(x: 0, y: 0),
         ])
     }
 }
@@ -67,7 +99,7 @@ extension LinePolygonTests {
         let sut = LinePolygon(vertices: [
             .init(x: -2, y: 3),
             .init(x: 4, y: 1),
-            .init(x: 3, y: -4)
+            .init(x: 3, y: -4),
         ])
         
         let result = sut.bounds
@@ -97,7 +129,7 @@ extension LinePolygonTests {
     
     func testAverage_singleVertex() {
         let sut = LinePolygon(vertices: [
-            .init(x: 1, y: 2)
+            .init(x: 1, y: 2),
         ])
         
         XCTAssertEqual(sut.average, .init(x: 1, y: 2))

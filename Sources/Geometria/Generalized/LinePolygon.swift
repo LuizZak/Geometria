@@ -26,6 +26,21 @@ public struct LinePolygon<Vector: VectorType>: GeometricType {
     public mutating func addVertex(_ v: Vector) {
         vertices.append(v)
     }
+
+    /// Reverses the order of the vertices within this line polygon.
+    @inlinable
+    public mutating func reverse() {
+        vertices.reverse()
+    }
+
+    /// Returns a new line polygon where the vertices are the reversed list of
+    /// vertices from this line polygon.
+    @inlinable
+    public func reversed() -> Self {
+        var copy = self
+        copy.reverse()
+        return copy
+    }
 }
 
 extension LinePolygon: Equatable where Vector: Equatable, Scalar: Equatable { }
