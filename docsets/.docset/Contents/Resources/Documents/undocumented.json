@@ -99,6 +99,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Plane/PlaneIntersectablePlane2Type.swift",
+      "line": 13,
+      "symbol": "PlaneIntersectablePlane2Type.intersection(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Protocols/Vector/Vector2FloatingPoint.swift",
       "line": 6,
       "symbol": "Vector2FloatingPoint.+(_:_:)",

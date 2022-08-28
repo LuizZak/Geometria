@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>VectorReal Protocol Reference</title>
+    <title>LineCategory Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/VectorReal" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/LineCategory" class="dashAnchor"></a>
 
-    <a title="VectorReal Protocol Reference"></a>
+    <a title="LineCategory Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      VectorReal Protocol Reference
+      LineCategory Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -949,15 +949,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>VectorReal</h1>
+            <h1>LineCategory</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">VectorReal</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">Real</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LineCategory</span> <span class="p">:</span> <span class="kt">RawRepresentable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
-            <p>Protocol for vector types where the components are real numbers.</p>
+            <p>Represents the category for a <code><a href="../Protocols/LineType.html">LineType</a></code>, specifying whether the end points
+of the line are open or closed.</p>
 
           </div>
         </section>
@@ -969,33 +970,23 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria10VectorRealP3powyxx_SitFZ"></a>
-                    <a name="//apple_ref/swift/Method/pow(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10VectorRealP3powyxx_SitFZ">pow(_:<wbr>_:<wbr>)</a>
+                    <a name="/s:SY8rawValue03RawB0Qzvp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY8rawValue03RawB0Qzvp">rawValue</a>
                     </code>
-                      <span class="declaration-note">
-                        Default implementation
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the result of powering each component of this vector by the Nth
-power specified by <code>exponent</code> (integer).</p>
-
-                      </div>
-                      <h4>Default Implementation</h4>
-                      <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">pow</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -1005,9 +996,9 @@ power specified by <code>exponent</code> (integer).</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria10VectorRealP3powyxx_6ScalarQztFZ"></a>
-                    <a name="//apple_ref/swift/Method/pow(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10VectorRealP3powyxx_6ScalarQztFZ">pow(_:<wbr>_:<wbr>)</a>
+                    <a name="/s:9Geometria12LineCategoryV11isOpenStartSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isOpenStart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineCategoryV11isOpenStartSbvp">isOpenStart</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1015,20 +1006,15 @@ power specified by <code>exponent</code> (integer).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the result of powering each component of this vector by the Nth
-power specified by <code>exponent</code>.</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <code>vec &gt;= Self.zero</code>
-
-</div>
+                        <p>Returns whether the start of this line category is open, i.e. it extends
+towards infinity past <code>b -&gt; a</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">pow</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isOpenStart</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1038,9 +1024,9 @@ power specified by <code>exponent</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria10VectorRealP3powyxx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/pow(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10VectorRealP3powyxx_xtFZ">pow(_:<wbr>_:<wbr>)</a>
+                    <a name="/s:9Geometria12LineCategoryV9isOpenEndSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isOpenEnd" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineCategoryV9isOpenEndSbvp">isOpenEnd</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1048,21 +1034,124 @@ power specified by <code>exponent</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the result of powering each component of this vector by the Nth
-power represented by each corresponding component of the <code>exponent</code>
-vector.</p>
-<div class="aside aside-precondition">
-    <p class="aside-title">Precondition</p>
-    <code>vec &gt;= Self.zero</code>
-
-</div>
+                        <p>Returns whether the end of this line category is open, i.e. it extends
+towards infinity past <code>a -&gt; b</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">pow</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">exponent</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isOpenEnd</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SY8rawValuexSg03RawB0Qz_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(rawValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SY8rawValuexSg03RawB0Qz_tcfc">init(rawValue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria12LineCategoryV4lineACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/line" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineCategoryV4lineACvpZ">line</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Category for a <a href="https://en.wikipedia.org/wiki/Line_(geometry)">geometric line</a> that define an infinite line.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">line</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria12LineCategoryV3rayACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/ray" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineCategoryV3rayACvpZ">ray</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Category for a <a href="https://en.wikipedia.org/wiki/Line_(geometry)#Ray">geometric ray</a> line which has a starting
+point and crosses a secondary point before projecting to infinity.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">ray</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria12LineCategoryV11lineSegmentACvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/lineSegment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria12LineCategoryV11lineSegmentACvpZ">lineSegment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Category for a <a href="https://en.wikipedia.org/wiki/Line_segment">line segment</a> that define a closed interval with a start
+and end point.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">lineSegment</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`</span></code></pre>
 
                         </div>
                       </div>

@@ -1164,7 +1164,7 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Line.swift",
-      "line": 19,
+      "line": 22,
       "symbol": "Line.init(a:b:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1199,7 +1199,7 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/LineSegment.swift",
-      "line": 29,
+      "line": 32,
       "symbol": "LineSegment.init(start:end:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1416,7 +1416,7 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Ray.swift",
-      "line": 17,
+      "line": 20,
       "symbol": "Ray.init(start:b:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
