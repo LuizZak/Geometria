@@ -51,6 +51,12 @@ class LineSegmentTests: XCTestCase {
         XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 999)).hashValue,
                           LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
     }
+
+    func testCategory() {
+        let sut = LineSegment(start: .zero, end: .one)
+
+        XCTAssertEqual(sut.category, .lineSegment)
+    }
     
     func testAsLine() {
         let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))

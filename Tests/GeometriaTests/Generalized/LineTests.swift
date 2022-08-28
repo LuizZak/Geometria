@@ -51,6 +51,12 @@ class LineTests: XCTestCase {
         XCTAssertNotEqual(Line(a: .init(x: 1, y: 2), b: .init(x: 3, y: 999)).hashValue,
                           Line(a: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
     }
+
+    func testCategory() {
+        let sut = Line(a: .zero, b: .one)
+
+        XCTAssertEqual(sut.category, .line)
+    }
 }
 
 // MARK: LineAdditive Conformance

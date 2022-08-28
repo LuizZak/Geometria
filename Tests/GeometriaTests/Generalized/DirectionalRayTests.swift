@@ -106,6 +106,12 @@ class DirectionalRayTests: XCTestCase {
         XCTAssertEqual(sut.start, .init(x: 1, y: 1))
         XCTAssertEqual(sut.direction, .init(x: -0.7071067811865475, y: -0.7071067811865475))
     }
+
+    func testCategory() {
+        let sut = DirectionalRay(a: .zero, b: .one)
+
+        XCTAssertEqual(sut.category, .ray)
+    }
 }
 
 // MARK: LineType Conformance

@@ -12,6 +12,9 @@ public struct Ray<Vector: VectorType>: GeometricType {
     /// A secondary point a line tracing from `start` passes through before
     /// being projected to infinity in a straight line.
     public var b: Vector
+
+    @inlinable
+    public var category: LineCategory { .ray }
     
     @_transparent
     public init(start: Vector, b: Vector) {

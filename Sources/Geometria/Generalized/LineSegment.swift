@@ -24,6 +24,9 @@ public struct LineSegment<Vector: VectorType>: LineType {
     public var b: Vector {
         end
     }
+
+    @inlinable
+    public var category: LineCategory { .lineSegment }
     
     @_transparent
     public init(start: Vector, end: Vector) {

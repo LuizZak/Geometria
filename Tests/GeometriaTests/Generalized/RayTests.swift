@@ -51,6 +51,12 @@ class RayTests: XCTestCase {
         XCTAssertNotEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 999)).hashValue,
                           Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
     }
+
+    func testCategory() {
+        let sut = Ray(start: .zero, b: .one)
+
+        XCTAssertEqual(sut.category, .ray)
+    }
     
     func testAsLine() {
         let sut = Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))

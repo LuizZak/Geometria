@@ -66,6 +66,9 @@ extension DirectionalRay: LineType {
     public var b: Vector {
         start + direction
     }
+
+    @inlinable
+    public var category: LineCategory { .ray }
 }
 
 public extension DirectionalRay where Vector: VectorAdditive {

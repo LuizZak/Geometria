@@ -14,4 +14,8 @@ public protocol LineType: GeometricType {
     /// This point is not guaranteed to be part of the line limits but it is
     /// guaranteed to be colinear.
     var b: Vector { get }
+
+    /// Gets the category for this `LineType`, specifying whether the end points
+    /// of the line are open or closed.
+    var category: LineCategory { get }
 }

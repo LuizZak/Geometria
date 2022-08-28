@@ -14,6 +14,9 @@ public struct Line<Vector: VectorType>: LineType {
     /// A secondary point a line tracing from `a` passes through before
     /// being projected to infinity in a straight line.
     public var b: Vector
+
+    @inlinable
+    public var category: LineCategory { .line }
     
     @_transparent
     public init(a: Vector, b: Vector) {
