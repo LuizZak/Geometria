@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `PlaneIntersectablePlane2Type` to generalize line intersection of 1D planes (lines) in 2D spaces.
+
 - Added `PlaneIntersectablePlane3Type` to generalize line intersection of 2D planes in 3D spaces.
 
 ## v0.0.2
