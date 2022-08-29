@@ -57,6 +57,22 @@ extension Line: LineDivisible where Vector: VectorDivisible {
 }
 
 extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    /// Returns a ``IntervalLine`` representation of this line, where the result's
+    /// ``IntervalLine/a`` matches ``start`` and ``IntervalLine/b`` matches
+    /// ``end``, with minimum and maximum magnitudes matching
+    /// (`-.infinity` - `+.infinity`)
+    ///
+    /// - precondition: `(self.b - self.start).length > 0`
+    @_transparent
+    public var asIntervalLine: IntervalLine<Vector> {
+        IntervalLine(
+            pointOnLine: a,
+            direction: b - a,
+            minimumMagnitude: -.infinity,
+            maximumMagnitude: .infinity
+        )
+    }
+
     /// Returns `true` for all non-NaN scalar values, which describes a
     /// [geometric line].
     ///

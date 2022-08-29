@@ -28,7 +28,7 @@ class DirectionalRay3Tests: XCTestCase {
     
     func testMake2DLine() {
         let result =
-        DirectionalRay.make2DLine(
+        DirectionalRay(a: .zero, b: .one).make2DLine(
             .init(x: 1, y: 2),
             .init(x: 3, y: 5)
         )

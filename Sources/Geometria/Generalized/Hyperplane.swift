@@ -54,7 +54,24 @@ extension Hyperplane: PointProjectablePlaneType {
 }
 
 extension Hyperplane: LineIntersectablePlaneType {
-    
+    /*
+    /// Returns an interval line that represents the intersection of the given
+    /// input line with this hyperplane.
+    public func intersectionInterval<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> IntervalLine<Line.Vector> where Line.Vector == Vector {
+
+        if line.category.isOpenEnd && line.category.isOpenStart {
+            if contains(line.a) && contains(line.b) {
+                
+            }
+        }
+        
+        let magnitude = unclampedNormalMagnitudeForIntersection(with: line)
+
+
+    }
+    */
 }
 
 extension Hyperplane: ConvexType {

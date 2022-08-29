@@ -225,9 +225,11 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         // axis and solve a bounding-box/line intersection
         
         let pl: ProjectivePointNormalPlane3<Vector>
-        pl = .makeCorrectedPlane(point: line.a,
-                                 normal: crossSlope,
-                                 upAxis: cylinderSlope)
+        pl = .makeCorrectedPlane(
+            point: line.a,
+            normal: crossSlope,
+            upAxis: cylinderSlope
+        )
         
         // Find the rectangle that represents the cylinder's cross section on
         // the plane
@@ -257,7 +259,7 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         let lineAProj = pl.project2D(line.a)
         let lineBProj = pl.project2D(line.b)
         
-        let line2d = Line.make2DLine(lineAProj, lineBProj)
+        let line2d = line.make2DLine(lineAProj, lineBProj)
         
         let intersection = aabb.intersection(with: line2d)
         

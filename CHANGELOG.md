@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `IntervalLine`, a special line type that can be configured to have finite or infinite ends dynamically.
+
 - Added `LineCategory` bit-flag for `LineType` conformers that specifies the category of the line type (line, ray, or line segment).
 
 - Added `PlaneIntersectablePlane2Type` to generalize line intersection of 1D planes (lines) in 2D spaces.

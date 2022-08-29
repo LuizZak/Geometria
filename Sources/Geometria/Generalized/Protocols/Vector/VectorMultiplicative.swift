@@ -21,8 +21,8 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// Calculates the [dot product](http://en.wikipedia.org/wiki/Dot_product)
     /// between this vector and another.
     ///
-    /// Performs the computation `x1 * y1 + x2 * y2 + ... + xN + yN` for any
-    /// N-dimensional vector type.
+    /// Performs the computation `a[0] * b[0] + a[1] * b[1] + ... + a[N - 1] * b[N - 1]`
+    /// for any N-dimensional vectors `a` and `b`.
     ///
     /// ```swift
     /// let v1 = Vector2D(x: 3.0, y: -2.0)

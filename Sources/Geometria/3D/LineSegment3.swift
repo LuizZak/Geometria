@@ -23,7 +23,7 @@ extension LineSegment3: Line3Type {
     
     /// Creates a 2D line of the same underlying type as this line.
     @_transparent
-    public static func make2DLine(_ a: Vector.SubVector2, _ b: Vector.SubVector2) -> SubLine2 {
+    public func make2DLine(_ a: Vector.SubVector2, _ b: Vector.SubVector2) -> SubLine2 {
         SubLine2(start: a, end: b)
     }
 }

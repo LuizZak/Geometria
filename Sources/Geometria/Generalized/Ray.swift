@@ -80,6 +80,22 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
     public var asDirectionalRay: DirectionalRay<Vector> {
         DirectionalRay(start: start, direction: b - start)
     }
+
+    /// Returns a ``IntervalLine`` representation of this ray, where the
+    /// result's ``IntervalLine/a`` matches ``a`` and ``IntervalLine/b`` matches
+    /// ``b``, with minimum and maximum magnitudes matching
+    /// (`Scalar.zero` - `+Scalar.infinity`)
+    ///
+    /// - precondition: `(self.b - self.start).length > 0`
+    @_transparent
+    public var asIntervalLine: IntervalLine<Vector> {
+        IntervalLine(
+            pointOnLine: start,
+            direction: b - start,
+            minimumMagnitude: .zero,
+            maximumMagnitude: .infinity
+        )
+    }
     
     /// Returns `true` for all positive projected scalars (ray)
     @_transparent

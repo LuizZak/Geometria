@@ -7,6 +7,11 @@ public protocol PlaneIntersectablePlane3Type: LineIntersectablePlaneType where V
     /// plane as a line, or `nil`, if the planes are parallel or
     /// [coplanar](https://en.wikipedia.org/wiki/Coplanarity).
     func intersection<Plane: LineIntersectablePlaneType>(with other: Plane) -> Line<Vector>? where Plane.Vector == Vector
+
+    /// Returns the intersection of this 3 dimensional plane with another
+    /// plane as a line, or `nil`, if the planes are parallel or
+    /// [coplanar](https://en.wikipedia.org/wiki/Coplanarity).
+    //func intersection<Plane: LineIntersectablePlaneType, S: Sequence>(with other: Plane, limitedBy planes: S) -> IntervalLine<Vector>? where Plane.Vector == Vector, S.Element: LineIntersectablePlaneType
 }
 
 extension PlaneIntersectablePlane3Type where Vector: Vector3Multiplicative {

@@ -187,6 +187,20 @@ extension LineSegmentTests {
 // MARK: LineFloatingPoint Conformance
 
 extension LineSegmentTests {
+    func testAsIntervalLine() {
+        let sut = LineSegment(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 3, y: 5)
+        )
+        
+        let result = sut.asIntervalLine
+        
+        XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(result.minimumMagnitude, .zero)
+        XCTAssertEqual(result.maximumMagnitude, sut.length)
+    }
+
     func testLength() {
         let sut = LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
 

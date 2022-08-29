@@ -17,7 +17,7 @@ class LineSegment3Tests: XCTestCase {
     
     func testMake2DLine() {
         let result =
-        LineSegment.make2DLine(
+        LineSegment(start: .zero, end: .one).make2DLine(
             .init(x: 1, y: 2),
             .init(x: 3, y: 5)
         )

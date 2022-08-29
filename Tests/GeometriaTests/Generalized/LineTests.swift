@@ -103,6 +103,20 @@ extension LineTests {
 // MARK: LineFloatingPoint Conformance
 
 extension LineTests {
+    func testAsIntervalLine() {
+        let sut = Line(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 3, y: 5)
+        )
+        
+        let result = sut.asIntervalLine
+        
+        XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(result.minimumMagnitude, -.infinity)
+        XCTAssertEqual(result.maximumMagnitude, .infinity)
+    }
+
     func testContainsProjectedNormalizedMagnitude() {
         let sut = Line(x1: 0, y1: 0, x2: 1, y2: 0)
         

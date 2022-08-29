@@ -28,7 +28,7 @@ class Ray3Tests: XCTestCase {
     
     func testMake2DLine() {
         let result =
-        Ray.make2DLine(
+        Ray(start: .zero, b: .one).make2DLine(
             .init(x: 1, y: 2),
             .init(x: 3, y: 5)
         )

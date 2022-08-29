@@ -112,6 +112,15 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     public var length: Scalar {
         (end - start).length
     }
+
+    /// Returns a ``IntervalLine`` representation of this line segment, where the
+    /// result's ``IntervalLine/a`` matches ``start`` and ``IntervalLine/b`` matches
+    /// ``end``, with minimum and maximum magnitudes matching
+    /// (`Scalar.zero` - `self.length`)
+    @_transparent
+    public var asIntervalLine: IntervalLine<Vector> {
+        IntervalLine(start: start, end: end)
+    }
     
     /// Returns a ``DirectionalRay`` representation of this ray, where the
     /// result's ``DirectionalRay/start`` matches ``start`` and

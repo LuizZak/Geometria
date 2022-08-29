@@ -38,7 +38,7 @@ extension DirectionalRay3: Line3Type where Vector.SubVector2: Vector2FloatingPoi
     }
     
     /// Creates a 2D line of the same underlying type as this line.
-    public static func make2DLine(_ a: SubLine2.Vector, _ b: SubLine2.Vector) -> SubLine2 {
+    public func make2DLine(_ a: SubLine2.Vector, _ b: SubLine2.Vector) -> SubLine2 {
         SubLine2(a: a, b: b)
     }
 }

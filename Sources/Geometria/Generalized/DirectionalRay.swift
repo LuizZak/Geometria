@@ -85,6 +85,20 @@ public extension DirectionalRay where Vector: VectorAdditive {
     var asRay: Ray<Vector> {
         Ray(start: start, b: b)
     }
+
+    /// Returns a ``IntervalLine`` representation of this directional ray, where
+    /// the result's ``IntervalLine/a`` matches ``a`` and ``IntervalLine/direction``
+    /// matches ``direction``, with minimum and maximum magnitudes matching
+    /// (`Scalar.zero` - `+Scalar.infinity`)
+    @_transparent
+    var asIntervalLine: IntervalLine<Vector> {
+        IntervalLine(
+            pointOnLine: start,
+            direction: direction,
+            minimumMagnitude: .zero,
+            maximumMagnitude: .infinity
+        )
+    }
 }
 
 extension DirectionalRay: LineAdditive where Vector: VectorAdditive {

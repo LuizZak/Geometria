@@ -14,8 +14,9 @@ public protocol LineIntersectablePlaneType: PlaneType {
     /// Result is `nil` if intersection is not within the line's limits, the
     /// line is parallel to this plane, or this plane is a finite plane and the
     /// line does not cross its bounded area.
-    func intersection<Line: LineFloatingPoint>(with line: Line)
-        -> Vector? where Line.Vector == Vector
+    func intersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> Vector? where Line.Vector == Vector
 }
 
 public extension LineIntersectablePlaneType {

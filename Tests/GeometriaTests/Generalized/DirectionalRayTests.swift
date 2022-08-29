@@ -154,6 +154,18 @@ extension DirectionalRayTests {
         XCTAssertEqual(result.b, .init(x: 1.5144957554275265, y: 2.857492925712544))
         XCTAssertEqual(result.angle, sut.angle)
     }
+    
+    func testAsIntervalLine() {
+        let sut = DirectionalRay(start: .init(x: 1, y: 2),
+                                 direction: .init(x: 3, y: 5))
+        
+        let result = sut.asIntervalLine
+        
+        XCTAssertEqual(result.a, .init(x: 1, y: 2))
+        XCTAssertEqual(result.direction, .init(x: 0.5144957554275266, y: 0.8574929257125442))
+        XCTAssertEqual(result.minimumMagnitude, .zero)
+        XCTAssertEqual(result.maximumMagnitude, .infinity)
+    }
 }
 
 // MARK: LineAdditive Conformance
