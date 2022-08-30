@@ -94,6 +94,20 @@ extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasura
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
         scalar
     }
+
+    @inlinable
+    public func clampedAsIntervalLine(
+        minimumNormalizedMagnitude minimum: Magnitude,
+        maximumNormalizedMagnitude maximum: Magnitude
+    ) -> IntervalLine<Vector> {
+        
+        return IntervalLine(
+            pointOnLine: a,
+            direction: normalizedLineSlope,
+            minimumMagnitude: minimum,
+            maximumMagnitude: maximum
+        )
+    }
 }
 
 extension Line: LineReal where Vector: VectorReal {

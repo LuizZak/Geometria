@@ -85,20 +85,6 @@ public extension DirectionalRay where Vector: VectorAdditive {
     var asRay: Ray<Vector> {
         Ray(start: start, b: b)
     }
-
-    /// Returns a ``IntervalLine`` representation of this directional ray, where
-    /// the result's ``IntervalLine/a`` matches ``a`` and ``IntervalLine/direction``
-    /// matches ``direction``, with minimum and maximum magnitudes matching
-    /// (`Scalar.zero` - `+Scalar.infinity`)
-    @_transparent
-    var asIntervalLine: IntervalLine<Vector> {
-        IntervalLine(
-            pointOnLine: start,
-            direction: direction,
-            minimumMagnitude: .zero,
-            maximumMagnitude: .infinity
-        )
-    }
 }
 
 extension DirectionalRay: LineAdditive where Vector: VectorAdditive {
@@ -132,6 +118,25 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
 }
 
 extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    @_transparent
+    public var normalizedLineSlope: Vector {
+        direction
+    }
+
+    /// Returns a ``IntervalLine`` representation of this directional ray, where
+    /// the result's ``IntervalLine/a`` matches ``a`` and ``IntervalLine/direction``
+    /// matches ``direction``, with minimum and maximum magnitudes matching
+    /// (`Scalar.zero` - `+Scalar.infinity`)
+    @_transparent
+    public var asIntervalLine: IntervalLine<Vector> {
+        IntervalLine(
+            pointOnLine: start,
+            direction: direction,
+            minimumMagnitude: .zero,
+            maximumMagnitude: .infinity
+        )
+    }
+
     /// Performs a vector projection of a given vector with respect to this
     /// directional ray, returning a scalar value representing the magnitude of
     /// the projected point laying on the infinite line defined by points

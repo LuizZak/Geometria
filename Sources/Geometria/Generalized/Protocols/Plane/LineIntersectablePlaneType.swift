@@ -1,5 +1,8 @@
 /// Represents a plane type that has support for line-intersection.
 public protocol LineIntersectablePlaneType: PlaneType {
+    /// Returns `true` if the given line is parallel to this plane.
+    func isParallel<Line: LineFloatingPoint>(to line: Line) -> Bool where Line.Vector == Vector
+
     /// Returns the normalized magnitude for a line's intersection point on this
     /// plane.
     ///
@@ -20,6 +23,11 @@ public protocol LineIntersectablePlaneType: PlaneType {
 }
 
 public extension LineIntersectablePlaneType {
+    func isParallel<Line: LineFloatingPoint>(to line: Line) -> Bool where Line.Vector == Vector {
+        let denom = normal.dot(line.lineSlope)
+        return abs(denom) < .leastNonzeroMagnitude
+    }
+    
     @inlinable
     func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line) -> Vector.Scalar? where Line.Vector == Vector {
         let denom = normal.dot(line.lineSlope)

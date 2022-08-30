@@ -57,19 +57,24 @@ extension Hyperplane: LineIntersectablePlaneType {
     /*
     /// Returns an interval line that represents the intersection of the given
     /// input line with this hyperplane.
+    ///
+    /// In case the given line does not intersect the interior half-space of this
+    /// hyperplane, the result is `nil`, instead.
     public func intersectionInterval<Line: LineFloatingPoint>(
         with line: Line
-    ) -> IntervalLine<Line.Vector> where Line.Vector == Vector {
-
-        if line.category.isOpenEnd && line.category.isOpenStart {
-            if contains(line.a) && contains(line.b) {
-                
+    ) -> IntervalLine<Line.Vector>? where Line.Vector == Vector {
+        guard
+            let magnitude = unclampedNormalMagnitudeForIntersection(with: line),
+            line.containsProjectedNormalizedMagnitude(magnitude)
+        else {
+            if contains(line.a) {
+                return line.asIntervalLine
             }
+
+            return nil
         }
         
-        let magnitude = unclampedNormalMagnitudeForIntersection(with: line)
-
-
+        
     }
     */
 }

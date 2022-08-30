@@ -216,6 +216,19 @@ extension DirectionalRayTests {
 // MARK: LineFloatingPoint Conformance
 
 extension DirectionalRayTests {
+
+    func testNormalizedLineSlope() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 3, y2: 3)
+
+        let result = sut.normalizedLineSlope
+
+        assertEqual(
+            result,
+            .init(x: 0.7071067811865476, y: 0.7071067811865476),
+            accuracy: 1e-16
+        )
+    }
+
     func testProjectAsScalar2D() {
         let sut = DirectionalRay(x: 2, y: 1, dx: 3, dy: 2)
         let point = Vector2D(x: 2, y: 2)
@@ -377,33 +390,5 @@ extension DirectionalRayTests {
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(1.1), 1.1)
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
-    }
-    
-    func testDistanceSquaredTo2D() {
-        let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
-        let point = Vector2D(x: 0, y: 1)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.5, accuracy: 1e-15)
-    }
-    
-    func testDistanceSquaredTo2D_pastStart() {
-        let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
-        let point = Vector2D(x: -1, y: 0)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 1.0, accuracy: 1e-15)
-    }
-    
-    func testDistanceSquaredTo2D_pastEnd() {
-        let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
-        let point = Vector2D(x: 1, y: 3)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 2, accuracy: 1e-15)
-    }
-    
-    func testDistanceSquaredTo3D() {
-        let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
-        let point = Vector3D(x: 1, y: 1, z: 0)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
     }
 }

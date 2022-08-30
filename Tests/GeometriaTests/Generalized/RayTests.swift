@@ -179,32 +179,50 @@ extension RayTests {
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
     }
-    
-    func testDistanceSquaredTo2D() {
-        let sut = Ray(x: 0, y: 0, dx: 1, dy: 1)
-        let point = Vector2D(x: 0, y: 1)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.5, accuracy: 1e-15)
+
+    func testClampedAsIntervalLine_ray_2D() {
+        let sut = Ray(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: -10,
+            maximumNormalizedMagnitude: 20
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 8.94427190999916, y: 17.88854381999832),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(sut.a.distance(to: result.b), 20.0, accuracy: 1e-16)
+        XCTAssertEqual(result.length, 20.0, accuracy: 1e-15)
     }
-    
-    func testDistanceSquaredTo2D_pastStart() {
-        let sut = Ray(x: 0, y: 0, dx: 1, dy: 1)
-        let point = Vector2D(x: -1, y: 0)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 1.0, accuracy: 1e-15)
-    }
-    
-    func testDistanceSquaredTo2D_pastEnd() {
-        let sut = Ray(x: 0, y: 0, dx: 1, dy: 1)
-        let point = Vector2D(x: 1, y: 3)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 2, accuracy: 1e-15)
-    }
-    
-    func testDistanceSquaredTo3D() {
-        let sut = Ray3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
-        let point = Vector3D(x: 1, y: 1, z: 0)
-        
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
+
+    func testClampedAsIntervalLine_ray_2D_invalidClamp() {
+        let sut = Ray(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: -10,
+            maximumNormalizedMagnitude: -5
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(sut.a.distance(to: result.b), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(result.length, 0.0, accuracy: 1e-15)
     }
 }

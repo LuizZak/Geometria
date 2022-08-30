@@ -150,4 +150,48 @@ extension LineTests {
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
     }
+    func testClampedAsIntervalLine_line_2D() {
+        let sut = Line(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: -10,
+            maximumNormalizedMagnitude: 20
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: -4.47213595499958, y: -8.94427190999916),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 8.94427190999916, y: 17.88854381999832),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 10.0, accuracy: 1e-16)
+        XCTAssertEqual(sut.a.distance(to: result.b), 20.0, accuracy: 1e-16)
+        XCTAssertEqual(result.length, 30.0, accuracy: 1e-15)
+    }
+
+    func testClampedAsIntervalLine_line_2D_infiniteClamp() {
+        let sut = Line(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: -.infinity,
+            maximumNormalizedMagnitude: .infinity
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 0.0, y: 0.0),
+            accuracy: 1e-50
+        )
+        assertEqual(
+            result.b,
+            sut.normalizedLineSlope,
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(result.length, .infinity)
+    }
+
 }

@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `LineFloatingPoint.normalizedLineSlope` protocol property for fetching the normalized direction of a line type.
+
 - Added `IntervalLine`, a special line type that can be configured to have finite or infinite ends dynamically.
 
 - Added `LineCategory` bit-flag for `LineType` conformers that specifies the category of the line type (line, ray, or line segment).

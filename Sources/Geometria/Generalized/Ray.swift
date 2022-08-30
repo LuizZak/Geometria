@@ -111,15 +111,28 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
         max(0, scalar)
     }
-    
-    /// Returns the squared distance between this line and a given vector.
+
     @inlinable
-    public func distanceSquared(to vector: Vector) -> Scalar {
-        let proj = max(0, projectAsScalar(vector))
+    public func clampedAsIntervalLine(
+        minimumNormalizedMagnitude minimum: Magnitude,
+        maximumNormalizedMagnitude maximum: Magnitude
+    ) -> IntervalLine<Vector> {
         
-        let point = start.addingProduct(b - start, proj)
-        
-        return vector.distanceSquared(to: point)
+        switch (minimum.isFinite, maximum.isFinite) {
+        case (false, false):
+            return asIntervalLine
+
+        case (true, true), (true, false), (false, true):
+            let clampedStart = clampProjectedNormalizedMagnitude(minimum)
+            let clampedEnd = clampProjectedNormalizedMagnitude(maximum)
+
+            return IntervalLine(
+                pointOnLine: a,
+                direction: normalizedLineSlope,
+                minimumMagnitude: clampedStart,
+                maximumMagnitude: clampedEnd
+            )
+        }
     }
 }
 

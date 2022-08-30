@@ -311,10 +311,10 @@ extension Cylinder3: Convex3Type where Vector: Vector3Real {
         let magnitude = line.projectAsScalar(vector)
         
         if magnitude <= 0 {
-            return -line.lineSlope.normalized()
+            return -line.normalizedLineSlope
         }
         if magnitude >= 1 {
-            return line.lineSlope.normalized()
+            return line.normalizedLineSlope
         }
         
         let onLine = line.projectedNormalizedMagnitude(magnitude)

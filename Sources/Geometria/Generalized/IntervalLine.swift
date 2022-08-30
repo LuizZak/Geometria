@@ -49,7 +49,10 @@ public struct IntervalLine<Vector: VectorFloatingPoint> {
     }
     
     /// Creates a line segment interval with minimum and maximum magnitudes.
-    /// 
+    ///
+    /// This initializer produces the equivalent of a ``LineSegment`` in interval
+    /// line form.
+    ///
     /// - note: If `start == end`, the resulting interval line will be considered
     /// [degenerate].
     ///
@@ -59,8 +62,29 @@ public struct IntervalLine<Vector: VectorFloatingPoint> {
         self.pointOnLine = start
         self.direction = (end - start)
 
-        self.minimumMagnitude = 0
+        self.minimumMagnitude = .zero
         self.maximumMagnitude = start.distance(to: end)
+    }
+
+    /// Creates a line interval that starts at a given point, extending towards
+    /// `direction` with a length of `maximumMagnitude`.
+    ///
+    /// Providing `maximumMagnitude` as a value of `Scalar.infinite` produces
+    /// the equivalent of a ``DirectionalRay`` in interval line form.
+    ///
+    /// ``minimumMagnitude`` is set to `Scalar.zero` in the process.
+    /// 
+    /// - note: If `maximumMagnitude <= .zero`, the resulting interval line will
+    /// be considered [degenerate].
+    ///
+    /// [degenerate]: https://en.wikipedia.org/wiki/Degeneracy_(mathematics)
+    @_transparent
+    public init(start: Vector, direction: Vector, maximumMagnitude: Scalar) {
+        self.pointOnLine = start
+        self.direction = direction
+
+        self.minimumMagnitude = .zero
+        self.maximumMagnitude = maximumMagnitude
     }
 
     /// Creates an interval line with the given properties.
@@ -103,7 +127,7 @@ extension IntervalLine: LineType {
         if minimumMagnitude.isFinite {
             return pointOnLine + direction * minimumMagnitude
         }
-        if maximumMagnitude.isFinite && maximumMagnitude <= .zero {
+        if maximumMagnitude.isFinite && maximumMagnitude < 1 {
             return pointOnLine - direction * (maximumMagnitude + 1)
         }
 
@@ -115,7 +139,7 @@ extension IntervalLine: LineType {
         if maximumMagnitude.isFinite {
             return pointOnLine + direction * maximumMagnitude
         }
-        if minimumMagnitude.isFinite && minimumMagnitude >= 1 {
+        if minimumMagnitude.isFinite && minimumMagnitude > .zero {
             return pointOnLine + direction * (minimumMagnitude + 1)
         }
 
@@ -124,6 +148,15 @@ extension IntervalLine: LineType {
 }
 
 extension IntervalLine: LineAdditive where Vector: VectorAdditive {
+    @_transparent
+    public var lineSlope: Vector {
+        if category == .line {
+            return direction
+        }
+        
+        return b - a
+    }
+
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
         var copy = self
@@ -181,6 +214,16 @@ extension IntervalLine: LineDivisible where Vector: VectorDivisible {
 }
 
 extension IntervalLine: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    @_transparent
+    public var normalizedLineSlope: Vector {
+        direction
+    }
+
+    @_transparent
+    public var asIntervalLine: IntervalLine<Vector> {
+        self
+    }
+
     /// Returns the length of this interval line.
     ///
     /// If ``minimumMagnitude.isInfinite`` or ``maximumMagnitude.isInfinite`` are
@@ -229,6 +272,38 @@ extension IntervalLine: LineFloatingPoint & PointProjectableType & SignedDistanc
         }
 
         return scalar
+    }
+
+    @inlinable
+    public func clampedAsIntervalLine(
+        minimumNormalizedMagnitude minimum: Magnitude,
+        maximumNormalizedMagnitude maximum: Magnitude
+    ) -> IntervalLine<Vector> {
+
+        switch (minimum.isFinite, maximum.isFinite) {
+        case (false, false):
+            return self
+
+        case (true, true), (true, false), (false, true):
+            let clampedStart = clampProjectedNormalizedMagnitude(minimum)
+            let clampedEnd = clampProjectedNormalizedMagnitude(maximum)
+
+            if category == .lineSegment && clampedStart == .zero && clampedEnd == 1 {
+                return self
+            }
+
+            let slopeLength: Scalar =
+                category == .lineSegment
+                ? maximumMagnitude - minimumMagnitude
+                : lineSlope.length
+            
+            return IntervalLine(
+                pointOnLine: a,
+                direction: direction,
+                minimumMagnitude: clampedStart * slopeLength,
+                maximumMagnitude: clampedEnd * slopeLength
+            )
+        }
     }
 }
 
