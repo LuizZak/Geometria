@@ -164,52 +164,6 @@ class LineFloatingPointTests: XCTestCase {
 
     // MARK: - clampedAsIntervalLine(minimumNormalizedMagnitude:maximumNormalizedMagnitude:)
 
-    func testClampedAsIntervalLine_directionalRay_2D() {
-        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 2)
-
-        let result = sut.clampedAsIntervalLine(
-            minimumNormalizedMagnitude: -10,
-            maximumNormalizedMagnitude: 20
-        )
-
-        assertEqual(
-            result.a,
-            Vector2D(x: 0, y: 0),
-            accuracy: 1e-12
-        )
-        assertEqual(
-            result.b,
-            Vector2D(x: 8.94427190999916, y: 17.88854381999832),
-            accuracy: 1e-12
-        )
-        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
-        XCTAssertEqual(sut.a.distance(to: result.b), 20.0, accuracy: 1e-14)
-        XCTAssertEqual(result.length, 20.0, accuracy: 1e-14)
-    }
-
-    func testClampedAsIntervalLine_directionalRay_2D_invalidClamp() {
-        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 2)
-
-        let result = sut.clampedAsIntervalLine(
-            minimumNormalizedMagnitude: -10,
-            maximumNormalizedMagnitude: -5
-        )
-
-        assertEqual(
-            result.a,
-            Vector2D(x: 0, y: 0),
-            accuracy: 1e-12
-        )
-        assertEqual(
-            result.b,
-            Vector2D(x: 0, y: 0),
-            accuracy: 1e-12
-        )
-        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
-        XCTAssertEqual(sut.a.distance(to: result.b), 0.0, accuracy: 1e-16)
-        XCTAssertEqual(result.length, 0.0, accuracy: 1e-15)
-    }
-
     func testClampedAsIntervalLine_lineSegment_2D() {
         let sut = LineSegment(x1: 0, y1: 0, x2: 10, y2: 20)
 

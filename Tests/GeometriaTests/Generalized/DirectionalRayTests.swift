@@ -391,4 +391,96 @@ extension DirectionalRayTests {
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(2), 2)
         XCTAssertEqual(sut.clampProjectedNormalizedMagnitude(.infinity), .infinity)
     }
+
+    func testClampedAsIntervalLine_2D() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: -10,
+            maximumNormalizedMagnitude: 20
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 8.94427190999916, y: 17.88854381999832),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(sut.a.distance(to: result.b), 20.0, accuracy: 1e-14)
+        XCTAssertEqual(result.length, 20.0, accuracy: 1e-14)
+    }
+    
+    func testClampedAsIntervalLine_2D_openStart() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: .infinity,
+            maximumNormalizedMagnitude: 20
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 8.94427190999916, y: 17.88854381999832),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(sut.a.distance(to: result.b), 20.0, accuracy: 1e-14)
+        XCTAssertEqual(result.length, 20.0, accuracy: 1e-14)
+    }
+    
+    func testClampedAsIntervalLine_2D_openEnd() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: 20,
+            maximumNormalizedMagnitude: .infinity
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 8.94427190999916, y: 17.88854381999832),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 9.391485505499118, y: 18.782971010998235),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 20.0, accuracy: 1e-16)
+        XCTAssertEqual(result.length, .infinity)
+    }
+
+    func testClampedAsIntervalLine_2D_invalidClamp() {
+        let sut = DirectionalRay(x1: 0, y1: 0, x2: 1, y2: 2)
+
+        let result = sut.clampedAsIntervalLine(
+            minimumNormalizedMagnitude: -10,
+            maximumNormalizedMagnitude: -5
+        )
+
+        assertEqual(
+            result.a,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        assertEqual(
+            result.b,
+            Vector2D(x: 0, y: 0),
+            accuracy: 1e-12
+        )
+        XCTAssertEqual(sut.a.distance(to: result.a), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(sut.a.distance(to: result.b), 0.0, accuracy: 1e-16)
+        XCTAssertEqual(result.length, 0.0, accuracy: 1e-15)
+    }
+
 }

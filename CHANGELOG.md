@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `Hyperplane.intersectionInterval(with:)` method for doing line-limiting intersections against hyperplanes.
+
 - Added `LineFloatingPoint.normalizedLineSlope` protocol property for fetching the normalized direction of a line type.
 
 - Added `IntervalLine`, a special line type that can be configured to have finite or infinite ends dynamically.

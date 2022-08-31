@@ -195,4 +195,51 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDista
     public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
         max(0, scalar)
     }
+
+    @inlinable
+    public func clampedAsIntervalLine(
+        minimumNormalizedMagnitude minimum: Magnitude,
+        maximumNormalizedMagnitude maximum: Magnitude
+    ) -> IntervalLine<Vector> {
+        
+        switch (minimum.isFinite, maximum.isFinite) {
+        case (false, false):
+            return asIntervalLine
+        
+        case (true, false):
+            let clampedStart = clampProjectedNormalizedMagnitude(minimum)
+
+            if clampedStart <= .zero {
+                return asIntervalLine
+            }
+
+            return IntervalLine(
+                pointOnLine: projectedNormalizedMagnitude(clampedStart),
+                direction: direction,
+                minimumMagnitude: .zero,
+                maximumMagnitude: .infinity
+            )
+        
+        case (false, true):
+            let clampedEnd = clampProjectedNormalizedMagnitude(maximum)
+
+            return IntervalLine(
+                pointOnLine: start,
+                direction: direction,
+                minimumMagnitude: 0,
+                maximumMagnitude: clampedEnd
+            )
+
+        case (true, true):
+            let clampedStart = clampProjectedNormalizedMagnitude(minimum)
+            let clampedEnd = clampProjectedNormalizedMagnitude(maximum)
+
+            return IntervalLine(
+                pointOnLine: projectedNormalizedMagnitude(clampedStart),
+                direction: direction,
+                minimumMagnitude: 0,
+                maximumMagnitude: clampedEnd - clampedStart
+            )
+        }
+    }
 }

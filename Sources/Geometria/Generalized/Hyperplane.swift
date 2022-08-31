@@ -54,7 +54,6 @@ extension Hyperplane: PointProjectablePlaneType {
 }
 
 extension Hyperplane: LineIntersectablePlaneType {
-    /*
     /// Returns an interval line that represents the intersection of the given
     /// input line with this hyperplane.
     ///
@@ -74,9 +73,20 @@ extension Hyperplane: LineIntersectablePlaneType {
             return nil
         }
         
-        
+        let isOutgoing = line.lineSlope.dot(normal) > .zero
+
+        if isOutgoing {
+            return line.clampedAsIntervalLine(
+                minimumNormalizedMagnitude: -.infinity,
+                maximumNormalizedMagnitude: magnitude
+            )
+        } else {
+            return line.clampedAsIntervalLine(
+                minimumNormalizedMagnitude: magnitude,
+                maximumNormalizedMagnitude: .infinity
+            )
+        }
     }
-    */
 }
 
 extension Hyperplane: ConvexType {

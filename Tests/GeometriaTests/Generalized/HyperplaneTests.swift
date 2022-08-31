@@ -75,6 +75,132 @@ class HyperplaneTests: XCTestCase {
         )
     }
 
+    // MARK: - intersectionInterval(with:)
+
+    func testIntersectionInterval_lineSegment_ingoing() throws {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: -1, y: 0, z: 0)
+        )
+        let line = LineSegment3D(
+            x1: -10, y1: 0, z1: 0,
+            x2: 10, y2: 5, z2: 10
+        )
+
+        let result = try XCTUnwrap(sut.intersectionInterval(with: line))
+
+        assertEqual(
+            result.a,
+            .init(x: 1, y: 2.75, z: 5.5),
+            accuracy: 1e-16
+        )
+        assertEqual(
+            result.b,
+            line.end,
+            accuracy: 1e-16
+        )
+    }
+
+    func testIntersectionInterval_lineSegment_outgoing() throws {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+        let line = LineSegment3D(
+            x1: -10, y1: 0, z1: 0,
+            x2: 10, y2: 5, z2: 10
+        )
+
+        let result = try XCTUnwrap(sut.intersectionInterval(with: line))
+
+        assertEqual(
+            result.a,
+            line.start,
+            accuracy: 1e-16
+        )
+        assertEqual(
+            result.b,
+            .init(x: 1, y: 2.75, z: 5.5),
+            accuracy: 1e-16
+        )
+    }
+
+    func testIntersectionInterval_lineSegment_fullyContained() throws {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+        let line = LineSegment3D(
+            x1: -2, y1: 0, z1: 0,
+            x2: -1, y2: 5, z2: 10
+        )
+
+        let result = try XCTUnwrap(sut.intersectionInterval(with: line))
+
+        assertEqual(
+            result.a,
+            line.start,
+            accuracy: 1e-16
+        )
+        assertEqual(
+            result.b,
+            line.end,
+            accuracy: 1e-16
+        )
+    }
+
+    func testIntersectionInterval_lineSegment_fullyOutside() throws {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+        let line = LineSegment3D(
+            x1: 2, y1: 0, z1: 0,
+            x2: 3, y2: 5, z2: 10
+        )
+
+        XCTAssertNil(sut.intersectionInterval(with: line))
+    }
+
+    func testIntersectionInterval_lineSegment_parallel_inside() throws {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+        let line = LineSegment3D(
+            x1: -1, y1: 0, z1: 0,
+            x2: -1, y2: 5, z2: 0
+        )
+
+        let result = try XCTUnwrap(sut.intersectionInterval(with: line))
+
+        assertEqual(
+            result.a,
+            line.start,
+            accuracy: 1e-16
+        )
+        assertEqual(
+            result.b,
+            line.end,
+            accuracy: 1e-16
+        )
+    }
+
+    func testIntersectionInterval_lineSegment_parallel_outside() throws {
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
+        let line = LineSegment3D(
+            x1: 2, y1: 0, z1: 0,
+            x2: 2, y2: 5, z2: 0
+        )
+
+        XCTAssertNil(sut.intersectionInterval(with: line))
+    }
+
+    // MARK: - intersection(with:)
+
     func testIntersectionWithLine_lineSegment_exit() {
         let sut = Hyperplane(
             point: .init(x: 1, y: 2, z: 3),
@@ -161,6 +287,8 @@ class HyperplaneTests: XCTestCase {
 
         XCTAssertEqual(result, .contained)
     }
+
+    // MARK: -
 
     func testContains() {
         let sut = Hyperplane(

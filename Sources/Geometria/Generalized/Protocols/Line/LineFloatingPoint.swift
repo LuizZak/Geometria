@@ -46,8 +46,8 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType, SignedDi
     /// are contained on the line.
     func containsProjectedNormalizedMagnitude(_ scalar: Magnitude) -> Bool
     
-    /// Returns a projected normalized magnitude that is guaranteed to be
-    /// contained in this line.
+    /// Clamps a given projected normalized magnitude to the closest magnitude 
+    /// that is guaranteed to be contained in this line.
     func clampProjectedNormalizedMagnitude(_ scalar: Magnitude) -> Magnitude
 
     /// Returns an interval line representation of this line that is clamped such
