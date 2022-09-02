@@ -1227,7 +1227,7 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/NSquare.swift",
-      "line": 63,
+      "line": 100,
       "symbol": "NSquare.center",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
