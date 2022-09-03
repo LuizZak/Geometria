@@ -1245,7 +1245,7 @@ rectangular areas with a defined location and size.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Additive</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Additive</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector3</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Additive.html">Vector3Additive</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1273,7 +1273,7 @@ rectangular areas with a defined location and size.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Vector2Signed.html">Vector2Signed</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2FloatingPoint</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Vector2Signed.html">Vector2Signed</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector3</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1301,7 +1301,7 @@ rectangular areas with a defined location and size.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Multiplicative</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria15Vector2AdditiveP">Vector2Additive</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Multiplicative</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria15Vector2AdditiveP">Vector2Additive</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector3</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Multiplicative.html">Vector3Multiplicative</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1329,7 +1329,7 @@ rectangular areas with a defined location and size.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Real</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorReal.html">VectorReal</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Real</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorReal.html">VectorReal</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector3</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Real.html">Vector3Real</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1357,7 +1357,7 @@ rectangular areas with a defined location and size.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Signed</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorSigned.html">VectorSigned</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Vector2Signed</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/VectorSigned.html">VectorSigned</a></span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubVector3</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorSigned.html">VectorSigned</a></span></code></pre>
 
                         </div>
                       </div>
@@ -2711,7 +2711,7 @@ columns.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-02)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-03)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
