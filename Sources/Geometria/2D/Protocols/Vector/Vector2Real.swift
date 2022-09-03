@@ -1,5 +1,5 @@
 /// Protocol for 2D real vector types.
-public protocol Vector2Real: Vector2FloatingPoint & VectorReal {
+public protocol Vector2Real: Vector2FloatingPoint & VectorReal where SubVector3: Vector3Real {
     /// Returns the angle in radians of the line formed by tracing from the
     /// origin (0, 0) to this `Vector2Type`.
     var angle: Scalar { get }

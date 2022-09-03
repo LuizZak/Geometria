@@ -24,7 +24,7 @@ extension AdditiveRectangleType {
     /// Order of vertices in the result is not defined.
     ///
     /// - precondition: Currently limited to vectors with < 64 scalars.
-    //@_transparent
+    @inlinable
     public var vertices: [Vector] {
         assert(location.scalarCount == size.scalarCount)
 

@@ -1,5 +1,5 @@
 /// Protocol for 2D vector types with multiplicable scalars.
-public protocol Vector2Multiplicative: Vector2Additive, VectorMultiplicative {
+public protocol Vector2Multiplicative: Vector2Additive, VectorMultiplicative where SubVector3: Vector3Multiplicative {
     /// Gets the (x: 1, y: 0) vector of this type.
     static var unitX: Self { get }
     
@@ -16,6 +16,15 @@ public protocol Vector2Multiplicative: Vector2Additive, VectorMultiplicative {
     /// a convenience, as the protocol constraints are more lax than
     /// `Vector2Signed`.
     func cross(_ other: Self) -> Scalar
+
+    /// Performs a 2D [vector triple product] between `self`, `b`, and `c`:
+    /// `a x (b x c)`.
+    ///
+    /// Can be used to derive a vector perpendicular to `ab`, such that it points
+    /// in the direction of `ac`.
+    ///
+    /// [vector triple product]: https://en.wikipedia.org/wiki/Triple_product#Vector_triple_product
+    func tripleProduct(_ b: Self, _ c: Self) -> Self
 }
 
 public extension Vector2Multiplicative {
@@ -38,5 +47,14 @@ public extension Vector2Multiplicative {
         let d2 = y * other.x
         
         return d1 - d2
+    }
+
+    @inlinable
+    func tripleProduct(_ b: Self, _ c: Self) -> Self {
+        let a3 = SubVector3(self, z: .zero)
+        let b3 = SubVector3(b, z: .zero)
+        let c3 = SubVector3(c, z: .zero)
+
+        return Self(a3.cross(b3.cross(c3))[.x, .y])
     }
 }
