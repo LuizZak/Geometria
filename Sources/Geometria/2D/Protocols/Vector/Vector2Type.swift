@@ -63,6 +63,7 @@ public extension Vector2Type {
         }
     }
     
+    @_transparent
     init<Vector: Vector2Type>(_ vector: Vector) where Vector.Scalar == Scalar {
         self.init(x: vector.x, y: vector.y)
     }

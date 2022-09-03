@@ -1,5 +1,5 @@
 /// Protocol for 2D vector types where the components are signed numbers.
-public protocol Vector2Signed: Vector2Type & VectorSigned {
+public protocol Vector2Signed: Vector2Type & VectorSigned where SubVector3: VectorSigned {
     /// Makes this Vector perpendicular to its current position relative to the
     /// origin.
     /// This alters the vector instance.

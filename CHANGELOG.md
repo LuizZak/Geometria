@@ -2,6 +2,10 @@
 
 ## [main]
 
+- Forcing `Vector2-` specializing protocols to require the same specialization on its `SubVector3`, e.g. `Vector2FloatingPoint` now requires `SubVector3: Vector3FloatingPoint`.
+
+- Added `Vector2Multiplicative.tripleProduct` method.
+
 - Added `NSquare.vertices` when `NSquare.Vector` conforms to `VectorAdditive`.
 
 - Added `LineCategory` bit-flag for `LineType` conformers that specifies the category of the line type (line, ray, or line segment).
