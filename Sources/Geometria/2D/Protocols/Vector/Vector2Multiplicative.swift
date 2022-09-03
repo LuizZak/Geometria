@@ -55,6 +55,6 @@ public extension Vector2Multiplicative {
         let b3 = SubVector3(b, z: .zero)
         let c3 = SubVector3(c, z: .zero)
 
-        return Self(a3.cross(b3.cross(c3))[.x, .y])
+        return Self(a3.tripleProduct(b3, c3)[.x, .y])
     }
 }

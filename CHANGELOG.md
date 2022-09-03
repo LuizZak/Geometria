@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `Vector3Multiplicative.tripleProduct` method.
+
 - Forcing `Vector2-` specializing protocols to require the same specialization on its `SubVector3`, e.g. `Vector2FloatingPoint` now requires `SubVector3: Vector3FloatingPoint`.
 
 - Added `Vector2Multiplicative.tripleProduct` method.

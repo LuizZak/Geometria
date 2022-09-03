@@ -48,4 +48,21 @@ class Vector3MultiplicativeTests: XCTestCase {
         XCTAssertEqual(result.y, -9.0)
         XCTAssertEqual(result.z, 9.0)
     }
+
+    func testTripleProduct() {
+        let a = Vector(x: 20, y: 3, z: 4)
+        let b = Vector(x: -5, y: 15, z: 8)
+        let c = Vector.zero
+
+        let ab = b - a
+        let ac = c - a
+
+        let result = ab.tripleProduct(ac, ab)
+
+        assertEqual(
+            result,
+            .init(x: -4500.0, y: -7731.0, z: -4932.0),
+            accuracy: 1e-15
+        )
+    }
 }

@@ -11,6 +11,15 @@ public protocol Vector3Multiplicative: Vector3Additive, VectorMultiplicative whe
     
     /// Performs a cross product between this vector and another vector.
     func cross(_ other: Self) -> Self
+
+    /// Performs a 3D [vector triple product] between `self`, `b`, and `c`:
+    /// `a x (b x c)`.
+    ///
+    /// Can be used to derive a vector perpendicular to `ab`, such that it points
+    /// in the direction of `ac`.
+    ///
+    /// [vector triple product]: https://en.wikipedia.org/wiki/Triple_product#Vector_triple_product
+    func tripleProduct(_ b: Self, _ c: Self) -> Self
 }
 
 public extension Vector3Multiplicative {
@@ -40,5 +49,10 @@ public extension Vector3Multiplicative {
         let cz: Scalar = self[.x, .y].cross(other[.x, .y])
         
         return Self(x: cx, y: cy, z: cz)
+    }
+
+    @inlinable
+    func tripleProduct(_ b: Self, _ c: Self) -> Self {
+        self.cross(b.cross(c))
     }
 }
