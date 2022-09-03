@@ -119,13 +119,13 @@ extension SIMD3: VectorDivisible where Scalar == Double {
 
 extension SIMD3: VectorFloatingPoint where Scalar == Double {
     /// Returns the Euclidean norm (square root of the squared length) of this
-    /// `Vector2Type`
+    /// `Vector3Type`
     @_transparent
     public var length: Scalar {
         simd.length(self)
     }
     
-    /// Returns the distance between this `Vector2Type` and another `Vector2Type`
+    /// Returns the distance between this `Vector3Type` and another `Vector3Type`
     @_transparent
     public func distance(to vec: Self) -> Scalar {
         simd.distance(self, vec)
