@@ -13,18 +13,6 @@ public protocol Vector3Type: VectorTakeable where TakeDimensions == Vector3TakeD
     /// The Z coordinate of this 3D vector.
     var z: Scalar { get set }
     
-    /// Gets a ``TakeVector3`` instance for taking pairs of coordinates as
-    /// `SubVector2` from this `Vector3Type`.
-    ///
-    /// ```swift
-    /// let vector = Vector3D(x: 3.5, y: 2.1, z: 1.0)
-    ///
-    /// print(vector.take.xz) // Prints "(x: 3.5, y: 1.0)"
-    /// print(vector.take.zy) // Prints "(x: 1.0, y: 2.1)"
-    /// ```
-    @available(*, deprecated, message: "Replaced with VectorTakeable protocol. Use `vector[.x, .y, .z, ...]` as a replacement.")
-    var take: TakeVector3<Self> { get }
-
     /// Initializes this vector type with the given coordinates.
     init(x: Scalar, y: Scalar, z: Scalar)
     
@@ -90,11 +78,6 @@ public extension Vector3Type {
                 preconditionFailure("index >= 0 && index < 3")
             }
         }
-    }
-    
-    @_transparent
-    var take: TakeVector3<Self> {
-        TakeVector3(underlying: self)
     }
     
     @_transparent
