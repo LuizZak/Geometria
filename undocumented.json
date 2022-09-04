@@ -667,21 +667,21 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3Type.swift",
-      "line": 42,
+      "line": 30,
       "symbol": "Vector3TakeDimensions.x",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3Type.swift",
-      "line": 43,
+      "line": 31,
       "symbol": "Vector3TakeDimensions.y",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Protocols/Vector/Vector3Type.swift",
-      "line": 44,
+      "line": 32,
       "symbol": "Vector3TakeDimensions.z",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -698,13 +698,6 @@
       "line": 171,
       "symbol": "SIMD3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/TakeVector3.swift",
-      "line": 48,
-      "symbol": "TakeVector3.init(underlying:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -1150,7 +1143,7 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Hyperplane.swift",
-      "line": 24,
+      "line": 26,
       "symbol": "Hyperplane.init(point:normal:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

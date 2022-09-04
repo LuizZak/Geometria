@@ -535,9 +535,6 @@
                 <a class="nav-group-task-link" href="Structs/SphereCoordinates.html">SphereCoordinates</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/TakeVector3.html">TakeVector3</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Torus3.html">Torus3</a>
               </li>
               <li class="nav-group-task">
@@ -1212,36 +1209,6 @@ projection on the axis of the plane and compute the local X and Y axis.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria11TakeVector3V"></a>
-                    <a name="//apple_ref/swift/Struct/TakeVector3" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria11TakeVector3V">TakeVector3</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>When initialized with a <code><a href="Protocols/Vector3Type.html">Vector3Type</a></code>, allows referencing pairs of coordinates
-to form <code><a href="Protocols/Vector2Type.html">Vector2Type</a></code>s out of.</p>
-
-                        <a href="Structs/TakeVector3.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Replaced with VectorTakeable protocol. Use `vector[.x, .y, .z, ...]` as a replacement."</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TakeVector3</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector3Type.html">Vector3Type</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:9Geometria6Torus3V"></a>
                     <a name="//apple_ref/swift/Struct/Torus3" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria6Torus3V">Torus3</a>
@@ -1493,11 +1460,13 @@ radii vector which describes the axis of the ellipsoid.</p>
                         <p>Represents a <a href="https://en.wikipedia.org/wiki/Hyperplane">hyperplane</a> with a
 point and a normal.</p>
 
-<p>In 2D, a plane equates to a line, while in 3D and higher dimensions it
-equates to a flat 2D plane.</p>
+<p>The dimensions of the surface of the hyperplane have a codimension of 1 with
+respect to its ambient space; in 2D, a hyperplane equates to a line, in 3D it
+equates to a flat 2D plane, in 4D to a 3D volume, etc.</p>
 
 <p>Hyperplanes divides the space it is contained within, producing an
-infinitely-spanning volume of space bound at a specific point and angle.</p>
+infinitely-spanning volume of space bound at a specific point and angle
+relative to its ambient space.</p>
 
                         <a href="Structs/Hyperplane.html" class="slightly-smaller">See more</a>
                       </div>
