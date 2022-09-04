@@ -1,11 +1,13 @@
 /// Represents a [hyperplane](https://en.wikipedia.org/wiki/Hyperplane) with a
 /// point and a normal.
 ///
-/// In 2D, a plane equates to a line, while in 3D and higher dimensions it
-/// equates to a flat 2D plane.
+/// The dimensions of the surface of the hyperplane have a codimension of 1 with
+/// respect to its ambient space; in 2D, a hyperplane equates to a line, in 3D it
+/// equates to a flat 2D plane, in 4D to a 3D volume, etc.
 ///
 /// Hyperplanes divides the space it is contained within, producing an
-/// infinitely-spanning volume of space bound at a specific point and angle.
+/// infinitely-spanning volume of space bound at a specific point and angle
+/// relative to its ambient space.
 public struct Hyperplane<Vector: VectorFloatingPoint>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
