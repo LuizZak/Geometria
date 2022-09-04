@@ -1,5 +1,5 @@
 /// Protocol for 3D vector types where the components are floating-point numbers
-public protocol Vector3FloatingPoint: Vector3Multiplicative & VectorFloatingPoint where SubVector2: Vector2FloatingPoint {
+public protocol Vector3FloatingPoint: Vector3Multiplicative & VectorFloatingPoint where SubVector2: Vector2FloatingPoint, SubVector4: Vector4FloatingPoint {
     /// Initializes this `Vector3FloatingPoint` with a given binary Vector3
     init<V: Vector3Type>(_ other: V) where V.Scalar: BinaryInteger
     
