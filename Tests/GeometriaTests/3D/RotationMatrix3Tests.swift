@@ -430,7 +430,7 @@ class RotationMatrix3Tests: XCTestCase {
         )
 
         assertEqual(sut.r0, ( 6.123233995736766e-17, 0.0, 1.0                  ))
-        assertEqual(sut.r1, ( 0.0                  , 1.0, 1.0                  ))
+        assertEqual(sut.r1, ( 0.0                  , 1.0, 0.0                  ))
         assertEqual(sut.r2, (-1.0                  , 0.0, 6.123233995736766e-17))
     }
 
@@ -443,7 +443,7 @@ class RotationMatrix3Tests: XCTestCase {
         )
 
         assertEqual(sut.r0, (6.123233995736766e-17, 0.0, -1.0                  ))
-        assertEqual(sut.r1, (0.0                  , 1.0,  1.0                  ))
+        assertEqual(sut.r1, (0.0                  , 1.0,  0.0                  ))
         assertEqual(sut.r2, (1.0                  , 0.0,  6.123233995736766e-17))
     }
 

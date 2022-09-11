@@ -142,7 +142,7 @@ public extension RotationMatrix3 {
         
         return Self(rows: (
             ( c, 0, s),
-            ( 0, 1, 1),
+            ( 0, 1, 0),
             (-s, 0, c)
         ))
     }
