@@ -132,26 +132,6 @@ extension Vector2: Vector2Additive where Scalar: AdditiveArithmetic {
     public static func - (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x - rhs, y: lhs.y - rhs)
     }
-    
-    @_transparent
-    public static func += (lhs: inout Self, rhs: Self) {
-        lhs = lhs + rhs
-    }
-    
-    @_transparent
-    public static func -= (lhs: inout Self, rhs: Self) {
-        lhs = lhs - rhs
-    }
-    
-    @_transparent
-    public static func += (lhs: inout Self, rhs: Scalar) {
-        lhs = lhs + rhs
-    }
-    
-    @_transparent
-    public static func -= (lhs: inout Self, rhs: Scalar) {
-        lhs = lhs - rhs
-    }
 }
 
 extension Vector2: VectorMultiplicative where Scalar: Numeric {
@@ -185,16 +165,6 @@ extension Vector2: VectorMultiplicative where Scalar: Numeric {
     @_transparent
     public static func * (lhs: Scalar, rhs: Self) -> Self {
         Self(x: lhs * rhs.x, y: lhs * rhs.y)
-    }
-    
-    @_transparent
-    public static func *= (lhs: inout Self, rhs: Self) {
-        lhs = lhs * rhs
-    }
-    
-    @_transparent
-    public static func *= (lhs: inout Self, rhs: Scalar) {
-        lhs = lhs * rhs
     }
 }
 
@@ -281,16 +251,6 @@ extension Vector2: VectorDivisible where Scalar: DivisibleArithmetic {
     @_transparent
     public static func / (lhs: Scalar, rhs: Self) -> Self {
         Self(x: lhs / rhs.x, y: lhs / rhs.y)
-    }
-    
-    @_transparent
-    public static func /= (lhs: inout Self, rhs: Self) {
-        lhs = lhs / rhs
-    }
-    
-    @_transparent
-    public static func /= (lhs: inout Self, rhs: Scalar) {
-        lhs = lhs / rhs
     }
 }
 // swiftlint:enable shorthand_operator

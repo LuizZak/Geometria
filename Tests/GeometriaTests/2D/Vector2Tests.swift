@@ -122,6 +122,16 @@ class Vector2Tests: XCTestCase {
         XCTAssertTrue(Vector(x: 0, y: -1) <= Vector(x: 0, y: 0))
         XCTAssertTrue(Vector(x: -1, y: -1) <= Vector(x: 0, y: 0))
     }
+
+    func testNonZeroScalarCount() {
+        let vec0 = Vector(x: 0, y:  0)
+        let vec1 = Vector(x: 1, y:  0)
+        let vec2 = Vector(x: 1, y: -1)
+
+        XCTAssertEqual(vec0.nonZeroScalarCount, 0)
+        XCTAssertEqual(vec1.nonZeroScalarCount, 1)
+        XCTAssertEqual(vec2.nonZeroScalarCount, 2)
+    }
     
     func testAddition() {
         XCTAssertEqual(Vector(x: 1, y: 2) + Vector(x: 3, y: 4),
@@ -223,73 +233,6 @@ class Vector2Tests: XCTestCase {
                        Vector2D(x: 3.0, y: 1.5))
         XCTAssertEqual(3 / Vector2F(x: 1, y: 2),
                        Vector2F(x: 3.0, y: 1.5))
-    }
-    
-    func testAddition_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        let vec2 = Vector(x: 3, y: 4)
-        
-        vec1 += vec2
-        
-        XCTAssertEqual(vec1, Vector(x: 4, y: 6))
-    }
-    
-    func testAddition_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        
-        vec1 += 1
-        
-        XCTAssertEqual(vec1, Vector(x: 2, y: 3))
-    }
-    
-    func testSubtraction_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        let vec2 = Vector(x: 3, y: 5)
-        
-        vec1 -= vec2
-        
-        XCTAssertEqual(vec1, Vector(x: -2, y: -3))
-    }
-    
-    func testSubtraction_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        
-        vec1 -= 1
-        
-        XCTAssertEqual(vec1, Vector(x: 0, y: 1))
-    }
-    
-    func testMultiplication_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        let vec2 = Vector(x: 3, y: 4)
-        
-        vec1 *= vec2
-        
-        XCTAssertEqual(vec1, Vector(x: 3, y: 8))
-    }
-    
-    func testMultiplication_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2)
-        
-        vec1 *= 2
-        
-        XCTAssertEqual(vec1, Vector(x: 2, y: 4))
-    }
-    
-    func testDivision_inPlace() {
-        var vec1 = Vector(x: 3, y: 5)
-        
-        vec1 /= Vector(x: 2, y: 3)
-        
-        XCTAssertEqual(vec1, Vector(x: 1, y: 1))
-    }
-    
-    func testDivision_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 4)
-        
-        vec1 /= 3
-        
-        XCTAssertEqual(vec1, Vector(x: 0, y: 1))
     }
     
     func testAbsolute() {

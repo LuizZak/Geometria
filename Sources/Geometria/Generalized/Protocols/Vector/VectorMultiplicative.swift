@@ -95,4 +95,14 @@ public extension VectorMultiplicative {
         
         return s + e
     }
+
+    @inlinable
+    static func *= (lhs: inout Self, rhs: Self) {
+        lhs = lhs * rhs
+    }
+    
+    @inlinable
+    static func *= (lhs: inout Self, rhs: Scalar) {
+        lhs = lhs * rhs
+    }
 }

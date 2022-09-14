@@ -2,10 +2,54 @@ import XCTest
 import Geometria
 
 class VectorAdditiveTests: XCTestCase {
+    typealias Vector = Vector2D
+
     func testEmptyInit() {
         let sut = TestVector()
         
         XCTAssertEqual(sut.v, .zero)
+    }
+
+    func testNonZeroScalarCount() {
+        let vec0 = TestVector(repeating: 0)
+        let vec1 = TestVector(repeating: 1)
+
+        XCTAssertEqual(vec0.nonZeroScalarCount, 0)
+        XCTAssertEqual(vec1.nonZeroScalarCount, 1)
+    }
+
+    func testAddition_inPlace() {
+        var vec1 = Vector(x: 1, y: 2)
+        let vec2 = Vector(x: 3, y: 4)
+        
+        vec1 += vec2
+        
+        XCTAssertEqual(vec1, Vector(x: 4, y: 6))
+    }
+    
+    func testAddition_withScalar_inPlace() {
+        var vec1 = Vector(x: 1, y: 2)
+        
+        vec1 += 1
+        
+        XCTAssertEqual(vec1, Vector(x: 2, y: 3))
+    }
+    
+    func testSubtraction_inPlace() {
+        var vec1 = Vector(x: 1, y: 2)
+        let vec2 = Vector(x: 3, y: 5)
+        
+        vec1 -= vec2
+        
+        XCTAssertEqual(vec1, Vector(x: -2, y: -3))
+    }
+    
+    func testSubtraction_withScalar_inPlace() {
+        var vec1 = Vector(x: 1, y: 2)
+        
+        vec1 -= 1
+        
+        XCTAssertEqual(vec1, Vector(x: 0, y: 1))
     }
 }
 
@@ -15,19 +59,18 @@ extension VectorAdditiveTests {
     fileprivate struct TestVector: VectorAdditive {
         typealias Scalar = Double
         
-        static var zero = VectorAdditiveTests.TestVector()
+        static var zero = TestVector()
         
         var scalarCount: Int = 1
         
         subscript(index: Int) -> Scalar {
             get {
-                0
+                v
             }
-            set(newValue) {
-                
+            set {
+                v = newValue
             }
         }
-        
         
         var v: Scalar
         
@@ -36,35 +79,19 @@ extension VectorAdditiveTests {
         }
         
         static func + (lhs: Self, rhs: Self) -> Self {
-            return Self()
+            Self()
         }
         
         static func - (lhs: Self, rhs: Self) -> Self {
-            return Self()
+            Self()
         }
         
         static func + (lhs: Self, rhs: Scalar) -> Self {
-            return Self()
+            Self()
         }
         
         static func - (lhs: Self, rhs: Scalar) -> Self {
-            return Self()
-        }
-        
-        static func += (lhs: inout Self, rhs: Self) {
-            lhs = Self()
-        }
-        
-        static func -= (lhs: inout Self, rhs: Self) {
-            lhs = Self()
-        }
-        
-        static func += (lhs: inout Self, rhs: Scalar) {
-            lhs = Self()
-        }
-        
-        static func -= (lhs: inout Self, rhs: Scalar) {
-            lhs = Self()
+            Self()
         }
     }
 }

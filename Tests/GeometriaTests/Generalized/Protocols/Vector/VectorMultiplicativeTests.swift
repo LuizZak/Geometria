@@ -38,4 +38,21 @@ class VectorMultiplicativeTests: XCTestCase {
         XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 1), v2)
         XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 2), Vector2D(x: 50, y: 60))
     }
+
+    func testMultiplication_inPlace() {
+        var vec1 = Vector(x: 1, y: 2)
+        let vec2 = Vector(x: 3, y: 4)
+        
+        vec1 *= vec2
+        
+        XCTAssertEqual(vec1, Vector(x: 3, y: 8))
+    }
+    
+    func testMultiplication_withScalar_inPlace() {
+        var vec1 = Vector(x: 1, y: 2)
+        
+        vec1 *= 2
+        
+        XCTAssertEqual(vec1, Vector(x: 2, y: 4))
+    }
 }

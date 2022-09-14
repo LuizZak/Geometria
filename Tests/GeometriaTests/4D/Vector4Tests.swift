@@ -185,52 +185,6 @@ extension Vector4Tests {
         XCTAssertEqual(result.z, -2)
         XCTAssertEqual(result.w, -1)
     }
-    
-    func testAddition_inPlace() {
-        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
-        let vec2 = Vector(x: 5, y: 6, z: 7, w: 8)
-        
-        vec1 += vec2
-        
-        XCTAssertEqual(vec1.x, 6)
-        XCTAssertEqual(vec1.y, 8)
-        XCTAssertEqual(vec1.z, 10)
-        XCTAssertEqual(vec1.w, 12)
-    }
-    
-    func testAddition_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
-        
-        vec1 += 5.0
-        
-        XCTAssertEqual(vec1.x, 6)
-        XCTAssertEqual(vec1.y, 7)
-        XCTAssertEqual(vec1.z, 8)
-        XCTAssertEqual(vec1.w, 9)
-    }
-    
-    func testSubtraction_inPlace() {
-        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
-        let vec2 = Vector(x: 7, y: 11, z: 13, w: 17)
-        
-        vec1 -= vec2
-        
-        XCTAssertEqual(vec1.x, -6)
-        XCTAssertEqual(vec1.y, -9)
-        XCTAssertEqual(vec1.z, -10)
-        XCTAssertEqual(vec1.w, -13)
-    }
-    
-    func testSubtraction_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
-        
-        vec1 -= 5.0
-        
-        XCTAssertEqual(vec1.x, -4)
-        XCTAssertEqual(vec1.y, -3)
-        XCTAssertEqual(vec1.z, -2)
-        XCTAssertEqual(vec1.w, -1)
-    }
 }
 
 // MARK: VectorMultiplicative Conformance
@@ -273,18 +227,6 @@ extension Vector4Tests {
         XCTAssertEqual(vec1 * vec2, vec2 * vec1)
     }
     
-    func testMultiplication_inPlace() {
-        var vec1 = Vector(x: -1, y: 2, z: 3, w: 4)
-        let vec2 = Vector(x: 5, y: 6, z: -7, w: 8)
-        
-        vec1 *= vec2
-        
-        XCTAssertEqual(vec1.x, -5)
-        XCTAssertEqual(vec1.y, 12)
-        XCTAssertEqual(vec1.z, -21)
-        XCTAssertEqual(vec1.w, 32)
-    }
-    
     func testMultiplication_withScalar() {
         let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
         let num = 5.0
@@ -302,18 +244,6 @@ extension Vector4Tests {
         let num = 5.0
         
         XCTAssertEqual(vec1 * num, num * vec1)
-    }
-    
-    func testMultiplication_withScalar_inPlace() {
-        var vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
-        let num = 5.0
-        
-        vec1 *= num
-        
-        XCTAssertEqual(vec1.x, 5)
-        XCTAssertEqual(vec1.y, 10)
-        XCTAssertEqual(vec1.z, 15)
-        XCTAssertEqual(vec1.w, 20)
     }
 }
 
@@ -401,18 +331,6 @@ extension Vector4Tests {
         XCTAssertEqual(result.w, -0.75)
     }
     
-    func testDivide_inPlace() {
-        var vec1 = Vector(x: 0, y: 1, z: -2, w: 3)
-        let vec2 = Vector(x: 1, y: 2, z: 3, w: -4)
-        
-        vec1 /= vec2
-        
-        XCTAssertEqual(vec1.x, 0.0)
-        XCTAssertEqual(vec1.y, 0.5)
-        XCTAssertEqual(vec1.z, -0.6666666666666666)
-        XCTAssertEqual(vec1.w, -0.75)
-    }
-    
     func testDivide_withScalarOnRHS() {
         let vec1 = Vector(x: 0, y: 1, z: -2, w: 3)
         let num = 5.0
@@ -423,18 +341,6 @@ extension Vector4Tests {
         XCTAssertEqual(result.y, 0.2)
         XCTAssertEqual(result.z, -0.4)
         XCTAssertEqual(result.w, 0.6)
-    }
-    
-    func testDivide_withScalarOnRHS_inPlace() {
-        var vec1 = Vector(x: 0, y: 1, z: -2, w: 3)
-        let num = 5.0
-        
-        vec1 /= num
-        
-        XCTAssertEqual(vec1.x, 0.0)
-        XCTAssertEqual(vec1.y, 0.2)
-        XCTAssertEqual(vec1.z, -0.4)
-        XCTAssertEqual(vec1.w, 0.6)
     }
     
     func testDivide_withScalarOnLHS() {

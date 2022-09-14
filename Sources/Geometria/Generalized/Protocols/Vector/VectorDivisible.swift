@@ -11,6 +11,18 @@ public protocol VectorDivisible: VectorMultiplicative where Scalar: DivisibleAri
     static func /= (lhs: inout Self, rhs: Scalar)
 }
 
+public extension VectorDivisible {
+    @inlinable
+    static func /= (lhs: inout Self, rhs: Self) {
+        lhs = lhs / rhs
+    }
+    
+    @inlinable
+    static func /= (lhs: inout Self, rhs: Scalar) {
+        lhs = lhs / rhs
+    }
+}
+
 public extension Collection {
     /// Averages this collection of vectors into one `VectorDivisible` point as
     /// the mean location of each vector.
