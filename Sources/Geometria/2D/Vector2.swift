@@ -109,10 +109,14 @@ extension Vector2: AdditiveArithmetic where Scalar: AdditiveArithmetic {
 }
 
 extension Vector2: VectorAdditive where Scalar: AdditiveArithmetic {
+    @inlinable
+    public var nonZeroScalarCount: Int {
+        var c = 0
+        c += (x != .zero ? 1 : 0)
+        c += (y != .zero ? 1 : 0)
+        return c
+    }
     
-}
-
-extension Vector2: Vector2Additive where Scalar: AdditiveArithmetic {
     @_transparent
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
@@ -132,6 +136,10 @@ extension Vector2: Vector2Additive where Scalar: AdditiveArithmetic {
     public static func - (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x - rhs, y: lhs.y - rhs)
     }
+}
+
+extension Vector2: Vector2Additive where Scalar: AdditiveArithmetic {
+    
 }
 
 extension Vector2: VectorMultiplicative where Scalar: Numeric {

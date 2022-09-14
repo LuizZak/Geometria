@@ -162,6 +162,18 @@ class Vector3Tests: XCTestCase {
         XCTAssertTrue(Vector(x: -1, y: -1, z: -1) <= Vector(x: 0, y: 0, z: 0))
     }
     
+    func testNonZeroScalarCount() {
+        let vec0 = Vector(x:  0, y:  0, z:  0)
+        let vec1 = Vector(x:  1, y:  0, z:  0)
+        let vec2 = Vector(x:  1, y: -1, z:  0)
+        let vec3 = Vector(x: -1, y:  1, z: -1)
+
+        XCTAssertEqual(vec0.nonZeroScalarCount, 0)
+        XCTAssertEqual(vec1.nonZeroScalarCount, 1)
+        XCTAssertEqual(vec2.nonZeroScalarCount, 2)
+        XCTAssertEqual(vec3.nonZeroScalarCount, 3)
+    }
+    
     func testAddition() {
         XCTAssertEqual(Vector(x: 1, y: 2, z: 3) + Vector(x: 4, y: 5, z: 6),
                        Vector(x: 5, y: 7, z: 9))

@@ -116,6 +116,16 @@ extension Vector4: AdditiveArithmetic where Scalar: AdditiveArithmetic {
 }
 
 extension Vector4: VectorAdditive where Scalar: AdditiveArithmetic {
+    @inlinable
+    public var nonZeroScalarCount: Int {
+        var c = 0
+        c += (x != .zero ? 1 : 0)
+        c += (y != .zero ? 1 : 0)
+        c += (z != .zero ? 1 : 0)
+        c += (w != .zero ? 1 : 0)
+        return c
+    }
+
     @_transparent
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z, w: lhs.w + rhs.w)

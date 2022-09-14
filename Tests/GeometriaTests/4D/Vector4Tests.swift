@@ -131,6 +131,20 @@ extension Vector4Tests {
 // MARK: VectorAdditive Conformance
 
 extension Vector4Tests {
+    func testNonZeroScalarCount() {
+        let vec0 = Vector(x:  0, y:  0, z:  0, w: 0)
+        let vec1 = Vector(x:  1, y:  0, z:  0, w: 0)
+        let vec2 = Vector(x:  1, y: -1, z:  0, w: 0)
+        let vec3 = Vector(x: -1, y:  0, z:  1, w: 1)
+        let vec4 = Vector(x: -1, y:  1, z: -1, w: 1)
+
+        XCTAssertEqual(vec0.nonZeroScalarCount, 0)
+        XCTAssertEqual(vec1.nonZeroScalarCount, 1)
+        XCTAssertEqual(vec2.nonZeroScalarCount, 2)
+        XCTAssertEqual(vec3.nonZeroScalarCount, 3)
+        XCTAssertEqual(vec4.nonZeroScalarCount, 4)
+    }
+    
     func testAddition() {
         let vec1 = Vector(x: 1, y: 2, z: 3, w: 4)
         let vec2 = Vector(x: 5, y: 6, z: 7, w: 8)
