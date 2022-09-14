@@ -6,7 +6,7 @@ public struct LineIntersectionResult<Vector: VectorFloatingPoint> {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
     
-    /// The interseciton point in global space.
+    /// The intersection point in global space.
     public var point: Vector
     
     /// A scalar value between (0-1) that describe the normalized magnitude of

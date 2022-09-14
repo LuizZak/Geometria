@@ -15,29 +15,20 @@ let reportingSwiftSettings: [SwiftSetting] = [
     ])
 ]
 
-let geometriaTarget: Target
-let geometriaTestsTarget: Target
+let geometriaTarget: Target = .target(
+    name: "Geometria",
+    dependencies: geometriaDependencies,
+    swiftSettings: []
+)
+let geometriaTestsTarget: Target = .testTarget(
+    name: "GeometriaTests",
+    dependencies: ["Geometria"],
+    swiftSettings: []
+)
+
 if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" {
-    geometriaTarget = .target(
-        name: "Geometria",
-        dependencies: geometriaDependencies,
-        swiftSettings: reportingSwiftSettings)
-    
-    geometriaTestsTarget = .testTarget(
-        name: "GeometriaTests",
-        dependencies: ["Geometria"],
-        swiftSettings: reportingSwiftSettings
-    )
-} else {
-    geometriaTarget = .target(
-        name: "Geometria",
-        dependencies: geometriaDependencies
-    )
-    
-    geometriaTestsTarget = .testTarget(
-        name: "GeometriaTests",
-        dependencies: ["Geometria"]
-    )
+    geometriaTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
+    geometriaTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
 }
 
 let package = Package(

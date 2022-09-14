@@ -3,6 +3,6 @@ public extension VolumetricType where Vector: Vector2Type {
     /// volumetric shape.
     @_transparent
     func contains(x: Vector.Scalar, y: Vector.Scalar) -> Bool {
-        contains(.init(x: x, y: y))
+        contains(Vector(x: x, y: y))
     }
 }

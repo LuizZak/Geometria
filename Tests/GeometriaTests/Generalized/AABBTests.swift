@@ -560,7 +560,14 @@ extension AABBTests {
     
     func testIntersectsLine_2d_directionalRay_alongEdge_returnsTrue() {
         let sut = Box(left: 2, top: 3, right: 11, bottom: 7)
-        let line = Line2D(x1: 1, y1: 3, x2: 13, y2: 3)
+        let line = DirectionalRay2D(x1: 1, y1: 3, x2: 13, y2: 3)
+        
+        XCTAssertTrue(sut.intersects(line: line))
+    }
+
+    func testIntersectsLine_2d_fullyContained_returnsTrue() {
+        let sut = Box(left: 2, top: 3, right: 13, bottom: 17)
+        let line = LineSegment2D(x1: 3, y1: 4, x2: 5, y2: 6)
         
         XCTAssertTrue(sut.intersects(line: line))
     }

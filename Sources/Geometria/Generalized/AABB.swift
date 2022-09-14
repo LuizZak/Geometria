@@ -444,8 +444,11 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
                 return true
             }
         }
-        
-        return false
+
+        // If the line does not intersect the AABB, then if any point of the line
+        // is within the bounds of the AABB, it means the entire line is contained
+        // within.
+        return contains(line.a)
     }
     
     /// Performs an intersection test against the given line, returning up to
@@ -521,8 +524,10 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             )
             
         default:
-            // Check for containment
-            if contains(line.a) && contains(line.b) {
+            // If the line does not intersect the AABB, then if any point of the line
+            // is within the bounds of the AABB, it means the entire line is contained
+            // within.
+            if contains(line.a) {
                 return .contained
             }
             
