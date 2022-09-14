@@ -401,6 +401,11 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this AABB's area intersects the given line type.
     @inlinable
     public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+        // Early success if any point of the line is within the bounds of the AABB
+        if contains(line.a) {
+            return true
+        }
+
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let lineSlope = line.lineSlope
         
@@ -445,10 +450,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             }
         }
 
-        // If the line does not intersect the AABB, then if any point of the line
-        // is within the bounds of the AABB, it means the entire line is contained
-        // within.
-        return contains(line.a)
+        return false
     }
     
     /// Performs an intersection test against the given line, returning up to
