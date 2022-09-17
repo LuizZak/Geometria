@@ -3,6 +3,7 @@ import Geometria
 
 class NSphereTests: XCTestCase {
     typealias NSphere = Circle2D
+    typealias Circle = Circle2<Vector2D>
     
     func testDescription() {
         let sut = NSphere(center: .init(x: 0, y: 1), radius: 2)
@@ -136,38 +137,38 @@ extension NSphereTests {
 
 extension NSphereTests {
     func testProjectUnclampedVector_atCenter() {
-        let sut = NSphere(center: .init(x: 1, y: 2), radius: 1)
+        let sut = Circle(center: .init(x: 1, y: 2), radius: 1)
         let point = Vector2D(x: 1, y: 2)
         
         let result = sut.project(point)
         
         XCTAssertEqual(
             result,
-            .init(x: 0.7071067811865475, y: 0.7071067811865475)
+            .init(x: 1.7071067811865475, y: 2.7071067811865475)
         )
     }
     
     func testProjectUnclampedVector_fromTop() {
-        let sut = NSphere(center: .init(x: 0, y: 0), radius: 1)
-        let point = Vector2D(x: 0, y: -2)
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 1)
+        let point = Vector2D(x: 1, y: -2)
         
         let result = sut.project(point)
         
         XCTAssertEqual(
             result,
-            .init(x: 0, y: -1)
+            .init(x: 1.0, y: 1.0)
         )
     }
     
     func testProjectUnclampedVector_fromRight() {
-        let sut = NSphere(center: .init(x: 0, y: 0), radius: 1)
-        let point = Vector2D(x: 2, y: 0)
+        let sut = NSphere(center: .init(x: 1, y: 2), radius: 1)
+        let point = Vector2D(x: 3, y: 2)
         
         let result = sut.project(point)
         
         XCTAssertEqual(
             result,
-            .init(x: 1, y: 0)
+            .init(x: 2.0, y: 2.0)
         )
     }
     
@@ -179,7 +180,7 @@ extension NSphereTests {
         
         XCTAssertEqual(
             result,
-            .init(x: -1.414213562373095, y: -1.414213562373095)
+            .init(x: 1.585786437626905, y: 3.585786437626905)
         )
     }
     
@@ -191,7 +192,7 @@ extension NSphereTests {
         
         XCTAssertEqual(
             result,
-            .init(x: -1.028991510855053, y: -1.7149858514250882)
+            .init(x: 1.971008489144947, y: 3.285014148574912)
         )
     }
 }
@@ -199,7 +200,6 @@ extension NSphereTests {
 // 2D intersection tests
 extension NSphereTests {
     typealias PointNormal = Geometria.PointNormal<Vector2D>
-    typealias Circle = Circle2<Vector2D>
     typealias Line2 = Geometria.Line2<Vector2D>
     typealias Ray2 = Geometria.Ray2<Vector2D>
     typealias DRay2 = Geometria.DirectionalRay2<Vector2D>

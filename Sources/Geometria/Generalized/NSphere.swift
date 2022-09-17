@@ -92,10 +92,10 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
     @inlinable
     public func project(_ vector: Vector) -> Vector {
         if vector == center {
-            return Vector.one.normalized() * radius
+            return center + Vector.one.normalized() * radius
         }
         
-        return (vector - center).normalized() * radius
+        return center + (vector - center).normalized() * radius
     }
     
     /// Returns `true` if this N-sphere's area intersects the given line type.
