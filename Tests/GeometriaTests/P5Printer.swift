@@ -37,7 +37,7 @@ class P5Printer {
     // MARK: - Geometry
 
     private func _vertexRadius<Scalar: Numeric>() -> Scalar {
-        return 2
+        return 4
     }
     
     func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
@@ -45,7 +45,11 @@ class P5Printer {
     }
     
     func add<Vector: Vector3Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
-        add(Sphere3(center: point, radius: _vertexRadius()), style: style)
+        let sphere = Sphere3(center: point, radius: _vertexRadius())
+
+        is3D = true
+        
+        addDrawLine(sphere3String_customRadius(sphere, radius: "\(sphere.radius) / renderScale"))
     }
     
     func add<V: Vector2Type>(_ ellipse: Ellipsoid<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
@@ -148,7 +152,7 @@ class P5Printer {
     func add<V: Vector3Type>(_ sphere: Sphere3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
         is3D = true
         
-        addDrawLine("drawSphere(\(vec3String(sphere.center)), \(sphere.radius))")
+        addDrawLine(sphere3String(sphere))
     }
     
     func add<V: Vector3Additive & VectorDivisible>(_ aabb: AABB3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
@@ -558,6 +562,14 @@ class P5Printer {
         "\(vec.x), \(vec.y)"
     }
 
+    func sphere3String<Vector: Vector3Type>(_ sphere: Sphere3<Vector>) -> String where Vector.Scalar: CustomStringConvertible {
+        "drawSphere(\(vec3String(sphere.center)), \(sphere.radius))"
+    }
+
+    func sphere3String_customRadius<Vector: Vector3Type>(_ sphere: Sphere3<Vector>, radius: String) -> String where Vector.Scalar: CustomStringConvertible {
+        "drawSphere(\(vec3String(sphere.center)), \(radius))"
+    }
+
     func applyMatrix3DString<Scalar>(_ matrix: RotationMatrix3<Scalar>) -> [String] where Scalar: CustomStringConvertible {
         return [
             "applyMatrix(\(matrix[0, 0]), \(matrix[1, 0]), \(matrix[2, 0]), 0,",
@@ -710,7 +722,7 @@ extension P5Printer {
         var line: Style = Style(strokeColor: .black, strokeWeight: 2.0)
         var normalLine: Style = Style(strokeColor: .red.translucent, strokeWeight: 2.0)
         var tangentLine: Style = Style(strokeColor: .purple.translucent, strokeWeight: 2.0)
-        var geometry: Style = Style(strokeColor: .black)
+        var geometry: Style = Style(strokeColor: .black, strokeWeight: 2.0)
     }
 }
 

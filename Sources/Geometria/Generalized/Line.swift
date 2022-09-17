@@ -23,6 +23,13 @@ public struct Line<Vector: VectorType>: LineType {
         self.a = a
         self.b = b
     }
+
+    /// Initializes a new infinite line that is colinear with a given line.
+    @_transparent
+    public init<TLine: LineType>(_ line: TLine) where TLine.Vector == Vector {
+        self.a = line.a
+        self.b = line.b
+    }
 }
 
 extension Line: Equatable where Vector: Equatable, Scalar: Equatable { }
