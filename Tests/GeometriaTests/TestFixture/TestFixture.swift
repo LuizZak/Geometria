@@ -13,6 +13,7 @@ class TestFixture {
     init(sceneScale: Double, renderScale: Double) {
         p5Printer = P5Printer(scale: sceneScale, renderScale: renderScale)
         p5Printer.shouldStartDebugMode = true
+        p5Printer.drawGrid = true
     }
 
     func printVisualization() {

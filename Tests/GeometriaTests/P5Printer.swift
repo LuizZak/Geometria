@@ -147,15 +147,15 @@ class P5Printer {
         addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius))")
     }
     
-    func add<V: Vector2Additive & VectorDivisible>(_ aabb: AABB2<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
-        addStyleSet(style ?? styling.geometry)
-        addDrawLine("rect(\(vec2String(aabb.minimum)), \(vec2String(aabb.maximum)))")
-    }
-    
     func add<V: Vector3Type>(_ sphere: Sphere3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
         is3D = true
         
         addDrawLine(sphere3String(sphere))
+    }
+    
+    func add<V: Vector2Additive & VectorDivisible>(_ aabb: AABB2<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+        addStyleSet(style ?? styling.geometry)
+        addDrawLine("rect(\(vec2String(aabb.minimum)), \(vec2String(aabb.maximum)))")
     }
     
     func add<V: Vector3Additive & VectorDivisible>(_ aabb: AABB3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
@@ -257,14 +257,19 @@ class P5Printer {
             printKeyPressed()
         }
         
-        if drawGrid {
+        if drawGrid && !is3D {
             printLine("")
             printDrawGrid2D()
         }
         
-        if drawOrigin && is3D {
+        if drawOrigin {
             printLine("")
-            printDrawOrigin3D()
+
+            if is3D {
+                printDrawOrigin3D()
+            } else {
+                printDrawOrigin2D()
+            }
         }
         
         if shouldPrintDrawNormal {
@@ -422,11 +427,8 @@ class P5Printer {
             printLine("")
             printLine("strokeWeight(3 / sceneScale)")
 
-            if drawGrid {
-                printLine("drawGrid()")
-            }
             if drawOrigin && is3D {
-                printLine("drawOrigin()")
+                printLine("drawOrigin3D()")
             }
 
             if is3D {
@@ -435,6 +437,14 @@ class P5Printer {
 
             printLine("scale(renderScale)")
             
+            if drawGrid && !is3D {
+                printLine("")
+                printLine("drawGrid()")
+            }
+            if drawOrigin && !is3D {
+                printLine("drawOrigin2D()")
+            }
+
             printLine("")
             
             for draw in draws {
@@ -460,22 +470,35 @@ class P5Printer {
     
     func printDrawGrid2D() {
         indentedBlock("function drawGrid() {") {
-            printLine("stroke(0, 0, 0, 30)")
+            printLine("strokeWeight(1 / sceneScale)")
+            printLine("stroke(0, 0, 0, 20)")
             printLine("line(0, -20, 0, 20)")
             printLine("line(-20, 0, 20, 0)")
-            indentedBlock("for (var x = -10; x < 10; x++) {") {
-                printLine("stroke(0, 0, 0, 20)")
+            indentedBlock("for (var x = -20; x < 20; x++) {") {
                 printLine("line(x, -20, x, 20)")
             }
-            indentedBlock("for (var y = -10; y < 10; y++) {") {
-                printLine("stroke(0, 0, 0, 20)")
+            indentedBlock("for (var y = -20; y < 20; y++) {") {
                 printLine("line(-20, y, 20, y)")
             }
         }
     }
     
+    func printDrawOrigin2D() {
+        indentedBlock("function drawOrigin2D() {") {
+            let length: Double = 25.0
+            
+            printLine("strokeWeight(1 / sceneScale)")
+            printLine("// X axis")
+            printLine("stroke(255, 0, 0)")
+            printLine("line(0.0, 0.0, \(length) / renderScale, 0.0)")
+            printLine("// Y axis")
+            printLine("stroke(0, 255, 0)")
+            printLine("line(0.0, 0.0, 0.0, \(length) / renderScale)")
+        }
+    }
+    
     func printDrawOrigin3D() {
-        indentedBlock("function drawOrigin() {") {
+        indentedBlock("function drawOrigin3D() {") {
             let length: Double = 100.0
             
             let vx = Vector3D.unitX * length

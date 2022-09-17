@@ -48,6 +48,18 @@ extension DirectionalRay3: VisualizableGeometricType3 where Scalar: CustomString
     }
 }
 
+extension Circle2: VisualizableGeometricType2 where Vector: Vector2Additive & VectorDivisible, Scalar: Numeric & CustomStringConvertible {
+    func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?) {
+        printer.add(self, style: style)
+    }
+}
+
+extension Sphere3: VisualizableGeometricType3 where Vector: Vector3Additive & VectorDivisible, Scalar: Numeric & CustomStringConvertible {
+    func addVisualization3D(to printer: P5Printer, style: P5Printer.Style?) {
+        printer.add(self, style: style)
+    }
+}
+
 extension AABB2: VisualizableGeometricType2 where Vector: Vector2Additive & VectorDivisible, Scalar: Numeric & CustomStringConvertible {
     func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?) {
         printer.add(self, style: style)

@@ -30,3 +30,14 @@ public extension Circle2 where Vector: VectorMultiplicative, Scalar: Comparable 
 extension Circle2: Convex2Type where Vector: Vector2FloatingPoint {
     
 }
+
+extension Circle2: ClosestPointQueryGeometry2 where Vector: Vector2FloatingPoint {
+    public func closestPointTo<Line>(line: Line) -> ClosestPointQueryResult<Vector> where Line : Line2FloatingPoint, Vector == Line.Vector {
+        let onLine = line.project(center)
+        if contains(onLine) {
+            return .intersection
+        }
+
+        return .closest(project(onLine))
+    }
+}
