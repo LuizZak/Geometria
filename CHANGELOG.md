@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Fixing `NSphere.project(_:Vector)` being offset from correct point by `-self.center`.
+
 - `TakeVector3` has been removed in favor of `VectorTakeable` protocol.
 
 - Forcing `Vector3-` specializing protocols to require the same specialization on its `SubVector4`, e.g. `Vector3FloatingPoint` now requires `SubVector4: Vector4FloatingPoint`.
