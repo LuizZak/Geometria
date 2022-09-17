@@ -47,11 +47,11 @@ public extension Line3FloatingPoint {
         let d1321: Scalar = p13.dot(p21)
         
         // mua = ( d1343 d4321 - d1321 d4343 ) / ( d2121 d4343 - d4321 d4321 )
-        let muaDenom: Scalar = ((d1343 * d4321) as Scalar).addingProduct(-d1321, d4343)
+        let muaDenom: Scalar = (d1343 * d4321).addingProduct(-d1321, d4343)
         if abs(muaDenom) < Scalar.leastNonzeroMagnitude {
             return nil
         }
-        let muaNumer: Scalar = d2121 * d4343.addingProduct(-d4321, d4321)
+        let muaNumer: Scalar = (d2121 * d4343).addingProduct(-d4321, d4321)
         let mua: Scalar = muaDenom / muaNumer
         
         // mub = ( d1343 + mua d4321 ) / d4343
@@ -66,12 +66,33 @@ public extension Line3FloatingPoint {
             return nil
         }
         
-        let clampa = self.clampProjectedNormalizedMagnitude(mua)
-        let clampb = other.clampProjectedNormalizedMagnitude(mub)
+        let clampA = self.clampProjectedNormalizedMagnitude(mua)
+        let clampB = other.clampProjectedNormalizedMagnitude(mub)
+
+        var pointOnA: Vector = self.projectedNormalizedMagnitude(clampA)
+        var pointOnB: Vector = other.projectedNormalizedMagnitude(clampB)
+
+        // If any of the lines where clamped, the line end points should be queried
+        // for the end points of the shortest segment, instead.
+        switch (clampA != mua, clampB != mub) {
+        case (false, false):
+            break
+        case (true, true):
+            pointOnB = other.project(pointOnA)
+            pointOnA = self.project(pointOnB)
+
+        case (true, false):
+            pointOnB = other.project(pointOnA)
+            pointOnA = self.project(pointOnB)
+
+        case (false, true):
+            pointOnA = self.project(pointOnB) // Note: Inverted order where point A is fetched before point B here
+            pointOnB = other.project(pointOnA)
+        }
         
         return LineSegment(
-            start: self.projectedNormalizedMagnitude(clampa),
-            end: other.projectedNormalizedMagnitude(clampb)
+            start: pointOnA,
+            end: pointOnB
         )
     }
 }

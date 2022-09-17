@@ -1,4 +1,6 @@
-import Geometria
+import RealModule
+
+@testable import Geometria
 
 class P5Printer {
     private var _lastStrokeColorCall: String? = ""
@@ -17,30 +19,42 @@ class P5Printer {
     
     var size: Vector2i
     var scale: Double
+    var renderScale: Double
     
+    var shouldStartDebugMode: Bool = false
     var drawOrigin: Bool = true
     var drawGrid: Bool = false
+
+    /// Controls the style and color on the output of the sketch.
+    var styling: Styles = Styles()
     
-    init(size: Vector2i = .init(x: 800, y: 600), scale: Double = 2.0) {
+    init(size: Vector2i = .init(x: 800, y: 600), scale: Double = 2.0, renderScale: Double = 1.0) {
         self.size = size
         self.scale = scale
+        self.renderScale = renderScale
     }
     
     // MARK: - Geometry
-    
-    func add<Vector: Vector3Type>(_ point: Vector) where Vector.Scalar: SignedNumeric & CustomStringConvertible {
-        add(Sphere3(center: point, radius: 1))
+
+    private func _vertexRadius<Scalar: Numeric>() -> Scalar {
+        return 2
     }
     
-    func add<V: Vector2Type>(_ ellipse: Ellipsoid<V>) where V.Scalar: CustomStringConvertible {
-        addStrokeColorSet("0")
-        addStrokeWeightSet("1 / sceneScale")
-        addNoFill()
+    func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
+        add(Circle2(center: point, radius: _vertexRadius()), style: style)
+    }
+    
+    func add<Vector: Vector3Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
+        add(Sphere3(center: point, radius: _vertexRadius()), style: style)
+    }
+    
+    func add<V: Vector2Type>(_ ellipse: Ellipsoid<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+        addStyleSet(style ?? styling.geometry)
         addDrawLine("ellipse(\(vec2String(ellipse.center)), \(vec2String(ellipse.radius)))")
         addDrawLine("")
     }
     
-    func add<V: Vector3FloatingPoint>(_ ellipse3: Ellipsoid<V>) where V.Scalar: CustomStringConvertible {
+    func add<V: Vector3FloatingPoint>(_ ellipse3: Ellipsoid<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
         is3D = true
         addNoStroke()
         addDrawLine("push()")
@@ -51,32 +65,29 @@ class P5Printer {
         addDrawLine("")
     }
     
-    func add<Line: Line2Type>(_ line: Line) where Line.Vector.Scalar: CustomStringConvertible {
-        addStrokeColorSet("0")
-        addStrokeWeightSet("1 / sceneScale")
+    func add<Line: Line2Type>(_ line: Line, style: Style? = nil) where Line.Vector.Scalar: CustomStringConvertible {
+        addStyleSet(style ?? styling.line)
         addDrawLine("line(\(vec2String(line.a)), \(vec2String(line.b)))")
         addDrawLine("")
     }
     
-    func add<Vector: Vector3Type>(_ ray: DirectionalRay3<Vector>) where Vector.Scalar: FloatingPoint & CustomStringConvertible {
+    func add<Vector: Vector3Type>(_ ray: DirectionalRay3<Vector>, style: Style? = nil) where Vector.Scalar: FloatingPoint & CustomStringConvertible {
         is3D = true
-        
-        addStrokeColorSet("255, 0, 0")
-        addStrokeWeightSet("2 / sceneScale")
+
+        addStyleSet(style ?? styling.line)
         addDrawLine("line(\(vec3String(ray.start)), \(vec3String(ray.projectedMagnitude(500))))")
         addDrawLine("")
     }
     
-    func add<Line: Line3Type>(_ line: Line, color: String = "0") where Line.Vector.Scalar: SignedNumeric & CustomStringConvertible {
+    func add<Line: Line3Type>(_ line: Line, style: Style? = nil) where Line.Vector.Scalar: Numeric & CustomStringConvertible {
         is3D = true
         
-        addStrokeColorSet(color)
-        addStrokeWeightSet("2 / sceneScale")
+        addStyleSet(style ?? styling.line)
         addDrawLine("line(\(vec3String(line.a)), \(vec3String(line.b)))")
         addDrawLine("")
     }
     
-    func add<V: Vector2Type>(_ result: ConvexLineIntersection<V>) where V.Scalar: CustomStringConvertible {
+    func add<V: Vector2Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
         switch result {
         case .contained, .noIntersection:
             break
@@ -88,7 +99,7 @@ class P5Printer {
         }
     }
     
-    func add<V: Vector3Type>(_ result: ConvexLineIntersection<V>) where V.Scalar == Double {
+    func add<V: Vector3Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil) where V.Scalar == Double {
         switch result {
         case .contained, .noIntersection:
             break
@@ -100,69 +111,81 @@ class P5Printer {
         }
     }
     
-    func add<V: Vector2Type>(_ pointNormal: PointNormal<V>) where V.Scalar: CustomStringConvertible {
+    func add<V: Vector2Type>(_ pointNormal: PointNormal<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
         shouldPrintDrawNormal = true
         shouldPrintDrawTangent = true
         
         addStrokeWeightSet("1 / sceneScale")
-        addStrokeColorSet("255, 0, 0, 100")
+
+        addStyleSet(style ?? styling.normalLine)
         addDrawLine("drawNormal(\(vec2String(pointNormal.point)), \(vec2String(pointNormal.normal)))")
-        addStrokeColorSet("255, 0, 255, 100")
+
+        addStyleSet(style ?? styling.tangentLine)
         addDrawLine("drawTangent(\(vec2String(pointNormal.point)), \(vec2String(pointNormal.normal)))")
+
         addDrawLine("")
     }
     
-    func add<V: Vector3Type>(_ pointNormal: PointNormal<V>) where V.Scalar == Double {
+    func add<V: Vector3Type>(_ pointNormal: PointNormal<V>, style: Style? = nil) where V.Scalar == Double {
         shouldPrintDrawNormal = true
         
         add(Sphere3<V>(center: pointNormal.point, radius: 0.5))
         
-        addStrokeWeightSet("1 / sceneScale")
-        addStrokeColorSet("255, 0, 0, 100")
+        addStyleSet(style ?? styling.normalLine)
         addDrawLine("drawNormal(\(vec3String(pointNormal.point)), \(vec3String(pointNormal.normal)))")
     }
     
-    func add<V: Vector2Type>(_ circle: Circle2<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
-        addStrokeWeightSet("1 / sceneScale")
-        addStrokeColorSet("255, 0, 0, 100")
+    func add<V: Vector2Type>(_ circle: Circle2<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
+        addStyleSet(style ?? styling.geometry)
         addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius))")
     }
     
-    func add<V: Vector2Additive & VectorDivisible>(_ aabb: AABB2<V>) where V.Scalar: CustomStringConvertible {
-        addStrokeWeightSet("1 / sceneScale")
-        addStrokeColorSet("255, 0, 0, 100")
-        addNoFill()
+    func add<V: Vector2Additive & VectorDivisible>(_ aabb: AABB2<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+        addStyleSet(style ?? styling.geometry)
         addDrawLine("rect(\(vec2String(aabb.minimum)), \(vec2String(aabb.maximum)))")
     }
     
-    func add<V: Vector3Type>(_ sphere: Sphere3<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func add<V: Vector3Type>(_ sphere: Sphere3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
         is3D = true
         
         addDrawLine("drawSphere(\(vec3String(sphere.center)), \(sphere.radius))")
     }
     
-    func add<V: Vector3Additive & VectorDivisible>(_ aabb: AABB3<V>) where V.Scalar: SignedNumeric & CustomStringConvertible {
+    func add<V: Vector3Additive & VectorDivisible>(_ aabb: AABB3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
         is3D = true
         
+        addStyleSet(style ?? styling.geometry)
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(aabb.minimum + aabb.size / 2)))")
         addDrawLine("box(\(vec3String(aabb.size)))")
         addDrawLine("pop()")
     }
     
-    func add(_ torus: Torus3D) {
+    func add<R: RectangleType>(_ rectangle: R, style: Style? = nil) where R.Vector: Vector3Additive & VectorDivisible, R.Vector.Scalar: Numeric & CustomStringConvertible {
         is3D = true
+        
+        addStyleSet(style ?? styling.geometry)
+        addDrawLine("push()")
+        addDrawLine("translate(\(vec3String(rectangle.location + rectangle.size / 2)))")
+        addDrawLine("box(\(vec3String(rectangle.size)))")
+        addDrawLine("pop()")
+    }
+    
+    func add<V: Vector3Type>(_ torus: Torus3<V>, style: Style? = nil) where V.Scalar: Real & CustomStringConvertible {
+        is3D = true
+        
+        addStyleSet(style ?? styling.geometry)
 
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(torus.center)))")
         
         // Create matrix that will rotate the torus from laying on the Y-axis
         // to laying in the direction of its axis
-        let origin = Vector3D.unitY
+        let origin = V.unitY
         let target = torus.axis
         if origin != target && origin != -target {
             let axis = origin.cross(target)
-            let angle = Double.acos(origin.dot(target))
+            let angle = V.Scalar.acos(origin.dot(target))
             addDrawLine("rotate(\(-angle), \(vec3PVectorString(vec3ToP5Vec(axis))))")
         }
         
@@ -170,21 +193,23 @@ class P5Printer {
         addDrawLine("pop()")
     }
     
-    func add(_ cylinder: Cylinder3D) {
+    func add<V: Vector3FloatingPoint>(_ cylinder: Cylinder3<V>, style: Style? = nil) where V.Scalar: Real & CustomStringConvertible {
         is3D = true
 
         let line = cylinder.asLineSegment
+        
+        addStyleSet(style ?? styling.geometry)
 
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(line.center)))")
         
         // Create matrix that will rotate the cylinder from growing on the Y-axis
         // to growing in the direction of its line
-        let origin = Vector3D.unitY
+        let origin = V.unitY
         let target = line.lineSlope
         if origin != target && origin != -target {
             let axis = origin.cross(target)
-            let angle = Double.acos(origin.dot(target))
+            let angle = V.Scalar.acos(origin.dot(target))
             addDrawLine("rotate(\(-angle), \(vec3PVectorString(vec3ToP5Vec(axis))))")
         }
         
@@ -192,12 +217,12 @@ class P5Printer {
         addDrawLine("pop()")
     }
     
-    func add(_ capsule: Capsule3D) {
+    func add<V: Vector3FloatingPoint>(_ capsule: Capsule3<V>, style: Style? = nil) where V.Scalar: Real & CustomStringConvertible {
         is3D = true
 
-        add(Cylinder3D(start: capsule.start, end: capsule.end, radius: capsule.radius))
-        add(capsule.startAsSphere)
-        add(capsule.endAsSphere)
+        add(Cylinder3(start: capsule.start, end: capsule.end, radius: capsule.radius), style: style)
+        add(capsule.startAsSphere, style: style)
+        add(capsule.endAsSphere, style: style)
     }
     
     // MARK: - Printing
@@ -208,6 +233,7 @@ class P5Printer {
         prepareCustomPreFile()
         
         printLine("var sceneScale = \(scale)")
+        printLine("var renderScale = \(renderScale)")
         if is3D {
             printLine("var isSpaceBarPressed = false")
         }
@@ -288,25 +314,39 @@ class P5Printer {
         addDrawLine("noFill()")
     }
     
-    func addStrokeColorSet(_ value: String) {
-        if _lastStrokeColorCall == value { return }
+    func addStrokeColorSet(_ color: Color?) {
+        let line = _strokeColor(color)
+
+        if _lastStrokeColorCall == line { return }
         
-        _lastStrokeColorCall = value
-        addDrawLine("stroke(\(value))")
+        _lastStrokeColorCall = line
+        addDrawLine(line)
     }
     
     func addStrokeWeightSet(_ value: String) {
-        if _lastStrokeWeightCall == value { return }
+        let line = "strokeWeight(\(value))"
+
+        if _lastStrokeWeightCall == line { return }
         
-        _lastStrokeWeightCall = value
-        addDrawLine("strokeWeight(\(value))")
+        _lastStrokeWeightCall = line
+        addDrawLine(line)
     }
     
-    func addFillColorSet(_ value: String) {
-        if _lastFillColorCall == value { return }
+    func addFillColorSet(_ color: Color?) {
+        let line = _fillColor(color)
+
+        if _lastFillColorCall == line { return }
         
-        _lastFillColorCall = value
-        addDrawLine("fill(\(value))")
+        _lastFillColorCall = line
+        addDrawLine(line)
+    }
+
+    func addStyleSet(_ style: Style?) {
+        guard let style = style else { return }
+
+        addStrokeColorSet(style.strokeColor)
+        addFillColorSet(style.fillColor)
+        addStrokeWeightSet(style.strokeWeight.description)
     }
     
     // MARK: Methods for subclasses
@@ -348,6 +388,10 @@ class P5Printer {
             
             printLine("ellipseMode(RADIUS)")
             printLine("rectMode(CORNERS)")
+
+            if shouldStartDebugMode {
+                printLine("debugMode(GRID)")
+            }
             
             printCustomPostSetup()
         }
@@ -370,7 +414,7 @@ class P5Printer {
             }
             printLine("")
             printLine("strokeWeight(3 / sceneScale)")
-            
+
             if drawGrid {
                 printLine("drawGrid()")
             }
@@ -382,11 +426,18 @@ class P5Printer {
                 boilerplate3DSpaceBar(lineWeight: 1.0).forEach(printLine)
             }
 
+            printLine("scale(renderScale)")
+            
             printLine("")
             
             for draw in draws {
                 printLine(draw)
             }
+
+            // Reset draw state
+            printLine(_strokeColor(.black))
+            printLine(_fillColor(nil))
+            printLine(_strokeWeight(1))
             
             printCustomPostDraw()
         }
@@ -494,7 +545,7 @@ class P5Printer {
         return "createVector(\(vec3String(vec)))"
     }
     
-    func vec3String<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
+    func vec3String<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: CustomStringConvertible {
         return "\(vec.x), \(vec.y), \(vec.z)"
     }
     
@@ -515,22 +566,80 @@ class P5Printer {
             "            0.0, 0.0, 0.0, 1.0)"
         ]
     }
+
+    func _styleLines(_ style: Style?) -> [String] {
+        guard let style = style else {
+            return []
+        }
+
+        var lines: [String] = []
+        lines.append(_strokeWeight(style.strokeWeight))
+        lines.append(_strokeColor(style.strokeColor))
+        lines.append(_fillColor(style.fillColor))
+
+        return lines
+    }
+
+    func _strokeColor(_ color: Color?) -> String {
+        if let color = color {
+            return "stroke(\(_colorParams(color)))"
+        } else {
+            return "noStroke()"
+        }
+    }
+
+    func _fillColor(_ color: Color?) -> String {
+        if let color = color {
+            return "fill(\(_colorParams(color)))"
+        } else {
+            return "noFill()"
+        }
+    }
+
+    func _strokeWeight(_ weight: Double) -> String {
+        return "strokeWeight(\(weight) / sceneScale)"
+    }
+
+    func _colorParams(_ color: Color) -> String {
+        var c = ""
+        if color.red == color.green && color.green == color.blue {
+            c = "\(color.red)"
+        } else {
+            c = _commaSeparated(color.red, color.green, color.blue)
+        }
+
+        if color.alpha == 255 {
+            return c
+        } else {
+            return _commaSeparated(c, color.alpha)
+        }
+    }
+
+    func _commaSeparated(_ values: Any...) -> String {
+        values.map { "\($0)" }.joined(separator: ", ")
+    }
+    
+    func indentString(depth: Int) -> String {
+        String(repeating: " ", count: depth)
+    }
+
+    // MARK: - Printing methods
     
     func printLine(_ line: String) {
         print("\(indentString())\(line)", to: &buffer)
+    }
+    
+    func printLines(_ lines: [String]) {
+        lines.forEach(printLine)
     }
     
     private func printBuffer() {
         print(buffer)
         buffer = ""
     }
-    
+
     func indentString() -> String {
         indentString(depth: identDepth * currentIndent)
-    }
-    
-    func indentString(depth: Int) -> String {
-        String(repeating: " ", count: depth)
     }
     
     func indentedBlock(_ start: String, _ block: () -> Void) {
@@ -554,6 +663,55 @@ class P5Printer {
     func deindent() {
         currentIndent -= 1
     }
+
+    /// Style for a draw operation
+    struct Style {
+        static let `default` = Self(
+            strokeColor: .black,
+            fillColor: nil,
+            strokeWeight: 1.0
+        )
+
+        var strokeColor: Color? = .black
+        var fillColor: Color?
+        var strokeWeight: Double = 1.0
+    }
+
+    /// RGBA color with components between 0-255.
+    struct Color {
+        var alpha: Int
+        var red: Int
+        var green: Int
+        var blue: Int
+
+        var translucent: Self {
+            var copy = self
+            copy.alpha = 100
+            return copy
+        }
+
+        var opaque: Self {
+            var copy = self
+            copy.alpha = 255
+            return copy
+        }
+
+        internal init(alpha: Int = 255, red: Int, green: Int, blue: Int) {
+            self.alpha = alpha
+            self.red = red
+            self.green = green
+            self.blue = blue
+        }
+    }
+}
+
+extension P5Printer {
+    struct Styles {
+        var line: Style = Style(strokeColor: .black, strokeWeight: 2.0)
+        var normalLine: Style = Style(strokeColor: .red.translucent, strokeWeight: 2.0)
+        var tangentLine: Style = Style(strokeColor: .purple.translucent, strokeWeight: 2.0)
+        var geometry: Style = Style(strokeColor: .black)
+    }
 }
 
 extension P5Printer {
@@ -564,4 +722,20 @@ extension P5Printer {
         
         printer.printAll()
     }
+}
+
+extension P5Printer.Color {
+    static let black = Self(red: 0, green: 0, blue: 0)
+    static let grey = Self(red: 127, green: 127, blue: 127)
+    static let white = Self(red: 255, green: 255, blue: 255)
+    
+    // Primary colors
+    static let red = Self(red: 255, green: 0, blue: 0)
+    static let green = Self(red: 0, green: 255, blue: 0)
+    static let blue = Self(red: 0, green: 0, blue: 255)
+
+    // Secondary colors
+    static let yellow = Self(red: 255, green: 255, blue: 0)
+    static let cyan = Self(red: 0, green: 255, blue: 255)
+    static let purple = Self(red: 255, green: 0, blue: 255)
 }

@@ -98,7 +98,7 @@
 					"build",
 					"--configuration", "release",
 					"--build-tests",
-					"--enable-code-coverage",
+					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
 				],
 				"group": "build",
 				"options": {
@@ -118,7 +118,7 @@
 					"build",
 					"--configuration", "debug",
 					"--build-tests",
-					"--enable-code-coverage",
+					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
 				],
 				"presentation": {
 					"reveal": "always"
@@ -135,7 +135,7 @@
 				"args": [
 					"build",
 					"--build-tests",
-					"--enable-code-coverage",
+					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
 				],
 				"cwd": "/home/luiz/dev/Geometria",
 				"problemMatcher": [
@@ -143,7 +143,7 @@
 				],
 				"group": "build",
 				"label": "swift: Build All",
-				"detail": "swift build --build-tests --enable-code-coverage"
+				"detail": "swift build --build-tests"
 			},
 		],
 	},
@@ -225,7 +225,8 @@
 			"Sarrus",
 			"swiftpm",
 			"Trumbore",
-			"Unequality"
+			"Unequality",
+			"visualizable",
 		]
 	},
 	"extensions": {
