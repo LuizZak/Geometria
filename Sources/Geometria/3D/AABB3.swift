@@ -19,8 +19,8 @@ extension AABB3: Convex3Type where Vector: Vector3FloatingPoint {
     
 }
 
-extension AABB3: ClosestPointQueryGeometry where Vector: Vector3FloatingPoint {
-    public func closestPointTo<LineT: LineFloatingPoint>(line: LineT) -> ClosestPointQueryResult<Vector> where LineT.Vector == Vector {
+extension AABB3: ClosestPointQueryGeometry3 where Vector: Vector3FloatingPoint {
+    public func closestPointTo<LineT: Line3FloatingPoint>(line: LineT) -> ClosestPointQueryResult<Vector> where LineT.Vector == Vector {
         let infiniteLine = Line(line)
 
         // Check for intersection first
@@ -53,7 +53,7 @@ extension AABB3: ClosestPointQueryGeometry where Vector: Vector3FloatingPoint {
 
         // Fetch the octant of the closest vertex with respect to the center of
         // the AABB so we can have a magnitude measure which can be mapped back
-        // into vertices by multiplying by `center + octant * octantSign`, where
+        // into vertices by multiplying by `center + octantOffset * octantSign`, where
         // the `octantSign` is a vector of `1` scalars, where one scalar is `-1`.
         let octantOffset = closestVertex - center
 

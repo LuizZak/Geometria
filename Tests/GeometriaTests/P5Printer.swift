@@ -41,7 +41,10 @@ class P5Printer {
     }
     
     func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
-        add(Circle2(center: point, radius: _vertexRadius()), style: style)
+        let circle = Circle2(center: point, radius: _vertexRadius())
+
+        addStyleSet(style ?? styling.geometry)
+        addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius) / renderScale)")
     }
     
     func add<Vector: Vector3Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
@@ -328,7 +331,7 @@ class P5Printer {
     }
     
     func addStrokeWeightSet(_ value: String) {
-        let line = "strokeWeight(\(value))"
+        let line = "strokeWeight(\(value) / sceneScale)"
 
         if _lastStrokeWeightCall == line { return }
         
@@ -393,7 +396,7 @@ class P5Printer {
             printLine("ellipseMode(RADIUS)")
             printLine("rectMode(CORNERS)")
 
-            if shouldStartDebugMode {
+            if is3D && shouldStartDebugMode {
                 printLine("debugMode(GRID)")
             }
             

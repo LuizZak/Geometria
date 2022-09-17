@@ -87,9 +87,9 @@ public extension AABB2 {
     @_transparent
     init(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) {
         let minimum = Vector(x: left, y: top)
-        let maxixum = Vector(x: right, y: bottom)
+        let maximum = Vector(x: right, y: bottom)
         
-        self.init(minimum: minimum, maximum: maxixum)
+        self.init(minimum: minimum, maximum: maximum)
     }
 }
 
@@ -117,4 +117,49 @@ public extension AABB2 where Vector: VectorAdditive {
 
 extension AABB2: Convex2Type where Vector: Vector2FloatingPoint {
     
+}
+
+extension AABB2: ClosestPointQueryGeometry2 where Vector: Vector2FloatingPoint {
+    public func closestPointTo<LineT: Line2FloatingPoint>(line: LineT) -> ClosestPointQueryResult<Vector> where LineT.Vector == Vector {
+        let infiniteLine = Line(line)
+
+        // Check for intersection first
+        switch intersection(with: infiniteLine) {
+        case .enter(let pn),
+            .exit(let pn),
+            .enterExit(let pn, _),
+            .singlePoint(let pn):
+
+            let pOnLine = line.project(pn.point)
+            if pOnLine == pn.point {
+                return .intersection
+            }
+            
+            return .closest(clamp(pOnLine))
+
+        case .contained:
+            return .intersection
+
+        case .noIntersection:
+            break
+        }
+
+        let edge1 = LineSegment(start: topLeft, end: topRight)
+        let edge2 = LineSegment(start: bottomLeft, end: bottomRight)
+
+        func closestPoint(_ p1: Vector, _ p2: Vector) -> Vector {
+            let startP = line.project(p1)
+            let endP = line.project(p2)
+            
+            if startP.distanceSquared(to: p1) < endP.distanceSquared(to: p2) {
+                return p1
+            }
+            return p2
+        }
+
+        let closestEdge1 = closestPoint(edge1.start, edge1.end)
+        let closestEdge2 = closestPoint(edge2.start, edge2.end)
+
+        return .closest(closestPoint(closestEdge1, closestEdge2))
+    }
 }
