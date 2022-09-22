@@ -296,7 +296,7 @@ class Matrix3x3Tests: XCTestCase {
         XCTAssertEqual(sut.determinant(), 24.0)
     }
     
-    func testTransformPointVector3() {
+    func testTransformPoint_vector3() {
         let sut =
         Matrix(rows: (
             (0, 1, 2),
@@ -312,7 +312,7 @@ class Matrix3x3Tests: XCTestCase {
         XCTAssertEqual(result.z, 23.0)
     }
     
-    func testTransformPointVector2() {
+    func testTransformPoint_vector2() {
         let sut =
         Matrix(rows: (
             (0, 1, 2),
@@ -327,7 +327,7 @@ class Matrix3x3Tests: XCTestCase {
         XCTAssertEqual(result.y, 0.6)
     }
     
-    func testTransformPointVector2_translate() {
+    func testTransformPoint_vector2_translate() {
         let sut =
         Matrix(rows: (
             (1, 0,  4),
@@ -340,6 +340,21 @@ class Matrix3x3Tests: XCTestCase {
         
         XCTAssertEqual(result.x, 5)
         XCTAssertEqual(result.y, -3)
+    }
+    
+    func testTransformVector_vector2() {
+        let sut =
+        Matrix(rows: (
+            (0, 1, 2),
+            (3, 4, 5),
+            (6, 7, 8)
+        ))
+        let vec = Vector2D(x: 0, y: 1)
+        
+        let result = sut.transformVector(vec)
+        
+        XCTAssertEqual(result.x, 3.0)
+        XCTAssertEqual(result.y, 9.0)
     }
     
     func testTransposed() {

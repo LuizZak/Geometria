@@ -303,6 +303,20 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         return Vector(x: result.x, y: result.y)
     }
     
+    /// Transforms a given vector, applying scaling, rotation and translation to
+    /// the vector.
+    ///
+    /// The matrix is transformed as a vector and is not normalized by the Z
+    /// vector.
+    @_transparent
+    public func transformVector<Vector: Vector2FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+        let vec3 = Vector3(vec, z: 1)
+        
+        let result = transformPoint(vec3)
+        
+        return Vector(x: result.x, y: result.y)
+    }
+    
     /// Returns a new ``Matrix3x3`` that is a [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose

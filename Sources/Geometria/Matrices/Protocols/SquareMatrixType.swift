@@ -17,4 +17,10 @@ public protocol SquareMatrixType: MatrixType {
     ///
     /// If this matrix has no inversion, `nil` is returned, instead.
     func inverted() -> Self?
+
+    /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
+    /// the result.
+    ///
+    /// [matrix multiplication]: http://en.wikipedia.org/wiki/Matrix_multiplication
+    static func * (lhs: Self, rhs: Self) -> Self
 }

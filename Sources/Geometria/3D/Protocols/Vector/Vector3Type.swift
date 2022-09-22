@@ -1,8 +1,8 @@
 /// Protocol for types that can represent 3D vectors.
-public protocol Vector3Type: VectorTakeable where TakeDimensions == Vector3TakeDimensions {
+public protocol Vector3Type: VectorTakeable where TakeDimensions == Vector3TakeDimensions, SubVector3 == Self {
     /// The 2-dimensional vector type for selections of 2-components on this
     /// vector.
-    associatedtype SubVector3 = Self
+    //associatedtype SubVector3 = Self
     
     /// The X coordinate of this 3D vector.
     var x: Scalar { get set }

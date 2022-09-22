@@ -422,6 +422,20 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         return Vector(x: result.x, y: result.y, z: result.z)
     }
     
+    /// Transforms a given vector, applying scaling, rotation and translation to
+    /// the vector.
+    ///
+    /// The matrix is transformed as a vector and is not normalized by the W
+    /// vector.
+    @_transparent
+    public func transformVector<Vector: Vector3FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+        let vec4 = Vector4(vec, w: 1)
+        
+        let result = transformPoint(vec4)
+        
+        return Vector(x: result.x, y: result.y, z: result.z)
+    }
+    
     /// Returns a new ``Matrix4x4`` that is a [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose

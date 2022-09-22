@@ -51,7 +51,7 @@
 					"build",
 					"--configuration", "debug",
 					"--build-tests",
-					"--enable-code-coverage",
+					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
 				],
 				"presentation": {
 					"reveal": "always"
@@ -74,7 +74,7 @@
 				"args": [
 					"test",
 					"--configuration", "debug",
-					"--enable-code-coverage",
+					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
 				],
 				"presentation": {
 					"reveal": "always"
