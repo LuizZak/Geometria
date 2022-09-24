@@ -2,17 +2,17 @@ import Geometria
 
 /// From a structured set of bounded geometry laid out in space, creates subdivided
 /// AABBs to quickly query geometry that is neighboring a point or line.
-class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector: VectorDivisible & VectorComparable {
-    typealias Bounds = AABB<Vector>
-    typealias Vector = Element.Vector
+public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector: VectorDivisible & VectorComparable {
+    public typealias Bounds = AABB<Vector>
+    public typealias Vector = Element.Vector
 
-    /// The list of geometry that is being bounded.
-    private var geometryList: [Element]
+    private(set) var root: Subdivision
 
-    private var root: Subdivision
+    /// The list of geometries that is being bounded.
+    private(set) public var geometryList: [Element]
 
     /// Initializes an empty spatial tree object.
-    convenience init() {
+    public convenience init() {
         self.init([], maxSubdivisions: 0, maxElementsPerLevelBeforeSplit: 0)
     }
 
@@ -26,7 +26,12 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
     /// splitting the spatial tree.
     ///   - maxElementsPerLevelBeforeSplit: The maximum number of elements per
     /// spatial tree subdivision before an attempt to subdivide it further is done.
-    init(_ geometryList: [Element], maxSubdivisions: Int, maxElementsPerLevelBeforeSplit: Int) {
+    public init(
+        _ geometryList: [Element],
+        maxSubdivisions: Int,
+        maxElementsPerLevelBeforeSplit: Int
+    ) {
+        
         self.geometryList = geometryList
 
         // Calculate minimum bounds
@@ -41,7 +46,8 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
                     indices: indices,
                     maxDepth: 0,
                     totalIndicesCount: indices.count,
-                    isEmpty: indices.isEmpty
+                    isEmpty: indices.isEmpty,
+                    absolutePath: .root
                 )
             ).pushingGeometryDownRecursive(
                 bounds,
@@ -52,7 +58,7 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
 
     /// Returns all of the geometry that are contained within this spatial tree
     /// whose bounds contain a given point.
-    func queryPoint(_ point: Vector) -> [Element] {
+    public func queryPoint(_ point: Vector) -> [Element] {
         var result: [Element] = []
 
         root.queryPointRecursive(point) { index in
@@ -68,7 +74,7 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
 
     /// Returns all of the geometry that are contained within this spatial tree
     /// whose bounds intersect a given line.
-    func queryLine<Line: LineFloatingPoint>(
+    public func queryLine<Line: LineFloatingPoint>(
         _ line: Line
     ) -> [Element] where Line.Vector == Vector {
 
@@ -85,15 +91,84 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
         return result
     }
 
-    private struct SubdivisionState {
+    /// Returns all possible subdivision paths within this spatial tree.
+    public func subdivisionPaths() -> [SubdivisionPath] {
+        var results: [SubdivisionPath] = []
+
+        root.applyToTreeBreadthFirst { sub in
+            results.append(sub.absolutePath)
+        }
+
+        return results
+    }
+
+    /// Returns the list of indices for a specific path of this spatial tree.
+    public func indicesAt(path: SubdivisionPath) -> [Int] {
+        _resolvePath(path)?.indices ?? []
+    }
+
+    private func _resolvePath(_ path: SubdivisionPath) -> Subdivision? {
+        let path = path.reversed
+
+        var current: Subdivision = root
+
+        var index = 0
+        while index < path.count {
+            defer { index += 1 }
+            let i = path[index]
+            if i < 0 || i >= current.subdivisions.count {
+                return nil
+            }
+
+            current = current.subdivisions[i]
+        }
+
+        if index != path.count {
+            return nil
+        }
+
+        return current
+    }
+
+    /// Encodes a path to a specific subdivision within a spatial tree.
+    public enum SubdivisionPath: Hashable {
+        /// Specifies the root path.
+        case root
+
+        /// Specifies a nested index into a subdivision.
+        indirect case child(index: Int, parent: SubdivisionPath)
+
+        /// Returns the inverse index path from this path.
+        /// The reversed path can be used to navigate, starting from a `root`
+        /// subdivision, deeper into a subdivision tree.
+        var reversed: [Int] {
+            switch self {
+            case .root:
+                return []
+            case .child(let index, let parent):
+                return parent.reversed + [index]
+            }
+        }
+
+        /// Returns the access path for a nested subdivision at a specific index
+        /// from this path.
+        func childAt(_ index: Int) -> Self {
+            .child(index: index, parent: self)
+        }
+    }
+
+    // MARK: - Internal
+
+    struct SubdivisionState {
         /// Initializes an empty subdivision state.
-        static func empty(bounds: Bounds) -> Self {
+        static func empty(bounds: Bounds, absolutePath: SubdivisionPath) -> Self {
             .init(
-                bounds: .zero,
+                bounds: bounds,
                 indices: [],
                 maxDepth: 0,
                 totalIndicesCount: 0,
-                isEmpty: true
+                isEmpty: true,
+                absolutePath: absolutePath
             )
         }
 
@@ -118,6 +193,10 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
         /// contained within any level deeper than that subdivision, including
         /// itself.
         var isEmpty: Bool
+
+        /// The absolute path from the root subdivision path this subdivision
+        /// node.
+        var absolutePath: SubdivisionPath
 
         func withMaxDepthIncreased(by depth: Int) -> Self {
             var copy = self
@@ -158,10 +237,15 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
         }
     }
 
-    private enum Subdivision {
+    enum Subdivision {
         /// Creates and returns an empty leaf subdivision with the given boundaries.
-        static func empty(bounds: Bounds) -> Self {
-            .empty(state: .empty(bounds: bounds))
+        static func empty(bounds: Bounds, absolutePath: SubdivisionPath) -> Self {
+            .empty(
+                state: .empty(
+                    bounds: bounds,
+                    absolutePath: absolutePath
+                )
+            )
         }
         
         /// Creates and returns an empty leaf subdivision with the given state.
@@ -197,6 +281,12 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
             state.indices
         }
 
+        /// The absolute path from the root subdivision path this subdivision
+        /// node.
+        var absolutePath: SubdivisionPath {
+            state.absolutePath
+        }
+
         /// Gets the common state for this subdivision object.
         var state: SubdivisionState {
             switch self {
@@ -215,6 +305,18 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
             
             case .subdivision:
                 return true
+            }
+        }
+
+        /// Returns an array of subdivisions from this tree subdivision.
+        ///
+        /// Returns an empty array, in case this subdivision is a `.leaf` case.
+        var subdivisions: [Self] {
+            switch self {
+            case .leaf:
+                return []
+            case .subdivision(_, let subdivisions):
+                return subdivisions
             }
         }
 
@@ -283,40 +385,6 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
 
             applyToSubdivisions { sub in
                 sub.queryLineRecursive(line, closure: closure)
-            }
-        }
-
-        /// Appends the indices of this subdivision depth, and all subsequent
-        /// depths on this tree recursively.
-        func totalIndicesInTree(_ out: inout [Int]) {
-            out.append(contentsOf: indices)
-
-            applyToSubdivisions { sub in
-                sub.totalIndicesInTree(&out)
-            }
-        }
-
-        /// Requests that this subdivision object be subdivided, in case it is
-        /// not already.
-        ///
-        /// The bounds of this subdivision will be computed as an even split
-        /// of the bounds of this subdivision object along each axis.
-        ///
-        /// Indices within this state are not changed.
-        ///
-        /// Returns `self`, if this object is already subdivided.
-        func subdivided() -> Self {
-            switch self {
-            case .leaf(let state):
-                let subdivisions = state.bounds.subdivided()
-                
-                return .subdivision(
-                    state: state.withMaxDepthIncreased(by: 1),
-                    subdivisions: subdivisions.map(Self.empty(bounds:))
-                )
-
-            case .subdivision:
-                return self
             }
         }
 
@@ -410,6 +478,42 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
             }
         }
 
+        /// Appends the indices of this subdivision depth, and all subsequent
+        /// depths on this tree recursively.
+        func totalIndicesInTree(_ out: inout [Int]) {
+            out.append(contentsOf: indices)
+
+            applyToSubdivisions { sub in
+                sub.totalIndicesInTree(&out)
+            }
+        }
+
+        /// Requests that this subdivision object be subdivided, in case it is
+        /// not already.
+        ///
+        /// The bounds of this subdivision will be computed as an even split
+        /// of the bounds of this subdivision object along each axis.
+        ///
+        /// Indices within this state are not changed.
+        ///
+        /// Returns `self`, if this object is already subdivided.
+        func subdivided() -> Self {
+            switch self {
+            case .leaf(let state):
+                let subdivisions = state.bounds.subdivided()
+                
+                return .subdivision(
+                    state: state.withMaxDepthIncreased(by: 1),
+                    subdivisions: subdivisions.enumerated().map {
+                        Self.empty(bounds: $1, absolutePath: state.absolutePath.childAt($0))
+                    }
+                )
+
+            case .subdivision:
+                return self
+            }
+        }
+
         /// Applies a given closure to the first depth of subdivisions within
         /// this subdivision object, non-recursively.
         ///
@@ -424,6 +528,32 @@ class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector:
             ):
 
                 subdivisions.forEach(closure)
+            }
+        }
+
+        /// Applies a given closure to all subdivisions in depth-first order,
+        /// including this instance.
+        func applyToTreeDepthFirst(_ closure: (Self) -> Void) {
+            var stack: [Self] = [self]
+
+            while let next = stack.popLast() {
+                closure(next)
+
+                stack.append(contentsOf: next.subdivisions)
+            }
+        }
+
+        /// Applies a given closure to all subdivisions in breadth-first order,
+        /// including this instance.
+        func applyToTreeBreadthFirst(_ closure: (Self) -> Void) {
+            var queue: [Self] = [self]
+
+            while !queue.isEmpty {
+                let next = queue.removeFirst()
+
+                closure(next)
+
+                queue.append(contentsOf: next.subdivisions)
             }
         }
 
