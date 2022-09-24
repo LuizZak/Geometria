@@ -2,12 +2,12 @@ import Geometria
 
 /// From a structured set of bounded geometry laid out in space, creates subdivided
 /// AABBs to quickly query geometry that is neighboring a point or line.
-class SpatialTree<T: BoundableType> where T.Vector: VectorDivisible & VectorComparable {
+class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector: VectorDivisible & VectorComparable {
     typealias Bounds = AABB<Vector>
-    typealias Vector = T.Vector
+    typealias Vector = Element.Vector
 
     /// The list of geometry that is being bounded.
-    private var geometryList: [T]
+    private var geometryList: [Element]
 
     private var root: Subdivision
 
@@ -26,7 +26,7 @@ class SpatialTree<T: BoundableType> where T.Vector: VectorDivisible & VectorComp
     /// splitting the spatial tree.
     ///   - maxElementsPerLevelBeforeSplit: The maximum number of elements per
     /// spatial tree subdivision before an attempt to subdivide it further is done.
-    init(_ geometryList: [T], maxSubdivisions: Int, maxElementsPerLevelBeforeSplit: Int) {
+    init(_ geometryList: [Element], maxSubdivisions: Int, maxElementsPerLevelBeforeSplit: Int) {
         self.geometryList = geometryList
 
         // Calculate minimum bounds
@@ -52,8 +52,8 @@ class SpatialTree<T: BoundableType> where T.Vector: VectorDivisible & VectorComp
 
     /// Returns all of the geometry that are contained within this spatial tree
     /// whose bounds contain a given point.
-    func queryPoint(_ point: Vector) -> [T] {
-        var result: [T] = []
+    func queryPoint(_ point: Vector) -> [Element] {
+        var result: [Element] = []
 
         root.queryPointRecursive(point) { index in
             let geometry = geometryList[index]
@@ -70,9 +70,9 @@ class SpatialTree<T: BoundableType> where T.Vector: VectorDivisible & VectorComp
     /// whose bounds intersect a given line.
     func queryLine<Line: LineFloatingPoint>(
         _ line: Line
-    ) -> [T] where Line.Vector == Vector {
+    ) -> [Element] where Line.Vector == Vector {
 
-        var result: [T] = []
+        var result: [Element] = []
 
         root.queryLineRecursive(line) { index in
             let geometry = geometryList[index]
