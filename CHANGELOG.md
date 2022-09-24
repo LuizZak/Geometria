@@ -2,6 +2,9 @@
 
 ## [main]
 
+- Adding `GeometriaAlgorithms` library that will feature useful computational geometry algorithm implementations.
+    - Adding `SpatialTree<T>` type that encodes a simple [quad tree](https://en.wikipedia.org/wiki/Quadtree)/[octree](https://en.wikipedia.org/wiki/Octree) structures.
+
 - Fixing `NSphere.project(_:Vector)` being offset from correct point by `-self.center`.
 
 - `TakeVector3` has been removed in favor of `VectorTakeable` protocol.
