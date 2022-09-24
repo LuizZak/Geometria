@@ -241,8 +241,28 @@ public extension NRectangle where Vector: VectorMultiplicative {
     }
 }
 
-extension NRectangle: DivisibleRectangleType where Vector: VectorDivisible {
+extension NRectangle: DivisibleRectangleType where Vector: VectorDivisible & VectorComparable {
     
+    /// Subdivides this rectangle into `2 ^ D` (where `D` is the dimensional size
+    /// of `Self.Vector`) rectangles that occupy the same area as this rectangle
+    /// but subdivide it into equally-sized rectangles.
+    ///
+    /// The ordering of the subdivisions is not defined.
+    @inlinable
+    public func subdivided() -> [Self] {
+        let center = self.center
+        let vertices = self.vertices
+
+        return vertices.map { v in
+            let minimum = Vector.pointwiseMin(center, v)
+            let maximum = Vector.pointwiseMax(center, v)
+
+            return Self(
+                location: minimum,
+                size: maximum - minimum
+            )
+        }
+    }
 }
 
 extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
