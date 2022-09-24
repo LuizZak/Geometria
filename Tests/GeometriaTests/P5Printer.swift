@@ -161,6 +161,16 @@ class P5Printer {
         addDrawLine("pop()")
     }
     
+    func add<R: RectangleType>(_ rectangle: R, style: Style? = nil) where R.Vector: Vector2Additive & VectorDivisible, R.Vector.Scalar: Numeric & CustomStringConvertible {
+        is3D = true
+        
+        addStyleSet(style ?? styling.geometry)
+        addDrawLine("push()")
+        addDrawLine("translate(\(vec2String(rectangle.location + rectangle.size / 2)))")
+        addDrawLine("box(\(vec2String(rectangle.size)))")
+        addDrawLine("pop()")
+    }
+    
     func add<R: RectangleType>(_ rectangle: R, style: Style? = nil) where R.Vector: Vector3Additive & VectorDivisible, R.Vector.Scalar: Numeric & CustomStringConvertible {
         is3D = true
         
@@ -389,7 +399,7 @@ class P5Printer {
             printLine("ellipseMode(RADIUS)")
             printLine("rectMode(CORNERS)")
 
-            if shouldStartDebugMode {
+            if shouldStartDebugMode && is3D {
                 printLine("debugMode(GRID)")
             }
             

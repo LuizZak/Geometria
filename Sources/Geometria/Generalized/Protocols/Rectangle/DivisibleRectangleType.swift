@@ -33,6 +33,13 @@ public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: Vect
     /// Returns a new rectangle with the same center point as the current instance,
     /// where the size of the rectangle is multiplied by a given numerical factor.
     func scaledAroundCenterBy(_ factor: Vector.Scalar) -> Self
+    
+    /// Subdivides this rectangle into `2 ^ D` (where `D` is the dimensional size
+    /// of `Self.Vector`) rectangles that occupy the same area as this rectangle
+    /// but subdivide it into equally-sized rectangles.
+    ///
+    /// The ordering of the subdivisions is not defined.
+    func subdivided() -> [Self]
 }
 
 public extension DivisibleRectangleType where Self: ConstructableRectangleType {
@@ -95,5 +102,28 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     @_transparent
     func scaledAroundCenterBy(_ factor: Vector.Scalar) -> Self {
         scaledBy(factor, around: center)
+    }
+}
+
+extension DivisibleRectangleType where Self: ConstructableRectangleType, Vector: VectorComparable {
+    /// Subdivides this rectangle into `2 ^ D` (where `D` is the dimensional size
+    /// of `Self.Vector`) rectangles that occupy the same area as this rectangle
+    /// but subdivide it into equally-sized rectangles.
+    ///
+    /// The ordering of the subdivisions is not defined.
+    @inlinable
+    func subdivided() -> [Self] {
+        let center = self.center
+        let vertices = self.vertices
+
+        return vertices.map { v in
+            let minimum = Vector.pointwiseMin(center, v)
+            let maximum = Vector.pointwiseMax(center, v)
+
+            return Self(
+                location: minimum,
+                size: maximum - minimum
+            )
+        }
     }
 }

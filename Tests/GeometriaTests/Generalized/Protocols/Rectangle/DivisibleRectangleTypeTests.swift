@@ -54,7 +54,7 @@ class DivisibleRectangleTypeTests: XCTestCase {
     }
     
     func testMovingCenterToVector() {
-        let sut = Rectangle(x: 1, y: 2, width: 7, height: 11)
+        let sut: DivisibleRectangleTypeTests.Rectangle = Rectangle(x: 1, y: 2, width: 7, height: 11)
         
         let result = sut.movingCenter(to: .init(x: 5, y: 13))
         
@@ -78,5 +78,21 @@ class DivisibleRectangleTypeTests: XCTestCase {
         
         XCTAssertEqual(result.location, .init(x: -2.5, y: -3.5))
         XCTAssertEqual(result.size, .init(x: 14.0, y: 22.0))
+    }
+
+    func testSubdivided() {
+        let sut = Rectangle(
+            minimum: .init(x: -5, y: -2),
+            maximum: .init(x: 7, y: 12)
+        )
+        
+        let result = sut.subdivided()
+
+        XCTAssertEqual(result, [
+            .init(minimum: .init(x: -5.0, y: -2.0), maximum: .init(x: 1.0, y: 5.0)),
+            .init(minimum: .init(x: 1.0, y: -2.0), maximum: .init(x: 7.0, y: 5.0)),
+            .init(minimum: .init(x: -5.0, y: 5.0), maximum: .init(x: 1.0, y: 12.0)),
+            .init(minimum: .init(x: 1.0, y: 5.0), maximum: .init(x: 7.0, y: 12.0)),
+        ])
     }
 }

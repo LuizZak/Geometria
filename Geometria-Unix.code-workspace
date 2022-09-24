@@ -217,6 +217,7 @@
 		],
 		"cSpell.words": [
 			"AABB",
+			"aabbs",
 			"Boundable",
 			"exodiusstudios",
 			"Hyperrectangle",
@@ -226,7 +227,7 @@
 			"swiftpm",
 			"Trumbore",
 			"Unequality",
-			"visualizable",
+			"visualizable"
 		]
 	},
 	"extensions": {

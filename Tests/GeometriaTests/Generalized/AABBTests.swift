@@ -334,12 +334,13 @@ extension AABBTests {
 extension AABBTests {
     func testInitOfPoints_variadic() {
         let result =
-        Box(of: .init(x: -5, y: 4),
-            .init(x: 3, y: -2),
-            .init(x: 1, y: 3),
-            .init(x: 2, y: 1),
-            .init(x: 2, y: 6)
-        )
+            Box(of:
+                .init(x: -5, y: 4),
+                .init(x: 3, y: -2),
+                .init(x: 1, y: 3),
+                .init(x: 2, y: 1),
+                .init(x: 2, y: 6)
+            )
         
         XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
         XCTAssertEqual(result.maximum, .init(x: 3, y: 6))
@@ -351,7 +352,7 @@ extension AABBTests {
             .init(x: 3, y: -2),
             .init(x: 1, y: 3),
             .init(x: 2, y: 1),
-            .init(x: 2, y: 6)
+            .init(x: 2, y: 6),
         ])
         
         XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
@@ -364,67 +365,32 @@ extension AABBTests {
         XCTAssertEqual(result.minimum, .zero)
         XCTAssertEqual(result.maximum, .zero)
     }
-}
 
-// MARK: Vector: VectorMultiplicative Conformance
+    func testInitAABBs() {
+        let aabb1 = Box(
+            minimum: .init(x: -5, y: -2),
+            maximum: .init(x: 3, y: 4)
+        )
+        let aabb2 = Box(
+            minimum: .init(x: 1, y: 1),
+            maximum: .init(x: 2, y: 12)
+        )
+        let aabb3 = Box(
+            minimum: .init(x: 2, y: 6),
+            maximum: .init(x: 7, y: 3)
+        )
 
-extension AABBTests {
-    func testCenter() {
-        let sut = Box(x: 1, y: 2, width: 3, height: 5)
-        
-        XCTAssertEqual(sut.center, .init(x: 2.5, y: 4.5))
+        let result = Box(aabbs: [aabb1, aabb2, aabb3])
+
+        XCTAssertEqual(result.minimum, .init(x: -5, y: -2))
+        XCTAssertEqual(result.maximum, .init(x: 7, y: 12))
     }
     
-    func testCenter_set() {
-        var sut = Box(x: 1, y: 2, width: 3, height: 5)
+    func testInitAABBs_empty() {
+        let result = Box(aabbs: [])
         
-        sut.center = .init(x: 11, y: 13)
-        
-        XCTAssertEqual(sut.location, .init(x: 9.5, y: 10.5))
-        XCTAssertEqual(sut.size, .init(x: 3, y: 5))
-    }
-    
-    func testInflatedByVector() {
-        let sut = Box(x: 1, y: 2, width: 3, height: 5)
-        
-        let result = sut.inflatedBy(.init(x: 7, y: 11))
-        
-        XCTAssertEqual(result.location, .init(x: -2.5, y: -3.5))
-        XCTAssertEqual(result.size, .init(x: 10, y: 16))
-    }
-    
-    func testInflatedByVector_maintainsCenter() {
-        let sut = Box(x: 1, y: 2, width: 3, height: 5)
-        
-        let result = sut.inflatedBy(.init(x: 7, y: 11))
-        
-        XCTAssertEqual(result.center, sut.center)
-    }
-    
-    func testInsetByVector() {
-        let sut = Box(x: 1, y: 2, width: 7, height: 11)
-        
-        let result = sut.insetBy(.init(x: 3, y: 5))
-        
-        XCTAssertEqual(result.location, .init(x: 2.5, y: 4.5))
-        XCTAssertEqual(result.size, .init(x: 4, y: 6))
-    }
-    
-    func testInsetByVector_maintainsCenter() {
-        let sut = Box(x: 1, y: 2, width: 7, height: 11)
-        
-        let result = sut.insetBy(.init(x: 3, y: 5))
-        
-        XCTAssertEqual(result.center, sut.center)
-    }
-    
-    func testMovingCenterToVector() {
-        let sut = Box(x: 1, y: 2, width: 7, height: 11)
-        
-        let result = sut.movingCenter(to: .init(x: 5, y: 13))
-        
-        XCTAssertEqual(result.location, .init(x: 1.5, y: 7.5))
-        XCTAssertEqual(result.size, .init(x: 7, y: 11))
+        XCTAssertEqual(result.minimum, .zero)
+        XCTAssertEqual(result.maximum, .zero)
     }
 }
 
@@ -436,6 +402,30 @@ extension AABBTests {
         
         XCTAssertEqual(sut.minimum, .zero)
         XCTAssertEqual(sut.maximum, .one)
+    }
+}
+
+// MARK: DivisibleRectangleType where Vector: VectorDivisible & VectorComparable Tests
+
+extension AABBTests {
+    func testSubdivided() {
+        TestFixture.beginFixture(sceneScale: 5, renderScale: 20) { fixture in
+            let sut = Box(
+                minimum: .init(x: -5, y: -2),
+                maximum: .init(x: 7, y: 12)
+            )
+            
+            fixture.add(sut)
+
+            let result = sut.subdivided()
+
+            fixture.assertEquals(result, [
+                .init(minimum: .init(x: -5.0, y: -2.0), maximum: .init(x: 1.0, y: 5.0)),
+                .init(minimum: .init(x: 1.0, y: -2.0), maximum: .init(x: 7.0, y: 5.0)),
+                .init(minimum: .init(x: -5.0, y: 5.0), maximum: .init(x: 1.0, y: 12.0)),
+                .init(minimum: .init(x: 1.0, y: 5.0), maximum: .init(x: 7.0, y: 12.0)),
+            ])
+        }.printVisualization()
     }
 }
 
