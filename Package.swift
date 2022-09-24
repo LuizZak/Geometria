@@ -25,10 +25,22 @@ let geometriaTestsTarget: Target = .testTarget(
     dependencies: ["Geometria"],
     swiftSettings: []
 )
+let geometriaAlgorithmsTarget: Target = .target(
+    name: "GeometriaAlgorithms",
+    dependencies: ["Geometria"],
+    swiftSettings: []
+)
+let geometriaAlgorithmsTestsTarget: Target = .testTarget(
+    name: "GeometriaAlgorithmsTests",
+    dependencies: ["GeometriaAlgorithms", "Geometria"],
+    swiftSettings: []
+)
 
 if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" {
     geometriaTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
     geometriaTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
+    geometriaAlgorithmsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
+    geometriaAlgorithmsTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
 }
 
 let package = Package(
@@ -37,6 +49,9 @@ let package = Package(
         .library(
             name: "Geometria",
             targets: ["Geometria"]),
+        .library(
+            name: "GeometriaAlgorithms",
+            targets: ["GeometriaAlgorithms"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
@@ -44,5 +59,7 @@ let package = Package(
     targets: [
         geometriaTarget,
         geometriaTestsTarget,
+        geometriaAlgorithmsTarget,
+        geometriaAlgorithmsTestsTarget,
     ]
 )
