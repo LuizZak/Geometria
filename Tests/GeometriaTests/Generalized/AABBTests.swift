@@ -3,6 +3,7 @@ import Geometria
 
 class AABBTests: XCTestCase {
     typealias Box = AABB2D
+    typealias AABB3 = AABB3D
     
     func testCodable() throws {
         let sut = Box(minimum: .init(x: 1, y: 2),
@@ -408,7 +409,7 @@ extension AABBTests {
 // MARK: DivisibleRectangleType where Vector: VectorDivisible & VectorComparable Tests
 
 extension AABBTests {
-    func testSubdivided() {
+    func testSubdivided_2D() {
         TestFixture.beginFixture(sceneScale: 5, renderScale: 20) { fixture in
             let sut = Box(
                 minimum: .init(x: -5, y: -2),
@@ -425,7 +426,31 @@ extension AABBTests {
                 .init(minimum: .init(x: -5.0, y: 5.0), maximum: .init(x: 1.0, y: 12.0)),
                 .init(minimum: .init(x: 1.0, y: 5.0), maximum: .init(x: 7.0, y: 12.0)),
             ])
-        }.printVisualization()
+        }
+    }
+
+    func testSubdivided_3D() {
+        TestFixture.beginFixture(sceneScale: 1.0, renderScale: 20.0) { fixture in
+            let sut = AABB3(
+                minimum: .init(x: -5, y: -2, z: -1),
+                maximum: .init(x: 7, y: 12, z: 10)
+            )
+            
+            fixture.add(sut)
+
+            let result = sut.subdivided()
+
+            fixture.assertEquals(result, [
+                AABB3(minimum: .init(x: -5.0, y: -2.0, z: -1.0), maximum: .init(x: 1.0, y: 5.0, z: 4.5)),
+                AABB3(minimum: .init(x: 1.0, y: -2.0, z: -1.0), maximum: .init(x: 7.0, y: 5.0, z: 4.5)),
+                AABB3(minimum: .init(x: -5.0, y: 5.0, z: -1.0), maximum: .init(x: 1.0, y: 12.0, z: 4.5)),
+                AABB3(minimum: .init(x: 1.0, y: 5.0, z: -1.0), maximum: .init(x: 7.0, y: 12.0, z: 4.5)),
+                AABB3(minimum: .init(x: -5.0, y: -2.0, z: 4.5), maximum: .init(x: 1.0, y: 5.0, z: 10.0)),
+                AABB3(minimum: .init(x: 1.0, y: -2.0, z: 4.5), maximum: .init(x: 7.0, y: 5.0, z: 10.0)),
+                AABB3(minimum: .init(x: -5.0, y: 5.0, z: 4.5), maximum: .init(x: 1.0, y: 12.0, z: 10.0)),
+                AABB3(minimum: .init(x: 1.0, y: 5.0, z: 4.5), maximum: .init(x: 7.0, y: 12.0, z: 10.0)),
+            ])
+        }
     }
 }
 
@@ -1072,8 +1097,6 @@ extension AABBTests {
 // MARK: 3D
 
 extension AABBTests {
-    typealias AABB3 = AABB3D
-    
     // MARK: intersects(line:)
     
     func testIntersectsLine_3d_line_acrossTopQuadrant() {
