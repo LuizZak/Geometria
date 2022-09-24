@@ -13,6 +13,7 @@ class TestFixture {
     init(sceneScale: Double, renderScale: Double) {
         p5Printer = P5Printer(scale: sceneScale, renderScale: renderScale)
         p5Printer.shouldStartDebugMode = true
+        p5Printer.drawGrid = true
     }
 
     func printVisualization() {
@@ -21,17 +22,23 @@ class TestFixture {
 
     // MARK: Visualization add
 
-    func add<T: Visualizable2DGeometricType>(_ geometry: T?) {
+    func add<T: VisualizableGeometricType2>(_ geometry: T?) {
         geometry?.addVisualization2D(to: p5Printer)
     }
 
-    func add<T: Visualizable3DGeometricType>(_ geometry: T?) {
+    func add<T: VisualizableGeometricType3>(_ geometry: T?) {
         geometry?.addVisualization3D(to: p5Printer)
     }
 
     // MARK: General assertions
 
-    func assertEquals<T: Equatable>(_ actual: T, _ expected: T, file: StaticString = #file, line: UInt = #line) {
+    func assertEquals<T: Equatable>(
+        _ actual: T,
+        _ expected: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
         XCTAssertEqual(actual, expected, file: file, line: line)
 
         didFail = actual != expected || didFail
@@ -39,9 +46,13 @@ class TestFixture {
 
     // MARK: General geometric assertions
 
-    // 2D
+    func assertEquals<T: VisualizableGeometricType2 & Equatable>(
+        _ actual: T,
+        _ expected: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
 
-    func assertEquals<T: Visualizable2DGeometricType & Equatable>(_ actual: T, _ expected: T, file: StaticString = #file, line: UInt = #line) {
         actual.addVisualization2D(to: p5Printer, style: resultStyle())
 
         if actual != expected {
@@ -52,7 +63,30 @@ class TestFixture {
         didFail = actual != expected || didFail
     }
 
-    func assertEquals<T: Visualizable2DGeometricType & Equatable>(_ actual: T?, _ expected: T?, file: StaticString = #file, line: UInt = #line) {
+    func assertEquals<T: VisualizableGeometricType3 & Equatable>(
+        _ actual: T,
+        _ expected: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
+        actual.addVisualization3D(to: p5Printer, style: resultStyle())
+
+        if actual != expected {
+            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+        }
+
+        XCTAssertEqual(actual, expected, file: file, line: line)
+        didFail = actual != expected || didFail
+    }
+
+    func assertEquals<T: VisualizableGeometricType2 & Equatable>(
+        _ actual: T?,
+        _ expected: T?,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
         if let actual = actual {
             actual.addVisualization2D(to: p5Printer, style: resultStyle())
 
@@ -64,8 +98,33 @@ class TestFixture {
         XCTAssertEqual(actual, expected, file: file, line: line)
         didFail = actual != expected || didFail
     }
-    
-    func assertEquals<T: Visualizable2DGeometricType & Equatable>(_ actual: [T], _ expected: [T], file: StaticString = #file, line: UInt = #line) {
+
+    func assertEquals<T: VisualizableGeometricType3 & Equatable>(
+        _ actual: T?,
+        _ expected: T?,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
+        if let actual = actual {
+            actual.addVisualization3D(to: p5Printer, style: resultStyle())
+
+            if actual != expected, let expected = expected {
+                expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+            }
+        }
+
+        XCTAssertEqual(actual, expected, file: file, line: line)
+        didFail = actual != expected || didFail
+    }
+
+    func assertEquals<T: VisualizableGeometricType2 & Equatable>(
+        _ actual: [T],
+        _ expected: [T],
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
         for (act, exp) in zip(actual, expected) {
             assertEquals(act, exp, file: file, line: line)
         }
@@ -81,34 +140,13 @@ class TestFixture {
         didFail = actual.count != expected.count || didFail
     }
 
+    func assertEquals<T: VisualizableGeometricType3 & Equatable>(
+        _ actual: [T],
+        _ expected: [T],
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
 
-    // 3D
-
-    func assertEquals<T: Visualizable3DGeometricType & Equatable>(_ actual: T, _ expected: T, file: StaticString = #file, line: UInt = #line) {
-        actual.addVisualization3D(to: p5Printer, style: resultStyle())
-
-        if actual != expected {
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
-        }
-
-        XCTAssertEqual(actual, expected, file: file, line: line)
-        didFail = actual != expected || didFail
-    }
-
-    func assertEquals<T: Visualizable3DGeometricType & Equatable>(_ actual: T?, _ expected: T?, file: StaticString = #file, line: UInt = #line) {
-        if let actual = actual {
-            actual.addVisualization3D(to: p5Printer, style: resultStyle())
-
-            if actual != expected, let expected = expected {
-                expected.addVisualization3D(to: p5Printer, style: expectedStyle())
-            }
-        }
-
-        XCTAssertEqual(actual, expected, file: file, line: line)
-        didFail = actual != expected || didFail
-    }
-    
-    func assertEquals<T: Visualizable3DGeometricType & Equatable>(_ actual: [T], _ expected: [T], file: StaticString = #file, line: UInt = #line) {
         for (act, exp) in zip(actual, expected) {
             assertEquals(act, exp, file: file, line: line)
         }
@@ -126,9 +164,14 @@ class TestFixture {
 
     // MARK: Vectors
 
-    // 2D
+    func assertEquals<T: VisualizableGeometricType2 & Vector2Type & Equatable>(
+        _ actual: T,
+        _ expected: T,
+        accuracy: T.Scalar,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
 
-    func assertEquals<T: Visualizable2DGeometricType & Vector2Type & Equatable>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) {
         actual.addVisualization2D(to: p5Printer, style: resultStyle())
 
         if actual != expected {
@@ -138,29 +181,14 @@ class TestFixture {
         }
     }
 
-    func assertEquals<T: Visualizable2DGeometricType & Vector3Type & Equatable>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) {
-        actual.addVisualization2D(to: p5Printer, style: resultStyle())
+    func assertEquals<T: VisualizableGeometricType3 & Vector3Type & Equatable>(
+        _ actual: T,
+        _ expected: T,
+        accuracy: T.Scalar,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
 
-        if actual != expected {
-            didFail = true
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle())
-            XCTFail("\(actual) != \(expected)", file: file, line: line)
-        }
-    }
-
-    // 3D
-
-    func assertEquals<T: Visualizable3DGeometricType & Vector2Type & Equatable>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) {
-        actual.addVisualization3D(to: p5Printer, style: resultStyle())
-
-        if actual != expected {
-            didFail = true
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
-            XCTFail("\(actual) != \(expected)", file: file, line: line)
-        }
-    }
-
-    func assertEquals<T: Visualizable3DGeometricType & Vector3Type & Equatable>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) {
         actual.addVisualization3D(to: p5Printer, style: resultStyle())
 
         if actual != expected {
@@ -172,9 +200,14 @@ class TestFixture {
 
     // MARK: FloatingPoint vectors
 
-    // 2D
+    func assertEquals<T: VisualizableGeometricType2 & Vector2Type>(
+        _ actual: T,
+        _ expected: T,
+        accuracy: T.Scalar,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T.Scalar: FloatingPoint {
 
-    func assertEquals<T: Visualizable2DGeometricType & Vector2Type>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) where T.Scalar: FloatingPoint {
         actual.addVisualization2D(to: p5Printer, style: resultStyle())
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
@@ -183,18 +216,14 @@ class TestFixture {
         }
     }
 
-    func assertEquals<T: Visualizable2DGeometricType & Vector3Type>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) where T.Scalar: FloatingPoint {
-        actual.addVisualization2D(to: p5Printer, style: resultStyle())
+    func assertEquals<T: VisualizableGeometricType3 & Vector3Type>(
+        _ actual: T,
+        _ expected: T,
+        accuracy: T.Scalar,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T.Scalar: FloatingPoint {
 
-        if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
-            didFail = true
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle())
-        }
-    }
-
-    // 3D
-
-    func assertEquals<T: Visualizable3DGeometricType & Vector2Type>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) where T.Scalar: FloatingPoint {
         actual.addVisualization3D(to: p5Printer, style: resultStyle())
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
@@ -202,28 +231,22 @@ class TestFixture {
             expected.addVisualization3D(to: p5Printer, style: expectedStyle())
         }
     }
-
-    func assertEquals<T: Visualizable3DGeometricType & Vector3Type>(_ actual: T, _ expected: T, accuracy: T.Scalar, file: StaticString = #file, line: UInt = #line) where T.Scalar: FloatingPoint {
-        actual.addVisualization3D(to: p5Printer, style: resultStyle())
-
-        if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
-            didFail = true
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
-        }
-    }
-
-    // MARK: -
 
     private func resultStyle() -> P5Printer.Style {
-        .init(strokeColor: .green, fillColor: .green, strokeWeight: 2)
+        .init(strokeColor: .green, fillColor: nil, strokeWeight: 2)
     }
 
     private func expectedStyle() -> P5Printer.Style {
-        .init(strokeColor: .red, fillColor: .red, strokeWeight: 2)
+        .init(strokeColor: .red, fillColor: nil, strokeWeight: 2)
     }
 
     @discardableResult
-    static func beginFixture(sceneScale: Double = 2.0, renderScale: Double = 1.0, _ closure: (TestFixture) throws -> Void) rethrows -> TestFixture {
+    static func beginFixture(
+        sceneScale: Double = 2.0,
+        renderScale: Double = 1.0,
+        _ closure: (TestFixture) throws -> Void
+    ) rethrows -> TestFixture {
+
         let fixture = TestFixture(sceneScale: sceneScale, renderScale: renderScale)
 
         try closure(fixture)
@@ -236,24 +259,24 @@ class TestFixture {
     }
 }
 
-/// Protocol for 3D geometric types that can be visualized in a p5.js sketch.
-protocol Visualizable3DGeometricType {
-    func addVisualization3D(to printer: P5Printer, style: P5Printer.Style?)
-}
-
-extension Visualizable3DGeometricType {
-    func addVisualization3D(to printer: P5Printer) {
-        addVisualization3D(to: printer, style: nil)
-    }
-}
-
 /// Protocol for 2D geometric types that can be visualized in a p5.js sketch.
-protocol Visualizable2DGeometricType {
+protocol VisualizableGeometricType2 {
     func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?)
 }
 
-extension Visualizable2DGeometricType {
+extension VisualizableGeometricType2 {
     func addVisualization2D(to printer: P5Printer) {
         addVisualization2D(to: printer, style: nil)
+    }
+}
+
+/// Protocol for 3D geometric types that can be visualized in a p5.js sketch.
+protocol VisualizableGeometricType3 {
+    func addVisualization3D(to printer: P5Printer, style: P5Printer.Style?)
+}
+
+extension VisualizableGeometricType3 {
+    func addVisualization3D(to printer: P5Printer) {
+        addVisualization3D(to: printer, style: nil)
     }
 }

@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Added `DivisibleRectangleType.subdivided()`.
+
 - Fixing `NSphere.project(_:Vector)` being offset from correct point by `-self.center`.
 
 - `TakeVector3` has been removed in favor of `VectorTakeable` protocol.
