@@ -16,7 +16,7 @@ class SequenceAsserter<T: Hashable> {
 
     init<S: Sequence>(actual sequence: S, options: Options) where S.Element == T {
         _options = options
-        _sequence = sequence.map {
+        _sequence = (options.ignoreRepeated ? _deduplicateStable(sequence) : Array(sequence)).map {
             ($0, verified: false)
         }
     }
@@ -27,7 +27,8 @@ class SequenceAsserter<T: Hashable> {
         line: UInt = #line
     ) where S.Element == T {
 
-        let expected = Array(expected)
+        let expected = _options.ignoreRepeated ? _deduplicateStable(expected) : Array(expected)
+        let actual = self.actual
 
         var lastIndexVerified = -1
         for (i, next) in expected.enumerated() {
@@ -117,6 +118,7 @@ class SequenceAsserter<T: Hashable> {
         static var completeSet: Self {
             Self(
                 orderSensitive: false,
+                ignoreRepeated: true,
                 exactElementCount: true
             )
         }
@@ -126,6 +128,7 @@ class SequenceAsserter<T: Hashable> {
         static var partialSet: Self {
             Self(
                 orderSensitive: false,
+                ignoreRepeated: true,
                 exactElementCount: false
             )
         }
@@ -135,6 +138,7 @@ class SequenceAsserter<T: Hashable> {
         static var completeArray: Self {
             Self(
                 orderSensitive: true,
+                ignoreRepeated: false,
                 exactElementCount: true
             )
         }
@@ -144,6 +148,7 @@ class SequenceAsserter<T: Hashable> {
         static var partialArray: Self {
             Self(
                 orderSensitive: true,
+                ignoreRepeated: false,
                 exactElementCount: false
             )
         }
@@ -151,6 +156,10 @@ class SequenceAsserter<T: Hashable> {
         /// If `true`, assertions are element-order-sensitive (i.e. Arrays),
         /// and if `false` assertions are not order-sensitive (i.e. Sets)
         var orderSensitive: Bool
+
+        /// If `true`, elements that are repeated in the actual and expected
+        /// sequences are shaved off before assertion.
+        var ignoreRepeated: Bool
 
         /// If `true`, elements that where in the sequence but where not expected
         /// raise an assertion.
@@ -180,6 +189,7 @@ extension SequenceAsserter {
             actual: actual,
             options: .init(
                 orderSensitive: true,
+                ignoreRepeated: false,
                 exactElementCount: !expectsExtraElements
             )
         )
@@ -203,11 +213,24 @@ extension SequenceAsserter {
     /// ```
     static func forSet<S: Sequence>(actual: S, expectsExtraElements: Bool = false) -> SequenceAsserter where S.Element == T {
         SequenceAsserter(
-            actual: Set(actual),
+            actual: actual,
             options: .init(
                 orderSensitive: false,
+                ignoreRepeated: true,
                 exactElementCount: !expectsExtraElements
             )
         )
     }
+}
+
+private func _deduplicateStable<S: Sequence>(_ elements: S) -> [S.Element] where S.Element: Equatable {
+    var result: [S.Element] = []
+
+    for element in elements {
+        if !result.contains(element) {
+            result.append(element)
+        }
+    }
+
+    return result
 }
