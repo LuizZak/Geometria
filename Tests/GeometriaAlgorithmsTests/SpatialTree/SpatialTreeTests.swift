@@ -60,6 +60,28 @@ class SpatialTreeTests: XCTestCase {
         XCTAssertEqual(sut.geometryList.count, 50)
     }
 
+    func testMaxDepth() {
+        let points = makePointCloud()
+
+        let sut = SpatialTree(
+            points,
+            maxSubdivisions: 8,
+            maxElementsPerLevelBeforeSplit: 4
+        )
+
+        XCTAssertEqual(sut.maxDepth(), 3)
+    }
+
+    func testMaxDepth_emptyTree() {
+        let sut = SpatialTree<Vector2D>(
+            [],
+            maxSubdivisions: 8,
+            maxElementsPerLevelBeforeSplit: 4
+        )
+
+        XCTAssertEqual(sut.maxDepth(), 0)
+    }
+
     func test_subdivisionPaths_pointCloudPartition_2D() {
         let points = makePointCloud()
         let sut = SpatialTree(

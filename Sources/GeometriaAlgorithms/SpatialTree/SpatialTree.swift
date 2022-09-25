@@ -44,7 +44,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
                 state: .init(
                     bounds: totalBounds,
                     indices: indices,
-                    maxDepth: 0,
+                    depth: 0,
                     totalIndicesCount: indices.count,
                     isEmpty: indices.isEmpty,
                     absolutePath: .root
@@ -129,6 +129,18 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         return results
     }
 
+    /// Returns the maximum depth of this spatial tree, starting from 0 at no
+    /// subdivisions, and incrementing after each subdivision.
+    public func maxDepth() -> Int {
+        var maxDepth = 0
+
+        root.applyToTreeBreadthFirst { sub in
+            maxDepth = max(sub.depth, maxDepth)
+        }
+
+        return maxDepth
+    }
+
     /// Returns the list of indices for a specific path of this spatial tree.
     public func indicesAt(path: SubdivisionPath) -> [Int] {
         _resolvePath(path)?.indices ?? []
@@ -192,7 +204,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             .init(
                 bounds: bounds,
                 indices: [],
-                maxDepth: 0,
+                depth: 0,
                 totalIndicesCount: 0,
                 isEmpty: true,
                 absolutePath: absolutePath
@@ -208,9 +220,9 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         /// The same index is not present in sub-divisions of this tree.
         var indices: [Int]
         
-        /// The maximal depth of this particular subdivision tree, including all
-        /// nested subdivisions.
-        var maxDepth: Int
+        /// The depth of this particular subdivision tree from the root of the
+        /// spatial tree.
+        var depth: Int
 
         /// Returns the total number of indices within this particular subdivision
         /// tree, including all nested subdivisions.
@@ -226,9 +238,20 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         var absolutePath: SubdivisionPath
 
         func withMaxDepthIncreased(by depth: Int) -> Self {
-            var copy = self
-            copy.maxDepth += depth
+            var copy: SpatialTree<Element>.SubdivisionState = self
+            copy.depth += depth
             return self
+        }
+
+        func createSubdivision(bounds: Bounds, index: Int) -> Self {
+            return .init(
+                bounds: bounds,
+                indices: [],
+                depth: depth + 1,
+                totalIndicesCount: 0,
+                isEmpty: true,
+                absolutePath: absolutePath.childAt(index)
+            )
         }
 
         func addingIndex(_ index: Int) -> Self {
@@ -267,7 +290,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
     enum Subdivision {
         /// Creates and returns an empty leaf subdivision with the given boundaries.
         static func empty(bounds: Bounds, absolutePath: SubdivisionPath) -> Self {
-            .empty(
+            .leaf(
                 state: .empty(
                     bounds: bounds,
                     absolutePath: absolutePath
@@ -275,11 +298,6 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             )
         }
         
-        /// Creates and returns an empty leaf subdivision with the given state.
-        static func empty(state: SubdivisionState) -> Self {
-            .leaf(state: state)
-        }
-
         case leaf(
             state: SubdivisionState
         )
@@ -289,12 +307,12 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             subdivisions: [Self]
         )
 
-        /// Gets the maximum depth within this subdivision object.
+        /// Gets the depth of this subdivision object.
         ///
-        /// Is 0 for `Self.leaf` cases, and + 1 of the greatest subdivision depth
-        /// of nested `Self.subdivision` cases.
-        var maxDepth: Int {
-            state.maxDepth
+        /// Is 0 for the root of the tree cases, and + 1 for each subdivision
+        /// into the tree.
+        var depth: Int {
+            state.depth
         }
 
         /// Gets the bounds that this subdivision occupies in space.
@@ -530,9 +548,14 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
                 let subdivisions = state.bounds.subdivided()
                 
                 return .subdivision(
-                    state: state.withMaxDepthIncreased(by: 1),
+                    state: state,
                     subdivisions: subdivisions.enumerated().map {
-                        Self.empty(bounds: $1, absolutePath: state.absolutePath.childAt($0))
+                        Self.leaf(
+                            state: state.createSubdivision(
+                                bounds: $1,
+                                index: $0
+                            )
+                        )
                     }
                 )
 
