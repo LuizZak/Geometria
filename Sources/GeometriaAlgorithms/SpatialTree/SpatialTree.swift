@@ -434,9 +434,10 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         }
 
         /// Recursively checks that geometry indices referenced by this subdivision
-        /// object, whose real values are contained in the passed `array`, can
-        /// be fitted into a lower subdivision level, and performs subdivisions
-        /// according to the subdivision limits specified, if necessary.
+        /// object, whose bounds are contained in the passed `geometryBounds`
+        /// array, can be fitted into a deeper subdivision level, and performs
+        /// subdivisions according to the subdivision limits specified, if
+        /// necessary.
         ///
         /// The array of bounds should be the computed bounds of every object
         /// contained within the parent `SpatialTree`.
