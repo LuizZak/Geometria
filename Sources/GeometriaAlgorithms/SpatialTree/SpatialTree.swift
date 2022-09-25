@@ -72,6 +72,33 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         return result
     }
 
+    /// Returns the path to the deepest subdivision that contain a given point
+    /// within its bounds.
+    ///
+    /// Returns `nil` if the point is not within the boundaries this `SpatialTree`
+    /// spans through.
+    ///
+    /// Points that lie exactly on the shared boundaries of multiple subdivisions
+    /// might result in the non-deepest subdivision being traversed and chosen.
+    public func deepestSubdivisionContaining(_ point: Vector) -> SubdivisionPath? {
+        guard root.bounds.contains(point) else {
+            return nil
+        }
+
+        var current: Subdivision = root
+
+        while current.hasSubdivisions {
+            for sub in current.subdivisions {
+                if sub.bounds.contains(point) {
+                    current = sub
+                    break
+                }
+            }
+        }
+
+        return current.absolutePath
+    }
+
     /// Returns all of the geometry that are contained within this spatial tree
     /// whose bounds intersect a given line.
     public func queryLine<Line: LineFloatingPoint>(

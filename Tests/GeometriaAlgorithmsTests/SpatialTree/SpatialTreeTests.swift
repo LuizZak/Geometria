@@ -130,6 +130,33 @@ class SpatialTreeTests: XCTestCase {
 
         XCTAssertEqual(result.sorted(), [])
     }
+
+    func testDeepestSubdivisionContaining() {
+        let sut = SpatialTree<Vector2D>(
+            makePointCloud(),
+            maxSubdivisions: 8,
+            maxElementsPerLevelBeforeSplit: 8
+        )
+
+        let result = sut.deepestSubdivisionContaining(.init(x: 15, y: 20))
+        
+        XCTAssertEqual(
+            result,
+            .root.childAt(3).childAt(0)
+        )
+    }
+
+    func testDeepestSubdivisionContaining_outOfBounds_returnsNil() {
+        let sut = SpatialTree<Vector2D>(
+            [],
+            maxSubdivisions: 8,
+            maxElementsPerLevelBeforeSplit: 8
+        )
+
+        let result = sut.deepestSubdivisionContaining(.init(x: 15, y: 20))
+        
+        XCTAssertNil(result)
+    }
 }
 
 private func makePointCloud() -> [Vector2D] {
