@@ -19,10 +19,12 @@ class SpatialTreeTests: XCTestCase {
         )
 
         XCTAssertEqual(sut.geometryList.count, 4)
-        XCTAssertEqual(sut.queryPoint(points[0]), [points[0]])
-        XCTAssertEqual(sut.queryPoint(points[1]), [points[1]])
-        XCTAssertEqual(sut.queryPoint(points[2]), [points[2]])
-        XCTAssertEqual(sut.queryPoint(points[3]), [points[3]])
+        SequenceAsserter
+            .forSet(
+                actual: points.flatMap(sut.queryPoint)
+            ).assert(
+                equals: points
+            )
     }
 
     func testInit_centerAABBOnSplit_2D() {
@@ -41,11 +43,12 @@ class SpatialTreeTests: XCTestCase {
         )
 
         XCTAssertEqual(sut.geometryList.count, 5)
-        XCTAssertEqual(sut.queryPoint(aabbs[0].center), [aabbs[0]])
-        XCTAssertEqual(sut.queryPoint(aabbs[1].center), [aabbs[1]])
-        XCTAssertEqual(sut.queryPoint(aabbs[2].center), [aabbs[2]])
-        XCTAssertEqual(sut.queryPoint(aabbs[3].center), [aabbs[3]])
-        XCTAssertEqual(sut.queryPoint(aabbs[4].center), [aabbs[4]])
+        SequenceAsserter
+            .forSet(
+                actual: aabbs.flatMap { sut.queryPoint($0.center) }
+            ).assert(
+                equals: aabbs
+            )
     }
 
     func testInit_pointCloudPartition_2D() {
@@ -54,10 +57,18 @@ class SpatialTreeTests: XCTestCase {
         let sut = SpatialTree(
             points,
             maxSubdivisions: 8,
-            maxElementsPerLevelBeforeSplit: 12
+            maxElementsPerLevelBeforeSplit: 1
         )
 
         XCTAssertEqual(sut.geometryList.count, 50)
+        let paths = sut.subdivisionPaths()
+        let allIndices = paths.flatMap(sut.indicesAt)
+        SequenceAsserter
+            .forSet(
+                actual: allIndices
+            ).assert(
+                equals: Set(0..<points.count)
+            )
     }
 
     func testMaxDepth() {
@@ -91,22 +102,26 @@ class SpatialTreeTests: XCTestCase {
         )
 
         let result = sut.subdivisionPaths()
-
-        XCTAssertEqual(result, [
-            .root,
-            .root.childAt(0),
-            .root.childAt(1),
-            .root.childAt(2),
-            .root.childAt(3),
-            .root.childAt(0).childAt(0),
-            .root.childAt(0).childAt(1),
-            .root.childAt(0).childAt(2),
-            .root.childAt(0).childAt(3),
-            .root.childAt(1).childAt(0),
-            .root.childAt(1).childAt(1),
-            .root.childAt(1).childAt(2),
-            .root.childAt(1).childAt(3),
-        ])
+        SequenceAsserter
+            .forSet(
+                actual: result
+            ).assert(
+                equals: [
+                    .root,
+                    .root.childAt(0),
+                    .root.childAt(1),
+                    .root.childAt(2),
+                    .root.childAt(3),
+                    .root.childAt(0).childAt(0),
+                    .root.childAt(0).childAt(1),
+                    .root.childAt(0).childAt(2),
+                    .root.childAt(0).childAt(3),
+                    .root.childAt(1).childAt(0),
+                    .root.childAt(1).childAt(1),
+                    .root.childAt(1).childAt(2),
+                    .root.childAt(1).childAt(3),
+                ]
+            )
     }
 
     func testIndicesAt() {
@@ -119,9 +134,12 @@ class SpatialTreeTests: XCTestCase {
 
         let result = sut.indicesAt(path: .child(index: 1, parent: .child(index: 0, parent: .root)))
 
-        XCTAssertEqual(result.sorted(), [
-            2, 6, 7, 8, 32, 37, 48,
-        ])
+        SequenceAsserter
+            .forSet(
+                actual: result
+            ).assert(
+                equals: [2, 6, 7, 8, 32, 37, 48]
+            )
     }
 
     func testIndicesAt_pastMaxDepth_returnsEmptyArray() {
@@ -133,7 +151,7 @@ class SpatialTreeTests: XCTestCase {
 
         let result = sut.indicesAt(path: .root.childAt(0).childAt(0))
 
-        XCTAssertEqual(result.sorted(), [])
+        XCTAssertEqual(result, [])
     }
 
     func testIndicesAt_outOfBoundsSubdivision_returnsEmptyArray() {
@@ -150,7 +168,7 @@ class SpatialTreeTests: XCTestCase {
 
         let result = sut.indicesAt(path: .root.childAt(0))
 
-        XCTAssertEqual(result.sorted(), [])
+        XCTAssertEqual(result, [])
     }
 
     func testDeepestSubdivisionContaining() {

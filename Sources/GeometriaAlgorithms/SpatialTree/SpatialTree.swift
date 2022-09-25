@@ -2,6 +2,11 @@ import Geometria
 
 /// From a structured set of bounded geometry laid out in space, creates subdivided
 /// AABBs to quickly query geometry that is neighboring a point or line.
+///
+/// Generalizes into a [quad tree] in two dimensions and an [octree] in three.
+///
+/// [quad tree]: https://en.wikipedia.org/wiki/QuadTree
+/// [octree]: https://en.wikipedia.org/wiki/Octree
 public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.Vector: VectorDivisible & VectorComparable {
     public typealias Bounds = AABB<Vector>
     public typealias Vector = Element.Vector
@@ -37,7 +42,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         // Calculate minimum bounds
         let bounds = geometryList.map(\.bounds)
         let totalBounds = Bounds(aabbs: bounds)
-        let indices = Array(geometryList.indices)
+        let indices = Set(geometryList.indices)
 
         self.root =
             .leaf(
@@ -142,7 +147,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
     }
 
     /// Returns the list of indices for a specific path of this spatial tree.
-    public func indicesAt(path: SubdivisionPath) -> [Int] {
+    public func indicesAt(path: SubdivisionPath) -> Set<Int> {
         _resolvePath(path)?.indices ?? []
     }
 
@@ -170,12 +175,21 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
     }
 
     /// Encodes a path to a specific subdivision within a spatial tree.
-    public enum SubdivisionPath: Hashable {
+    public enum SubdivisionPath: Hashable, CustomStringConvertible {
         /// Specifies the root path.
         case root
 
         /// Specifies a nested index into a subdivision.
         indirect case child(index: Int, parent: SubdivisionPath)
+
+        public var description: String {
+            switch self {
+            case .root:
+                return ".root"
+            case .child(let index, let parent):
+                return "\(parent).childAt(\(index))"
+            }
+        }
 
         /// Returns the inverse index path from this path.
         /// The reversed path can be used to navigate, starting from a `root`
@@ -218,7 +232,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         /// represent the geometry that is allocated at this depth.
         ///
         /// The same index is not present in sub-divisions of this tree.
-        var indices: [Int]
+        var indices: Set<Int>
         
         /// The depth of this particular subdivision tree from the root of the
         /// spatial tree.
@@ -254,36 +268,72 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             )
         }
 
+        /// Adds an index into this subdivision state and returns whether the
+        /// index was already present.
+        @discardableResult
+        mutating func addIndex(_ index: Int) -> Bool {
+            guard !indices.insert(index).inserted else {
+                return false
+            }
+            
+            totalIndicesCount += 1
+            isEmpty = false
+
+            return true
+        }
+
         func addingIndex(_ index: Int) -> Self {
             var copy = self
-            
-            if !copy.indices.contains(index) {
-                copy.indices.append(index)
-                copy.totalIndicesCount += 1
-                copy.isEmpty = false
-            }
-
+            copy.addIndex(index)
             return copy
         }
 
+        /// Adds a sequence of indices, returning a set of the indices that where
+        /// not in this subdivision state and where added.
+        @discardableResult
+        mutating func addIndices<S: Sequence>(_ indices: S) -> Set<Int> where S.Element == Int {
+            Set(indices.filter { addIndex($0) })
+        }
+
         func addingIndices<S: Sequence>(_ indices: S) -> Self where S.Element == Int {
-            indices.reduce(self, { $0.addingIndex($1) })
+            var copy = self
+            copy.addIndices(indices)
+            return copy
+        }
+
+        /// Removes the given index from this subdivision state, returning a
+        /// value specifying whether the value existed in this state and was
+        /// removed.
+        @discardableResult
+        mutating func removeIndex(_ index: Int) -> Bool {
+            guard indices.remove(index) != nil else {
+                return false
+            }
+
+            totalIndicesCount -= 1
+            isEmpty = indices.isEmpty
+
+            return true
         }
 
         func removingIndex(_ index: Int) -> Self {
             var copy = self
-            
-            if copy.indices.contains(index) {
-                copy.indices.removeAll { $0 == index }
-                copy.totalIndicesCount -= 1
-                copy.isEmpty = copy.indices.isEmpty
-            }
-
+            copy.removeIndex(index)
             return copy
         }
 
+        /// Removes indices from a given sequence of indices from this subdivision
+        /// state, returning a set of indices that existed in this state and were
+        /// removed.
+        @discardableResult
+        mutating func removeIndices<S: Sequence>(_ indices: S) -> Set<Int> where S.Element == Int {
+            Set(indices.filter { removeIndex($0) })
+        }
+
         func removingIndices<S: Sequence>(_ indices: S) -> Self where S.Element == Int {
-            indices.reduce(self, { $0.removingIndex($1) })
+            var copy = self
+            copy.removeIndices(indices)
+            return copy
         }
     }
 
@@ -322,7 +372,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
 
         /// Gets the indices on this subdivision, not including the deeper
         /// subdivisions.
-        var indices: [Int] {
+        var indices: Set<Int> {
             state.indices
         }
 
@@ -368,12 +418,12 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         /// Returns all the indices that are contained within this subdivision
         /// tree, and all subsequent depths on this tree recursively whose bounds
         /// contain the point.
-        func queryPointRecursive(_ point: Vector, _ out: inout [Int]) {
+        func queryPointRecursive(_ point: Vector, _ out: inout Set<Int>) {
             if !bounds.contains(point) {
                 return
             }
 
-            out.append(contentsOf: indices)
+            out.formUnion(indices)
 
             applyToSubdivisions { sub in
                 sub.queryPointRecursive(point, &out)
@@ -459,69 +509,72 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             maxElementsPerLevelBeforeSplit: Int
         ) -> Self {
 
-            var indices = Set(self.indices)
-            
             var copy = self
 
-            copy._pushGeometryDownRecursive(
+            _ = copy._pushGeometryDownRecursive(
                 geometryBounds,
-                indices: &indices,
+                newIndices: Set(indices),
                 maxSubdivisions: maxSubdivisions,
                 maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
             )
-
-            // Re-accept any remaining index that was not accepted by deeper
-            // subtrees.
-            copy.mutateState { state in
-                state = state.addingIndices(indices)
-            }
-
+            
             return copy
         }
 
+        /// Performs the recursive pushing of indices down a spatial tree.
+        ///
+        /// Returns a set of indices subtracted from `newIndices` that where accepted
+        /// by deeper subdivision levels.
         private mutating func _pushGeometryDownRecursive(
             _ geometryBounds: [Bounds],
-            indices: inout Set<Int>,
+            newIndices: Set<Int>,
             maxSubdivisions: Int,
             maxElementsPerLevelBeforeSplit: Int
-        ) {
+        ) -> Set<Int> {
+
+            let fittingIndices = newIndices.filter {
+                bounds.contains(geometryBounds[$0])
+            }
             
             // Accept all geometries that can be contained within this subdivision
             // first
-            mutateState { state in
-                for index in indices where state.bounds.contains(geometryBounds[index]) {
-                    state = state.addingIndex(index)
-                    indices.remove(index)
-                }
+            let accepted = mutateState { state in
+                state.addIndices(fittingIndices)
             }
 
+            // Subdivide before continuing, if possible, otherwise exit as-is.
             if !hasSubdivisions {
                 if self.indices.count > maxElementsPerLevelBeforeSplit && maxSubdivisions > 0 {
                     self = subdivided()
                 } else {
-                    return
+                    return accepted
                 }
             }
 
-            var newIndices = Set(self.indices)
+            let indices = Set(indices)
 
             // Push down the indices contained within this tree subdivision deeper
             // down
+            var acceptedSubdivisions: Set<Int> = []
             mutateSubdivisions { sub in
-                sub._pushGeometryDownRecursive(
-                    geometryBounds,
-                    indices: &newIndices,
-                    maxSubdivisions: maxSubdivisions - 1,
-                    maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
+                acceptedSubdivisions.formUnion(
+                    sub._pushGeometryDownRecursive(
+                        geometryBounds,
+                        newIndices: indices,
+                        maxSubdivisions: maxSubdivisions - 1,
+                        maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
+                    )
                 )
             }
 
             // Remove all the indices that where accepted by deeper subdivisions.
             mutateState { state in
-                state = state.removingIndices(
-                    Set(state.indices).subtracting(newIndices)
+                state.removeIndices(
+                    acceptedSubdivisions
                 )
             }
+
+            return acceptedSubdivisions
         }
 
         /// Appends the indices of this subdivision depth, and all subsequent
@@ -537,7 +590,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         /// Requests that this subdivision object be subdivided, in case it is
         /// not already.
         ///
-        /// The bounds of this subdivision will be computed as an even split
+        /// The bounds of the subdivisions will be computed as an even split
         /// of the bounds of this subdivision object along each axis.
         ///
         /// Indices within this state are not changed.
@@ -563,6 +616,17 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             case .subdivision:
                 return self
             }
+        }
+
+        /// Requests that this subdivision object be subdivided in-place, in case
+        /// it is not already.
+        ///
+        /// The bounds of the subdivisions will be computed as an even split
+        /// of the bounds of this subdivision object along each axis.
+        ///
+        /// Indices within this state are not changed.
+        mutating func subdivide() {
+            self = subdivided()
         }
 
         /// Applies a given closure to the first depth of subdivisions within
@@ -637,30 +701,35 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
 
         /// Performs an in-place mutation of this subdivision object, with the
         /// state modified by a given closure.
-        mutating func mutateState(_ mutator: (inout SubdivisionState) -> Void) {
-            self = self.mutatingState(mutator)
-        }
-
-        /// Returns a copy of this subdivision object, with the state modified
-        /// by a given closure.
-        func mutatingState(_ mutator: (inout SubdivisionState) -> Void) -> Self {
+        @discardableResult
+        mutating func mutateState<T>(_ mutator: (inout SubdivisionState) throws -> T) rethrows -> T {
             switch self {
             case .leaf(var state):
-                mutator(&state)
-                return .leaf(state: state)
+                defer { self = .leaf(state: state) }
+
+                return try mutator(&state)
             
             case .subdivision(
                 var state,
                 let subdivisions
             ):
+                defer {
+                    self = .subdivision(
+                        state: state,
+                        subdivisions: subdivisions
+                    )
+                }
 
-                mutator(&state)
-
-                return .subdivision(
-                    state: state,
-                    subdivisions: subdivisions
-                )
+                return try mutator(&state)
             }
+        }
+
+        /// Returns a copy of this subdivision object, with the state modified
+        /// by a given closure.
+        func mutatingState(_ mutator: (inout SubdivisionState) throws -> Void) rethrows -> Self {
+            var copy = self
+            try copy.mutateState(mutator)
+            return copy
         }
     }
 }

@@ -224,6 +224,7 @@
 			"Intersectable",
 			"Mersenne",
 			"Möller",
+			"octree",
 			"Sarrus",
 			"swiftpm",
 			"Trumbore",
