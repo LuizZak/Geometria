@@ -274,34 +274,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 211,
-      "symbol": "SIMD2.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 217,
-      "symbol": "SIMD2.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 307,
-      "symbol": "SIMD2.*(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/SIMD/SIMD2+Double.swift",
-      "line": 312,
-      "symbol": "SIMD2.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Square2.swift",
       "line": 15,
       "symbol": "Square2.init(x:y:sideLength:)",
@@ -324,126 +296,84 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 127,
+      "line": 131,
       "symbol": "Vector2.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 132,
+      "line": 136,
       "symbol": "Vector2.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 147,
-      "symbol": "Vector2.+=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 152,
-      "symbol": "Vector2.-=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 176,
+      "line": 164,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 181,
+      "line": 169,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 186,
+      "line": 174,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 191,
-      "symbol": "Vector2.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 196,
-      "symbol": "Vector2.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 272,
+      "line": 250,
       "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 277,
+      "line": 255,
       "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 282,
+      "line": 260,
       "symbol": "Vector2./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 287,
-      "symbol": "Vector2./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 292,
-      "symbol": "Vector2./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 373,
+      "line": 341,
       "symbol": "Vector2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 379,
+      "line": 347,
       "symbol": "Vector2.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 472,
+      "line": 440,
       "symbol": "Vector2.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
-      "line": 477,
+      "line": 445,
       "symbol": "Vector2.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -687,20 +617,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 164,
-      "symbol": "SIMD3.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/SIMD/SIMD3+Double.swift",
-      "line": 171,
-      "symbol": "SIMD3.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Torus3.swift",
       "line": 41,
       "symbol": "Torus3.init(center:axis:majorRadius:minorRadius:)",
@@ -709,112 +625,70 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 128,
+      "line": 137,
       "symbol": "Vector3.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 133,
+      "line": 142,
       "symbol": "Vector3.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 148,
-      "symbol": "Vector3.+=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 153,
-      "symbol": "Vector3.-=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 178,
+      "line": 167,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 183,
+      "line": 172,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 188,
+      "line": 177,
       "symbol": "Vector3.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 193,
-      "symbol": "Vector3.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 198,
-      "symbol": "Vector3.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 235,
+      "line": 214,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 240,
+      "line": 219,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 245,
+      "line": 224,
       "symbol": "Vector3./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 250,
-      "symbol": "Vector3./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 255,
-      "symbol": "Vector3./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 339,
+      "line": 308,
       "symbol": "Vector3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/3D/Vector3.swift",
-      "line": 346,
+      "line": 315,
       "symbol": "Vector3.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -981,44 +855,30 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 49,
-      "symbol": "SIMD4.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/SIMD/SIMD4+Double.swift",
-      "line": 56,
-      "symbol": "SIMD4.%(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 130,
+      "line": 140,
       "symbol": "Vector4.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 135,
+      "line": 145,
       "symbol": "Vector4.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 150,
-      "symbol": "Vector4.+=(_:_:)",
+      "line": 171,
+      "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 155,
-      "symbol": "Vector4.-=(_:_:)",
+      "line": 176,
+      "symbol": "Vector4.*(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -1031,77 +891,35 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 186,
-      "symbol": "Vector4.*(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 191,
-      "symbol": "Vector4.*(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 196,
-      "symbol": "Vector4.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 201,
-      "symbol": "Vector4.*=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 235,
+      "line": 215,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 240,
+      "line": 220,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 245,
+      "line": 225,
       "symbol": "Vector4./(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 250,
-      "symbol": "Vector4./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 255,
-      "symbol": "Vector4./=(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 351,
+      "line": 321,
       "symbol": "Vector4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/4D/Vector4.swift",
-      "line": 359,
+      "line": 329,
       "symbol": "Vector4.%(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -1262,56 +1080,56 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 12,
+      "line": 15,
       "symbol": "VectorAdditive.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 14,
+      "line": 17,
       "symbol": "VectorAdditive.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 16,
+      "line": 19,
       "symbol": "VectorAdditive.+(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 18,
+      "line": 21,
       "symbol": "VectorAdditive.-(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 20,
+      "line": 23,
       "symbol": "VectorAdditive.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 22,
+      "line": 25,
       "symbol": "VectorAdditive.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 24,
+      "line": 27,
       "symbol": "VectorAdditive.+=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorAdditive.swift",
-      "line": 26,
+      "line": 29,
       "symbol": "VectorAdditive.-=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -1347,6 +1165,20 @@
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
       "line": 11,
+      "symbol": "VectorDivisible./=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "line": 16,
+      "symbol": "VectorDivisible./=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorDivisible.swift",
+      "line": 21,
       "symbol": "VectorDivisible./=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -1396,6 +1228,20 @@
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
       "line": 53,
+      "symbol": "VectorMultiplicative.*=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "line": 100,
+      "symbol": "VectorMultiplicative.*=(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
+      "line": 105,
       "symbol": "VectorMultiplicative.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"

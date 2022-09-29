@@ -959,7 +959,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SelfIntersectableRectangleType.html">SelfIntersectableRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RectangleType.html">RectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/AdditiveRectangleType.html">AdditiveRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DivisibleRectangleType.html">DivisibleRectangleType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConvexType.html">ConvexType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">AABB</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 
@@ -1950,6 +1950,37 @@ area capable of fitting each point.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE5aabbsACyxGSayAGG_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(aabbs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A14VectorAdditiveRzAA0C10ComparableRzrlE5aabbsACyxGSayAGG_tcfc">init(aabbs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the smallest AABB capable of fully containing all of the
+provided AABB.</p>
+
+<p>If <code>aabbs</code> is empty, initializes <code>self</code> as <code>Self.zero</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="nf">init</span><span class="p">(</span><span class="nv">aabbs</span><span class="p">:</span> <span class="p">[`</span><span class="nv">Self</span><span class="p">`])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1984,6 +2015,51 @@ area capable of fitting each point.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">unit</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorDivisible%60%20%26%20%60VectorComparable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorDivisible` &amp; `VectorComparable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorDivisible%60%20%26%20%60VectorComparable%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></code> &amp; <code><a href="../Protocols/VectorComparable.html">VectorComparable</a></code></span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria4AABBVA2A16VectorComparableRzAA0C9DivisibleRzrlE10subdividedSayACyxGGyF"></a>
+                    <a name="//apple_ref/swift/Method/subdivided()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria4AABBVA2A16VectorComparableRzAA0C9DivisibleRzrlE10subdividedSayACyxGGyF">subdivided()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subdivides this AABB into <code>2 ^ D</code> (where <code>D</code> is the dimensional size of
+<code>Self.Vector</code>) AABBs that occupy the same area as this AABB but subdivide
+it into equally-sized AABBs.</p>
+
+<p>The ordering of the subdivisions is not defined.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">subdivided</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[`</span><span class="nv">Self</span><span class="p">`]</span></code></pre>
 
                         </div>
                       </div>
@@ -2095,7 +2171,7 @@ AABB&rsquo;s outer perimeter.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-14)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -1772,9 +1772,9 @@ with all remaining elements being <code>.zero</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria9Matrix3x3V14transformPointyqd__qd__6ScalarQyd__RszAA015Vector3FloatingD0Rd__lF"></a>
+                    <a name="/s:9Geometria9Matrix3x3V14transformPointyqd__qd__6ScalarQyd__RszAA015Vector3FloatingD0Rd__10SubVector2_0hF0AhE9MagnitudeSjQYd__AFRSlF"></a>
                     <a name="//apple_ref/swift/Method/transformPoint(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria9Matrix3x3V14transformPointyqd__qd__6ScalarQyd__RszAA015Vector3FloatingD0Rd__lF">transformPoint(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria9Matrix3x3V14transformPointyqd__qd__6ScalarQyd__RszAA015Vector3FloatingD0Rd__10SubVector2_0hF0AhE9MagnitudeSjQYd__AFRSlF">transformPoint(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1790,7 +1790,7 @@ translation to the vector.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">transformPoint</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">transformPoint</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span><span class="p">,</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">SubVector2</span><span class="o">.</span><span class="kt">SubVector3</span><span class="o">.</span><span class="kt">SubVector2</span><span class="o">.</span><span class="kt">Scalar</span><span class="o">.</span><span class="kt">Magnitude</span></code></pre>
 
                         </div>
                       </div>
@@ -1819,6 +1819,37 @@ translation to the vector.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">transformPoint</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Matrix3x3V15transformVectoryqd__qd__6ScalarQyd__RszAA20Vector2FloatingPointRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/transformVector(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Matrix3x3V15transformVectoryqd__qd__6ScalarQyd__RszAA20Vector2FloatingPointRd__lF">transformVector(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transforms a given vector, applying scaling, rotation and translation to
+the vector.</p>
+
+<p>The matrix is transformed as a vector and is not normalized by the Z
+vector.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">transformVector</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Vector</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                         </div>
                       </div>
@@ -2313,7 +2344,7 @@ and stores the result back to <code>lhs</code>.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-14)</p>
+      <p>&copy; 2022 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-09-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
