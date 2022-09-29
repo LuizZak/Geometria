@@ -1,11 +1,13 @@
 import XCTest
 @testable import Geometria
 
+#if ENABLE_SIMD
 #if canImport(simd)
 
 import simd
 
-#endif
+#endif // #if canImport(simd)
+#endif // #if ENABLE_SIMD
 
 class Comparable_ClampTests: XCTestCase {
     func testClamp() {
@@ -14,6 +16,7 @@ class Comparable_ClampTests: XCTestCase {
         XCTAssertEqual(clamp(7, min: 10, max: 13), 10)
     }
     
+    #if ENABLE_SIMD
     #if canImport(simd)
 
     func testClamp_doesntShadowSIMDClamp() {
@@ -25,7 +28,8 @@ class Comparable_ClampTests: XCTestCase {
         XCTAssertEqual(clamp(a, min: b, max: c), .init(1, 1))
     }
 
-    #endif
+    #endif // #if canImport(simd)
+    #endif // #if ENABLE_SIMD
     
     func testClamped() {
         XCTAssertEqual(7.clamped(min: 0, max: 3), 3)

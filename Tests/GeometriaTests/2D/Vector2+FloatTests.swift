@@ -1,3 +1,4 @@
+#if ENABLE_SIMD
 #if canImport(simd)
 
 import XCTest
@@ -77,4 +78,5 @@ class Vector2_FloatTests: XCTestCase {
     }
 }
 
-#endif
+#endif // #if canImport(simd)
+#endif // #if ENABLE_SIMD

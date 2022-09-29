@@ -1,3 +1,5 @@
+#if ENABLE_SIMD
+
 #if canImport(simd)
 
 import simd
@@ -83,4 +85,6 @@ public extension Vector2F {
     }
 }
 
-#endif
+#endif // #if canImport(simd)
+
+#endif // #if ENABLE_SIMD

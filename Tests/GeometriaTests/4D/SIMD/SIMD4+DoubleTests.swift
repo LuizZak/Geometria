@@ -1,3 +1,4 @@
+#if ENABLE_SIMD
 #if canImport(simd)
 
 import XCTest
@@ -654,4 +655,5 @@ extension SIMD4_DoubleTests {
     }
 }
 
-#endif
+#endif // #if canImport(simd)
+#endif // #if ENABLE_SIMD

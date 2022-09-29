@@ -1365,6 +1365,7 @@ extension AABBTests {
         )
     }
 
+    #if ENABLE_SIMD
     #if canImport(simd)
     
     func testIntersectionWith_3d_ray_normalBug1() {
@@ -1405,7 +1406,8 @@ extension AABBTests {
         )
     }
 
-    #endif
+    #endif // #if canImport(simd)
+    #endif // #if ENABLE_SIMD
 }
 
 // MARK: SignedDistanceMeasurableType Conformance
