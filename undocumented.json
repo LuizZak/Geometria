@@ -281,20 +281,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2+Double.swift",
-      "line": 79,
-      "symbol": "Vector2D.*(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2+Float.swift",
-      "line": 78,
-      "symbol": "Vector2F.*(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/2D/Vector2.swift",
       "line": 131,
       "symbol": "Vector2.+(_:_:)",
@@ -1234,14 +1220,14 @@
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
-      "line": 100,
+      "line": 102,
       "symbol": "VectorMultiplicative.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/Geometria/Geometria/Sources/Geometria/Generalized/Protocols/Vector/VectorMultiplicative.swift",
-      "line": 105,
+      "line": 107,
       "symbol": "VectorMultiplicative.*=(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
