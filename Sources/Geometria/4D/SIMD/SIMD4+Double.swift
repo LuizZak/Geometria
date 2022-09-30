@@ -1,3 +1,5 @@
+#if ENABLE_SIMD
+
 #if canImport(simd)
 
 import simd
@@ -99,4 +101,6 @@ extension SIMD4: VectorReal where Scalar == Double {
     }
 }
 
-#endif
+#endif // #if canImport(simd)
+
+#endif // #if ENABLE_SIMD

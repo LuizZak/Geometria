@@ -54,14 +54,16 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
 }
 
 public extension VectorMultiplicative {
-    // No default implementation for Self.one as it leads to ambiguity when
-    // conforming SIMD types.
-//    /// A unit-value `VectorMultiplicative` value where each component
-//    /// corresponds to its representation of `1`.
-//    @_transparent
-//    static var one: Self {
-//        Self(repeating: 1)
-//    }
+    #if !ENABLE_SIMD
+
+    /// A unit-value `VectorMultiplicative` value where each component
+    /// corresponds to its representation of `1`.
+    @_transparent
+    static var one: Self {
+        Self(repeating: 1)
+    }
+
+    #endif // #if !ENABLE_SIMD
     
     /// Returns the length squared of this `VectorType`
     @_transparent

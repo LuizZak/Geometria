@@ -179,6 +179,7 @@ func assertEqual<T>(
 
 // MARK: SIMD3 equality
 
+#if ENABLE_SIMD
 #if canImport(simd)
 
 @discardableResult
@@ -195,7 +196,8 @@ func assertEqual<T>(
     assertEqual(simd1.z, simd2.z, accuracy: accuracy, "z", file: file, line: line)
 }
 
-#endif
+#endif // #if canImport(simd)
+#endif // #if ENABLE_SIMD
 
 // MARK: ConvexLineIntersection equality
 

@@ -1,3 +1,5 @@
+#if ENABLE_SIMD
+
 #if canImport(simd)
 
 import RealModule
@@ -227,4 +229,6 @@ extension SIMD3: Vector3Real where Scalar == Double {
     }
 }
 
-#endif
+#endif // #if canImport(simd)
+
+#endif // #if ENABLE_SIMD

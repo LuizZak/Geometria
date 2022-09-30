@@ -1,3 +1,4 @@
+#if ENABLE_SIMD
 #if canImport(simd)
 
 import XCTest
@@ -449,4 +450,5 @@ class SIMD3_DoubleTests: XCTestCase {
     }
 }
 
-#endif
+#endif // #if canImport(simd)
+#endif // #if ENABLE_SIMD
