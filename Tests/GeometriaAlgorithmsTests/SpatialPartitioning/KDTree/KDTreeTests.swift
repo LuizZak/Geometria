@@ -108,35 +108,50 @@ class KDTreeTests: XCTestCase {
     }
 
     func testNearestNeighbor_pointCloudPartition_2D_randomSampling() {
-        let totalPoints = makePointCloud(count: 200)
+        let totalPoints = makePointCloud(count: 500)
         let points = totalPoints[..<(totalPoints.count / 2)]
-        let searchPoints = points[(totalPoints.count / 2)...]
+        let searchPoints = totalPoints[(totalPoints.count / 2)...]
         let sut = KDTree<Vector2D>(points: points)
 
-        for searchPoint in searchPoints {
+        for (i, searchPoint) in searchPoints.enumerated() {
+            let actual = sut.nearestNeighbor(to: searchPoint)
+            let expected = closestPointBruteForce(to: searchPoint, in: points)
             XCTAssertEqual(
-                sut.nearestNeighbor(to: searchPoint),
-                closestPointBruteForce(to: searchPoint, in: searchPoints)
+                actual,
+                expected,
+                "index: \(i) search point: \(searchPoint) actual distance: \(searchPoint.distance(to: actual!)) expected: \(searchPoint.distance(to: expected))"
             )
+        }
+    }
+
+    // MARK: - Performance tests
+
+    func testNearestNeighbor_pointCloudPartition_2D_randomSampling_performance() {
+        let totalPoints = makePointCloud(count: 10_000)
+        let points = totalPoints[..<(totalPoints.count / 2)]
+        let searchPoints = totalPoints[(totalPoints.count / 2)...]
+        let sut = KDTree<Vector2D>(points: points)
+
+        measure {
+            for searchPoint in searchPoints {
+                _=sut.nearestNeighbor(to: searchPoint)
+            }
+        }
+    }
+
+    func testInit_pointCloudPartition_2D_performance() {
+        let points = makePointCloud(count: 2_000)
+
+        measure {
+            _=KDTree<Vector2D>(points: points)
         }
     }
 }
 
 private func closestPointBruteForce<C: Collection<Vector2D>>(to point: Vector2D, in list: C) -> Vector2D {
-    guard let first = list.first else {
-        return point
-    }
-
-    var current: (point: Vector2D, distanceSquared: Double) = (first, first.distanceSquared(to: point))
-
-    for p in list {
-        let distance = p.distanceSquared(to: point)
-        if distance < current.distanceSquared {
-            current = (p, distance)
-        }
-    }
-
-    return current.point
+    list.min(by: {
+        $0.distanceSquared(to: point) < $1.distanceSquared(to: point)
+    }) ?? point
 }
 
 private func makePointCloud(count: Int) -> [Vector2D] {

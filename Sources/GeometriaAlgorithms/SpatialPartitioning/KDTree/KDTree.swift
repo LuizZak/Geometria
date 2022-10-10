@@ -14,17 +14,17 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
     /// Initializes a new k-d tree from a given set of points.
     public init<C: Collection<Vector>>(points: C) where Vector: VectorAdditive {
         self.init(
-            dimensions: Vector.zero.scalarCount,
+            dimensionCount: Vector.zero.scalarCount,
             points: points
         )
     }
 
     /// Initializes a new k-d tree from a given set of points.
-    public init<C: Collection<Vector>>(dimensions: Int, points: C) {
+    public init<C: Collection<Vector>>(dimensionCount: Int, points: C) {
         self.root = .create(
             points,
             absolutePath: .root,
-            dimensions: dimensions,
+            dimensionCount: dimensionCount,
             depth: 0
         )
     }
@@ -283,376 +283,366 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
     fileprivate enum Subdivision {
         /// A subdivision of a k-d tree 
         indirect case subdivision(SubdivisionState, left: Self?, right: Self?)
+    }
+}
 
-        /// The point associated with this subdivision.
-        var point: Vector {
-            state.point
-        }
+extension KDTree.Subdivision {
+    /// The point associated with this subdivision.
+    var point: Vector {
+        state.point
+    }
 
-        /// The absolute path from the root subdivision path this subdivision
-        /// node.
-        var absolutePath: SubdivisionPath {
-            state.absolutePath
-        }
+    /// The absolute path from the root subdivision path this subdivision
+    /// node.
+    var absolutePath: KDTree.SubdivisionPath {
+        state.absolutePath
+    }
 
-        /// Returns the total number of items within this particular subdivision
-        /// tree, including all nested subdivisions.
-        var totalItemCount: Int {
-            state.totalItemCount
-        }
+    /// Returns the total number of items within this particular subdivision
+    /// tree, including all nested subdivisions.
+    var totalItemCount: Int {
+        state.totalItemCount
+    }
 
-        /// Gets the common state for this subdivision object.
-        var state: SubdivisionState {
-            get {
-                switch self {
-                case .subdivision(let state, _, _):
-                    return state
-                }
-            }
-            set {
-                switch self {
-                case .subdivision(
-                    _,
-                    let left,
-                    let right
-                ):
-                    self = .subdivision(
-                        newValue,
-                        left: left,
-                        right: right
-                    )
-                }
-            }
-        }
-
-        /// If this subdivision level contains a split, returns the left side
-        /// of that split.
-        var left: Self? {
-            get {
-                switch self {
-                case .subdivision(_, let left, _):
-                    return left
-                }
-            }
-            set {
-                switch self {
-                case .subdivision(let state, _, let right):
-                    self = .subdivision(
-                        state,
-                        left: newValue,
-                        right: right
-                    )
-                }
-            }
-        }
-
-        /// If this subdivision level contains a split, returns the right side
-        /// of that split.
-        var right: Self? {
-            get {
-                switch self {
-                case .subdivision(_, _, let right):
-                    return right
-                }
-            }
-            set {
-                switch self {
-                case .subdivision(let state, let left, _):
-                    self = .subdivision(
-                        state,
-                        left: left,
-                        right: newValue
-                    )
-                }
-            }
-        }
-
-        /// Returns an array of subdivisions from this tree subdivision.
-        ///
-        /// Returns an empty array, in case this subdivision is a `.leaf` case.
-        var subdivisions: [Self] {
+    /// Gets the common state for this subdivision object.
+    var state: KDTree.SubdivisionState {
+        get {
             switch self {
-            case .subdivision(_, nil, nil):
-                return []
-                
-            case .subdivision(_, let left?, nil):
-                return [left]
-
-            case .subdivision(_, nil, let right?):
-                return [right]
-
-            case .subdivision(_, let left?, let right?):
-                return [left, right]
+            case .subdivision(let state, _, _):
+                return state
             }
         }
-
-        /// Subscripts into this subdivision with an inverted path, allowing
-        /// mutation of a particular tree node.
-        subscript(path: InvertedSubdivisionPath) -> Self? {
-            get {
-                switch path {
-                case .self:
-                    return self
-
-                case .left(let child):
-                    return left?[child]
-
-                case .right(let child):
-                    return right?[child]
-                }
-            }
-            set {
-                switch path {
-                case .self:
-                    break
-
-                case .left(let child):
-                    if child == .self {
-                        left = newValue
-                    } else {
-                        left?[child] = newValue
-                    }
-
-                case .right(let child):
-                    if child == .self {
-                        right = newValue
-                    } else {
-                        right?[child] = newValue
-                    }
-                }
-            }
-        }
-
-        /// Returns the nearest neighbor in this subdivision to a given point vector.
-        func nearestNeighbor(to point: Vector) -> (point: Vector, distanceSquared: Vector.Scalar) {
+        set {
             switch self {
             case .subdivision(
-                let state,
+                _,
                 let left,
                 let right
             ):
-
-                var current: (point: Vector, distanceSquared: Vector.Scalar)
-
-                // Query children first
-                if isOnLeft(point) {
-                    if let left {
-                        current = left.nearestNeighbor(to: point)
-                    } else {
-                        current = (state.point, distanceSquared: point.distanceSquared(to: state.point))
-                    }
-
-                    // Check if other side could potentially contain a closer point.
-                    if
-                        let right,
-                        right.distanceSquared(to: current.point) < current.distanceSquared
-                    {
-                        let childNearest = right.nearestNeighbor(to: point)
-                        if childNearest.distanceSquared < current.distanceSquared {
-                            current = childNearest
-                        }
-                    }
-                } else {
-                    if let right {
-                        current = right.nearestNeighbor(to: point)
-                    } else {
-                        current = (state.point, distanceSquared: point.distanceSquared(to: state.point))
-                    }
-
-                    // Check if other side could potentially contain a closer point.
-                    if
-                        let left,
-                        left.distanceSquared(to: current.point) < current.distanceSquared
-                    {
-                        let childNearest = left.nearestNeighbor(to: point)
-                        if childNearest.distanceSquared < current.distanceSquared {
-                            current = childNearest
-                        }
-                    }
-                }
-
-                if point.distanceSquared(to: state.point) < current.distanceSquared {
-                    current = (state.point, distanceSquared: point.distanceSquared(to: state.point))
-                }
-
-                return current
+                self = .subdivision(
+                    newValue,
+                    left: left,
+                    right: right
+                )
             }
         }
+    }
 
-        /// Returns `true` if the current subdivision level point's scalar at
-        /// the current subdivision dimension is less than or equal to the
-        /// same scalar of the given point.
-        func isOnLeft(_ point: Vector) -> Bool {
-            return point[state.dimension] < state.point[state.dimension]
+    /// If this subdivision level contains a split, returns the left side
+    /// of that split.
+    var left: Self? {
+        get {
+            switch self {
+            case .subdivision(_, let left, _):
+                return left
+            }
         }
-
-        /// Returns the distance squared from a given point to the subdivision
-        /// line of this subdivision.
-        func distanceSquared(to point: Vector) -> Vector.Scalar {
-            let dist = point[state.dimension] - state.point[state.dimension]
-
-            return dist * dist
+        set {
+            switch self {
+            case .subdivision(let state, _, let right):
+                self = .subdivision(
+                    state,
+                    left: newValue,
+                    right: right
+                )
+            }
         }
+    }
 
-        /// Returns a copy of this subdivision, with a new point inserted at a
-        /// given subdivision path.
-        func inserting(_ point: Vector, reversePath: InvertedSubdivisionPath) -> Self {
-            var copy = self
+    /// If this subdivision level contains a split, returns the right side
+    /// of that split.
+    var right: Self? {
+        get {
+            switch self {
+            case .subdivision(_, _, let right):
+                return right
+            }
+        }
+        set {
+            switch self {
+            case .subdivision(let state, let left, _):
+                self = .subdivision(
+                    state,
+                    left: left,
+                    right: newValue
+                )
+            }
+        }
+    }
 
-            switch reversePath {
+    /// Returns an array of subdivisions from this tree subdivision.
+    ///
+    /// Returns an empty array, in case this subdivision is a `.leaf` case.
+    var subdivisions: [Self] {
+        switch self {
+        case .subdivision(_, nil, nil):
+            return []
+            
+        case .subdivision(_, let left?, nil):
+            return [left]
+
+        case .subdivision(_, nil, let right?):
+            return [right]
+
+        case .subdivision(_, let left?, let right?):
+            return [left, right]
+        }
+    }
+
+    /// Subscripts into this subdivision with an inverted path, allowing
+    /// mutation of a particular tree node.
+    subscript(path: KDTree.InvertedSubdivisionPath) -> Self? {
+        get {
+            switch path {
+            case .self:
+                return self
+
+            case .left(let child):
+                return left?[child]
+
+            case .right(let child):
+                return right?[child]
+            }
+        }
+        set {
+            switch path {
             case .self:
                 break
 
             case .left(let child):
-                copy.state.totalItemCount += 1
-
                 if child == .self {
-                    copy.left = .subdivision(
-                        .init(
-                            point: point,
-                            dimension: (state.dimension + 1) % point.scalarCount,
-                            totalItemCount: 1,
-                            absolutePath: absolutePath.left
-                        ),
-                        left: nil,
-                        right: nil
-                    )
+                    left = newValue
                 } else {
-                    copy.left = copy.left?.inserting(point, reversePath: child)
+                    left?[child] = newValue
                 }
 
             case .right(let child):
-                copy.state.totalItemCount += 1
-
                 if child == .self {
-                    copy.right = .subdivision(
-                        .init(
-                            point: point,
-                            dimension: (state.dimension + 1) % point.scalarCount,
-                            totalItemCount: 1,
-                            absolutePath: absolutePath.right
-                        ),
-                        left: nil,
-                        right: nil
-                    )
+                    right = newValue
                 } else {
-                    copy.right = copy.right?.inserting(point, reversePath: child)
-                }
-            }
-
-            return copy
-        }
-
-        /// Applies a given closure to all subdivisions in depth-first order,
-        /// including this instance.
-        func applyToTreeDepthFirst(_ closure: (Self) -> Void) {
-            var stack: [Self] = [self]
-
-            while let next = stack.popLast() {
-                closure(next)
-
-                switch next {
-                case .subdivision(_, let left, let right):
-                    if let right { stack.append(right) }
-                    if let left { stack.append(left) }
+                    right?[child] = newValue
                 }
             }
         }
+    }
 
-        /// Applies a given closure to all subdivisions in breadth-first order,
-        /// including this instance.
-        func applyToTreeBreadthFirst(_ closure: (Self) -> Void) {
-            var queue: [Self] = [self]
-
-            while !queue.isEmpty {
-                let next = queue.removeFirst()
-
-                closure(next)
-
-                switch next {
-                case .subdivision(_, let left, let right):
-                    if let left { queue.append(left) }
-                    if let right { queue.append(right) }
-                }
-            }
-        }
-
-        /// Applies a given closure to the first depth of subdivisions within
-        /// this subdivision object, non-recursively.
-        ///
-        /// In case this object is a `.leaf`, nothing is done.
-        func applyToSubdivisions(_ closure: (Self) -> Void) {
-            switch self {
-            case .subdivision(_, let left, let right):
-                left.map(closure)
-                right.map(closure)
-            }
-        }
-
-        static func create<C: Collection<Vector>>(
-            _ points: C,
-            absolutePath: SubdivisionPath,
-            dimensions: Int,
-            depth: Int
-        ) -> Self? {
-
-            let dim = depth % dimensions
-
-            guard !points.isEmpty else {
-                return nil
-            }
-
-            guard points.count > 1 else {
-                return .subdivision(
-                    SubdivisionState(
-                        point: points[points.startIndex],
-                        dimension: dim,
-                        totalItemCount: points.count,
-                        absolutePath: absolutePath
-                    ),
-                    left: .create(
-                        [],
-                        absolutePath: absolutePath.left,
-                        dimensions: dimensions,
-                        depth: depth + 1
-                    ),
-                    right: .create(
-                        [],
-                        absolutePath: absolutePath.right,
-                        dimensions: dimensions,
-                        depth: depth + 1
-                    )
-                )
-            }
-
-            let sorted = points.sorted(by: { $0[dim] < $1[dim] })
-            let median = sorted.count / 2
-
-            let pivot = sorted[median]
-
-            let left = sorted.prefix(upTo: median)
-            let right = sorted.suffix(from: median + 1)
-
-            return .subdivision(
-                SubdivisionState(
-                    point: pivot,
-                    dimension: dim,
-                    totalItemCount: points.count,
-                    absolutePath: absolutePath
-                ),
-                left: .create(
-                    left,
-                    absolutePath: absolutePath.left,
-                    dimensions: dimensions,
-                    depth: depth + 1
-                ),
-                right: .create(
-                    right,
-                    absolutePath: absolutePath.right,
-                    dimensions: dimensions,
-                    depth: depth + 1
-                )
+    /// Returns the nearest neighbor in this subdivision to a given point vector.
+    func nearestNeighbor(to point: Vector) -> (point: Vector, distanceSquared: Vector.Scalar) {
+        switch self {
+        case .subdivision(let state, nil, nil):
+            return (
+                state.point,
+                distanceSquared: point.distanceSquared(to: state.point)
             )
+        
+        case .subdivision(let state, let left?, nil):
+            var current: (point: Vector, distanceSquared: Vector.Scalar)
+
+            current = left.nearestNeighbor(to: point)
+
+            if point.distanceSquared(to: state.point) < current.distanceSquared {
+                current = (
+                    state.point,
+                    distanceSquared: point.distanceSquared(to: state.point)
+                )
+            }
+
+            return current
+
+        case .subdivision(let state, nil, let right?):
+            var current: (point: Vector, distanceSquared: Vector.Scalar)
+
+            current = right.nearestNeighbor(to: point)
+
+            if point.distanceSquared(to: state.point) < current.distanceSquared {
+                current = (
+                    state.point,
+                    distanceSquared: point.distanceSquared(to: state.point)
+                )
+            }
+
+            return current
+
+        case .subdivision(let state, let left?, let right?):
+            var current: (point: Vector, distanceSquared: Vector.Scalar)
+
+            let (first, second) = isOnLeft(point) ? (left, right) : (right, left)
+
+            current = first.nearestNeighbor(to: point)
+
+            guard distanceSquared(to: point) < current.distanceSquared else {
+                return current
+            }
+
+            let childNearest = second.nearestNeighbor(to: point)
+            if childNearest.distanceSquared < current.distanceSquared {
+                current = childNearest
+            }
+            
+            // Check this subdivision's point now.
+            if point.distanceSquared(to: state.point) < current.distanceSquared {
+                current = (
+                    state.point,
+                    distanceSquared: point.distanceSquared(to: state.point)
+                )
+            }
+
+            return current
         }
+    }
+
+    /// Returns `true` if the current subdivision level point's scalar at
+    /// the current subdivision dimension is less than or equal to the
+    /// same scalar of the given point.
+    func isOnLeft(_ point: Vector) -> Bool {
+        point[state.dimension] < state.point[state.dimension]
+    }
+
+    /// Returns the distance squared from a given point to the subdivision
+    /// line of this subdivision.
+    func distanceSquared(to point: Vector) -> Vector.Scalar {
+        let dist = point[state.dimension] - state.point[state.dimension]
+
+        return dist * dist
+    }
+
+    /// Returns a copy of this subdivision, with a new point inserted at a
+    /// given subdivision path.
+    func inserting(_ point: Vector, reversePath: KDTree.InvertedSubdivisionPath) -> Self {
+        var copy = self
+
+        switch reversePath {
+        case .self:
+            break
+
+        case .left(let child):
+            copy.state.totalItemCount += 1
+
+            if child == .self {
+                copy.left = .subdivision(
+                    .init(
+                        point: point,
+                        dimension: (state.dimension + 1) % point.scalarCount,
+                        totalItemCount: 1,
+                        absolutePath: absolutePath.left
+                    ),
+                    left: nil,
+                    right: nil
+                )
+            } else {
+                copy.left = copy.left?.inserting(point, reversePath: child)
+            }
+
+        case .right(let child):
+            copy.state.totalItemCount += 1
+
+            if child == .self {
+                copy.right = .subdivision(
+                    .init(
+                        point: point,
+                        dimension: (state.dimension + 1) % point.scalarCount,
+                        totalItemCount: 1,
+                        absolutePath: absolutePath.right
+                    ),
+                    left: nil,
+                    right: nil
+                )
+            } else {
+                copy.right = copy.right?.inserting(point, reversePath: child)
+            }
+        }
+
+        return copy
+    }
+
+    /// Applies a given closure to all subdivisions in depth-first order,
+    /// including this instance.
+    func applyToTreeDepthFirst(_ closure: (Self) -> Void) {
+        var stack: [Self] = [self]
+
+        while let next = stack.popLast() {
+            closure(next)
+
+            switch next {
+            case .subdivision(_, let left, let right):
+                if let right { stack.append(right) }
+                if let left { stack.append(left) }
+            }
+        }
+    }
+
+    /// Applies a given closure to all subdivisions in breadth-first order,
+    /// including this instance.
+    func applyToTreeBreadthFirst(_ closure: (Self) -> Void) {
+        var queue: [Self] = [self]
+
+        while !queue.isEmpty {
+            let next = queue.removeFirst()
+
+            closure(next)
+
+            switch next {
+            case .subdivision(_, let left, let right):
+                if let left { queue.append(left) }
+                if let right { queue.append(right) }
+            }
+        }
+    }
+
+    /// Applies a given closure to the first depth of subdivisions within
+    /// this subdivision object, non-recursively.
+    ///
+    /// In case this object is a `.leaf`, nothing is done.
+    func applyToSubdivisions(_ closure: (Self) -> Void) {
+        switch self {
+        case .subdivision(_, let left, let right):
+            left.map(closure)
+            right.map(closure)
+        }
+    }
+
+    static func create<C: Collection<Vector>>(
+        _ points: C,
+        absolutePath: KDTree.SubdivisionPath,
+        dimensionCount: Int,
+        depth: Int
+    ) -> Self? {
+
+        guard !points.isEmpty else {
+            return nil
+        }
+
+        let dim = depth % dimensionCount
+
+        let sorted = points.sorted(by: { $0[dim] < $1[dim] })
+        let median = sorted.count / 2
+
+        let pivot = sorted[median]
+
+        let left = sorted.prefix(upTo: median)
+        let right = sorted.suffix(from: median + 1)
+
+        assert(left.count + right.count == points.count - 1)
+
+        return .subdivision(
+            .init(
+                point: pivot,
+                dimension: dim,
+                totalItemCount: points.count,
+                absolutePath: absolutePath
+            ),
+            left: .create(
+                left,
+                absolutePath: absolutePath.left,
+                dimensionCount: dimensionCount,
+                depth: depth + 1
+            ),
+            right: .create(
+                right,
+                absolutePath: absolutePath.right,
+                dimensionCount: dimensionCount,
+                depth: depth + 1
+            )
+        )
     }
 }
