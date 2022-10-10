@@ -654,7 +654,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             while let next = stack.popLast() {
                 closure(next)
 
-                stack.append(contentsOf: next.subdivisions)
+                stack.append(contentsOf: next.subdivisions.reversed())
             }
         }
 
