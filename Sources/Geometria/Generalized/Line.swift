@@ -65,7 +65,10 @@ extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasura
     ///
     /// [geometric line]: https://en.wikipedia.org/wiki/Line_(geometry)
     @_transparent
-    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
+    public func containsProjectedNormalizedMagnitude(
+        _ scalar: Vector.Scalar
+    ) -> Bool {
+
         !scalar.isNaN
     }
     
@@ -75,7 +78,10 @@ extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasura
     /// For ``Line``, this is the full range of representable scalars, -∞ to ∞,
     /// resulting in the same value as `scalar` being returned for all inputs.
     @_transparent
-    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+    public func clampProjectedNormalizedMagnitude(
+        _ scalar: Vector.Scalar
+    ) -> Vector.Scalar {
+        
         scalar
     }
 }

@@ -13,9 +13,11 @@ public extension Vector2F {
     ///
     /// The order of operations are: scaling -> rotation -> translation.
     @inlinable
-    static func simdMatrix(scale: Self = .one,
-                           rotate angle: Scalar = 0,
-                           translate: Self = .zero) -> float3x3 {
+    static func simdMatrix(
+        scale: Self = .one,
+        rotate angle: Scalar = 0,
+        translate: Self = .zero
+    ) -> float3x3 {
         
         var matrix = float3x3(1)
         
@@ -29,11 +31,11 @@ public extension Vector2F {
         //
         
         let cScale =
-        float3x3(
-            SIMD3<Float>(scale.x, 0, 0),
-            SIMD3<Float>(0, scale.y, 0),
-            SIMD3<Float>(0, 0, 1)
-        )
+            float3x3(
+                SIMD3<Float>(scale.x, 0, 0),
+                SIMD3<Float>(0, scale.y, 0),
+                SIMD3<Float>(0, 0, 1)
+            )
         
         matrix *= cScale
         
@@ -47,11 +49,11 @@ public extension Vector2F {
             let c = cos(-angle)
             let s = sin(-angle)
             let cRotation =
-            float3x3(
-                SIMD3<Float>(c, s, 0),
-                SIMD3<Float>(-s, c, 0),
-                SIMD3<Float>(0, 0, 1)
-            )
+                float3x3(
+                    SIMD3<Float>(c, s, 0),
+                    SIMD3<Float>(-s, c, 0),
+                    SIMD3<Float>(0, 0, 1)
+                )
             
             matrix *= cRotation
         }
@@ -64,11 +66,11 @@ public extension Vector2F {
         //
         
         let cTranslation =
-        float3x3(
-            SIMD3<Float>(1, 0, translate.x),
-            SIMD3<Float>(0, 1, translate.y),
-            SIMD3<Float>(0, 0, 1)
-        )
+            float3x3(
+                SIMD3<Float>(1, 0, translate.x),
+                SIMD3<Float>(0, 1, translate.y),
+                SIMD3<Float>(0, 0, 1)
+            )
         
         matrix *= cTranslation
         

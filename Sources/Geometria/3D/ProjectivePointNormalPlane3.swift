@@ -107,7 +107,10 @@ extension ProjectivePointNormalPlane3: ProjectiveSpace {
     /// resulting intersection vector into this projective plane.
     ///
     /// Returns `nil` if this plane and the given line do not intersect.
-    public func projectLineIntersection<Line: Line3FloatingPoint>(_ line: Line) -> Coordinates? where Line.Vector == Vector {
+    public func projectLineIntersection<Line: Line3FloatingPoint>(
+        _ line: Line
+    ) -> Coordinates? where Line.Vector == Vector {
+        
         let plane = asPointNormalPlane
         guard let point = plane.intersection(with: line) else {
             return nil

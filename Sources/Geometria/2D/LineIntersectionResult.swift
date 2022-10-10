@@ -18,9 +18,11 @@ public struct LineIntersectionResult<Vector: VectorFloatingPoint> {
     public var line2NormalizedMagnitude: Vector.Scalar
     
     @_transparent
-    public init(point: Vector,
-                line1NormalizedMagnitude: Vector.Scalar,
-                line2NormalizedMagnitude: Vector.Scalar) {
+    public init(
+        point: Vector,
+        line1NormalizedMagnitude: Vector.Scalar,
+        line2NormalizedMagnitude: Vector.Scalar
+    ) {
         
         self.point = point
         self.line1NormalizedMagnitude = line1NormalizedMagnitude

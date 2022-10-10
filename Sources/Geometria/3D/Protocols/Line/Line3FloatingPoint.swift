@@ -6,8 +6,9 @@ public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint where SubLine2
     /// lines.
     ///
     /// Returns `nil` for parallel lines, and for any line where `a == b`.
-    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(to other: Line)
-        -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector
+    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(
+        to other: Line
+    ) -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector
     
     /// Returns the shortest line segment between the points of this line to
     /// another 3D line.
@@ -16,7 +17,9 @@ public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint where SubLine2
 
 public extension Line3FloatingPoint {
     @inlinable
-    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(to other: Line) -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector {
+    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(
+        to other: Line
+    ) -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector {
         
         // Algorithm as described in: http://paulbourke.net/geometry/pointlineplane/
         typealias Scalar = Vector.Scalar
@@ -61,7 +64,10 @@ public extension Line3FloatingPoint {
     }
     
     @inlinable
-    func shortestLine<Line: LineFloatingPoint>(to other: Line) -> LineSegment<Vector>? where Line.Vector == Vector {
+    func shortestLine<Line: LineFloatingPoint>(
+        to other: Line
+    ) -> LineSegment<Vector>? where Line.Vector == Vector {
+        
         guard let (mua, mub) = unclampedNormalizedMagnitudesForShortestLine(to: other) else {
             return nil
         }

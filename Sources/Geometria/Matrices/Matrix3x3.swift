@@ -209,7 +209,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Initializes a new matrix with the given ``Vector3Type`` values as the
     /// values for each row.
     @_transparent
-    public init<Vector: Vector3Type>(rows: (Vector, Vector, Vector)) where Vector.Scalar == Scalar {
+    public init<Vector: Vector3Type>(
+        rows: (Vector, Vector, Vector)
+    ) where Vector.Scalar == Scalar {
+
         self.init(rows: (
             (rows.0.x, rows.0.y, rows.0.z),
             (rows.1.x, rows.1.y, rows.1.z),
@@ -279,7 +282,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
-    public func transformPoint<Vector: Vector3FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+    public func transformPoint<Vector: Vector3FloatingPoint>(
+        _ vec: Vector
+    ) -> Vector where Vector.Scalar == Scalar {
+
         let px = vec.dot(.init(r0Vec))
         let py = vec.dot(.init(r1Vec))
         let pz = vec.dot(.init(r2Vec))
@@ -290,7 +296,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
-    public func transformPoint<Vector: Vector2FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+    public func transformPoint<Vector: Vector2FloatingPoint>(
+        _ vec: Vector
+    ) -> Vector where Vector.Scalar == Scalar {
+
         let vec3 = Vector3(vec, z: 1)
         
         let result = transformPoint(vec3)
@@ -309,7 +318,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// The matrix is transformed as a vector and is not normalized by the Z
     /// vector.
     @_transparent
-    public func transformVector<Vector: Vector2FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+    public func transformVector<Vector: Vector2FloatingPoint>(
+        _ vec: Vector
+    ) -> Vector where Vector.Scalar == Scalar {
+
         let vec3 = Vector3(vec, z: 1)
         
         let result = transformPoint(vec3)
@@ -378,7 +390,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the corresponding coordinate on a supplied vector.
     @_transparent
-    public static func make2DScale<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+    public static func make2DScale<Vector: Vector2Type>(
+        _ vec: Vector
+    ) -> Self where Vector.Scalar == Scalar {
+
         make2DScale(x: vec.x, y: vec.y)
     }
     
@@ -410,7 +425,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
-    public static func make2DTranslation<Vector: Vector2Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+    public static func make2DTranslation<Vector: Vector2Type>(
+        _ vec: Vector
+    ) -> Self where Vector.Scalar == Scalar {
+
         make2DTranslation(x: vec.x, y: vec.y)
     }
 
@@ -426,8 +444,11 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// [skew-symmetric cross product]: https://en.wikipedia.org/wiki/Skew-symmetric_matrix#Cross_product
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @_transparent
-    public static func make3DSkewSymmetricCrossProduct<Vector: Vector3Type>(_ vector: Vector, 
-                                                                            orientation: Orientation3 = .rightHanded) -> Self where Vector.Scalar == Scalar {
+    public static func make3DSkewSymmetricCrossProduct<Vector: Vector3Type>(
+        _ vector: Vector, 
+        orientation: Orientation3 = .rightHanded
+    ) -> Self where Vector.Scalar == Scalar {
+        
         let x = vector.x
         let y = vector.y
         let z = vector.z

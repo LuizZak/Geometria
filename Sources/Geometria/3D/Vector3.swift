@@ -239,7 +239,11 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Self, _ b: Self) -> Self {
-        Self(x: x.addingProduct(a.x, b.x), y: y.addingProduct(a.y, b.y), z: z.addingProduct(a.z, b.z))
+        Self(
+            x: x.addingProduct(a.x, b.x),
+            y: y.addingProduct(a.y, b.y),
+            z: z.addingProduct(a.z, b.z)
+        )
     }
     
     /// Returns the result of adding the product of the given scalar and vector
@@ -253,7 +257,11 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Scalar, _ b: Self) -> Self {
-        Self(x: x.addingProduct(a, b.x), y: y.addingProduct(a, b.y), z: z.addingProduct(a, b.z))
+        Self(
+            x: x.addingProduct(a, b.x),
+            y: y.addingProduct(a, b.y),
+            z: z.addingProduct(a, b.z)
+        )
     }
     
     /// Returns the result of adding the product of the given vector and scalar
@@ -267,14 +275,22 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Self, _ b: Scalar) -> Self {
-        Self(x: x.addingProduct(a.x, b), y: y.addingProduct(a.y, b), z: z.addingProduct(a.z, b))
+        Self(
+            x: x.addingProduct(a.x, b),
+            y: y.addingProduct(a.y, b),
+            z: z.addingProduct(a.z, b)
+        )
     }
     
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
-        Self(x: x.rounded(rule), y: y.rounded(rule), z: z.rounded(rule))
+        Self(
+            x: x.rounded(rule),
+            y: y.rounded(rule),
+            z: z.rounded(rule)
+        )
     }
     
     /// Rounds the components of this `Vector3Type` using a given
@@ -306,16 +322,20 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs.z)
+        )
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs)
+        )
     }
 }
 
@@ -336,16 +356,20 @@ extension Vector3: Vector3FloatingPoint where Scalar: DivisibleArithmetic & Floa
 extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent),
-             y: Scalar.pow(vec.y, exponent),
-             z: Scalar.pow(vec.z, exponent))
+        Self(
+            x: Scalar.pow(vec.x, exponent),
+            y: Scalar.pow(vec.y, exponent),
+            z: Scalar.pow(vec.z, exponent)
+        )
     }
     
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent.x),
-             y: Scalar.pow(vec.y, exponent.y),
-             z: Scalar.pow(vec.z, exponent.z))
+        Self(
+            x: Scalar.pow(vec.x, exponent.x),
+            y: Scalar.pow(vec.y, exponent.y),
+            z: Scalar.pow(vec.z, exponent.z)
+        )
     }
 }
 

@@ -57,7 +57,10 @@ extension Ellipsoid: VolumetricType where Vector: VectorReal {
 extension Ellipsoid: ConvexType where Vector: VectorReal {
     /// - precondition: `radius.minimalComponent > 0`
     @inlinable
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
+        
         let axisToKeep = radius.minimalComponent
         let scale = axisToKeep / radius
         

@@ -59,14 +59,24 @@ extension Vector4: VectorComparable where Scalar: Comparable {
     /// scalar value at each index for both vectors.
     @_transparent
     public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
-        Self(x: min(lhs.x, rhs.x), y: min(lhs.y, rhs.y), z: min(lhs.z, rhs.z), w: min(lhs.w, rhs.w))
+        Self(
+            x: min(lhs.x, rhs.x),
+            y: min(lhs.y, rhs.y),
+            z: min(lhs.z, rhs.z),
+            w: min(lhs.w, rhs.w)
+        )
     }
     
     /// Returns the pointwise maximal Vector where each component is the maximal
     /// scalar value at each index for both vectors.
     @_transparent
     public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
-        Self(x: max(lhs.x, rhs.x), y: max(lhs.y, rhs.y), z: max(lhs.z, rhs.z), w: max(lhs.w, rhs.w))
+        Self(
+            x: max(lhs.x, rhs.x),
+            y: max(lhs.y, rhs.y),
+            z: max(lhs.z, rhs.z),
+            w: max(lhs.w, rhs.w)
+        )
     }
     
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -128,12 +138,22 @@ extension Vector4: VectorAdditive where Scalar: AdditiveArithmetic {
 
     @_transparent
     public static func + (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z, w: lhs.w + rhs.w)
+        Self(
+            x: lhs.x + rhs.x,
+            y: lhs.y + rhs.y,
+            z: lhs.z + rhs.z,
+            w: lhs.w + rhs.w
+        )
     }
     
     @_transparent
     public static func - (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z, w: lhs.w - rhs.w)
+        Self(
+            x: lhs.x - rhs.x,
+            y: lhs.y - rhs.y,
+            z: lhs.z - rhs.z,
+            w: lhs.w - rhs.w
+        )
     }
     
     @_transparent
@@ -169,7 +189,12 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
     
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x * rhs.x, y: lhs.y * rhs.y, z: lhs.z * rhs.z, w: lhs.w * rhs.w)
+        Self(
+            x: lhs.x * rhs.x,
+            y: lhs.y * rhs.y,
+            z: lhs.z * rhs.z,
+            w: lhs.w * rhs.w
+        )
     }
     
     @_transparent
@@ -197,10 +222,12 @@ extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
     
     @_transparent
     public var sign: Self {
-        Self(x: x < 0 ? -1 : (x > 0 ? 1 : 0),
-             y: y < 0 ? -1 : (y > 0 ? 1 : 0),
-             z: z < 0 ? -1 : (z > 0 ? 1 : 0),
-             w: w < 0 ? -1 : (w > 0 ? 1 : 0))
+        Self(
+            x: x < 0 ? -1 : (x > 0 ? 1 : 0),
+            y: y < 0 ? -1 : (y > 0 ? 1 : 0),
+            z: z < 0 ? -1 : (z > 0 ? 1 : 0),
+            w: w < 0 ? -1 : (w > 0 ? 1 : 0)
+        )
     }
     
     /// Negates this Vector
@@ -213,7 +240,12 @@ extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
 extension Vector4: VectorDivisible where Scalar: DivisibleArithmetic {
     @_transparent
     public static func / (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y, z: lhs.z / rhs.z, w: lhs.w / rhs.w)
+        Self(
+            x: lhs.x / rhs.x,
+            y: lhs.y / rhs.y,
+            z: lhs.z / rhs.z,
+            w: lhs.w / rhs.w
+        )
     }
     
     @_transparent
@@ -240,10 +272,12 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Self, _ b: Self) -> Self {
-        Self(x: x.addingProduct(a.x, b.x),
-             y: y.addingProduct(a.y, b.y),
-             z: z.addingProduct(a.z, b.z),
-             w: w.addingProduct(a.w, b.w))
+        Self(
+            x: x.addingProduct(a.x, b.x),
+            y: y.addingProduct(a.y, b.y),
+            z: z.addingProduct(a.z, b.z),
+            w: w.addingProduct(a.w, b.w)
+        )
     }
     
     /// Returns the result of adding the product of the given scalar and vector
@@ -257,10 +291,12 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Scalar, _ b: Self) -> Self {
-        Self(x: x.addingProduct(a, b.x),
-             y: y.addingProduct(a, b.y),
-             z: z.addingProduct(a, b.z),
-             w: w.addingProduct(a, b.w))
+        Self(
+            x: x.addingProduct(a, b.x),
+            y: y.addingProduct(a, b.y),
+            z: z.addingProduct(a, b.z),
+            w: w.addingProduct(a, b.w)
+        )
     }
     
     /// Returns the result of adding the product of the given vector and scalar
@@ -274,20 +310,24 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Self, _ b: Scalar) -> Self {
-        Self(x: x.addingProduct(a.x, b),
-             y: y.addingProduct(a.y, b),
-             z: z.addingProduct(a.z, b),
-             w: w.addingProduct(a.w, b))
+        Self(
+            x: x.addingProduct(a.x, b),
+            y: y.addingProduct(a.y, b),
+            z: z.addingProduct(a.z, b),
+            w: w.addingProduct(a.w, b)
+        )
     }
     
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
-        Self(x: x.rounded(rule),
-             y: y.rounded(rule),
-             z: z.rounded(rule),
-             w: w.rounded(rule))
+        Self(
+            x: x.rounded(rule),
+            y: y.rounded(rule),
+            z: z.rounded(rule),
+            w: w.rounded(rule)
+        )
     }
     
     /// Rounds the components of this `Vector3Type` using a given
@@ -319,18 +359,22 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs.z),
-             w: lhs.w.truncatingRemainder(dividingBy: rhs.w))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs.z),
+            w: lhs.w.truncatingRemainder(dividingBy: rhs.w)
+        )
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs),
-             w: lhs.w.truncatingRemainder(dividingBy: rhs))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs),
+            w: lhs.w.truncatingRemainder(dividingBy: rhs)
+        )
     }
 }
 
@@ -344,27 +388,33 @@ extension Vector4: SignedDistanceMeasurableType where Scalar: DivisibleArithmeti
 extension Vector4: Vector4FloatingPoint where Scalar: DivisibleArithmetic & FloatingPoint {
     @_transparent
     public init<V: Vector4Type>(_ vec: V) where V.Scalar: BinaryInteger {
-        self.init(x: Scalar(vec.x),
-                  y: Scalar(vec.y),
-                  z: Scalar(vec.z),
-                  w: Scalar(vec.w))
+        self.init(
+            x: Scalar(vec.x),
+            y: Scalar(vec.y),
+            z: Scalar(vec.z),
+            w: Scalar(vec.w)
+        )
     }
 }
 
 extension Vector4: VectorReal where Scalar: DivisibleArithmetic & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent),
-             y: Scalar.pow(vec.y, exponent),
-             z: Scalar.pow(vec.z, exponent),
-             w: Scalar.pow(vec.w, exponent))
+        Self(
+            x: Scalar.pow(vec.x, exponent),
+            y: Scalar.pow(vec.y, exponent),
+            z: Scalar.pow(vec.z, exponent),
+            w: Scalar.pow(vec.w, exponent)
+        )
     }
     
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent.x),
-             y: Scalar.pow(vec.y, exponent.y),
-             z: Scalar.pow(vec.z, exponent.z),
-             w: Scalar.pow(vec.w, exponent.w))
+        Self(
+            x: Scalar.pow(vec.x, exponent.x),
+            y: Scalar.pow(vec.y, exponent.y),
+            z: Scalar.pow(vec.z, exponent.z),
+            w: Scalar.pow(vec.w, exponent.w)
+        )
     }
 }

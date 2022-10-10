@@ -110,7 +110,11 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
     }
     
     @_transparent
-    public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
+    public func withPointsScaledBy(
+        _ factor: Vector,
+        around center: Vector
+    ) -> Self {
+        
         let newStart: Vector = (start - center) * factor + center
         
         return Self(start: newStart, direction: direction * factor)

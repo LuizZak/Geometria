@@ -26,7 +26,9 @@ public enum ConvexLineIntersection<Vector: VectorType> {
     /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
     /// is mapped by a provided closure before being stored back into the same
     /// enum case and returned.
-    public func mappingPointNormals(_ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>) -> ConvexLineIntersection<Vector> {
+    public func mappingPointNormals(
+        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>
+    ) -> ConvexLineIntersection<Vector> {
         
         switch self {
         case .contained:
@@ -52,7 +54,9 @@ public enum ConvexLineIntersection<Vector: VectorType> {
     /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
     /// is replaced by a provided closure before being stored back into the same
     /// enum case and returned.
-    public func replacingPointNormals<NewVector: VectorType>(_ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>) -> ConvexLineIntersection<NewVector> {
+    public func replacingPointNormals<NewVector: VectorType>(
+        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>
+    ) -> ConvexLineIntersection<NewVector> {
         
         switch self {
         case .contained:

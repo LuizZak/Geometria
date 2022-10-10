@@ -339,14 +339,18 @@ extension Vector2: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs.y))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs.y)
+        )
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs)
+        )
     }
 }
 
@@ -367,14 +371,18 @@ extension Vector2: Vector2FloatingPoint where Scalar: DivisibleArithmetic & Floa
 extension Vector2: VectorReal where Scalar: DivisibleArithmetic & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent),
-             y: Scalar.pow(vec.y, exponent))
+        Self(
+            x: Scalar.pow(vec.x, exponent),
+            y: Scalar.pow(vec.y, exponent)
+        )
     }
     
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent.x),
-             y: Scalar.pow(vec.y, exponent.y))
+        Self(
+            x: Scalar.pow(vec.x, exponent.x),
+            y: Scalar.pow(vec.y, exponent.y)
+        )
     }
 }
 
@@ -425,15 +433,20 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
     ///
     /// The order of operations are: scaling -> rotation -> translation
     @_transparent
-    public static func matrix(scale: Self = .one,
-                              rotate angle: Scalar = 0,
-                              translate: Self = Self(x: 0, y: 0)) -> Matrix3x2<Scalar> {
+    public static func matrix(
+        scale: Self = .one,
+        rotate angle: Scalar = 0,
+        translate: Self = Self(x: 0, y: 0)
+    ) -> Matrix3x2<Scalar> {
         
-        Matrix3x2<Scalar>.transformation(xScale: scale.x,
-                                       yScale: scale.y,
-                                       angle: angle,
-                                       xOffset: translate.x,
-                                       yOffset: translate.y)
+        Matrix3x2<Scalar>
+            .transformation(
+                xScale: scale.x,
+                yScale: scale.y,
+                angle: angle,
+                xOffset: translate.x,
+                yOffset: translate.y
+            )
     }
     
     @_transparent

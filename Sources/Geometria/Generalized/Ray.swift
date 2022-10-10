@@ -83,7 +83,10 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
     
     /// Returns `true` for all positive projected scalars (ray)
     @_transparent
-    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
+    public func containsProjectedNormalizedMagnitude(
+        _ scalar: Vector.Scalar
+    ) -> Bool {
+
         scalar >= 0
     }
     
@@ -92,7 +95,10 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
     ///
     /// For ``Ray``, this is a clamped inclusive (0-∞ range.
     @_transparent
-    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+    public func clampProjectedNormalizedMagnitude(
+        _ scalar: Vector.Scalar
+    ) -> Vector.Scalar {
+        
         max(0, scalar)
     }
     

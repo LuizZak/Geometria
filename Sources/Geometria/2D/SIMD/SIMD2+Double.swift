@@ -294,15 +294,20 @@ extension SIMD2: Vector2Real where Scalar == Double {
     ///
     /// The order of operations are: scaling -> rotation -> translation
     @inlinable
-    public static func matrix(scale: Self = .one,
-                              rotate angle: Scalar = 0,
-                              translate: Self = Self(x: 0, y: 0)) -> Matrix3x2<Scalar> {
+    public static func matrix(
+        scale: Self = .one,
+        rotate angle: Scalar = 0,
+        translate: Self = Self(x: 0, y: 0)
+    ) -> Matrix3x2<Scalar> {
         
-        Matrix3x2<Scalar>.transformation(xScale: scale.x,
-                                       yScale: scale.y,
-                                       angle: angle,
-                                       xOffset: translate.x,
-                                       yOffset: translate.y)
+        Matrix3x2<Scalar>
+            .transformation(
+                xScale: scale.x,
+                yScale: scale.y,
+                angle: angle,
+                xOffset: translate.x,
+                yOffset: translate.y
+            )
     }
     
     @inlinable

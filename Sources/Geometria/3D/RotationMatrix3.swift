@@ -34,11 +34,13 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotation(_ angle1InRadians: Scalar,
-                               _ angle2InRadians: Scalar,
-                               _ angle3InRadians: Scalar,
-                               order: RotationOrder3,
-                               orientation: Orientation3 = .rightHanded) -> Self {
+    static func make3DRotation(
+        _ angle1InRadians: Scalar,
+        _ angle2InRadians: Scalar,
+        _ angle3InRadians: Scalar,
+        order: RotationOrder3,
+        orientation: Orientation3 = .rightHanded
+    ) -> Self {
         
         let r1: Self
         let r2: Self
@@ -119,7 +121,11 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotationX(_ angleInRadians: Scalar, orientation: Orientation3 = .rightHanded) -> RotationMatrix3 {
+    static func make3DRotationX(
+        _ angleInRadians: Scalar,
+        orientation: Orientation3 = .rightHanded
+    ) -> RotationMatrix3 {
+
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(orientation == .rightHanded ? angleInRadians : -angleInRadians)
         
@@ -136,7 +142,11 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotationY(_ angleInRadians: Scalar, orientation: Orientation3 = .rightHanded) -> RotationMatrix3 {
+    static func make3DRotationY(
+        _ angleInRadians: Scalar,
+        orientation: Orientation3 = .rightHanded
+    ) -> RotationMatrix3 {
+
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(orientation == .rightHanded ? angleInRadians : -angleInRadians)
         
@@ -153,7 +163,11 @@ public extension RotationMatrix3 {
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @inlinable
-    static func make3DRotationZ(_ angleInRadians: Scalar, orientation: Orientation3 = .rightHanded) -> RotationMatrix3 {
+    static func make3DRotationZ(
+        _ angleInRadians: Scalar,
+        orientation: Orientation3 = .rightHanded
+    ) -> RotationMatrix3 {
+
         // Same as 2D rotation (around Z axis)
         make2DRotation(orientation == .rightHanded ? angleInRadians : -angleInRadians)
     }
@@ -166,8 +180,12 @@ public extension RotationMatrix3 {
     ///
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
-    static func make3DRotationFromAxisAngle<Vector: Vector3FloatingPoint>(axis: Vector, _ angleInRadians: Scalar, 
-                                                                          orientation: Orientation3 = .rightHanded) -> RotationMatrix3 where Vector.Scalar == Scalar {
+    static func make3DRotationFromAxisAngle<Vector: Vector3FloatingPoint>(
+        axis: Vector,
+        _ angleInRadians: Scalar, 
+        orientation: Orientation3 = .rightHanded
+    ) -> RotationMatrix3 where Vector.Scalar == Scalar {
+
         let axis = axis.normalized()
 
         let c = Scalar.cos(angleInRadians)
@@ -203,9 +221,11 @@ public extension RotationMatrix3 {
     ///
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
-    static func make3DRotationBetween<Vector: Vector3FloatingPoint>(_ vectorA: Vector, 
-                                                                    _ vectorB: Vector,
-                                                                    orientation: Orientation3 = .rightHanded) -> RotationMatrix3 where Vector.Scalar == Scalar {
+    static func make3DRotationBetween<Vector: Vector3FloatingPoint>(
+        _ vectorA: Vector, 
+        _ vectorB: Vector,
+        orientation: Orientation3 = .rightHanded
+    ) -> RotationMatrix3 where Vector.Scalar == Scalar {
         
         let vectorA = vectorA.normalized()
         let vectorB = vectorB.normalized()
