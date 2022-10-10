@@ -81,8 +81,8 @@ public extension Vector2D {
     // Matrix multiplication
     @inlinable
     static func * (lhs: Self, rhs: double3x3) -> Self {
-        let homog: SIMD3<Scalar> = .init(lhs.x, lhs.y, 1)
-        let transformed: SIMD3<Scalar> = homog * rhs
+        let homogenous: SIMD3<Scalar> = .init(lhs.x, lhs.y, 1)
+        let transformed: SIMD3<Scalar> = homogenous * rhs
         
         return Self(x: transformed.x, y: transformed.y)
     }

@@ -19,6 +19,7 @@ class Comparable_ClampTests: XCTestCase {
     #if ENABLE_SIMD
     #if canImport(simd)
 
+    // cspell:disable-next-line
     func testClamp_doesntShadowSIMDClamp() {
         // Test that clamp() doesn't shadows SIMD's clamp() function
         let a = SIMD2<Double>(1, 2)

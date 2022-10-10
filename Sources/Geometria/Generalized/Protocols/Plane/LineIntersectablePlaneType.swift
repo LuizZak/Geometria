@@ -31,9 +31,9 @@ public extension LineIntersectablePlaneType {
             return nil
         }
         
-        let numer = normal.dot(pointOnPlane - line.a)
+        let num = normal.dot(pointOnPlane - line.a)
         
-        return numer / denom
+        return num / denom
     }
     
     @inlinable

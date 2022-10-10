@@ -30,6 +30,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testUnequality() {
+        // cspell: disable-next-line
         // [D]ifferent value
         let D = 99.0
         

@@ -4,6 +4,7 @@ import Foundation
 // This source code is partially based on SharpDX's Matrix3x2.cs & MathUtils.cs
 // implementations, the license of which is stated bellow:
 
+// cspell: disable-next-line
 // Copyright (c) 2010-2014 SharpDX - Alexandre Mutel
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -619,16 +620,16 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
             return identity
         }
         
-        let invdet = Scalar(1) / determinant
+        let invDet = Scalar(1) / determinant
         let offsetX = value.m31
         let offsetY = value.m32
         
-        let m11 = value.m22 * invdet
-        let m12 = -value.m12 * invdet
-        let m21 = -value.m21 * invdet
-        let m22 = value.m11 * invdet
-        let m31: Scalar = ((value.m21 * offsetY as Scalar - offsetX * value.m22) as Scalar) * invdet
-        let m32: Scalar = ((offsetX * value.m12 as Scalar - value.m11 * offsetY) as Scalar) * invdet
+        let m11 = value.m22 * invDet
+        let m12 = -value.m12 * invDet
+        let m21 = -value.m21 * invDet
+        let m22 = value.m11 * invDet
+        let m31: Scalar = ((value.m21 * offsetY as Scalar - offsetX * value.m22) as Scalar) * invDet
+        let m32: Scalar = ((offsetX * value.m12 as Scalar - value.m11 * offsetY) as Scalar) * invDet
         
         return Matrix3x2(
             m11: m11,

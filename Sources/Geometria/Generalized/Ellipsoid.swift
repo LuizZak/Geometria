@@ -90,8 +90,8 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
         case .exit(let pn):
             return .exit(scalePointNormal(pn))
 
-        case let .enterExit(penter, pexit):
-            return .enterExit(scalePointNormal(penter), scalePointNormal(pexit))
+        case let .enterExit(pEnter, pExit):
+            return .enterExit(scalePointNormal(pEnter), scalePointNormal(pExit))
         }
     }
 }

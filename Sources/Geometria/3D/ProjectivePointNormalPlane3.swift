@@ -23,7 +23,7 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3FloatingPoint>: PointPr
     /// defines the right, or x, axis for the projective plane.
     ///
     /// This value is derived from ``normal`` and ``upAxis``, and is provided
-    /// along with those values to reduce recomputations when handling projections.
+    /// along with those values to reduce recomputation when handling projections.
     @UnitVector public var rightAxis: Vector
     
     @_transparent

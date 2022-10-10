@@ -94,8 +94,8 @@ extension Disk3: LineIntersectablePlaneType {
             return nil
         }
         
-        let numer = normal.dot(pointOnPlane - line.a)
-        return numer / denom
+        let num = normal.dot(pointOnPlane - line.a)
+        return num / denom
     }
     
     /// Returns the normalized magnitude for a line's intersection point on this

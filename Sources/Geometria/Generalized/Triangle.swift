@@ -112,10 +112,10 @@ public extension Triangle where Vector: VectorFloatingPoint {
         
         let abL = ab.lengthSquared
         let acL = ac.lengthSquared
-        let abacD = ab.lineSlope.dot(ac.lineSlope)
+        let abacD = ab.lineSlope.dot(ac.lineSlope) // cspell: disable-line
         
         let resL: Scalar = abL * acL
-        let resR: Scalar = (abacD * abacD)
+        let resR: Scalar = (abacD * abacD) // cspell: disable-line
         let res: Scalar = resL - resR
         
         return res.squareRoot() / 2

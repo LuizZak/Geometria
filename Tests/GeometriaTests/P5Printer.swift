@@ -388,7 +388,7 @@ class P5Printer {
     func printSetup() {
         indentedBlock("function setup() {") {
             if is3D {
-                printLine("createCanvas(\(vec2String(size)), WEBGL)")
+                printLine("createCanvas(\(vec2String(size)), WEBGL)") // cspell:disable-line
                 printLine("perspective(PI / 3, 1, 0.3, 8000) // Corrects default zNear plane being too far for unit measurements")
                 
                 if cameraLookAt != .zero {
@@ -691,14 +691,14 @@ class P5Printer {
     func indented(_ block: () -> Void) {
         indent()
         block()
-        deindent()
+        unindent()
     }
     
     func indent() {
         currentIndent += 1
     }
     
-    func deindent() {
+    func unindent() {
         currentIndent -= 1
     }
 

@@ -77,12 +77,12 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     
     @usableFromInline
     func containsProjectedPoint(_ vector: Vector) -> Bool {
-        let bary = toBarycentric(vector)
-        guard bary.wa >= 0, bary.wb >= 0, bary.wc >= 0 else {
+        let barycenter = toBarycentric(vector)
+        guard barycenter.wa >= 0, barycenter.wb >= 0, barycenter.wc >= 0 else {
             return false
         }
         
-        return (bary.wa + bary.wb + bary.wc) <= 1
+        return (barycenter.wa + barycenter.wb + barycenter.wc) <= 1
     }
     
     /// Returns the normalized magnitude for a line's intersection point on this

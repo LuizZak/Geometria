@@ -81,7 +81,7 @@ public extension Triangle2 where Vector: Vector2Multiplicative & VectorDivisible
     /// In Cartesian space where Y grows positively up, the winding is `-1` for
     /// clockwise windings and `-1` for counter-clockwise windings.
     ///
-    /// If the area of this triangle is `== .zerp`, `0` is returned, instead.
+    /// If the area of this triangle is `== .zero`, `0` is returned, instead.
     @_transparent
     var winding: Scalar {
         let a = signedDoubleArea

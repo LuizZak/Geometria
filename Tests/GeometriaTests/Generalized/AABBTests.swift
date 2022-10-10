@@ -1321,7 +1321,7 @@ extension AABBTests {
     func testIntersectionWith_3d_ray_acrossTopQuadrant_yPositiveAngled() {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the Y coordinate through the near (X: 20, Z: 7) quadrant, with
-        // a downard slope that cuts to the far bottom (X: 20, Z: 3) quadrant.
+        // a downward slope that cuts to the far bottom (X: 20, Z: 3) quadrant.
         
         let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
         let line = DirectionalRay3D(x1: 20, y1: -5, z1: 7, x2: 20, y2: 25, z2: 3)
@@ -1344,7 +1344,7 @@ extension AABBTests {
     func testIntersectionWith_3d_ray_offset_acrossTopQuadrant_yPositiveAngled() {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10)
         // with an offset from origin of (x2, y3, z4), along the Y coordinate
-        // through the near (X: 20, Z: 7) quadrant, with a downard slope that
+        // through the near (X: 20, Z: 7) quadrant, with a downward slope that
         // cuts to the bottom far (Y: 17, Z: 4) quadrant.
         
         let sut = AABB3(minimum: .init(x: 2, y: 3, z: 4), maximum: .init(x: 30, y: 20, z: 10))

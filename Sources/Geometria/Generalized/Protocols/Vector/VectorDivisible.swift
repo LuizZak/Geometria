@@ -44,8 +44,8 @@ public extension Collection {
             return .zero
         }
         
-        let accum: V = reduce(into: .zero) { $0 += $1 }
+        let sum: V = reduce(into: .zero) { $0 += $1 }
         
-        return accum / V.Scalar(count)
+        return sum / V.Scalar(count)
     }
 }

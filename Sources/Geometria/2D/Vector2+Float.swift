@@ -80,8 +80,8 @@ public extension Vector2F {
     // Matrix multiplication
     @inlinable
     static func * (lhs: Self, rhs: float3x3) -> Self {
-        let homog: SIMD3<Scalar> = SIMD3<Scalar>(lhs.x, lhs.y, 1)
-        let transformed: SIMD3<Scalar> = homog * rhs
+        let homogenous: SIMD3<Scalar> = SIMD3<Scalar>(lhs.x, lhs.y, 1)
+        let transformed: SIMD3<Scalar> = homogenous * rhs
         
         return Self(x: transformed.x, y: transformed.y)
     }

@@ -57,7 +57,7 @@ public extension NSphere where Scalar: AdditiveArithmetic {
 }
 
 public extension NSphere where Vector: VectorMultiplicative {
-    /// Retunrs an ``NSphere`` with center `.zero` and radius `1`.
+    /// Returns an ``NSphere`` with center `.zero` and radius `1`.
     @_transparent
     static var unit: Self {
         Self(center: .zero, radius: 1)

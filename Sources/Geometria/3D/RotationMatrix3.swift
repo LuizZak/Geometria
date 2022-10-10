@@ -176,7 +176,7 @@ public extension RotationMatrix3 {
     /// axis](https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle) 
     /// with a given [orientation] (handedness), by a given angle in radians.
     ///
-    /// `axis` is normalized pior to the creation of the rotation matrix.
+    /// `axis` is normalized prior to the creation of the rotation matrix.
     ///
     /// [rotation matrix]: https://en.wikipedia.org/wiki/Rotation_matrix
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
@@ -214,7 +214,7 @@ public extension RotationMatrix3 {
     /// the same direction as `vectorB`, with a given [orientation] (handedness).
     ///
     /// `vectorA` and `vectorB` are assumed to be directional vectors, and will 
-    /// be normalized pior to the creation of the rotation matrix.
+    /// be normalized prior to the creation of the rotation matrix.
     ///
     /// If `vectorA` and `vectorB` point on the same direction, an identity matrix
     /// is returned, instead.
