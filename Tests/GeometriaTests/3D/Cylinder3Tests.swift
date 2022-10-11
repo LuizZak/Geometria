@@ -6,9 +6,11 @@ class Cylinder3Tests: XCTestCase {
     typealias Cylinder = Cylinder3<Vector3D>
     
     func testAsLine() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 5, y: 7, z: 11),
-                           radius: 1)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 5, y: 7, z: 11),
+            radius: 1
+        )
         
         let result = sut.asLineSegment
         
@@ -17,9 +19,11 @@ class Cylinder3Tests: XCTestCase {
     }
     
     func testAsCapsule() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 5, y: 7, z: 11),
-                           radius: 1)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 5, y: 7, z: 11),
+            radius: 1
+        )
         
         let result = sut.asCapsule
         
@@ -29,33 +33,41 @@ class Cylinder3Tests: XCTestCase {
     }
     
     func testIsValid() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 1, y: 2, z: 5),
-                           radius: 1)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 1, y: 2, z: 5),
+            radius: 1
+        )
         
         XCTAssertTrue(sut.isValid)
     }
     
     func testIsValid_zeroLengthCylinder_returnsFalse() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 1, y: 2, z: 3),
-                           radius: 1)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 1, y: 2, z: 3),
+            radius: 1
+        )
         
         XCTAssertFalse(sut.isValid)
     }
     
     func testIsValid_zeroRadiusCylinder_returnsFalse() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 1, y: 2, z: 5),
-                           radius: 0)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 1, y: 2, z: 5),
+            radius: 0
+        )
         
         XCTAssertFalse(sut.isValid)
     }
     
     func testIsValid_negativeRadiusCylinder_returnsFalse() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 1, y: 2, z: 5),
-                           radius: -4)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 1, y: 2, z: 5),
+            radius: -4
+        )
         
         XCTAssertFalse(sut.isValid)
     }
@@ -65,9 +77,11 @@ class Cylinder3Tests: XCTestCase {
 
 extension Cylinder3Tests {
     func testBounds_zeroHeightCylinder() {
-        let sut = Cylinder(start: .unitY,
-                           end: .unitY,
-                           radius: 1)
+        let sut = Cylinder(
+            start: .unitY,
+            end: .unitY,
+            radius: 1
+        )
         
         let result = sut.bounds
         
@@ -76,9 +90,11 @@ extension Cylinder3Tests {
     }
     
     func testBounds_unitLengthCylinder() {
-        let sut = Cylinder(start: .zero,
-                           end: .unitZ,
-                           radius: 1)
+        let sut = Cylinder(
+            start: .zero,
+            end: .unitZ,
+            radius: 1
+        )
         
         let result = sut.bounds
         
@@ -87,9 +103,11 @@ extension Cylinder3Tests {
     }
     
     func testBounds_verticalCylinder() {
-        let sut = Cylinder(start: .zero,
-                           end: .unitZ * 20,
-                           radius: 3)
+        let sut = Cylinder(
+            start: .zero,
+            end: .unitZ * 20,
+            radius: 3
+        )
         
         let result = sut.bounds
         
@@ -98,9 +116,11 @@ extension Cylinder3Tests {
     }
     
     func testBounds_skewedCylinder() {
-        let sut = Cylinder(start: .init(x: -2, y: 0, z: 0),
-                           end: .init(x: 3, y: 5, z: 40),
-                           radius: 4)
+        let sut = Cylinder(
+            start: .init(x: -2, y: 0, z: 0),
+            end: .init(x: 3, y: 5, z: 40),
+            radius: 4
+        )
         
         let result = sut.bounds
         
@@ -113,9 +133,11 @@ extension Cylinder3Tests {
 
 extension Cylinder3Tests {
     func testStartAsDisk() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 29, y: 31, z: 37),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 29, y: 31, z: 37),
+            radius: 5
+        )
         
         let result = sut.startAsDisk
         
@@ -125,9 +147,11 @@ extension Cylinder3Tests {
     }
     
     func testEndAsDisk() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 3),
-                           end: .init(x: 29, y: 31, z: 37),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 29, y: 31, z: 37),
+            radius: 5
+        )
         
         let result = sut.endAsDisk
         
@@ -137,18 +161,22 @@ extension Cylinder3Tests {
     }
     
     func testContains_withinLineProjection_returnsTrue() {
-        let sut = Cylinder(start: .init(x: 13, y: 17, z: 5),
-                           end: .init(x: 13, y: 29, z: 5),
-                           radius: 3)
+        let sut = Cylinder(
+            start: .init(x: 13, y: 17, z: 5),
+            end: .init(x: 13, y: 29, z: 5),
+            radius: 3
+        )
         
         XCTAssertTrue(sut.contains(x: 12, y: 20, z: 5))
         XCTAssertTrue(sut.contains(x: 14, y: 20, z: 5))
     }
     
     func testContains_outOfBounds_returnsFalse() {
-        let sut = Cylinder(start: .init(x: 13, y: 17, z: 5),
-                           end: .init(x: 13, y: 29, z: 5),
-                           radius: 3)
+        let sut = Cylinder(
+            start: .init(x: 13, y: 17, z: 5),
+            end: .init(x: 13, y: 29, z: 5),
+            radius: 3
+        )
         
         XCTAssertFalse(sut.contains(.init(x: 9, y: 20, z: 5)))
         XCTAssertFalse(sut.contains(.init(x: 17, y: 20, z: 5)))
@@ -157,9 +185,11 @@ extension Cylinder3Tests {
     }
     
     func testContains_withinLineDistanceAtEnds_returnsFalse() {
-        let sut = Cylinder(start: .init(x: 13, y: 17, z: 5),
-                           end: .init(x: 13, y: 29, z: 5),
-                           radius: 3)
+        let sut = Cylinder(
+            start: .init(x: 13, y: 17, z: 5),
+            end: .init(x: 13, y: 29, z: 5),
+            radius: 3
+        )
         
         XCTAssertFalse(sut.contains(x: 12, y: 16, z: 5))
         XCTAssertFalse(sut.contains(x: 14, y: 30, z: 5))
@@ -170,9 +200,11 @@ extension Cylinder3Tests {
 
 extension Cylinder3Tests {
     func testProject_pointOnTopOfStart_center() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 2, z: 20)
         
         let result = sut.project(point)
@@ -181,9 +213,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_pointOnTopOfStart_offCenter() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 0, y: -1, z: 20)
         
         let result = sut.project(point)
@@ -192,9 +226,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_pointOnTopOfStart_offRadius() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: 20)
         
         let result = sut.project(point)
@@ -203,9 +239,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_pointBelowEnd_center() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 2, z: -10)
         
         let result = sut.project(point)
@@ -214,9 +252,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_pointBelowEnd_offCenter() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 0, y: -1, z: -10)
         
         let result = sut.project(point)
@@ -225,9 +265,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_pointBelowEnd_offRadius() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: -10)
         
         let result = sut.project(point)
@@ -236,9 +278,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_betweenEnds() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: 5)
         
         let result = sut.project(point)
@@ -247,9 +291,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_withinCylinder_closerToEdge() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -1, y: -2, z: 5)
         
         let result = sut.project(point)
@@ -258,9 +304,11 @@ extension Cylinder3Tests {
     }
     
     func testProjection_withinCylinder_closerToStartEdge() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 1, z: 9)
         
         let result = sut.project(point)
@@ -269,9 +317,11 @@ extension Cylinder3Tests {
     }
     
     func testProjection_withinCylinder_closerToEndEdge() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 1, z: 1)
         
         let result = sut.project(point)
@@ -280,9 +330,11 @@ extension Cylinder3Tests {
     }
     
     func testProject_withinCylinder_onLine() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 2, z: 5)
         
         let result = sut.project(point)
@@ -295,9 +347,11 @@ extension Cylinder3Tests {
 
 extension Cylinder3Tests {
     func testSignedDistanceTo_pointOnTopOfStart_center() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 2, z: 20)
         
         let result = sut.signedDistance(to: point)
@@ -307,9 +361,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_pointOnTopOfStart_offCenter() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 0, y: -1, z: 20)
         
         let result = sut.signedDistance(to: point)
@@ -319,9 +375,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_pointOnTopOfStart_offRadius() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: 20)
         
         let result = sut.signedDistance(to: point)
@@ -331,9 +389,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_pointBelowEnd_center() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 2, z: -10)
         
         let result = sut.signedDistance(to: point)
@@ -343,9 +403,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_pointBelowEnd_offCenter() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 0, y: -1, z: -10)
         
         let result = sut.signedDistance(to: point)
@@ -355,9 +417,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_pointBelowEnd_offRadius() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: -10)
         
         let result = sut.signedDistance(to: point)
@@ -367,9 +431,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_betweenEnds() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: 5)
         
         let result = sut.signedDistance(to: point)
@@ -379,9 +445,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_withinCylinder_closerToEdge() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: -1, y: -2, z: 5)
         
         let result = sut.signedDistance(to: point)
@@ -391,9 +459,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_withinCylinder_closerToStart() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 1, z: 9)
         
         let result = sut.signedDistance(to: point)
@@ -403,9 +473,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_withinCylinder_closerToEnd() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 1, z: 1)
         
         let result = sut.signedDistance(to: point)
@@ -415,9 +487,11 @@ extension Cylinder3Tests {
     }
     
     func testSignedDistanceTo_withinCylinder_onLine() {
-        let sut = Cylinder(start: .init(x: 1, y: 2, z: 10),
-                           end: .init(x: 1, y: 2, z: 0),
-                           radius: 5)
+        let sut = Cylinder(
+            start: .init(x: 1, y: 2, z: 10),
+            end: .init(x: 1, y: 2, z: 0),
+            radius: 5
+        )
         let point = Vector3D(x: 1, y: 2, z: 5)
         
         let result = sut.signedDistance(to: point)
@@ -437,11 +511,15 @@ extension Cylinder3Tests {
     // MARK: Line
     
     func testIntersectionWith_line_noIntersection() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: -25, y1: 0, z1: 5,
-                        x2: -20, y2: 0, z2: 15)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: -25, y1: 0, z1: 5,
+            x2: -20, y2: 0, z2: 15
+        )
         
         let result = sut.intersection(with: line)
         
@@ -449,11 +527,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_slantedIntersection() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: -25, y1: 0, z1: 5,
-                        x2: 25, y2: 0, z2: 15)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: -25, y1: 0, z1: 5,
+            x2: 25, y2: 0, z2: 15
+        )
         
         let result = sut.intersection(with: line)
         
@@ -473,11 +555,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_parallel_alongCenter() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: -20, y1: 0, z1: 5,
-                        x2: 20, y2: 0, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: -20, y1: 0, z1: 5,
+            x2: 20, y2: 0, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -497,11 +583,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_parallel_offCenter() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: -20, y1: 2, z1: 5,
-                        x2: 20, y2: 2, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: -20, y1: 2, z1: 5,
+            x2: 20, y2: 2, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -521,11 +611,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_slanted_center() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 20),
-                           radius: 5)
-        let line = Line(x1: -7, y1: 0, z1: 8,
-                        x2: 7, y2: 0, z2: 12)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 20),
+            radius: 5
+        )
+        let line = Line(
+            x1: -7, y1: 0, z1: 8,
+            x2: 7, y2: 0, z2: 12
+        )
         
         let result = sut.intersection(with: line)
         
@@ -545,11 +639,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_exitOnEnd() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: -7, y1: 0, z1: 8,
-                        x2: 7, y2: 0, z2: 12)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: -7, y1: 0, z1: 8,
+            x2: 7, y2: 0, z2: 12
+        )
         
         let result = sut.intersection(with: line)
         
@@ -569,11 +667,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_exitOnStart() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: -7, y1: 0, z1: 2,
-                        x2: 7, y2: 0, z2: -2)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: -7, y1: 0, z1: 2,
+            x2: 7, y2: 0, z2: -2
+        )
         
         let result = sut.intersection(with: line)
         
@@ -593,11 +695,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_acrossCylinderHeight() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: 2, y1: 1, z1: -10,
-                        x2: 2, y2: 1, z2: 20)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: 2, y1: 1, z1: -10,
+            x2: 2, y2: 1, z2: 20
+        )
         
         let result = sut.intersection(with: line)
         
@@ -617,11 +723,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_acrossCylinderHeight_offRadiusWithinBounds() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: 4, y1: 4, z1: -10,
-                        x2: 4, y2: 4, z2: 20)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: 4, y1: 4, z1: -10,
+            x2: 4, y2: 4, z2: 20
+        )
         
         let result = sut.intersection(with: line)
         
@@ -629,11 +739,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_acrossCylinderHeight_offRadiusOffBounds() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Line(x1: 10, y1: 10, z1: -10,
-                        x2: 10, y2: 10, z2: 20)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Line(
+            x1: 10, y1: 10, z1: -10,
+            x2: 10, y2: 10, z2: 20
+        )
         
         let result = sut.intersection(with: line)
         
@@ -643,11 +757,15 @@ extension Cylinder3Tests {
     // MARK: Line Segment
     
     func testIntersectionWith_lineSegment_parallel_alongCenter_endsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: -20, y1: 0, z1: 5,
-                               x2: 0, y2: 0, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: -20, y1: 0, z1: 5,
+            x2: 0, y2: 0, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -663,11 +781,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_parallel_alongCenter_startWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: 0, y1: 0, z1: 5,
-                               x2: 20, y2: 0, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 0, y1: 0, z1: 5,
+            x2: 20, y2: 0, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -683,11 +805,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_parallel_offCenter_endsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: -20, y1: 2, z1: 5,
-                               x2: 0, y2: 2, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: -20, y1: 2, z1: 5,
+            x2: 0, y2: 2, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -703,11 +829,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_parallel_offCenter_startsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: 0, y1: 2, z1: 5,
-                               x2: 20, y2: 2, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 0, y1: 2, z1: 5,
+            x2: 20, y2: 2, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -723,11 +853,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_slanted_center_endsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 20),
-                           radius: 5)
-        let line = LineSegment(x1: -7, y1: 0, z1: 8,
-                               x2: 0, y2: 0, z2: 12)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 20),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: -7, y1: 0, z1: 8,
+            x2: 0, y2: 0, z2: 12
+        )
         
         let result = sut.intersection(with: line)
         
@@ -743,11 +877,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_slanted_center_startsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 20),
-                           radius: 5)
-        let line = LineSegment(x1: 0, y1: 0, z1: 8,
-                               x2: -7, y2: 0, z2: 12)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 20),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 0, y1: 0, z1: 8,
+            x2: -7, y2: 0, z2: 12
+        )
         
         let result = sut.intersection(with: line)
         
@@ -763,11 +901,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_exitOnEnd_endsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: -7, y1: 0, z1: 6,
-                               x2: 0, y2: 0, z2: 9)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: -7, y1: 0, z1: 6,
+            x2: 0, y2: 0, z2: 9
+        )
         
         let result = sut.intersection(with: line)
         
@@ -783,11 +925,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_lineSegment_exitOnEnd_startsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: 0, y1: 0, z1: 8,
-                               x2: 5, y2: 0, z2: 12)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 0, y1: 0, z1: 8,
+            x2: 5, y2: 0, z2: 12
+        )
         
         let result = sut.intersection(with: line)
         
@@ -803,11 +949,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_exitOnStart_endsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: -7, y1: 0, z1: -2,
-                               x2: 0, y2: 0, z2: 2)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: -7, y1: 0, z1: -2,
+            x2: 0, y2: 0, z2: 2
+        )
         
         let result = sut.intersection(with: line)
         
@@ -823,11 +973,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_acrossCylinderHeight_startsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: 2, y1: 1, z1: 2,
-                               x2: 2, y2: 1, z2: 20)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 2, y1: 1, z1: 2,
+            x2: 2, y2: 1, z2: 20
+        )
         
         let result = sut.intersection(with: line)
         
@@ -843,11 +997,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_acrossCylinderHeight_endsWithinCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: 2, y1: 1, z1: -10,
-                               x2: 2, y2: 1, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 2, y1: 1, z1: -10,
+            x2: 2, y2: 1, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         
@@ -863,11 +1021,15 @@ extension Cylinder3Tests {
     }
     
     func testIntersectionWith_line_contained() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = LineSegment(x1: 2, y1: 1, z1: 2,
-                               x2: -2, y2: -1, z2: 7)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = LineSegment(
+            x1: 2, y1: 1, z1: 2,
+            x2: -2, y2: -1, z2: 7
+        )
         
         let result = sut.intersection(with: line)
         
@@ -876,11 +1038,15 @@ extension Cylinder3Tests {
     
     // Ray
     func testIntersectionWith_ray_parallel_alongCenter_endsBeforeCylinder() {
-        let sut = Cylinder(start: .init(x: 0, y: 0, z: 0),
-                           end: .init(x: 0, y: 0, z: 10),
-                           radius: 5)
-        let line = Ray(x1: -20, y1: 0, z1: 5,
-                       x2: -15, y2: 0, z2: 5)
+        let sut = Cylinder(
+            start: .init(x: 0, y: 0, z: 0),
+            end: .init(x: 0, y: 0, z: 10),
+            radius: 5
+        )
+        let line = Ray(
+            x1: -20, y1: 0, z1: 5,
+            x2: -15, y2: 0, z2: 5
+        )
         
         let result = sut.intersection(with: line)
         

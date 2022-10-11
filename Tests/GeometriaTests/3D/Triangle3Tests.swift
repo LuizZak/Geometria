@@ -10,8 +10,7 @@ class Triangle3Tests: XCTestCase {
 
 extension Triangle3Tests {
     func testNormal_onPlaneXY() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 0, y: 1, z: 0),
             c: .init(x: 1, y: 0, z: 0)
@@ -23,8 +22,7 @@ extension Triangle3Tests {
     }
     
     func testNormal_onPlaneXY_counterClockwise() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 1, y: 0, z: 0),
             c: .init(x: 0, y: 1, z: 0)
@@ -36,8 +34,7 @@ extension Triangle3Tests {
     }
     
     func testNormal_slanted() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 0, y: 1, z: 1),
             c: .init(x: 1, y: 0, z: 0)
@@ -49,8 +46,7 @@ extension Triangle3Tests {
     }
     
     func testNormal_colinear() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 1, y: 1, z: 1),
             c: .init(x: 2, y: 2, z: 2)
@@ -70,8 +66,7 @@ extension Triangle3Tests {
     }
     
     func testAsPlane_onPlaneXY() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 0, y: 1, z: 0),
             c: .init(x: 1, y: 0, z: 0)
@@ -84,8 +79,7 @@ extension Triangle3Tests {
     }
     
     func testAsPlane_onPlaneXY_counterClockwise() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 1, y: 0, z: 0),
             c: .init(x: 0, y: 1, z: 0)
@@ -98,8 +92,7 @@ extension Triangle3Tests {
     }
     
     func testAsPlane_slanted() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 0, y: 1, z: 1),
             c: .init(x: 1, y: 0, z: 0)
@@ -112,8 +105,7 @@ extension Triangle3Tests {
     }
     
     func testAsPlane_colinear() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x: 0, y: 0, z: 0),
             b: .init(x: 1, y: 1, z: 1),
             c: .init(x: 2, y: 2, z: 2)
@@ -139,8 +131,7 @@ extension Triangle3Tests {
 
 extension Triangle3Tests {
     func testUnclampedNormalMagnitudeForIntersection_line_withinTriangleBounds() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -153,8 +144,7 @@ extension Triangle3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_line_outsideTriangleBounds1() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -167,8 +157,7 @@ extension Triangle3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_line_outsideTriangleBounds2() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -181,8 +170,7 @@ extension Triangle3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_line_outsideTriangleBounds3() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -195,8 +183,7 @@ extension Triangle3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_line_parallel() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -209,8 +196,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_withinTriangleBounds() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -223,8 +209,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -237,8 +222,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds_pastAPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -251,8 +235,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds_pastBPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -265,8 +248,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds_pastCPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -279,8 +261,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds_pastAEdge() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -293,8 +274,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds_pastBEdge() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -307,8 +287,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_outsideTriangleBounds_pastCEdge() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -321,8 +300,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_line_parallel() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -335,8 +313,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_ray_afterEndOfLine() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -349,8 +326,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_ray_beforeStartOfLine() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -363,8 +339,7 @@ extension Triangle3Tests {
     }
     
     func testIntersectionWith_lineSegment_afterEndOfLine() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -377,8 +352,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_withinTriangleBounds() throws {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -395,8 +369,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -409,8 +382,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastAPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -423,8 +395,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastBPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -437,8 +408,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastCPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -451,8 +421,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastAEdge() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -465,8 +434,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastBEdge() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -479,8 +447,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_outsideTriangleBounds_pastCEdge() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -493,8 +460,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_line_parallel() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -507,8 +473,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_ray_afterEndOfLine() throws {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -525,8 +490,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_ray_beforeStartOfLine() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -539,8 +503,7 @@ extension Triangle3Tests {
     }
     
     func testMollerTrumboreIntersectWith_lineSegment_afterEndOfLine() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -553,8 +516,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentricXYZ() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -568,8 +530,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentric_aPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -584,8 +545,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentric_bPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -600,8 +560,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentric_cPoint() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -616,8 +575,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentric_center() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -632,8 +590,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentric_extrapolated() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z:   0),
             c: .init(x: 100, y: 100, z: 100)
@@ -648,8 +605,7 @@ extension Triangle3Tests {
     }
     
     func testToBarycentric_extrapolated_reversedTriangle() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .zero,
             b: .init(x: 100, y: 100, z: 100),
             c: .init(x: 100, y: 100, z:   0)
@@ -668,8 +624,7 @@ extension Triangle3Tests {
 
 extension Triangle3Tests {
     func testSignedDistanceTo_pointOnTriangle() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x:   0, y:   0, z: 0),
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -682,8 +637,7 @@ extension Triangle3Tests {
     }
     
     func testSignedDistanceTo_pointAlongCenter() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x:   0, y:   0, z: 0),
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -696,8 +650,7 @@ extension Triangle3Tests {
     }
     
     func testSignedDistanceTo_pointOffCenter() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x:   0, y:   0, z: 0),
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -710,8 +663,7 @@ extension Triangle3Tests {
     }
     
     func testSignedDistanceTo_pointOffBounds_pastEdgeA() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x:   0, y:   0, z: 0),
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -724,8 +676,7 @@ extension Triangle3Tests {
     }
     
     func testSignedDistanceTo_pointOffBounds_pastEdgeB() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x:   0, y:   0, z: 0),
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)
@@ -738,8 +689,7 @@ extension Triangle3Tests {
     }
     
     func testSignedDistanceTo_pointOffBounds_pastEdgeC() {
-        let sut =
-        Triangle(
+        let sut = Triangle(
             a: .init(x:   0, y:   0, z: 0),
             b: .init(x: 100, y:   0, z: 0),
             c: .init(x:   0, y: 100, z: 0)

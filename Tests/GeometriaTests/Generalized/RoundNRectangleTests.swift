@@ -27,50 +27,162 @@ class RoundNRectangleTests: XCTestCase {
     }
     
     func testEquals() {
-        XCTAssertEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)),
-                       RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 999, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)),
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 999, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 999, width: 3, height: 5), radius: .init(x: 7, y: 11)),
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 999, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 999, height: 5), radius: .init(x: 7, y: 11)),
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 999, height: 5),
+                radius: .init(x: 7, y: 11)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 999), radius: .init(x: 7, y: 11)),
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 999),
+                radius: .init(x: 7, y: 11)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 999, y: 11)),
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 999, y: 11)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 999)),
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)))
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 999)
+            ),
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            )
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue,
-                       RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 999, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue,
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 999, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 999, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue,
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 999, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 999, height: 5), radius: .init(x: 7, y: 11)).hashValue,
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 999, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 999), radius: .init(x: 7, y: 11)).hashValue,
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 999),
+                radius: .init(x: 7, y: 11)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 999, y: 11)).hashValue,
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 999, y: 11)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 999)).hashValue,
-                          RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radius: .init(x: 7, y: 11)).hashValue)
+        XCTAssertNotEqual(
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 999)
+            ).hashValue,
+            RoundRectangle(
+                rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+                radius: .init(x: 7, y: 11)
+            ).hashValue
+        )
     }
 }

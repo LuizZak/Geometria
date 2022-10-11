@@ -87,8 +87,10 @@ class Matrix3x2Tests: XCTestCase {
     func testDescription() {
         let sut = makeSut()
         
-        XCTAssertEqual(sut.description,
-                       "[M11:1.0 M12:2.0] [M21:3.0 M22:4.0] [M31:5.0 M32:6.0]")
+        XCTAssertEqual(
+            sut.description,
+            "[M11:1.0 M12:2.0] [M21:3.0 M22:4.0] [M31:5.0 M32:6.0]"
+        )
     }
     
     func testInitWithValue() {
@@ -367,11 +369,13 @@ class Matrix3x2Tests: XCTestCase {
     
     func testTransformation() {
         let sut = Matrix
-            .transformation(xScale: 2,
-                            yScale: 3,
-                            angle: Double.pi / 2,
-                            xOffset: 4,
-                            yOffset: 5)
+            .transformation(
+                xScale: 2,
+                yScale: 3,
+                angle: Double.pi / 2,
+                xOffset: 4,
+                yOffset: 5
+            )
         
         XCTAssertEqual(sut.m11, 0, accuracy: 1e-15)
         XCTAssertEqual(sut.m12, 2, accuracy: 1e-15)
@@ -575,10 +579,12 @@ extension Matrix3x2Tests {
     /// Creates a test `Matrix` with `Matrix.transformation(xScale: 2, yScale: 3, angle: .pi / 2, xOffset: 4, yOffset: 5)`
     func makeTransformSut() -> Matrix {
         Matrix
-            .transformation(xScale: 2,
-                            yScale: 3,
-                            angle: Double.pi / 2,
-                            xOffset: 4,
-                            yOffset: 5)
+            .transformation(
+                xScale: 2,
+                yScale: 3,
+                angle: Double.pi / 2,
+                xOffset: 4,
+                yOffset: 5
+            )
     }
 }

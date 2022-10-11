@@ -40,8 +40,11 @@ class Vector2_FloatTests: XCTestCase {
     }
     
     func testSimdMatrix_scalePrecedesRotation() {
-        let matrix = Vector2F.simdMatrix(scale: Vector2F(x: 0.5, y: 0.75),
-                                         rotate: .pi)
+        let matrix = Vector2F
+            .simdMatrix(
+                scale: Vector2F(x: 0.5, y: 0.75),
+                rotate: .pi
+            )
         
         assertEqual(matrix.columns.0, [-0.5, 0, 0.0], accuracy: accuracy)
         assertEqual(matrix.columns.1, [0.0, -0.75, 0.0], accuracy: accuracy)
@@ -49,8 +52,11 @@ class Vector2_FloatTests: XCTestCase {
     }
     
     func testSimdMatrix_rotationPrecedesTranslation() {
-        let matrix = Vector2F.simdMatrix(rotate: .pi,
-                                         translate: Vector2F(x: 10, y: -20))
+        let matrix = Vector2F
+            .simdMatrix(
+                rotate: .pi,
+                translate: Vector2F(x: 10, y: -20)
+            )
         
         assertEqual(matrix.columns.0, [-1.0, 0.0, 10.0], accuracy: accuracy)
         assertEqual(matrix.columns.1, [0.0, -1.0, -20.0], accuracy: accuracy)
@@ -58,9 +64,12 @@ class Vector2_FloatTests: XCTestCase {
     }
     
     func testSimdMatrix_scaleRotateTranslate() {
-        let matrix = Vector2F.simdMatrix(scale: Vector2F(x: 0.5, y: 0.75),
-                                         rotate: .pi,
-                                         translate: Vector2F(x: 10, y: -20))
+        let matrix = Vector2F
+            .simdMatrix(
+                scale: Vector2F(x: 0.5, y: 0.75),
+                rotate: .pi,
+                translate: Vector2F(x: 10, y: -20)
+            )
         
         assertEqual(matrix.columns.0, [-0.5, 0.0, 10.0], accuracy: accuracy)
         assertEqual(matrix.columns.1, [0.0, -0.75, -20.0], accuracy: accuracy)
@@ -68,9 +77,12 @@ class Vector2_FloatTests: XCTestCase {
     }
     
     func testSimdMatrixMultiply() {
-        let matrix = Vector2F.simdMatrix(scale: Vector2F(x: 0.5, y: 0.75),
-                                         rotate: .pi,
-                                         translate: Vector2F(x: 10, y: -20))
+        let matrix = Vector2F
+            .simdMatrix(
+                scale: Vector2F(x: 0.5, y: 0.75),
+                rotate: .pi,
+                translate: Vector2F(x: 10, y: -20)
+            )
         
         let vec = Vector2F(x: 5.0, y: -2.0)
         

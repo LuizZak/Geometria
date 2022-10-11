@@ -7,26 +7,40 @@ class HyperplaneTests: XCTestCase {
     typealias Hyperplane = Hyperplane3<Vector>
     
     func testEquatable() {
-        XCTAssertEqual(Hyperplane(point: .unitZ, normal: .unitY),
-                       Hyperplane(point: .unitZ, normal: .unitY))
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY),
-                          Hyperplane(point: .unitX, normal: .unitY))
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY),
-                          Hyperplane(point: .unitX, normal: .unitX))
+        XCTAssertEqual(
+            Hyperplane(point: .unitZ, normal: .unitY),
+            Hyperplane(point: .unitZ, normal: .unitY)
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY),
+            Hyperplane(point: .unitX, normal: .unitY)
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY),
+            Hyperplane(point: .unitX, normal: .unitX)
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(Hyperplane(point: .unitZ, normal: .unitY).hashValue,
-                       Hyperplane(point: .unitZ, normal: .unitY).hashValue)
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY).hashValue,
-                          Hyperplane(point: .unitX, normal: .unitY).hashValue)
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY).hashValue,
-                          Hyperplane(point: .unitX, normal: .unitX).hashValue)
+        XCTAssertEqual(
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue,
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue,
+            Hyperplane(point: .unitX, normal: .unitY).hashValue
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue,
+            Hyperplane(point: .unitX, normal: .unitX).hashValue
+        )
     }
     
     func testDescription() {
-        let sut = Hyperplane(point: .init(x: 1, y: 2, z: 3),
-                        normal: .init(x: 0, y: 0, z: 1))
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 0, y: 0, z: 1)
+        )
         
         XCTAssertEqual(
             sut.description,
@@ -35,34 +49,53 @@ class HyperplaneTests: XCTestCase {
     }
     
     func testNormal_normalizesAssignedValues_onInit() {
-        let sut = Hyperplane(point: .init(x: 0, y: 0, z: 0),
-                        normal: .init(x: 1, y: 1, z: 1))
+        let sut = Hyperplane(
+            point: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 1, y: 1, z: 1)
+        )
         
-        XCTAssertEqual(sut.normal, Vector3(x: 0.5773502691896258, y: 0.5773502691896258, z: 0.5773502691896258))
+        XCTAssertEqual(
+            sut.normal,
+            Vector3(x: 0.5773502691896258, y: 0.5773502691896258, z: 0.5773502691896258)
+        )
     }
     
     func testNormal_normalizesAssignedValues_onAssign() {
-        var sut = Hyperplane(point: .init(x: 0, y: 0, z: 0),
-                        normal: .init(x: 1, y: 0, z: 0))
+        var sut = Hyperplane(
+            point: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 1, y: 0, z: 0)
+        )
         
         sut.normal = .init(x: 1, y: 1, z: 1)
         
-        XCTAssertEqual(sut.normal, Vector3(x: 0.5773502691896258, y: 0.5773502691896258, z: 0.5773502691896258))
+        XCTAssertEqual(
+            sut.normal,
+            Vector3(x: 0.5773502691896258, y: 0.5773502691896258, z: 0.5773502691896258)
+        )
     }
     
     func testAsPointNormal() {
-        let sut = Hyperplane(point: .init(x: 1, y: 2, z: 3),
-                        normal: .init(x: 4, y: 5, z: 7))
+        let sut = Hyperplane(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 4, y: 5, z: 7))
         
         let result = sut.asPointNormal
         
-        XCTAssertEqual(result.point, .init(x: 1, y: 2, z: 3))
-        XCTAssertEqual(result.normal, .init(x: 0.4216370213557839, y: 0.5270462766947299, z: 0.7378647873726218))
+        XCTAssertEqual(
+            result.point,
+            .init(x: 1, y: 2, z: 3)
+        )
+        XCTAssertEqual(
+            result.normal,
+            .init(x: 0.4216370213557839, y: 0.5270462766947299, z: 0.7378647873726218)
+        )
     }
     
     func testInitWithPlane() {
-        let plane = PointNormal<Vector3D>(point: .init(x: 1, y: 2, z: 3),
-                                          normal: .init(x: 4, y: 5, z: 6))
+        let plane = PointNormal<Vector3D>(
+            point: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 4, y: 5, z: 6)
+        )
         
         let result = PointNormalPlane(plane)
         

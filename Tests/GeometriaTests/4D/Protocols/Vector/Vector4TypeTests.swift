@@ -165,18 +165,30 @@ extension Vector4TypeTests {
             (x, y, z, w) = (scalar, scalar, scalar, scalar)
         }
         
-        static func pointwiseMin(_ lhs: Vector4TypeTests.TestVector, _ rhs: Vector4TypeTests.TestVector) -> Vector4TypeTests.TestVector {
-            .init(x: min(lhs.x, rhs.x),
-                  y: min(lhs.y, rhs.y),
-                  z: min(lhs.z, rhs.z),
-                  w: min(lhs.w, rhs.w))
+        static func pointwiseMin(
+            _ lhs: Vector4TypeTests.TestVector,
+            _ rhs: Vector4TypeTests.TestVector
+        ) -> Vector4TypeTests.TestVector {
+
+            .init(
+                x: min(lhs.x, rhs.x),
+                y: min(lhs.y, rhs.y),
+                z: min(lhs.z, rhs.z),
+                w: min(lhs.w, rhs.w)
+            )
         }
         
-        static func pointwiseMax(_ lhs: Vector4TypeTests.TestVector, _ rhs: Vector4TypeTests.TestVector) -> Vector4TypeTests.TestVector {
-            .init(x: max(lhs.x, rhs.x),
-                  y: max(lhs.y, rhs.y),
-                  z: max(lhs.z, rhs.z),
-                  w: max(lhs.w, rhs.w))
+        static func pointwiseMax(
+            _ lhs: Vector4TypeTests.TestVector,
+            _ rhs: Vector4TypeTests.TestVector
+        ) -> Vector4TypeTests.TestVector {
+            
+            .init(
+                x: max(lhs.x, rhs.x),
+                y: max(lhs.y, rhs.y),
+                z: max(lhs.z, rhs.z),
+                w: max(lhs.w, rhs.w)
+            )
         }
     }
 }

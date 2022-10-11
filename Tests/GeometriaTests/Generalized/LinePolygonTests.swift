@@ -21,30 +21,44 @@ class LinePolygonTests: XCTestCase {
     
     func testEquals() {
         XCTAssertEqual(LinePolygon(), LinePolygon())
-        XCTAssertEqual(LinePolygon(vertices: [.init(x: 0, y: 0)]),
-                       LinePolygon(vertices: [.init(x: 0, y: 0)]))
+        XCTAssertEqual(
+            LinePolygon(vertices: [.init(x: 0, y: 0)]),
+            LinePolygon(vertices: [.init(x: 0, y: 0)])
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(LinePolygon(vertices: []),
-                          LinePolygon(vertices: [.init(x: 0, y: 0)]))
+        XCTAssertNotEqual(
+            LinePolygon(vertices: []),
+            LinePolygon(vertices: [.init(x: 0, y: 0)])
+        )
         
-        XCTAssertNotEqual(LinePolygon(vertices: [.init(x: 999, y: 0)]),
-                          LinePolygon(vertices: [.init(x: 0, y: 0)]))
+        XCTAssertNotEqual(
+            LinePolygon(vertices: [.init(x: 999, y: 0)]),
+            LinePolygon(vertices: [.init(x: 0, y: 0)])
+        )
         
-        XCTAssertNotEqual(LinePolygon(vertices: [.init(x: 0, y: 999)]),
-                          LinePolygon(vertices: [.init(x: 0, y: 0)]))
+        XCTAssertNotEqual(
+            LinePolygon(vertices: [.init(x: 0, y: 999)]),
+            LinePolygon(vertices: [.init(x: 0, y: 0)])
+        )
     }
     
     func testHashable() {
-        XCTAssertNotEqual(LinePolygon(vertices: []).hashValue,
-                          LinePolygon(vertices: [.init(x: 0, y: 0)]).hashValue)
+        XCTAssertNotEqual(
+            LinePolygon(vertices: []).hashValue,
+            LinePolygon(vertices: [.init(x: 0, y: 0)]).hashValue
+        )
         
-        XCTAssertNotEqual(LinePolygon(vertices: [.init(x: 999, y: 0)]).hashValue,
-                          LinePolygon(vertices: [.init(x: 0, y: 0)]).hashValue)
+        XCTAssertNotEqual(
+            LinePolygon(vertices: [.init(x: 999, y: 0)]).hashValue,
+            LinePolygon(vertices: [.init(x: 0, y: 0)]).hashValue
+        )
         
-        XCTAssertNotEqual(LinePolygon(vertices: [.init(x: 0, y: 999)]).hashValue,
-                          LinePolygon(vertices: [.init(x: 0, y: 0)]).hashValue)
+        XCTAssertNotEqual(
+            LinePolygon(vertices: [.init(x: 0, y: 999)]).hashValue,
+            LinePolygon(vertices: [.init(x: 0, y: 0)]).hashValue
+        )
     }
     
     func testAddVertex() {

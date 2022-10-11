@@ -54,7 +54,7 @@ class DivisibleRectangleTypeTests: XCTestCase {
     }
     
     func testMovingCenterToVector() {
-        let sut: DivisibleRectangleTypeTests.Rectangle = Rectangle(x: 1, y: 2, width: 7, height: 11)
+        let sut = Rectangle(x: 1, y: 2, width: 7, height: 11)
         
         let result = sut.movingCenter(to: .init(x: 5, y: 13))
         

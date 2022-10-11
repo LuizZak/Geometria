@@ -45,7 +45,10 @@ class VectorComparableTests: XCTestCase {
     }
     
     func testGreaterThan_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 1, scalarCount: 1) > TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(
+            TestVectorComparable(x: 1, y: 1, scalarCount: 1)
+                > TestVectorComparable(x: 0, y: 0)
+        )
     }
     
     func testGreaterThanOrEqualTo() {
@@ -59,7 +62,10 @@ class VectorComparableTests: XCTestCase {
     }
     
     func testGreaterThanOrEqualTo_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: 1, y: 1, scalarCount: 1) >= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(
+            TestVectorComparable(x: 1, y: 1, scalarCount: 1)
+                >= TestVectorComparable(x: 0, y: 0)
+        )
     }
     
     func testLessThan() {
@@ -73,7 +79,10 @@ class VectorComparableTests: XCTestCase {
     }
     
     func testLessThan_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: -1, y: -1, scalarCount: 1) < TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(
+            TestVectorComparable(x: -1, y: -1, scalarCount: 1)
+                < TestVectorComparable(x: 0, y: 0)
+            )
     }
     
     func testLessThanOrEqualTo() {
@@ -87,7 +96,10 @@ class VectorComparableTests: XCTestCase {
     }
     
     func testLessThanOrEqualTo_mismatchedScalarCount_returnsFalse() {
-        XCTAssertFalse(TestVectorComparable(x: -1, y: -1, scalarCount: 1) <= TestVectorComparable(x: 0, y: 0))
+        XCTAssertFalse(
+            TestVectorComparable(x: -1, y: -1, scalarCount: 1)
+                <= TestVectorComparable(x: 0, y: 0)
+        )
     }
     
     func testMinimalComponent() {
@@ -142,11 +154,19 @@ private struct TestVectorComparable: VectorComparable {
         self.init(x: scalar, y: scalar)
     }
     
-    static func pointwiseMin(_ lhs: TestVectorComparable, _ rhs: TestVectorComparable) -> TestVectorComparable {
+    static func pointwiseMin(
+        _ lhs: TestVectorComparable,
+        _ rhs: TestVectorComparable
+    ) -> TestVectorComparable {
+
         TestVectorComparable(x: min(lhs.x, rhs.x), y: min(lhs.y, rhs.y))
     }
     
-    static func pointwiseMax(_ lhs: TestVectorComparable, _ rhs: TestVectorComparable) -> TestVectorComparable {
+    static func pointwiseMax(
+        _ lhs: TestVectorComparable,
+        _ rhs: TestVectorComparable
+    ) -> TestVectorComparable {
+        
         TestVectorComparable(x: max(lhs.x, rhs.x), y: max(lhs.y, rhs.y))
     }
 }

@@ -50,8 +50,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testRows() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -71,8 +70,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testColumns() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -92,8 +90,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testRowsAsVectors() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -103,8 +100,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testColumnsAsVector() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -121,8 +117,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testSubscript() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -136,8 +131,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testSubscript_set() {
-        var sut =
-        Matrix(rows: (
+        var sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -154,8 +148,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testTrace() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             ( 1, 2),
             (-3, 4)
         ))
@@ -164,8 +157,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testDescription() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -184,8 +176,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testInitWithRows() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -195,8 +186,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testInitWithVectorRows() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             Vector2D(x: 0, y: 1),
             Vector2D(x: 2, y: 3)
         ))
@@ -227,8 +217,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testDeterminant() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (1, 2),
             (3, 5)
         ))
@@ -237,8 +226,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testTransformPointVector2() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -251,8 +239,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testTransposed() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -264,8 +251,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testTranspose() {
-        var sut =
-        Matrix(rows: (
+        var sut = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -277,8 +263,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testInverted() throws {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             ( 1, 2),
             (-7, 2)
         ))
@@ -299,8 +284,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testInverted_0DeterminantMatrix_returnsNil() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (1, 2),
             (2, 4)
         ))
@@ -373,8 +357,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testNegate() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (-0,  1),
             (-4,  5)
         ))
@@ -386,8 +369,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testMultiplication_withScalar() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -399,8 +381,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testMultiplication_withScalar_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             (0, 1),
             (2, 3)
         ))
@@ -412,8 +393,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testDivision_withScalar() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (0, 2),
             (4, 6)
         ))
@@ -425,8 +405,7 @@ class Matrix2x2Tests: XCTestCase {
     }
     
     func testDivision_withScalar_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             (0, 2),
             (4, 6)
         ))

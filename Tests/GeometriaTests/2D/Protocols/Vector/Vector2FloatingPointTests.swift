@@ -91,10 +91,15 @@ class Vector2FloatingPointTests: XCTestCase {
         
         vec.normalize()
         
-        assertEqual(vec, Vector3D(x: -0.3713906763541037,
-                                  y: 0.7427813527082074,
-                                  z: 0.5570860145311556),
-                    accuracy: accuracy)
+        assertEqual(
+            vec,
+            Vector3D(
+                x: -0.3713906763541037,
+                y: 0.7427813527082074,
+                z: 0.5570860145311556
+            ),
+            accuracy: accuracy
+        )
     }
     
     func testNormalize_zero() {
@@ -108,10 +113,15 @@ class Vector2FloatingPointTests: XCTestCase {
     func testNormalized() {
         let vec = Vector3D(x: -10, y: 20, z: 15.0)
         
-        assertEqual(vec.normalized(), Vector3D(x: -0.3713906763541037,
-                                               y: 0.7427813527082074,
-                                               z: 0.5570860145311556),
-                    accuracy: accuracy)
+        assertEqual(
+            vec.normalized(),
+            Vector3D(
+                x: -0.3713906763541037,
+                y: 0.7427813527082074,
+                z: 0.5570860145311556
+            ),
+            accuracy: accuracy
+        )
     }
     
     func testNormalized_zero() {

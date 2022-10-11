@@ -17,39 +17,59 @@ class LineSegmentTests: XCTestCase {
     }
     
     func testEquals() {
-        XCTAssertEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)),
-                       LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)))
+        XCTAssertEqual(
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)),
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(LineSegment(start: .init(x: 999, y: 2), end: .init(x: 3, y: 5)),
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 999, y: 2), end: .init(x: 3, y: 5)),
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 999), end: .init(x: 3, y: 5)),
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 1, y: 999), end: .init(x: 3, y: 5)),
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 999, y: 5)),
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 999, y: 5)),
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 999)),
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 999)),
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5))
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue,
-                       LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
+        XCTAssertEqual(
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue,
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 999, y: 2), end: .init(x: 3, y: 5)).hashValue,
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 999, y: 2), end: .init(x: 3, y: 5)).hashValue,
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 999), end: .init(x: 3, y: 5)).hashValue,
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 1, y: 999), end: .init(x: 3, y: 5)).hashValue,
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 999, y: 5)).hashValue,
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 999, y: 5)).hashValue,
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 999)).hashValue,
-                          LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 999)).hashValue,
+            LineSegment(start: .init(x: 1, y: 2), end: .init(x: 3, y: 5)).hashValue
+        )
     }
 
     func testCategory() {
@@ -262,6 +282,10 @@ extension LineSegmentTests {
         let sut = LineSegment3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
+        XCTAssertEqual(
+            sut.distanceSquared(to: point),
+            0.6666666666666667,
+            accuracy: 1e-15
+        )
     }
 }

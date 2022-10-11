@@ -18,93 +18,181 @@ class DirectionalRayTests: XCTestCase {
     }
     
     func testEquals() {
-        XCTAssertEqual(DirectionalRay(start: .init(x: 1, y: 2),
-                                      direction: .init(x: 3, y: 5)),
-                       DirectionalRay(start: .init(x: 1, y: 2),
-                                      direction: .init(x: 3, y: 5)))
+        XCTAssertEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            ),
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            )
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 999, y: 2),
-                                         direction: .init(x: 3, y: 5)),
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 999, y: 2),
+                direction: .init(x: 3, y: 5)
+            ),
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            )
+        )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 1, y: 999),
-                                         direction: .init(x: 3, y: 5)),
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 999),
+                direction: .init(x: 3, y: 5)
+            ),
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            )
+        )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 999, y: 5)),
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 999, y: 5)
+            ),
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            )
+        )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 999)),
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 999)
+            ),
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            )
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(DirectionalRay(start: .init(x: 1, y: 2),
-                                      direction: .init(x: 3, y: 5)).hashValue,
-                       DirectionalRay(start: .init(x: 1, y: 2),
-                                      direction: .init(x: 3, y: 5)).hashValue)
+        XCTAssertEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+            direction: .init(x: 3, y: 5)
+        ).hashValue,
+        DirectionalRay(
+            start: .init(x: 1, y: 2),
+            direction: .init(x: 3, y: 5)
+        ).hashValue
+    )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 999, y: 2),
-                                         direction: .init(x: 3, y: 5)).hashValue,
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 999, y: 2),
+                direction: .init(x: 3, y: 5)
+            ).hashValue,
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 1, y: 999),
-                                         direction: .init(x: 3, y: 5)).hashValue,
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 999),
+                direction: .init(x: 3, y: 5)
+            ).hashValue,
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 999, y: 5)).hashValue,
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 999, y: 5)
+            ).hashValue,
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            ).hashValue
+        )
         
-        XCTAssertNotEqual(DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 999)).hashValue,
-                          DirectionalRay(start: .init(x: 1, y: 2),
-                                         direction: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 999)
+            ).hashValue,
+            DirectionalRay(
+                start: .init(x: 1, y: 2),
+                direction: .init(x: 3, y: 5)
+            ).hashValue
+        )
     }
     
     func testDirection_asUnit() {
-        XCTAssertEqual(DirectionalRay(start: .zero,
-                                      direction: .init(x: 2, y: 3)).direction,
-                       .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(
+            DirectionalRay(
+                start: .zero,
+                direction: .init(x: 2, y: 3)
+            ).direction,
+            .init(x: 0.5547001962252291, y: 0.8320502943378437)
+        )
     }
     
     func testInitWithLine() {
         let sut = DirectionalRay(Line2D(x1: 1, y1: 2, x2: 3, y2: 5))
         
-        XCTAssertEqual(sut.start, .init(x: 1, y: 2))
-        XCTAssertEqual(sut.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(
+            sut.start,
+            .init(x: 1, y: 2)
+        )
+        XCTAssertEqual(
+            sut.direction,
+            .init(x: 0.5547001962252291, y: 0.8320502943378437)
+        )
     }
     
     func testInitWithLine_negativeDirection() {
         let sut = DirectionalRay(Line2D(x1: 1, y1: 1, x2: -1, y2: -1))
         
-        XCTAssertEqual(sut.start, .init(x: 1, y: 1))
-        XCTAssertEqual(sut.direction, .init(x: -0.7071067811865475, y: -0.7071067811865475))
+        XCTAssertEqual(
+            sut.start,
+            .init(x: 1, y: 1)
+        )
+        XCTAssertEqual(
+            sut.direction,
+            .init(x: -0.7071067811865475, y: -0.7071067811865475)
+        )
     }
     
     func testInitWithPoints() {
         let sut = DirectionalRay(a: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
         
-        XCTAssertEqual(sut.start, .init(x: 1, y: 2))
-        XCTAssertEqual(sut.direction, .init(x: 0.5547001962252291, y: 0.8320502943378437))
+        XCTAssertEqual(
+            sut.start,
+            .init(x: 1, y: 2)
+        )
+        XCTAssertEqual(
+            sut.direction,
+            .init(x: 0.5547001962252291, y: 0.8320502943378437)
+        )
     }
     
     func testInitWithPoints_negativeDirection() {
         let sut = DirectionalRay(a: .init(x: 1, y: 1), b: .init(x: -1, y: -1))
         
-        XCTAssertEqual(sut.start, .init(x: 1, y: 1))
-        XCTAssertEqual(sut.direction, .init(x: -0.7071067811865475, y: -0.7071067811865475))
+        XCTAssertEqual(
+            sut.start,
+            .init(x: 1, y: 1)
+        )
+        XCTAssertEqual(
+            sut.direction,
+            .init(x: -0.7071067811865475, y: -0.7071067811865475)
+        )
     }
 
     func testCategory() {
@@ -118,13 +206,19 @@ class DirectionalRayTests: XCTestCase {
 
 extension DirectionalRayTests {
     func testA() {
-        let sut = DirectionalRay(start: .init(x: 1, y: 2), direction: .init(x: 3, y: 5))
+        let sut = DirectionalRay(
+            start: .init(x: 1, y: 2),
+            direction: .init(x: 3, y: 5)
+        )
         
         XCTAssertEqual(sut.a, .init(x: 1, y: 2))
     }
     
     func testB() {
-        let sut = DirectionalRay(start: .init(x: 1, y: 2), direction: .init(x: 3, y: 5))
+        let sut = DirectionalRay(
+            start: .init(x: 1, y: 2),
+            direction: .init(x: 3, y: 5)
+        )
         
         XCTAssertEqual(sut.b, .init(x: 1.5144957554275265, y: 2.857492925712544))
     }
@@ -134,8 +228,10 @@ extension DirectionalRayTests {
 
 extension DirectionalRayTests {
     func testAsLine() {
-        let sut = DirectionalRay(start: .init(x: 1, y: 2),
-                                 direction: .init(x: 3, y: 5))
+        let sut = DirectionalRay(
+            start: .init(x: 1, y: 2),
+            direction: .init(x: 3, y: 5)
+        )
         
         let result = sut.asLine
         
@@ -145,8 +241,10 @@ extension DirectionalRayTests {
     }
     
     func testAsRay() {
-        let sut = DirectionalRay(start: .init(x: 1, y: 2),
-                                 direction: .init(x: 3, y: 5))
+        let sut = DirectionalRay(
+            start: .init(x: 1, y: 2),
+            direction: .init(x: 3, y: 5)
+        )
         
         let result = sut.asRay
         
@@ -179,11 +277,19 @@ extension DirectionalRayTests {
         
         let result = sut.withPointsScaledBy(factor)
         
-        assertEqual(result.lineSlope,
-                    (sut.lineSlope * factor).normalized(),
-                    accuracy: 1e-16)
-        XCTAssertEqual(result.start, .init(x: 7, y: 22))
-        XCTAssertEqual(result.direction, .init(x: 0.3905498468561694, y: 0.9205817818752565))
+        assertEqual(
+            result.lineSlope,
+            (sut.lineSlope * factor).normalized(),
+            accuracy: 1e-16
+        )
+        XCTAssertEqual(
+            result.start,
+            .init(x: 7, y: 22)
+        )
+        XCTAssertEqual(
+            result.direction,
+            .init(x: 0.3905498468561694, y: 0.9205817818752565)
+        )
     }
     
     func testWithPointsScaledByAroundCenter() {
@@ -193,11 +299,19 @@ extension DirectionalRayTests {
         
         let result = sut.withPointsScaledBy(factor, around: center)
         
-        assertEqual(result.lineSlope,
-                    (sut.lineSlope * factor).normalized(),
-                    accuracy: 1e-16)
-        XCTAssertEqual(result.start, .init(x: -23, y: 2.0))
-        XCTAssertEqual(result.direction, .init(x: 0.3905498468561694, y: 0.9205817818752565))
+        assertEqual(
+            result.lineSlope,
+            (sut.lineSlope * factor).normalized(),
+            accuracy: 1e-16
+        )
+        XCTAssertEqual(
+            result.start,
+            .init(x: -23, y: 2.0)
+        )
+        XCTAssertEqual(
+            result.direction,
+            .init(x: 0.3905498468561694, y: 0.9205817818752565)
+        )
     }
 }
 
@@ -208,7 +322,11 @@ extension DirectionalRayTests {
         let sut = DirectionalRay(x: 2, y: 1, dx: 3, dy: 2)
         let point = Vector2D(x: 2, y: 2)
         
-        XCTAssertEqual(sut.projectAsScalar(point), 0.5547001962252291, accuracy: 1e-12)
+        XCTAssertEqual(
+            sut.projectAsScalar(point),
+            0.5547001962252291,
+            accuracy: 1e-12
+        )
     }
     
     func testProjectAsScalar2D_offBounds() {
@@ -222,7 +340,11 @@ extension DirectionalRayTests {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
         let point = Vector2D(x: 0, y: 2)
         
-        XCTAssertEqual(sut.projectAsScalar(point), 1.4142135623730951, accuracy: 1e-12)
+        XCTAssertEqual(
+            sut.projectAsScalar(point),
+            1.4142135623730951,
+            accuracy: 1e-12
+        )
     }
     
     func testProjectAsScalar3D() {
@@ -243,25 +365,33 @@ extension DirectionalRayTests {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 0, y: 2, z: 0)
         
-        XCTAssertEqual(sut.projectAsScalar(point), 1.1547005383792515, accuracy: 1e-12)
+        XCTAssertEqual(
+            sut.projectAsScalar(point),
+            1.1547005383792515,
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped2D() {
         let sut = DirectionalRay(x: 2, y: 1, dx: 3, dy: 2)
         let point = Vector2D(x: 2, y: 2)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector2D(x: 2.4615384615384617, y: 1.3076923076923077),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector2D(x: 2.4615384615384617, y: 1.3076923076923077),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped2D_parallel() {
         let sut = Line2D(x1: 0, y1: 0, x2: 3, y2: 0)
         let point = Vector2D(x: 1, y: 0)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector2D(x: 1, y: 0),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector2D(x: 1, y: 0),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped2D_offBounds() {
@@ -275,27 +405,33 @@ extension DirectionalRayTests {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
         let point = Vector2D(x: 0, y: 2)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector2D(x: 1, y: 1),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector2D(x: 1, y: 1),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped2D_skewed_centered() {
         let sut = DirectionalRay(x: 0, y: 0, dx: 1, dy: 1)
         let point = Vector2D(x: 0, y: 1)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector2D(x: 0.5, y: 0.5),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector2D(x: 0.5, y: 0.5),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped3D_parallel() {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 3, dy: 0, dz: 0)
         let point = Vector3D(x: 1, y: 0, z: 0)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector3D(x: 1, y: 0, z: 0),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector3D(x: 1, y: 0, z: 0),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped3D_offBounds() {
@@ -309,18 +445,22 @@ extension DirectionalRayTests {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 0, y: 2, z: 0)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectUnclamped3D_skewed_centered() {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
-        assertEqual(sut.projectUnclamped(point),
-                    Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
-                    accuracy: 1e-12)
+        assertEqual(
+            sut.projectUnclamped(point),
+            Vector3D(x: 0.6666666666666666, y: 0.6666666666666666, z: 0.6666666666666666),
+            accuracy: 1e-12
+        )
     }
     
     func testProjectedMagnitude() {
@@ -328,9 +468,11 @@ extension DirectionalRayTests {
         
         let result = sut.projectedMagnitude(10)
         
-        assertEqual(result,
-                    .init(x: 7.071067811865475, y: 7.071067811865475),
-                    accuracy: 1e-12)
+        assertEqual(
+            result,
+            .init(x: 7.071067811865475, y: 7.071067811865475),
+            accuracy: 1e-12
+        )
     }
     
     func testContainsProjectedNormalizedMagnitude() {
@@ -392,6 +534,10 @@ extension DirectionalRayTests {
         let sut = DirectionalRay3(x: 0, y: 0, z: 0, dx: 1, dy: 1, dz: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
+        XCTAssertEqual(
+            sut.distanceSquared(to: point),
+            0.6666666666666667,
+            accuracy: 1e-15
+        )
     }
 }

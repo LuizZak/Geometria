@@ -28,10 +28,14 @@ class Vector3Tests: XCTestCase {
     }
     
     func testDescription() {
-        XCTAssertEqual(Vector3<Int>(x: 0, y: 1, z: 2).description,
-                       "Vector3<Int>(x: 0, y: 1, z: 2)")
-        XCTAssertEqual(Vector3<Double>(x: 0, y: 1, z: 2).description,
-                       "Vector3<Double>(x: 0.0, y: 1.0, z: 2.0)")
+        XCTAssertEqual(
+            Vector3<Int>(x: 0, y: 1, z: 2).description,
+            "Vector3<Int>(x: 0, y: 1, z: 2)"
+        )
+        XCTAssertEqual(
+            Vector3<Double>(x: 0, y: 1, z: 2).description,
+            "Vector3<Double>(x: 0.0, y: 1.0, z: 2.0)"
+        )
     }
     
     func testInit() {
@@ -175,105 +179,171 @@ class Vector3Tests: XCTestCase {
     }
     
     func testAddition() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3) + Vector(x: 4, y: 5, z: 6),
-                       Vector(x: 5, y: 7, z: 9))
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) + Vector3D(x: 4, y: 5, z: 6),
-                       Vector3D(x: 5, y: 7, z: 9))
-        XCTAssertEqual(Vector3F(x: 1, y: 2, z: 3) + Vector3F(x: 4, y: 5, z: 6),
-                       Vector3F(x: 5, y: 7, z: 9))
+        XCTAssertEqual(
+            Vector(x: 1, y: 2, z: 3) + Vector(x: 4, y: 5, z: 6),
+            Vector(x: 5, y: 7, z: 9)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) + Vector3D(x: 4, y: 5, z: 6),
+            Vector3D(x: 5, y: 7, z: 9)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 2, z: 3) + Vector3F(x: 4, y: 5, z: 6),
+            Vector3F(x: 5, y: 7, z: 9)
+        )
     }
     
     func testAddition_isCommutative() {
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) + Vector3D(x: 4, y: 5, z: 6),
-                       Vector3D(x: 4, y: 5, z: 6) + Vector3D(x: 1, y: 2, z: 3))
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) + Vector3D(x: 4, y: 5, z: 6),
+            Vector3D(x: 4, y: 5, z: 6) + Vector3D(x: 1, y: 2, z: 3)
+        )
     }
     
     func testAddition_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3) + 4,
-                       Vector(x: 5, y: 6, z: 7))
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) + 4,
-                       Vector3D(x: 5, y: 6, z: 7))
-        XCTAssertEqual(Vector3F(x: 1, y: 2, z: 3) + 4,
-                       Vector3F(x: 5, y: 6, z: 7))
+        XCTAssertEqual(
+            Vector(x: 1, y: 2, z: 3) + 4,
+            Vector(x: 5, y: 6, z: 7)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) + 4,
+            Vector3D(x: 5, y: 6, z: 7)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 2, z: 3) + 4,
+            Vector3F(x: 5, y: 6, z: 7)
+        )
     }
     
     func testSubtraction() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3) - Vector(x: 5, y: 7, z: 11),
-                       Vector(x: -4, y: -5, z: -8))
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) - Vector3D(x: 5, y: 7, z: 11),
-                       Vector3D(x: -4, y: -5, z: -8))
-        XCTAssertEqual(Vector3F(x: 1, y: 2, z: 3) - Vector3F(x: 5, y: 7, z: 11),
-                       Vector3F(x: -4, y: -5, z: -8))
+        XCTAssertEqual(
+            Vector(x: 1, y: 2, z: 3) - Vector(x: 5, y: 7, z: 11),
+            Vector(x: -4, y: -5, z: -8)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) - Vector3D(x: 5, y: 7, z: 11),
+            Vector3D(x: -4, y: -5, z: -8)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 2, z: 3) - Vector3F(x: 5, y: 7, z: 11),
+            Vector3F(x: -4, y: -5, z: -8)
+        )
     }
     
     func testSubtraction_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3) - 5,
-                       Vector(x: -4, y: -3, z: -2))
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) - 5,
-                       Vector3D(x: -4, y: -3, z: -2))
-        XCTAssertEqual(Vector3F(x: 1, y: 2, z: 3) - 5,
-                       Vector3F(x: -4, y: -3, z: -2))
+        XCTAssertEqual(
+            Vector(x: 1, y: 2, z: 3) - 5,
+            Vector(x: -4, y: -3, z: -2)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) - 5,
+            Vector3D(x: -4, y: -3, z: -2)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 2, z: 3) - 5,
+            Vector3F(x: -4, y: -3, z: -2)
+        )
     }
     
     func testMultiplication() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3) * Vector(x: 4, y: 5, z: 6),
-                       Vector(x: 4, y: 10, z: 18))
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) * Vector3D(x: 4, y: 5, z: 6),
-                       Vector3D(x: 4, y: 10, z: 18))
-        XCTAssertEqual(Vector3F(x: 1, y: 2, z: 3) * Vector3F(x: 4, y: 5, z: 6),
-                       Vector3F(x: 4, y: 10, z: 18))
+        XCTAssertEqual(
+            Vector(x: 1, y: 2, z: 3) * Vector(x: 4, y: 5, z: 6),
+            Vector(x: 4, y: 10, z: 18)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) * Vector3D(x: 4, y: 5, z: 6),
+            Vector3D(x: 4, y: 10, z: 18)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 2, z: 3) * Vector3F(x: 4, y: 5, z: 6),
+            Vector3F(x: 4, y: 10, z: 18)
+        )
     }
     
     func testMultiplication_isCommutative() {
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) * Vector3D(x: 4, y: 5, z: 6),
-                       Vector3D(x: 4, y: 5, z: 6) * Vector3D(x: 1, y: 2, z: 3))
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) * Vector3D(x: 4, y: 5, z: 6),
+            Vector3D(x: 4, y: 5, z: 6) * Vector3D(x: 1, y: 2, z: 3)
+        )
     }
     
     func testMultiplication_withScalar() {
-        XCTAssertEqual(Vector(x: 1, y: 2, z: 3) * 4,
-                       Vector(x: 4, y: 8, z: 12))
-        XCTAssertEqual(4 * Vector(x: 1, y: 2, z: 3),
-                       Vector(x: 4, y: 8, z: 12))
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) * 4,
-                       Vector3D(x: 4, y: 8, z: 12))
-        XCTAssertEqual(4 * Vector3D(x: 1, y: 2, z: 3),
-                       Vector3D(x: 4, y: 8, z: 12))
-        XCTAssertEqual(Vector3F(x: 1, y: 2, z: 3) * 4,
-                       Vector3F(x: 4, y: 8, z: 12))
-        XCTAssertEqual(4 * Vector3F(x: 1, y: 2, z: 3),
-                       Vector3F(x: 4, y: 8, z: 12))
+        XCTAssertEqual(
+            Vector(x: 1, y: 2, z: 3) * 4,
+            Vector(x: 4, y: 8, z: 12)
+        )
+        XCTAssertEqual(
+            4 * Vector(x: 1, y: 2, z: 3),
+            Vector(x: 4, y: 8, z: 12)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) * 4,
+            Vector3D(x: 4, y: 8, z: 12)
+        )
+        XCTAssertEqual(
+            4 * Vector3D(x: 1, y: 2, z: 3),
+            Vector3D(x: 4, y: 8, z: 12)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 2, z: 3) * 4,
+            Vector3F(x: 4, y: 8, z: 12)
+        )
+        XCTAssertEqual(
+            4 * Vector3F(x: 1, y: 2, z: 3),
+            Vector3F(x: 4, y: 8, z: 12)
+        )
     }
     
     func testMultiplication_withScalar_isCommutative() {
-        XCTAssertEqual(Vector3D(x: 1, y: 2, z: 3) * 4,
-                       4 * Vector3D(x: 1, y: 2, z: 3))
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 2, z: 3) * 4,
+            4 * Vector3D(x: 1, y: 2, z: 3)
+        )
     }
     
     func testDivision() {
-        XCTAssertEqual(Vector(x: 3, y: 5, z: 7) / Vector(x: 2, y: 3, z: 5),
-                       Vector(x: 1, y: 1, z: 1))
-        XCTAssertEqual(Vector3D(x: 3, y: 5, z: 7) / Vector3D(x: 2, y: 3, z: 5),
-                       Vector3D(x: 1.5, y: 1.6666666666666667, z: 1.4))
-        XCTAssertEqual(Vector3F(x: 3, y: 5, z: 7) / Vector3F(x: 2, y: 3, z: 5),
-                       Vector3F(x: 1.5, y: 1.6666666, z: 1.4))
+        XCTAssertEqual(
+            Vector(x: 3, y: 5, z: 7) / Vector(x: 2, y: 3, z: 5),
+            Vector(x: 1, y: 1, z: 1)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 3, y: 5, z: 7) / Vector3D(x: 2, y: 3, z: 5),
+            Vector3D(x: 1.5, y: 1.6666666666666667, z: 1.4)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 3, y: 5, z: 7) / Vector3F(x: 2, y: 3, z: 5),
+            Vector3F(x: 1.5, y: 1.6666666, z: 1.4)
+        )
     }
     
     func testDivision_withScalarOnRHS() {
-        XCTAssertEqual(Vector(x: 1, y: 4, z: 7) / 3,
-                       Vector(x: 0, y: 1, z: 2))
-        XCTAssertEqual(Vector3D(x: 1, y: 4, z: 7) / 3,
-                       Vector3D(x: 0.3333333333333333, y: 1.3333333333333333, z: 2.3333333333333335))
-        XCTAssertEqual(Vector3F(x: 1, y: 4, z: 7) / 3,
-                       Vector3F(x: 0.33333334, y: 1.3333334, z: 2.3333333))
+        XCTAssertEqual(
+            Vector(x: 1, y: 4, z: 7) / 3,
+            Vector(x: 0, y: 1, z: 2)
+        )
+        XCTAssertEqual(
+            Vector3D(x: 1, y: 4, z: 7) / 3,
+            Vector3D(x: 0.3333333333333333, y: 1.3333333333333333, z: 2.3333333333333335)
+        )
+        XCTAssertEqual(
+            Vector3F(x: 1, y: 4, z: 7) / 3,
+            Vector3F(x: 0.33333334, y: 1.3333334, z: 2.3333333)
+        )
     }
     
     func testDivision_withScalarOnLHS() {
-        XCTAssertEqual(3 / Vector(x: 1, y: 2, z: 7),
-                       Vector(x: 3, y: 1, z: 0))
-        XCTAssertEqual(3 / Vector3D(x: 3.0, y: 4, z: 7),
-                       Vector3D(x: 1.0, y: 0.75, z: 0.42857142857142855))
-        XCTAssertEqual(3 / Vector3F(x: 1.0, y: 4, z: 7),
-                       Vector3F(x: 3.0, y: 0.75, z: 0.42857143))
+        XCTAssertEqual(
+            3 / Vector(x: 1, y: 2, z: 7),
+            Vector(x: 3, y: 1, z: 0)
+        )
+        XCTAssertEqual(
+            3 / Vector3D(x: 3.0, y: 4, z: 7),
+            Vector3D(x: 1.0, y: 0.75, z: 0.42857142857142855)
+        )
+        XCTAssertEqual(
+            3 / Vector3F(x: 1.0, y: 4, z: 7),
+            Vector3F(x: 3.0, y: 0.75, z: 0.42857143)
+        )
     }
     
     func testAbsolute() {

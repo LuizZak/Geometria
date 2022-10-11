@@ -5,9 +5,11 @@ class Capsule3Tests: XCTestCase {
     typealias Capsule = Capsule3D
     
     func testAsCylinder() {
-        let sut = Capsule(start: .init(x: 1, y: 2, z: 3),
-                          end: .init(x: 5, y: 7, z: 11),
-                          radius: 1)
+        let sut = Capsule(
+            start: .init(x: 1, y: 2, z: 3),
+            end: .init(x: 5, y: 7, z: 11),
+            radius: 1
+        )
         
         let result = sut.asCylinder
         
@@ -17,8 +19,7 @@ class Capsule3Tests: XCTestCase {
     }
     
     func testSignedDistance_withinBounds() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .zero,
             end: .init(x: 10, y: 10, z: 10),
             radius: 5
@@ -31,8 +32,7 @@ class Capsule3Tests: XCTestCase {
     }
     
     func testSignedDistance_outsideBounds() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .zero,
             end: .init(x: 10, y: 10, z: 10),
             radius: 5
@@ -45,8 +45,7 @@ class Capsule3Tests: XCTestCase {
     }
     
     func testSignedDistance_onEdge() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .zero,
             end: .init(x: 10, y: 0, z: 0),
             radius: 5

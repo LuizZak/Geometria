@@ -36,13 +36,21 @@ extension Triangle2Tests {
     }
     
     func testSignedDoubleArea_largeTriangle() {
-        let sut = Triangle(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 131, y: 230),
+            c: .init(x: 97, y: 10)
+        )
         
         XCTAssertEqual(sut.signedDoubleArea, 21_000.0)
     }
     
     func testSignedDoubleArea_largeTriangle_counterClockwise() {
-        let sut = Triangle(a: .zero, b: .init(x: 97, y: 10), c: .init(x: 131, y: 230))
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 97, y: 10),
+            c: .init(x: 131, y: 230)
+        )
         
         XCTAssertEqual(sut.signedDoubleArea, -21_000.0)
     }
@@ -70,13 +78,21 @@ extension Triangle2Tests {
     }
     
     func testSignedArea_largeTriangle() {
-        let sut = Triangle(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 131, y: 230),
+            c: .init(x: 97, y: 10)
+        )
         
         XCTAssertEqual(sut.signedArea, 10500.0)
     }
     
     func testSignedArea_largeTriangle_counterClockwise() {
-        let sut = Triangle(a: .zero, b: .init(x: 97, y: 10), c: .init(x: 131, y: 230))
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 97, y: 10),
+            c: .init(x: 131, y: 230)
+        )
         
         XCTAssertEqual(sut.signedArea, -10500.0)
     }

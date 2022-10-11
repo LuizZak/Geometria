@@ -7,19 +7,23 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     typealias Plane = ProjectivePointNormalPlane3D
     
     func testPointOnPlane() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         XCTAssertEqual(sut.pointOnPlane, .init(x: 13, y: 3, z: 17))
     }
     
     func testChangePoint() {
-        var sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        var sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         sut.changePoint(.init(x: 1, y: 2, z: 3))
         
@@ -30,10 +34,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testChangingPoint() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         let result = sut.changingPoint(.init(x: 1, y: 2, z: 3))
         
@@ -44,10 +50,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testChangeNormal() {
-        var sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        var sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         sut.changeNormal(-.unitZ, upAxis: .unitY)
         
@@ -58,10 +66,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testChangeNormal_correctsUpAxis() {
-        var sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        var sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         sut.changeNormal(.init(x: 0, y: 1, z: -3), upAxis: .init(x: 0, y: 3, z: 1))
         
@@ -72,10 +82,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testChangeNormal_lookUpZAxis_correctsRightAxis() {
-        var sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        var sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         sut.changeNormal(.unitZ, upAxis: .unitY)
         
@@ -86,10 +98,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testChangingNormal() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         let result = sut.changingNormal(-.unitZ, upAxis: .unitY)
         
@@ -100,10 +114,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testChangingNormal_correctsUpAxis() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         let result = sut.changingNormal(.init(x: 0, y: 1, z: -3), upAxis: .init(x: 0, y: 3, z: 1))
         
@@ -125,10 +141,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
     }
     
     func testAsPointNormalPlane() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         
         let result = sut.asPointNormalPlane
         
@@ -141,10 +159,12 @@ class ProjectivePointNormalPlane3Tests: XCTestCase {
 
 extension ProjectivePointNormalPlane3Tests {
     func testProjectLineIntersection_line() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let line = Line3D(a: .zero, b: .one)
         
         let result = sut.projectLineIntersection(line)
@@ -153,10 +173,12 @@ extension ProjectivePointNormalPlane3Tests {
     }
     
     func testProjectLineIntersection_line_parallelLine_returnsNil() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let line = Line3D(a: .zero, b: .unitZ)
         
         let result = sut.projectLineIntersection(line)
@@ -165,10 +187,12 @@ extension ProjectivePointNormalPlane3Tests {
     }
     
     func testProjectLineIntersection_ray_beforeStart_returnsNil() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let line = Ray3D(start: sut.point + .unitY, b: sut.point + .unitY * 2)
         
         let result = sut.projectLineIntersection(line)
@@ -177,10 +201,12 @@ extension ProjectivePointNormalPlane3Tests {
     }
     
     func testProjectLineIntersection_lineSegment_afterEnd_returnsNil() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let line = LineSegment3D(start: sut.point - .unitY * 2, end: sut.point - .unitY)
         
         let result = sut.projectLineIntersection(line)
@@ -189,10 +215,12 @@ extension ProjectivePointNormalPlane3Tests {
     }
     
     func testProject2D() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let vec = Vector(x: 11, y: 12, z: 23)
         
         XCTAssertEqual(sut.project2D(vec), .init(x: -2, y: 6.0))
@@ -211,10 +239,12 @@ extension ProjectivePointNormalPlane3Tests {
     }
     
     func testAttemptProject() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let vec = Vector(x: 11, y: 12, z: 23)
         
         XCTAssertEqual(sut.attemptProjection(vec), .init(x: -2, y: 6.0))
@@ -233,10 +263,12 @@ extension ProjectivePointNormalPlane3Tests {
     }
     
     func testProjectOut() {
-        let sut = Plane(point: .init(x: 13, y: 3, z: 17),
-                        normal: .unitY,
-                        upAxis: .unitZ,
-                        rightAxis: .unitX)
+        let sut = Plane(
+            point: .init(x: 13, y: 3, z: 17),
+            normal: .unitY,
+            upAxis: .unitZ,
+            rightAxis: .unitX
+        )
         let coord = Vector2(x: 2, y: 7)
         
         XCTAssertEqual(sut.projectOut(coord), .init(x: 15, y: 3, z: 24))

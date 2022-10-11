@@ -6,9 +6,11 @@ class NCapsuleTests: XCTestCase {
     typealias Capsule = NCapsule<Vector3D>
     
     func testAsLine() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 3, y: 5),
-                          radius: 1)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 3, y: 5),
+            radius: 1
+        )
         
         let result = sut.asLineSegment
         
@@ -17,41 +19,51 @@ class NCapsuleTests: XCTestCase {
     }
     
     func testIsValid() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 1, y: 3),
-                          radius: 1)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 1, y: 3),
+            radius: 1
+        )
         
         XCTAssertTrue(sut.isValid)
     }
     
     func testIsValid_zeroLengthStadium_returnsTrue() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 1, y: 2),
-                          radius: 1)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 1, y: 2),
+            radius: 1
+        )
         
         XCTAssertTrue(sut.isValid)
     }
     
     func testIsValid_zeroRadiusStadium_returnsFalse() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 1, y: 2),
-                          radius: 0)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 1, y: 2),
+            radius: 0
+        )
         
         XCTAssertFalse(sut.isValid)
     }
     
     func testIsValid_negativeRadiusStadium_returnsFalse() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 1, y: 2),
-                          radius: -4)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 1, y: 2),
+            radius: -4
+        )
         
         XCTAssertFalse(sut.isValid)
     }
     
     func testStartAsSphere() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 29, y: 31),
-                          radius: 5)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 29, y: 31),
+            radius: 5
+        )
         
         let result = sut.startAsSphere
         
@@ -60,9 +72,11 @@ class NCapsuleTests: XCTestCase {
     }
     
     func testEndAsSphere() {
-        let sut = Stadium(start: .init(x: 1, y: 2),
-                          end: .init(x: 29, y: 31),
-                          radius: 5)
+        let sut = Stadium(
+            start: .init(x: 1, y: 2),
+            end: .init(x: 29, y: 31),
+            radius: 5
+        )
         
         let result = sut.endAsSphere
         
@@ -75,9 +89,11 @@ class NCapsuleTests: XCTestCase {
 
 extension NCapsuleTests {
     func testBounds_zeroLength_returnsRadiusBounds() {
-        let sut = Stadium(start: .one,
-                          end: .one,
-                          radius: 3)
+        let sut = Stadium(
+            start: .one,
+            end: .one,
+            radius: 3
+        )
         
         let result = sut.bounds
         
@@ -86,9 +102,11 @@ extension NCapsuleTests {
     }
     
     func testBounds_unitLengthStadium() {
-        let sut = Stadium(start: .zero,
-                          end: .unitY,
-                          radius: 1)
+        let sut = Stadium(
+            start: .zero,
+            end: .unitY,
+            radius: 1
+        )
         
         let result = sut.bounds
         
@@ -97,9 +115,11 @@ extension NCapsuleTests {
     }
     
     func testBounds_verticalStadium() {
-        let sut = Stadium(start: .zero,
-                          end: .unitY * 20,
-                          radius: 3)
+        let sut = Stadium(
+            start: .zero,
+            end: .unitY * 20,
+            radius: 3
+        )
         
         let result = sut.bounds
         
@@ -108,9 +128,11 @@ extension NCapsuleTests {
     }
     
     func testBounds_skewedStadium() {
-        let sut = Stadium(start: .init(x: -2, y: 0),
-                          end: .init(x: 3, y: 5),
-                          radius: 4)
+        let sut = Stadium(
+            start: .init(x: -2, y: 0),
+            end: .init(x: 3, y: 5),
+            radius: 4
+        )
         
         let result = sut.bounds
         
@@ -123,18 +145,22 @@ extension NCapsuleTests {
 
 extension NCapsuleTests {
     func testContains_withinLineProjection_returnsTrue() {
-        let sut = Stadium(start: .init(x: 13, y: 17),
-                          end: .init(x: 13, y: 29),
-                          radius: 3)
+        let sut = Stadium(
+            start: .init(x: 13, y: 17),
+            end: .init(x: 13, y: 29),
+            radius: 3
+        )
         
         XCTAssertTrue(sut.contains(x: 12, y: 20))
         XCTAssertTrue(sut.contains(x: 14, y: 20))
     }
     
     func testContains_outOfBounds_returnsFalse() {
-        let sut = Stadium(start: .init(x: 13, y: 17),
-                          end: .init(x: 13, y: 29),
-                          radius: 3)
+        let sut = Stadium(
+            start: .init(x: 13, y: 17),
+            end: .init(x: 13, y: 29),
+            radius: 3
+        )
         
         XCTAssertFalse(sut.contains(.init(x: 9, y: 20)))
         XCTAssertFalse(sut.contains(.init(x: 17, y: 20)))
@@ -143,27 +169,33 @@ extension NCapsuleTests {
     }
     
     func testContains_withinLineDistanceAtEnds_returnsTrue() {
-        let sut = Stadium(start: .init(x: 13, y: 17),
-                          end: .init(x: 13, y: 29),
-                          radius: 3)
+        let sut = Stadium(
+            start: .init(x: 13, y: 17),
+            end: .init(x: 13, y: 29),
+            radius: 3
+        )
         
         XCTAssertTrue(sut.contains(x: 12, y: 16))
         XCTAssertTrue(sut.contains(x: 14, y: 30))
     }
     
     func testContains_equalStartEnd_withinLineProjection_returnsTrue() {
-        let sut = Stadium(start: .init(x: 13, y: 17),
-                          end: .init(x: 13, y: 17),
-                          radius: 3)
+        let sut = Stadium(
+            start: .init(x: 13, y: 17),
+            end: .init(x: 13, y: 17),
+            radius: 3
+        )
         
         XCTAssertTrue(sut.contains(x: 12, y: 17))
         XCTAssertTrue(sut.contains(x: 14, y: 17))
     }
     
     func testContains_equalStartEnd_outOfBounds_returnsFalse() {
-        let sut = Stadium(start: .init(x: 13, y: 17),
-                          end: .init(x: 13, y: 17),
-                          radius: 3)
+        let sut = Stadium(
+            start: .init(x: 13, y: 17),
+            end: .init(x: 13, y: 17),
+            radius: 3
+        )
         
         XCTAssertFalse(sut.contains(.init(x: 9, y: 20)))
         XCTAssertFalse(sut.contains(.init(x: 17, y: 20)))
@@ -172,9 +204,11 @@ extension NCapsuleTests {
     }
     
     func testContains_equalStartEnd_withinLineDistanceAtEnds_returnsTrue() {
-        let sut = Stadium(start: .init(x: 13, y: 17),
-                          end: .init(x: 13, y: 17),
-                          radius: 3)
+        let sut = Stadium(
+            start: .init(x: 13, y: 17),
+            end: .init(x: 13, y: 17),
+            radius: 3
+        )
         
         XCTAssertTrue(sut.contains(x: 12, y: 16))
         XCTAssertTrue(sut.contains(x: 14, y: 18))
@@ -185,8 +219,7 @@ extension NCapsuleTests {
 
 extension NCapsuleTests {
     func testProject_withinCapsule_closerToLineSegment() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -199,8 +232,7 @@ extension NCapsuleTests {
     }
     
     func testProject_withinCapsule_withinStartSphere() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -213,8 +245,7 @@ extension NCapsuleTests {
     }
     
     func testProject_withinCapsule_withinEndSphere() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -227,8 +258,7 @@ extension NCapsuleTests {
     }
     
     func testProject_withinCapsule_onLine() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -241,8 +271,7 @@ extension NCapsuleTests {
     }
     
     func testProject_onEdge_withinLineSegment() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -255,8 +284,7 @@ extension NCapsuleTests {
     }
     
     func testProject_onEdge_onStartSphere() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -269,8 +297,7 @@ extension NCapsuleTests {
     }
     
     func testProject_onEdge_onEndSphere() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -283,8 +310,7 @@ extension NCapsuleTests {
     }
     
     func testProject_outOfBounds_closerToLineSegment() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -297,8 +323,7 @@ extension NCapsuleTests {
     }
     
     func testProject_outOfBounds_closerToStartSphere() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5
@@ -311,8 +336,7 @@ extension NCapsuleTests {
     }
     
     func testProject_outOfBounds_closerToEndSphere() {
-        let sut =
-        Capsule(
+        let sut = Capsule(
             start: .init(x: 0, y: 0, z: 0),
             end: .init(x: 0, y: 0, z: 50),
             radius: 5

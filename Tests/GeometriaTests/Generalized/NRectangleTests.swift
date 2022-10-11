@@ -5,8 +5,10 @@ class NRectangleTests: XCTestCase {
     typealias Rectangle = Rectangle2D
     
     func testCodable() throws {
-        let sut = Rectangle(location: .init(x: 1, y: 2),
-                            size: .init(x: 3, y: 4))
+        let sut = Rectangle(
+            location: .init(x: 1, y: 2),
+            size: .init(x: 3, y: 4)
+        )
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         
@@ -17,8 +19,10 @@ class NRectangleTests: XCTestCase {
     }
     
     func testInitWithLocationSize() {
-        let sut = Rectangle(location: .init(x: 1, y: 2),
-                            size: .init(x: 3, y: 4))
+        let sut = Rectangle(
+            location: .init(x: 1, y: 2),
+            size: .init(x: 3, y: 4)
+        )
         
         XCTAssertEqual(sut.location, .init(x: 1, y: 2))
         XCTAssertEqual(sut.size, .init(x: 3, y: 4))
@@ -67,13 +71,19 @@ extension NRectangleTests {
     }
     
     func testIsSizeZero_zeroArea() {
-        let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 0, y: 0))
+        let sut = Rectangle(
+            location: .init(x: 0, y: 0),
+            size: .init(x: 0, y: 0)
+        )
         
         XCTAssertTrue(sut.isSizeZero)
     }
     
     func testIsSizeZero_zeroWidth() {
-        let sut = Rectangle(location: .init(x: 0, y: 0), size: .init(x: 0, y: 1))
+        let sut = Rectangle(
+            location: .init(x: 0, y: 0),
+            size: .init(x: 0, y: 1)
+        )
         
         XCTAssertFalse(sut.isSizeZero)
     }
@@ -140,7 +150,10 @@ extension NRectangleTests {
     }
     
     func testInitWithMinimumMaximum() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 5))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 3, y: 5)
+        )
         
         XCTAssertEqual(sut.location, .init(x: 1, y: 2))
         XCTAssertEqual(sut.size, .init(x: 2, y: 3))
@@ -934,8 +947,10 @@ extension NRectangleTests {
         // to rounding errors in the produced intersection points
         
         let sut = Rectangle(left: 162.5, top: 135.0, right: 237.5, bottom: 165.0)
-        let line = LineSegment2D(x1: 101.01359554152113, y1: 164.20182144594258,
-                                 x2: 298.9864044584789, y2: 145.79817855405742)
+        let line = LineSegment2D(
+            x1: 101.01359554152113, y1: 164.20182144594258,
+            x2: 298.9864044584789, y2: 145.79817855405742
+        )
         
         assertEqual(
             sut.intersection(with: line),
@@ -961,7 +976,10 @@ extension NRectangleTests {
     // MARK: intersects(line:)
     
     func testIntersectsLine_3d_line_acrossTopQuadrant() {
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 10, y: 10, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 10, y: 10, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 5, z1: 7, x2: 15, y2: 5, z2: 7)
         
         XCTAssertTrue(sut.intersects(line: line))
@@ -975,7 +993,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the top (Y: 10, Z: 7) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 10, z1: 7, x2: 40, y2: 10, z2: 7)
         
         assertEqual(
@@ -997,7 +1018,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the far (Y: 12, Z: 10) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 12, z1: 5, x2: 40, y2: 12, z2: 5)
         
         assertEqual(
@@ -1019,7 +1043,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the bottom (Y: 10, Z: 3) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 10, z1: 3, x2: 40, y2: 10, z2: 3)
         
         assertEqual(
@@ -1041,7 +1068,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the near (Y: 7, Z: 10) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 7, z1: 5, x2: 40, y2: 7, z2: 5)
         
         assertEqual(
@@ -1065,7 +1095,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the top (Y: 10, Z: 7) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 10, z1: 7, x2: -5, y2: 10, z2: 7)
         
         assertEqual(
@@ -1087,7 +1120,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the far (Y: 12, Z: 10) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 12, z1: 5, x2: -5, y2: 12, z2: 5)
         
         assertEqual(
@@ -1109,7 +1145,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the bottom (Y: 10, Z: 3) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 10, z1: 3, x2: -5, y2: 10, z2: 3)
         
         assertEqual(
@@ -1131,7 +1170,10 @@ extension NRectangleTests {
         // Run a line on a rectangular-shaped Rectangle of dimensions (x30 y20 z10),
         // along the X coordinate through the near (Y: 7, Z: 10) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 7, z1: 5, x2: -5, y2: 7, z2: 5)
         
         assertEqual(
@@ -1156,7 +1198,10 @@ extension NRectangleTests {
         // along the Y coordinate through the near (X: 20, Z: 7) quadrant, with
         // a downward slope that cuts to the far bottom (X: 20, Z: 3) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = DirectionalRay3D(x1: 20, y1: -5, z1: 7, x2: 20, y2: 25, z2: 3)
         
         assertEqual(
@@ -1180,7 +1225,10 @@ extension NRectangleTests {
         // through the near (X: 20, Z: 7) quadrant, with a downward slope that
         // cuts to the bottom far (Y: 17, Z: 4) quadrant.
         
-        let sut = Rectangle3(minimum: .init(x: 2, y: 3, z: 4), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = Rectangle3(
+            minimum: .init(x: 2, y: 3, z: 4),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = DirectionalRay3D(x1: 20, y1: -5, z1: 7, x2: 20, y2: 25, z2: 3)
         
         assertEqual(
@@ -1203,49 +1251,73 @@ extension NRectangleTests {
 
 extension NRectangleTests {
     func testSignedDistanceTo_center() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: sut.center), -2.0)
     }
     
     func testSignedDistanceTo_onEdge_left() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 1, y: 5)), 0.0)
     }
     
     func testSignedDistanceTo_onEdge_top() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 7)), 0.0)
     }
     
     func testSignedDistanceTo_onEdge_right() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 5, y: 5)), 0.0)
     }
     
     func testSignedDistanceTo_onEdge_bottom() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 2)), 0.0)
     }
     
     func testSignedDistanceTo_outside_bottomEdge() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 3, y: 0)), 2.0)
     }
     
     func testSignedDistanceTo_outside_rightEdge() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 7, y: 5)), 2.0)
     }
     
     func testSignedDistanceTo_outside_bottomLeftEdge() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 5, y: 7))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 5, y: 7)
+        )
         
         XCTAssertEqual(sut.signedDistance(to: .init(x: 0, y: 0)), 2.23606797749979)
     }

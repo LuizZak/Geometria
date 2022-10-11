@@ -10,95 +10,131 @@ class Torus3Tests: XCTestCase {
         let diff = 9.0
 
         XCTAssertEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
 
         XCTAssertNotEqual(
-            Torus(center: .init(x: diff, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: diff, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: diff, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: diff, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: diff),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: diff),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: diff, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: diff, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: diff, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: diff, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: diff),
-                  majorRadius: 7,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: diff),
+                majorRadius: 7,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: diff,
-                  minorRadius: 8),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: diff,
+                minorRadius: 8
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: diff),
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8)
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: diff
+            ),
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            )
         )
     }
     
@@ -106,95 +142,131 @@ class Torus3Tests: XCTestCase {
         let diff = 9.0
 
         XCTAssertEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
 
         XCTAssertNotEqual(
-            Torus(center: .init(x: diff, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: diff, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: diff, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: diff, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: diff),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: diff),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: diff, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: diff, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: diff, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: diff, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: diff),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: diff),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: diff,
-                  minorRadius: 8).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: diff,
+                minorRadius: 8
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
         XCTAssertNotEqual(
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: diff).hashValue,
-            Torus(center: .init(x: 1, y: 2, z: 3),
-                  axis: .init(x: 4, y: 5, z: 6),
-                  majorRadius: 7,
-                  minorRadius: 8).hashValue
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: diff
+            ).hashValue,
+            Torus(
+                center: .init(x: 1, y: 2, z: 3),
+                axis: .init(x: 4, y: 5, z: 6),
+                majorRadius: 7,
+                minorRadius: 8
+            ).hashValue
         )
     }
 }
@@ -400,7 +472,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: 17.592944348069327, y: 17.592944348069327, z: 1.0880433337235615), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: 17.592944348069327, y: 17.592944348069327, z: 1.0880433337235615),
+            accuracy: accuracy
+        )
     }
 
     func testProject_pointInTube() {
@@ -414,7 +490,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: 24.74341649025257, y: 0.0, z: 1.5811388300841898), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: 24.74341649025257, y: 0.0, z: 1.5811388300841898),
+            accuracy: accuracy
+        )
     }
 
     func testProject_pointInsideMajorRadius() {
@@ -428,7 +508,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: 15.256583509747431, y: 0.0, z: 1.5811388300841898), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: 15.256583509747431, y: 0.0, z: 1.5811388300841898),
+            accuracy: accuracy
+        )
     }
 
     func testProject_pointOnTubeCenter() {
@@ -442,7 +526,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: 25.0, y: 0.0, z: 0.0), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: 25.0, y: 0.0, z: 0.0),
+            accuracy: accuracy
+        )
     }
 
     func testProject_pointOnCenter() {
@@ -456,7 +544,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: -15.0, y: 0.0, z: 0.0), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: -15.0, y: 0.0, z: 0.0),
+            accuracy: accuracy
+        )
     }
 
     func testProject_tiltedTorus() {
@@ -470,7 +562,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: 3.843224223335116, y: 16.063316446105986, z: 43.824054228272956), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: 3.843224223335116, y: 16.063316446105986, z: 43.824054228272956),
+            accuracy: accuracy
+        )
     }
 
     func testProject_tiltedTorus_pointInTube() {
@@ -484,7 +580,11 @@ extension Torus3Tests {
 
         let result = sut.project(point)
 
-        assertEqual(result, .init(x: 4.7217654385894265, y: 9.61053532781247, z: 40.99280938985172), accuracy: accuracy)
+        assertEqual(
+            result,
+            .init(x: 4.7217654385894265, y: 9.61053532781247, z: 40.99280938985172),
+            accuracy: accuracy
+        )
     }
 }
 

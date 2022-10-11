@@ -169,8 +169,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 1, y1: 1, z1: 0,
-                        x2: 1, y2: 1, z2: 3)
+            LineSegment(
+                x1: 1, y1: 1, z1: 0,
+                x2: 1, y2: 1, z2: 3
+            )
         )
     }
     
@@ -180,8 +182,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 1.0, y1: 0.0, z1: 1.0,
-                        x2: 1.0, y2: 3.0, z2: 1.0)
+            LineSegment(
+                x1: 1.0, y1: 0.0, z1: 1.0,
+                x2: 1.0, y2: 3.0, z2: 1.0
+            )
         )
     }
     
@@ -200,8 +204,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 2, y1: 2, z1: 0,
-                        x2: 2, y2: 2, z2: 3)
+            LineSegment(
+                x1: 2, y1: 2, z1: 0,
+                x2: 2, y2: 2, z2: 3
+            )
         )
     }
     
@@ -211,8 +217,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 2, y1: 2, z1: 0,
-                        x2: 1, y2: 3, z2: 3)
+            LineSegment(
+                x1: 2, y1: 2, z1: 0,
+                x2: 1, y2: 3, z2: 3
+            )
         )
     }
     
@@ -224,8 +232,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 2, y1: 2, z1: 0,
-                        x2: 1, y2: 3, z2: 3)
+            LineSegment(
+                x1: 2, y1: 2, z1: 0,
+                x2: 1, y2: 3, z2: 3
+            )
         )
     }
     
@@ -235,8 +245,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 2, y1: 2, z1: 0,
-                        x2: 1, y2: 3, z2: 3)
+            LineSegment(
+                x1: 2, y1: 2, z1: 0,
+                x2: 1, y2: 3, z2: 3
+            )
         )
     }
     
@@ -248,8 +260,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 1, y1: 1, z1: 0,
-                        x2: 1, y2: 3, z2: 3)
+            LineSegment(
+                x1: 1, y1: 1, z1: 0,
+                x2: 1, y2: 3, z2: 3
+            )
         )
     }
     
@@ -259,8 +273,10 @@ class Line3FloatingPointTests: XCTestCase {
         
         XCTAssertEqual(
             line1.shortestLine(to: line2),
-            LineSegment(x1: 1, y1: 1, z1: 0,
-                        x2: 1, y2: 3, z2: 3)
+            LineSegment(
+                x1: 1, y1: 1, z1: 0,
+                x2: 1, y2: 3, z2: 3
+            )
         )
     }
 

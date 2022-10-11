@@ -44,9 +44,11 @@ class Sphere3Tests: XCTestCase {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 1, y: 12, z: 3),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 1, y: 12, z: 3),
+            accuracy: 1e-15
+        )
     }
     
     func testProjectOut_xNegative() {
@@ -55,9 +57,11 @@ class Sphere3Tests: XCTestCase {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: -9, y: 2, z: 3),
-                    accuracy: 1e-14)
+        assertEqual(
+            vector,
+            .init(x: -9, y: 2, z: 3),
+            accuracy: 1e-14
+        )
     }
     
     func testProjectOut_yNegative() {
@@ -66,9 +70,11 @@ class Sphere3Tests: XCTestCase {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 1, y: -8, z: 3),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 1, y: -8, z: 3),
+            accuracy: 1e-15
+        )
     }
     
     func testProjectOut_zPositive() {
@@ -77,9 +83,11 @@ class Sphere3Tests: XCTestCase {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 1, y: 2, z: 13),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 1, y: 2, z: 13),
+            accuracy: 1e-15
+        )
     }
     
     func testProjectOut_zNegative() {
@@ -88,8 +96,10 @@ class Sphere3Tests: XCTestCase {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 1, y: 2, z: -7),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 1, y: 2, z: -7),
+            accuracy: 1e-15
+        )
     }
 }

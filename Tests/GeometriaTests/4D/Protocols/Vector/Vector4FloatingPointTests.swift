@@ -32,8 +32,19 @@ class Vector4FloatingPointTests: XCTestCase {
         let vec1 = Vector(x: 1, y: 2, z: 3, w: 5)
         let vec2 = Vector4i(x: 7, y: 11, z: 13, w: 17)
         
-        XCTAssertEqual(vec2 / vec1, Vector(x: 7.0, y: 5.5, z: 4.333333333333333, w: 3.4))
-        XCTAssertEqual(vec1 / vec2, Vector(x: 0.14285714285714285, y: 0.18181818181818182, z: 0.23076923076923078, w: 0.29411764705882354))
+        XCTAssertEqual(
+            vec2 / vec1,
+            Vector(x: 7.0, y: 5.5, z: 4.333333333333333, w: 3.4)
+        )
+        XCTAssertEqual(
+            vec1 / vec2,
+            Vector(
+                x: 0.14285714285714285,
+                y: 0.18181818181818182,
+                z: 0.23076923076923078,
+                w: 0.29411764705882354
+            )
+        )
     }
     
     func testAddition_floatingPoint_binaryNumber_inPLace() {
@@ -69,6 +80,14 @@ class Vector4FloatingPointTests: XCTestCase {
         
         vec1 /= vec2
         
-        XCTAssertEqual(vec1, Vector(x: 0.14285714285714285, y: 0.18181818181818182, z: 0.23076923076923078, w: 0.29411764705882354))
+        XCTAssertEqual(
+            vec1,
+            Vector(
+                x: 0.14285714285714285,
+                y: 0.18181818181818182,
+                z: 0.23076923076923078,
+                w: 0.29411764705882354
+            )
+        )
     }
 }

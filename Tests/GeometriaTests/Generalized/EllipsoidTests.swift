@@ -16,39 +16,59 @@ class EllipsoidTests: XCTestCase {
     }
     
     func testEquals() {
-        XCTAssertEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5),
-                       Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
+        XCTAssertEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5),
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 999, y: 2), radiusX: 3, radiusY: 5),
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 999, y: 2), radiusX: 3, radiusY: 5),
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
+        )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 999), radiusX: 3, radiusY: 5),
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 1, y: 999), radiusX: 3, radiusY: 5),
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
+        )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 999, radiusY: 5),
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 999, radiusY: 5),
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
+        )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 999),
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 999),
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue,
-                       Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
+        XCTAssertEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue,
+        Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue
+    )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 999, y: 2), radiusX: 3, radiusY: 5).hashValue,
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 999, y: 2), radiusX: 3, radiusY: 5).hashValue,
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue
+        )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 999), radiusX: 3, radiusY: 5).hashValue,
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 1, y: 999), radiusX: 3, radiusY: 5).hashValue,
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue
+        )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 999, radiusY: 5).hashValue,
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 999, radiusY: 5).hashValue,
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue
+        )
         
-        XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 999).hashValue,
-                          Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
+        XCTAssertNotEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 999).hashValue,
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue
+        )
     }
 }
 

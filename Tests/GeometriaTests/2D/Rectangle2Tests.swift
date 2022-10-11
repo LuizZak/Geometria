@@ -5,8 +5,10 @@ class Rectangle2Tests: XCTestCase {
     typealias Rectangle = Rectangle2D
     
     func testDescription() {
-        XCTAssertEqual(Rectangle(x: 0, y: 1, width: 2, height: 3).description,
-                       "NRectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)")
+        XCTAssertEqual(
+            Rectangle(x: 0, y: 1, width: 2, height: 3).description,
+            "NRectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)"
+        )
     }
 }
 
@@ -131,11 +133,13 @@ extension Rectangle2Tests {
     func testTransformedBounds_scale() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         let matrix = Matrix3x2D
-            .transformation(xScale: 2,
-                            yScale: 3,
-                            angle: 0,
-                            xOffset: 0,
-                            yOffset: 0)
+            .transformation(
+                xScale: 2,
+                yScale: 3,
+                angle: 0,
+                xOffset: 0,
+                yOffset: 0
+            )
         
         let result = sut.transformedBounds(matrix)
         
@@ -146,11 +150,13 @@ extension Rectangle2Tests {
     func testTransformedBounds_rotation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         let matrix = Matrix3x2D
-            .transformation(xScale: 1,
-                            yScale: 1,
-                            angle: .pi / 2,
-                            xOffset: 0,
-                            yOffset: 0)
+            .transformation(
+                xScale: 1,
+                yScale: 1,
+                angle: .pi / 2,
+                xOffset: 0,
+                yOffset: 0
+            )
         
         let result = sut.transformedBounds(matrix)
         
@@ -161,11 +167,13 @@ extension Rectangle2Tests {
     func testTransformedBounds_translate() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         let matrix = Matrix3x2D
-            .transformation(xScale: 1,
-                            yScale: 1,
-                            angle: 0,
-                            xOffset: 5,
-                            yOffset: 7)
+            .transformation(
+                xScale: 1,
+                yScale: 1,
+                angle: 0,
+                xOffset: 5,
+                yOffset: 7
+            )
         
         let result = sut.transformedBounds(matrix)
         
@@ -176,11 +184,13 @@ extension Rectangle2Tests {
     func testTransformedBounds_scaleRotation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         let matrix = Matrix3x2D
-            .transformation(xScale: 2,
-                            yScale: 3,
-                            angle: .pi / 2,
-                            xOffset: 0,
-                            yOffset: 0)
+            .transformation(
+                xScale: 2,
+                yScale: 3,
+                angle: .pi / 2,
+                xOffset: 0,
+                yOffset: 0
+            )
         
         let result = sut.transformedBounds(matrix)
         
@@ -191,11 +201,13 @@ extension Rectangle2Tests {
     func testTransformedBounds_rotationTranslation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         let matrix = Matrix3x2D
-            .transformation(xScale: 1,
-                            yScale: 1,
-                            angle: .pi / 2,
-                            xOffset: 5,
-                            yOffset: 7)
+            .transformation(
+                xScale: 1,
+                yScale: 1,
+                angle: .pi / 2,
+                xOffset: 5,
+                yOffset: 7
+            )
         
         let result = sut.transformedBounds(matrix)
         
@@ -206,11 +218,13 @@ extension Rectangle2Tests {
     func testTransformedBounds_scaleRotationTranslation() {
         let sut = Rectangle(x: 1, y: 2, width: 3, height: 4)
         let matrix = Matrix3x2D
-            .transformation(xScale: 2,
-                            yScale: 3,
-                            angle: .pi / 2,
-                            xOffset: 5,
-                            yOffset: 7)
+            .transformation(
+                xScale: 2,
+                yScale: 3,
+                angle: .pi / 2,
+                xOffset: 5,
+                yOffset: 7
+            )
         
         let result = sut.transformedBounds(matrix)
         
