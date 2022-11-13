@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Rectangle2 Extension Reference</title>
+    <title>TransposableMatrixType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Rectangle2" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/TransposableMatrixType" class="dashAnchor"></a>
 
-    <a title="Rectangle2 Extension Reference"></a>
+    <a title="TransposableMatrixType Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      Rectangle2 Extension Reference
+      TransposableMatrixType Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -949,21 +949,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Rectangle2</h1>
+            <h1>TransposableMatrixType</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorReal.html">VectorReal</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria10Rectangle2a">Rectangle2</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Convex2Type.html">Convex2Type</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">TransposableMatrixType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/MatrixType.html">MatrixType</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Protocol for matrices that support transposition.</p>
+
           </div>
         </section>
 
@@ -974,9 +969,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    <a name="/s:9Geometria22TransposableMatrixTypeP9TransposeQa"></a>
+                    <a name="//apple_ref/swift/Alias/Transpose" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22TransposableMatrixTypeP9TransposeQa">Transpose</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -984,55 +979,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60"></a>
-                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code></span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE5right6ScalarAA0eD0PQzvp"></a>
-                    <a name="//apple_ref/swift/Property/right" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE5right6ScalarAA0eD0PQzvp">right</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The x coordinate of the right corner of this rectangle.</p>
-
-<p>Alias for <code>x + width</code>.</p>
+                        <p>The resulting type of a transposition of this matrix.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">Transpose</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/MatrixType.html">MatrixType</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1042,9 +996,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE6bottom6ScalarAA0eD0PQzvp"></a>
-                    <a name="//apple_ref/swift/Property/bottom" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE6bottom6ScalarAA0eD0PQzvp">bottom</a>
+                    <a name="/s:9Geometria22TransposableMatrixTypeP10transposed9TransposeQzyF"></a>
+                    <a name="//apple_ref/swift/Method/transposed()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22TransposableMatrixTypeP10transposed9TransposeQzyF">transposed()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1052,522 +1006,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The y coordinate of the bottom corner of this rectangle.</p>
-
-<p>Alias for <code>y + height</code>.</p>
+                        <p>Returns a new matrix that is a <a href="https://en.wikipedia.org/wiki/Transpose">transposition</a> of this matrix.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">bottom</span><span class="p">:</span> <span class="kt">Scalar</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE8topRightxvp"></a>
-                    <a name="//apple_ref/swift/Property/topRight" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE8topRightxvp">topRight</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The top-right corner of the rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">topRight</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE10bottomLeftxvp"></a>
-                    <a name="//apple_ref/swift/Property/bottomLeft" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE10bottomLeftxvp">bottomLeft</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The bottom-left corner of the rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">bottomLeft</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE11bottomRightxvp"></a>
-                    <a name="//apple_ref/swift/Property/bottomRight" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE11bottomRightxvp">bottomRight</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The bottom-right corner of the rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">bottomRight</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE7cornersSayxGvp"></a>
-                    <a name="//apple_ref/swift/Property/corners" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE7cornersSayxGvp">corners</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns an array of vectors that represent this <code>Rectangle</code>&lsquo;s corners in
-clockwise order, starting from the top-left corner.</p>
-
-<p>Always contains 4 elements.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="k">var</span> <span class="nv">corners</span><span class="p">:</span> <span class="p">[</span><span class="kt">Vector</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE4left3top5right6bottomACyxG6ScalarAA0eD0PQz_A3Ntcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(left:top:right:bottom:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE4left3top5right6bottomACyxG6ScalarAA0eD0PQz_A3Ntcfc">init(left:<wbr>top:<wbr>right:<wbr>bottom:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a <code>Rectangle</code> with the edges of a box.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">top</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">bottom</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE11movingRight2toACyxG6ScalarAA0eD0PQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/movingRight(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE11movingRight2toACyxG6ScalarAA0eD0PQz_tF">movingRight(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new Rectangle with the same top, bottom, and width as the current
-instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE5right6ScalarAA0eD0PQzvp">right</a></code> lays on <code>value</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingRight</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE12movingBottom2toACyxG6ScalarAA0eD0PQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/movingBottom(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE12movingBottom2toACyxG6ScalarAA0eD0PQz_tF">movingBottom(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new Rectangle with the same left, right, and height as the current
-instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE6bottom6ScalarAA0eD0PQzvp">bottom</a></code> lays on <code>value</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">movingBottom</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE14stretchingLeft2toACyxG6ScalarAA0eD0PQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/stretchingLeft(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE14stretchingLeft2toACyxG6ScalarAA0eD0PQz_tF">stretchingLeft(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new Rectangle with the same top, bottom, and right as the current
-instance, where the <code>left</code> lays on <code>value</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingLeft</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE13stretchingTop2toACyxG6ScalarAA0eD0PQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/stretchingTop(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE13stretchingTop2toACyxG6ScalarAA0eD0PQz_tF">stretchingTop(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new Rectangle with the same left, right, and bottom as the current
-instance, where the <code>top</code> lays on <code>value</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingTop</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE15stretchingRight2toACyxG6ScalarAA0eD0PQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/stretchingRight(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE15stretchingRight2toACyxG6ScalarAA0eD0PQz_tF">stretchingRight(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new Rectangle with the same top, bottom, and left as the current
-instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE5right6ScalarAA0eD0PQzvp">right</a></code> lays on <code>value</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingRight</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE16stretchingBottom2toACyxG6ScalarAA0eD0PQz_tF"></a>
-                    <a name="//apple_ref/swift/Method/stretchingBottom(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE16stretchingBottom2toACyxG6ScalarAA0eD0PQz_tF">stretchingBottom(to:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a new Rectangle with the same left, right, and top as the current
-instance, where the <code><a href="../Extensions/Rectangle2.html#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE6bottom6ScalarAA0eD0PQzvp">bottom</a></code> lays on <code>value</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">stretchingBottom</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE5insetyACyxGAA11EdgeInsets2VyxGF"></a>
-                    <a name="//apple_ref/swift/Method/inset(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzrlE5insetyACyxGAA11EdgeInsets2VyxGF">inset(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Insets this Rectangle with a given set of edge inset values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="nf">inset</span><span class="p">(</span><span class="n">_</span> <span class="nv">inset</span><span class="p">:</span> <span class="kt"><a href="../Structs/EdgeInsets2.html">EdgeInsets2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorReal%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorReal`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorReal%60"></a>
-                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/VectorReal.html">VectorReal</a></code></span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA10VectorRealRzrlE17transformedBoundsyACyxGAA9Matrix3x2Vy6ScalarAA0eD0PQzGF"></a>
-                    <a name="//apple_ref/swift/Method/transformedBounds(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA10VectorRealRzrlE17transformedBoundsyACyxGAA9Matrix3x2Vy6ScalarAA0eD0PQzGF">transformedBounds(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Applies the given Matrix on all corners of this Rectangle, returning a new
-minimal Rectangle capable of containing the transformed points.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">transformedBounds</span><span class="p">(</span><span class="n">_</span> <span class="nv">matrix</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix3x2.html">Matrix3x2</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorAdditive` &amp; `VectorComparable`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorAdditive%60%20%26%20%60VectorComparable%60"></a>
-                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></code> &amp; <code><a href="../Protocols/VectorComparable.html">VectorComparable</a></code></span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzAA0E10ComparableRzrlE8contains1x1ySb6ScalarAA0eD0PQz_AMtF"></a>
-                    <a name="//apple_ref/swift/Method/contains(x:y:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA14VectorAdditiveRzAA0E10ComparableRzrlE8contains1x1ySb6ScalarAA0eD0PQz_AMtF">contains(x:<wbr>y:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns whether a given point is contained within this bounding box.</p>
-
-<p>The check is inclusive, so the edges of the bounding box are considered
-to contain the point as well.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorMultiplicative%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorMultiplicative`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorMultiplicative%60"></a>
-                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/VectorMultiplicative.html">VectorMultiplicative</a></code></span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA20VectorMultiplicativeRzrlE8scaledBy1x1yACyxG6ScalarAA0eD0PQz_AMtF"></a>
-                    <a name="//apple_ref/swift/Method/scaledBy(x:y:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzAA20VectorMultiplicativeRzrlE8scaledBy1x1yACyxG6ScalarAA0eD0PQz_AMtF">scaledBy(x:<wbr>y:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a Rectangle with the same position as this Rectangle, with its
-width and height multiplied by the coordinates of the given vector.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">scaledBy</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Available%20where%20%60Scalar%60%3A%20%60FloatingPoint%60"></a>
-                <a name="//apple_ref/swift/Section/Available where `Scalar`: `FloatingPoint`" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Available%20where%20%60Scalar%60%3A%20%60FloatingPoint%60"></a>
-                  <h3 class="section-name"><span>Available where <code>Scalar</code>: <code>FloatingPoint</code></span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Geometria10NRectangleVA2A11Vector2TypeRzSF6ScalarRpzrlE1x1y5width6heightACyxGqd___qd__qd__qd__tcSzRd__lufc"></a>
-                    <a name="//apple_ref/swift/Method/init(x:y:width:height:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria10NRectangleVA2A11Vector2TypeRzSF6ScalarRpzrlE1x1y5width6heightACyxGqd___qd__qd__qd__tcSzRd__lufc">init(x:<wbr>y:<wbr>width:<wbr>height:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a Rectangle with the coordinates of a rectangle.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">init</span><span class="o">&lt;</span><span class="kt">B</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">B</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">B</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="kt">B</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="kt">B</span><span class="p">)</span> <span class="k">where</span> <span class="kt">B</span> <span class="p">:</span> <span class="kt">BinaryInteger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">transposed</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/TransposableMatrixType.html#/s:9Geometria22TransposableMatrixTypeP9TransposeQa">Transpose</a></span></code></pre>
 
                         </div>
                       </div>
