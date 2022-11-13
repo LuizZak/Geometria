@@ -2,6 +2,8 @@
 
 ## [main]
 
+- Adding `TransposableMatrixType` protocol to describe matrices that can be transposed into another known matrix type.
+
 - Added `DivisibleRectangleType.subdivided()`.
 
 - Fixing `NSphere.project(_:Vector)` being offset from correct point by `-self.center`.
