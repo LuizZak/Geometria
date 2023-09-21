@@ -11,8 +11,6 @@ public typealias Vector3i = Vector3<Int>
 
 /// A three-component vector type
 public struct Vector3<Scalar>: Vector3Type {
-    public typealias SubVector3 = Self
-    
     /// X coordinate of this vector
     public var x: Scalar
     
