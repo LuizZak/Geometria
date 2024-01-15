@@ -1,251 +1,235 @@
 {
-	"tasks": {
-		"version": "2.0.0",
-		"problemMatcher": [
-			// Compilation
-			{
-				"owner": "swift",
-				"fileLocation": "autoDetect",
-				"pattern": {
-					"regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-					"file": 1,
-					"line": 2,
-					"column": 3,
-					"severity": 4,
-					"message": 5
-				}
-			},
-			// Fix to detect unit test executions, which do not feature a column during reporting
-			{
-				"owner": "swift",
-				"fileLocation": "autoDetect",
-				"pattern": {
-					"regexp": "^(.*):(\\d+):\\s+(warning|error):\\s+(.*)$",
-					"file": 1,
-					"line": 2,
-					"severity": 3,
-					"message": 4
-				}
-			}
-		],
-		"tasks": [
-			{
-				"label": "Clean",
-				"type": "shell",
-				"detail": "swift package clean",
-				"command": "swift",
-				"args": [
-					"package",
-					"clean"
-				],
-				"presentation": {
-					"reveal": "silent"
-				}
-			},
-			{
-				"label": "Build (debug)",
-				"type": "shell",
-				"detail": "swift build --configuration debug",
-				"command": "swift",
-				"args": [
-					"build",
-					"--configuration", "debug",
-					"--build-tests",
-					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
-				],
-				"presentation": {
-					"reveal": "always"
-				},
-				"group": {
-					"kind": "build",
-					"isDefault": true
-				},
-				"options": {
-					"env": {
-						"REPORT_BUILD_TIME": "NO"
-					}
-				}
-			},
-			{
-				"label": "Test",
-				"type": "shell",
-				"detail": "swift test --configuration debug",
-				"command": "swift",
-				"args": [
-					"test",
-					"--configuration", "debug",
-					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
-				],
-				"presentation": {
-					"reveal": "always"
-				},
-				"group": {
-					"kind": "test",
-					"isDefault": true
-				},
-				"options": {
-					"env": {
-						"REPORT_BUILD_TIME": "NO"
-					}
-				}
-			},
-			{
-				"label": "Build (Release)",
-				"type": "shell",
-				"detail": "swift test --configuration release",
-				"command": "swift",
-				"args": [
-					"build",
-					"--configuration", "release",
-					"--build-tests",
-					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
-				],
-				"group": "build",
-				"options": {
-					"env": {
-						"REPORT_BUILD_TIME": "NO"
-					}
-				}
-			},
-			{
-				"label": "Build (time)",
-				"type": "shell",
-				"detail": "Runs clean build and reports compilation time of function bodies and expressions",
-				"dependsOn": "Clean",
-				"command": "time",
-				"args": [
-					"swift",
-					"build",
-					"--configuration", "debug",
-					"--build-tests",
-					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
-				],
-				"presentation": {
-					"reveal": "always"
-				},
-				"group": "build",
-				"options": {
-					"env": {
-						"REPORT_BUILD_TIME": "YES"
-					}
-				}
-			},
-			{
-				"type": "swift",
-				"args": [
-					"build",
-					"--build-tests",
-					// "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
-				],
-				"cwd": "/home/luiz/dev/Geometria",
-				"problemMatcher": [
-					"$swiftc"
-				],
-				"group": "build",
-				"label": "swift: Build All",
-				"detail": "swift build --build-tests"
-			},
-		],
-	},
-	"launch": {
-		"configurations": [
-			{
-				"type": "lldb",
-				"request": "launch",
-				"name": "Test Geometria",
-				"program": "./.build/debug/GeometriaPackageTests.xctest",
-				"cwd": "${workspaceFolder:Geometria}",
-				"preLaunchTask": "swift: Build All",
-			}
-		],
-		"compounds": []
-	},
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"name": "Swift Package Dependencies",
-			"path": ".build/checkouts"
-		},
-		{
-			"name": "Build",
-			"path": ".build/x86_64-unknown-linux-gnu"
-		}
-	],
-	"settings": {
-		"files.eol": "\n",
-		"files.insertFinalNewline": true,
-		"files.exclude": {
-			".git": true,
-			".build": true,
-			".*.sw?": true,
-			"**/.DS_Store": true
-		},
-		"commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor,.build,.swiftpm}/**/*",
-		"commentAnchors.tags.anchors": {
-			"MARK:": {
-				"iconColor": "default",
-				"highlightColor": "#A8C023",
-				"scope": "file",
-			},
-			"TODO:": {
-				"iconColor": "blue",
-				"highlightColor": "#3ea8ff",
-				"scope": "workspace",
-			},
-			"FIXME:": {
-				"iconColor": "red",
-				"highlightColor": "#F44336",
-				"scope": "workspace",
-			},
-			"NOTE:": {
-				"iconColor": "orange",
-				"highlightColor": "#FFB300",
-				"scope": "file",
-			},
-		},
-		"ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
-		"ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
-		"ShortcutMenuBar.userButton03Command": "workbench.action.tasks.runTask|Build (time)",
-		"cSpell.enableFiletypes": [
-			"swift"
-		],
-		"cSpell.words": [
-			"AABB",
-			"aabbs",
-			"Boundable",
-			"Bryan",
-			"codimension",
-			"exodiusstudios",
-			"Geometria",
-			"Hyperrectangle",
-			"Intersectable",
-			"lerp",
-			"Mersenne",
-			"Möller",
-			"multiplicable",
-			"octree",
-			"Peasy",
-			"perp-dot",
-			"pointwise",
-			"PRNG",
-			"projectable",
-			"Sarrus",
-			"swiftlint",
-			"swiftpm",
-			"Tait",
-			"Trumbore",
-			"Unequality",
-			"visualizable",
-			"Xfrontend",
-			"XYZW",
-		],
-		"cSpell.enabled": true,
-	},
-	"extensions": {
-		"recommendations": [
-			"exodiusstudios.comment-anchors"
-		]
-	}
+    "tasks": {
+        "version": "2.0.0",
+        "problemMatcher": [
+            // Compilation
+            {
+                "owner": "swift",
+                "fileLocation": "autoDetect",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            // Fix to detect unit test executions, which do not feature a column during reporting
+            {
+                "owner": "swift",
+                "fileLocation": "autoDetect",
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            }
+        ],
+        "tasks": [
+            {
+                "label": "Clean",
+                "type": "shell",
+                "detail": "swift package clean",
+                "command": "swift",
+                "args": [
+                    "package",
+                    "clean"
+                ],
+                "presentation": {
+                    "reveal": "silent"
+                }
+            },
+            {
+                "label": "Build (debug)",
+                "type": "shell",
+                "detail": "swift build --configuration debug",
+                "command": "swift",
+                "args": [
+                    "build",
+                    "--configuration", "debug",
+                    "--build-tests",
+                    // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "options": {
+                    "env": {
+                        "REPORT_BUILD_TIME": "NO"
+                    }
+                }
+            },
+            {
+                "label": "Test",
+                "type": "shell",
+                "detail": "swift test --configuration debug",
+                "command": "swift",
+                "args": [
+                    "test",
+                    "--configuration", "debug",
+                    // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "test",
+                    "isDefault": true
+                },
+                "options": {
+                    "env": {
+                        "REPORT_BUILD_TIME": "NO"
+                    }
+                }
+            },
+            {
+                "label": "Build (Release)",
+                "type": "shell",
+                "detail": "swift test --configuration release",
+                "command": "swift",
+                "args": [
+                    "build",
+                    "--configuration", "release",
+                    "--build-tests",
+                    // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
+                ],
+                "group": "build",
+                "options": {
+                    "env": {
+                        "REPORT_BUILD_TIME": "NO"
+                    }
+                }
+            },
+            {
+                "label": "Build (time)",
+                "type": "shell",
+                "detail": "Runs clean build and reports compilation time of function bodies and expressions",
+                "dependsOn": "Clean",
+                "command": "time",
+                "args": [
+                    "swift",
+                    "build",
+                    "--configuration", "debug",
+                    "--build-tests",
+                    // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "build",
+                "options": {
+                    "env": {
+                        "REPORT_BUILD_TIME": "YES"
+                    }
+                }
+            },
+            {
+                "type": "swift",
+                "args": [
+                    "build",
+                    "--build-tests",
+                    // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
+                ],
+                "cwd": "/home/luiz/dev/Geometria",
+                "problemMatcher": [
+                    "$swiftc"
+                ],
+                "group": "build",
+                "label": "swift: Build All",
+                "detail": "swift build --build-tests"
+            },
+        ],
+    },
+    "launch": {
+        "configurations": [
+            {
+                "type": "lldb",
+                "request": "launch",
+                "name": "Test Geometria",
+                "program": "./.build/debug/GeometriaPackageTests.xctest",
+                "cwd": "${workspaceFolder:Geometria}",
+                "preLaunchTask": "swift: Build All",
+            }
+        ],
+        "compounds": []
+    },
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "name": "Swift Package Dependencies",
+            "path": ".build/checkouts"
+        },
+        {
+            "name": "Build",
+            "path": ".build/x86_64-unknown-linux-gnu"
+        }
+    ],
+    "settings": {
+        "files.eol": "\n",
+        "files.insertFinalNewline": true,
+        "files.exclude": {
+            ".git": true,
+            ".build": true,
+            ".*.sw?": true,
+            "**/.DS_Store": true
+        },
+        "commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor,.build,.swiftpm}/**/*",
+        "commentAnchors.tags.anchors": {
+            "MARK:": {
+                "iconColor": "default",
+                "highlightColor": "#A8C023",
+                "scope": "file",
+            },
+            "TODO:": {
+                "iconColor": "blue",
+                "highlightColor": "#3ea8ff",
+                "scope": "workspace",
+            },
+            "FIXME:": {
+                "iconColor": "red",
+                "highlightColor": "#F44336",
+                "scope": "workspace",
+            },
+            "NOTE:": {
+                "iconColor": "orange",
+                "highlightColor": "#FFB300",
+                "scope": "file",
+            },
+        },
+		"swift.buildArguments": [],
+        "ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
+        "ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
+        "ShortcutMenuBar.userButton03Command": "workbench.action.tasks.runTask|Build (time)",
+        "cSpell.enableFiletypes": [
+            "swift"
+        ],
+        "cSpell.words": [
+            "AABB",
+            "aabbs",
+            "Boundable",
+            "exodiusstudios",
+            "Hyperrectangle",
+            "Intersectable",
+            "Möller",
+            "Sarrus",
+            "swiftpm",
+            "Trumbore",
+            "Unequality",
+            "visualizable"
+        ]
+    },
+    "extensions": {
+        "recommendations": [
+            "exodiusstudios.comment-anchors"
+        ]
+    }
 }

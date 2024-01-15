@@ -1,3 +1,5 @@
+import RealModule
+
 /// Represents a 3D sphere with a double-precision floating-point center point
 /// and radius parameters.
 public typealias Sphere3D = Sphere3<Vector3D>
