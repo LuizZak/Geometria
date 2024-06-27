@@ -162,16 +162,9 @@
     },
     "folders": [
         {
-            "path": "."
+            "path": ".",
+            "name": "Geometria",
         },
-        {
-            "name": "Swift Package Dependencies",
-            "path": ".build/checkouts"
-        },
-        {
-            "name": "Build",
-            "path": ".build/x86_64-unknown-linux-gnu"
-        }
     ],
     "settings": {
         "files.eol": "\n",
