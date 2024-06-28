@@ -14,11 +14,19 @@ public enum Convex2Convex2Intersection<Vector: Vector2FloatingPoint> {
     /// shape on a single vertex, or tangentially, in case of spheroids.
     case singlePoint(PointNormal<Vector>)
 
-    /// Represents cases where the convex crosses the other convex shape twice.
-    case twoPoints(PointNormal<Vector>, PointNormal<Vector>)
+    /// A set of two or more intersection points between the two convexes.
+    ///
+    /// The normals are in relation to one of the convexes.
+    case points([PointNormal<Vector>])
 
     /// Represents the case where no intersection occurs at any point.
     case noIntersection
+
+    /// Convenience for `.points([p1, p2])`.
+    @inlinable
+    public static func twoPoints(_ p1: PointNormal<Vector>, _ p2: PointNormal<Vector>) -> Self {
+        .points([p1, p2])
+    }
 
     /// Returns a new ``Convex2Convex2Intersection`` where any ``PointNormal`` value
     /// is mapped by a provided closure before being stored back into the same
@@ -40,8 +48,8 @@ public enum Convex2Convex2Intersection<Vector: Vector2FloatingPoint> {
         case .singlePoint(let pointNormal):
             return .singlePoint(mapper(pointNormal, .singlePoint))
 
-        case let .twoPoints(p1, p2):
-            return .twoPoints(mapper(p1, .twoPointsFirst), mapper(p2, .twoPointsSecond))
+        case .points(let points):
+            return .points(points.enumerated().map({ mapper($0.element, .points(index: $0.offset)) }))
         }
     }
 
@@ -65,8 +73,8 @@ public enum Convex2Convex2Intersection<Vector: Vector2FloatingPoint> {
         case .singlePoint(let pointNormal):
             return .singlePoint(mapper(pointNormal, .singlePoint))
 
-        case let .twoPoints(p1, p2):
-            return .twoPoints(mapper(p1, .twoPointsFirst), mapper(p2, .twoPointsSecond))
+        case .points(let points):
+            return .points(points.enumerated().map({ mapper($0.element, .points(index: $0.offset)) }))
         }
     }
 
@@ -77,6 +85,7 @@ public enum Convex2Convex2Intersection<Vector: Vector2FloatingPoint> {
         case singlePoint
         case twoPointsFirst
         case twoPointsSecond
+        case points(index: Int)
     }
 }
 

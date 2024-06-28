@@ -122,9 +122,10 @@ public class P5Printer {
         case .singlePoint(let pn):
             add(pn, style: style, file: file, line: line)
 
-        case let .twoPoints(p1, p2):
-            add(p1, style: style, file: file, line: line)
-            add(p2, style: style, file: file, line: line)
+        case .points(let points):
+            for point in points {
+                add(point, style: style, file: file, line: line)
+            }
         }
     }
 

@@ -244,11 +244,18 @@ public func assertEqual<T: Vector2FloatingPoint>(
         )
         """
 
-    case .twoPoints(let pn1, let pn2):
+    case .points(let points) where points.count == 2:
         buffer = """
         .twoPoints(
-        \(printPointNormal(pn1)),
-        \(printPointNormal(pn2))
+        \(printPointNormal(points[0])),
+        \(printPointNormal(points[1]))
+        )
+        """
+
+    case .points(let points):
+        buffer = """
+        .points(
+        \(points.map(printPointNormal).joined(separator: ",\n"))
         )
         """
     }
