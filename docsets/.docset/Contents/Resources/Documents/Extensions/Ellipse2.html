@@ -957,6 +957,7 @@
                   
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria8Ellipse2a">Ellipse2</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria8Ellipse2a">Ellipse2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorReal.html">VectorReal</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria8Ellipse2a">Ellipse2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria8Ellipse2a">Ellipse2</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/Convex2Type.html">Convex2Type</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Real.html">Vector2Real</a></span></code></pre>
 
                 </div>
@@ -1085,6 +1086,48 @@ the ellipse (inclusive)</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60VectorFloatingPoint%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `VectorFloatingPoint`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60VectorFloatingPoint%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></code></span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9EllipsoidVA2A11Vector2TypeRzAA19VectorFloatingPointRzrlE4focix1a_x1btyF"></a>
+                    <a name="//apple_ref/swift/Method/foci()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9EllipsoidVA2A11Vector2TypeRzAA19VectorFloatingPointRzrlE4focix1a_x1btyF">foci()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Computes the focal points of this 2D ellipse, as two vectors in space
+that form <a href="https://en.wikipedia.org/wiki/Ellipse#Pins-and-string_method">pins-and-string construction method</a>
+for the ellipse.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">foci</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">a</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">b</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
