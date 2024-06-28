@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class NCapsuleTests: XCTestCase {
     typealias Stadium = NCapsule<Vector2D>

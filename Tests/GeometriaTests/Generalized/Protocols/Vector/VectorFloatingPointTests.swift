@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class VectorFloatingPointTests: XCTestCase {
     func testRound() {

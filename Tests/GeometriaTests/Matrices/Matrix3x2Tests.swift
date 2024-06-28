@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Matrix3x2Tests: XCTestCase {
     typealias Matrix = Matrix3x2D

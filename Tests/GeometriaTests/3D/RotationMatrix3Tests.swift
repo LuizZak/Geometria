@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class RotationMatrix3Tests: XCTestCase {
     typealias RotationMatrix = RotationMatrix3D

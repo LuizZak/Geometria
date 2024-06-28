@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class DivisibleRectangleType_2DTests: XCTestCase {
     typealias Rectangle = Rectangle2D

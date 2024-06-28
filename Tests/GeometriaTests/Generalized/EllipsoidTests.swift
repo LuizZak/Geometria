@@ -1,52 +1,53 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class EllipsoidTests: XCTestCase {
     typealias Ellipsoid = Ellipse2D
-    
+
     func testCodable() throws {
         let sut = Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        
+
         let data = try encoder.encode(sut)
         let result = try decoder.decode(Ellipsoid.self, from: data)
-        
+
         XCTAssertEqual(sut, result)
     }
-    
+
     func testEquals() {
         XCTAssertEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5),
                        Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
     }
-    
+
     func testUnequals() {
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 999, y: 2), radiusX: 3, radiusY: 5),
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 999), radiusX: 3, radiusY: 5),
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 999, radiusY: 5),
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 999),
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
     }
-    
+
     func testHashable() {
         XCTAssertEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue,
                        Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 999, y: 2), radiusX: 3, radiusY: 5).hashValue,
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 999), radiusX: 3, radiusY: 5).hashValue,
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 999, radiusY: 5).hashValue,
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
-        
+
         XCTAssertNotEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 999).hashValue,
                           Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5).hashValue)
     }
@@ -57,9 +58,9 @@ class EllipsoidTests: XCTestCase {
 extension EllipsoidTests {
     func testBounds() {
         let sut = Ellipsoid(center: .init(x: 1, y: 2), radius: .init(x: 3, y: 4))
-        
+
         let result = sut.bounds
-        
+
         XCTAssertEqual(result.minimum, .init(x: -2, y: -2))
         XCTAssertEqual(result.maximum, .init(x: 4, y: 6))
     }
@@ -70,7 +71,7 @@ extension EllipsoidTests {
 extension EllipsoidTests {
     func testUnit() {
         let sut = Ellipsoid.unit
-        
+
         XCTAssertEqual(sut.center, .zero)
         XCTAssertEqual(sut.radius, .one)
     }
@@ -81,7 +82,7 @@ extension EllipsoidTests {
 extension EllipsoidTests {
     func testContainsVector() {
         let sut = Ellipsoid(center: .one, radiusX: 1, radiusY: 2)
-        
+
         XCTAssertTrue(sut.contains(.one))
         XCTAssertTrue(sut.contains(.init(x: 0, y: 1)))
         XCTAssertTrue(sut.contains(.init(x: 2, y: 1)))
@@ -93,20 +94,20 @@ extension EllipsoidTests {
 // MARK: ConvexType Conformance
 
 extension EllipsoidTests {
-    
+
     // MARK: 2D
-    
+
     func testIntersectionWith_line_noIntersection() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: -20, y1: -20, x2: 20, y2: -20)
-        
+
         assertEqual(sut.intersection(with: line), .noIntersection)
     }
-    
+
     func testIntersectionWith_line_tangent_top() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: -20, y1: -4, x2: 20, y2: -4)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .singlePoint(
@@ -117,11 +118,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_line_tangent_bottom() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: -20, y1: 10, x2: 20, y2: 10)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .singlePoint(
@@ -132,11 +133,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_line_tangent_left() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: -3, y1: -20, x2: -3, y2: 20)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .singlePoint(
@@ -147,11 +148,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_line_horizontal_fromLeft_acrossCenter() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: -20, y1: 3, x2: 20, y2: 3)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
@@ -166,11 +167,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_line_horizontal_fromRight_acrossCenter() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: 20, y1: 3, x2: -20, y2: 3)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
@@ -185,11 +186,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_line_vertical_fromTop_acrossCenter() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: 2, y1: -20, x2: 2, y2: 20)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
@@ -204,11 +205,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_line_vertical_fromBottom_acrossCenter() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = Line2D(x1: 2, y1: 20, x2: 2, y2: -20)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
@@ -223,11 +224,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_lineSegment_across_slanted() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 2, y: 7))
         let line = LineSegment2D(x1: -2, y1: -3, x2: 8, y2: 12)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
@@ -242,18 +243,18 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_lineSegment_contained() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = LineSegment2D(x1: -1, y1: -2, x2: 5, y2: 7)
-        
+
         assertEqual(sut.intersection(with: line), .contained)
     }
-    
+
     func testIntersectionWith_lineSegment_enter_slanted() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = LineSegment2D(x1: -2, y1: -3, x2: 5, y2: 7)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enter(
@@ -264,11 +265,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_lineSegment_enter() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = LineSegment2D(x1: -10, y1: 3, x2: 2, y2: 3)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enter(
@@ -279,11 +280,11 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     func testIntersectionWith_lineSegment_exit() {
         let sut = Ellipsoid(center: .init(x: 2, y: 3), radius: .init(x: 5, y: 7))
         let line = LineSegment2D(x1: 2, y1: 3, x2: 10, y2: 3)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .exit(
@@ -294,23 +295,23 @@ extension EllipsoidTests {
             )
         )
     }
-    
+
     // MARK: 3D
-    
+
     func testIntersectionWith3d_lineSegment_enter_slanted() {
         let sut = Ellipse3D(center: .init(x: 2, y: 3, z: 5), radius: .init(x: 7, y: 5, z: 11))
         let line = LineSegment3D(x1: -2, y1: -3, z1: -5, x2: 5, y2: 7, z2: 12)
-        
+
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
                 .init(
                     point: .init(x: -0.4280392587358917, y: -0.7543417981941309, z: -1.1823810569300226),
-                    normal: .init(x: -0.2981690677989593, y: -0.9036427383419158, z: -0.30744919653468505)
+                    normal: .init(x: -0.29816906779895935, y: -0.9036427383419159, z: -0.3074491965346851)
                 ),
                 .init(
                     point: .init(x: 4.7206567084003215, y: 6.600938154857603, z: 11.321594863257925),
-                    normal: .init(x: -0.34069861118728206, y: -0.8838292108316561, z: -0.32057820015676214)
+                    normal: .init(x: -0.3406986111872821, y: -0.8838292108316562, z: -0.32057820015676225)
                 )
             )
         )

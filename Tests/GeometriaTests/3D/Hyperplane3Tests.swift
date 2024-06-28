@@ -1,6 +1,7 @@
 import XCTest
 
 @testable import Geometria
+import TestCommons
 
 class Hyperplane3Tests: XCTestCase {
     typealias Vector = Vector3D

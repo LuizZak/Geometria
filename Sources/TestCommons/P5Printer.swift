@@ -1,12 +1,12 @@
+import Foundation
 import RealModule
+import Geometria
 
-@testable import Geometria
-
-class P5Printer {
+public class P5Printer {
     private var _lastStrokeColorCall: String? = ""
     private var _lastStrokeWeightCall: String? = ""
     private var _lastFillColorCall: String? = ""
-    
+
     private let identDepth: Int = 2
     private var currentIndent: Int = 0
     private var draws: [String] = []
@@ -14,55 +14,60 @@ class P5Printer {
     var shouldPrintDrawNormal: Bool = false
     var shouldPrintDrawTangent: Bool = false
     var is3D: Bool = false
-    
+
     var buffer: String = ""
-    
+
     var size: Vector2i
     var scale: Double
     var renderScale: Double
-    
+
     var shouldStartDebugMode: Bool = false
     var drawOrigin: Bool = true
     var drawGrid: Bool = false
 
     /// Controls the style and color on the output of the sketch.
     var styling: Styles = Styles()
-    
+
     init(size: Vector2i = .init(x: 800, y: 600), scale: Double = 2.0, renderScale: Double = 1.0) {
         self.size = size
         self.scale = scale
         self.renderScale = renderScale
     }
-    
+
     // MARK: - Geometry
 
     private func _vertexRadius<Scalar: Numeric>() -> Scalar {
         return 4
     }
-    
-    func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
+
+    func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         let circle = Circle2(center: point, radius: _vertexRadius())
 
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
         addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius) / renderScale)")
     }
-    
-    func add<Vector: Vector3Type>(_ point: Vector, style: Style? = nil) where Vector.Scalar: Numeric & CustomStringConvertible {
+
+    func add<Vector: Vector3Type>(_ point: Vector, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         let sphere = Sphere3(center: point, radius: _vertexRadius())
 
         is3D = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addDrawLine(sphere3String_customRadius(sphere, radius: "\(sphere.radius) / renderScale"))
     }
-    
-    func add<V: Vector2Type>(_ ellipse: Ellipsoid<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+
+    func add<V: Vector2Type>(_ ellipse: Ellipsoid<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
         addDrawLine("ellipse(\(vec2String(ellipse.center)), \(vec2String(ellipse.radius)))")
         addDrawLine("")
     }
-    
-    func add<V: Vector3FloatingPoint>(_ ellipse3: Ellipsoid<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+
+    func add<V: Vector3FloatingPoint>(_ ellipse3: Ellipsoid<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         is3D = true
+
+        addFileAndLineComment(file: file, line: line)
         addNoStroke()
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(ellipse3.center)))")
@@ -71,57 +76,75 @@ class P5Printer {
         addDrawLine("pop()")
         addDrawLine("")
     }
-    
-    func add<Line: Line2Type>(_ line: Line, style: Style? = nil) where Line.Vector.Scalar: CustomStringConvertible {
+
+    func add<Line: Line2Type>(_ lineGeom: Line, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Line.Vector.Scalar: CustomStringConvertible {
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.line)
-        addDrawLine("line(\(vec2String(line.a)), \(vec2String(line.b)))")
+        addDrawLine("line(\(vec2String(lineGeom.a)), \(vec2String(lineGeom.b)))")
         addDrawLine("")
     }
-    
-    func add<Vector: Vector3Type>(_ ray: DirectionalRay3<Vector>, style: Style? = nil) where Vector.Scalar: FloatingPoint & CustomStringConvertible {
+
+    func add<Vector: Vector3Type>(_ ray: DirectionalRay3<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: FloatingPoint & CustomStringConvertible {
         is3D = true
 
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.line)
         addDrawLine("line(\(vec3String(ray.start)), \(vec3String(ray.projectedMagnitude(500))))")
         addDrawLine("")
     }
-    
-    func add<Line: Line3Type>(_ line: Line, style: Style? = nil) where Line.Vector.Scalar: Numeric & CustomStringConvertible {
+
+    func add<Line: Line3Type>(_ lineGeom: Line, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Line.Vector.Scalar: Numeric & CustomStringConvertible {
         is3D = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.line)
-        addDrawLine("line(\(vec3String(line.a)), \(vec3String(line.b)))")
+        addDrawLine("line(\(vec3String(lineGeom.a)), \(vec3String(lineGeom.b)))")
         addDrawLine("")
     }
-    
-    func add<V: Vector2Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+
+    func add<V: Vector2Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         switch result {
         case .contained, .noIntersection:
             break
         case .singlePoint(let pn), .enter(let pn), .exit(let pn):
-            add(pn)
+            add(pn, style: style, file: file, line: line)
         case let .enterExit(p1, p2):
-            add(p1)
-            add(p2)
+            add(p1, style: style, file: file, line: line)
+            add(p2, style: style, file: file, line: line)
         }
     }
-    
-    func add<V: Vector3Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil) where V.Scalar == Double {
+
+    func add<V: Vector2Type>(_ result: Convex2Convex2Intersection<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        switch result {
+        case .contained, .contains, .noIntersection:
+            break
+
+        case .singlePoint(let pn):
+            add(pn, style: style, file: file, line: line)
+
+        case let .twoPoints(p1, p2):
+            add(p1, style: style, file: file, line: line)
+            add(p2, style: style, file: file, line: line)
+        }
+    }
+
+    func add<V: Vector3Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar == Double {
         switch result {
         case .contained, .noIntersection:
             break
         case .singlePoint(let pn), .enter(let pn), .exit(let pn):
-            add(pn)
+            add(pn, style: style, file: file, line: line)
         case let .enterExit(p1, p2):
-            add(p1)
-            add(p2)
+            add(p1, style: style, file: file, line: line)
+            add(p2, style: style, file: file, line: line)
         }
     }
-    
-    func add<V: Vector2Type>(_ pointNormal: PointNormal<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+
+    func add<V: Vector2Type>(_ pointNormal: PointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         shouldPrintDrawNormal = true
         shouldPrintDrawTangent = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addStrokeWeightSet("1 / sceneScale")
 
         addStyleSet(style ?? styling.normalLine)
@@ -132,60 +155,66 @@ class P5Printer {
 
         addDrawLine("")
     }
-    
-    func add<V: Vector3Type>(_ pointNormal: PointNormal<V>, style: Style? = nil) where V.Scalar == Double {
+
+    func add<V: Vector3Type>(_ pointNormal: PointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar == Double {
         shouldPrintDrawNormal = true
-        
-        add(Sphere3<V>(center: pointNormal.point, radius: 0.5))
-        
+
+        add(Sphere3<V>(center: pointNormal.point, radius: 0.5), file: file, line: line)
+
         addStyleSet(style ?? styling.normalLine)
         addDrawLine("drawNormal(\(vec3String(pointNormal.point)), \(vec3String(pointNormal.normal)))")
     }
-    
-    func add<V: Vector2Type>(_ circle: Circle2<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
+
+    func add<V: Vector2Type>(_ circle: Circle2<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Numeric & CustomStringConvertible {
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
         addDrawLine("circle(\(vec2String(circle.center)), \(circle.radius))")
     }
-    
-    func add<V: Vector3Type>(_ sphere: Sphere3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
+
+    func add<V: Vector3Type>(_ sphere: Sphere3<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Numeric & CustomStringConvertible {
         is3D = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addDrawLine(sphere3String(sphere))
     }
-    
-    func add<V: Vector2Additive & VectorDivisible>(_ aabb: AABB2<V>, style: Style? = nil) where V.Scalar: CustomStringConvertible {
+
+    func add<V: Vector2Additive & VectorDivisible>(_ aabb: AABB2<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
         addDrawLine("rect(\(vec2String(aabb.minimum)), \(vec2String(aabb.maximum)))")
     }
-    
-    func add<V: Vector3Additive & VectorDivisible>(_ aabb: AABB3<V>, style: Style? = nil) where V.Scalar: Numeric & CustomStringConvertible {
+
+    func add<V: Vector3Additive & VectorDivisible>(_ aabb: AABB3<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Numeric & CustomStringConvertible {
         is3D = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(aabb.minimum + aabb.size / 2)))")
         addDrawLine("box(\(vec3String(aabb.size)))")
         addDrawLine("pop()")
     }
-    
-    func add<R: RectangleType>(_ rectangle: R, style: Style? = nil) where R.Vector: Vector3Additive & VectorDivisible, R.Vector.Scalar: Numeric & CustomStringConvertible {
+
+    func add<R: RectangleType>(_ rectangle: R, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where R.Vector: Vector3Additive & VectorDivisible, R.Vector.Scalar: Numeric & CustomStringConvertible {
         is3D = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(rectangle.location + rectangle.size / 2)))")
         addDrawLine("box(\(vec3String(rectangle.size)))")
         addDrawLine("pop()")
     }
-    
-    func add<V: Vector3Type>(_ torus: Torus3<V>, style: Style? = nil) where V.Scalar: Real & CustomStringConvertible {
+
+    func add<V: Vector3Type>(_ torus: Torus3<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Real & CustomStringConvertible {
         is3D = true
-        
+
+        addFileAndLineComment(file: file, line: line)
         addStyleSet(style ?? styling.geometry)
 
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(torus.center)))")
-        
+
         // Create matrix that will rotate the torus from laying on the Y-axis
         // to laying in the direction of its axis
         let origin = V.unitY
@@ -195,21 +224,22 @@ class P5Printer {
             let angle = V.Scalar.acos(origin.dot(target))
             addDrawLine("rotate(\(-angle), \(vec3PVectorString(vec3ToP5Vec(axis))))")
         }
-        
+
         addDrawLine("torus(\(torus.majorRadius), \(torus.minorRadius))")
         addDrawLine("pop()")
     }
-    
-    func add<V: Vector3FloatingPoint>(_ cylinder: Cylinder3<V>, style: Style? = nil) where V.Scalar: Real & CustomStringConvertible {
+
+    func add<V: Vector3FloatingPoint>(_ cylinder: Cylinder3<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Real & CustomStringConvertible {
         is3D = true
 
+        addFileAndLineComment(file: file, line: line)
         let line = cylinder.asLineSegment
-        
+
         addStyleSet(style ?? styling.geometry)
 
         addDrawLine("push()")
         addDrawLine("translate(\(vec3String(line.center)))")
-        
+
         // Create matrix that will rotate the cylinder from growing on the Y-axis
         // to growing in the direction of its line
         let origin = V.unitY
@@ -219,49 +249,53 @@ class P5Printer {
             let angle = V.Scalar.acos(origin.dot(target))
             addDrawLine("rotate(\(-angle), \(vec3PVectorString(vec3ToP5Vec(axis))))")
         }
-        
+
         addDrawLine("cylinder(\(cylinder.radius), \(line.length))")
         addDrawLine("pop()")
     }
-    
-    func add<V: Vector3FloatingPoint>(_ capsule: Capsule3<V>, style: Style? = nil) where V.Scalar: Real & CustomStringConvertible {
+
+    func add<V: Vector3FloatingPoint>(_ capsule: Capsule3<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Real & CustomStringConvertible {
         is3D = true
 
-        add(Cylinder3(start: capsule.start, end: capsule.end, radius: capsule.radius), style: style)
-        add(capsule.startAsSphere, style: style)
-        add(capsule.endAsSphere, style: style)
+        add(Cylinder3(start: capsule.start, end: capsule.end, radius: capsule.radius), style: style, file: file, line: line)
+        add(capsule.startAsSphere, style: style, file: file, line: line)
+        add(capsule.endAsSphere, style: style, file: file, line: line)
     }
-    
+
     // MARK: - Printing
-    
+
     func printAll() {
         defer { printBuffer() }
-        
+
         prepareCustomPreFile()
-        
+
         printLine("var sceneScale = \(scale)")
         printLine("var renderScale = \(renderScale)")
         if is3D {
             printLine("var isSpaceBarPressed = false")
         }
-        
+
         printCustomHeader()
-        
+
         printLine("")
         printSetup()
         printLine("")
         printDraw()
-        
+
+        if !is3D {
+            printDrawMouseLocation2D()
+        }
+
         if is3D {
             printLine("")
             printKeyPressed()
         }
-        
+
         if drawGrid && !is3D {
             printLine("")
             printDrawGrid2D()
         }
-        
+
         if drawOrigin {
             printLine("")
 
@@ -271,30 +305,30 @@ class P5Printer {
                 printDrawOrigin2D()
             }
         }
-        
+
         if shouldPrintDrawNormal {
             printLine("")
             printDrawNormal2D()
         }
-        
+
         if shouldPrintDrawNormal && is3D {
             printLine("")
             printDrawNormal3D()
         }
-        
+
         if shouldPrintDrawTangent {
             printLine("")
             printDrawTangent2D()
         }
-        
+
         if is3D {
             printLine("")
             printDrawSphere()
         }
     }
-    
+
     // MARK: Expression Printing
-    
+
     func boilerplate3DSpaceBar<T: FloatingPoint>(lineWeight: T) -> [String] {
         return [
             "if (isSpaceBarPressed) {",
@@ -309,46 +343,46 @@ class P5Printer {
             "}"
         ]
     }
-    
+
     func addDrawLine(_ line: String) {
         draws.append(line)
     }
-    
+
     func addNoStroke() {
         if _lastStrokeColorCall == nil { return }
         _lastStrokeColorCall = nil
         addDrawLine("noStroke()")
     }
-    
+
     func addNoFill() {
         if _lastFillColorCall == nil { return }
         _lastFillColorCall = nil
         addDrawLine("noFill()")
     }
-    
+
     func addStrokeColorSet(_ color: Color?) {
         let line = _strokeColor(color)
 
         if _lastStrokeColorCall == line { return }
-        
+
         _lastStrokeColorCall = line
         addDrawLine(line)
     }
-    
+
     func addStrokeWeightSet(_ value: String) {
         let line = "strokeWeight(\(value) / sceneScale)"
 
         if _lastStrokeWeightCall == line { return }
-        
+
         _lastStrokeWeightCall = line
         addDrawLine(line)
     }
-    
+
     func addFillColorSet(_ color: Color?) {
         let line = _fillColor(color)
 
         if _lastFillColorCall == line { return }
-        
+
         _lastFillColorCall = line
         addDrawLine(line)
     }
@@ -360,59 +394,65 @@ class P5Printer {
         addFillColorSet(style.fillColor)
         addStrokeWeightSet(style.strokeWeight.description)
     }
-    
+
+    func addFileAndLineComment(file: StaticString, line: UInt) {
+        let url = URL(fileURLWithPath: "\(file)")
+
+        addDrawLine("// \(url.lastPathComponent):\(line)")
+    }
+
     // MARK: Methods for subclasses
-    
+
     func prepareCustomPreFile() {
-        
+
     }
-    
+
     func printCustomHeader() {
-        
+
     }
-    
+
     func printCustomPostSetup() {
-        
+
     }
-    
+
     func printCustomPreDraw() {
-        
+
     }
-    
+
     func printCustomPostDraw() {
-        
+
     }
-    
+
     // MARK: Function Printing
-    
+
     func printSetup() {
         indentedBlock("function setup() {") {
             if is3D {
                 printLine("createCanvas(\(vec2String(size)), WEBGL)")
                 printLine("perspective(PI / 3, 1, 0.3, 8000) // Corrects default zNear plane being too far for unit measurements")
-                
+
                 if cameraLookAt != .zero {
                     printLine("camera(\(vec3String_pCoordinates(cameraLookAt)))")
                 }
             } else {
                 printLine("createCanvas(\(vec2String(size)))")
             }
-            
+
             printLine("ellipseMode(RADIUS)")
             printLine("rectMode(CORNERS)")
 
             if is3D && shouldStartDebugMode {
                 printLine("debugMode(GRID)")
             }
-            
+
             printCustomPostSetup()
         }
     }
-    
+
     func printDraw() {
         indentedBlock("function draw() {") {
             printCustomPreDraw()
-            
+
             printLine("background(240)")
             printLine("")
             if !is3D {
@@ -436,7 +476,7 @@ class P5Printer {
             }
 
             printLine("scale(renderScale)")
-            
+
             if drawGrid && !is3D {
                 printLine("")
                 printLine("drawGrid()")
@@ -446,20 +486,25 @@ class P5Printer {
             }
 
             printLine("")
-            
+
             for draw in draws {
                 printLine(draw)
+            }
+
+            // Draw mouse location
+            if !is3D {
+                printLine("drawMouseLocation2D()")
             }
 
             // Reset draw state
             printLine(_strokeColor(.black))
             printLine(_fillColor(nil))
             printLine(_strokeWeight(1))
-            
+
             printCustomPostDraw()
         }
     }
-    
+
     func printKeyPressed() {
         indentedBlock("function keyPressed() {") {
             indentedBlock("if (keyCode === 32) {") {
@@ -467,7 +512,20 @@ class P5Printer {
             }
         }
     }
-    
+
+    func printDrawMouseLocation2D() {
+        indentedBlock("function drawMouseLocation2D() {") {
+            printLine("resetMatrix()")
+            printLine("fill(0)")
+            printLine("noStroke()")
+            printLine("")
+            printLine("const mx = (mouseX - width / 2) / renderScale")
+            printLine("const my = (mouseY - height / 2) / renderScale")
+            printLine("")
+            printLine("text(`Mouse location: (${mx}, ${my})`, 10, 10 + textAscent())")
+        }
+    }
+
     func printDrawGrid2D() {
         indentedBlock("function drawGrid() {") {
             printLine("strokeWeight(1 / sceneScale)")
@@ -482,11 +540,11 @@ class P5Printer {
             }
         }
     }
-    
+
     func printDrawOrigin2D() {
         indentedBlock("function drawOrigin2D() {") {
             let length: Double = 25.0
-            
+
             printLine("strokeWeight(1 / sceneScale)")
             printLine("// X axis")
             printLine("stroke(255, 0, 0)")
@@ -496,15 +554,15 @@ class P5Printer {
             printLine("line(0.0, 0.0, 0.0, \(length) / renderScale)")
         }
     }
-    
+
     func printDrawOrigin3D() {
         indentedBlock("function drawOrigin3D() {") {
             let length: Double = 100.0
-            
+
             let vx = Vector3D.unitX * length
             let vy = Vector3D.unitY * length
             let vz = Vector3D.unitZ * length
-            
+
             printLine("// X axis")
             printLine("stroke(255, 0, 0, 50)")
             printLine("line(\(vec3String(Vector3D.zero)), \(vec3String(vx)))")
@@ -516,19 +574,21 @@ class P5Printer {
             printLine("line(\(vec3String(Vector3D.zero)), \(vec3String(vz)))")
         }
     }
-    
+
     func printDrawNormal2D() {
         indentedBlock("function drawNormal(x, y, nx, ny) {") {
-            printLine("const x2 = x + nx")
-            printLine("const y2 = y + ny")
+            printLine("const s = 15.0 / renderScale")
+            printLine("")
+            printLine("const x2 = x + nx * s")
+            printLine("const y2 = y + ny * s")
             printLine("")
             printLine("line(x, y, x2, y2)")
         }
     }
-    
+
     func printDrawNormal3D() {
         indentedBlock("function drawNormal(x, y, z, nx, ny, nz) {") {
-            printLine("const s = 10.0")
+            printLine("const s = 10.0 / renderScale")
             printLine("")
             printLine("const x2 = x + nx * s")
             printLine("const y2 = y + ny * s")
@@ -539,10 +599,10 @@ class P5Printer {
             printLine("line(x, y, z, x2, y2, z2)")
         }
     }
-    
+
     func printDrawTangent2D() {
         indentedBlock("function drawTangent(x, y, nx, ny) {") {
-            printLine("const s = 5.0")
+            printLine("const s = 5.0 / renderScale")
             printLine("")
             printLine("const x1 = x - ny * s")
             printLine("const y1 = y + nx * s")
@@ -553,7 +613,7 @@ class P5Printer {
             printLine("line(x1, y1, x2, y2)")
         }
     }
-    
+
     func printDrawSphere() {
         indentedBlock("function drawSphere(x, y, z, radius) {") {
             printLine("push()")
@@ -568,22 +628,22 @@ class P5Printer {
     func vec3ToP5Vec<Vector: Vector3Type>(_ vec: Vector) -> Vector where Vector.Scalar: SignedNumeric {
         return .init(x: vec.x, y: vec.z, z: -vec.y)
     }
-    
+
     // MARK: String printing
-    
+
     func vec3PVectorString<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         return "createVector(\(vec3String(vec)))"
     }
-    
+
     func vec3String<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: CustomStringConvertible {
         return "\(vec.x), \(vec.y), \(vec.z)"
     }
-    
+
     func vec3String_pCoordinates<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         // Flip Y-Z axis (in Processing positive Y axis is down and positive Z axis is towards the screen)
         return "\(vec.x), \(-vec.z), \(-vec.y)"
     }
-    
+
     func vec2String<Vector: Vector2Type>(_ vec: Vector) -> String where Vector.Scalar: CustomStringConvertible {
         "\(vec.x), \(vec.y)"
     }
@@ -656,21 +716,21 @@ class P5Printer {
     func _commaSeparated(_ values: Any...) -> String {
         values.map { "\($0)" }.joined(separator: ", ")
     }
-    
+
     func indentString(depth: Int) -> String {
         String(repeating: " ", count: depth)
     }
 
     // MARK: - Printing methods
-    
+
     func printLine(_ line: String) {
         print("\(indentString())\(line)", to: &buffer)
     }
-    
+
     func printLines(_ lines: [String]) {
         lines.forEach(printLine)
     }
-    
+
     private func printBuffer() {
         print(buffer)
         buffer = ""
@@ -679,7 +739,7 @@ class P5Printer {
     func indentString() -> String {
         indentString(depth: identDepth * currentIndent)
     }
-    
+
     func indentedBlock(_ start: String, _ block: () -> Void) {
         printLine(start)
         indented {
@@ -687,48 +747,48 @@ class P5Printer {
         }
         printLine("}")
     }
-    
+
     func indented(_ block: () -> Void) {
         indent()
         block()
         deindent()
     }
-    
+
     func indent() {
         currentIndent += 1
     }
-    
+
     func deindent() {
         currentIndent -= 1
     }
 
     /// Style for a draw operation
-    struct Style {
-        static let `default` = Self(
+    public struct Style {
+        public static let `default` = Self(
             strokeColor: .black,
             fillColor: nil,
             strokeWeight: 1.0
         )
 
-        var strokeColor: Color? = .black
-        var fillColor: Color?
-        var strokeWeight: Double = 1.0
+        public var strokeColor: Color? = .black
+        public var fillColor: Color?
+        public var strokeWeight: Double = 1.0
     }
 
     /// RGBA color with components between 0-255.
-    struct Color {
-        var alpha: Int
-        var red: Int
-        var green: Int
-        var blue: Int
+    public struct Color {
+        public var alpha: Int
+        public var red: Int
+        public var green: Int
+        public var blue: Int
 
-        var translucent: Self {
+        public var translucent: Self {
             var copy = self
             copy.alpha = 100
             return copy
         }
 
-        var opaque: Self {
+        public var opaque: Self {
             var copy = self
             copy.alpha = 255
             return copy
@@ -743,30 +803,30 @@ class P5Printer {
     }
 }
 
-extension P5Printer {
+public extension P5Printer {
     struct Styles {
-        var line: Style = Style(strokeColor: .black, strokeWeight: 2.0)
-        var normalLine: Style = Style(strokeColor: .red.translucent, strokeWeight: 2.0)
-        var tangentLine: Style = Style(strokeColor: .purple.translucent, strokeWeight: 2.0)
-        var geometry: Style = Style(strokeColor: .black, strokeWeight: 2.0)
+        public var line: Style = Style(strokeColor: .black, strokeWeight: 2.0)
+        public var normalLine: Style = Style(strokeColor: .red.translucent, strokeWeight: 2.0)
+        public var tangentLine: Style = Style(strokeColor: .purple.translucent, strokeWeight: 2.0)
+        public var geometry: Style = Style(strokeColor: .black, strokeWeight: 2.0)
     }
 }
 
-extension P5Printer {
+public extension P5Printer {
     static func withPrinter(_ block: (P5Printer) -> Void) {
         let printer = P5Printer(size: .init(x: 500, y: 500), scale: 2.0)
-        
+
         block(printer)
-        
+
         printer.printAll()
     }
 }
 
-extension P5Printer.Color {
+public extension P5Printer.Color {
     static let black = Self(red: 0, green: 0, blue: 0)
     static let grey = Self(red: 127, green: 127, blue: 127)
     static let white = Self(red: 255, green: 255, blue: 255)
-    
+
     // Primary colors
     static let red = Self(red: 255, green: 0, blue: 0)
     static let green = Self(red: 0, green: 255, blue: 0)

@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Sphere3Tests: XCTestCase {
     // MARK: SphereProjectiveSpace Conformance

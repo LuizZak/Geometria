@@ -1,5 +1,6 @@
 import XCTest
 @testable import Geometria
+import TestCommons
 
 class Matrix3x3Tests: XCTestCase {
     let accuracy: Double = 1e-16

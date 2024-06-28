@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class VectorDivisibleTests: XCTestCase {
     typealias Vector = Vector2D

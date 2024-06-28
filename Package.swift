@@ -15,6 +15,14 @@ let reportingSwiftSettings: [SwiftSetting] = [
     ])
 ]
 
+let testCommons: Target = .target(
+    name: "TestCommons",
+    dependencies: [
+        "Geometria",
+    ]
+)
+
+// Geometria
 let geometriaTarget: Target = .target(
     name: "Geometria",
     dependencies: geometriaDependencies,
@@ -22,9 +30,11 @@ let geometriaTarget: Target = .target(
 )
 let geometriaTestsTarget: Target = .testTarget(
     name: "GeometriaTests",
-    dependencies: ["Geometria"],
+    dependencies: ["Geometria", "TestCommons"],
     swiftSettings: []
 )
+
+// GeometriaAlgorithms
 let geometriaAlgorithmsTarget: Target = .target(
     name: "GeometriaAlgorithms",
     dependencies: geometriaDependencies + ["Geometria"],
@@ -32,7 +42,7 @@ let geometriaAlgorithmsTarget: Target = .target(
 )
 let geometriaAlgorithmsTestTarget: Target = .testTarget(
     name: "GeometriaAlgorithmsTests",
-    dependencies: geometriaDependencies + ["GeometriaAlgorithms"],
+    dependencies: geometriaDependencies + ["GeometriaAlgorithms", "TestCommons"],
     swiftSettings: []
 )
 
@@ -58,5 +68,6 @@ let package = Package(
         geometriaTestsTarget,
         geometriaAlgorithmsTarget,
         geometriaAlgorithmsTestTarget,
+        testCommons,
     ]
 )

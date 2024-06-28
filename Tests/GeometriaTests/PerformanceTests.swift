@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 #if ENABLE_SIMD
 #if canImport(simd)

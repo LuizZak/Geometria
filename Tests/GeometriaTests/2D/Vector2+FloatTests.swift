@@ -3,6 +3,7 @@
 
 import XCTest
 import Geometria
+import TestCommons
 
 class Vector2_FloatTests: XCTestCase {
     private let accuracy: Float = 1.0e-6

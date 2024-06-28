@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class LineFloatingPointTests: XCTestCase {
     typealias Line = Line2D

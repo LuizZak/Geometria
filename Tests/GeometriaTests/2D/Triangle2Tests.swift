@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Triangle2Tests: XCTestCase {
     typealias Vector = Vector2D

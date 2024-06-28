@@ -4,7 +4,7 @@ import Geometria
 // MARK: FloatingPoint equality
 
 @discardableResult
-func assertEqual<T: FloatingPoint>(
+public func assertEqual<T: FloatingPoint>(
     _ v1: T,
     _ v2: T,
     accuracy: T? = nil,
@@ -12,7 +12,7 @@ func assertEqual<T: FloatingPoint>(
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool {
-    
+
     if let accuracy = accuracy {
         XCTAssertEqual(v1, v2, accuracy: accuracy, "\(messagePrefix())", file: file, line: line)
 
@@ -27,7 +27,7 @@ func assertEqual<T: FloatingPoint>(
 // MARK: Vector equality
 
 @discardableResult
-func assertEqual<V: Vector2Type>(
+public func assertEqual<V: Vector2Type>(
     _ vec1: V,
     _ vec2: V,
     accuracy: V.Scalar,
@@ -35,13 +35,13 @@ func assertEqual<V: Vector2Type>(
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where V.Scalar: FloatingPoint {
-    
+
     assertEqual(vec1.x, vec2.x, accuracy: accuracy, "\(messagePrefix())x", file: file, line: line) &&
     assertEqual(vec1.y, vec2.y, accuracy: accuracy, "\(messagePrefix())y", file: file, line: line)
 }
 
 @discardableResult
-func assertEqual<V: Vector3Type>(
+public func assertEqual<V: Vector3Type>(
     _ vec1: V,
     _ vec2: V,
     accuracy: V.Scalar,
@@ -49,14 +49,14 @@ func assertEqual<V: Vector3Type>(
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where V.Scalar: FloatingPoint {
-    
+
     assertEqual(vec1.x, vec2.x, accuracy: accuracy, "\(messagePrefix())x", file: file, line: line) &&
     assertEqual(vec1.y, vec2.y, accuracy: accuracy, "\(messagePrefix())y", file: file, line: line) &&
     assertEqual(vec1.z, vec2.z, accuracy: accuracy, "\(messagePrefix())z", file: file, line: line)
 }
 
 @discardableResult
-func assertEqual<V: Vector4Type>(
+public func assertEqual<V: Vector4Type>(
     _ vec1: V,
     _ vec2: V,
     accuracy: V.Scalar,
@@ -74,20 +74,20 @@ func assertEqual<V: Vector4Type>(
 // MARK: FloatingPoint array equality
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: [T],
     _ values2: [T],
     accuracy: T,
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where T: FloatingPoint {
-    
+
     var success = true
 
     zip(values1, values2).enumerated().forEach { tuple in
         let index = tuple.offset
         let (v1, v2) = tuple.element
-        
+
         success = assertEqual(v1, v2, accuracy: accuracy, "\(index)", file: file, line: line) && success
     }
 
@@ -97,7 +97,7 @@ func assertEqual<T>(
 // MARK: FloatingPoint tuple equality
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: (T, T),
     _ values2: (T, T),
     accuracy: T,
@@ -110,19 +110,19 @@ func assertEqual<T>(
 }
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: (T, T),
     _ values2: (T, T),
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where T: FloatingPoint {
-    
+
     assertEqual(values1.0, values2.0, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.1, values2.1, "\(values1) != \(values2)", file: file, line: line)
 }
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: (T, T, T),
     _ values2: (T, T, T),
     accuracy: T,
@@ -136,27 +136,27 @@ func assertEqual<T>(
 }
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: (T, T, T),
     _ values2: (T, T, T),
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where T: FloatingPoint {
-    
+
     assertEqual(values1.0, values2.0, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.1, values2.1, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.2, values2.2, "\(values1) != \(values2)", file: file, line: line)
 }
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: (T, T, T, T),
     _ values2: (T, T, T, T),
     accuracy: T,
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where T: FloatingPoint {
-    
+
     assertEqual(values1.0, values2.0, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.1, values2.1, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.2, values2.2, accuracy: accuracy, "\(values1) != \(values2)", file: file, line: line) &&
@@ -164,13 +164,13 @@ func assertEqual<T>(
 }
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ values1: (T, T, T, T),
     _ values2: (T, T, T, T),
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool where T: FloatingPoint {
-    
+
     assertEqual(values1.0, values2.0, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.1, values2.1, "\(values1) != \(values2)", file: file, line: line) &&
     assertEqual(values1.2, values2.2, "\(values1) != \(values2)", file: file, line: line) &&
@@ -179,11 +179,10 @@ func assertEqual<T>(
 
 // MARK: SIMD3 equality
 
-#if ENABLE_SIMD
-#if canImport(simd)
+#if ENABLE_SIMD && canImport(simd)
 
 @discardableResult
-func assertEqual<T>(
+public func assertEqual<T>(
     _ simd1: SIMD3<T>,
     _ simd2: SIMD3<T>,
     accuracy: T,
@@ -196,32 +195,92 @@ func assertEqual<T>(
     assertEqual(simd1.z, simd2.z, accuracy: accuracy, "z", file: file, line: line)
 }
 
-#endif // #if canImport(simd)
-#endif // #if ENABLE_SIMD
+#endif // #if ENABLE_SIMD && canImport(simd)
+
+// MARK: Convex2Convex2Intersection equality
+
+@discardableResult
+public func assertEqual<T: Vector2FloatingPoint>(
+    _ actual: Convex2Convex2Intersection<T>,
+    _ expected: Convex2Convex2Intersection<T>,
+    file: StaticString = #file,
+    line: UInt = #line
+) -> Bool {
+
+    guard actual != expected else {
+        return true
+    }
+
+    XCTFail("\(actual) is not equal to \(expected)", file: file, line: line)
+
+    let printPoint: (T) -> String = { point in
+        ".init(x: \(point.x), y: \(point.y))"
+    }
+    let printPointNormal: (PointNormal<T>) -> String = { pn in
+        """
+            .init(
+                point: \(printPoint(pn.point)),
+                normal: \(printPoint(pn.normal))
+            )
+        """
+    }
+
+    var buffer = ""
+
+    switch actual {
+    case .contained:
+        buffer = ".contained"
+
+    case .contains:
+        buffer = ".contains"
+
+    case .noIntersection:
+        buffer = ".noIntersection"
+
+    case .singlePoint(let pn):
+        buffer = """
+        .singlePoint(
+        \(printPointNormal(pn))
+        )
+        """
+
+    case .twoPoints(let pn1, let pn2):
+        buffer = """
+        .twoPoints(
+        \(printPointNormal(pn1)),
+        \(printPointNormal(pn2))
+        )
+        """
+    }
+
+    print(buffer)
+
+    return false
+}
 
 // MARK: ConvexLineIntersection equality
 
 @discardableResult
-func assertEqual<T: Vector2FloatingPoint>(
+public func assertEqual<T: Vector2FloatingPoint>(
     _ actual: ConvexLineIntersection<T>,
     _ expected: ConvexLineIntersection<T>,
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool {
-    
+
     _assertEqual(actual, expected, file: file, line: line) { point -> String in
         ".init(x: \(point.x), y: \(point.y))"
     }
 }
 
 @discardableResult
-func assertEqual<T: Vector3FloatingPoint>(
+public func assertEqual<T: Vector3FloatingPoint>(
     _ actual: ConvexLineIntersection<T>,
     _ expected: ConvexLineIntersection<T>,
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool {
-    
+
     return _assertEqual(actual, expected, file: file, line: line) { point -> String in
         ".init(x: \(point.x), y: \(point.y), z: \(point.z))"
     }
@@ -235,13 +294,13 @@ func _assertEqual<T: VectorFloatingPoint>(
     line: UInt,
     printPoint: @escaping (T) -> String
 ) -> Bool {
-    
+
     guard act != exp else {
         return true
     }
-    
+
     XCTFail("\(act) is not equal to \(exp)", file: file, line: line)
-    
+
     let printPointNormal: (PointNormal<T>) -> String = { pn in
         """
             .init(
@@ -250,9 +309,9 @@ func _assertEqual<T: VectorFloatingPoint>(
             )
         """
     }
-    
+
     var buffer = ""
-    
+
     switch act {
     case .contained:
         buffer = ".contained"
@@ -284,7 +343,7 @@ func _assertEqual<T: VectorFloatingPoint>(
         )
         """
     }
-    
+
     print(buffer)
 
     return false
@@ -298,7 +357,7 @@ func printAssertMatrix<Matrix: MatrixType>(_ matrix: Matrix) where Matrix.Scalar
     let matrix = matrix
     var hasNegCol: [Bool] = []
     var lenCol: [Int] = []
-    
+
     for col in 0..<matrix.columnCount {
         var hasNegative = false
         var maxLength = 0
@@ -316,7 +375,7 @@ func printAssertMatrix<Matrix: MatrixType>(_ matrix: Matrix) where Matrix.Scalar
 
             maxLength = max(maxLength, length)
         }
-        
+
         lenCol.append(maxLength)
     }
 
@@ -335,7 +394,7 @@ func printAssertMatrix<Matrix: MatrixType>(_ matrix: Matrix) where Matrix.Scalar
 func padded(_ str: String, _ hasNeg: Bool, count: Int) -> String {
     var pre = ""
     var suf = String(repeating: " ", count: count - str.count)
-    
+
     if hasNeg && !str.hasPrefix("-") && !suf.isEmpty {
         pre = String(suf.removeLast())
     }

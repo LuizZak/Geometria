@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class DirectionalRay2Tests: XCTestCase {
     typealias DirectionalRay = DirectionalRay2D

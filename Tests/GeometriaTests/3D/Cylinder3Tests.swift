@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Cylinder3Tests: XCTestCase {
     let accuracy: Double = 1e-14

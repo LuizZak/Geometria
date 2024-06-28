@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Triangle_CoordinatesTests: XCTestCase {
     typealias Triangle = Triangle3D

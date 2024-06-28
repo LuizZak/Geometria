@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class VectorComparableTests: XCTestCase {
     func testMin() {

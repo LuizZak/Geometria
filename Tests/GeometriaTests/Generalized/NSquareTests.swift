@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class NSquareTests: XCTestCase {
     typealias Square = NSquare<Vector2D>

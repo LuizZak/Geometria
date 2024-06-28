@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Cube3Tests: XCTestCase {
     typealias Cube = Cube3D

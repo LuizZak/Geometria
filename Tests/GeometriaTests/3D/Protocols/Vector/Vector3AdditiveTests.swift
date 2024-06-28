@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Vector3AdditiveTests: XCTestCase {
     func testInitWithVector2() {

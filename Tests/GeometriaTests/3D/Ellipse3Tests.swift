@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Ellipse3Tests: XCTestCase {
     typealias Ellipse = Ellipse3D

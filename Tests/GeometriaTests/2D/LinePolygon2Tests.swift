@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class LinePolygon2Tests: XCTestCase {
     typealias LinePolygon = LinePolygon2D

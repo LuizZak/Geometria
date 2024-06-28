@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class LineSegmentTests: XCTestCase {
     typealias LineSegment = LineSegment2D
