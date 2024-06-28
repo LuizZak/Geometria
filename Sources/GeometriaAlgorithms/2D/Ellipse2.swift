@@ -20,7 +20,7 @@ public extension Ellipse2 where Vector: VectorReal {
     /// `tolerance` between samples is achieved.
     ///
     /// - complexity: `O(samples * maxDepth)`, for the worst case of the search.
-    func approximateClosestPoint(
+    func projectApproximate(
         to vector: Vector,
         tolerance: Scalar,
         samples: Int,
