@@ -25,10 +25,22 @@ let geometriaTestsTarget: Target = .testTarget(
     dependencies: ["Geometria"],
     swiftSettings: []
 )
+let geometriaAlgorithmsTarget: Target = .target(
+    name: "GeometriaAlgorithms",
+    dependencies: geometriaDependencies + ["Geometria"],
+    swiftSettings: []
+)
+let geometriaAlgorithmsTestTarget: Target = .testTarget(
+    name: "GeometriaAlgorithmsTests",
+    dependencies: geometriaDependencies + ["GeometriaAlgorithms"],
+    swiftSettings: []
+)
 
 if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" {
     geometriaTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
     geometriaTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
+    geometriaAlgorithmsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
+    geometriaAlgorithmsTestTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
 }
 
 let package = Package(
@@ -44,5 +56,7 @@ let package = Package(
     targets: [
         geometriaTarget,
         geometriaTestsTarget,
+        geometriaAlgorithmsTarget,
+        geometriaAlgorithmsTestTarget,
     ]
 )
