@@ -5,13 +5,13 @@ import RealModule
 public struct Ellipsoid<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     /// This ellipsoid's center.
     public var center: Vector
-    
+
     /// The axis-aligned axis (or radii) for this ellipsoid.
     public var radius: Vector
-    
+
     public init(center: Vector, radius: Vector) {
         self.center = center
         self.radius = radius
@@ -47,9 +47,9 @@ extension Ellipsoid: VolumetricType where Vector: VectorReal {
     @inlinable
     public func contains(_ point: Vector) -> Bool {
         let r2 = Vector.pow(radius, 2)
-        
+
         let p = Vector.pow(point - center, 2) / r2
-        
+
         return p.lengthSquared <= 1
     }
 }
@@ -60,27 +60,27 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
     public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
         let axisToKeep = radius.minimalComponent
         let scale = axisToKeep / radius
-        
+
         let scaledSphere = NSphere<Vector>(center: center * scale, radius: axisToKeep)
         let scaledLine = line.withPointsScaledBy(scale)
-        
+
         func scalePointNormal(_ pn: PointNormal<Vector>) -> PointNormal<Vector> {
             .init(
                 point: pn.point / scale,
                 normal: (pn.normal * scale).normalized()
             )
         }
-        
+
         switch scaledSphere.intersection(with: scaledLine) {
         case .noIntersection:
             return .noIntersection
-            
+
         case .contained:
             return .contained
 
         case .singlePoint(let pn):
             return .singlePoint(scalePointNormal(pn))
-            
+
         case .enter(let pn):
             return .enter(scalePointNormal(pn))
 
