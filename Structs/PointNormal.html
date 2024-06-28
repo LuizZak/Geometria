@@ -955,7 +955,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PointNormal</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span><span class="p">,</span> <span class="kt">CustomStringConvertible</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PointNormal</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span><span class="p">,</span> <span class="kt">CustomStringConvertible</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PointNormal</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PointNormal</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PointNormal</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PlaneType.html">PlaneType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
@@ -1074,7 +1074,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd"><a href="../Structs/UnitVector.html">@UnitVector</a></span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">normal</span><span class="p">:</span> <span class="kt">Vector</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1149,9 +1150,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria11PointNormalVA2A014VectorFloatingB0RzrlE7asPlaneAA0bcG0VyxGvp"></a>
+                    <a name="/s:9Geometria11PointNormalV7asPlaneAA0bcE0VyxGvp"></a>
                     <a name="//apple_ref/swift/Property/asPlane" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria11PointNormalVA2A014VectorFloatingB0RzrlE7asPlaneAA0bcG0VyxGvp">asPlane</a>
+                    <a class="token" href="#/s:9Geometria11PointNormalV7asPlaneAA0bcE0VyxGvp">asPlane</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1177,9 +1178,9 @@ parameters.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria11PointNormalVA2A014VectorFloatingB0RzrlEyACyxGqd__c0D0Qyd__RszAA9PlaneTypeRd__lufc"></a>
+                    <a name="/s:9Geometria11PointNormalVyACyxGqd__c6VectorQyd__RszAA9PlaneTypeRd__lufc"></a>
                     <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria11PointNormalVA2A014VectorFloatingB0RzrlEyACyxGqd__c0D0Qyd__RszAA9PlaneTypeRd__lufc">init(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria11PointNormalVyACyxGqd__c6VectorQyd__RszAA9PlaneTypeRd__lufc">init(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
