@@ -8,7 +8,7 @@
 public struct UnitVector<Vector: VectorFloatingPoint> {
     @usableFromInline
     internal var _value: Vector
-    
+
     /// Gets or sets the underlying vector value.
     ///
     /// When assigning a new value, the vector is first normalized before being
@@ -18,16 +18,18 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     /// vector is assigned instead and  ``isValid`` returns `false` until a new
     /// valid vector is supplied.
     public var wrappedValue: Vector {
+        @inlinable
         @_transparent
         get {
             _value
         }
+        @inlinable
         @_transparent
         set {
             _value = newValue.normalized()
         }
     }
-    
+
     /// Returns `true` if the underlying vector is a non-zero value.
     ///
     /// When assigning vectors of zero-length, this property returns `true`
@@ -36,7 +38,7 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     public var isValid: Bool {
         _value != .zero
     }
-    
+
     /// Creates a new `UnitVector` with a given starting value.
     ///
     /// If a vector with `.length == 0` is attempted to be stored, a zero-valued
@@ -47,6 +49,7 @@ public struct UnitVector<Vector: VectorFloatingPoint> {
     /// which is normalized before being assigned.
     /// Value must have `length > 0`.
     @_transparent
+    @inlinable
     public init(wrappedValue: Vector) {
         _value = wrappedValue.normalized()
     }
