@@ -24,7 +24,10 @@ public enum Convex2Convex2Intersection<Vector: Vector2FloatingPoint> {
 
     /// Convenience for `.points([p1, p2])`.
     @inlinable
-    public static func twoPoints(_ p1: PointNormal<Vector>, _ p2: PointNormal<Vector>) -> Self {
+    public static func twoPoints(
+        _ p1: PointNormal<Vector>,
+        _ p2: PointNormal<Vector>
+    ) -> Self {
         .points([p1, p2])
     }
 
