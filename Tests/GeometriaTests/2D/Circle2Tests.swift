@@ -46,7 +46,7 @@ extension Circle2Tests {
 
     func testIntersectionWithCircle_twoPoints() {
         let c1 = makeSut(x: 0, y: 0, radius: 1)
-        let c2 = makeSut(x: 2, y: 0, radius: 2)
+        let c2 = makeSut(x: 2, y: 1, radius: 2)
 
         TestFixture.beginFixture(sceneScale: 160, renderScale: 80) { fixture in
             fixture.add(c1)
@@ -58,12 +58,12 @@ extension Circle2Tests {
                 result,
                 .twoPoints(
                     .init(
-                        point: .init(x: 0.25, y: 0.9682458365518543),
-                        normal: .init(x: 0.25, y: 0.9682458365518543)
+                        point: .init(x: 0.8, y: -0.5999999999999998),
+                        normal: .init(x: 0.8000000000000002, y: -0.5999999999999999)
                     ),
                     .init(
-                        point: .init(x: 0.25, y: -0.9682458365518543),
-                        normal: .init(x: 0.25, y: -0.9682458365518543)
+                        point: .init(x: 2.220446049250313e-16, y: 0.9999999999999999),
+                        normal: .init(x: 2.2204460492503136e-16, y: 1.0)
                     )
                 )
             )

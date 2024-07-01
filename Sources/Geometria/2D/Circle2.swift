@@ -67,16 +67,16 @@ extension Circle2: Convex2Type where Vector: Vector2FloatingPoint {
         let a: Scalar = (r0s - r1s + (dist * dist)) / (dist * 2)
         let h: Scalar = (r0s - (a * a)).squareRoot()
 
-        let h_x: Scalar = (h * (other.center.y - center.y) / dist)
+        let normCenter: Vector = (other.center - center) / dist
+        let p2: Vector = center + a * normCenter
 
-        let p2: Vector = center + (a * (other.center - center)) / dist
-
+        let h_x: Scalar = h * normCenter.y
         let x3_0: Scalar = p2.x + h_x
         let x3_1: Scalar = p2.x - h_x
 
-        let h_y: Scalar = (h * (other.center.x - center.x) / dist)
-        let y3_0: Scalar = p2.y + h_y
-        let y3_1: Scalar = p2.y - h_y
+        let h_y: Scalar = h * normCenter.x
+        let y3_0: Scalar = p2.y - h_y
+        let y3_1: Scalar = p2.y + h_y
 
         return .twoPoints(pointNormal(x3_0, y3_0), pointNormal(x3_1, y3_1))
     }
