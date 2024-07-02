@@ -29,6 +29,24 @@ public class TestFixture {
         geometry?.addVisualization3D(to: p5Printer, style: nil, file: file, line: line)
     }
 
+    // MARK: Wrapped assertions
+
+    public func assertions<T: VisualizableGeometricType2>(
+        on visualizable: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> AssertionWrapper2<T> {
+        .init(fixture: self, value: visualizable, file: file, line: line)
+    }
+
+    public func assertions<T: VisualizableGeometricType3>(
+        on visualizable: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> AssertionWrapper3<T> {
+        .init(fixture: self, value: visualizable, file: file, line: line)
+    }
+
     // MARK: General assertions
 
     public func assertEquals<T: Equatable>(
@@ -41,6 +59,30 @@ public class TestFixture {
         XCTAssertEqual(actual, expected, file: file, line: line)
 
         didFail = actual != expected || didFail
+    }
+
+    public func assertTrue(
+        _ actual: Bool,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
+        XCTAssertTrue(actual, file: file, line: line)
+        let failed = actual != true
+
+        didFail = failed || didFail
+    }
+
+    public func assertFalse(
+        _ actual: Bool,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+
+        XCTAssertFalse(actual, file: file, line: line)
+        let failed = actual != false
+
+        didFail = failed || didFail
     }
 
     // MARK: General geometric assertions
@@ -234,8 +276,8 @@ public class TestFixture {
     // MARK: Intersections
 
     public func assertEquals<T: Vector2Type & VisualizableGeometricType2>(
-        _ actual: Convex2Convex2Intersection<T>,
-        _ expected: Convex2Convex2Intersection<T>,
+        _ actual: ClosedShape2Intersection<T>,
+        _ expected: ClosedShape2Intersection<T>,
         file: StaticString = #file,
         line: UInt = #line
     ) where T.Scalar: Numeric & CustomStringConvertible {
@@ -273,6 +315,54 @@ public class TestFixture {
 
         return fixture
     }
+
+    public class AssertionWrapperBase<T>: AssertionWrapperType {
+        public let fixture: TestFixture
+        public let value: T
+        var hasVisualized: Bool = false
+        var file: StaticString, line: UInt
+
+        internal init(fixture: TestFixture, value: T, file: StaticString, line: UInt) {
+            self.fixture = fixture
+            self.value = value
+            self.file = file
+            self.line = line
+        }
+
+        public final func visualize() {
+            guard !hasVisualized else {
+                return
+            }
+            hasVisualized = true
+
+            addVisualization()
+        }
+
+        public func addVisualization() {
+            fatalError("Must be overridden by subclasses")
+        }
+    }
+
+    public class AssertionWrapper2<T: VisualizableGeometricType2>: AssertionWrapperBase<T> {
+        public override func addVisualization() {
+            value.addVisualization2D(to: fixture.p5Printer, style: nil, file: file, line: line)
+        }
+    }
+
+    public class AssertionWrapper3<T: VisualizableGeometricType3>: AssertionWrapperBase<T> {
+        public override func addVisualization() {
+            value.addVisualization3D(to: fixture.p5Printer, style: nil, file: file, line: line)
+        }
+    }
+}
+
+public protocol AssertionWrapperType {
+    associatedtype Value
+
+    var fixture: TestFixture { get }
+    var value: Value { get }
+
+    func visualize()
 }
 
 /// Protocol for 2D geometric types that can be visualized in a p5.js sketch.

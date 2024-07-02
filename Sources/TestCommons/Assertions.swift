@@ -197,12 +197,12 @@ public func assertEqual<T>(
 
 #endif // #if ENABLE_SIMD && canImport(simd)
 
-// MARK: Convex2Convex2Intersection equality
+// MARK: ClosedShape2Intersection equality
 
 @discardableResult
 public func assertEqual<T: Vector2FloatingPoint>(
-    _ actual: Convex2Convex2Intersection<T>,
-    _ expected: Convex2Convex2Intersection<T>,
+    _ actual: ClosedShape2Intersection<T>,
+    _ expected: ClosedShape2Intersection<T>,
     file: StaticString = #file,
     line: UInt = #line
 ) -> Bool {
@@ -221,6 +221,14 @@ public func assertEqual<T: Vector2FloatingPoint>(
             .init(
                 point: \(printPoint(pn.point)),
                 normal: \(printPoint(pn.normal))
+            )
+        """
+    }
+    let printPair: (ClosedShape2Intersection<T>.Pair) -> String = { pair in
+        """
+            .init(
+                enter: \(printPointNormal(pair.enter)),
+                exit: \(printPointNormal(pair.exit)),
             )
         """
     }
@@ -244,18 +252,10 @@ public func assertEqual<T: Vector2FloatingPoint>(
         )
         """
 
-    case .points(let points) where points.count == 2:
+    case .pairs(let points):
         buffer = """
-        .twoPoints(
-        \(printPointNormal(points[0])),
-        \(printPointNormal(points[1]))
-        )
-        """
-
-    case .points(let points):
-        buffer = """
-        .points(
-        \(points.map(printPointNormal).joined(separator: ",\n"))
+        .pairs(
+        \(points.map(printPair).joined(separator: ",\n"))
         )
         """
     }

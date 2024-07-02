@@ -84,6 +84,15 @@ public class P5Printer {
         addDrawLine("")
     }
 
+    func add<V: Vector2Type>(_ polygon: LinePolygon<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        addFileAndLineComment(file: file, line: line)
+        addStyleSet(style ?? styling.geometry)
+        for lineGeom in polygon.lineSegments() {
+            addDrawLine("line(\(vec2String(lineGeom.a)), \(vec2String(lineGeom.b)))")
+        }
+        addDrawLine("")
+    }
+
     func add<Vector: Vector3Type>(_ ray: DirectionalRay3<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: FloatingPoint & CustomStringConvertible {
         is3D = true
 
@@ -102,6 +111,15 @@ public class P5Printer {
         addDrawLine("")
     }
 
+    func add<V: Vector3Type>(_ polygon: LinePolygon<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        addFileAndLineComment(file: file, line: line)
+        addStyleSet(style ?? styling.geometry)
+        for lineGeom in polygon.lineSegments() {
+            addDrawLine("line(\(vec3String(lineGeom.a)), \(vec3String(lineGeom.b)))")
+        }
+        addDrawLine("")
+    }
+
     func add<V: Vector2Type>(_ result: ConvexLineIntersection<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         switch result {
         case .contained, .noIntersection:
@@ -114,7 +132,7 @@ public class P5Printer {
         }
     }
 
-    func add<V: Vector2Type>(_ result: Convex2Convex2Intersection<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+    func add<V: Vector2Type>(_ result: ClosedShape2Intersection<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         switch result {
         case .contained, .contains, .noIntersection:
             break
@@ -122,9 +140,10 @@ public class P5Printer {
         case .singlePoint(let pn):
             add(pn, style: style, file: file, line: line)
 
-        case .points(let points):
-            for point in points {
-                add(point, style: style, file: file, line: line)
+        case .pairs(let pairs):
+            for pair in pairs {
+                add(pair.enter, style: style, file: file, line: line)
+                add(pair.exit, style: style, file: file, line: line)
             }
         }
     }

@@ -32,7 +32,7 @@ extension Circle2: Convex2Type where Vector: Vector2FloatingPoint {
     ///
     /// If the circles are coincident on the same center, and have the same radius,
     /// the result is `.noIntersection`.
-    public func intersection(with other: Self) -> Convex2Convex2Intersection<Vector> {
+    public func intersection(with other: Self) -> ClosedShape2Intersection<Vector> {
         func pointNormal(_ p: Vector, normal: Vector) -> PointNormal<Vector> {
             .init(point: p, normal: normal)
         }
