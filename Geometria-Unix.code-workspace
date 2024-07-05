@@ -51,6 +51,7 @@
                     "build",
                     "--configuration", "debug",
                     "--build-tests",
+                    "-Xswiftc", "-diagnostic-style=llvm",
                     // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
                 ],
                 "presentation": {
@@ -74,6 +75,7 @@
                 "args": [
                     "test",
                     "--configuration", "debug",
+                    "-Xswiftc", "-diagnostic-style=llvm",
                     // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
                 ],
                 "presentation": {
@@ -98,6 +100,7 @@
                     "build",
                     "--configuration", "release",
                     "--build-tests",
+                    "-Xswiftc", "-diagnostic-style=llvm",
                     // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
                 ],
                 "group": "build",
@@ -118,6 +121,7 @@
                     "build",
                     "--configuration", "debug",
                     "--build-tests",
+                    "-Xswiftc", "-diagnostic-style=llvm",
                     // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
                 ],
                 "presentation": {
@@ -135,6 +139,7 @@
                 "args": [
                     "build",
                     "--build-tests",
+                    "-Xswiftc", "-diagnostic-style=llvm",
                     // "--enable-code-coverage", // TODO: Flag doesn't work on Swift 5.7 anymore?
                 ],
                 "cwd": "/home/luiz/dev/Geometria",
@@ -175,6 +180,7 @@
             ".*.sw?": true,
             "**/.DS_Store": true
         },
+        
         "commentAnchors.workspace.excludeFiles": "**/{node_modules,.git,.idea,target,out,build,vendor,.build,.swiftpm}/**/*",
         "commentAnchors.tags.anchors": {
             "MARK:": {
@@ -198,10 +204,7 @@
                 "scope": "file",
             },
         },
-		"swift.buildArguments": [],
-        "ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
-        "ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
-        "ShortcutMenuBar.userButton03Command": "workbench.action.tasks.runTask|Build (time)",
+
         "cSpell.enableFiletypes": [
             "swift"
         ],
@@ -210,6 +213,7 @@
             "aabbs",
             "Boundable",
             "exodiusstudios",
+            "Geometria",
             "Hyperrectangle",
             "Intersectable",
             "Möller",
@@ -218,7 +222,13 @@
             "Trumbore",
             "Unequality",
             "visualizable"
-        ]
+        ],
+
+        "ShortcutMenuBar.userButton01Command": "workbench.action.tasks.runTask|Build (debug)",
+        "ShortcutMenuBar.userButton02Command": "workbench.action.tasks.runTask|Test",
+        "ShortcutMenuBar.userButton03Command": "workbench.action.tasks.runTask|Build (time)",
+
+		"swift.buildArguments": [],
     },
     "extensions": {
         "recommendations": [
