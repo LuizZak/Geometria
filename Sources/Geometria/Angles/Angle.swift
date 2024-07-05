@@ -1,7 +1,7 @@
 import RealModule
 
 /// A standardized representation of an angle.
-public struct Angle<Scalar: Real>: Hashable {
+public struct Angle<Scalar: FloatingPoint & ElementaryFunctions>: Hashable {
     /// Gets the angle value for the mathematical constant `π`.
     @inlinable
     public static var pi: Self { Self(radians: Scalar.pi) }
@@ -84,6 +84,86 @@ public struct Angle<Scalar: Real>: Hashable {
 extension Angle: Encodable where Scalar: Encodable { }
 extension Angle: Decodable where Scalar: Decodable { }
 
+public extension Angle {
+    /// Returns the cosine of this angle.
+    @inlinable
+    var cos: Scalar {
+        Scalar.cos(self.radians)
+    }
+
+    /// Returns the sine of this angle.
+    @inlinable
+    var sin: Scalar {
+        Scalar.sin(self.radians)
+    }
+
+    /// Returns the tangent of this angle.
+    @inlinable
+    var tan: Scalar {
+        Scalar.tan(self.radians)
+    }
+
+    /// Returns the arccosine of this angle
+    @inlinable
+    var acos: Scalar {
+        Scalar.acos(self.radians)
+    }
+
+    /// Returns the arcsine of this angle.
+    @inlinable
+    var asin: Scalar {
+        Scalar.asin(self.radians)
+    }
+
+    /// Returns the arctangent of this angle.
+    @inlinable
+    var atan: Scalar {
+        Scalar.atan(self.radians)
+    }
+
+    /// Returns the [hyperbolic cosine][https://en.wikipedia.org/wiki/Hyperbolic_function]
+    /// of this angle.
+    @inlinable
+    var cosh: Scalar {
+        Scalar.cosh(self.radians)
+    }
+
+    /// Returns the [hyperbolic sine][https://en.wikipedia.org/wiki/Hyperbolic_function]
+    /// of this angle.
+    @inlinable
+    var sinh: Scalar {
+        Scalar.sinh(self.radians)
+    }
+
+    /// Returns the [hyperbolic tangent][https://en.wikipedia.org/wiki/Hyperbolic_function]
+    /// of this angle.
+    @inlinable
+    var tanh: Scalar {
+        Scalar.tanh(self.radians)
+    }
+
+    /// Returns the [inverse hyperbolic cosine][https://en.wikipedia.org/wiki/Inverse_hyperbolic_function]
+    /// of this angle.
+    @inlinable
+    var acosh: Scalar {
+        Scalar.acosh(self.radians)
+    }
+
+    /// Returns the [inverse hyperbolic sine][https://en.wikipedia.org/wiki/Inverse_hyperbolic_function]
+    /// of this angle.
+    @inlinable
+    var asinh: Scalar {
+        Scalar.asinh(self.radians)
+    }
+
+    /// Returns the [inverse hyperbolic tangent][https://en.wikipedia.org/wiki/Inverse_hyperbolic_function]
+    /// of this angle.
+    @inlinable
+    var atanh: Scalar {
+        Scalar.atanh(self.radians)
+    }
+}
+
 extension Angle: AdditiveArithmetic {
     /// Gets the zero radian angle.
     @inlinable
@@ -107,5 +187,29 @@ extension Angle: AdditiveArithmetic {
     /// Subtracts a scalar from an angle, producing an angle value
     public static func - (lhs: Angle, rhs: Scalar) -> Angle {
         .init(radians: lhs.radians - rhs)
+    }
+}
+
+extension Angle: Numeric {
+    public var magnitude: Scalar { radians.magnitude }
+
+    public init(integerLiteral value: Scalar.IntegerLiteralType) {
+        self.init(radians: Scalar(integerLiteral: value))
+    }
+
+    public init?<T>(exactly source: T) where T : BinaryInteger {
+        guard let value = Scalar(exactly: source) else {
+            return nil
+        }
+
+        self.init(radians: value)
+    }
+
+    public static func * (lhs: Angle, rhs: Angle) -> Angle {
+        .init(radians: lhs.radians * rhs.radians)
+    }
+
+    public static func *= (lhs: inout Angle, rhs: Angle) {
+        lhs = lhs * rhs
     }
 }

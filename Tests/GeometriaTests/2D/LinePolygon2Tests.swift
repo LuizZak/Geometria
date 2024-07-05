@@ -263,7 +263,7 @@ extension LinePolygon2Tests {
         let test3 = Vector2D(x: 2, y: 1)
         let test4 = Vector2D(x: 1, y: 1.5)
 
-        TestFixture.beginFixture(sceneScale: 100, renderScale: 50) { fixture in
+        TestFixture.beginFixture(lineScale: 100, renderScale: 50) { fixture in
             fixture.add(sut)
 
             fixture.assertions(on: test1)

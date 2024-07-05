@@ -48,7 +48,7 @@ extension Circle2Tests {
         let c1 = makeSut(x: 0, y: 0, radius: 1)
         let c2 = makeSut(x: 2, y: 1, radius: 2)
 
-        TestFixture.beginFixture(sceneScale: 160, renderScale: 80) { fixture in
+        TestFixture.beginFixture(lineScale: 160, renderScale: 80) { fixture in
             fixture.add(c1)
             fixture.add(c2)
 

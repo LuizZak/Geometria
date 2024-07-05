@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import MiniP5Printer
 
 /// A test fixture class that allows simultaneous test assertions along with
 /// generations of visualizations that can be displayed on a [p5.js] sketch.
@@ -9,8 +10,8 @@ public class TestFixture {
     private let p5Printer: P5Printer
     private var didFail: Bool = false
 
-    public init(sceneScale: Double, renderScale: Double) {
-        p5Printer = P5Printer(scale: sceneScale, renderScale: renderScale)
+    public init(lineScale: Double, renderScale: Double) {
+        p5Printer = P5Printer(lineScale: lineScale, renderScale: renderScale)
         p5Printer.shouldStartDebugMode = true
         p5Printer.drawGrid = true
     }
@@ -300,12 +301,12 @@ public class TestFixture {
 
     @discardableResult
     public static func beginFixture(
-        sceneScale: Double = 2.0,
+        lineScale: Double = 2.0,
         renderScale: Double = 1.0,
         _ closure: (TestFixture) throws -> Void
     ) rethrows -> TestFixture {
 
-        let fixture = TestFixture(sceneScale: sceneScale, renderScale: renderScale)
+        let fixture = TestFixture(lineScale: lineScale, renderScale: renderScale)
 
         try closure(fixture)
 

@@ -19,6 +19,7 @@ let testCommons: Target = .target(
     name: "TestCommons",
     dependencies: [
         "Geometria",
+        .product(name: "MiniP5Printer", package: "MiniP5Printer"),
     ]
 )
 
@@ -66,7 +67,8 @@ let package = Package(
             targets: ["Geometria"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
+        .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .branchItem("main")),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),

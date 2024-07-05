@@ -411,7 +411,7 @@ extension AABBTests {
 
 extension AABBTests {
     func testSubdivided_2D() {
-        TestFixture.beginFixture(sceneScale: 5, renderScale: 20) { fixture in
+        TestFixture.beginFixture(lineScale: 5, renderScale: 20) { fixture in
             let sut = Box(
                 minimum: .init(x: -5, y: -2),
                 maximum: .init(x: 7, y: 12)
@@ -431,7 +431,7 @@ extension AABBTests {
     }
 
     func testSubdivided_3D() {
-        TestFixture.beginFixture(sceneScale: 1.0, renderScale: 20.0) { fixture in
+        TestFixture.beginFixture(lineScale: 1.0, renderScale: 20.0) { fixture in
             let sut = AABB3(
                 minimum: .init(x: -5, y: -2, z: -1),
                 maximum: .init(x: 7, y: 12, z: 10)

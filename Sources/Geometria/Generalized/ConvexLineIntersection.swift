@@ -23,6 +23,20 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
     /// Represents the case where no intersection occurs at any point.
     case noIntersection
 
+    /// Returns the list of point normals referenced by this intersection instance.
+    public var pointNormals: [PointNormal<Vector>] {
+        switch self {
+        case .contained, .noIntersection:
+            return []
+
+        case .singlePoint(let pn), .enter(let pn), .exit(let pn):
+            return [pn]
+
+        case .enterExit(let enter, let exit):
+            return [enter, exit]
+        }
+    }
+
     /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
     /// is mapped by a provided closure before being stored back into the same
     /// enum case and returned.

@@ -1,4 +1,5 @@
 import XCTest
+import TestCommons
 
 @testable import Geometria
 
@@ -179,6 +180,143 @@ class CircleArc2Tests: XCTestCase {
     }
 }
 
+// MARK: LineIntersectableType Conformance Tests
+
+extension CircleArc2Tests {
+    func testIntersections() {
+        let sut = makeSut(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi * 1.3,
+            sweepAngle: .pi * 0.3
+        )
+        let line1 = makeLine(start: .init(x: -39, y: -160), end: .init(x: -51, y: -191))
+        let line2 = makeLine(start: .init(x: -60, y: -140), end: .init(x: -100, y: -180))
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(sut)
+
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: -46.390152057619666, y: -179.0912261488508),
+                        normal: .init(x: 0.5092676803841312, y: 0.860608174325672)
+                    ))
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: -46.39015205761967, y: -179.0912261488508),
+                        normal: .init(x: -0.5092676803841312, y: -0.860608174325672)
+                    ))
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line2, .init(isContained: false, intersections: []))
+        }
+    }
+
+    func testIntersections_wrappedAround_positiveSweep() {
+        let sut = makeSut(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi * 1.8,
+            sweepAngle: .pi * 0.4
+        )
+        let line1 = makeLine(start: .init(x: 150, y: -100), end: .init(x: 200, y: -75))
+        let line2 = makeLine(start: .init(x: -60, y: -140), end: .init(x: -100, y: -180))
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(sut)
+
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: 175.2719112093773, y: -87.36404439531135),
+                        normal: .init(x: -0.9684794080625154, y: 0.2490936293020757)
+                    ))
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: 175.2719112093773, y: -87.36404439531135),
+                        normal: .init(x: 0.9684794080625154, y: -0.2490936293020757)
+                    ))
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line2, .init(isContained: false, intersections: []))
+        }
+    }
+
+    func testIntersections_wrappedAround_negativeSweep() {
+        let sut = makeSut(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi * 0.2,
+            sweepAngle: -.pi * 0.4
+        )
+        let line1 = makeLine(start: .init(x: 150, y: -100), end: .init(x: 200, y: -75))
+        let line2 = makeLine(start: .init(x: -60, y: -140), end: .init(x: -100, y: -180))
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(sut)
+
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: 175.2719112093773, y: -87.36404439531135),
+                        normal: .init(x: -0.9684794080625154, y: 0.2490936293020757)
+                    ))
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: 175.2719112093773, y: -87.36404439531135),
+                        normal: .init(x: 0.9684794080625154, y: -0.2490936293020757)
+                    ))
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line2, .init(isContained: false, intersections: []))
+        }
+    }
+
+    func testIntersections_doubleIntersection() {
+        let sut = makeSut(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi * 0.2,
+            sweepAngle: -.pi * 0.4
+        )
+        let line1 = makeLine(start: .init(x: 170, y: -140), end: .init(x: 170, y: 40))
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(sut)
+
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: 170.0, y: -103.85164807134504),
+                        normal: .init(x: 0.9333333333333333, y: -0.3590109871423003)
+                    )),
+                    .point(.init(
+                        point: .init(x: 170.0, y: 3.8516480713450396),
+                        normal: .init(x: -0.9333333333333333, y: -0.3590109871423003)
+                    )),
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
+                    .point(.init(
+                        point: .init(x: 170.0, y: 3.8516480713450396),
+                        normal: .init(x: 0.9333333333333333, y: 0.3590109871423003)
+                    )),
+                    .point(.init(
+                        point: .init(x: 170.0, y: -103.85164807134504),
+                        normal: .init(x: -0.9333333333333333, y: 0.3590109871423003)
+                    )),
+                ]))
+        }
+    }
+}
+
 // MARK: - Test internals
 
 private func makeSut(
@@ -193,4 +331,8 @@ private func makeSut(
         startAngle: startAngle,
         sweepAngle: sweepAngle
     )
+}
+
+private func makeLine(start: Vector2D, end: Vector2D) -> LineSegment2D {
+    .init(start: start, end: end)
 }

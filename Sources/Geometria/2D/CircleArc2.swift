@@ -55,6 +55,11 @@ extension CircleArc2: Equatable where Vector: Equatable { }
 extension CircleArc2: Hashable where Vector: Hashable { }
 
 public extension CircleArc2 {
+    /// Constructs a circle with the same center + radius as this circle arc.
+    var asCircle2: Circle2<Vector> {
+        .init(center: center, radius: radius)
+    }
+
     /// Returns the stop angle of this sweep, as the sum of `startAngle` + `sweepAngle`.
     var stopAngle: Angle<Scalar> {
         startAngle + sweepAngle
@@ -95,5 +100,31 @@ public extension CircleArc2 {
         }
 
         return normalAngle >= normalStart && normalAngle <= normalStop
+    }
+}
+
+extension CircleArc2: LineIntersectableType {
+    public func intersections<Line>(
+        with line: Line
+    ) -> LineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+        let circle = self.asCircle2
+        let intersections = circle.intersection(with: line).pointNormals
+
+        var result = LineIntersection<Vector>(
+            isContained: false,
+            intersections: []
+        )
+
+        for pointNormal in intersections {
+            let angle = Angle(radians: (pointNormal.point - center).angle)
+
+            if contains(angle) {
+                result.intersections.append(
+                    .point(pointNormal)
+                )
+            }
+        }
+
+        return result
     }
 }
