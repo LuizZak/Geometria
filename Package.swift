@@ -46,12 +46,17 @@ let geometriaAlgorithmsTestTarget: Target = .testTarget(
     swiftSettings: []
 )
 
-if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" {
-    geometriaTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-    geometriaTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-    geometriaAlgorithmsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-    geometriaAlgorithmsTestTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-}
+// GeometriaPeriodics
+let geometriaPeriodicsTarget: Target = .target(
+    name: "GeometriaPeriodics",
+    dependencies: geometriaDependencies + ["Geometria"],
+    swiftSettings: []
+)
+let geometriaPeriodicsTestTarget: Target = .testTarget(
+    name: "GeometriaPeriodicsTests",
+    dependencies: geometriaDependencies + ["GeometriaPeriodics", "TestCommons"],
+    swiftSettings: []
+)
 
 let package = Package(
     name: "Geometria",
@@ -64,10 +69,28 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
     ],
     targets: [
-        geometriaTarget,
-        geometriaTestsTarget,
-        geometriaAlgorithmsTarget,
-        geometriaAlgorithmsTestTarget,
+        geometriaTarget.applyReportBuildTime(),
+        geometriaTestsTarget.applyReportBuildTime(),
+        geometriaAlgorithmsTarget.applyReportBuildTime(),
+        geometriaAlgorithmsTestTarget.applyReportBuildTime(),
+        geometriaPeriodicsTarget.applyReportBuildTime(),
+        geometriaPeriodicsTestTarget.applyReportBuildTime(),
         testCommons,
     ]
 )
+
+extension Target {
+    func applyReportBuildTime() -> Self {
+        guard ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" else {
+            return self
+        }
+
+        if swiftSettings == nil {
+            swiftSettings = []
+        }
+
+        swiftSettings?.append(contentsOf: reportingSwiftSettings)
+
+        return self
+    }
+}

@@ -217,6 +217,7 @@
             "Hyperrectangle",
             "Intersectable",
             "Möller",
+            "Periodics",
             "Sarrus",
             "swiftpm",
             "Trumbore",
