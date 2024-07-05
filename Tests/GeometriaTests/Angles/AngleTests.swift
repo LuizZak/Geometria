@@ -83,6 +83,46 @@ class AngleTests: XCTestCase {
         assertEqual(0, nPi(belowZero))
     }
 
+    func testRelativeAngles_unequal() {
+        let angle1 = Angle(radians: .pi * 0.3)
+        let angle2 = Angle(radians: .pi * 0.6)
+
+        let (low, high) = angle1.relativeAngles(to: angle2)
+
+        assertEqual(low.radians, .pi * 0.3)
+        assertEqual(high.radians, -.pi * 1.7)
+    }
+
+    func testRelativeAngles_unequal_greaterAngle1() {
+        let angle1 = Angle(radians: .pi * 0.6)
+        let angle2 = Angle(radians: .pi * 0.3)
+
+        let (low, high) = angle1.relativeAngles(to: angle2)
+
+        assertEqual(low.radians, -.pi * 0.3)
+        assertEqual(high.radians, .pi * 1.7)
+    }
+
+    func testRelativeAngles_equal() {
+        let angle1 = Angle(radians: .pi * 0.3)
+        let angle2 = Angle(radians: .pi * 0.3)
+
+        let (low, high) = angle1.relativeAngles(to: angle2)
+
+        assertEqual(low.radians, 0.0)
+        assertEqual(high.radians, -.pi * 2)
+    }
+
+    func testRelativeAngles_nonNormalized() {
+        let angle1 = Angle(radians: -.pi * 20.3)
+        let angle2 = Angle(radians: .pi * 6.3)
+
+        let (low, high) = angle1.relativeAngles(to: angle2)
+
+        assertEqual(low.radians, 1.8849555921538723)
+        assertEqual(high.radians, -4.398229715025714)
+    }
+
     // MARK: - Test internals
 
     private func assertLessThanOrEqual<T: Comparable>(

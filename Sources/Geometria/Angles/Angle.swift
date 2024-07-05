@@ -20,6 +20,33 @@ public struct Angle<Scalar: Real>: Hashable {
         Self.normalize(radians, offset: lowerBound, period: .pi * 2)
     }
 
+    /// Returns the relative sweep angles to go from `self` to `other`.
+    ///
+    /// In the results, `shortest` contains the smallest angle change to go from
+    /// `self` to `other`, and `longest` is the largest angle change.
+    ///
+    /// If `self` and `other` point to the same angle, `shortest` will be `.zero`
+    /// and `longest` will be `Angle(radians: .pi + .pi)`
+    public func relativeAngles(to other: Self) -> (shortest: Self, longest: Self) {
+        let twoPi: Scalar = .pi + .pi
+
+        let normalOther = other.normalized(from: self.radians)
+        let direct = normalOther - self.radians
+        let indirect = twoPi - (normalOther - self.radians)
+
+        if direct > indirect {
+            return (
+                .init(radians: -(twoPi - direct)),
+                Self(radians: twoPi - indirect)
+            )
+        }
+
+        return (
+            .init(radians: direct),
+            Self(radians: -indirect)
+        )
+    }
+
     /// Normalizes an input value to `a - k` where `k` is an integer that satisfies
     /// `offset <= a - k < offset + period`.
     static func normalize(
