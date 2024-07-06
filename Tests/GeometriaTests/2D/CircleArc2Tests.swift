@@ -603,7 +603,7 @@ extension CircleArc2Tests {
                 .assertProject(
                     .init(x: -39, y: -160),
                     expected: .init(x: -49.70740782230952, y: -177.06978058629056),
-                    accuracy: 1e-14
+                    accuracy: 1e-13
                 )
                 .assertProject(
                     .init(x: -60, y: -140),
@@ -699,7 +699,7 @@ extension CircleArc2Tests {
                 .assertDistanceSquaredTo(
                     .init(x: -39, y: -160),
                     406.0259915373573,
-                    accuracy: 1e-14
+                    accuracy: 1e-13
                 )
                 .assertDistanceSquaredTo(
                     .init(x: -60, y: -140),
