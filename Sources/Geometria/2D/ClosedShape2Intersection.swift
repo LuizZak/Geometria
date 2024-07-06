@@ -1,26 +1,41 @@
 /// The result of a intersection test against two 2-dimensional closed shapes.
 public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
-    /// Represents the case where the convex's boundaries are completely contained
-    /// within the bounds of the other convex shape.
+    /// Represents the case where the shape's boundaries are completely contained
+    /// within the bounds of the other shape.
     case contained
 
-    /// Represents the case where the other convex's boundaries are completely
-    /// contained within the bounds of the first convex shape.
+    /// Represents the case where the other shape's boundaries are completely
+    /// contained within the bounds of the first shape.
     ///
     /// Is the diametrical opposite of `.contained`.
     case contains
 
-    /// Represents the case where the convex crosses the bounds of the convex
-    /// shape on a single vertex, or tangentially, in case of spheroids.
+    /// Represents the case where the shape crosses the bounds of the shape on a
+    /// single vertex, or tangentially, in case of spheroids.
     case singlePoint(PointNormal<Vector>)
 
     /// A sequence of one or more intersection pairs of points that represent
     /// the entrance and exit points of the intersection in relation to one of
-    /// the convexes.
+    /// the shapes.
     case pairs([Pair])
 
     /// Represents the case where no intersection occurs at any point.
     case noIntersection
+
+    /// Returns all the point normals associated with this closed shape intersection
+    /// object.
+    public var pointNormals: [PointNormal<Vector>] {
+        switch self {
+        case .contained, .contains, .noIntersection:
+            return []
+
+        case .singlePoint(let point):
+            return [point]
+
+        case .pairs(let pairs):
+            return pairs.flatMap({ [$0.enter, $0.exit] })
+        }
+    }
 
     /// Convenience for `.pairs([.init(enter: p1, exit: p2)])`.
     @inlinable

@@ -22,6 +22,13 @@ public struct CircleArc2Simplex<Period: PeriodType, Vector: Vector2Real>: Period
 }
 
 extension CircleArc2Simplex {
+    /// Converts the circular arc represented by this circular arc simplex into
+    /// its full circular representation.
+    @inlinable
+    public var asCircle2: Circle2<Vector> {
+        circleArc.asCircle2
+    }
+
     @inlinable
     public var start: Vector { circleArc.startPoint }
 

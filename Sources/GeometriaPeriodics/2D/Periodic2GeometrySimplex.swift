@@ -73,15 +73,109 @@ extension Periodic2GeometrySimplex where Period == Vector.Scalar {
             return [(period1, period2)]
 
         case (.lineSegment2(let lhs), .circleArc2(let rhs)):
-            rhs.circleArc.intersections(with: lhs.lineSegment)
+            let intersections = rhs.circleArc.intersections(with: lhs.lineSegment).intersections
+            return intersections.map { intersection in
+                let period1 = self.period(onRatio: intersection.lineIntersectionPointNormal.normalizedMagnitude)
 
-        case (.circleArc2, .lineSegment2):
-            break
+                let circleArcPeriod = Self.circleArcIntersectionRatio(rhs, intersection: intersection)
+                let period2 = other.period(onRatio: circleArcPeriod)
 
-        case (.circleArc2, .circleArc2):
-            break
+                return (period1, period2)
+            }
+
+        case (.circleArc2(let lhs), .lineSegment2(let rhs)):
+            let intersections = lhs.circleArc.intersections(with: rhs.lineSegment).intersections
+            return intersections.map { intersection in
+                let circleArcPeriod = Self.circleArcIntersectionRatio(
+                    lhs,
+                    intersection: intersection
+                )
+                let period1 = self.period(onRatio: circleArcPeriod)
+
+                let period2 = other.period(onRatio: intersection.lineIntersectionPointNormal.normalizedMagnitude)
+
+                return (period1, period2)
+            }
+
+        case (.circleArc2(let lhs), .circleArc2(let rhs)):
+            let intersections =
+                lhs.asCircle2
+                .intersection(with: rhs.asCircle2)
+                .pointNormals
+
+            return intersections.map { intersection in
+                let selfPeriod = Self.circleArcIntersectionRatio(
+                    lhs,
+                    intersection: intersection
+                )
+                let period1 = self.period(onRatio: selfPeriod)
+
+                let otherPeriod = Self.circleArcIntersectionRatio(
+                    rhs,
+                    intersection: intersection
+                )
+                let period2 = other.period(onRatio: otherPeriod)
+
+                return (period1, period2)
+            }
         }
+    }
 
-        return []
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2Simplex<Period, Vector>,
+        intersection: LineIntersection<Vector>.Intersection
+    ) -> Period {
+        return circleArcIntersectionRatio(
+            circleArc.circleArc,
+            intersection: intersection.lineIntersectionPointNormal
+        )
+    }
+
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2Simplex<Period, Vector>,
+        intersection: LineIntersectionPointNormal<Vector>
+    ) -> Period {
+        return circleArcIntersectionRatio(
+            circleArc.circleArc,
+            intersection: intersection
+        )
+    }
+
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2Simplex<Period, Vector>,
+        intersection: PointNormal<Vector>
+    ) -> Period {
+        return circleArcIntersectionRatio(
+            circleArc.circleArc,
+            intersection: intersection
+        )
+    }
+
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2<Vector>,
+        intersection: LineIntersectionPointNormal<Vector>
+    ) -> Period {
+        return circleArcIntersectionRatio(
+            circleArc,
+            intersection: intersection.pointNormal
+        )
+    }
+
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2<Vector>,
+        intersection: PointNormal<Vector>
+    ) -> Period {
+        let point = intersection.point
+        let intersectionAngle = circleArc.center.angle(to: point)
+
+        let angleSweep = circleArc.asAngleSweep
+
+        let (angle1, angle2) = circleArc.startAngle.relativeAngles(to: intersectionAngle)
+
+        if circleArc.contains(angle1) {
+            return angleSweep.ratioOfAngle(angle1)
+        } else {
+            return angleSweep.ratioOfAngle(angle2)
+        }
     }
 }

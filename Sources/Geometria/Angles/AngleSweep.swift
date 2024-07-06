@@ -68,6 +68,54 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         return .init(radians: normalStop)
     }
 
+    /// Returns a value from 0.0 to 1.0, inclusive, indicating how far along a
+    /// given angle is to `self.start` and `self.stop`, where `0.0` is exactly
+    /// on `start`, and `1.0` is exactly on `stop`.
+    ///
+    /// - note: Angle sweeps that are greater than `2π` will not properly map
+    /// into a ratio due to the overlapping angle ranges.
+    public func ratioOfAngle(_ angle: Angle<Scalar>) -> Scalar {
+        let normalAngle = angle.normalized(from: .zero)
+        let (normalStart, normalStop) = normalizedStartStop(from: .zero)
+
+        var total: Scalar
+        if normalStart > normalStop {
+            total = (.pi * 2 - normalStart)
+            total += normalStop
+        } else {
+            total = normalStop - normalStart
+        }
+        if total == .zero {
+            total = .leastNonzeroMagnitude
+        }
+
+        if normalStart > normalStop {
+            let result: Scalar
+            let startToOrigin: Scalar = (.pi * 2) - normalStart
+            let originToEnd = normalStop
+
+            // Split the ratio into two sub-ranges: one from start - 2π, and one
+            // from 0 - stop
+            if normalAngle <= normalStop {
+                result = (startToOrigin + normalAngle) / (startToOrigin + originToEnd)
+            } else {
+                result = (normalAngle - normalStart) / (startToOrigin + originToEnd)
+            }
+
+            if sweep.radians < .zero {
+                return (1 - result)
+            }
+            return result
+        }
+
+        let result = (normalAngle - normalStart) / (normalStop - normalStart)
+
+        if sweep.radians < .zero {
+            return 1 - result
+        }
+        return result
+    }
+
     func normalizedStartStop(from lowerBound: Scalar) -> (normalStart: Scalar, normalStop: Scalar) {
         var normalStart = start.normalized(from: lowerBound)
         var normalStop = (start + sweep).normalized(from: lowerBound)
