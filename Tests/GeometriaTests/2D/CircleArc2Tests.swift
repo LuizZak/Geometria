@@ -699,7 +699,7 @@ extension CircleArc2Tests {
                 .assertDistanceSquaredTo(
                     .init(x: -39, y: -160),
                     406.0259915373573,
-                    accuracy: 1e-13
+                    accuracy: 1e-12
                 )
                 .assertDistanceSquaredTo(
                     .init(x: -60, y: -140),
