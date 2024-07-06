@@ -26,8 +26,20 @@ public class TestFixture {
         geometry?.addVisualization2D(to: p5Printer, style: style, file: file, line: line)
     }
 
+    public func add<T: VisualizableGeometricType2>(_ geometries: [T], style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
+        for geometry in geometries {
+            geometry.addVisualization2D(to: p5Printer, style: style, file: file, line: line)
+        }
+    }
+
     public func add<T: VisualizableGeometricType3>(_ geometry: T?, style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
         geometry?.addVisualization3D(to: p5Printer, style: style, file: file, line: line)
+    }
+
+    public func add<T: VisualizableGeometricType3>(_ geometries: [T], style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
+        for geometry in geometries {
+            geometry.addVisualization3D(to: p5Printer, style: style, file: file, line: line)
+        }
     }
 
     // MARK: Wrapped assertions

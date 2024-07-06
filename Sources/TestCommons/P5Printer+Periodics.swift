@@ -3,6 +3,37 @@ import Geometria
 import GeometriaPeriodics
 
 extension P5Printer {
+    func printPeriodicsSlider() {
+        printMultiline("""
+        periodSlider = createSlider(0.0, 1.0, 0.5, 0.0)
+        periodSlider.size(width)
+        """)
+        printLine("")
+        printLine("periodics = [")
+        indented {
+            for periodic in periodicsToDraw {
+                printMultiline(periodic)
+            }
+        }
+        printLine("]")
+    }
+
+    func printPeriodicsDraw() {
+        printMultiline(#"""
+            fill(0)
+            noStroke()
+            text(`Period: ${periodSlider.value()}`, 10, height - 10)
+            translate(width / 2, height / 2)
+            stroke(0)
+            noFill()
+            for (let periodic of periodics) {
+                periodic.render(periodSlider.value())
+            }
+            noStroke()
+            fill(0)
+            """#)
+    }
+
     func printPeriodicTypes() {
         printMultiline(#"""
         class Periodic {

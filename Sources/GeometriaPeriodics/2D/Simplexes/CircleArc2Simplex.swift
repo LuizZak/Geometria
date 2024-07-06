@@ -1,7 +1,7 @@
 import Geometria
 
 /// A 2-dimensional simplex composed of a circular arc segment.
-public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex {
+public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatable {
     /// The circular arc segment associated with this simplex.
     public var circleArc: CircleArc2<Vector>
 
@@ -20,13 +20,52 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex {
         self.endPeriod = endPeriod
     }
 
-    public func compute(at period: Period) -> Vector {
-        let relativePeriod = (period - startPeriod) / (endPeriod - startPeriod)
+    /// Returns `(period - startPeriod) / (endPeriod - startPeriod)`.
+    ///
+    /// - note: The result is unclamped.
+    func ratioForPeriod(_ period: Period) -> Period {
+        (period - startPeriod) / (endPeriod - startPeriod)
+    }
 
-        let magnitude = circleArc.sweepAngle.radians * relativePeriod
+    /// Returns `startPeriod + (endPeriod - startPeriod) * ratio`.
+    ///
+    /// - note: The result is unclamped.
+    func period(onRatio ratio: Period) -> Period {
+        startPeriod + (endPeriod - startPeriod) * ratio
+    }
+
+    public func compute(at period: Period) -> Vector {
+        let ratio = ratioForPeriod(period)
+
+        let magnitude = circleArc.sweepAngle.radians * ratio
 
         return circleArc.pointOnAngle(
             circleArc.startAngle + magnitude
+        )
+    }
+
+    /// Clamps this simplex so its contained geometry is only present within a
+    /// given period range.
+    ///
+    /// If the geometry is not available on the given range, `nil` is returned,
+    /// instead.
+    public func clamped(in range: Range<Period>) -> Self? {
+        if startPeriod >= range.upperBound || endPeriod <= range.lowerBound {
+            return nil
+        }
+
+        let ratioStart = max(ratioForPeriod(range.lowerBound), .zero)
+        let ratioEnd = min(ratioForPeriod(range.upperBound), 1)
+
+        return .init(
+            circleArc: .init(
+                center: circleArc.center,
+                radius: circleArc.radius,
+                startAngle: circleArc.startAngle + circleArc.sweepAngle * ratioStart,
+                sweepAngle: circleArc.startAngle + circleArc.sweepAngle * ratioEnd
+            ),
+            startPeriod: max(startPeriod, range.lowerBound),
+            endPeriod: min(endPeriod, range.upperBound)
         )
     }
 }

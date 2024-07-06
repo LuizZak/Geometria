@@ -12,7 +12,7 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry {
     public var startPeriod: Period
     public var endPeriod: Period
 
-    init(
+    public init(
         linePolygon2: LinePolygon2<Vector>,
         startPeriod: Period,
         endPeriod: Period

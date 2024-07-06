@@ -20,33 +20,13 @@ public class P5Printer: BaseP5Printer {
 
     public override func printCustomPostSetup() {
         if requiresPeriodSlider {
-            printMultiline("""
-            periodSlider = createSlider(0.0, 1.0, 0.5, 0.0)
-            periodSlider.size(width)
-            """)
-            printLine("")
-            printLine("periodics = [")
-            indented {
-                for periodic in periodicsToDraw {
-                    printMultiline(periodic)
-                }
-            }
-            printLine("]")
+            printPeriodicsSlider()
         }
     }
 
     public override func printCustomPostDraw() {
         if requiresPeriodicTypes {
-            printMultiline(#"""
-            translate(width / 2, height / 2)
-            stroke(0)
-            noFill()
-            for (let periodic of periodics) {
-                periodic.render(periodSlider.value())
-            }
-            noStroke()
-            fill(0)
-            """#)
+            printPeriodicsDraw()
         }
     }
 

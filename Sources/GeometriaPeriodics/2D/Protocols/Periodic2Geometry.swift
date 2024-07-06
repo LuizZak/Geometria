@@ -37,12 +37,31 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     /// 2-dimensional periodic geometry, ordered by their relative period within
     /// the geometry.
     func allSimplexes(overlapping range: Range<Period>) -> [Simplex]
+
+    /// Fetches all simplexes, clamped to be within a given given half-open range
+    /// within this 2-dimensional periodic geometry, ordered by their relative
+    /// period within the geometry.
+    ///
+    /// The clamping process preserves relative positioning of points within the
+    /// simplexes so that computing a point based on a period results in the
+    /// same point being produced as if the simplexes where not clamped, if the
+    /// point is contained within `range`.
+    ///
+    /// If no simplex is contained within the given range, an empty array is
+    /// returned, instead.
+    func clampedSimplexes(in range: Range<Period>) -> [Simplex]
 }
 
 extension Periodic2Geometry {
     public func allSimplexes(overlapping range: Range<Period>) -> [Simplex] {
         allSimplexes().filter { simplex in
             range.overlaps(simplex.periodRange)
+        }
+    }
+
+    public func clampedSimplexes(in range: Range<Period>) -> [Simplex] {
+        allSimplexes().compactMap { simplex in
+            simplex.clamped(in: range)
         }
     }
 }

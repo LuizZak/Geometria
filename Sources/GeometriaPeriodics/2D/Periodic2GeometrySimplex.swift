@@ -1,7 +1,7 @@
 import Geometria
 
 /// The periodic simplex type produced by a `Periodic2Geometry`.
-public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex {
+public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equatable {
     public typealias Scalar = Vector.Scalar
 
     /// A circular arc simplex.
@@ -61,6 +61,33 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex {
     /// - note: The result is unclamped.
     func period(onRatio ratio: Scalar) -> Period {
         startPeriod + (endPeriod - startPeriod) * ratio
+    }
+
+    /// Clamps this simplex so its contained geometry is only present within a
+    /// given period range.
+    ///
+    /// If the geometry is not available on the given range, `nil` is returned,
+    /// instead.
+    public func clamped(in range: Range<Period>) -> Self? {
+        if startPeriod >= range.upperBound || endPeriod <= range.lowerBound {
+            return nil
+        }
+
+        switch self {
+        case .lineSegment2(let lineSegment):
+            guard let lineSegment = lineSegment.clamped(in: range) else {
+                return nil
+            }
+
+            return .lineSegment2(lineSegment)
+
+        case .circleArc2(let circleArc):
+            guard let circleArc = circleArc.clamped(in: range) else {
+                return nil
+            }
+
+            return .circleArc2(circleArc)
+        }
     }
 
     /// Returns a list of pairs for periods where `self` and `other` intersect
