@@ -13,30 +13,30 @@ public typealias Vector3i = Vector3<Int>
 public struct Vector3<Scalar>: Vector3Type {
     /// X coordinate of this vector
     public var x: Scalar
-    
+
     /// Y coordinate of this vector
     public var y: Scalar
-    
+
     /// Z coordinate of this vector
     public var z: Scalar
-    
+
     /// Textual representation of this `Vector3`
     public var description: String {
         "\(type(of: self))(x: \(x), y: \(y), z: \(z))"
     }
-    
+
     @_transparent
     public init(x: Scalar, y: Scalar, z: Scalar) {
         self.x = x
         self.y = y
         self.z = z
     }
-    
+
     @_transparent
     public init(repeating scalar: Scalar) {
         self.init(x: scalar, y: scalar, z: scalar)
     }
-    
+
     /// Initializes this ``Vector3`` with the values from a given tuple.
     @_transparent
     public init(_ tuple: (Scalar, Scalar, Scalar)) {
@@ -57,14 +57,14 @@ extension Vector3: VectorComparable where Scalar: Comparable {
     public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
         Self(x: min(lhs.x, rhs.x), y: min(lhs.y, rhs.y), z: min(lhs.z, rhs.z))
     }
-    
+
     /// Returns the pointwise maximal Vector where each component is the maximal
     /// scalar value at each index for both vectors.
     @_transparent
     public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
         Self(x: max(lhs.x, rhs.x), y: max(lhs.y, rhs.y), z: max(lhs.z, rhs.z))
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than `rhs`.
     ///
@@ -73,7 +73,7 @@ extension Vector3: VectorComparable where Scalar: Comparable {
     public static func > (lhs: Self, rhs: Self) -> Bool {
         lhs.x > rhs.x && lhs.y > rhs.y && lhs.z > rhs.z
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than or equal to `rhs`.
     ///
@@ -82,7 +82,7 @@ extension Vector3: VectorComparable where Scalar: Comparable {
     public static func >= (lhs: Self, rhs: Self) -> Bool {
         lhs.x >= rhs.x && lhs.y >= rhs.y && lhs.z >= rhs.z
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than `rhs`.
     ///
@@ -91,7 +91,7 @@ extension Vector3: VectorComparable where Scalar: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than or equal to `rhs`.
     ///
@@ -125,17 +125,17 @@ extension Vector3: VectorAdditive where Scalar: AdditiveArithmetic {
     public static func + (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
     }
-    
+
     @_transparent
     public static func - (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z)
     }
-    
+
     @_transparent
     public static func + (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x + rhs, y: lhs.y + rhs, z: lhs.z + rhs)
     }
-    
+
     @_transparent
     public static func - (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x - rhs, y: lhs.y - rhs, z: lhs.z - rhs)
@@ -149,7 +149,7 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
     public static var one: Self {
         Self(repeating: 1)
     }
-    
+
     /// Calculates the dot product between this and another provided `Vector3Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -157,20 +157,20 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
         let dx = x * other.x
         let dy = y * other.y
         let dz = z * other.z
-        
+
         return dx + dy + dz
     }
-    
+
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x * rhs.x, y: lhs.y * rhs.y, z: lhs.z * rhs.z)
     }
-    
+
     @_transparent
     public static func * (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x * rhs, y: lhs.y * rhs, z: lhs.z * rhs)
     }
-    
+
     @_transparent
     public static func * (lhs: Scalar, rhs: Self) -> Self {
         Self(x: lhs * rhs.x, y: lhs * rhs.y, z: lhs * rhs.z)
@@ -178,11 +178,11 @@ extension Vector3: VectorMultiplicative where Scalar: Numeric {
 }
 
 extension Vector3: Vector3Additive where Scalar: AdditiveArithmetic {
-    
+
 }
 
 extension Vector3: Vector3Multiplicative where Scalar: Numeric {
-    
+
 }
 
 extension Vector3: VectorSigned where Scalar: SignedNumeric & Comparable {
@@ -192,14 +192,16 @@ extension Vector3: VectorSigned where Scalar: SignedNumeric & Comparable {
     public var absolute: Self {
         Self(x: abs(x), y: abs(y), z: abs(z))
     }
-    
+
     @_transparent
     public var sign: Self {
-        Self(x: x < 0 ? -1 : (x > 0 ? 1 : 0),
-             y: y < 0 ? -1 : (y > 0 ? 1 : 0),
-             z: z < 0 ? -1 : (z > 0 ? 1 : 0))
+        Self(
+            x: x < 0 ? -1 : (x > 0 ? 1 : 0),
+            y: y < 0 ? -1 : (y > 0 ? 1 : 0),
+            z: z < 0 ? -1 : (z > 0 ? 1 : 0)
+        )
     }
-    
+
     /// Negates this Vector
     @_transparent
     public static prefix func - (lhs: Self) -> Self {
@@ -212,12 +214,12 @@ extension Vector3: VectorDivisible where Scalar: DivisibleArithmetic {
     public static func / (lhs: Self, rhs: Self) -> Self {
         Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y, z: lhs.z / rhs.z)
     }
-    
+
     @_transparent
     public static func / (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x / rhs, y: lhs.y / rhs, z: lhs.z / rhs)
     }
-    
+
     @_transparent
     public static func / (lhs: Scalar, rhs: Self) -> Self {
         Self(x: lhs / rhs.x, y: lhs / rhs.y, z: lhs / rhs.z)
@@ -239,7 +241,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func addingProduct(_ a: Self, _ b: Self) -> Self {
         Self(x: x.addingProduct(a.x, b.x), y: y.addingProduct(a.y, b.y), z: z.addingProduct(a.z, b.z))
     }
-    
+
     /// Returns the result of adding the product of the given scalar and vector
     /// to this vector, computed without intermediate rounding.
     ///
@@ -253,7 +255,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func addingProduct(_ a: Scalar, _ b: Self) -> Self {
         Self(x: x.addingProduct(a, b.x), y: y.addingProduct(a, b.y), z: z.addingProduct(a, b.z))
     }
-    
+
     /// Returns the result of adding the product of the given vector and scalar
     /// to this vector, computed without intermediate rounding.
     ///
@@ -267,14 +269,14 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func addingProduct(_ a: Self, _ b: Scalar) -> Self {
         Self(x: x.addingProduct(a.x, b), y: y.addingProduct(a.y, b), z: z.addingProduct(a.z, b))
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
         Self(x: x.rounded(rule), y: y.rounded(rule), z: z.rounded(rule))
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
     ///
@@ -283,7 +285,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func rounded() -> Self {
         rounded(.toNearestOrAwayFromZero)
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule.up`.
     ///
@@ -292,7 +294,7 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func ceil() -> Self {
         rounded(.up)
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule.down`.
     ///
@@ -301,19 +303,23 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func floor() -> Self {
         rounded(.down)
     }
-    
+
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs.z)
+        )
     }
-    
+
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs)
+        )
     }
 }
 
@@ -334,16 +340,20 @@ extension Vector3: Vector3FloatingPoint where Scalar: DivisibleArithmetic & Floa
 extension Vector3: VectorReal where Scalar: DivisibleArithmetic & Real {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent),
-             y: Scalar.pow(vec.y, exponent),
-             z: Scalar.pow(vec.z, exponent))
+        Self(
+            x: Scalar.pow(vec.x, exponent),
+            y: Scalar.pow(vec.y, exponent),
+            z: Scalar.pow(vec.z, exponent)
+        )
     }
-    
+
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent.x),
-             y: Scalar.pow(vec.y, exponent.y),
-             z: Scalar.pow(vec.z, exponent.z))
+        Self(
+            x: Scalar.pow(vec.x, exponent.x),
+            y: Scalar.pow(vec.y, exponent.y),
+            z: Scalar.pow(vec.z, exponent.z)
+        )
     }
 }
 
@@ -353,7 +363,7 @@ extension Vector3: Vector3Real where Scalar: DivisibleArithmetic & Real {
     public var azimuth: Scalar {
         Scalar.atan2(y: y, x: x)
     }
-    
+
     /// The elevation angle of this vector, or the angle between the XY plane
     /// and the vector.
     ///
@@ -364,7 +374,7 @@ extension Vector3: Vector3Real where Scalar: DivisibleArithmetic & Real {
         if l == .zero {
             return .zero
         }
-        
+
         return Scalar.asin(z / l)
     }
 }

@@ -61,7 +61,7 @@ class Line3FloatingPointTests: XCTestCase {
             x2: 2, y2: 5, z2: -2
         )
 
-        try TestFixture.beginFixture(sceneScale: 0.5, renderScale: 80) { fixture in
+        try TestFixture.beginFixture(lineScale: 0.5, renderScale: 80) { fixture in
             fixture.add(line1)
             fixture.add(line2)
             
@@ -275,7 +275,7 @@ class Line3FloatingPointTests: XCTestCase {
             x2: 2, y2: 5, z2: -2
         )
 
-        TestFixture.beginFixture(sceneScale: 0.5, renderScale: 80) { fixture in
+        TestFixture.beginFixture(lineScale: 0.5, renderScale: 80) { fixture in
             fixture.add(line1)
             fixture.add(line2)
 

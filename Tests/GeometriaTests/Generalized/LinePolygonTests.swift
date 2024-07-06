@@ -161,7 +161,7 @@ extension LinePolygonTests {
         let test4 = Vector2D(x: 1, y: 1.5)
         let test5 = Vector2D(x: 2.32, y: 2.32)
 
-        TestFixture.beginFixture(sceneScale: 100, renderScale: 50) { fixture in
+        TestFixture.beginFixture(lineScale: 100, renderScale: 50) { fixture in
             fixture.add(sut)
 
             fixture.assertions(on: test1)
