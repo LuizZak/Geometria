@@ -602,11 +602,13 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertProject(
                     .init(x: -39, y: -160),
-                    expected: .init(x: -49.70740782230952, y: -177.06978058629056)
+                    expected: .init(x: -49.70740782230952, y: -177.06978058629056),
+                    accuracy: 1e14
                 )
                 .assertProject(
                     .init(x: -60, y: -140),
-                    expected: .init(x: -58.16778784387098, y: -171.3525491562421)
+                    expected: .init(x: -58.16778784387098, y: -171.3525491562421),
+                    accuracy: 1e14
                 )
         }
     }
@@ -623,11 +625,13 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertProject(
                     .init(x: 150, y: -100),
-                    expected: .init(x: 168.46153846153848, y: -107.69230769230768)
+                    expected: .init(x: 168.46153846153848, y: -107.69230769230768),
+                    accuracy: 1e14
                 )
                 .assertProject(
                     .init(x: -60, y: -140),
-                    expected: .init(x: 151.3525491562421, y: -138.167787843871)
+                    expected: .init(x: 151.3525491562421, y: -138.167787843871),
+                    accuracy: 1e14
                 )
         }
     }
@@ -646,11 +650,13 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertProject(
                     .init(x: 150, y: -100),
-                    expected: .init(x: 168.46153846153848, y: -107.69230769230768)
+                    expected: .init(x: 168.46153846153848, y: -107.69230769230768),
+                    accuracy: 1e14
                 )
                 .assertProject(
                     .init(x: -60, y: -140),
-                    expected: .init(x: 151.3525491562421, y: -138.167787843871)
+                    expected: .init(x: 151.3525491562421, y: -138.167787843871),
+                    accuracy: 1e14
                 )
         }
     }
@@ -669,11 +675,13 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertProject(
                     .init(x: 170, y: -140),
-                    expected: .init(x: 156.17677130648303, y: -131.1136386970248)
+                    expected: .init(x: 156.17677130648303, y: -131.1136386970248),
+                    accuracy: 1e14
                 )
                 .assertProject(
                     .init(x: 170, y: 40),
-                    expected: .init(x: 156.17677130648303, y: 31.11363869702481)
+                    expected: .init(x: 156.17677130648303, y: 31.11363869702481),
+                    accuracy: 1e14
                 )
         }
     }
@@ -836,6 +844,24 @@ private extension AssertionWrapperType where Value == CircleArc2Tests.Sut {
             visualize()
             fixture.add(vector)
             fixture.assertEquals(result, expected, file: file, line: line)
+        }
+
+        return self
+    }
+
+    @discardableResult
+    func assertProject(
+        _ vector: Vector2D,
+        expected: Vector2D,
+        accuracy: Double,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Self {
+        let result = value.project(vector)
+
+        if !fixture.assertEquals(result, expected, accuracy: accuracy, file: file, line: line) {
+            visualize()
+            fixture.add(vector)
         }
 
         return self

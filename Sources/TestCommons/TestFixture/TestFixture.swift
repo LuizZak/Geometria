@@ -264,13 +264,14 @@ public class TestFixture {
 
     // MARK: Vectors
 
+    @discardableResult
     public func assertEquals<T: VisualizableGeometricType2 & Vector2FloatingPoint & Equatable>(
         _ actual: T,
         _ expected: T,
         accuracy: T.Scalar,
         file: StaticString = #file,
         line: UInt = #line
-    ) {
+    ) -> Bool {
 
         actual.addVisualization2D(
             to: p5Printer,
@@ -282,16 +283,21 @@ public class TestFixture {
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
             expected.addVisualization2D(to: p5Printer, style: expectedStyle())
+
+            return false
         }
+
+        return true
     }
 
+    @discardableResult
     public func assertEquals<T: VisualizableGeometricType3 & Vector3FloatingPoint & Equatable>(
         _ actual: T,
         _ expected: T,
         accuracy: T.Scalar,
         file: StaticString = #file,
         line: UInt = #line
-    ) {
+    ) -> Bool {
 
         actual.addVisualization3D(
             to: p5Printer,
@@ -303,18 +309,23 @@ public class TestFixture {
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
             expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+
+            return false
         }
+
+        return true
     }
 
     // MARK: FloatingPoint vectors
 
+    @discardableResult
     public func assertEquals<T: VisualizableGeometricType2 & Vector2Type>(
         _ actual: T,
         _ expected: T,
         accuracy: T.Scalar,
         file: StaticString = #file,
         line: UInt = #line
-    ) where T.Scalar: FloatingPoint {
+    ) -> Bool where T.Scalar: FloatingPoint {
 
         actual.addVisualization2D(
             to: p5Printer,
@@ -331,16 +342,21 @@ public class TestFixture {
                 file: file,
                 line: line
             )
+
+            return false
         }
+
+        return true
     }
 
+    @discardableResult
     public func assertEquals<T: VisualizableGeometricType3 & Vector3Type>(
         _ actual: T,
         _ expected: T,
         accuracy: T.Scalar,
         file: StaticString = #file,
         line: UInt = #line
-    ) where T.Scalar: FloatingPoint {
+    ) -> Bool where T.Scalar: FloatingPoint {
 
         actual.addVisualization3D(
             to: p5Printer,
@@ -357,7 +373,11 @@ public class TestFixture {
                 file: file,
                 line: line
             )
+
+            return false
         }
+
+        return true
     }
 
     // MARK: Intersections
