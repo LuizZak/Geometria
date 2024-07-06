@@ -62,6 +62,24 @@ public class TestFixture {
         didFail = actual != expected || didFail
     }
 
+    @discardableResult
+    public func assertEquals<T: FloatingPoint>(
+        _ actual: T,
+        _ expected: T,
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if !actual.isApproximatelyEqual(to: expected, absoluteTolerance: accuracy) {
+            XCTAssertEqual(actual, expected, file: file, line: line)
+            didFail = true
+            return false
+        }
+
+        return true
+    }
+
     public func assertTrue(
         _ actual: Bool,
         file: StaticString = #file,
