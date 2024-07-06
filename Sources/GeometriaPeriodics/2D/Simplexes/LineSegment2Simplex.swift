@@ -1,7 +1,7 @@
 import Geometria
 
 /// A 2-dimensional simplex composed of a line segment.
-public struct LineSegment2Simplex<Period: PeriodType, Vector: Vector2Type>: Periodic2Simplex {
+public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Periodic2Simplex {
     /// The line segment associated with this simplex.
     public var lineSegment: LineSegment2<Vector>
 
@@ -17,6 +17,12 @@ public struct LineSegment2Simplex<Period: PeriodType, Vector: Vector2Type>: Peri
         self.lineSegment = lineSegment
         self.startPeriod = startPeriod
         self.endPeriod = endPeriod
+    }
+
+    public func compute(at period: Period) -> Vector {
+        let relativePeriod = (period - startPeriod) / (endPeriod - startPeriod)
+
+        return lineSegment.projectedNormalizedMagnitude(relativePeriod)
     }
 }
 

@@ -50,6 +50,16 @@ public class TestFixture {
 
     // MARK: General assertions
 
+    public func failure(
+        _ message: String,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        XCTFail(message, file: file, line: line)
+
+        didFail = true
+    }
+
     public func assertEquals<T: Equatable>(
         _ actual: T,
         _ expected: T,

@@ -5,7 +5,7 @@ import TestCommons
 @testable import GeometriaPeriodics
 
 class LinePolygon2PeriodicTests: XCTestCase {
-    typealias Sut = LinePolygon2Periodic<Double, Vector2D>
+    typealias Sut = LinePolygon2Periodic<Vector2D>
 
     func testEphemeral() {
         let sut = makeStar()

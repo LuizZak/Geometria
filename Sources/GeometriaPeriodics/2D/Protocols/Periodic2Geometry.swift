@@ -7,14 +7,11 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     /// geometry.
     associatedtype Vector: Vector2Real
 
-    /// The type of period that this periodic geometry uses to refer to its
-    /// ordered simplexes.
-    associatedtype Period: PeriodType
+    typealias Scalar = Vector.Scalar
+    typealias Period = Vector.Scalar
 
     /// The simplex type produced by this periodic geometry.
-    typealias Simplex = Periodic2GeometrySimplex<Period, Vector>
-
-    typealias Scalar = Vector.Scalar
+    typealias Simplex = Periodic2GeometrySimplex<Vector>
 
     /// The inclusive lower bound period within this geometry.
     var startPeriod: Period { get }

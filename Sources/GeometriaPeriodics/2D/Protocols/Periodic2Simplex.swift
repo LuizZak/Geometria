@@ -3,6 +3,10 @@ import Geometria
 /// Protocol for types that describe 2-dimensional simplexes produced by 2-dimensional
 /// periodic geometry.
 public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
+    /// The type of period that is used to represent this periodic simplex's
+    /// period range in its parent periodic geometry.
+    typealias Period = Vector.Scalar
+
     /// Gets the starting point of this simplex.
     var start: Vector { get }
 
@@ -16,6 +20,13 @@ public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
     /// Gets the exclusive end period of this simplex within its parent
     /// 2-dimensional periodic geometry.
     var endPeriod: Period { get }
+
+    /// Computes the point of this simplex at a given period value.
+    ///
+    /// At `startPeriod`, the result is `start`, and at `endPeriod`, the result
+    /// is `end`, with values in between continuously translating from start to
+    /// the end, not necessarily in a straight line.
+    func compute(at period: Period) -> Vector
 }
 
 extension Periodic2Simplex {

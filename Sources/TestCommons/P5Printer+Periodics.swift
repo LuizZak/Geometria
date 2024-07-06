@@ -104,7 +104,7 @@ extension P5Printer {
         }
     }
 
-    func add<Period, Vector: Vector2Type>(_ simplex: Periodic2GeometrySimplex<Period, Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: Periodic2GeometrySimplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         switch simplex {
         case .lineSegment2(let lineSegment):
             add(lineSegment, style: style, file: file, line: line)
@@ -114,7 +114,7 @@ extension P5Printer {
         }
     }
 
-    func add<Period, Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Period, Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         requiresPeriodicTypes = true
         requiresPeriodSlider = true
 
@@ -122,14 +122,14 @@ extension P5Printer {
         new ArcPeriodic(
           \#(vec2PVectorString(simplex.circleArc.center)),
           \#(simplex.circleArc.radius),
-          \#(simplex.circleArc.startAngle),
-          \#(simplex.circleArc.stopAngle),
+          \#(simplex.circleArc.startAngle.normalized(from: .zero)),
+          \#(simplex.circleArc.stopAngle.normalized(from: .zero)),
           \#(simplex.startPeriod), \#(simplex.endPeriod)
         ),
         """#)
     }
 
-    func add<Period, Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Period, Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         requiresPeriodicTypes = true
         requiresPeriodSlider = true
 

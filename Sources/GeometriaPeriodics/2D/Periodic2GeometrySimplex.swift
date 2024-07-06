@@ -1,14 +1,14 @@
 import Geometria
 
 /// The periodic simplex type produced by a `Periodic2Geometry`.
-public enum Periodic2GeometrySimplex<Period: PeriodType, Vector: Vector2Real>: Periodic2Simplex {
+public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex {
     public typealias Scalar = Vector.Scalar
 
     /// A circular arc simplex.
-    case circleArc2(CircleArc2Simplex<Period, Vector>)
+    case circleArc2(CircleArc2Simplex<Vector>)
 
     /// A line segment simplex.
-    case lineSegment2(LineSegment2Simplex<Period, Vector>)
+    case lineSegment2(LineSegment2Simplex<Vector>)
 
     /// Returns the start period of the underlying simplex contained within this
     /// enumeration.
@@ -45,9 +45,17 @@ public enum Periodic2GeometrySimplex<Period: PeriodType, Vector: Vector2Real>: P
         case .lineSegment2(let simplex): return simplex.end
         }
     }
-}
 
-extension Periodic2GeometrySimplex where Period == Vector.Scalar {
+    public func compute(at period: Period) -> Vector {
+        switch self {
+        case .lineSegment2(let lineSegment):
+            return lineSegment.compute(at: period)
+
+        case .circleArc2(let circleArc):
+            return circleArc.compute(at: period)
+        }
+    }
+
     /// Returns `startPeriod + (endPeriod - startPeriod) * ratio`.
     ///
     /// - note: The result is unclamped.
@@ -122,7 +130,7 @@ extension Periodic2GeometrySimplex where Period == Vector.Scalar {
     }
 
     static func circleArcIntersectionRatio(
-        _ circleArc: CircleArc2Simplex<Period, Vector>,
+        _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersection<Vector>.Intersection
     ) -> Period {
         return circleArcIntersectionRatio(
@@ -132,7 +140,7 @@ extension Periodic2GeometrySimplex where Period == Vector.Scalar {
     }
 
     static func circleArcIntersectionRatio(
-        _ circleArc: CircleArc2Simplex<Period, Vector>,
+        _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersectionPointNormal<Vector>
     ) -> Period {
         return circleArcIntersectionRatio(
@@ -142,7 +150,7 @@ extension Periodic2GeometrySimplex where Period == Vector.Scalar {
     }
 
     static func circleArcIntersectionRatio(
-        _ circleArc: CircleArc2Simplex<Period, Vector>,
+        _ circleArc: CircleArc2Simplex<Vector>,
         intersection: PointNormal<Vector>
     ) -> Period {
         return circleArcIntersectionRatio(
@@ -170,12 +178,6 @@ extension Periodic2GeometrySimplex where Period == Vector.Scalar {
 
         let angleSweep = circleArc.asAngleSweep
 
-        let (angle1, angle2) = circleArc.startAngle.relativeAngles(to: intersectionAngle)
-
-        if circleArc.contains(angle1) {
-            return angleSweep.ratioOfAngle(angle1)
-        } else {
-            return angleSweep.ratioOfAngle(angle2)
-        }
+        return angleSweep.ratioOfAngle(intersectionAngle)
     }
 }

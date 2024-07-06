@@ -1,0 +1,153 @@
+import XCTest
+import Geometria
+import TestCommons
+
+@testable import GeometriaPeriodics
+
+class Periodic2GeometrySimplexTests: XCTestCase {
+    typealias Sut = Periodic2GeometrySimplex<Vector2D>
+
+    func testIntersectionPeriods_line_line() {
+        let line1 = makeLine(
+            start: .init(x: -20, y: 20),
+            end: .init(x: 20, y: -20)
+        )
+        let line2 = makeLine(
+            start: .init(x: 20, y: 20),
+            end: .init(x: -100, y: -110)
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: line1)
+                .assertIntersectionPeriods(line2, [
+                    (self: 0.52, other: 0.16),
+                ])
+        }
+    }
+
+    func testIntersectionPeriods_line_arc_singleIntersection() {
+        let line = makeLine(
+            start: .init(x: -20, y: 20),
+            end: .init(x: 20, y: -20)
+        )
+        let arc = makeCircleArc(
+            center: .init(x: -10, y: -30),
+            radius: 40,
+            startAngle: 0,
+            sweepAngle: .pi
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: line)
+                .assertIntersectionPeriods(arc, [
+                    (self: 0.25, other: 0.5),
+                ])
+        }
+    }
+
+    func testIntersectionPeriods_line_arc_doubleIntersection() {
+        let line = makeLine(
+            start: .init(x: 170, y: -140),
+            end: .init(x: 170, y: 40)
+        )
+        let arc = makeCircleArc(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi * 1.8,
+            sweepAngle: .pi * 0.4
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: line)
+                .assertIntersectionPeriods(arc, [
+                    (self: 0.20082417738141645, other: 0.2077851419261496),
+                    (self: 0.7991758226185836, other: 0.7922148580738506),
+                ])
+        }
+    }
+
+    func testIntersectionPeriods_line_arc_doubleIntersection_negativeSweep() {
+        let line = makeLine(
+            start: .init(x: 170, y: -140),
+            end: .init(x: 170, y: 40)
+        )
+        let arc = makeCircleArc(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi * 0.2,
+            sweepAngle: -.pi * 0.4
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: line)
+                .assertIntersectionPeriods(arc, [
+                    (self: 0.20082417738141645, other: 0.7922148580738504),
+                    (self: 0.7991758226185836, other: 0.20778514192614939),
+                ])
+        }
+    }
+}
+
+// MARK: - Test internals
+
+private func makeLine(
+    start: Vector2D,
+    end: Vector2D,
+    startPeriod: Double = 0.0,
+    endPeriod: Double = 1.0
+) -> Periodic2GeometrySimplexTests.Sut {
+    let lineSegment2 = LineSegment2(
+        start: start,
+        end: end
+    )
+
+    return .lineSegment2(
+        .init(
+            lineSegment: lineSegment2,
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    )
+}
+
+private func makeCircleArc(
+    center: Vector2D,
+    radius: Double,
+    startAngle: Double,
+    sweepAngle: Double,
+    startPeriod: Double = 0.0,
+    endPeriod: Double = 1.0
+) -> Periodic2GeometrySimplexTests.Sut {
+    let circleArc2 = CircleArc2(
+        center: center,
+        radius: radius,
+        startAngle: startAngle,
+        sweepAngle: sweepAngle
+    )
+
+    return .circleArc2(
+        .init(
+            circleArc: circleArc2,
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    )
+}
+
+private extension TestFixture.AssertionWrapperBase where T == Periodic2GeometrySimplexTests.Sut {
+    func assertIntersectionPeriods(
+        _ other: T,
+        _ expected: [(`self`: Double, other: Double)],
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        let intersections = value.intersectionPeriods(with: other)
+        if intersections.elementsEqual(expected, by: ==) {
+            return
+        }
+
+        fixture.add(value)
+        fixture.add(other)
+        fixture.failure("\(intersections) != \(expected)", file: file, line: line)
+    }
+}
