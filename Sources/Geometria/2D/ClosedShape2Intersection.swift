@@ -37,7 +37,7 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     /// is mapped by a provided closure before being stored back into the same
     /// enum case and returned.
     public func mappingPointNormals(
-        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>
+        _ mapper: (PointNormal<Vector>, LineIntersectionPointNormalKind) -> PointNormal<Vector>
     ) -> Self {
 
         switch self {
@@ -67,7 +67,7 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     /// is replaced by a provided closure before being stored back into the same
     /// enum case and returned.
     public func replacingPointNormals<NewVector: VectorType>(
-        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>
+        _ mapper: (PointNormal<Vector>, LineIntersectionPointNormalKind) -> PointNormal<NewVector>
     ) -> ClosedShape2Intersection<NewVector> {
 
         switch self {
@@ -115,7 +115,7 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     /// Parameter passed along point normals in ``mappingPointNormals(_:)`` and
     /// ``replacingPointNormals(_:)`` to specify to the closure which kind of point
     /// normal was provided.
-    public enum PointNormalKind {
+    public enum LineIntersectionPointNormalKind {
         case singlePoint
         case twoPointsFirst
         case twoPointsSecond

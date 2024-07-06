@@ -91,6 +91,7 @@ class HyperplaneTests: XCTestCase {
         XCTAssertEqual(
             result,
             .exit(.init(
+                normalizedMagnitude: 0.0,
                 point: .init(x: 1, y: 0, z: 3),
                 normal: .init(x: -1, y: 0, z: 0)
             ))
@@ -112,6 +113,7 @@ class HyperplaneTests: XCTestCase {
         XCTAssertEqual(
             result,
             .enter(.init(
+                normalizedMagnitude: 0.0,
                 point: .init(x: 1, y: 0, z: 3),
                 normal: .init(x: 1, y: 0, z: 0)
             ))

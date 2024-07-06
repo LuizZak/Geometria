@@ -194,7 +194,7 @@ extension CircleArc2: LineIntersectableType {
         with line: Line
     ) -> LineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
         let circle = self.asCircle2
-        let intersections = circle.intersection(with: line).pointNormals
+        let intersections = circle.intersection(with: line).lineIntersectionPointNormals
 
         var result = LineIntersection<Vector>(
             isContained: false,

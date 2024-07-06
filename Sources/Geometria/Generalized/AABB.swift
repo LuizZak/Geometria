@@ -3,20 +3,20 @@
 public struct AABB<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
-    
+
     /// The minimal coordinate of this box.
     /// Must be `<= maximum`.
     public var minimum: Vector
-    
+
     /// The maximal coordinate of this box.
     /// Must be `>= minimum`.
     public var maximum: Vector
-    
+
     /// The location of this Box corresponding to its minimal vector.
     /// Alias for `minimum`.
     @_transparent
     public var location: Vector { minimum }
-    
+
     /// Initializes a `NBox` with the given minimum and maximum boundary
     /// vectors.
     @_transparent
@@ -61,7 +61,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     public var isValid: Bool {
         minimum <= maximum
     }
-    
+
     /// Initializes a box containing the minimum area capable of containing the
     /// two supplied points.
     ///
@@ -77,10 +77,10 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     public init(of p1: Vector, _ p2: Vector) {
         let min = Vector.pointwiseMin(p1, p2)
         let max = Vector.pointwiseMax(p1, p2)
-        
+
         self.init(minimum: min, maximum: max)
     }
-    
+
     /// Initializes a box containing the minimum area capable of containing the
     /// three supplied points.
     ///
@@ -97,10 +97,10 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     public init(of p1: Vector, _ p2: Vector, _ p3: Vector) {
         let min = Vector.pointwiseMin(p1, Vector.pointwiseMin(p2, p3))
         let max = Vector.pointwiseMax(p1, Vector.pointwiseMax(p2, p3))
-        
+
         self.init(minimum: min, maximum: max)
     }
-    
+
     /// Initializes a box containing the minimum area capable of containing the
     /// four supplied points.
     ///
@@ -118,10 +118,10 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     public init(of p1: Vector, _ p2: Vector, _ p3: Vector, _ p4: Vector) {
         let min = Vector.pointwiseMin(p1, Vector.pointwiseMin(p2, Vector.pointwiseMin(p3, p4)))
         let max = Vector.pointwiseMax(p1, Vector.pointwiseMax(p2, Vector.pointwiseMax(p3, p4)))
-        
+
         self.init(minimum: min, maximum: max)
     }
-    
+
     /// Expands this box to include the given point.
     ///
     /// The resulting box is the minimal AABB capable of enclosing the original
@@ -139,7 +139,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
         minimum = Vector.pointwiseMin(minimum, point)
         maximum = Vector.pointwiseMax(maximum, point)
     }
-    
+
     /// Expands this box to fully include the given set of points.
     ///
     /// Equivalent to calling ``expand(toInclude:)-3z3he`` over each point.
@@ -165,7 +165,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
             expand(toInclude: p)
         }
     }
-    
+
     /// Clamps a given vector's coordinates to the confines of this AABB.
     ///
     /// Points inside the AABB remain unchanged, while points outside are
@@ -183,7 +183,7 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     public func clamp(_ vector: Vector) -> Vector {
         Vector.pointwiseMax(minimum, Vector.pointwiseMin(maximum, vector))
     }
-    
+
     /// Returns whether a given point is contained within this box.
     ///
     /// The check is inclusive, so the edges of the box are considered to
@@ -220,7 +220,7 @@ extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & Ve
     public func contains(_ other: AABB) -> Bool {
         other.minimum >= minimum && other.maximum <= maximum
     }
-    
+
     /// Returns whether this box intersects the given box instance.
     ///
     /// This check is inclusive, so edges of the box are considered to intersect
@@ -241,7 +241,7 @@ extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & Ve
     public func intersects(_ box: AABB) -> Bool {
         minimum <= box.maximum && maximum >= box.minimum
     }
-    
+
     /// Creates a rectangle which is equal to the positive area shared between
     /// this rectangle and `other`.
     ///
@@ -251,14 +251,14 @@ extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & Ve
     public func intersection(_ other: Self) -> Self? {
         let min = Vector.pointwiseMax(minimum, other.minimum)
         let max = Vector.pointwiseMin(maximum, other.maximum)
-        
+
         if min > max {
             return nil
         }
-        
+
         return Self(minimum: min, maximum: max)
     }
-    
+
     /// Returns a box which is the minimum box capable of fitting `self` and the
     /// given box.
     ///
@@ -274,7 +274,7 @@ extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & Ve
     public func union(_ other: AABB) -> AABB {
         AABB.union(self, other)
     }
-    
+
     /// Returns a box which is the minimum box capable of fitting `left` and
     /// `right`.
     ///
@@ -297,32 +297,32 @@ extension AABB: RectangleType & ConstructableRectangleType & AdditiveRectangleTy
     /// Returns a box with ``minimum`` and ``maximum`` set to `Vector.zero`.
     @_transparent
     public static var zero: Self { Self(minimum: .zero, maximum: .zero) }
-    
+
     /// Gets the size of this box.
     @_transparent
     public var size: Vector {
         maximum - minimum
     }
-    
+
     /// Returns `true` if this box is a `AABB.zero` instance.
     @_transparent
     public var isZero: Bool {
         minimum == .zero && maximum == .zero
     }
-    
+
     /// Returns this `Box` represented as a `Rectangle`
     @_transparent
     public var asRectangle: NRectangle<Vector> {
         NRectangle(minimum: minimum, maximum: maximum)
     }
-    
+
     /// Initializes an AABB with zero minimal and maximal vectors.
     @_transparent
     public init() {
         minimum = .zero
         maximum = .zero
     }
-    
+
     /// Initializes this AABB with the equivalent coordinates of a rectangle
     /// with a given location and size.
     @_transparent
@@ -355,7 +355,7 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     init(of p1: Vector, _ p2: Vector, _ p3: Vector, _ p4: Vector, _ remaining: Vector...) {
         self = AABB(points: [p1, p2, p3, p4] + remaining)
     }
-    
+
     /// Initializes a box out of a set of points, expanding to the smallest
     /// area capable of fitting each point.
     ///
@@ -377,10 +377,10 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
             maximum = .zero
             return
         }
-        
+
         minimum = first
         maximum = first
-        
+
         expand(toInclude: points)
     }
 
@@ -433,32 +433,32 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
 
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let lineSlope = line.lineSlope
-        
+
         let lineToMin = minimum - line.a
         let lineToMax = maximum - line.a
         var tNear = -Scalar.infinity
         var tFar = Scalar.infinity
-        
+
         let t1 = lineToMin / lineSlope
         let t2 = lineToMax / lineSlope
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
-        
+
         var index = 0
         while index < lineSlope.scalarCount {
             defer { index += 1 }
             guard lineSlope[index] != 0 else {
                 continue
             }
-            
+
             tNear = max(tNear, tMin[index])
             tFar = min(tFar, tMax[index])
-            
+
             if tNear > tFar {
                 return false
             }
         }
-        
+
         if line.containsProjectedNormalizedMagnitude(tNear) {
             let near = line.projectedNormalizedMagnitude(tNear)
             let nearNormIndex = closestNormalIndex(for: near)
@@ -466,7 +466,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
                 return true
             }
         }
-        
+
         if line.containsProjectedNormalizedMagnitude(tFar) {
             let far = line.projectedNormalizedMagnitude(tFar)
             let farNormIndex = closestNormalIndex(for: far)
@@ -477,7 +477,7 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
 
         return false
     }
-    
+
     /// Performs an intersection test against the given line, returning up to
     /// two points representing the entrance and exit intersections against this
     /// AABB's outer perimeter.
@@ -485,71 +485,75 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
     public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let lineSlope = line.lineSlope
-        
+
         let lineToMin = minimum - line.a
         let lineToMax = maximum - line.a
         var tNear = -Scalar.infinity
         var tFar = Scalar.infinity
-        
+
         let t1 = lineToMin / lineSlope
         let t2 = lineToMax / lineSlope
         let tMin = min(t1, t2)
         let tMax = max(t1, t2)
-        
+
         var index = 0
         while index < lineSlope.scalarCount {
             defer { index += 1 }
             guard lineSlope[index] != 0 else {
                 continue
             }
-            
+
             tNear = max(tNear, tMin[index])
             tFar = min(tFar, tMax[index])
-            
+
             if tNear > tFar {
                 return .noIntersection
             }
         }
-        
+
         let near = line.projectedNormalizedMagnitude(tNear)
         let far = line.projectedNormalizedMagnitude(tFar)
-        
+
         // TODO: Attempt to derive normal during computation above
         let nearNorm = closestNormalVector(for: near)
         let farNorm = closestNormalVector(for: far)
         let nearNormDotLine = nearNorm.dot(lineSlope)
         let farNormDotLine = farNorm.dot(lineSlope)
-        
+
         switch (line.containsProjectedNormalizedMagnitude(tNear) && nearNormDotLine != .zero,
                 line.containsProjectedNormalizedMagnitude(tFar) && farNormDotLine != .zero) {
         case (true, true):
             return .enterExit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: tNear,
                     point: near,
                     normal: nearNorm.withSign(of: -lineSlope)
                 ),
-                PointNormal(
+                .init(
+                    normalizedMagnitude: tFar,
                     point: far,
                     normal: farNorm.withSign(of: -lineSlope)
                 )
             )
-            
+
         case (true, false):
             return .enter(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: tNear,
                     point: near,
                     normal: nearNorm.withSign(of: -lineSlope)
                 )
             )
-            
+
         case (false, true):
             return .exit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: tFar,
                     point: far,
                     normal: farNorm.withSign(of: -lineSlope)
                 )
             )
-            
+
         default:
             // If the line does not intersect the AABB, then if any point of the line
             // is within the bounds of the AABB, it means the entire line is contained
@@ -557,49 +561,49 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
             if contains(line.a) {
                 return .contained
             }
-            
+
             return .noIntersection
         }
     }
-    
+
     @usableFromInline
     internal func closestNormalVector(for point: Vector) -> Vector {
         var normal = Vector.zero
-        
+
         normal[closestNormalIndex(for: point)] = 1
-        
+
         return normal
     }
-    
+
     @usableFromInline
     internal func closestNormalIndex(for point: Vector) -> Int {
         var offsetPoint = point
         var normalIndex = 0
         var max = -Scalar.infinity
         let size = self.size
-        
+
         offsetPoint -= center
         offsetPoint = abs(offsetPoint) / size
-        
+
         var index = 0
         while index < offsetPoint.scalarCount {
             defer { index += 1 }
-            
+
             // If any of the sizes of this AABB is zero, it will behave like a
             // plane and thus its normal always equals the normal of its zero-length
             // side.
             if size[index] == .zero {
                 return index
             }
-            
+
             let distance = offsetPoint[index]
-            
+
             if distance > max {
                 max = distance
                 normalIndex = index
             }
         }
-        
+
         return normalIndex
     }
 }
@@ -610,7 +614,7 @@ extension AABB: SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
         let q = abs(point - center) - size / 2
         let distOutside = max(q, .zero).length
         let distInside = min(q, .zero).maximalComponent
-        
+
         return distOutside + distInside
     }
 }

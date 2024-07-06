@@ -64,8 +64,9 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
         let scaledSphere = NSphere<Vector>(center: center * scale, radius: axisToKeep)
         let scaledLine = line.withPointsScaledBy(scale)
 
-        func scalePointNormal(_ pn: PointNormal<Vector>) -> PointNormal<Vector> {
-            .init(
+        func scalePointNormal(_ pn: LineIntersectionPointNormal<Vector>) -> LineIntersectionPointNormal<Vector> {
+            return .init(
+                normalizedMagnitude: pn.normalizedMagnitude,
                 point: pn.point / scale,
                 normal: (pn.normal * scale).normalized()
             )

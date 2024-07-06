@@ -42,54 +42,6 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     func allSimplexes(overlapping range: Range<Period>) -> [Simplex]
 }
 
-/// The periodic simplex type produced by a `Periodic2Geometry`.
-public enum Periodic2GeometrySimplex<Period: PeriodType, Vector: Vector2Real>: Periodic2Simplex {
-    /// A circular arc simplex.
-    case circleArc2(CircleArc2Simplex<Period, Vector>)
-
-    /// A line segment simplex.
-    case lineSegment2(LineSegment2Simplex<Period, Vector>)
-
-    /// Returns the start period of the underlying simplex contained within this
-    /// enumeration.
-    public var startPeriod: Period {
-        switch self {
-        case .circleArc2(let simplex): return simplex.startPeriod
-        case .lineSegment2(let simplex): return simplex.startPeriod
-        }
-    }
-
-    /// Returns the end period of the underlying simplex contained within this
-    /// enumeration.
-    public var endPeriod: Period {
-        switch self {
-        case .circleArc2(let simplex): return simplex.endPeriod
-        case .lineSegment2(let simplex): return simplex.endPeriod
-        }
-    }
-
-    /// Returns the start point of the underlying simplex contained within this
-    /// enumeration.
-    public var start: Vector {
-        switch self {
-        case .circleArc2(let simplex): return simplex.start
-        case .lineSegment2(let simplex): return simplex.start
-        }
-    }
-
-    /// Returns the end point of the underlying simplex contained within this
-    /// enumeration.
-    public var end: Vector {
-        switch self {
-        case .circleArc2(let simplex): return simplex.end
-        case .lineSegment2(let simplex): return simplex.end
-        }
-    }
-
-    // TODO: Implement period-returning intersection method
-    // func intersectionPeriods(with other: Self) -> [Period] { ... }
-}
-
 extension Periodic2Geometry {
     public func allSimplexes(overlapping range: Range<Period>) -> [Simplex] {
         allSimplexes().filter { simplex in

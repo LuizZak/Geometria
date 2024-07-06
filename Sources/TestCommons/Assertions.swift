@@ -308,9 +308,10 @@ func _assertEqual<T: VectorFloatingPoint>(
 
     XCTFail("\(act) is not equal to \(exp)", file: file, line: line)
 
-    let printPointNormal: (PointNormal<T>) -> String = { pn in
+    let printPointNormal: (LineIntersectionPointNormal<T>) -> String = { pn in
         """
             .init(
+                normalizedMagnitude: \(pn.normalizedMagnitude),
                 point: \(printPoint(pn.point)),
                 normal: \(printPoint(pn.normal))
             )

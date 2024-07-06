@@ -170,6 +170,10 @@ public class P5Printer: BaseP5Printer {
         }
     }
 
+    func add<V: Vector2Type>(_ pointNormal: LineIntersectionPointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        add(pointNormal.pointNormal, style: style, file: file, line: line)
+    }
+
     func add<V: Vector2Type>(_ pointNormal: PointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         shouldPrintDrawNormal = true
         shouldPrintDrawTangent = true
@@ -184,6 +188,10 @@ public class P5Printer: BaseP5Printer {
         addDrawLine("drawTangent(\(vec2String(pointNormal.point)), \(vec2String(pointNormal.normal)))")
 
         addDrawLine("")
+    }
+
+    func add<V: Vector3Type>(_ pointNormal: LineIntersectionPointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        add(pointNormal.pointNormal, style: style, file: file, line: line)
     }
 
     func add<V: Vector3Type>(_ pointNormal: PointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
