@@ -123,6 +123,78 @@ class AngleTests: XCTestCase {
         assertEqual(high.radians, -4.398229715025714)
     }
 
+    func testCos() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.cos, 0.7071067811865476)
+    }
+
+    func testSin() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.sin, 0.7071067811865475)
+    }
+
+    func testTan() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.tan, 0.9999999999999999)
+    }
+
+    func testAcos() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.acos, 0.6674572160283838)
+    }
+
+    func testAsin() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.asin, 0.9033391107665127)
+    }
+
+    func testAtan() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.atan, 0.6657737500283538)
+    }
+
+    func testCosh() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.cosh, 1.3246090892520057)
+    }
+
+    func testSinh() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.sinh, 0.8686709614860095)
+    }
+
+    func testTanh() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.tanh, 0.6557942026326724)
+    }
+
+    func testAcosh() {
+        let sut = Angle(radians: .pi / 2.0)
+
+        assertEqual(sut.acosh, 1.0232274785475506)
+    }
+
+    func testAsinh() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.asinh, 0.7212254887267798)
+    }
+
+    func testAtanh() {
+        let sut = Angle(radians: .pi / 4.0)
+
+        assertEqual(sut.atanh, 1.0593061708232432)
+    }
+
     // MARK: - Test internals
 
     private func assertLessThanOrEqual<T: Comparable>(

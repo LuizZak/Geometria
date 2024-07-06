@@ -493,7 +493,7 @@ class Vector2Tests: XCTestCase {
     func testRotatedBy() {
         let vec = Vector2D(x: 5, y: 0)
 
-        let result = vec.rotated(by: .pi / 2)
+        let result = vec.rotated(by: .pi / 2.0)
 
         XCTAssertEqual(result.x, 0, accuracy: 0.0000000001)
         XCTAssertEqual(result.y, 5, accuracy: 0.0000000001)
@@ -502,7 +502,7 @@ class Vector2Tests: XCTestCase {
     func testRotateBy() {
         var vec = Vector2D(x: 5, y: 0)
 
-        vec.rotate(by: .pi / 2)
+        vec.rotate(by: .pi / 2.0)
 
         XCTAssertEqual(vec.x, 0, accuracy: 0.0000000001)
         XCTAssertEqual(vec.y, 5, accuracy: 0.0000000001)
@@ -511,7 +511,7 @@ class Vector2Tests: XCTestCase {
     func testRotatedByAround() {
         let vec = Vector2D(x: 5, y: 0)
 
-        let result = vec.rotated(by: .pi / 2, around: Vector2D(x: 5, y: 5))
+        let result = vec.rotated(by: .pi / 2.0, around: Vector2D(x: 5, y: 5))
 
         XCTAssertEqual(result.x, 10, accuracy: 0.0000000001)
         XCTAssertEqual(result.y, 5, accuracy: 0.0000000001)

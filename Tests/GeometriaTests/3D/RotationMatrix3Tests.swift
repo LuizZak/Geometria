@@ -11,7 +11,7 @@ class RotationMatrix3Tests: XCTestCase {
     // MARK: Full 3-axis rotations
 
     func testMake3DRotation_xyz_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -27,7 +27,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xyz_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -43,7 +43,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xzy_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -59,7 +59,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xzy_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -75,7 +75,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yxz_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -91,7 +91,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yxz_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -107,7 +107,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yzx_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -123,7 +123,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yzx_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -139,7 +139,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zxy_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -155,7 +155,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zxy_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -171,7 +171,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zyx_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -187,7 +187,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zyx_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -203,7 +203,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zxz_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -219,7 +219,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zxz_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -235,7 +235,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xzx_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -251,7 +251,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xzx_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -267,7 +267,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yxy_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -283,7 +283,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yxy_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -299,7 +299,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xyx_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -315,7 +315,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_xyx_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -331,7 +331,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zyz_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -347,7 +347,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_zyz_leftHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -363,7 +363,7 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yzy_rightHanded() {
-        let sut = 
+        let sut =
         RotationMatrix
         .make3DRotation(
             .pi / 2,
@@ -481,7 +481,7 @@ class RotationMatrix3Tests: XCTestCase {
         RotationMatrix
         .make3DRotationFromAxisAngle(
             axis: Vector(x: 1, y: 2, z: 3),
-            .pi / 2,
+            Angle.pi / 2.0,
             orientation: .rightHanded
         )
 
@@ -495,7 +495,7 @@ class RotationMatrix3Tests: XCTestCase {
         RotationMatrix
         .make3DRotationFromAxisAngle(
             axis: Vector(x: 1, y: 2, z: 3),
-            .pi / 2,
+            Angle.pi / 2.0,
             orientation: .leftHanded
         )
 
