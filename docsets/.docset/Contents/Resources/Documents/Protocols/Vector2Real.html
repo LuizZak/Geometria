@@ -468,6 +468,15 @@
                 <a class="nav-group-task-link" href="../Structs/AABB.html">AABB</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Angle.html">Angle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AngleSweep.html">AngleSweep</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleArc2.html">CircleArc2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Cylinder3.html">Cylinder3</a>
               </li>
               <li class="nav-group-task">
@@ -618,6 +627,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria8Circle2Fa">Circle2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Da">CircleArc2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Fa">CircleArc2F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria5Cube3a">Cube3</a>
@@ -1008,10 +1023,47 @@ origin (0, 0) to this <code><a href="../Protocols/Vector2Type.html">Vector2Type<
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria11Vector2RealP5angle2toAA5AngleVy6ScalarQzGx_tF"></a>
+                    <a name="//apple_ref/swift/Method/angle(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector2RealP5angle2toAA5AngleVy6ScalarQzGx_tF">angle(to:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the angle between <code>self</code> and <code>other</code>.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">angle</span><span class="p">(</span><span class="n">to</span> <span class="nv">other</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria11Vector2RealP7rotated2byx6ScalarQz_tF"></a>
                     <a name="//apple_ref/swift/Method/rotated(by:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria11Vector2RealP7rotated2byx6ScalarQz_tF">rotated(by:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -1022,11 +1074,44 @@ origin (0, 0) to this <code><a href="../Protocols/Vector2Type.html">Vector2Type<
 given angle in radians</p>
 
                       </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rotated</span><span class="p">(</span><span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use rotated(by angle: Angle&lt;Scalar&gt;﹚ instead."</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">rotated</span><span class="p">(</span><span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11Vector2RealP7rotated2byxAA5AngleVy6ScalarQzG_tF"></a>
+                    <a name="//apple_ref/swift/Method/rotated(by:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector2RealP7rotated2byxAA5AngleVy6ScalarQzG_tF">rotated(by:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a rotated version of this vector, rotated around the origin by a
+given angle</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rotated</span><span class="p">(</span><span class="n">by</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -1040,6 +1125,9 @@ given angle in radians</p>
                     <a name="//apple_ref/swift/Method/rotate(by:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria11Vector2RealP6rotate2byy6ScalarQz_tF">rotate(by:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -1049,11 +1137,43 @@ given angle in radians</p>
                         <p>Rotates this vector around the origin by a given angle in radians</p>
 
                       </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use rotate(by angle: Angle&lt;Scalar&gt;﹚ instead."</span><span class="p">)</span>
+<span class="k">mutating</span> <span class="kd">func</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11Vector2RealP6rotate2byyAA5AngleVy6ScalarQzG_tF"></a>
+                    <a name="//apple_ref/swift/Method/rotate(by:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector2RealP6rotate2byyAA5AngleVy6ScalarQzG_tF">rotate(by:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Rotates this vector around the origin by a given angle</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">by</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1067,6 +1187,9 @@ given angle in radians</p>
                     <a name="//apple_ref/swift/Method/rotated(by:around:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria11Vector2RealP7rotated2by6aroundx6ScalarQz_xtF">rotated(by:<wbr>around:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -1076,11 +1199,43 @@ given angle in radians</p>
                         <p>Rotates this vector around a given pivot by a given angle in radians</p>
 
                       </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rotated</span><span class="p">(</span><span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="n">around</span> <span class="nv">pivot</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use rotated(by angle: Angle&lt;Scalar&gt;, around pivot: Self﹚ instead."</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">rotated</span><span class="p">(</span><span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="n">around</span> <span class="nv">pivot</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11Vector2RealP7rotated2by6aroundxAA5AngleVy6ScalarQzG_xtF"></a>
+                    <a name="//apple_ref/swift/Method/rotated(by:around:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector2RealP7rotated2by6aroundxAA5AngleVy6ScalarQzG_xtF">rotated(by:<wbr>around:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Rotates this vector around a given pivot by a given angle</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">rotated</span><span class="p">(</span><span class="n">by</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">around</span> <span class="nv">pivot</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -1094,6 +1249,9 @@ given angle in radians</p>
                     <a name="//apple_ref/swift/Method/rotate(_:by:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria11Vector2RealP6rotate_2byxx_6ScalarQztFZ">rotate(_:<wbr>by:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -1103,11 +1261,43 @@ given angle in radians</p>
                         <p>Rotates a given vector around the origin by an angle in radians</p>
 
                       </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use rotate(_ vec: Self, by angle: Angle&lt;Scalar&gt;﹚ instead."</span><span class="p">)</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">by</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11Vector2RealP6rotate_2byxx_AA5AngleVy6ScalarQzGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/rotate(_:by:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11Vector2RealP6rotate_2byxx_AA5AngleVy6ScalarQzGtFZ">rotate(_:<wbr>by:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Rotates a given vector around the origin by an angle</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">_</span> <span class="nv">vec</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">by</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -1176,7 +1366,7 @@ given angle in radians</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-05)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-06)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

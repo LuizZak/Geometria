@@ -468,6 +468,15 @@
                 <a class="nav-group-task-link" href="../Structs/AABB.html">AABB</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Angle.html">Angle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AngleSweep.html">AngleSweep</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleArc2.html">CircleArc2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Cylinder3.html">Cylinder3</a>
               </li>
               <li class="nav-group-task">
@@ -618,6 +627,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria8Circle2Fa">Circle2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Da">CircleArc2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Fa">CircleArc2F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria5Cube3a">Cube3</a>
@@ -1012,11 +1027,13 @@ while left-handed systems rotate clockwise with the same positive angles.</li>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">make3DRotation</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle1InRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                           <span class="n">_</span> <span class="nv">angle2InRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                           <span class="n">_</span> <span class="nv">angle3InRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                           <span class="nv">order</span><span class="p">:</span> <span class="kt"><a href="../Enums/RotationOrder3.html">RotationOrder3</a></span><span class="p">,</span>
-                           <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">make3DRotation</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">angle1InRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">angle2InRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">angle3InRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">order</span><span class="p">:</span> <span class="kt"><a href="../Enums/RotationOrder3.html">RotationOrder3</a></span><span class="p">,</span>
+    <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -1129,7 +1146,7 @@ with a given <a href="handedness">orientation</a>, by a given angle in radians.<
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Creates a 3-dimensional <a href="https://en.wikipedia.org/wiki/Rotation_matrix">rotation matrix</a> that <a href="https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle">rotates around the given
-axis</a> 
+axis</a>
 with a given <a href="handedness">orientation</a>, by a given angle in radians.</p>
 
 <p><code>axis</code> is normalized pior to the creation of the rotation matrix.</p>
@@ -1139,8 +1156,47 @@ with a given <a href="handedness">orientation</a>, by a given angle in radians.<
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DRotationFromAxisAngle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span><span class="o">&gt;</span><span class="p">(</span><span class="nv">axis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="n">_</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> 
-                                                                      <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use make3DRotationFromAxisAngle&lt;Vector: Vector3FloatingPoint&gt;(axis: Vector, _ angle: Angle&lt;Scalar&gt;, orientation: Orientation3 = .rightHanded﹚ instead."</span><span class="p">)</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DRotationFromAxisAngle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">axis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Matrix3x3V27make3DRotationFromAxisAngle4axis_11orientationACyxGqd___AA0G0VyxGAA12Orientation3Ot6ScalarQyd__RszAA20Vector3FloatingPointRd__lFZ"></a>
+                    <a name="//apple_ref/swift/Method/make3DRotationFromAxisAngle(axis:_:orientation:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Matrix3x3V27make3DRotationFromAxisAngle4axis_11orientationACyxGqd___AA0G0VyxGAA12Orientation3Ot6ScalarQyd__RszAA20Vector3FloatingPointRd__lFZ">make3DRotationFromAxisAngle(axis:<wbr>_:<wbr>orientation:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a 3-dimensional <a href="https://en.wikipedia.org/wiki/Rotation_matrix">rotation matrix</a> that <a href="https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle">rotates around the given
+axis</a>
+with a given <a href="handedness">orientation</a>, by a given angle in radians.</p>
+
+<p><code>axis</code> is normalized pior to the creation of the rotation matrix.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DRotationFromAxisAngle</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">axis</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -1161,11 +1217,11 @@ with a given <a href="handedness">orientation</a>, by a given angle in radians.<
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Creates a 3-dimensional <a href="https://en.wikipedia.org/wiki/Rotation_matrix">rotation matrix</a> that <a href="https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle">rotates around a single
-axis</a> 
+axis</a>
 with an angle and direction that when applied to <code>vectorA</code>, turns it into
 the same direction as <code>vectorB</code>, with a given <a href="handedness">orientation</a>.</p>
 
-<p><code>vectorA</code> and <code>vectorB</code> are assumed to be directional vectors, and will 
+<p><code>vectorA</code> and <code>vectorB</code> are assumed to be directional vectors, and will
 be normalized pior to the creation of the rotation matrix.</p>
 
 <p>If <code>vectorA</code> and <code>vectorB</code> point on the same direction, an identity matrix
@@ -1176,9 +1232,11 @@ is returned, instead.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DRotationBetween</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vectorA</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> 
-                                                                <span class="n">_</span> <span class="nv">vectorB</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span>
-                                                                <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DRotationBetween</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3FloatingPoint.html">Vector3FloatingPoint</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">vectorA</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">vectorB</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span>
+    <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -1193,7 +1251,7 @@ is returned, instead.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-05)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-06)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

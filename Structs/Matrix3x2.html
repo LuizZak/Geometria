@@ -468,6 +468,15 @@
                 <a class="nav-group-task-link" href="../Structs/AABB.html">AABB</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Angle.html">Angle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AngleSweep.html">AngleSweep</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleArc2.html">CircleArc2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Cylinder3.html">Cylinder3</a>
               </li>
               <li class="nav-group-task">
@@ -618,6 +627,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria8Circle2Fa">Circle2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Da">CircleArc2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Fa">CircleArc2F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria5Cube3a">Cube3</a>
@@ -2557,7 +2572,68 @@ of 1 will cause <code>end</code> to be returned.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">angle</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use rotation(angle: Angle&lt;Scalar&gt;﹚ instead"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">angle</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>angle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Angle of rotation in radians. Angles are measured
+clockwise when looking along the rotation axis.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>result</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>When the method completes, contains the created
+rotation matrix.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Matrix3x2V8rotation5angleACyxGAA5AngleVyxG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/rotation(angle:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Matrix3x2V8rotation5angleACyxGAA5AngleVyxG_tFZ">rotation(angle:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a matrix that rotates.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -2617,7 +2693,67 @@ rotation matrix.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">angle</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">center</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use rotation(angle: Angle&lt;Scalar&gt;, center: Vector﹚ instead"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">angle</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">center</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>angle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Angle of rotation in radians. Angles are measured
+clockwise when looking along the rotation axis.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>center</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The center of the rotation.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Matrix3x2V8rotation5angle6centerACyxGAA5AngleVyxG_AA7Vector2VyxGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/rotation(angle:center:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Matrix3x2V8rotation5angle6centerACyxGAA5AngleVyxG_AA7Vector2VyxGtFZ">rotation(angle:<wbr>center:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a matrix that rotates about a specified center.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">center</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -2793,11 +2929,115 @@ translation matrix.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">transformation</span><span class="p">(</span><span class="nv">xScale</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                                  <span class="nv">yScale</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                                  <span class="nv">angle</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                                  <span class="nv">xOffset</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
-                                  <span class="nv">yOffset</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">deprecated</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Use transformation(xScale: Scalar, yScale: Scalar, angle: Angle&lt;Scalar&gt;, xOffset: Scalar, yOffset: Scalar﹚ instead."</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">transformation</span><span class="p">(</span>
+    <span class="nv">xScale</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">yScale</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">angle</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">xOffset</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">yOffset</span><span class="p">:</span> <span class="kt">Scalar</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>xScale</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Scaling factor that is applied along the x-axis.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>yScale</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Scaling factor that is applied along the y-axis.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>angle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Angle of rotation in radians. Angles are measured
+clockwise when looking along the rotation axis.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>xOffset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>X-coordinate offset.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>yOffset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Y-coordinate offset.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria9Matrix3x2V14transformation6xScale01yD05angle7xOffset01yF0ACyxGx_xAA5AngleVyxGxxtFZ"></a>
+                    <a name="//apple_ref/swift/Method/transformation(xScale:yScale:angle:xOffset:yOffset:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria9Matrix3x2V14transformation6xScale01yD05angle7xOffset01yF0ACyxGx_xAA5AngleVyxGxxtFZ">transformation(xScale:<wbr>yScale:<wbr>angle:<wbr>xOffset:<wbr>yOffset:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a transformation matrix.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">transformation</span><span class="p">(</span>
+    <span class="nv">xScale</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">yScale</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">xOffset</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">yOffset</span><span class="p">:</span> <span class="kt">Scalar</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -3755,7 +3995,7 @@ origin or center of the rectangle itself.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-05)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-06)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -468,6 +468,15 @@
                 <a class="nav-group-task-link" href="../Structs/AABB.html">AABB</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Angle.html">Angle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AngleSweep.html">AngleSweep</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CircleArc2.html">CircleArc2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Cylinder3.html">Cylinder3</a>
               </li>
               <li class="nav-group-task">
@@ -618,6 +627,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria8Circle2Fa">Circle2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Da">CircleArc2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11CircleArc2Fa">CircleArc2F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria5Cube3a">Cube3</a>
@@ -2022,7 +2037,7 @@ by the corresponding coordinate on a supplied vector.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a rotation matrix that when applied to a 2-dimensional vector, 
+                        <p>Creates a rotation matrix that when applied to a 2-dimensional vector,
 rotates it around the origin (Z-axis) by a specified radian amount.</p>
 
                       </div>
@@ -2108,8 +2123,8 @@ according to the specified amounts.</p>
                       <div class="abstract">
                         <p>Creates a <a href="https://en.wikipedia.org/wiki/Skew-symmetric_matrix#Cross_product">skew-symmetric cross product</a> matrix for a given vector.</p>
 
-<p>When a skew-symmetric matrix <code><a href="../Structs/Matrix3x3.html#/s:9Geometria9Matrix3x3V1mx_xxt_x_xxtx_xxttvp">m</a></code> is created using this method with a 
-vector <code>a</code>, a vector <code>b</code> multiplied by the matrix is equivalent to the 
+<p>When a skew-symmetric matrix <code><a href="../Structs/Matrix3x3.html#/s:9Geometria9Matrix3x3V1mx_xxt_x_xxtx_xxttvp">m</a></code> is created using this method with a
+vector <code>a</code>, a vector <code>b</code> multiplied by the matrix is equivalent to the
 result of <code>a × b</code>.</p>
 
 <p>Changing the <a href="https://en.wikipedia.org/wiki/Orientation_(vector_space)">orientation</a> parameter results in a matrix that flips the
@@ -2120,7 +2135,7 @@ sign of the resulting cross product.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DSkewSymmetricCrossProduct</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> 
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">make3DSkewSymmetricCrossProduct</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector3Type.html">Vector3Type</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">vector</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span>
                                                                         <span class="nv">orientation</span><span class="p">:</span> <span class="kt"><a href="../Enums/Orientation3.html">Orientation3</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">rightHanded</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span> <span class="k">where</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
 
                         </div>
@@ -2358,7 +2373,7 @@ and stores the result back to <code>lhs</code>.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-05)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-06)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

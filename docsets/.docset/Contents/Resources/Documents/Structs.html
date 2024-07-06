@@ -466,6 +466,15 @@
                 <a class="nav-group-task-link" href="Structs/AABB.html">AABB</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Angle.html">Angle</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AngleSweep.html">AngleSweep</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CircleArc2.html">CircleArc2</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Cylinder3.html">Cylinder3</a>
               </li>
               <li class="nav-group-task">
@@ -616,6 +625,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria8Circle2Fa">Circle2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria11CircleArc2Da">CircleArc2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria11CircleArc2Fa">CircleArc2F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:9Geometria5Cube3a">Cube3</a>
@@ -968,6 +983,37 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10CircleArc2V"></a>
+                    <a name="//apple_ref/swift/Struct/CircleArc2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10CircleArc2V">CircleArc2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents a 2D <a href="https://en.wikipedia.org/wiki/Circular_arc">arc of a circle</a> as a center, radius, and start+sweep angles.</p>
+
+                        <a href="Structs/CircleArc2.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CircleArc2</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:9Geometria13GeometricTypeP">GeometricType</a></span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2Real.html">Vector2Real</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CircleArc2</span><span class="p">:</span> <span class="kt"><a href="Protocols/LineIntersectableType.html">LineIntersectableType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CircleArc2</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CircleArc2</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1337,6 +1383,67 @@ center point of the torus.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector4</span><span class="p">:</span> <span class="kt"><a href="Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt"><a href="Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a></span> <span class="o">&amp;</span> <span class="kt">FloatingPoint</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector4</span><span class="p">:</span> <span class="kt"><a href="Protocols/Vector4FloatingPoint.html">Vector4FloatingPoint</a></span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt"><a href="Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a></span> <span class="o">&amp;</span> <span class="kt">FloatingPoint</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector4</span><span class="p">:</span> <span class="kt"><a href="Protocols/VectorReal.html">VectorReal</a></span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt"><a href="Protocols/DivisibleArithmetic.html">DivisibleArithmetic</a></span> <span class="o">&amp;</span> <span class="kt">Real</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria5AngleV"></a>
+                    <a name="//apple_ref/swift/Struct/Angle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria5AngleV">Angle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A standardized representation of an angle.</p>
+
+                        <a href="Structs/Angle.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Angle</span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">ElementaryFunctions</span><span class="p">,</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Angle</span><span class="p">:</span> <span class="kt">AdditiveArithmetic</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Angle</span><span class="p">:</span> <span class="kt">Numeric</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Angle</span><span class="p">:</span> <span class="kt">Encodable</span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Encodable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Angle</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10AngleSweepV"></a>
+                    <a name="//apple_ref/swift/Struct/AngleSweep" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10AngleSweepV">AngleSweep</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A pair of angle + angle range values that can be used to test inclusivity of
+<code><a href="Structs/Angle.html">Angle&lt;Scalar&gt;</a></code> values.</p>
+
+                        <a href="Structs/AngleSweep.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AngleSweep</span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">ElementaryFunctions</span><span class="p">,</span> <span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">FloatingPoint</span></code></pre>
 
                         </div>
                       </div>
@@ -2155,7 +2262,7 @@ components.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-05)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-06)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
