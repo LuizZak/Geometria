@@ -18,8 +18,10 @@ let reportingSwiftSettings: [SwiftSetting] = [
 let testCommons: Target = .target(
     name: "TestCommons",
     dependencies: [
-        "Geometria",
         .product(name: "MiniP5Printer", package: "MiniP5Printer"),
+        "Geometria",
+        "GeometriaAlgorithms",
+        "GeometriaPeriodics",
     ]
 )
 

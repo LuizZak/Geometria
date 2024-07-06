@@ -3,6 +3,53 @@ import MiniP5Printer
 import Geometria
 
 public class P5Printer: BaseP5Printer {
+    var requiresPeriodSlider: Bool = false
+    var requiresPeriodicTypes: Bool = false
+    var periodicsToDraw: [String] = []
+
+    public override func printCustomHeader() {
+        if requiresPeriodSlider {
+            printLine("let periodSlider")
+            printLine("let periodics")
+        }
+        if requiresPeriodicTypes {
+            printPeriodicTypes()
+            printDrawAnchor()
+        }
+    }
+
+    public override func printCustomPostSetup() {
+        if requiresPeriodSlider {
+            printMultiline("""
+            periodSlider = createSlider(0.0, 1.0, 0.5, 0.0)
+            periodSlider.size(width)
+            """)
+            printLine("")
+            printLine("periodics = [")
+            indented {
+                for periodic in periodicsToDraw {
+                    printMultiline(periodic)
+                }
+            }
+            printLine("]")
+        }
+    }
+
+    public override func printCustomPostDraw() {
+        if requiresPeriodicTypes {
+            printMultiline(#"""
+            translate(width / 2, height / 2)
+            stroke(0)
+            noFill()
+            for (let periodic of periodics) {
+                periodic.render(periodSlider.value())
+            }
+            noStroke()
+            fill(0)
+            """#)
+        }
+    }
+
     func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         let circle = Circle2(center: point, radius: vertexRadius())
 
@@ -258,6 +305,10 @@ public class P5Printer: BaseP5Printer {
     }
 
     // MARK: String printing
+
+    func vec2PVectorString<Vector: Vector2Type>(_ vec: Vector) -> String where Vector.Scalar: CustomStringConvertible {
+        return "createVector(\(vec2String(vec)))"
+    }
 
     func vec3PVectorString<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         return "createVector(\(vec3String(vec)))"
