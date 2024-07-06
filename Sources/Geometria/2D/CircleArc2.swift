@@ -81,6 +81,9 @@ public struct CircleArc2<Vector: Vector2Real>: GeometricType {
     /// Creates a new circular arc that fits the given start/end points on the
     /// circumference of the arc, and a center point.
     ///
+    /// The sweep angle is chosen to be the shortest sweep angle that connects
+    /// startAngle to endAngle.
+    ///
     /// - note: The initializer assumes that `center` is equally distant to both
     /// `startPoint` and `endPoint`.
     public init(
@@ -92,11 +95,13 @@ public struct CircleArc2<Vector: Vector2Real>: GeometricType {
         let startAngle = center.angle(to: startPoint)
         let endAngle = center.angle(to: endPoint)
 
+        let (sweepAngle1, _) = startAngle.relativeAngles(to: endAngle)
+
         self.init(
             center: center,
             radius: radius,
             startAngle: startAngle,
-            sweepAngle: endAngle - startAngle
+            sweepAngle: sweepAngle1
         )
     }
 }

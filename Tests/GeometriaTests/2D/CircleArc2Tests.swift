@@ -39,6 +39,24 @@ class CircleArc2Tests: XCTestCase {
             fixture.assertEquals(sut.center, .init(x: -10, y: -70))
             fixture.assertEquals(sut.startPoint, .init(x: -90, y: -30), accuracy: 1e-13)
             fixture.assertEquals(sut.endPoint, .init(x: -90, y: -110), accuracy: 1e-13)
+            fixture.assertEquals(sut.sweepAngle, Angle(radians: 0.9272952180016123))
+        }
+    }
+
+    func testInitWithCenterStartPointEndPoint_negativeSweep() {
+        let sut = Sut(
+            center: .init(x: -10, y: -70),
+            startPoint: .init(x: -90, y: -110),
+            endPoint: .init(x: -90, y: -30)
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(sut)
+
+            fixture.assertEquals(sut.center, .init(x: -10, y: -70))
+            fixture.assertEquals(sut.startPoint, .init(x: -90, y: -110), accuracy: 1e-13)
+            fixture.assertEquals(sut.endPoint, .init(x: -90, y: -30), accuracy: 1e-13)
+            fixture.assertEquals(sut.sweepAngle, Angle(radians: -0.9272952180016123))
         }
     }
 
