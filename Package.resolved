@@ -5,9 +5,9 @@
         "package": "MiniP5Printer",
         "repositoryURL": "https://github.com/LuizZak/MiniP5Printer",
         "state": {
-          "branch": "main",
-          "revision": "33a6879f22074bd7872769642e9b92309c4e3e04",
-          "version": null
+          "branch": null,
+          "revision": "dfcc2ea2b30cb51cddd0c9934befb3450cf67d5d",
+          "version": "0.0.1"
         }
       },
       {
