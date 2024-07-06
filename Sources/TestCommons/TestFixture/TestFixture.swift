@@ -22,12 +22,12 @@ public class TestFixture {
 
     // MARK: Visualization add
 
-    public func add<T: VisualizableGeometricType2>(_ geometry: T?, file: StaticString = #file, line: UInt = #line) {
-        geometry?.addVisualization2D(to: p5Printer, style: nil, file: file, line: line)
+    public func add<T: VisualizableGeometricType2>(_ geometry: T?, style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
+        geometry?.addVisualization2D(to: p5Printer, style: style, file: file, line: line)
     }
 
-    public func add<T: VisualizableGeometricType3>(_ geometry: T?, file: StaticString = #file, line: UInt = #line) {
-        geometry?.addVisualization3D(to: p5Printer, style: nil, file: file, line: line)
+    public func add<T: VisualizableGeometricType3>(_ geometry: T?, style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
+        geometry?.addVisualization3D(to: p5Printer, style: style, file: file, line: line)
     }
 
     // MARK: Wrapped assertions
@@ -95,10 +95,20 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        actual.addVisualization2D(to: p5Printer, style: resultStyle())
+        actual.addVisualization2D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
         if actual != expected {
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle())
+            expected.addVisualization2D(
+                to: p5Printer,
+                style: expectedStyle(),
+                file: file,
+                line: line
+            )
         }
 
         XCTAssertEqual(actual, expected, file: file, line: line)
@@ -112,10 +122,20 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        actual.addVisualization3D(to: p5Printer, style: resultStyle())
+        actual.addVisualization3D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
         if actual != expected {
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+            expected.addVisualization3D(
+                to: p5Printer,
+                style: expectedStyle(),
+                file: file,
+                line: line
+            )
         }
 
         XCTAssertEqual(actual, expected, file: file, line: line)
@@ -130,10 +150,20 @@ public class TestFixture {
     ) {
 
         if let actual = actual {
-            actual.addVisualization2D(to: p5Printer, style: resultStyle())
+            actual.addVisualization2D(
+                to: p5Printer,
+                style: resultStyle(),
+                file: file,
+                line: line
+            )
 
             if actual != expected, let expected = expected {
-                expected.addVisualization2D(to: p5Printer, style: expectedStyle())
+                expected.addVisualization2D(
+                    to: p5Printer,
+                    style: expectedStyle(),
+                    file: file,
+                    line: line
+                )
             }
         }
 
@@ -149,10 +179,20 @@ public class TestFixture {
     ) {
 
         if let actual = actual {
-            actual.addVisualization3D(to: p5Printer, style: resultStyle())
+            actual.addVisualization3D(
+                to: p5Printer,
+                style: resultStyle(),
+                file: file,
+                line: line
+            )
 
             if actual != expected, let expected = expected {
-                expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+                expected.addVisualization3D(
+                    to: p5Printer,
+                    style: expectedStyle(),
+                    file: file,
+                    line: line
+                )
             }
         }
 
@@ -180,6 +220,15 @@ public class TestFixture {
         )
 
         didFail = actual.count != expected.count || didFail
+
+        if actual.count != expected.count {
+            actual.forEach({
+                $0.addVisualization2D(to: p5Printer, style: resultStyle(), file: file, line: line)
+            })
+            expected.forEach({
+                $0.addVisualization2D(to: p5Printer, style: expectedStyle(), file: file, line: line)
+            })
+        }
     }
 
     public func assertEquals<T: VisualizableGeometricType3 & Equatable>(
@@ -202,11 +251,20 @@ public class TestFixture {
         )
 
         didFail = actual.count != expected.count || didFail
+
+        if actual.count != expected.count {
+            actual.forEach({
+                $0.addVisualization3D(to: p5Printer, style: resultStyle(), file: file, line: line)
+            })
+            expected.forEach({
+                $0.addVisualization3D(to: p5Printer, style: expectedStyle(), file: file, line: line)
+            })
+        }
     }
 
     // MARK: Vectors
 
-    public func assertEquals<T: VisualizableGeometricType2 & Vector2Type & Equatable>(
+    public func assertEquals<T: VisualizableGeometricType2 & Vector2FloatingPoint & Equatable>(
         _ actual: T,
         _ expected: T,
         accuracy: T.Scalar,
@@ -214,16 +272,20 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        actual.addVisualization2D(to: p5Printer, style: resultStyle())
+        actual.addVisualization2D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
-        if actual != expected {
+        if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
             expected.addVisualization2D(to: p5Printer, style: expectedStyle())
-            XCTFail("\(actual) != \(expected)", file: file, line: line)
         }
     }
 
-    public func assertEquals<T: VisualizableGeometricType3 & Vector3Type & Equatable>(
+    public func assertEquals<T: VisualizableGeometricType3 & Vector3FloatingPoint & Equatable>(
         _ actual: T,
         _ expected: T,
         accuracy: T.Scalar,
@@ -231,12 +293,16 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        actual.addVisualization3D(to: p5Printer, style: resultStyle())
+        actual.addVisualization3D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
-        if actual != expected {
+        if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
             expected.addVisualization3D(to: p5Printer, style: expectedStyle())
-            XCTFail("\(actual) != \(expected)", file: file, line: line)
         }
     }
 
@@ -250,11 +316,21 @@ public class TestFixture {
         line: UInt = #line
     ) where T.Scalar: FloatingPoint {
 
-        actual.addVisualization2D(to: p5Printer, style: resultStyle(), file: file, line: line)
+        actual.addVisualization2D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle(), file: file, line: line)
+            expected.addVisualization2D(
+                to: p5Printer,
+                style: expectedStyle(),
+                file: file,
+                line: line
+            )
         }
     }
 
@@ -266,11 +342,21 @@ public class TestFixture {
         line: UInt = #line
     ) where T.Scalar: FloatingPoint {
 
-        actual.addVisualization3D(to: p5Printer, style: resultStyle(), file: file, line: line)
+        actual.addVisualization3D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle(), file: file, line: line)
+            expected.addVisualization3D(
+                to: p5Printer,
+                style: expectedStyle(),
+                file: file,
+                line: line
+            )
         }
     }
 
@@ -283,19 +369,31 @@ public class TestFixture {
         line: UInt = #line
     ) where T.Scalar: Numeric & CustomStringConvertible {
 
-        actual.addVisualization2D(to: p5Printer, style: resultStyle(), file: file, line: line)
+        actual.addVisualization2D(
+            to: p5Printer,
+            style: resultStyle(),
+            file: file,
+            line: line
+        )
 
         if !assertEqual(actual, expected, file: file, line: line) {
             didFail = true
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle(), file: file, line: line)
+            expected.addVisualization2D(
+                to: p5Printer,
+                style: expectedStyle(),
+                file: file,
+                line: line
+            )
         }
     }
 
-    private func resultStyle() -> P5Printer.Style {
+    /// Style to use for actual test result values.
+    public func resultStyle() -> P5Printer.Style {
         .init(strokeColor: .green, fillColor: nil, strokeWeight: 2)
     }
 
-    private func expectedStyle() -> P5Printer.Style {
+    /// Style to use for expected test result values.
+    public func expectedStyle() -> P5Printer.Style {
         .init(strokeColor: .red, fillColor: nil, strokeWeight: 2)
     }
 

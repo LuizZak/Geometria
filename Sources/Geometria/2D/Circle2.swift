@@ -83,6 +83,18 @@ extension Circle2: Convex2Type where Vector: Vector2FloatingPoint {
 }
 
 public extension Circle2 where Vector: Vector2Real {
+    /// Returns a point on this circle represented by a given angle.
+    @_transparent
+    @inlinable
+    func pointOnAngle(_ angle: Angle<Scalar>) -> Vector {
+        let c = angle.cos
+        let s = angle.sin
+
+        let point = Vector(x: c, y: s) * radius
+
+        return center + point
+    }
+
     /// Generates an arc from this circle.
     func arc(startAngle: Angle<Scalar>, sweepAngle: Angle<Scalar>) -> CircleArc2<Vector> {
         .init(center: center, radius: radius, startAngle: startAngle, sweepAngle: sweepAngle)

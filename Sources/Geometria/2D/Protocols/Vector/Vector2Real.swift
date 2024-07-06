@@ -4,6 +4,9 @@ public protocol Vector2Real: Vector2FloatingPoint & VectorReal where SubVector3:
     /// origin (0, 0) to this `Vector2Type`.
     var angle: Scalar { get }
 
+    /// Returns the angle between `self` and `other`.
+    func angle(to other: Self) -> Angle<Scalar>
+
     /// Returns a rotated version of this vector, rotated around the origin by a
     /// given angle in radians
     @available(*, deprecated, message: "Use rotated(by angle: Angle<Scalar>) instead.")
@@ -42,6 +45,11 @@ public protocol Vector2Real: Vector2FloatingPoint & VectorReal where SubVector3:
 }
 
 public extension Vector2Real {
+    @inlinable
+    func angle(to other: Self) -> Angle<Scalar> {
+        Angle(radians: (other - self).angle)
+    }
+
     func rotated(by angleInRadians: Scalar) -> Self {
         rotated(by: .init(radians: angleInRadians))
     }

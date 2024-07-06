@@ -209,7 +209,31 @@ extension Angle: Numeric {
         .init(radians: lhs.radians * rhs.radians)
     }
 
+    public static func / (lhs: Angle, rhs: Angle) -> Angle {
+        .init(radians: lhs.radians / rhs.radians)
+    }
+
+    public static func * (lhs: Angle, rhs: Scalar) -> Angle {
+        .init(radians: lhs.radians * rhs)
+    }
+
+    public static func / (lhs: Angle, rhs: Scalar) -> Angle {
+        .init(radians: lhs.radians / rhs)
+    }
+
     public static func *= (lhs: inout Angle, rhs: Angle) {
         lhs = lhs * rhs
+    }
+
+    public static func /= (lhs: inout Angle, rhs: Angle) {
+        lhs = lhs / rhs
+    }
+
+    public static func *= (lhs: inout Angle, rhs: Scalar) {
+        lhs = lhs * rhs
+    }
+
+    public static func /= (lhs: inout Angle, rhs: Scalar) {
+        lhs = lhs / rhs
     }
 }
