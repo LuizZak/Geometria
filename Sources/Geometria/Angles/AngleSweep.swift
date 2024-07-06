@@ -21,17 +21,28 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         self.sweep = sweep
     }
 
+    /// Returns `true` if `self` and `other` cover to the same angle sweep, after
+    /// normalization.
+    ///
+    /// This method ignores the signs of the sweeps, and only compares the covered
+    /// circular arc of both angle sweeps.
+    public func isEquivalent(to other: Self) -> Bool {
+        let (selfStart, selfStop) = self.normalizedStartStop(from: .zero)
+        let (otherStart, otherStop) = other.normalizedStartStop(from: .zero)
+
+        if selfStart == otherStart && selfStop == otherStop {
+            return true
+        }
+
+        return false
+    }
+
     /// Returns `true` if this circular arc contains a given angle value within
     /// its start + sweep region.
     public func contains(_ angle: Angle<Scalar>) -> Bool {
+        let (normalStart, normalStop) = normalizedStartStop(from: .zero)
+
         let normalAngle = angle.normalized(from: .zero)
-        var normalStart = start.normalized(from: .zero)
-        var normalStop = (start + sweep).normalized(from: .zero)
-
-        if sweep.radians < .zero {
-            swap(&normalStart, &normalStop)
-        }
-
         if normalStart > normalStop {
             return normalAngle >= normalStart || normalAngle <= normalStop
         }
@@ -42,12 +53,7 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     /// Returns the result of clamping a given angle so it is contained within
     /// this angle sweep.
     public func clamped(_ angle: Angle<Scalar>) -> Angle<Scalar> {
-        var normalStart = start.normalized(from: .zero)
-        var normalStop = (start + sweep).normalized(from: .zero)
-
-        if sweep.radians < .zero {
-            swap(&normalStart, &normalStop)
-        }
+        let (normalStart, normalStop) = normalizedStartStop(from: .zero)
 
         let nMin = (Angle(radians: normalStart) - angle).normalized(from: -.pi)
         let nMax = (Angle(radians: normalStop) - angle).normalized(from: -.pi)
@@ -60,5 +66,16 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         }
 
         return .init(radians: normalStop)
+    }
+
+    func normalizedStartStop(from lowerBound: Scalar) -> (normalStart: Scalar, normalStop: Scalar) {
+        var normalStart = start.normalized(from: lowerBound)
+        var normalStop = (start + sweep).normalized(from: lowerBound)
+
+        if sweep.radians < .zero {
+            swap(&normalStart, &normalStop)
+        }
+
+        return (normalStart, normalStop)
     }
 }

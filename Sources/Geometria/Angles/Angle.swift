@@ -14,6 +14,15 @@ public struct Angle<Scalar: FloatingPoint & ElementaryFunctions>: Hashable {
         self.radians = radians
     }
 
+    /// Returns `true` if `self` and `other` refer to the same angle, after
+    /// normalization.
+    public func isEquivalent(to other: Self) -> Bool {
+        let normalizedSelf = self.normalized(from: .zero)
+        let normalizedOther = other.normalized(from: .zero)
+
+        return normalizedSelf == normalizedOther
+    }
+
     /// Returns this angle's normalized representation, starting from a given
     /// offset, such that the angle is confined to `[lowerBound, lowerBound + π)`
     public func normalized(from lowerBound: Scalar) -> Scalar {
