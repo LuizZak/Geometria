@@ -229,12 +229,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.16666666666666666,
                     point: .init(x: 2.0, y: 5.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0833333333333333,
                     point: .init(x: 13.0, y: 5.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -250,12 +250,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -0.25,
                     point: .init(x: 2.0, y: 5.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.5,
                     point: .init(x: 13.0, y: 5.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -271,12 +271,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.0,
                     point: .init(x: 5.0, y: 3.0),
                     normal: .init(x: 0.0, y: -1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 14.0,
                     point: .init(x: 5.0, y: 14.0),
                     normal: .init(x: 0.0, y: -1.0)
                 )
@@ -292,12 +292,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -13.0,
                     point: .init(x: 5.0, y: 14.0),
                     normal: .init(x: 0.0, y: 1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -2.0,
                     point: .init(x: 5.0, y: 3.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -313,12 +313,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.0,
                     point: .init(x: 2.0, y: 5.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 13.0,
                     point: .init(x: 13.0, y: 5.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -334,12 +334,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -12.0,
                     point: .init(x: 13.0, y: 5.0),
                     normal: .init(x: 1.0, y: 0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -1.0,
                     point: .init(x: 2.0, y: 5.0),
                     normal: .init(x: 1.0, y: 0)
                 )
@@ -360,7 +360,7 @@ extension NSquareTests {
                     normal: .init(x: 1.0, y: 0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 11.0,
                     point: .init(x: 2.0, y: 5.0),
                     normal: .init(x: 1.0, y: 0)
                 )
@@ -376,12 +376,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -10.0,
                     point: .init(x: 2.0, y: 5.0),
                     normal: .init(x: -1, y: 0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0,
                     point: .init(x: 13.0, y: 5.0),
                     normal: .init(x: -1, y: 0)
                 )
@@ -397,12 +397,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -5.0,
                     point: .init(x: 5.0, y: 14.0),
                     normal: .init(x: 0.0, y: 1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 6.0,
                     point: .init(x: 5.0, y: 3.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -418,12 +418,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -5.0,
                     point: .init(x: 5.0, y: 3.0),
                     normal: .init(x: 0.0, y: -1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 6.0,
                     point: .init(x: 5.0, y: 14.0),
                     normal: .init(x: 0.0, y: -1.0)
                 )
@@ -439,12 +439,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.0,
                     point: .init(x: 2.0, y: 6.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 5.0,
                     point: .init(x: 5.0, y: 3.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -502,12 +502,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.08333333333333333,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0,
                     point: .init(x: 13.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -530,7 +530,7 @@ extension NSquareTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.7142857142857143,
                     point: .init(x: 10.0, y: 4.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -562,12 +562,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.08333333333333333,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0,
                     point: .init(x: 13.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -595,7 +595,7 @@ extension NSquareTests {
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.8461538461538461,
                     point: .init(x: 13.0, y: 5.615384615384615),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -618,12 +618,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.0,
                     point: .init(x: 3.0, y: 3.0),
                     normal: .init(x: 0.0, y: -1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 13.0,
                     point: .init(x: 13.0, y: 13.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -639,7 +639,7 @@ extension NSquareTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.0,
                     point: .init(x: 6.0, y: 7.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -655,12 +655,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.0,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 13.0,
                     point: .init(x: 13.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -683,12 +683,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 4.242640687119286,
                     point: .init(x: 3.0, y: 3.0),
                     normal: .init(x: -0.0, y: -1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 18.38477631085024,
                     point: .init(x: 13.0, y: 13.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
@@ -704,7 +704,7 @@ extension NSquareTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 14.142135623730951,
                     point: .init(x: 13.0, y: 14.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
@@ -720,12 +720,12 @@ extension NSquareTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.0,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 13.0,
                     point: .init(x: 13.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )

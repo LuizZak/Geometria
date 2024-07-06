@@ -391,7 +391,7 @@ extension Triangle2Tests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 2.0, y: 8.0),
                     normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
                 )
@@ -411,12 +411,12 @@ extension Triangle2Tests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.1,
                     point: .init(x: 1.0, y: 2.0),
                     normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.7,
                     point: .init(x: 7.0, y: 2.0),
                     normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
                 )
@@ -436,12 +436,12 @@ extension Triangle2Tests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.15,
                     point: .init(x: 1.5, y: 5.0),
                     normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.45,
                     point: .init(x: 4.5, y: 5.0),
                     normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
                 )
@@ -461,12 +461,12 @@ extension Triangle2Tests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.55,
                     point: .init(x: 4.5, y: 5.0),
                     normal: .init(x: 0.9863939238321437, y: -0.1643989873053573)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.85,
                     point: .init(x: 1.5000000000000002, y: 5.0),
                     normal: .init(x: 0.9863939238321437, y: -0.1643989873053573)
                 )
@@ -486,7 +486,7 @@ extension Triangle2Tests {
             sut.intersection(with: line),
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.75,
                     point: .init(x: 1.5, y: 5.0),
                     normal: .init(x: -0.9863939238321437, y: 0.1643989873053573)
                 )
@@ -506,7 +506,7 @@ extension Triangle2Tests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.3125,
                     point: .init(x: 4.5, y: 5.0),
                     normal: .init(x: -0.7682212795973759, y: -0.6401843996644799)
                 )

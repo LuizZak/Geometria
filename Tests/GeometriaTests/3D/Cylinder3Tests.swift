@@ -462,12 +462,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.4,
                     point: .init(x: -5.0, y: 0.0, z: 9.0),
                     normal: .init(x: -1.0, y: 0.0, z: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 0.0, z: 10.0),
                     normal: .init(x: 0.0, y: 0.0, z: -1.0)
                 )
@@ -488,12 +488,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.375,
                     point: .init(x: -5, y: 0, z: 5),
                     normal: .init(x: -1, y: 0, z: 0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.625,
                     point: .init(x: 5, y: 0, z: 5),
                     normal: .init(x: -1, y: 0, z: 0)
                 )
@@ -514,12 +514,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.385435607626104,
                     point: .init(x: -4.582575694955839, y: 2.0, z: 5.0),
                     normal: .init(x: -0.916515138991168, y: 0.4000000000000001, z: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6145643923738959,
                     point: .init(x: 4.582575694955835, y: 2.0, z: 5.0),
                     normal: .init(x: -0.9165151389911679, y: -0.40000000000000036, z: -0.0)
                 )
@@ -540,12 +540,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.14285714285714285,
                     point: .init(x: -5.0, y: 0.0, z: 8.571428571428571),
                     normal: .init(x: -1.0, y: 0.0, z: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.8571428571428571,
                     point: .init(x: 5.0, y: 0.0, z: 11.428571428571429),
                     normal: .init(x: -1.0, y: -0.0, z: 3.552713678800501e-16)
                 )
@@ -566,12 +566,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.14285714285714285,
                     point: .init(x: -5.0, y: 0.0, z: 8.571428571428571),
                     normal: .init(x: -1.0, y: 0.0, z: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 0.0, z: 10.0),
                     normal: .init(x: -0.0, y: -0.0, z: -1.0)
                 )
@@ -592,12 +592,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.14285714285714285,
                     point: .init(x: -5.0, y: 0.0, z: 1.4285714285714286),
                     normal: .init(x: -1.0, y: 0.0, z: -4.4408920985006264e-17)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 0.0, z: 0.0),
                     normal: .init(x: 0.0, y: 0.0, z: 1.0)
                 )
@@ -618,12 +618,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.3333333333333333,
                     point: .init(x: 2.000000000000002, y: 1.000000000000001, z: 0.0),
                     normal: .init(x: -0.0, y: -0.0, z: -1.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6666666666666666,
                     point: .init(x: 2.0000000000000044, y: 1.0000000000000022, z: 10.0),
                     normal: .init(x: -0.0, y: -0.0, z: -1.0)
                 )
@@ -670,7 +670,7 @@ extension Cylinder3Tests {
             result,
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.75,
                     point: .init(x: -5, y: 0, z: 5),
                     normal: .init(x: -1, y: 0, z: 0)
                 )
@@ -691,7 +691,7 @@ extension Cylinder3Tests {
             result,
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.25,
                     point: .init(x: 5, y: 0, z: 5),
                     normal: .init(x: -1, y: 0, z: 0)
                 )
@@ -712,7 +712,7 @@ extension Cylinder3Tests {
             result,
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.770871215252208,
                     point: .init(x: -4.582575694955839, y: 2.0, z: 5.0),
                     normal: .init(x: -0.916515138991168, y: 0.4000000000000001, z: 0.0)
                 )
@@ -733,7 +733,7 @@ extension Cylinder3Tests {
             result,
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.229128784747792,
                     point: .init(x: 4.58257569495584, y: 2.0, z: 5.0),
                     normal: .init(x: -0.916515138991168, y: -0.4, z: -0.0)
                 )
@@ -754,7 +754,7 @@ extension Cylinder3Tests {
             result,
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.2857142857142857,
                     point: .init(x: -5.0, y: 0.0, z: 9.142857142857142),
                     normal: .init(x: -1.0, y: 0.0, z: 0.0)
                 )
@@ -775,7 +775,7 @@ extension Cylinder3Tests {
             result,
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.7142857142857143,
                     point: .init(x: -5.0, y: 0.0, z: 10.857142857142858),
                     normal: .init(x: 1.0, y: -0.0, z: -0.0)
                 )
@@ -796,7 +796,7 @@ extension Cylinder3Tests {
             result,
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.2857142857142857,
                     point: .init(x: -5.0, y: 0.0, z: 6.857142857142857),
                     normal: .init(x: -1.0, y: 0.0, z: -1.7763568394002506e-16)
                 )
@@ -817,7 +817,7 @@ extension Cylinder3Tests {
             result,
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 2.5, y: 0.0, z: 10.0),
                     normal: .init(x: -0.0, y: -0.0, z: -1.0)
                 )
@@ -838,7 +838,7 @@ extension Cylinder3Tests {
             result,
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: -3.5, y: 0.0, z: 0.0),
                     normal: .init(x: -0.0, y: -0.0, z: -1.0)
                 )
@@ -859,7 +859,7 @@ extension Cylinder3Tests {
             result,
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.4444444444444444,
                     point: .init(x: 1.9999999999999996, y: 0.9999999999999998, z: 10.0),
                     normal: .init(x: 0, y: 0, z: -1)
                 )
@@ -880,7 +880,7 @@ extension Cylinder3Tests {
             result,
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6666666666666666,
                     point: .init(x: 2.000000000000002, y: 1.000000000000001, z: 0.0),
                     normal: .init(x: -0.0, y: -0.0, z: -1.0)
                 )
@@ -914,12 +914,12 @@ extension Cylinder3Tests {
             result,
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.0,
                     point: .init(x: -5, y: 0, z: 5),
                     normal: .init(x: -1, y: 0, z: 0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 5.0,
                     point: .init(x: 5, y: 0, z: 5),
                     normal: .init(x: -1, y: 0, z: 0)
                 )

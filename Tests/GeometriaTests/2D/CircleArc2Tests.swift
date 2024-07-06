@@ -335,7 +335,7 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.615846004801639,
                         point: .init(x: -46.390152057619666, y: -179.0912261488508),
                         normal: .init(x: 0.5092676803841312, y: 0.860608174325672)
                     ))
@@ -343,7 +343,7 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.3841539951983606,
                         point: .init(x: -46.39015205761967, y: -179.0912261488508),
                         normal: .init(x: -0.5092676803841312, y: -0.860608174325672)
                     ))
@@ -369,7 +369,7 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.5054382241875461,
                         point: .init(x: 175.2719112093773, y: -87.36404439531135),
                         normal: .init(x: -0.9684794080625154, y: 0.2490936293020757)
                     ))
@@ -377,7 +377,7 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.49456177581245386,
                         point: .init(x: 175.2719112093773, y: -87.36404439531135),
                         normal: .init(x: 0.9684794080625154, y: -0.2490936293020757)
                     ))
@@ -403,7 +403,7 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.5054382241875461,
                         point: .init(x: 175.2719112093773, y: -87.36404439531135),
                         normal: .init(x: -0.9684794080625154, y: 0.2490936293020757)
                     ))
@@ -411,7 +411,7 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.49456177581245386,
                         point: .init(x: 175.2719112093773, y: -87.36404439531135),
                         normal: .init(x: 0.9684794080625154, y: -0.2490936293020757)
                     ))
@@ -436,12 +436,12 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.20082417738141645,
                         point: .init(x: 170.0, y: -103.85164807134504),
                         normal: .init(x: 0.9333333333333333, y: -0.3590109871423003)
                     )),
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.7991758226185836,
                         point: .init(x: 170.0, y: 3.8516480713450396),
                         normal: .init(x: -0.9333333333333333, y: -0.3590109871423003)
                     )),
@@ -449,12 +449,12 @@ extension CircleArc2Tests {
             fixture.assertions(on: sut)
                 .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.20082417738141645,
                         point: .init(x: 170.0, y: 3.8516480713450396),
                         normal: .init(x: 0.9333333333333333, y: 0.3590109871423003)
                     )),
                     .point(.init(
-                        normalizedMagnitude: 0.0,
+                        normalizedMagnitude: 0.7991758226185836,
                         point: .init(x: 170.0, y: -103.85164807134504),
                         normal: .init(x: -0.9333333333333333, y: 0.3590109871423003)
                     )),

@@ -329,7 +329,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0, y: 1),
                     normal: .init(x: 0, y: 1)
                 )
@@ -345,7 +345,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -0.28205128205128205,
                     point: .init(x: 1.2497125841293429e-16, y: 1),
                     normal: .init(x: 1.2497125841293429e-16, y: 1)
                 )
@@ -361,7 +361,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.2857142857142858,
                     point: .init(x: 3.3306690738754696e-16, y: 1.0),
                     normal: .init(x: 3.3306690738754696e-16, y: 1.0)
                 )
@@ -377,12 +377,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.3346405430584631,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6653594569415369,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -398,12 +398,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -0.6614378277661477,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6614378277661477,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -419,12 +419,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6692810861169262,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.3307189138830737,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -440,12 +440,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.6771243444677046,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 6.322875655532295,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -461,12 +461,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -4.322875655532295,
                     point: .init(x: -0.3228756555322949, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: 0.7500000000000001)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -1.6771243444677046,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -482,12 +482,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: -0.8228756555322954,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.8228756555322954,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -503,12 +503,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
@@ -533,7 +533,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 1.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -556,7 +556,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.0,
                     point: .init(x: 0.0, y: 1.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -572,12 +572,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.44618739074461744,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.8871459425887158,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -593,7 +593,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6614378277661477,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -609,12 +609,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6692810861169262,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.3307189138830737,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -630,12 +630,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.6771243444677046,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 6.322875655532295,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -658,7 +658,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.8228756555322954,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -674,12 +674,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
@@ -704,7 +704,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.0,
                     point: .init(x: 0.0, y: 1.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -727,7 +727,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.5,
                     point: .init(x: 0.0, y: 1.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -743,12 +743,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.6771243444677046,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 5.322875655532295,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -764,7 +764,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.3228756555322954,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -780,12 +780,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.6771243444677046,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 5.322875655532295,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -801,12 +801,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 3.6771243444677046,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 6.322875655532295,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -829,7 +829,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.8228756555322954,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -845,12 +845,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 2.0,
                     point: .init(x: 0.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 4.0,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
@@ -875,7 +875,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .singlePoint(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 1.0),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -905,12 +905,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.44618739074461744,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.8871459425887158,
                     point: .init(x: 2.322875655532295, y: 4.5),
                     normal: .init(x: -0.6614378277661476, y: -0.7500000000000001)
                 )
@@ -926,7 +926,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .exit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6614378277661477,
                     point: .init(x: 2.3228756555322954, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: -0.75)
                 )
@@ -942,7 +942,7 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enter(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.6692810861169262,
                     point: .init(x: -0.32287565553229536, y: 4.5),
                     normal: .init(x: -0.6614378277661477, y: 0.75)
                 )
@@ -979,12 +979,12 @@ extension NSphereTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 0.5,
                     point: .init(x: 0.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
                 .init(
-                    normalizedMagnitude: 0.0,
+                    normalizedMagnitude: 1.0,
                     point: .init(x: 2.0, y: 3.0),
                     normal: .init(x: -1.0, y: -0.0)
                 )
