@@ -220,6 +220,7 @@
             "Hyperrectangle",
             "Intersectable",
             "Möller",
+            "periodics",
             "Periodics",
             "Sarrus",
             "swiftpm",

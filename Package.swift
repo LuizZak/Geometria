@@ -52,7 +52,7 @@ let geometriaAlgorithmsTestTarget: Target = .testTarget(
 // GeometriaPeriodics
 let geometriaPeriodicsTarget: Target = .target(
     name: "GeometriaPeriodics",
-    dependencies: geometriaDependencies + ["Geometria"],
+    dependencies: geometriaDependencies + ["Geometria", .product(name: "MiniDigraph", package: "MiniDigraph")],
     swiftSettings: []
 )
 let geometriaPeriodicsTestTarget: Target = .testTarget(
@@ -80,6 +80,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
         .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
+        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.5.0")),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),

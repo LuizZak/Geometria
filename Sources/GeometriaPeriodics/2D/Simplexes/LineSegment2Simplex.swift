@@ -12,6 +12,10 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Periodic2Simple
         lineSegment.lengthSquared
     }
 
+    public var bounds: AABB2<Vector> {
+        lineSegment.bounds
+    }
+
     /// Initializes a new line segment simplex value with a given line segment.
     public init(
         lineSegment: LineSegment2<Vector>,

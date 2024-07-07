@@ -1,6 +1,7 @@
 import MiniP5Printer
 import Geometria
 import GeometriaPeriodics
+import XCTest
 
 public extension TestFixture {
     /// - note: Adds only the intersections, and not the geometries themselves.
@@ -102,6 +103,37 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Periodic, T.S
             }
 
             fixture.failure("\(actual) != \(expected)", file: file, line: line)
+        }
+    }
+
+    func assertAllSimplexesString(
+        bufferWidth: Int,
+        bufferHeight: Int,
+        translation: Vector2D,
+        scale: Vector2D,
+        _ expectedBuffer: String,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T.Vector == Vector2D {
+        let actual = value.allSimplexes()
+        let bufferString = StringBufferConsolePrintTarget()
+        let buffer = ConsolePrintBuffer(target: bufferString, bufferWidth: bufferWidth, bufferHeight: bufferHeight)
+        buffer.diffingPrint = false
+
+        buffer.printSimplexesList(actual, translation: translation, scale: scale)
+
+        buffer.print(trimming: false)
+
+        if bufferString.buffer != expectedBuffer {
+            /*
+            visualize()
+
+            for actual in actual {
+                fixture.add(actual, style: fixture.resultStyle(), file: file, line: line)
+            }
+            */
+
+            XCTAssertEqual(bufferString.buffer, expectedBuffer, file: file, line: line)
         }
     }
 }

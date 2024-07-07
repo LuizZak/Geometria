@@ -53,6 +53,13 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
         }
     }
 
+    public var bounds: AABB2<Vector> {
+        switch self {
+        case .circleArc2(let simplex): return simplex.bounds
+        case .lineSegment2(let simplex): return simplex.bounds
+        }
+    }
+
     public func compute(at period: Period) -> Vector {
         switch self {
         case .lineSegment2(let lineSegment):

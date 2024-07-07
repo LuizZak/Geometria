@@ -116,6 +116,11 @@ extension Periodic2Geometry {
         return Vector.zero
     }
 
+    /// Gets the simplex that occupies a given period.
+    public func simplex(on period: Period) -> Simplex {
+        allSimplexes().filter { $0.periodRange.contains(normalizedPeriod(period)) }[0]
+    }
+
     public func allSimplexes(overlapping range: Range<Period>) -> [Simplex] {
         allSimplexes().filter { simplex in
             range.overlaps(simplex.periodRange)

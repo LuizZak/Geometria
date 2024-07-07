@@ -1,7 +1,7 @@
 /// A Union boolean periodic that joins two shapes into a single shape, if they
 /// intersect in space.
 public struct Union2Periodic<T1: Periodic2Geometry, T2: Periodic2Geometry>: Boolean2Periodic
-    where T1.Vector == T2.Vector
+    where T1.Vector == T2.Vector, T1.Vector: Hashable
 {
     public let lhs: T1, rhs: T2
     public let tolerance: Scalar
@@ -13,6 +13,95 @@ public struct Union2Periodic<T1: Periodic2Geometry, T2: Periodic2Geometry>: Bool
     }
 
     public func allSimplexes() -> [[Simplex]] {
+        typealias Graph = Simplex2Graph<Vector>
+
+        #if false
+
+        func materialize(
+            _ edge: Graph.Edge,
+            from start: Graph.Node,
+            to end: Graph.Node
+        ) -> Periodic2GeometrySimplex<Vector> {
+            let startPoint = start.point
+            let endPoint = end.point
+
+            switch edge.kind {
+            case .line:
+                return .lineSegment2(
+                    .init(
+                        lineSegment: .init(start: startPoint, end: endPoint),
+                        startPeriod: .zero,
+                        endPeriod: .zero
+                    )
+                )
+
+            case .circleArc(_, let sweep):
+                return .circleArc2(
+                    .init(
+                        circleArc: .init(
+                            startPoint: startPoint,
+                            endPoint: endPoint,
+                            sweepAngle: sweep
+                        ),
+                        startPeriod: .zero,
+                        endPeriod: .zero
+                    )
+                )
+            }
+        }
+
+        let graph = Graph.fromPeriodicIntersections(
+            lhs,
+            rhs,
+            intersections: lhs.allIntersectionPeriods(rhs, tolerance: tolerance)
+        )
+
+        let start = lhs.compute(at: lhs.startPeriod)
+        guard let startNode = graph.nodes.first(where: { $0.point == start }) else {
+            return []
+        }
+        var current = startNode
+        if rhs.contains(current.point) {
+            current = graph.firstIntersection(after: current) ?? current
+        } else {
+            current = graph.firstIntersection(before: current) ?? current
+        }
+
+        var result: [Simplex] = []
+
+        var visited: Set<Graph.Node> = []
+        var isOnLhs = true
+
+        while visited.insert(current).inserted {
+            let edges = graph.edges(from: current).filter { edge -> Bool in
+                let node = graph.endNode(for: edge)
+                return node.isIntersection || node.onLhs == isOnLhs
+            }
+
+            guard let shortest = edges.min(by: { $0.lengthSquared < $1.lengthSquared }) else {
+                // Found non-periodic geometry?
+                continue
+            }
+            let next = graph.endNode(for: shortest)
+
+            let simplex = materialize(shortest, from: current, to: next)
+
+            result.append(simplex)
+
+            if next.isIntersection {
+                isOnLhs = !isOnLhs
+            }
+
+            current = next
+        }
+
+        // Re-normalize the simplex periods
+        result = result.normalized(startPeriod: .zero, endPeriod: 1)
+
+        return [result]
+
+        #else
+
         let lookup: IntersectionLookup<T1, T2> = .init(
             intersectionsOfSelfShape: lhs,
             otherShape: rhs,
@@ -67,6 +156,8 @@ public struct Union2Periodic<T1: Periodic2Geometry, T2: Periodic2Geometry>: Bool
         result = result.normalized(startPeriod: .zero, endPeriod: 1)
 
         return [result]
+
+        #endif
     }
 
     enum State: Hashable {
@@ -146,7 +237,7 @@ public struct Union2Periodic<T1: Periodic2Geometry, T2: Periodic2Geometry>: Bool
     }
 }
 
-fileprivate extension IntersectionLookup {
+fileprivate extension IntersectionLookup where T1.Vector: Hashable {
     typealias State = Union2Periodic<T1, T2>.State
 
     func clampedSimplexesRange(

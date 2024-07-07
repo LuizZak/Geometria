@@ -12,6 +12,10 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatabl
         circleArc.arcLength * circleArc.arcLength
     }
 
+    public var bounds: AABB2<Vector> {
+        circleArc.bounds()
+    }
+
     /// Initializes a new circular arc segment simplex value with a given circular
     /// arc segment.
     public init(

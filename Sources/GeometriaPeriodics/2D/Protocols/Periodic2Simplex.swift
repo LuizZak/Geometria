@@ -21,6 +21,9 @@ public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
     /// 2-dimensional periodic geometry.
     var endPeriod: Period { get }
 
+    /// Gets the bounding box for this simplex.
+    var bounds: AABB2<Vector> { get }
+
     /// Computes the point of this simplex at a given period value.
     ///
     /// At `startPeriod`, the result is `start`, and at `endPeriod`, the result
