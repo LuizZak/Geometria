@@ -129,13 +129,13 @@ extension P5Printer {
         """#)
     }
 
-    func add<Periodic: Periodic2Geometry>(_ periodic: Periodic, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Periodic: Periodic2Geometry>(_ periodic: Periodic, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
         for simplex in periodic.allSimplexes() {
             add(simplex, style: style, file: file, line: line)
         }
     }
 
-    func add<Vector: Vector2Type>(_ simplex: Periodic2GeometrySimplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: Periodic2GeometrySimplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         switch simplex {
         case .lineSegment2(let lineSegment):
             add(lineSegment, style: style, file: file, line: line)
@@ -145,7 +145,7 @@ extension P5Printer {
         }
     }
 
-    func add<Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         requiresPeriodicTypes = true
         requiresPeriodSlider = true
 
@@ -160,7 +160,7 @@ extension P5Printer {
         """#)
     }
 
-    func add<Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         requiresPeriodicTypes = true
         requiresPeriodSlider = true
 
@@ -171,19 +171,5 @@ extension P5Printer {
           \#(simplex.startPeriod), \#(simplex.endPeriod)
         ),
         """#)
-    }
-}
-
-//
-
-extension LinePolygon2Periodic: VisualizableGeometricType2 where Vector.Scalar: Numeric & CustomStringConvertible {
-    public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
-        printer.add(self, style: style, file: file, line: line)
-    }
-}
-
-extension Periodic2GeometrySimplex: VisualizableGeometricType2 where Vector.Scalar: Numeric & CustomStringConvertible {
-    public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
-        printer.add(self, style: style, file: file, line: line)
     }
 }

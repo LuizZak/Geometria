@@ -1,12 +1,12 @@
 import Geometria
 
 /// A periodic geometry that is defined by an underlying set of vertices from a
-/// ``LinePolygon2`` object.
-public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry {
+/// ``LinePolygon2`` shape.
+public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Periodic2GeometrySimplex<Vector>
 
-    /// The underlying line polygon object that comprises this periodic geometry.
+    /// The underlying line polygon shape that comprises this periodic geometry.
     public var linePolygon2: LinePolygon2<Vector>
 
     public var startPeriod: Period
