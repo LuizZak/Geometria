@@ -6,11 +6,37 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equa
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Periodic2GeometrySimplex<Vector>
 
-    /// The underlying line polygon shape that comprises this periodic geometry.
-    public var linePolygon2: LinePolygon2<Vector>
+    private var _cachedSimplexes: [Simplex]
 
-    public var startPeriod: Period
-    public var endPeriod: Period
+    /// The underlying line polygon shape that comprises this periodic geometry.
+    public var linePolygon2: LinePolygon2<Vector> {
+        didSet {
+            _cachedSimplexes =
+                Self.computeSimplexes(
+                    linePolygon2
+                ).normalized(
+                    startPeriod: startPeriod,
+                    endPeriod: endPeriod
+                )
+        }
+    }
+
+    public var startPeriod: Period {
+        didSet {
+            _cachedSimplexes = _cachedSimplexes.normalized(
+                startPeriod: startPeriod,
+                endPeriod: endPeriod
+            )
+        }
+    }
+    public var endPeriod: Period {
+        didSet {
+            _cachedSimplexes = _cachedSimplexes.normalized(
+                startPeriod: startPeriod,
+                endPeriod: endPeriod
+            )
+        }
+    }
 
     public init(
         linePolygon2: LinePolygon2<Vector>,
@@ -20,6 +46,14 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equa
         self.linePolygon2 = linePolygon2
         self.startPeriod = startPeriod
         self.endPeriod = endPeriod
+
+        self._cachedSimplexes =
+            Self.computeSimplexes(
+                linePolygon2
+            ).normalized(
+                startPeriod: startPeriod,
+                endPeriod: endPeriod
+            )
     }
 
     public func contains(_ point: Vector) -> Bool {
@@ -31,42 +65,24 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equa
     }
 
     public func allSimplexes() -> [Simplex] {
+        _cachedSimplexes
+    }
+
+    private static func computeSimplexes(_ linePolygon2: LinePolygon2<Vector>) -> [Simplex] {
         let lineSegments = linePolygon2.lineSegments()
         guard lineSegments.count > 1 else {
             return []
         }
 
-        let perimeterSequence = lineSegments.map({ ($0, $0.lengthSquared) })
-        let perimeterSquared: Scalar = perimeterSequence.reduce(.zero) { $0 + $1.1 }
-        guard perimeterSquared > .zero else {
-            // TODO: Handle zero perimeter polygons better
-            return []
-        }
-
-        let periodLength = endPeriod - startPeriod
-
-        var currentLengthSquared: Scalar = .zero
-        let relativeSegments: [(periodRange: Range<Period>, segment: LineSegment2<Vector>)] = perimeterSequence.map { (lineSegment, lengthSquared) in
-            defer { currentLengthSquared += lengthSquared }
-
-            let relativeStart = currentLengthSquared / perimeterSquared
-            let relativeEnd = (currentLengthSquared + lengthSquared) / perimeterSquared
-
-            let periodStart = self.startPeriod + periodLength * relativeStart
-            let periodEnd = self.startPeriod + periodLength * relativeEnd
-
-            return (periodStart..<periodEnd, lineSegment)
-        }
-
         // Construct simplexes
         var result: [Simplex] = []
 
-        for relativeSegment in relativeSegments {
+        for segment in lineSegments {
             let simplex = Simplex.lineSegment2(
                 .init(
-                    lineSegment: relativeSegment.segment,
-                    startPeriod: relativeSegment.periodRange.lowerBound,
-                    endPeriod: relativeSegment.periodRange.upperBound
+                    lineSegment: segment,
+                    startPeriod: .zero,
+                    endPeriod: .zero
                 )
             )
 

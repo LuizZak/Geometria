@@ -19,3 +19,10 @@ extension Periodic2GeometrySimplex: VisualizableGeometricType2 where Vector.Scal
         printer.add(self, style: style, file: file, line: line)
     }
 }
+
+extension Union2Periodic: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
+    public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
+        printer.add(self.lhs, style: style, file: file, line: line)
+        printer.add(self.rhs, style: style, file: file, line: line)
+    }
+}

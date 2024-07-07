@@ -327,3 +327,19 @@ public class P5Printer: BaseP5Printer {
         "drawSphere(\(vec3String(sphere.center)), \(radius))"
     }
 }
+
+extension BaseP5Printer.Style {
+    func with<Value>(_ keyPath: WritableKeyPath<Self, Value>, _ value: Value) -> Self {
+        var copy = self
+        copy[keyPath: keyPath] = value
+        return copy
+    }
+}
+
+extension BaseP5Printer.Color {
+    func with<Value>(_ keyPath: WritableKeyPath<Self, Value>, _ value: Value) -> Self {
+        var copy = self
+        copy[keyPath: keyPath] = value
+        return copy
+    }
+}

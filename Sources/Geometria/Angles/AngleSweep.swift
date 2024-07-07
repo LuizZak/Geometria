@@ -40,6 +40,11 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     /// Returns `true` if this circular arc contains a given angle value within
     /// its start + sweep region.
     public func contains(_ angle: Angle<Scalar>) -> Bool {
+        // If the sweep is of a full circle or more, the it contains all angles.
+        guard sweep.radians.magnitude < Scalar.pi * 2 else {
+            return true
+        }
+
         let (normalStart, normalStop) = normalizedStartStop(from: .zero)
 
         let normalAngle = angle.normalized(from: .zero)
@@ -53,6 +58,11 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     /// Returns the result of clamping a given angle so it is contained within
     /// this angle sweep.
     public func clamped(_ angle: Angle<Scalar>) -> Angle<Scalar> {
+        // Sweeps of full circles don't clamp any angle
+        guard sweep.radians.magnitude < Scalar.pi * 2 else {
+            return angle
+        }
+
         let (normalStart, normalStop) = normalizedStartStop(from: .zero)
 
         let nMin = (Angle(radians: normalStart) - angle).normalized(from: -.pi)
@@ -75,6 +85,14 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     /// - note: Angle sweeps that are greater than `2π` will not properly map
     /// into a ratio due to the overlapping angle ranges.
     public func ratioOfAngle(_ angle: Angle<Scalar>) -> Scalar {
+        // TODO: Examine replacing the complex wrapping logic with 'angle.normalized(from: start.radians)'
+
+        guard sweep.radians.magnitude < Scalar.pi * 2 else {
+            let normalAngle = angle.normalized(from: start.radians)
+
+            return normalAngle / sweep.radians
+        }
+
         let normalAngle = angle.normalized(from: .zero)
         let (normalStart, normalStop) = normalizedStartStop(from: .zero)
 

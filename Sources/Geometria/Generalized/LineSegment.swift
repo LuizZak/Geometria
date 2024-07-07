@@ -4,7 +4,7 @@ import RealModule
 /// which describe a closed interval.
 ///
 /// [line segment]: https://en.wikipedia.org/wiki/Line_segment
-public struct LineSegment<Vector: VectorType>: LineType {
+public struct LineSegment<Vector: VectorType>: LineType, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
 
     /// The bounded start of this line segment, inclusive.
@@ -27,6 +27,10 @@ public struct LineSegment<Vector: VectorType>: LineType {
 
     @inlinable
     public var category: LineCategory { .lineSegment }
+
+    public var description: String {
+        "\(type(of: self))(start: \(start), end: \(end))"
+    }
 
     @_transparent
     public init(start: Vector, end: Vector) {

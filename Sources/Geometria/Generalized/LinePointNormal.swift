@@ -5,7 +5,7 @@ public struct LineIntersectionPointNormal<Vector: VectorFloatingPoint>: Geometri
     public typealias Scalar = Vector.Scalar
 
     public var description: String {
-        "LineIntersectionPointNormal(normalizedMagnitude: \(normalizedMagnitude), pointNormal: \(pointNormal))"
+        "\(type(of: self))(normalizedMagnitude: \(normalizedMagnitude), pointNormal: \(pointNormal))"
     }
 
     public var normalizedMagnitude: Scalar

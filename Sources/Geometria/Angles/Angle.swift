@@ -1,13 +1,17 @@
 import RealModule
 
 /// A standardized representation of an angle.
-public struct Angle<Scalar: FloatingPoint & ElementaryFunctions>: Hashable {
+public struct Angle<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, CustomStringConvertible {
     /// Gets the angle value for the mathematical constant `π`.
     @inlinable
     public static var pi: Self { Self(radians: Scalar.pi) }
 
     /// Gets the radian value associated with this angle.
     public let radians: Scalar
+
+    public var description: String {
+        "\(type(of: self))(radians: \(radians))"
+    }
 
     /// Initializes this angle with a given radians angle value.
     public init(radians: Scalar) {

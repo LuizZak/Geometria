@@ -7,7 +7,7 @@ import MiniP5Printer
 ///
 /// [p5.js]: https://editor.p5js.org/
 public class TestFixture {
-    private let p5Printer: P5Printer
+    internal let p5Printer: P5Printer
     private var didFail: Bool = false
 
     public init(lineScale: Double, renderScale: Double) {
@@ -131,6 +131,7 @@ public class TestFixture {
     public func assertEquals<T: VisualizableGeometricType2 & Equatable>(
         _ actual: T,
         _ expected: T,
+        message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) {
@@ -151,13 +152,14 @@ public class TestFixture {
             )
         }
 
-        XCTAssertEqual(actual, expected, file: file, line: line)
+        XCTAssertEqual(actual, expected, message(), file: file, line: line)
         didFail = actual != expected || didFail
     }
 
     public func assertEquals<T: VisualizableGeometricType3 & Equatable>(
         _ actual: T,
         _ expected: T,
+        message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) {
@@ -178,7 +180,7 @@ public class TestFixture {
             )
         }
 
-        XCTAssertEqual(actual, expected, file: file, line: line)
+        XCTAssertEqual(actual, expected, message(), file: file, line: line)
         didFail = actual != expected || didFail
     }
 
@@ -247,8 +249,8 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        for (act, exp) in zip(actual, expected) {
-            assertEquals(act, exp, file: file, line: line)
+        for (i, (act, exp)) in zip(actual, expected).enumerated() {
+            assertEquals(act, exp, message: "@ \(i)", file: file, line: line)
         }
 
         XCTAssertEqual(
@@ -278,8 +280,8 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        for (act, exp) in zip(actual, expected) {
-            assertEquals(act, exp, file: file, line: line)
+        for (i, (act, exp)) in zip(actual, expected).enumerated() {
+            assertEquals(act, exp, message: "@ \(i)", file: file, line: line)
         }
 
         XCTAssertEqual(

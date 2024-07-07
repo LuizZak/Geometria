@@ -52,7 +52,7 @@ public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable
         )
         let arc2 = circle2.arc(
             startAngle: .pi,
-            sweepAngle: .pi * 2
+            sweepAngle: .pi
         )
 
         return [

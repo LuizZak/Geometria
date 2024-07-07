@@ -143,6 +143,72 @@ class AngleSweepTests: XCTestCase {
             -3.0
         )
     }
+
+    func testRatioOfAngle_fullCircle() {
+        let sut = Sut(
+            start: Angle.pi * 0.2,
+            sweep: Angle.pi * 2.0
+        )
+
+        XCTAssertEqual(
+            sut.ratioOfAngle(.pi * 1.7),
+            0.85
+        )
+        XCTAssertEqual(
+            sut.ratioOfAngle(.pi * 1.8),
+            0.9
+        )
+        XCTAssertEqual(
+            sut.ratioOfAngle(.zero),
+            1.0
+        )
+        XCTAssertEqual(
+            sut.ratioOfAngle(.pi * 0.4),
+            0.2
+        )
+        XCTAssertEqual(
+            sut.ratioOfAngle(.pi * 0.6),
+            0.3
+        )
+    }
+
+    func testClamped_fullCircle() {
+        let sut = Sut(
+            start: Angle.zero,
+            sweep: Angle.pi * 2.0
+        )
+
+        XCTAssertEqual(sut.clamped(Angle.pi * -9.0), Angle.pi * -9.0)
+        XCTAssertEqual(sut.clamped(Angle.pi * -2.0), Angle.pi * -2.0)
+        XCTAssertEqual(sut.clamped(Angle.pi * -1.5), Angle.pi * -1.5)
+        XCTAssertEqual(sut.clamped(Angle.pi * -0.5), Angle.pi * -0.5)
+        XCTAssertEqual(sut.clamped(Angle.pi * -0.5), Angle.pi * -0.5)
+        XCTAssertEqual(sut.clamped(.zero), .zero)
+        XCTAssertEqual(sut.clamped(Angle.pi * 0.1), Angle.pi * 0.1)
+        XCTAssertEqual(sut.clamped(Angle.pi * 0.5), Angle.pi * 0.5)
+        XCTAssertEqual(sut.clamped(Angle.pi * 1.5), Angle.pi * 1.5)
+        XCTAssertEqual(sut.clamped(Angle.pi * 2.0), Angle.pi * 2.0)
+        XCTAssertEqual(sut.clamped(Angle.pi * 9.0), Angle.pi * 9.0)
+    }
+
+    func testContains_fullCircle() {
+        let sut = Sut(
+            start: Angle.zero,
+            sweep: Angle.pi * 2.0
+        )
+
+        XCTAssertTrue(sut.contains(Angle.pi * -9.0))
+        XCTAssertTrue(sut.contains(Angle.pi * -2.0))
+        XCTAssertTrue(sut.contains(Angle.pi * -1.5))
+        XCTAssertTrue(sut.contains(Angle.pi * -0.5))
+        XCTAssertTrue(sut.contains(Angle.pi * -0.5))
+        XCTAssertTrue(sut.contains(.zero))
+        XCTAssertTrue(sut.contains(Angle.pi * 0.1))
+        XCTAssertTrue(sut.contains(Angle.pi * 0.5))
+        XCTAssertTrue(sut.contains(Angle.pi * 1.5))
+        XCTAssertTrue(sut.contains(Angle.pi * 2.0))
+        XCTAssertTrue(sut.contains(Angle.pi * 9.0))
+    }
 }
 
 // MARK: - Test internals

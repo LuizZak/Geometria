@@ -46,6 +46,13 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
         }
     }
 
+    var lengthSquared: Vector.Scalar {
+        switch self {
+        case .circleArc2(let simplex): return simplex.lengthSquared
+        case .lineSegment2(let simplex): return simplex.lengthSquared
+        }
+    }
+
     public func compute(at period: Period) -> Vector {
         switch self {
         case .lineSegment2(let lineSegment):
@@ -206,5 +213,52 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
         let angleSweep = circleArc.asAngleSweep
 
         return angleSweep.ratioOfAngle(intersectionAngle)
+    }
+}
+
+extension Collection {
+    /// Renormalizes the simplexes within this collection such that the periods
+    /// of the simplexes have a sequential value within the given start and end
+    /// periods, relative to each simplex's length.
+    func normalized<Vector>(startPeriod: Vector.Scalar, endPeriod: Vector.Scalar) -> [Element] where Element == Periodic2GeometrySimplex<Vector> {
+        typealias Scalar = Vector.Scalar
+
+        let perimeterSequence = self.map { simplex in
+            (simplex.lengthSquared.squareRoot(), simplex)
+        }
+        let perimeter: Scalar = perimeterSequence.reduce(.zero) { $0 + $1.0 }
+        guard perimeter > .zero else {
+            // TODO: Handle zero-perimeter simplex sequences better
+            return []
+        }
+
+        let periodLength = endPeriod - startPeriod
+
+        var currentLength: Scalar = .zero
+        let relativeSegments: [(periodRange: Range<Scalar>, simplex: Element)] = perimeterSequence.map { (length, simplex) in
+            defer { currentLength += length }
+
+            let relativeStart = currentLength / perimeter
+            let relativeEnd = (currentLength + length) / perimeter
+
+            let periodStart = startPeriod + periodLength * relativeStart
+            let periodEnd = startPeriod + periodLength * relativeEnd
+
+            return (periodStart..<periodEnd, simplex)
+        }
+
+        return relativeSegments.map { (range, simplex) in
+            switch simplex {
+            case .circleArc2(var arc):
+                arc.startPeriod = range.lowerBound
+                arc.endPeriod = range.upperBound
+                return .circleArc2(arc)
+
+            case .lineSegment2(var line):
+                line.startPeriod = range.lowerBound
+                line.endPeriod = range.upperBound
+                return .lineSegment2(line)
+            }
+        }
     }
 }

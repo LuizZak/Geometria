@@ -24,6 +24,7 @@ extension P5Printer {
             noStroke()
             text(`Period: ${periodSlider.value()}`, 10, height - 10)
             translate(width / 2, height / 2)
+            scale(renderScale)
             stroke(0)
             noFill()
             for (let periodic of periodics) {
@@ -37,19 +38,56 @@ extension P5Printer {
     func printPeriodicTypes() {
         printMultiline(#"""
         class Periodic {
-          constructor(startPeriod, endPeriod) {
+          constructor(startPeriod, endPeriod, fillColor, strokeColor) {
             this.startPeriod = startPeriod
             this.endPeriod = endPeriod
+            this.fillColor = fillColor
+            this.strokeColor = strokeColor
           }
           
           render(ratio) {
             
           }
+
+          setupColors() {
+            if (this.fillColor !== null) {
+              fill(this.fillColor)
+            } else {
+              fill(255)
+            }
+            if (this.strokeColor !== null) {
+              stroke(this.strokeColor)
+            } else {
+              stroke(0)
+            }
+          }
+          resetColors() {
+            stroke(0)
+            fill(255)
+          }
         }
         
+        class IntersectionPeriodic extends Periodic {
+          constructor(position, startPeriod, endPeriod, fillColor, strokeColor) {
+            super(startPeriod, endPeriod, fillColor, strokeColor)
+            
+            this.position = position
+          }
+          
+          render(ratio) {
+            if (ratio < this.startPeriod) { return }
+
+            this.setupColors()
+            
+            drawAnchor(this.position)
+
+            this.resetColors()
+          }
+        }
+
         class LinePeriodic extends Periodic {
-          constructor(start, end, startPeriod, endPeriod) {
-            super(startPeriod, endPeriod)
+          constructor(start, end, startPeriod, endPeriod, fillColor, strokeColor) {
+            super(startPeriod, endPeriod, fillColor, strokeColor)
             
             this.start = start
             this.end = end
@@ -58,6 +96,8 @@ extension P5Printer {
           
           render(ratio) {
             if (ratio < this.startPeriod) { return }
+
+            this.setupColors()
             
             let periodLength = this.endPeriod - this.startPeriod
             let periodPoint = ratio - this.startPeriod
@@ -76,12 +116,14 @@ extension P5Printer {
             if (shouldDrawAnchor) {
               drawAnchor(lineEnd)
             }
+
+            this.resetColors()
           }
         }
         
         class ArcPeriodic extends Periodic {
-          constructor(center, radius, startAngle, sweep, startPeriod, endPeriod) {
-            super(startPeriod, endPeriod)
+          constructor(center, radius, startAngle, sweep, startPeriod, endPeriod, fillColor, strokeColor) {
+            super(startPeriod, endPeriod, fillColor, strokeColor)
             
             this.center = center
             this.radius = radius
@@ -91,6 +133,8 @@ extension P5Printer {
           
           render(ratio) {
             if (ratio < this.startPeriod) { return }
+
+            this.setupColors()
             
             let periodLength = this.endPeriod - this.startPeriod
             let periodPoint = ratio - this.startPeriod
@@ -105,6 +149,7 @@ extension P5Printer {
             let arcEndSweep = this.sweep * periodRatio
             let arcEnd = this.startAngle + arcEndSweep
             
+            noFill()
             arc(this.center.x, this.center.y, this.radius, this.radius, this.startAngle, arcEnd)
             
             if (shouldDrawAnchor) {
@@ -113,6 +158,8 @@ extension P5Printer {
               
               drawAnchor(p5.Vector.add(this.center, createVector(anchorX, anchorY)))
             }
+
+            this.resetColors()
           }
         }
         """#)
@@ -154,8 +201,9 @@ extension P5Printer {
           \#(vec2PVectorString(simplex.circleArc.center)),
           \#(simplex.circleArc.radius),
           \#(simplex.circleArc.startAngle.normalized(from: .zero)),
-          \#(simplex.circleArc.stopAngle.normalized(from: .zero)),
-          \#(simplex.startPeriod), \#(simplex.endPeriod)
+          \#(simplex.circleArc.sweepAngle.normalized(from: .zero)),
+          \#(simplex.startPeriod), \#(simplex.endPeriod),
+          \#(periodicStyle2String(style))
         ),
         """#)
     }
@@ -168,8 +216,49 @@ extension P5Printer {
         new LinePeriodic(
           \#(vec2PVectorString(simplex.start)),
           \#(vec2PVectorString(simplex.end)),
-          \#(simplex.startPeriod), \#(simplex.endPeriod)
+          \#(simplex.startPeriod), \#(simplex.endPeriod),
+          \#(periodicStyle2String(style))
         ),
         """#)
+    }
+
+    func add<Periodic: Periodic2Geometry>(_ periodic: Periodic, intersectionAt period: Periodic.Period, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
+        requiresPeriodicTypes = true
+        requiresPeriodSlider = true
+
+        let point = periodic.compute(at: period)
+
+        periodicsToDraw.append(#"""
+        new IntersectionPeriodic(
+          \#(vec2PVectorString(point)),
+          \#(period), \#(period),
+          \#(periodicStyle2String(style))
+        ),
+        """#)
+    }
+
+    func periodicStyle2String(_ style: Style?) -> String {
+        return "\(periodicColor2String(style?.fillColor)), \(periodicColor2String(style?.strokeColor))"
+    }
+
+    func periodicColor2String(_ color: Color?) -> String {
+        if let color {
+            return color.hex.debugDescription
+        }
+        return "null"
+    }
+}
+
+extension BaseP5Printer.Color {
+    var hex: String {
+        func format(_ value: Int) -> String {
+            let hex = String(value, radix: 16)
+            if hex.count < 2 {
+                return "0\(hex)"
+            }
+            return hex
+        }
+
+        return "#\(format(red))\(format(green))\(format(blue))"
     }
 }

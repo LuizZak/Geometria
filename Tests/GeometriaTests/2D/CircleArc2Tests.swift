@@ -428,13 +428,13 @@ extension CircleArc2Tests {
             startAngle: .pi * 0.2,
             sweepAngle: -.pi * 0.4
         )
-        let line1 = makeLine(start: .init(x: 170, y: -140), end: .init(x: 170, y: 40))
+        let line = makeLine(start: .init(x: 170, y: -140), end: .init(x: 170, y: 40))
 
         TestFixture.beginFixture { fixture in
             fixture.add(sut)
 
             fixture.assertions(on: sut)
-                .assertIntersections(with: line1, .init(isContained: false, intersections: [
+                .assertIntersections(with: line, .init(isContained: false, intersections: [
                     .point(.init(
                         normalizedMagnitude: 0.20082417738141645,
                         point: .init(x: 170.0, y: -103.85164807134504),
@@ -447,7 +447,7 @@ extension CircleArc2Tests {
                     )),
                 ]))
             fixture.assertions(on: sut)
-                .assertIntersections(with: line1.reversed, .init(isContained: false, intersections: [
+                .assertIntersections(with: line.reversed, .init(isContained: false, intersections: [
                     .point(.init(
                         normalizedMagnitude: 0.20082417738141645,
                         point: .init(x: 170.0, y: 3.8516480713450396),
@@ -457,6 +457,37 @@ extension CircleArc2Tests {
                         normalizedMagnitude: 0.7991758226185836,
                         point: .init(x: 170.0, y: -103.85164807134504),
                         normal: .init(x: -0.9333333333333333, y: 0.3590109871423003)
+                    )),
+                ]))
+        }
+    }
+
+    func testIntersections_fullCircle() {
+        let sut = makeSut(
+            center: Vector2<Double>(x: 0.0, y: 0.0),
+            radius: 80.0,
+            startAngle: .pi,
+            sweepAngle: 6.283185307179586
+        )
+        let line = makeLine(start: .init(x: -40.0, y: 4.898587196589413e-15), end: .init(x: -80.90169943749476, y: -58.7785252292473))
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(sut)
+
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line, .init(isContained: false, intersections: [
+                    .point(.init(
+                        normalizedMagnitude: 0.6996986917792001,
+                        point: .init(x: -68.61886558796112, y: -41.127257207615045),
+                        normal: .init(x: 0.8577358198495141, y: 0.5140907150951881)
+                    )),
+                ]))
+            fixture.assertions(on: sut)
+                .assertIntersections(with: line.reversed, .init(isContained: false, intersections: [
+                    .point(.init(
+                        normalizedMagnitude: 0.3003013082207999,
+                        point: .init(x: -68.61886558796112, y: -41.12725720761504),
+                        normal: .init(x: -0.8577358198495142, y: -0.5140907150951881)
                     )),
                 ]))
         }

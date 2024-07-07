@@ -18,8 +18,13 @@ extension LinePolygon2Periodic where Vector == Vector2D {
         )
     }
 
-    static func makeHexagon() -> Self {
-        return makeSut(makeRegularPolygonVertices(sides: 6))
+    static func makeHexagon(radius: Double = 100.0) -> Self {
+        return makeSut(
+            makeRegularPolygonVertices(
+                sides: 6,
+                radius: radius
+            )
+        )
     }
 
     static func makeRegularPolygonVertices(sides: Int, radius: Double = 100.0) -> [Vector2D] {
@@ -38,8 +43,11 @@ extension LinePolygon2Periodic where Vector == Vector2D {
         return points
     }
 
-    static func makeStar() -> Self {
-        var vertices = makeRegularPolygonVertices(sides: 10)
+    static func makeStar(radius: Double = 100.0) -> Self {
+        var vertices = makeRegularPolygonVertices(
+            sides: 10,
+            radius: radius
+        )
         for i in stride(from: 1, through: 10, by: 2) {
             vertices[i] *= 0.4
         }

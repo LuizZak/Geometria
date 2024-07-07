@@ -8,6 +8,10 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatabl
     public var startPeriod: Period
     public var endPeriod: Period
 
+    var lengthSquared: Vector.Scalar {
+        circleArc.arcLength * circleArc.arcLength
+    }
+
     /// Initializes a new circular arc segment simplex value with a given circular
     /// arc segment.
     public init(
@@ -62,7 +66,7 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatabl
                 center: circleArc.center,
                 radius: circleArc.radius,
                 startAngle: circleArc.startAngle + circleArc.sweepAngle * ratioStart,
-                sweepAngle: circleArc.startAngle + circleArc.sweepAngle * ratioEnd
+                sweepAngle: circleArc.sweepAngle * (ratioEnd - ratioStart)
             ),
             startPeriod: max(startPeriod, range.lowerBound),
             endPeriod: min(endPeriod, range.upperBound)

@@ -86,6 +86,49 @@ class Periodic2GeometrySimplexTests: XCTestCase {
                 ])
         }
     }
+
+    func testIntersectionPeriods_line_arc_lateSemiCircle() {
+        let line = makeLine(
+            start: .init(x: -50, y: -90),
+            end: .init(x: -110, y: -170)
+        )
+        let arc = makeCircleArc(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi,
+            sweepAngle: .pi,
+            startPeriod: 0.5,
+            endPeriod: 1.0
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: line)
+                .assertIntersectionPeriods(arc, [
+                    (self: 0.645683229480096, other: 0.6046224788909318),
+                ])
+        }
+    }
+
+    func testNormalized() {
+        let line = makeLine(
+            start: .init(x: -20, y: 20),
+            end: .init(x: 20, y: -20)
+        )
+        let arc = makeCircleArc(
+            center: .init(x: -10, y: -30),
+            radius: 40,
+            startAngle: 0,
+            sweepAngle: .pi / 2
+        )
+        let sequence = [line, arc]
+
+        let result = sequence.normalized(startPeriod: 0.0, endPeriod: 1.0)
+
+        XCTAssertEqual(result[0].startPeriod, 0.0)
+        XCTAssertEqual(result[0].endPeriod, 0.4737718181453922)
+        XCTAssertEqual(result[1].startPeriod, 0.4737718181453922)
+        XCTAssertEqual(result[1].endPeriod, 1.0)
+    }
 }
 
 // MARK: - Test internals
