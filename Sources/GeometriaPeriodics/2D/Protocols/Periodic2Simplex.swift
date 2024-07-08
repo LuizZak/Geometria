@@ -30,6 +30,10 @@ public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
     /// is `end`, with values in between continuously translating from start to
     /// the end, not necessarily in a straight line.
     func compute(at period: Period) -> Vector
+
+    /// Returns `true` if a given vector is at most `√(toleranceSquared)`-distance
+    /// away from this simplex's surface.
+    func isOnSurface(_ vector: Vector, toleranceSquared: Vector.Scalar) -> Bool
 }
 
 extension Periodic2Simplex {

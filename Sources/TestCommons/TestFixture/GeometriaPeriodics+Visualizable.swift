@@ -14,6 +14,12 @@ extension Circle2Periodic: VisualizableGeometricType2 where Vector.Scalar: Custo
     }
 }
 
+extension Compound2Periodic: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
+    public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
+        printer.add(self, style: style, file: file, line: line)
+    }
+}
+
 extension Periodic2GeometrySimplex: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
     public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
         printer.add(self, style: style, file: file, line: line)

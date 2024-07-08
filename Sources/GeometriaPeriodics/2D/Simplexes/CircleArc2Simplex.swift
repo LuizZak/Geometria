@@ -2,13 +2,15 @@ import Geometria
 
 /// A 2-dimensional simplex composed of a circular arc segment.
 public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatable {
+    public typealias Scalar = Vector.Scalar
+
     /// The circular arc segment associated with this simplex.
     public var circleArc: CircleArc2<Vector>
 
     public var startPeriod: Period
     public var endPeriod: Period
 
-    var lengthSquared: Vector.Scalar {
+    var lengthSquared: Scalar {
         circleArc.arcLength * circleArc.arcLength
     }
 
@@ -50,6 +52,10 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatabl
         return circleArc.pointOnAngle(
             circleArc.startAngle + magnitude
         )
+    }
+
+    public func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool {
+        circleArc.distanceSquared(to: vector) < toleranceSquared
     }
 
     /// Clamps this simplex so its contained geometry is only present within a

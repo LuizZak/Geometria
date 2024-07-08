@@ -241,13 +241,13 @@ extension LinePolygon2 where Vector: Vector2FloatingPoint {
     }
 
     /// Returns `true` if the given point lies within an edge of the polygon
-    /// represented by `self`, up to a given `tolerance` value.
+    /// represented by `self`, up to a given `toleranceSquared` value.
     ///
     /// Points lie within the edges of the polygon if the distance between the
     /// point and any two adjacent vertices is equal to the distance of the
-    /// adjacent vertices, up to `sqrt(tolerance)`.
+    /// adjacent vertices, up to `√(toleranceSquared)`.
     @inlinable
-    public func isPointOnEdge(_ point: Vector, tolerance: Scalar) -> Bool {
+    public func isPointOnEdge(_ point: Vector, toleranceSquared: Scalar) -> Bool {
         for (i, vertex) in vertices.enumerated() {
             let next = vertices[(i + 1) % vertices.count]
 
@@ -257,7 +257,7 @@ extension LinePolygon2 where Vector: Vector2FloatingPoint {
 
             let diff = (edgeSquared - (d1 + d2)).magnitude
 
-            if diff < tolerance {
+            if diff < toleranceSquared {
                 return true
             }
         }

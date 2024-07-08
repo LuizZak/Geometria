@@ -46,6 +46,7 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
         }
     }
 
+    @usableFromInline
     var lengthSquared: Vector.Scalar {
         switch self {
         case .circleArc2(let simplex): return simplex.lengthSquared
@@ -67,6 +68,16 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
 
         case .circleArc2(let circleArc):
             return circleArc.compute(at: period)
+        }
+    }
+
+    public func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool {
+        switch self {
+        case .lineSegment2(let lineSegment):
+            return lineSegment.isOnSurface(vector, toleranceSquared: toleranceSquared)
+
+        case .circleArc2(let circleArc):
+            return circleArc.isOnSurface(vector, toleranceSquared: toleranceSquared)
         }
     }
 
@@ -224,9 +235,17 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
 }
 
 extension Collection {
+    /// Computes the minimal bounding box capable of containing this collection
+    /// of simplexes.
+    @inlinable
+    func bounds<Vector>() -> AABB2<Vector> where Element == Periodic2GeometrySimplex<Vector> {
+        return AABB2(aabbs: self.map(\.bounds))
+    }
+
     /// Renormalizes the simplexes within this collection such that the periods
     /// of the simplexes have a sequential value within the given start and end
     /// periods, relative to each simplex's length.
+    @inlinable
     func normalized<Vector>(startPeriod: Vector.Scalar, endPeriod: Vector.Scalar) -> [Element] where Element == Periodic2GeometrySimplex<Vector> {
         typealias Scalar = Vector.Scalar
 

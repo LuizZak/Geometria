@@ -44,6 +44,48 @@ public extension TestFixture {
 }
 
 public extension TestFixture.AssertionWrapperBase where T: Periodic2Geometry, T.Scalar: CustomStringConvertible {
+    @discardableResult
+    func assertContains(
+        _ point: T.Vector,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Self where T.Vector: VisualizableGeometricType2 {
+        if !value.contains(point) {
+            visualize()
+
+            fixture.add(point)
+
+            fixture.failure(
+                "Expected geometry to contain point @ \(point)",
+                file: file,
+                line: line
+            )
+        }
+
+        return self
+    }
+
+    @discardableResult
+    func assertDoesNotContain(
+        _ point: T.Vector,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Self where T.Vector: VisualizableGeometricType2 {
+        if value.contains(point) {
+            visualize()
+
+            fixture.add(point)
+
+            fixture.failure(
+                "Expected geometry to not contain point @ \(point)",
+                file: file,
+                line: line
+            )
+        }
+
+        return self
+    }
+
     func assertSimplexes(
         _ expected: [T.Simplex],
         file: StaticString = #file,

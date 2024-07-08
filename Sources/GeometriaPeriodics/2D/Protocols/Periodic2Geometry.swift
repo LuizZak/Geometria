@@ -41,8 +41,8 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     func periodPrecedes(from start: Period, _ lhs: Period, _ rhs: Period) -> Bool
 
     /// Performs a point-surface check against this periodic geometry, up to a
-    /// given tolerance value.
-    func isOnSurface(_ point: Vector, tolerance: Scalar) -> Bool
+    /// given squared tolerance value.
+    func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool
 
     /// Fetches all simplexes that form this 2-dimensional periodic geometry,
     /// ordered by their relative period within the geometry.

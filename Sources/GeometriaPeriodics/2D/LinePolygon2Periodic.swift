@@ -60,8 +60,8 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equa
         linePolygon2.contains(point)
     }
 
-    public func isOnSurface(_ point: Vector, tolerance: Scalar) -> Bool {
-        linePolygon2.isPointOnEdge(point, tolerance: tolerance)
+    public func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool {
+        linePolygon2.isPointOnEdge(point, toleranceSquared: toleranceSquared)
     }
 
     public func allSimplexes() -> [Simplex] {

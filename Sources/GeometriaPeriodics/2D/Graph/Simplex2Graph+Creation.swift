@@ -78,6 +78,11 @@ extension Simplex2Graph {
             let start = getOrCreateGeometry(simplex.start, onLhs: onLhs)
             let end = getOrCreateGeometry(simplex.end, onLhs: onLhs)
 
+            // Remove existing edge
+            if let edge = result.edge(from: start, to: end) {
+                result.removeEdge(edge)
+            }
+
             addSimplexEdge(clampedLow, from: start, to: node)
             addSimplexEdge(clampedHigh, from: node, to: end)
         }

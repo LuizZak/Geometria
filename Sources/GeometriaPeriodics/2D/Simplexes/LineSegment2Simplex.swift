@@ -2,6 +2,8 @@ import Geometria
 
 /// A 2-dimensional simplex composed of a line segment.
 public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Periodic2Simplex, Equatable {
+    public typealias Scalar = Vector.Scalar
+
     /// The line segment associated with this simplex.
     public var lineSegment: LineSegment2<Vector>
 
@@ -45,6 +47,10 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Periodic2Simple
         let ratio = ratioForPeriod(period)
 
         return lineSegment.projectedNormalizedMagnitude(ratio)
+    }
+
+    public func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool {
+        lineSegment.distanceSquared(to: vector) < toleranceSquared
     }
 
     /// Clamps this simplex so its contained geometry is only present within a

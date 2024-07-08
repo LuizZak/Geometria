@@ -41,8 +41,8 @@ public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable
         circle2.contains(point)
     }
 
-    public func isOnSurface(_ point: Vector, tolerance: Scalar) -> Bool {
-        circle2.distanceSquared(to: point) < tolerance * tolerance
+    public func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool {
+        circle2.distanceSquared(to: point) < toleranceSquared
     }
 
     public func allSimplexes() -> [Simplex] {
