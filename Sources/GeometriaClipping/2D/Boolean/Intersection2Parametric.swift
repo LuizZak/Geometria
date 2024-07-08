@@ -36,8 +36,11 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
 
         var state = State.onLhs(lhs.startPeriod, rhs.startPeriod)
         if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
+            // If we don't flip here, the result behaves like a union instead of
+            // an intersection
             state = lookup.next(state).flipped()
         } else {
+            // ...and the same here
             state = lookup.previous(state).flipped()
         }
 
