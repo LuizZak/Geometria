@@ -5,6 +5,39 @@ import XCTest
 @testable import GeometriaClipping
 
 class Union2ParametricTests: XCTestCase {
+    func testUnion_lhsContainsRhs() {
+        let lhs = Circle2Parametric.makeTestCircle(radius: 100.0)
+        let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([lhs.allSimplexes()])
+        }
+    }
+
+    func testUnion_rhsContainsLhs() {
+        let lhs = Circle2Parametric.makeTestCircle(radius: 80.0)
+        let rhs = Circle2Parametric.makeTestCircle(radius: 100.0)
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([rhs.allSimplexes()])
+        }
+    }
+
+    func testUnion_noIntersectionOrContainment() {
+        let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -100, y: 0), radius: 50.0)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 100, y: 0), radius: 50.0)
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([lhs.allSimplexes(), rhs.allSimplexes()])
+        }
+    }
+
     func testUnion_lines_lines() {
         let lhs = LinePolygon2Parametric.makeStar()
         let rhs = LinePolygon2Parametric.makeHexagon(radius: 80.0)

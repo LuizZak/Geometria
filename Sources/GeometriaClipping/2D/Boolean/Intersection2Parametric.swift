@@ -24,10 +24,10 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         // If no intersections have been found, check if one of the shapes is
         // contained within the other
         guard !lookup.intersections.isEmpty else {
-            if lookup.isSelfWithinOther() {
+            if lookup.isOtherWithinSelf() {
                 return [rhs.allSimplexes()]
             }
-            if lookup.isOtherWithinSelf() {
+            if lookup.isSelfWithinOther() {
                 return [lhs.allSimplexes()]
             }
 

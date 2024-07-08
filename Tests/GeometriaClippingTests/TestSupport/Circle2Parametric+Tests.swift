@@ -18,7 +18,7 @@ extension Circle2Parametric where Vector == Vector2D {
         )
     }
 
-    static func makeTestCircle(radius: Double = 100.0) -> Self {
-        return makeSut(.zero, radius: radius)
+    static func makeTestCircle(center: Vector2D = .zero, radius: Double = 100.0) -> Self {
+        return makeSut(center, radius: radius)
     }
 }

@@ -135,13 +135,13 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
         let actual = value.allSimplexes()
 
         if actual != expected {
-            //visualize()
+            visualize()
 
             for actual in actual {
                 fixture.add(actual, style: fixture.resultStyle(), file: file, line: line)
             }
             for expected in expected {
-                //fixture.add(expected, style: fixture.expectedStyle(), file: file, line: line)
+                fixture.add(expected, style: fixture.expectedStyle(), file: file, line: line)
             }
 
             fixture.failure("\(actual) != \(expected)", file: file, line: line)

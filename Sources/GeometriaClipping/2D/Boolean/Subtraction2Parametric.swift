@@ -26,12 +26,12 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
         // If no intersections have been found, check if one of the shapes is
         // contained within the other
         guard !lookup.intersections.isEmpty else {
-            if lookup.isSelfWithinOther() {
-                return []
-            }
             if lookup.isOtherWithinSelf() {
                 // TODO: Implement holes
                 return [lhs.allSimplexes()]
+            }
+            if lookup.isSelfWithinOther() {
+                return []
             }
 
             return [lhs.allSimplexes()]
