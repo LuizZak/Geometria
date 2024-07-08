@@ -451,7 +451,7 @@ public class TestFixture {
 
     /// Style to use for actual test result values.
     public func resultStyle() -> P5Printer.Style {
-        .init(strokeColor: .green, fillColor: nil, strokeWeight: 2)
+        .init(strokeColor: .init(red: 0, green: 200, blue: 0), fillColor: nil, strokeWeight: 2)
     }
 
     /// Style to use for expected test result values.
