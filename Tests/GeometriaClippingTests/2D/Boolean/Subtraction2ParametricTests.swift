@@ -460,4 +460,15 @@ class Subtraction2ParametricTests: XCTestCase {
                 ])
         }
     }
+
+    func testSubtraction_concaveShape() {
+        let lhs = LinePolygon2Parametric.makeCShape()
+        let rhs = LinePolygon2Parametric.makeRectangle(width: 10, height: 120)
+        let sut = Subtraction2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture(renderScale: 2) { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([])
+        }
+    }
 }

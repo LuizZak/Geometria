@@ -382,4 +382,100 @@ class Intersection2ParametricTests: XCTestCase {
                 ])
         }
     }
+
+    func testIntersection_concaveShape() {
+        let lhs = LinePolygon2Parametric.makeCShape()
+        let rhs = LinePolygon2Parametric.makeRectangle(width: 10, height: 120)
+        let sut = Intersection2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture(renderScale: 2) { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([
+                    [
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -5.0, y: 50.00000000000001),
+                                    end: .init(x: -5.0, y: 29.999999999999993)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.33333333333333354
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -5.000000000000022, y: 30.0),
+                                    end: .init(x: 4.999999999999996, y: 30.0)
+                                ),
+                                startPeriod: 0.33333333333333354,
+                                endPeriod: 0.5000000000000004
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 5.0, y: 29.999999999999986),
+                                    end: .init(x: 5.0, y: 50.00000000000001)
+                                ),
+                                startPeriod: 0.5000000000000004,
+                                endPeriod: 0.8333333333333341
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 4.999999999999977, y: 50.0),
+                                    end: .init(x: -4.999999999999972, y: 50.0)
+                                ),
+                                startPeriod: 0.8333333333333341,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                    [
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -5.0, y: -29.999999999999986),
+                                    end: .init(x: -5.0, y: -49.999999999999986)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.3333333333333334
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -4.999999999999999, y: -50.0),
+                                    end: .init(x: 5.000000000000004, y: -50.0)
+                                ),
+                                startPeriod: 0.3333333333333334,
+                                endPeriod: 0.5000000000000002
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 5.0, y: -50.0),
+                                    end: .init(x: 5.0, y: -30.0)
+                                ),
+                                startPeriod: 0.5000000000000002,
+                                endPeriod: 0.8333333333333336
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 4.999999999999982, y: -30.0),
+                                    end: .init(x: -4.999999999999996, y: -30.0)
+                                ),
+                                startPeriod: 0.8333333333333336,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                ])
+        }
+    }
 }
