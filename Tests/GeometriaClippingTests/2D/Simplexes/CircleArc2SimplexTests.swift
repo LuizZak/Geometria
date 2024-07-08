@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 import TestCommons
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class CircleArc2SimplexTests: XCTestCase {
     typealias Sut = CircleArc2Simplex<Vector2D>

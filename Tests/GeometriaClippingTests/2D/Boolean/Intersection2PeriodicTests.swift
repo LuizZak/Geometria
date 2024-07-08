@@ -2,7 +2,7 @@ import Geometria
 import TestCommons
 import XCTest
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class Intersection2PeriodicTests: XCTestCase {
     func testIntersection_lines_lines() {

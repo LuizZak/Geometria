@@ -2,9 +2,11 @@ import Geometria
 import TestCommons
 import XCTest
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class Simplex2Graph_CreationTests: XCTestCase {
+    #if false // Currently not used in implementations; might remove later
+
     func testCreateFromIntersections() {
         let lhs = LinePolygon2Periodic.makeHexagon()
         let rhs = Circle2Periodic.makeTestCircle(radius: 95.0)
@@ -369,4 +371,6 @@ class Simplex2Graph_CreationTests: XCTestCase {
             ]
         )
     }
+
+    #endif
 }

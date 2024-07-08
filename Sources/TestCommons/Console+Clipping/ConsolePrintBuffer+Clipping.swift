@@ -1,6 +1,6 @@
 import RealModule
 import Geometria
-import GeometriaPeriodics
+import GeometriaClipping
 
 public extension ConsolePrintBuffer {
     func printPeriodics<Geometry: Periodic2Geometry>(

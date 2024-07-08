@@ -2,7 +2,7 @@ import Geometria
 import TestCommons
 import XCTest
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class Subtraction2PeriodicTests: XCTestCase {
     func testSubtraction_lines_lines() {

@@ -1,5 +1,5 @@
 import Geometria
-import GeometriaPeriodics
+import GeometriaClipping
 
 extension Circle2Periodic where Vector == Vector2D {
 

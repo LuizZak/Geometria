@@ -1,6 +1,6 @@
 import MiniP5Printer
 import Geometria
-import GeometriaPeriodics
+import GeometriaClipping
 
 extension LinePolygon2Periodic: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
     public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {

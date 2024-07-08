@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 import TestCommons
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class LineSegment2SimplexTests: XCTestCase {
     typealias Sut = LineSegment2Simplex<Vector2D>

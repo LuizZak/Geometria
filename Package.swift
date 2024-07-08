@@ -21,7 +21,7 @@ let testCommons: Target = .target(
         .product(name: "MiniP5Printer", package: "MiniP5Printer"),
         "Geometria",
         "GeometriaAlgorithms",
-        "GeometriaPeriodics",
+        "GeometriaClipping",
     ]
 )
 
@@ -49,15 +49,15 @@ let geometriaAlgorithmsTestTarget: Target = .testTarget(
     swiftSettings: []
 )
 
-// GeometriaPeriodics
-let geometriaPeriodicsTarget: Target = .target(
-    name: "GeometriaPeriodics",
+// GeometriaClipping
+let geometriaClippingTarget: Target = .target(
+    name: "GeometriaClipping",
     dependencies: geometriaDependencies + ["Geometria", .product(name: "MiniDigraph", package: "MiniDigraph")],
     swiftSettings: []
 )
-let geometriaPeriodicsTestTarget: Target = .testTarget(
-    name: "GeometriaPeriodicsTests",
-    dependencies: geometriaDependencies + ["GeometriaPeriodics", "TestCommons"],
+let geometriaClippingTestTarget: Target = .testTarget(
+    name: "GeometriaClippingTests",
+    dependencies: geometriaDependencies + ["GeometriaClipping", "TestCommons"],
     swiftSettings: []
 )
 
@@ -73,8 +73,8 @@ let package = Package(
             targets: ["GeometriaAlgorithms"]
         ),
         .library(
-            name: "GeometriaPeriodics",
-            targets: ["GeometriaPeriodics"]
+            name: "GeometriaClipping",
+            targets: ["GeometriaClipping"]
         ),
     ],
     dependencies: [
@@ -87,8 +87,8 @@ let package = Package(
         geometriaTestsTarget.applyReportBuildTime(),
         geometriaAlgorithmsTarget.applyReportBuildTime(),
         geometriaAlgorithmsTestTarget.applyReportBuildTime(),
-        geometriaPeriodicsTarget.applyReportBuildTime(),
-        geometriaPeriodicsTestTarget.applyReportBuildTime(),
+        geometriaClippingTarget.applyReportBuildTime(),
+        geometriaClippingTestTarget.applyReportBuildTime(),
         testCommons,
     ]
 )

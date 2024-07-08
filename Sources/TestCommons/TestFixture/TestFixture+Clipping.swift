@@ -1,6 +1,6 @@
 import MiniP5Printer
 import Geometria
-import GeometriaPeriodics
+import GeometriaClipping
 import XCTest
 
 public extension TestFixture {

@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 import TestCommons
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class Periodic2GeometryTests: XCTestCase {
     func testClampedSimplexes_lines() {

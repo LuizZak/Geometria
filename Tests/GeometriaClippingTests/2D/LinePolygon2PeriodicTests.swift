@@ -2,7 +2,7 @@ import Geometria
 import TestCommons
 import XCTest
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class LinePolygon2PeriodicTests: XCTestCase {
     typealias Sut = LinePolygon2Periodic<Vector2D>

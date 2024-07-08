@@ -1,7 +1,7 @@
 import Foundation
 import MiniP5Printer
 import Geometria
-import GeometriaPeriodics
+import GeometriaClipping
 
 extension P5Printer {
     func printPeriodicsSlider() {

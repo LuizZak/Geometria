@@ -2,7 +2,7 @@ import XCTest
 import Geometria
 import TestCommons
 
-@testable import GeometriaPeriodics
+@testable import GeometriaClipping
 
 class Circle2PeriodicTests: XCTestCase {
     typealias Sut = Circle2Periodic<Vector2D>
