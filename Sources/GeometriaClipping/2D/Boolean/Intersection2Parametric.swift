@@ -45,12 +45,14 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         var visited: Set<State> = []
 
         while visited.insert(state).inserted {
+            // Find next intersection
             let next = lookup.next(state)
 
             // Append simplex
             let simplex = lookup.clampedSimplexesRange(state, next)
             result.append(contentsOf: simplex)
 
+            // Flip over to the next geometry
             state = next.flipped()
         }
 

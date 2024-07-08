@@ -134,24 +134,15 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
         var visited: Set<State> = []
 
         while visited.insert(state).inserted {
-            var next = lookup.next(state)
-            let nextSimplexEnd = lookup.nextSimplexEnd(state)
-            var usedIntersection: Bool = true
-
-            if lookup.periodPrecedes(from: state, nextSimplexEnd, next) {
-                next = nextSimplexEnd
-                usedIntersection = false
-            }
+            // Find next intersection
+            let next = lookup.next(state)
 
             // Append simplex
             let simplex = lookup.clampedSimplexesRange(state, next)
             result.append(contentsOf: simplex)
 
-            if usedIntersection {
-                state = next.flipped()
-            } else {
-                state = next
-            }
+            // Flip over to the next geometry
+            state = next.flipped()
         }
 
         // Re-normalize the simplex periods

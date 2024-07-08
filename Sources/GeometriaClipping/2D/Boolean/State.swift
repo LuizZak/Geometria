@@ -59,6 +59,8 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
 
     /// Flips the left-hand/right-handed-ness of this state, without changing its
     /// period values.
+    ///
+    /// Effectively changes the focused geometry from lhs to rhs.
     func flipped() -> Self {
         switch self {
         case .onLhs(let lhs, let rhs):

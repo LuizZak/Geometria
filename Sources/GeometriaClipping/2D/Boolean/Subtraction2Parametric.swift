@@ -74,12 +74,14 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
             var visited: Set<State> = []
 
             while visited.insert(state).inserted {
+                // Find next intersection
                 let next = lookup.next(state)
 
                 // Append simplex
                 let simplex = lookup.clampedSimplexesRange(state, next)
                 result.append(contentsOf: simplex)
 
+                // Flip to the next intersection
                 state = next.flipped()
             }
 
@@ -87,8 +89,10 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
             result = result.normalized(startPeriod: .zero, endPeriod: 1)
             resultOverall.append(result)
 
-            state = lookup.next(state)
-            state = lookup.next(state)
+            // Here we skip twice in order to skip the portion of lhs that is
+            // occluded behind rhs, and land on the next intersection that brings
+            // lhs inside rhs
+            state = lookup.next(lookup.next(state))
         }
 
         return resultOverall
