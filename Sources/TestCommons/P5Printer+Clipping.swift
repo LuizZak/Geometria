@@ -151,7 +151,18 @@ extension P5Printer {
             let arcEnd = this.startAngle + arcEndSweep
             
             noFill()
-            arc(this.center.x, this.center.y, this.radius, this.radius, this.startAngle, arcEnd)
+            const segments = 50;
+            for (let i = 0; i < segments - 1; i++) {
+              let angle = this.startAngle + arcEndSweep * (i / segments)
+              let angleNext = this.startAngle + (arcEndSweep * ((i + 1) / segments))
+              
+              let ca = cos(angle) * this.radius
+              let sa = sin(angle) * this.radius
+              let cn = cos(angleNext) * this.radius
+              let sn = sin(angleNext) * this.radius
+              
+              line(this.center.x + ca, this.center.y + sa, this.center.x + cn, this.center.y + sn)
+            }
             
             if (shouldDrawAnchor) {
               let anchorX = cos(arcEnd) * this.radius
@@ -203,7 +214,7 @@ extension P5Printer {
           \#(vec2PVectorString(simplex.circleArc.center)),
           \#(simplex.circleArc.radius),
           \#(simplex.circleArc.startAngle.normalized(from: .zero)),
-          \#(simplex.circleArc.sweepAngle.normalized(from: .zero)),
+          \#(simplex.circleArc.sweepAngle.radians),
           \#(simplex.startPeriod), \#(simplex.endPeriod),
           \#(periodicStyle2String(style))
         ),

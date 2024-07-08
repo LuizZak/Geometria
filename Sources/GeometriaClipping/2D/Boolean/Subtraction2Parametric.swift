@@ -64,9 +64,9 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
 
         var state = State.onLhs(lhs.startPeriod, rhs.startPeriod)
         if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
-            state = lookup.next(state).flipped()
+            state = lookup.next(state)
         } else {
-            state = lookup.previous(state).flipped()
+            state = lookup.previous(state)
         }
 
         while visitedOverall.insert(state).inserted {

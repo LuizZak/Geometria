@@ -1,5 +1,7 @@
 import Geometria
 
+/// Retains information about intersections and the shapes that produced them to
+/// be used by boolean parametric operators.
 internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry> where T1.Vector == T2.Vector {
     typealias Intersection = (`self`: T1.Period, other: T2.Period)
 
@@ -208,6 +210,13 @@ internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricCli
 extension IntersectionLookup where T1.Vector: Hashable {
     typealias State = GeometriaClipping.State<T1, T2>
 
+    /// Returns the result of clamping simplexes from either the left-hand or
+    /// right-hand side of the intersections defined by `start -> end`, based on
+    /// the handedness of `start`.
+    ///
+    /// The result is the range of simplexes, clamped to be within
+    /// `start.activePeriod..<end.activePeriod`, where `end.activePeriod` mirrors
+    /// the handedness of `state`.
     func clampedSimplexesRange(
         _ start: State,
         _ end: State
@@ -234,12 +243,17 @@ extension IntersectionLookup where T1.Vector: Hashable {
         }
     }
 
+    /// Returns `true` if `lhs` precedes `rhs` when starting from `state`, on
+    /// the shape associated with the handedness of the states.
+    ///
+    /// If any of the states is of a different handedness, `false` is returned,
+    /// instead.
     func periodPrecedes(from start: State, _ lhs: State, _ rhs: State) -> Bool {
         switch (start, lhs, rhs) {
         case (.onLhs(let start, _), .onLhs(let lhs, _), .onLhs(let rhs, _)):
             return selfShape.periodPrecedes(from: start, lhs, rhs)
 
-        case (.onLhs(_, let start), .onRhs(_, let lhs), .onRhs(_, let rhs)):
+        case (.onRhs(_, let start), .onRhs(_, let lhs), .onRhs(_, let rhs)):
             return otherShape.periodPrecedes(from: start, lhs, rhs)
 
         default:
@@ -269,6 +283,13 @@ extension IntersectionLookup where T1.Vector: Hashable {
         }
     }
 
+    /// Returns the immediately next intersection period of the shape associated
+    /// with the handedness of the given state in the intersection list that is
+    /// strictly greater than `state.activePeriod`.
+    ///
+    /// If this intersection lookup is empty, `nil` is returned, instead.
+    ///
+    /// - note: Wraps around the list if no suitable candidate is found.
     func next(_ state: State) -> State {
         switch state {
         case .onLhs(let lhs, _):
@@ -287,6 +308,13 @@ extension IntersectionLookup where T1.Vector: Hashable {
         }
     }
 
+    /// Returns the immediately previous intersection period of the shape associated
+    /// with the handedness of the given state in the intersection list that is
+    /// strictly lesser than `state.activePeriod`.
+    ///
+    /// If this intersection lookup is empty, `nil` is returned, instead.
+    ///
+    /// - note: Wraps around the list if no suitable candidate is found.
     func previous(_ state: State) -> State {
         switch state {
         case .onLhs(let lhs, _):

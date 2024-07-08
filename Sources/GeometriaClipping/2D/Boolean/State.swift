@@ -7,9 +7,15 @@ import Geometria
 /// and each case indicates which geometry to follow in subsequent
 /// `IntersectionLookup.next()`/`.previous()` calls.
 enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable where T1.Period == T2.Period {
+    /// The current intersection point is being examined on the left-hand side
+    /// geometry.
     case onLhs(T1.Period, T2.Period)
+
+    /// The current intersection point is being examined on the right-hand side
+    /// geometry.
     case onRhs(T1.Period, T2.Period)
 
+    /// Returns `true` if `self` is a `onLhs` case.
     var isLhs: Bool {
         switch self {
         case .onLhs: return true
@@ -17,6 +23,7 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Returns `true` if `self` is a `onRhs` case.
     var isRhs: Bool {
         switch self {
         case .onLhs: return false
@@ -24,6 +31,8 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Returns the active period, depending on whether this state is on the
+    /// left-hand side or right-hand side of the state period.
     var activePeriod: T1.Period {
         switch self {
         case .onLhs(let period, _),
@@ -32,6 +41,7 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Returns the left-hand side period of this state.
     var lhsPeriod: T1.Period {
         switch self {
         case .onLhs(let lhs, _), .onRhs(let lhs, _):
@@ -39,6 +49,7 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Returns the right-hand side period of this state.
     var rhsPeriod: T1.Period {
         switch self {
         case .onLhs(_, let rhs), .onRhs(_, let rhs):
@@ -46,6 +57,8 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Flips the left-hand/right-handed-ness of this state, without changing its
+    /// period values.
     func flipped() -> Self {
         switch self {
         case .onLhs(let lhs, let rhs):
@@ -56,6 +69,10 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Hashes the contents of this state.
+    ///
+    /// - note: Only hashes the contents of the active period, along with a
+    /// discriminator for the handedness of the enumeration.
     func hash(into hasher: inout Hasher) {
         switch self {
         case .onLhs(let value, _):
@@ -68,6 +85,10 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
         }
     }
 
+    /// Equates the contents of two State values.
+    ///
+    /// - note: Only compares the contents of the active period of each state.
+    /// If the states are pointing to different handednesses, returns `false`.
     static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs.isLhs, rhs.isLhs) {
         case (true, true):
