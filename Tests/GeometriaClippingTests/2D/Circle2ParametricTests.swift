@@ -4,8 +4,8 @@ import TestCommons
 
 @testable import GeometriaClipping
 
-class Circle2PeriodicTests: XCTestCase {
-    typealias Sut = Circle2Periodic<Vector2D>
+class Circle2ParametricTests: XCTestCase {
+    typealias Sut = Circle2Parametric<Vector2D>
 
     func testEphemeral() {
         let sut = Sut(

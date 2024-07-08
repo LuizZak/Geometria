@@ -4,8 +4,8 @@ import XCTest
 
 @testable import GeometriaClipping
 
-class LinePolygon2PeriodicTests: XCTestCase {
-    typealias Sut = LinePolygon2Periodic<Vector2D>
+class LinePolygon2ParametricTests: XCTestCase {
+    typealias Sut = LinePolygon2Parametric<Vector2D>
 
     func testEphemeral() {
         let sut = Sut.makeStar()

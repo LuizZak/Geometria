@@ -1,7 +1,7 @@
 import Geometria
 
 extension Simplex2Graph {
-    static func fromPeriodicIntersections<T1: Periodic2Geometry, T2: Periodic2Geometry>(
+    static func fromParametricIntersections<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ lhs: T1,
         _ rhs: T2,
         intersections: [(`self`: T1.Period, other: T2.Period)]
@@ -31,7 +31,7 @@ extension Simplex2Graph {
             return node
         }
         func addSimplexEdge(
-            _ simplex: Periodic2GeometrySimplex<Vector>,
+            _ simplex: Parametric2GeometrySimplex<Vector>,
             from start: Simplex2Graph<Vector>.Node,
             to end: Simplex2Graph<Vector>.Node
         ) {
@@ -56,13 +56,13 @@ extension Simplex2Graph {
                 )
             }
         }
-        func register(_ simplex: Periodic2GeometrySimplex<Vector>, onLhs: Bool) {
+        func register(_ simplex: Parametric2GeometrySimplex<Vector>, onLhs: Bool) {
             let start = getOrCreateGeometry(simplex.start, onLhs: onLhs)
             let end = getOrCreateGeometry(simplex.end, onLhs: onLhs)
 
             addSimplexEdge(simplex, from: start, to: end)
         }
-        func register<T: Periodic2Geometry>(
+        func register<T: ParametricClip2Geometry>(
             _ intersection: T.Period,
             _ node: Node,
             _ shape: T,

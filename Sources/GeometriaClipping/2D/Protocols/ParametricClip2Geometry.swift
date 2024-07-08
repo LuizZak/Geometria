@@ -1,17 +1,17 @@
 import Geometria
 
-/// A 2-dimensional periodic geometry that produces lines and circular arcs as
-/// periodic simplexes.
-public protocol Periodic2Geometry: PeriodicGeometry {
-    /// The type of vectors used to represent geometry within this periodic
+/// A 2-dimensional parametric geometry that produces lines and circular arcs as
+/// parametric simplexes.
+public protocol ParametricClip2Geometry: ParametricClipGeometry {
+    /// The type of vectors used to represent geometry within this parametric
     /// geometry.
     associatedtype Vector: Vector2Real
 
     typealias Scalar = Vector.Scalar
     typealias Period = Vector.Scalar
 
-    /// The simplex type produced by this periodic geometry.
-    typealias Simplex = Periodic2GeometrySimplex<Vector>
+    /// The simplex type produced by this parametric geometry.
+    typealias Simplex = Parametric2GeometrySimplex<Vector>
 
     /// The inclusive lower bound period within this geometry.
     var startPeriod: Period { get }
@@ -22,10 +22,10 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     /// This value is not part of the addressable period range.
     var endPeriod: Period { get }
 
-    /// Performs a point-containment check against this periodic geometry.
+    /// Performs a point-containment check against this parametric geometry.
     func contains(_ point: Vector) -> Bool
 
-    /// Computes the point on this periodic geometry matching a given period.
+    /// Computes the point on this parametric geometry matching a given period.
     func compute(at period: Period) -> Vector
 
     /// Returns `true` if the given periods have a precedence of `lhs < rhs`.
@@ -40,21 +40,21 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     /// before the comparison.
     func periodPrecedes(from start: Period, _ lhs: Period, _ rhs: Period) -> Bool
 
-    /// Performs a point-surface check against this periodic geometry, up to a
+    /// Performs a point-surface check against this parametric geometry, up to a
     /// given squared tolerance value.
     func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool
 
-    /// Fetches all simplexes that form this 2-dimensional periodic geometry,
+    /// Fetches all simplexes that form this 2-dimensional parametric geometry,
     /// ordered by their relative period within the geometry.
     func allSimplexes() -> [Simplex]
 
     /// Fetches all simplexes that overlap a given half-open range within this
-    /// 2-dimensional periodic geometry, ordered by their relative period within
+    /// 2-dimensional parametric geometry, ordered by their relative period within
     /// the geometry.
     func allSimplexes(overlapping range: Range<Period>) -> [Simplex]
 
     /// Fetches all simplexes, clamped to be within a given given half-open range
-    /// within this 2-dimensional periodic geometry, ordered by their relative
+    /// within this 2-dimensional parametric geometry, ordered by their relative
     /// period within the geometry.
     ///
     /// The clamping process preserves relative positioning of points within the
@@ -66,13 +66,13 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     /// returned, instead.
     func clampedSimplexes(in range: Range<Period>) -> [Simplex]
 
-    /// Returns the reverse of this periodic geometry by inverting the order
+    /// Returns the reverse of this parametric geometry by inverting the order
     /// and direction of each of its simplexes, while maintaining `self.startPeriod`
     /// and `self.endPeriod`.
     func reversed() -> Self
 }
 
-extension Periodic2Geometry {
+extension ParametricClip2Geometry {
     var periodRange: Period {
         endPeriod - startPeriod
     }
@@ -139,7 +139,7 @@ extension Periodic2Geometry {
     }
 }
 
-public extension Periodic2Geometry {
+public extension ParametricClip2Geometry {
     /// Returns all unique intersection periods between `self` and `other`.
     /// The resulting array of periods is guaranteed to not contain the same
     /// period value twice for all `tuple.self` and for all `tuple.other`,
@@ -148,7 +148,7 @@ public extension Periodic2Geometry {
     /// If two intersections have a difference smaller than `tolerance`, the
     /// two intersections are elided from the result. Passing `.infinity` to
     /// `tolerance` disables this behavior.
-    func allIntersectionPeriods<T: Periodic2Geometry>(
+    func allIntersectionPeriods<T: ParametricClip2Geometry>(
         _ other: T,
         tolerance: Scalar = Scalar.leastNonzeroMagnitude
     ) -> [(`self`: Period, other: Period)] where T.Vector == Vector {

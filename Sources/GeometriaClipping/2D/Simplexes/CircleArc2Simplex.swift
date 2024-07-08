@@ -1,7 +1,7 @@
 import Geometria
 
 /// A 2-dimensional simplex composed of a circular arc segment.
-public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatable {
+public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equatable {
     public typealias Scalar = Vector.Scalar
 
     /// The circular arc segment associated with this simplex.

@@ -4,11 +4,11 @@ import XCTest
 
 @testable import GeometriaClipping
 
-class Subtraction2PeriodicTests: XCTestCase {
+class Subtraction2ParametricTests: XCTestCase {
     func testSubtraction_lines_lines() {
-        let lhs = LinePolygon2Periodic.makeStar()
-        let rhs = LinePolygon2Periodic.makeHexagon(radius: 80.0)
-        let sut = Subtraction2Periodic(lhs, rhs)
+        let lhs = LinePolygon2Parametric.makeStar()
+        let rhs = LinePolygon2Parametric.makeHexagon(radius: 80.0)
+        let sut = Subtraction2Parametric(lhs, rhs)
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
@@ -228,10 +228,10 @@ class Subtraction2PeriodicTests: XCTestCase {
     }
 
     func testSubtraction_lines_arcs() {
-        let lhs = LinePolygon2Periodic.makeHexagon()
-        let rhs = Circle2Periodic.makeTestCircle(radius: 95)
+        let lhs = LinePolygon2Parametric.makeHexagon()
+        let rhs = Circle2Parametric.makeTestCircle(radius: 95)
 
-        let sut = Subtraction2Periodic(lhs, rhs)
+        let sut = Subtraction2Parametric(lhs, rhs)
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)

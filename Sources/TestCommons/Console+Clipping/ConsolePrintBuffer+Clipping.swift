@@ -3,7 +3,7 @@ import Geometria
 import GeometriaClipping
 
 public extension ConsolePrintBuffer {
-    func printPeriodics<Geometry: Periodic2Geometry>(
+    func printPeriodics<Geometry: ParametricClip2Geometry>(
         _ periodics: [Geometry],
         translation: Vector2D = .zero,
         scale: Vector2D = .one
@@ -23,7 +23,7 @@ public extension ConsolePrintBuffer {
     }
 
     func printSimplexes(
-        _ simplexes: [Periodic2GeometrySimplex<Vector2D>],
+        _ simplexes: [Parametric2GeometrySimplex<Vector2D>],
         translation: Vector2D = .zero,
         scale: Vector2D = .one
     ) {
@@ -35,7 +35,7 @@ public extension ConsolePrintBuffer {
                 start: point,
                 end: Vector2D(x: bounds.right + 10, y: point.y)
             )
-            let testLine = Periodic2GeometrySimplex.lineSegment2(
+            let testLine = Parametric2GeometrySimplex.lineSegment2(
                 .init(lineSegment: lineSegment, startPeriod: 0.0, endPeriod: 1.0)
             )
 
@@ -52,7 +52,7 @@ public extension ConsolePrintBuffer {
     }
 
     func printSimplexesList(
-        _ simplexes: [[Periodic2GeometrySimplex<Vector2D>]],
+        _ simplexes: [[Parametric2GeometrySimplex<Vector2D>]],
         translation: Vector2D = .zero,
         scale: Vector2D = .one
     ) {
@@ -70,7 +70,7 @@ public extension ConsolePrintBuffer {
                     start: point,
                     end: Vector2D(x: bounds.right + 10, y: point.y)
                 )
-                let testLine = Periodic2GeometrySimplex.lineSegment2(
+                let testLine = Parametric2GeometrySimplex.lineSegment2(
                     .init(lineSegment: lineSegment, startPeriod: 0.0, endPeriod: 1.0)
                 )
 

@@ -1,18 +1,18 @@
 import Geometria
 
-/// A 2-dimensional periodic shape that is composed of generic simplexes that
+/// A 2-dimensional parametric shape that is composed of generic simplexes that
 /// are joined end-to-end in a loop.
-public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
+public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry {
     public typealias Scalar = Vector.Scalar
-    public typealias Simplex = Periodic2GeometrySimplex<Vector>
+    public typealias Simplex = Parametric2GeometrySimplex<Vector>
 
-    /// The list of simplexes that compose this compound periodic.
+    /// The list of simplexes that compose this compound parametric.
     public var simplexes: [Simplex]
 
     public var startPeriod: Period
     public var endPeriod: Period
 
-    /// Initializes a new compound periodic with a given list of simplexes, using
+    /// Initializes a new compound parametric with a given list of simplexes, using
     /// the start period of the first simplex and the end period of the last
     /// simplex as the start and end periods for the geometry.
     public init(simplexes: [Simplex]) {
@@ -23,7 +23,7 @@ public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
         )
     }
 
-    /// Initializes a new compound periodic with a given list of simplexes, first
+    /// Initializes a new compound parametric with a given list of simplexes, first
     /// normalizing their period intervals so they lie in the range
     /// `(0, 1]`.
     public init(
@@ -36,7 +36,7 @@ public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
         )
     }
 
-    /// Initializes a new compound periodic with a given list of simplexes, first
+    /// Initializes a new compound parametric with a given list of simplexes, first
     /// normalizing their period intervals so they lie in the range
     /// `(startPeriod, endPeriod]`.
     public init(
@@ -54,7 +54,7 @@ public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
         )
     }
 
-    /// Initializes a new compound periodic with a given list of simplexes and
+    /// Initializes a new compound parametric with a given list of simplexes and
     /// a pre-defined start/end period range.
     ///
     /// - note: The period of the contained simplexes is not modified and is
@@ -80,7 +80,7 @@ public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
             start: point,
             end: .init(x: bounds.right + 10, y: point.y)
         )
-        let lineSimplex = Periodic2GeometrySimplex.lineSegment2(
+        let lineSimplex = Parametric2GeometrySimplex.lineSegment2(
             .init(lineSegment: lineSegment, startPeriod: .zero, endPeriod: 1)
         )
 
@@ -113,7 +113,7 @@ public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
         simplexes
     }
 
-    public func reversed() -> Compound2Periodic<Vector> {
+    public func reversed() -> Compound2Parametric<Vector> {
         let simplexes = self.simplexes
             .map({ $0.reversed() })
             .reversed()

@@ -1,7 +1,7 @@
 import Geometria
 import GeometriaClipping
 
-extension Circle2Periodic where Vector == Vector2D {
+extension Circle2Parametric where Vector == Vector2D {
 
     private static func makeSut(
         _ center: Vector2D,

@@ -8,8 +8,8 @@ class Simplex2Graph_CreationTests: XCTestCase {
     #if false // Currently not used in implementations; might remove later
 
     func testCreateFromIntersections() {
-        let lhs = LinePolygon2Periodic.makeHexagon()
-        let rhs = Circle2Periodic.makeTestCircle(radius: 95.0)
+        let lhs = LinePolygon2Parametric.makeHexagon()
+        let rhs = Circle2Parametric.makeTestCircle(radius: 95.0)
         let intersections = lhs.allIntersectionPeriods(rhs)
 
         let sut = Simplex2Graph.fromPeriodicIntersections(lhs, rhs, intersections: intersections)

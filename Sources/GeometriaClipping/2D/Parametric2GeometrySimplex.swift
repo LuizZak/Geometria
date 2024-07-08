@@ -1,7 +1,7 @@
 import Geometria
 
-/// The periodic simplex type produced by a `Periodic2Geometry`.
-public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equatable {
+/// The parametric simplex type produced by a `ParametricClip2Geometry`.
+public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex, Equatable {
     public typealias Scalar = Vector.Scalar
 
     /// A circular arc simplex.
@@ -248,7 +248,7 @@ extension Collection {
     /// Computes the minimal bounding box capable of containing this collection
     /// of simplexes.
     @inlinable
-    func bounds<Vector>() -> AABB2<Vector> where Element == Periodic2GeometrySimplex<Vector> {
+    func bounds<Vector>() -> AABB2<Vector> where Element == Parametric2GeometrySimplex<Vector> {
         return AABB2(aabbs: self.map(\.bounds))
     }
 
@@ -256,7 +256,7 @@ extension Collection {
     /// of the simplexes have a sequential value within the given start and end
     /// periods, relative to each simplex's length.
     @inlinable
-    func normalized<Vector>(startPeriod: Vector.Scalar, endPeriod: Vector.Scalar) -> [Element] where Element == Periodic2GeometrySimplex<Vector> {
+    func normalized<Vector>(startPeriod: Vector.Scalar, endPeriod: Vector.Scalar) -> [Element] where Element == Parametric2GeometrySimplex<Vector> {
         typealias Scalar = Vector.Scalar
 
         let perimeterSequence = self.map { simplex in

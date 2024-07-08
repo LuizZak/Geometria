@@ -177,14 +177,14 @@ extension P5Printer {
         """#)
     }
 
-    func add<Periodic: Periodic2Geometry>(_ periodic: Periodic, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
+    func add<Periodic: ParametricClip2Geometry>(_ periodic: Periodic, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
         periodicsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
         for simplex in periodic.allSimplexes() {
             add(simplex, style: style, file: file, line: line)
         }
     }
 
-    func add<Vector: Vector2Type>(_ simplex: Periodic2GeometrySimplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: Parametric2GeometrySimplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         switch simplex {
         case .lineSegment2(let lineSegment):
             add(lineSegment, style: style, file: file, line: line)
@@ -224,7 +224,7 @@ extension P5Printer {
         """#)
     }
 
-    func add<Periodic: Periodic2Geometry>(_ periodic: Periodic, intersectionAt period: Periodic.Period, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
+    func add<Periodic: ParametricClip2Geometry>(_ periodic: Periodic, intersectionAt period: Periodic.Period, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
         requiresPeriodicTypes = true
         requiresPeriodSlider = true
 

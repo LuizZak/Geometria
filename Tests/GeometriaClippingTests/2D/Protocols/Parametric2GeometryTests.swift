@@ -4,9 +4,9 @@ import TestCommons
 
 @testable import GeometriaClipping
 
-class Periodic2GeometryTests: XCTestCase {
+class Parametric2GeometryTests: XCTestCase {
     func testClampedSimplexes_lines() {
-        let sut = LinePolygon2Periodic.makeStar()
+        let sut = LinePolygon2Parametric.makeStar()
 
         let result = sut.clampedSimplexes(in: 0.3..<0.73)
 
@@ -59,8 +59,8 @@ class Periodic2GeometryTests: XCTestCase {
     }
 
     func testAllIntersectionPeriods_lines_lines() {
-        let lhs = LinePolygon2Periodic.makeStar()
-        let rhs = LinePolygon2Periodic.makeHexagon()
+        let lhs = LinePolygon2Parametric.makeStar()
+        let rhs = LinePolygon2Parametric.makeHexagon()
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)
@@ -78,8 +78,8 @@ class Periodic2GeometryTests: XCTestCase {
     }
 
     func testAllIntersectionPeriods_lines_arcs() {
-        let lhs = LinePolygon2Periodic.makeStar()
-        let rhs = Circle2Periodic.makeTestCircle(radius: 80.0)
+        let lhs = LinePolygon2Parametric.makeStar()
+        let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)
@@ -99,8 +99,8 @@ class Periodic2GeometryTests: XCTestCase {
     }
 
     func testAllIntersectionPeriods_lines_arcs_vertexIntersections() {
-        let lhs = LinePolygon2Periodic.makeStar()
-        let rhs = Circle2Periodic.makeTestCircle()
+        let lhs = LinePolygon2Parametric.makeStar()
+        let rhs = Circle2Parametric.makeTestCircle()
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)
@@ -111,8 +111,8 @@ class Periodic2GeometryTests: XCTestCase {
     }
 
     func testAllIntersectionPeriods_lines_arcs_vertexIntersections_withTolerance() {
-        let lhs = LinePolygon2Periodic.makeStar()
-        let rhs = Circle2Periodic.makeTestCircle()
+        let lhs = LinePolygon2Parametric.makeStar()
+        let rhs = Circle2Parametric.makeTestCircle()
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)
@@ -122,8 +122,8 @@ class Periodic2GeometryTests: XCTestCase {
     }
 
     func testAllIntersectionPeriods_lines_arcs_vertexIntersections_infiniteTolerance() {
-        let lhs = LinePolygon2Periodic.makeStar()
-        let rhs = Circle2Periodic.makeTestCircle()
+        let lhs = LinePolygon2Parametric.makeStar()
+        let rhs = Circle2Parametric.makeTestCircle()
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)

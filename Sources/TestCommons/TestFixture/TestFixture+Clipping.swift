@@ -5,7 +5,7 @@ import XCTest
 
 public extension TestFixture {
     /// - note: Adds only the intersections, and not the geometries themselves.
-    func add<T1: Periodic2Geometry, T2: Periodic2Geometry>(
+    func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
         intersections: [(`self`: T1.Period, `other`: T2.Period)],
@@ -19,7 +19,7 @@ public extension TestFixture {
     }
 
     /// - note: Adds only the intersections, and not the geometries themselves.
-    func add<T1: Periodic2Geometry, T2: Periodic2Geometry>(
+    func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
         intersection: (`self`: T1.Period, `other`: T2.Period),
@@ -32,7 +32,7 @@ public extension TestFixture {
     }
 
     /// - note: Adds only the intersections, and not the geometries themselves.
-    func add<T: Periodic2Geometry>(
+    func add<T: ParametricClip2Geometry>(
         _ geometry: T,
         intersectionAt: T.Period,
         style: P5Printer.Style? = nil,
@@ -43,7 +43,7 @@ public extension TestFixture {
     }
 }
 
-public extension TestFixture.AssertionWrapperBase where T: Periodic2Geometry, T.Scalar: CustomStringConvertible {
+public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geometry, T.Scalar: CustomStringConvertible {
     @discardableResult
     func assertContains(
         _ point: T.Vector,
@@ -101,7 +101,7 @@ public extension TestFixture.AssertionWrapperBase where T: Periodic2Geometry, T.
         }
     }
 
-    func assertIntersections<T2: Periodic2Geometry>(
+    func assertIntersections<T2: ParametricClip2Geometry>(
         _ other: T2,
         tolerance: T.Period = T.Period.leastNonzeroMagnitude,
         _ expected: [(`self`: T.Period, `other`: T2.Period)],
@@ -126,7 +126,7 @@ public extension TestFixture.AssertionWrapperBase where T: Periodic2Geometry, T.
     }
 }
 
-public extension TestFixture.AssertionWrapperBase where T: Boolean2Periodic, T.Scalar: CustomStringConvertible {
+public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T.Scalar: CustomStringConvertible {
     func assertAllSimplexes(
         _ expected: [[T.Simplex]],
         file: StaticString = #file,

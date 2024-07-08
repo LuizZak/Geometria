@@ -1,14 +1,14 @@
 import Geometria
 
-/// A periodic geometry that is defined by an underlying set of vertices from a
+/// A parametric geometry that is defined by an underlying set of vertices from a
 /// ``LinePolygon2`` shape.
-public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable {
+public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
     public typealias Scalar = Vector.Scalar
-    public typealias Simplex = Periodic2GeometrySimplex<Vector>
+    public typealias Simplex = Parametric2GeometrySimplex<Vector>
 
     private var _cachedSimplexes: [Simplex]
 
-    /// The underlying line polygon shape that comprises this periodic geometry.
+    /// The underlying line polygon shape that comprises this parametric geometry.
     public var linePolygon2: LinePolygon2<Vector> {
         didSet {
             _cachedSimplexes =
@@ -92,7 +92,7 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equa
         return result
     }
 
-    public func reversed() -> LinePolygon2Periodic<Vector> {
+    public func reversed() -> LinePolygon2Parametric<Vector> {
         let polygon = linePolygon2.reversed()
 
         return .init(

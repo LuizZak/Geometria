@@ -1,24 +1,24 @@
 import Geometria
 
 /// Protocol for types that describe 2-dimensional simplexes produced by 2-dimensional
-/// periodic geometry.
-public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
-    /// The type of period that is used to represent this periodic simplex's
-    /// period range in its parent periodic geometry.
+/// parametric geometry.
+public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type {
+    /// The type of period that is used to represent this parametric simplex's
+    /// period range in its parent parametric geometry.
     typealias Period = Vector.Scalar
 
     /// Gets the starting point of this simplex.
     var start: Vector { get }
 
     /// Gets the inclusive start period of this simplex within its parent
-    /// 2-dimensional periodic geometry.
+    /// 2-dimensional parametric geometry.
     var startPeriod: Period { get }
 
     /// Gets the ending point of this simplex.
     var end: Vector { get }
 
     /// Gets the exclusive end period of this simplex within its parent
-    /// 2-dimensional periodic geometry.
+    /// 2-dimensional parametric geometry.
     var endPeriod: Period { get }
 
     /// Gets the bounding box for this simplex.
@@ -42,7 +42,7 @@ public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
     func reversed() -> Self
 }
 
-extension Periodic2Simplex {
+extension Parametric2Simplex {
     /// Constructs `startPeriod..<endPeriod`
     public var periodRange: Range<Period> {
         startPeriod..<endPeriod

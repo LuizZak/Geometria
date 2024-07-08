@@ -4,8 +4,8 @@ import TestCommons
 
 @testable import GeometriaClipping
 
-class Compound2PeriodicTests: XCTestCase {
-    typealias Sut = Compound2Periodic<Vector2D>
+class Compound2ParametricTests: XCTestCase {
+    typealias Sut = Compound2Parametric<Vector2D>
 
     func testContains_onSimplexVertex() {
         let sut = makeSut(lines: [
@@ -28,9 +28,9 @@ class Compound2PeriodicTests: XCTestCase {
 
 private func makeSut(
     lines: [LineSegment2D]
-) -> Compound2PeriodicTests.Sut {
+) -> Compound2ParametricTests.Sut {
     let simplexes = lines.map { line in
-        Periodic2GeometrySimplex.lineSegment2(
+        Parametric2GeometrySimplex.lineSegment2(
             .init(lineSegment: line, startPeriod: 0, endPeriod: 0)
         )
     }
@@ -39,7 +39,7 @@ private func makeSut(
 }
 
 private func makeSut(
-    normalizing simplexes: [Periodic2GeometrySimplex<Vector2D>]
-) -> Compound2PeriodicTests.Sut {
+    normalizing simplexes: [Parametric2GeometrySimplex<Vector2D>]
+) -> Compound2ParametricTests.Sut {
     .init(normalizing: simplexes)
 }

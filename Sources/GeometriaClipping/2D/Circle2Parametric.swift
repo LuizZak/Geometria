@@ -1,11 +1,11 @@
 import Geometria
 
-/// A periodic geometry that is defined by a ``Circle2`` shape.
-public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable {
+/// A parametric geometry that is defined by a ``Circle2`` shape.
+public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
     public typealias Scalar = Vector.Scalar
-    public typealias Simplex = Periodic2GeometrySimplex<Vector>
+    public typealias Simplex = Parametric2GeometrySimplex<Vector>
 
-    /// The underlying circle shape that comprises this periodic geometry.
+    /// The underlying circle shape that comprises this parametric geometry.
     public var circle2: Circle2<Vector>
     var isReversed: Bool = false
 
@@ -82,7 +82,7 @@ public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable
         return simplexes
     }
 
-    public func reversed() -> Circle2Periodic<Vector> {
+    public func reversed() -> Circle2Parametric<Vector> {
         var copy = self
         copy.isReversed = !isReversed
         return copy

@@ -1,7 +1,7 @@
 import Geometria
 import GeometriaClipping
 
-extension LinePolygon2Periodic where Vector == Vector2D {
+extension LinePolygon2Parametric where Vector == Vector2D {
 
     private static func makeSut(
         _ vertices: [Vector2D],

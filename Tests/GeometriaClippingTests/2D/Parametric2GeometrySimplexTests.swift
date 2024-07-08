@@ -4,8 +4,8 @@ import TestCommons
 
 @testable import GeometriaClipping
 
-class Periodic2GeometrySimplexTests: XCTestCase {
-    typealias Sut = Periodic2GeometrySimplex<Vector2D>
+class Parametric2GeometrySimplexTests: XCTestCase {
+    typealias Sut = Parametric2GeometrySimplex<Vector2D>
 
     func testIntersectionPeriods_line_line() {
         let line1 = makeLine(
@@ -138,7 +138,7 @@ private func makeLine(
     end: Vector2D,
     startPeriod: Double = 0.0,
     endPeriod: Double = 1.0
-) -> Periodic2GeometrySimplexTests.Sut {
+) -> Parametric2GeometrySimplexTests.Sut {
     let lineSegment2 = LineSegment2(
         start: start,
         end: end
@@ -160,7 +160,7 @@ private func makeCircleArc(
     sweepAngle: Double,
     startPeriod: Double = 0.0,
     endPeriod: Double = 1.0
-) -> Periodic2GeometrySimplexTests.Sut {
+) -> Parametric2GeometrySimplexTests.Sut {
     let circleArc2 = CircleArc2(
         center: center,
         radius: radius,
@@ -177,7 +177,7 @@ private func makeCircleArc(
     )
 }
 
-private extension TestFixture.AssertionWrapperBase where T == Periodic2GeometrySimplexTests.Sut {
+private extension TestFixture.AssertionWrapperBase where T == Parametric2GeometrySimplexTests.Sut {
     func assertIntersectionPeriods(
         _ other: T,
         _ expected: [(`self`: Double, other: Double)],

@@ -1,6 +1,6 @@
 import Geometria
 
-internal class IntersectionLookup<T1: Periodic2Geometry, T2: Periodic2Geometry> where T1.Vector == T2.Vector {
+internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry> where T1.Vector == T2.Vector {
     typealias Intersection = (`self`: T1.Period, other: T2.Period)
 
     private let selfSimplexes: [T1.Simplex]
@@ -202,5 +202,106 @@ internal class IntersectionLookup<T1: Periodic2Geometry, T2: Periodic2Geometry> 
             self: intersection.`self` - selfShape.periodRange,
             other: intersection.other - otherShape.periodRange
         )
+    }
+}
+
+extension IntersectionLookup where T1.Vector: Hashable {
+    typealias State = GeometriaClipping.State<T1, T2>
+
+    func clampedSimplexesRange(
+        _ start: State,
+        _ end: State
+    ) -> [T1.Simplex] {
+
+        switch start {
+        case .onLhs(let lhsPeriod, _):
+            // If start > end, clamp as two ranges that cross the origin instead
+            if lhsPeriod > end.lhsPeriod {
+                return selfShape.clampedSimplexes(in: lhsPeriod..<selfShape.endPeriod)
+                    + selfShape.clampedSimplexes(in: selfShape.startPeriod..<end.lhsPeriod)
+            }
+
+            return selfShape.clampedSimplexes(in: lhsPeriod..<end.lhsPeriod)
+
+        case .onRhs(_, let rhsPeriod):
+            // Ditto here
+            if rhsPeriod > end.rhsPeriod {
+                return otherShape.clampedSimplexes(in: rhsPeriod..<otherShape.endPeriod)
+                    + otherShape.clampedSimplexes(in: otherShape.startPeriod..<end.rhsPeriod)
+            }
+
+            return otherShape.clampedSimplexes(in: rhsPeriod..<end.rhsPeriod)
+        }
+    }
+
+    func periodPrecedes(from start: State, _ lhs: State, _ rhs: State) -> Bool {
+        switch (start, lhs, rhs) {
+        case (.onLhs(let start, _), .onLhs(let lhs, _), .onLhs(let rhs, _)):
+            return selfShape.periodPrecedes(from: start, lhs, rhs)
+
+        case (.onLhs(_, let start), .onRhs(_, let lhs), .onRhs(_, let rhs)):
+            return otherShape.periodPrecedes(from: start, lhs, rhs)
+
+        default:
+            return false
+        }
+    }
+
+    /// - note: Calling `flip` with the result of this method may lead to the
+    /// incorrect period on the flipped state; calling `next(state)` collapses
+    /// the invalid secondary period back to a valid period that can be flipped
+    /// to again.
+    func nextSimplexEnd(_ state: State) -> State {
+        switch state {
+        case .onLhs(let lhs, let rhs):
+            guard let simplex = nextSimplexEnd(onSelf: lhs) else {
+                return state
+            }
+
+            return .onLhs(simplex.endPeriod, rhs)
+
+        case .onRhs(let lhs, let rhs):
+            guard let simplex = nextSimplexEnd(onOther: rhs) else {
+                return state
+            }
+
+            return .onRhs(lhs, simplex.endPeriod)
+        }
+    }
+
+    func next(_ state: State) -> State {
+        switch state {
+        case .onLhs(let lhs, _):
+            guard let intersection = next(onSelf: lhs) else {
+                return state
+            }
+
+            return .onLhs(intersection.`self`, intersection.other)
+
+        case .onRhs(_, let rhs):
+            guard let intersection = next(onOther: rhs) else {
+                return state
+            }
+
+            return .onRhs(intersection.`self`, intersection.other)
+        }
+    }
+
+    func previous(_ state: State) -> State {
+        switch state {
+        case .onLhs(let lhs, _):
+            guard let intersection = previous(onSelf: lhs) else {
+                return state
+            }
+
+            return .onLhs(intersection.`self`, intersection.other)
+
+        case .onRhs(_, let rhs):
+            guard let intersection = previous(onOther: rhs) else {
+                return state
+            }
+
+            return .onRhs(intersection.`self`, intersection.other)
+        }
     }
 }
