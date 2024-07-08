@@ -80,7 +80,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
         .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
-        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.5.0")),
+        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.5.1")),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),
