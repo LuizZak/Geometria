@@ -7,6 +7,7 @@ public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable
 
     /// The underlying circle shape that comprises this periodic geometry.
     public var circle2: Circle2<Vector>
+    var isReversed: Bool = false
 
     public var startPeriod: Period
     public var endPeriod: Period
@@ -46,16 +47,30 @@ public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable
     }
 
     public func allSimplexes() -> [Simplex] {
-        let arc1 = circle2.arc(
-            startAngle: .zero,
-            sweepAngle: .pi
-        )
-        let arc2 = circle2.arc(
-            startAngle: .pi,
-            sweepAngle: .pi
-        )
+        var arc1: CircleArc2<Vector>
+        var arc2: CircleArc2<Vector>
 
-        return [
+        if isReversed {
+            arc1 = circle2.arc(
+                startAngle: .pi * 2,
+                sweepAngle: -.pi
+            )
+            arc2 = circle2.arc(
+                startAngle: .pi,
+                sweepAngle: -.pi
+            )
+        } else {
+            arc1 = circle2.arc(
+                startAngle: .zero,
+                sweepAngle: .pi
+            )
+            arc2 = circle2.arc(
+                startAngle: .pi,
+                sweepAngle: .pi
+            )
+        }
+
+        let simplexes: [Simplex] = [
             .circleArc2(
                 .init(circleArc: arc1, startPeriod: 0, endPeriod: 1 / 2)
             ),
@@ -63,5 +78,13 @@ public struct Circle2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equatable
                 .init(circleArc: arc2, startPeriod: 1 / 2, endPeriod: 1)
             ),
         ]
+
+        return simplexes
+    }
+
+    public func reversed() -> Circle2Periodic<Vector> {
+        var copy = self
+        copy.isReversed = !isReversed
+        return copy
     }
 }

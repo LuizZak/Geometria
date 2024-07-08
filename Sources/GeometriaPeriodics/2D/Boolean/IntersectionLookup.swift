@@ -108,6 +108,32 @@ internal class IntersectionLookup<T1: Periodic2Geometry, T2: Periodic2Geometry> 
         return otherSimplexes[index]
     }
 
+    /// Returns the previous simplex that start before the given period point.
+    ///
+    /// If `selfShape` has no simplexes, `nil` is returned, instead.
+    func previousSimplexStart(onSelf period: T1.Period) -> T1.Simplex? {
+        guard let index = selfSimplexes.lastIndex(where: {
+            selfShape.periodPrecedes($0.startPeriod, period)
+        }) else {
+            return selfSimplexes.last
+        }
+
+        return selfSimplexes[index]
+    }
+
+    /// Returns the previous simplex that start before the given period point.
+    ///
+    /// If `otherShape` has no simplexes, `nil` is returned, instead.
+    func previousSimplexStart(onOther period: T1.Period) -> T1.Simplex? {
+        guard let index = otherSimplexes.lastIndex(where: {
+            otherShape.periodPrecedes($0.startPeriod, period)
+        }) else {
+            return otherSimplexes.last
+        }
+
+        return otherSimplexes[index]
+    }
+
     /// Returns the immediately next intersection period of the `self` shape
     /// in the intersection list that is strictly greater than `period`.
     ///

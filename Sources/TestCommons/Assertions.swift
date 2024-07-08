@@ -24,6 +24,29 @@ public func assertEqual<T: FloatingPoint>(
     }
 }
 
+// MARK: Angle
+
+@discardableResult
+public func assertEqual<T: FloatingPoint>(
+    _ v1: Angle<T>,
+    _ v2: Angle<T>,
+    accuracy: T? = nil,
+    _ messagePrefix: @escaping @autoclosure () -> String = "",
+    file: StaticString = #file,
+    line: UInt = #line
+) -> Bool {
+
+    if let accuracy = accuracy {
+        XCTAssertEqual(v1.radians, v2.radians, accuracy: accuracy, "\(messagePrefix())", file: file, line: line)
+
+        return v1.radians.isApproximatelyEqual(to: v2.radians, absoluteTolerance: accuracy)
+    } else {
+        XCTAssertEqual(v1.radians, v2.radians, "\(messagePrefix())", file: file, line: line)
+
+        return v1.radians == v2.radians
+    }
+}
+
 // MARK: Vector equality
 
 @discardableResult

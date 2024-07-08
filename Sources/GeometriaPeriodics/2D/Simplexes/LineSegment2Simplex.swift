@@ -75,6 +75,14 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Periodic2Simple
             endPeriod: min(endPeriod, range.upperBound)
         )
     }
+
+    public func reversed() -> Self {
+        return .init(
+            lineSegment: .init(start: lineSegment.end, end: lineSegment.start),
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
 }
 
 extension LineSegment2Simplex {

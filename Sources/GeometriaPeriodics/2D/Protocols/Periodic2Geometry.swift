@@ -65,6 +65,11 @@ public protocol Periodic2Geometry: PeriodicGeometry {
     /// If no simplex is contained within the given range, an empty array is
     /// returned, instead.
     func clampedSimplexes(in range: Range<Period>) -> [Simplex]
+
+    /// Returns the reverse of this periodic geometry by inverting the order
+    /// and direction of each of its simplexes, while maintaining `self.startPeriod`
+    /// and `self.endPeriod`.
+    func reversed() -> Self
 }
 
 extension Periodic2Geometry {

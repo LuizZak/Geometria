@@ -34,6 +34,12 @@ public protocol Periodic2Simplex: PeriodicSimplex where Vector: Vector2Type {
     /// Returns `true` if a given vector is at most `√(toleranceSquared)`-distance
     /// away from this simplex's surface.
     func isOnSurface(_ vector: Vector, toleranceSquared: Vector.Scalar) -> Bool
+
+    /// Reverses this simplex by swapping its start <-> end points, making it
+    /// travel in the opposite direction.
+    ///
+    /// The start and end periods remain the same.
+    func reversed() -> Self
 }
 
 extension Periodic2Simplex {

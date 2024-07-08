@@ -32,3 +32,17 @@ extension Union2Periodic: VisualizableGeometricType2 where Vector.Scalar: Custom
         printer.add(self.rhs, style: style, file: file, line: line)
     }
 }
+
+extension Intersection2Periodic: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
+    public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
+        printer.add(self.lhs, style: style, file: file, line: line)
+        printer.add(self.rhs, style: style, file: file, line: line)
+    }
+}
+
+extension Subtraction2Periodic: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
+    public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
+        printer.add(self.lhs, style: style, file: file, line: line)
+        printer.add(self.rhs, style: style, file: file, line: line)
+    }
+}

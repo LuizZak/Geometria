@@ -181,6 +181,16 @@ public enum Periodic2GeometrySimplex<Vector: Vector2Real>: Periodic2Simplex, Equ
         }
     }
 
+    public func reversed() -> Self {
+        switch self {
+        case .lineSegment2(let simplex):
+            return .lineSegment2(simplex.reversed())
+
+        case .circleArc2(let simplex):
+            return .circleArc2(simplex.reversed())
+        }
+    }
+
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersection<Vector>.Intersection

@@ -91,4 +91,14 @@ public struct LinePolygon2Periodic<Vector: Vector2Real>: Periodic2Geometry, Equa
 
         return result
     }
+
+    public func reversed() -> LinePolygon2Periodic<Vector> {
+        let polygon = linePolygon2.reversed()
+
+        return .init(
+            linePolygon2: polygon,
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
 }

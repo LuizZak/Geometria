@@ -112,4 +112,16 @@ public struct Compound2Periodic<Vector: Vector2Real>: Periodic2Geometry {
     public func allSimplexes() -> [Simplex] {
         simplexes
     }
+
+    public func reversed() -> Compound2Periodic<Vector> {
+        let simplexes = self.simplexes
+            .map({ $0.reversed() })
+            .reversed()
+
+        return .init(
+            normalizing: Array(simplexes),
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
 }

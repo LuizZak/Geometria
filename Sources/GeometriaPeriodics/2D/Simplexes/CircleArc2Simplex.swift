@@ -82,6 +82,19 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Periodic2Simplex, Equatabl
             endPeriod: min(endPeriod, range.upperBound)
         )
     }
+
+    public func reversed() -> Self {
+        return .init(
+            circleArc: .init(
+                center: circleArc.center,
+                radius: circleArc.radius,
+                startAngle: circleArc.stopAngle,
+                sweepAngle: -circleArc.sweepAngle
+            ),
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
 }
 
 extension CircleArc2Simplex {

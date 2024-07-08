@@ -182,6 +182,11 @@ extension Angle: AdditiveArithmetic {
     @inlinable
     public static var zero: Angle { .init(radians: .zero) }
 
+    /// Flips the sign of the angle while maintaining its absolute magnitude.
+    public static prefix func - (value: Angle) -> Angle {
+        .init(radians: -value.radians)
+    }
+
     /// Adds two angles by summing their radians representation.
     public static func + (lhs: Angle, rhs: Angle) -> Angle {
         .init(radians: lhs.radians + rhs.radians)

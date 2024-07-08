@@ -1,3 +1,4 @@
+import Foundation
 import MiniP5Printer
 import Geometria
 import GeometriaPeriodics
@@ -177,6 +178,7 @@ extension P5Printer {
     }
 
     func add<Periodic: Periodic2Geometry>(_ periodic: Periodic, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
+        periodicsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
         for simplex in periodic.allSimplexes() {
             add(simplex, style: style, file: file, line: line)
         }
