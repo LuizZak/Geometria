@@ -109,6 +109,32 @@ class Parametric2GeometrySimplexTests: XCTestCase {
         }
     }
 
+    func testIntersectionPeriods_arc_arc() {
+        let arc1 = makeCircleArc(
+            center: .init(x: -30, y: -50),
+            radius: 150,
+            startAngle: .pi,
+            sweepAngle: .pi,
+            startPeriod: 0.5,
+            endPeriod: 1.0
+        )
+        let arc2 = makeCircleArc(
+            center: .init(x: 30, y: -50),
+            radius: 150,
+            startAngle: .pi,
+            sweepAngle: .pi,
+            startPeriod: 0.5,
+            endPeriod: 1.0
+        )
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: arc1)
+                .assertIntersectionPeriods(arc2, [
+                    (self: 0.7820471084244875, other: 0.7179528915755125),
+                ])
+        }
+    }
+
     func testNormalized() {
         let line = makeLine(
             start: .init(x: -20, y: 20),

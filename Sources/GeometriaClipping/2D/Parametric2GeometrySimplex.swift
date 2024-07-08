@@ -134,10 +134,17 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
 
         case (.lineSegment2(let lhs), .circleArc2(let rhs)):
             let intersections = rhs.circleArc.intersections(with: lhs.lineSegment).intersections
-            return intersections.map { intersection in
+            return intersections.compactMap { intersection in
                 let period1 = self.period(onRatio: intersection.lineIntersectionPointNormal.normalizedMagnitude)
 
-                let circleArcPeriod = Self.circleArcIntersectionRatio(rhs, intersection: intersection)
+                guard
+                    let circleArcPeriod = Self.circleArcIntersectionRatio(
+                        rhs,
+                        intersection: intersection
+                    )
+                else {
+                    return nil
+                }
                 let period2 = other.period(onRatio: circleArcPeriod)
 
                 return (period1, period2)
@@ -145,11 +152,15 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
 
         case (.circleArc2(let lhs), .lineSegment2(let rhs)):
             let intersections = lhs.circleArc.intersections(with: rhs.lineSegment).intersections
-            return intersections.map { intersection in
-                let circleArcPeriod = Self.circleArcIntersectionRatio(
-                    lhs,
-                    intersection: intersection
-                )
+            return intersections.compactMap { intersection in
+                guard
+                    let circleArcPeriod = Self.circleArcIntersectionRatio(
+                        lhs,
+                        intersection: intersection
+                    )
+                else {
+                    return nil
+                }
                 let period1 = self.period(onRatio: circleArcPeriod)
 
                 let period2 = other.period(onRatio: intersection.lineIntersectionPointNormal.normalizedMagnitude)
@@ -163,17 +174,25 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
                 .intersection(with: rhs.asCircle2)
                 .pointNormals
 
-            return intersections.map { intersection in
-                let selfPeriod = Self.circleArcIntersectionRatio(
-                    lhs,
-                    intersection: intersection
-                )
+            return intersections.compactMap { intersection in
+                guard
+                    let selfPeriod = Self.circleArcIntersectionRatio(
+                        lhs,
+                        intersection: intersection
+                    )
+                else {
+                    return nil
+                }
                 let period1 = self.period(onRatio: selfPeriod)
 
-                let otherPeriod = Self.circleArcIntersectionRatio(
-                    rhs,
-                    intersection: intersection
-                )
+                guard
+                    let otherPeriod = Self.circleArcIntersectionRatio(
+                        rhs,
+                        intersection: intersection
+                    )
+                else {
+                    return nil
+                }
                 let period2 = other.period(onRatio: otherPeriod)
 
                 return (period1, period2)
@@ -194,7 +213,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersection<Vector>.Intersection
-    ) -> Period {
+    ) -> Period? {
         return circleArcIntersectionRatio(
             circleArc.circleArc,
             intersection: intersection.lineIntersectionPointNormal
@@ -204,7 +223,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersectionPointNormal<Vector>
-    ) -> Period {
+    ) -> Period? {
         return circleArcIntersectionRatio(
             circleArc.circleArc,
             intersection: intersection
@@ -214,7 +233,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: PointNormal<Vector>
-    ) -> Period {
+    ) -> Period? {
         return circleArcIntersectionRatio(
             circleArc.circleArc,
             intersection: intersection
@@ -224,7 +243,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2<Vector>,
         intersection: LineIntersectionPointNormal<Vector>
-    ) -> Period {
+    ) -> Period? {
         return circleArcIntersectionRatio(
             circleArc,
             intersection: intersection.pointNormal
@@ -234,11 +253,15 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2<Vector>,
         intersection: PointNormal<Vector>
-    ) -> Period {
+    ) -> Period? {
         let point = intersection.point
         let intersectionAngle = circleArc.center.angle(to: point)
 
         let angleSweep = circleArc.asAngleSweep
+
+        guard angleSweep.contains(intersectionAngle) else {
+            return nil
+        }
 
         return angleSweep.ratioOfAngle(intersectionAngle)
     }
