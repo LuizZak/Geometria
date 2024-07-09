@@ -41,6 +41,15 @@ extension LinePolygon2Parametric where Vector == Vector2D {
         )
     }
 
+    static func makePentagon(radius: Double = 100.0) -> Self {
+        return makeSut(
+            makeRegularPolygonVertices(
+                sides: 5,
+                radius: radius
+            )
+        )
+    }
+
     static func makeRegularPolygonVertices(sides: Int, radius: Double = 100.0) -> [Vector2D] {
         var points: [Vector2D] = []
 
