@@ -34,28 +34,10 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
             return []
         }
 
-        // For subtractions, every final shape is composed of parts of the positive
-        // geometry (lhs, in this case), and the negative geometry (rhs), in
-        // sequence, alternating, until looping back to the starting point of
-        // the current sub-section.
-        //
-        // To find the sub-sections that are part of the remaining positive
-        // geometries, we first find a starting intersection point that brings
-        // lhs into rhs, and from that point, split the path into two: one path
-        // handles the looping of the current section, and the other searches
-        // for the next geometry part to subtract.
-        //
-        // On path 1 (looping of current section):
-        //   Travel through all intersections, starting from lhs, alternating
-        //   between of lhs <-> rhs at every intersection point, until the initial
-        //   point is reached; the geometry is then flushed as a separate simplex
-        //   sequence.
-        //
-        // On path 2 (finding next section to subtract):
-        //   Travel through lhs until the next intersection point that brings it
-        //   into rhs is found, and check if that point is not party of an existing
-        //   simplex produced by loop 1; if not, start the first path on the current
-        //   point and proceed until all points belong to simplexes in rhs.
+        // For intersections, we need to visit every possible corner of lhs, so
+        // we keep track of simplexes visited overall during production, as well
+        // as continually produce simplexes for the isolated segments that need
+        // to be built
         var resultOverall: [[Simplex]] = []
         var simplexVisited: Set<State> = []
         var visitedOverall: Set<State> = []
@@ -98,36 +80,5 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         }
 
         return resultOverall
-        /*
-        var state = State.onLhs(lhs.startPeriod, rhs.startPeriod)
-        if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
-            // If we don't flip here, the result behaves like a union instead of
-            // an intersection
-            state = lookup.next(state).flipped()
-        } else {
-            // ...and the same here
-            state = lookup.previous(state).flipped()
-        }
-
-        var result: [Simplex] = []
-        var visited: Set<State> = []
-
-        while visited.insert(state).inserted {
-            // Find next intersection
-            let next = lookup.next(state)
-
-            // Append simplex
-            let simplex = lookup.clampedSimplexesRange(state, next)
-            result.append(contentsOf: simplex)
-
-            // Flip over to the next geometry
-            state = next.flipped()
-        }
-
-        // Re-normalize the simplex periods
-        result = result.normalized(startPeriod: .zero, endPeriod: 1)
-
-        return [result]
-        */
     }
 }

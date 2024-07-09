@@ -468,7 +468,174 @@ class Subtraction2ParametricTests: XCTestCase {
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([])
+                .assertAllSimplexes([
+                    [
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -4.999999999999972, y: 50.0),
+                                    end: .init(x: -50.0, y: 50.0)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.13235294117647065
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -50.0, y: 50.0),
+                                    end: .init(x: -50.0, y: -50.0)
+                                ),
+                                startPeriod: 0.13235294117647065,
+                                endPeriod: 0.42647058823529416
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -50.0, y: -50.0),
+                                    end: .init(x: -4.999999999999999, y: -50.0)
+                                ),
+                                startPeriod: 0.42647058823529416,
+                                endPeriod: 0.5588235294117647
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -5.0, y: -50.00000000000001),
+                                    end: .init(x: -5.0, y: -29.999999999999993)
+                                ),
+                                startPeriod: 0.5588235294117647,
+                                endPeriod: 0.6176470588235294
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -4.999999999999996, y: -30.0),
+                                    end: .init(x: -30.0, y: -30.0)
+                                ),
+                                startPeriod: 0.6176470588235294,
+                                endPeriod: 0.6911764705882354
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -30.0, y: -30.0),
+                                    end: .init(x: -30.0, y: 30.0)
+                                ),
+                                startPeriod: 0.6911764705882354,
+                                endPeriod: 0.8676470588235294
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -30.0, y: 30.0),
+                                    end: .init(x: -5.000000000000022, y: 30.0)
+                                ),
+                                startPeriod: 0.8676470588235294,
+                                endPeriod: 0.9411764705882353
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: -5.0, y: 29.999999999999986),
+                                    end: .init(x: -5.0, y: 49.999999999999986)
+                                ),
+                                startPeriod: 0.9411764705882353,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                    [
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 5.000000000000004, y: -50.0),
+                                    end: .init(x: 50.0, y: -50.0)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.3804394238170155
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 50.0, y: -50.0),
+                                    end: .init(x: 30.0, y: -30.0)
+                                ),
+                                startPeriod: 0.3804394238170155,
+                                endPeriod: 0.6195605761829842
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 30.0, y: -30.0),
+                                    end: .init(x: 4.999999999999982, y: -30.0)
+                                ),
+                                startPeriod: 0.6195605761829842,
+                                endPeriod: 0.8309158116368819
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 5.0, y: -29.999999999999986),
+                                    end: .init(x: 5.0, y: -50.00000000000001)
+                                ),
+                                startPeriod: 0.8309158116368819,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                    [
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 4.999999999999996, y: 30.0),
+                                    end: .init(x: 30.0, y: 30.0)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.2113552354538976
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 30.0, y: 30.0),
+                                    end: .init(x: 50.0, y: 50.0)
+                                ),
+                                startPeriod: 0.2113552354538976,
+                                endPeriod: 0.45047638781986615
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 50.0, y: 50.0),
+                                    end: .init(x: 4.999999999999977, y: 50.0)
+                                ),
+                                startPeriod: 0.45047638781986615,
+                                endPeriod: 0.830915811636882
+                            )
+                        ),
+                        .lineSegment2(
+                            .init(
+                                lineSegment: .init(
+                                    start: .init(x: 5.0, y: 50.0),
+                                    end: .init(x: 5.0, y: 30.0)
+                                ),
+                                startPeriod: 0.830915811636882,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                ])
         }
     }
 }

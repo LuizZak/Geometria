@@ -65,6 +65,7 @@ class Parametric2GeometryTests: XCTestCase {
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)
                 .assertIntersections(rhs, [
+                    (self: 0.0, other: 0.0),
                     (self: 0.18812319109969183, other: 0.19820836709321155),
                     (self: 0.21490116711499505, other: 0.20924149997813613),
                     (self: 0.38157132764617224, other: 0.3942349983197353),
@@ -106,6 +107,11 @@ class Parametric2GeometryTests: XCTestCase {
             fixture.assertions(on: lhs)
                 .assertIntersections(rhs, [
                     (self: 2.2204460492503132e-17, other: 8.308813937217956e-18),
+                    (self: 0.19999999999999996, other: 0.2),
+                    (self: 0.3999999999999999, other: 0.4),
+                    (self: 0.5999999999999999, other: 0.6),
+                    (self: 0.7999999999999998, other: 0.8),
+                    (self: 0.0, other: 0.0),
                 ])
         }
     }
@@ -117,6 +123,10 @@ class Parametric2GeometryTests: XCTestCase {
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: lhs)
                 .assertIntersections(rhs, tolerance: 1e-14, [
+                    (self: 0.19999999999999996, other: 0.2),
+                    (self: 0.3999999999999999, other: 0.4),
+                    (self: 0.5999999999999999, other: 0.6),
+                    (self: 0.7999999999999998, other: 0.8),
                 ])
         }
     }

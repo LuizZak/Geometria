@@ -69,10 +69,10 @@ extension LinePolygon2Parametric where Vector == Vector2D {
         return makeSut(vertices)
     }
 
-    static func makeRectangle(width: Double, height: Double) -> Self {
+    static func makeRectangle(width: Double, height: Double, center: Vector2D = .zero) -> Self {
         let aabb = AABB2D(x: 0, y: 0, width: width, height: height)
 
-        return makeSut(aabb.corners).centered()
+        return makeSut(aabb.corners).centered(around: center)
     }
 
     static func makeCShape(size: Double = 100.0) -> Self {

@@ -182,13 +182,29 @@ public extension ParametricClip2Geometry {
 
         for selfSimplex in selfSimplexes {
             for otherSimplex in otherSimplexes {
+                var currentIntersections: [Intersection] = []
                 let intersections = selfSimplex.intersectionPeriods(with: otherSimplex)
 
-                allIntersections.append(contentsOf: intersections.map { intersection in
+                currentIntersections.append(contentsOf: intersections.map { intersection in
                     (
                         self: self.normalizedPeriod(intersection.`self`),
                         other: other.normalizedPeriod(intersection.other)
                     )
+                })
+
+                // Avoid adding intersections with repeated periods which may occur
+                // when a geometry intersects two simplexes exactly
+                allIntersections.append(contentsOf: currentIntersections.filter { intersection in
+                    for case let last? in allIntersections {
+                        if last.`self` == intersection.`self` {
+                            return false
+                        }
+                        if last.other == intersection.other {
+                            return false
+                        }
+                    }
+
+                    return true
                 })
             }
         }
