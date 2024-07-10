@@ -70,6 +70,19 @@ public protocol ParametricClip2Geometry: ParametricClipGeometry {
     /// and direction of each of its simplexes, while maintaining `self.startPeriod`
     /// and `self.endPeriod`.
     func reversed() -> Self
+
+    /// Returns all unique intersection periods between `self` and `other`.
+    /// The resulting array of periods is guaranteed to not contain the same
+    /// period value twice for all `tuple.self` and for all `tuple.other`,
+    /// separately.
+    ///
+    /// If two intersections have a difference smaller than `tolerance`, the
+    /// two intersections are elided from the result. Passing `.infinity` to
+    /// `tolerance` disables this behavior.
+    func allIntersectionPeriods<T: ParametricClip2Geometry>(
+        _ other: T,
+        tolerance: Scalar
+    ) -> [(`self`: Period, other: Period)] where T.Vector == Vector
 }
 
 extension ParametricClip2Geometry {
@@ -137,18 +150,8 @@ extension ParametricClip2Geometry {
             simplex.clamped(in: range)
         }
     }
-}
 
-public extension ParametricClip2Geometry {
-    /// Returns all unique intersection periods between `self` and `other`.
-    /// The resulting array of periods is guaranteed to not contain the same
-    /// period value twice for all `tuple.self` and for all `tuple.other`,
-    /// separately.
-    ///
-    /// If two intersections have a difference smaller than `tolerance`, the
-    /// two intersections are elided from the result. Passing `.infinity` to
-    /// `tolerance` disables this behavior.
-    func allIntersectionPeriods<T: ParametricClip2Geometry>(
+    public func allIntersectionPeriods<T: ParametricClip2Geometry>(
         _ other: T,
         tolerance: Scalar = Scalar.leastNonzeroMagnitude
     ) -> [(`self`: Period, other: Period)] where T.Vector == Vector {
