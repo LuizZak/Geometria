@@ -115,6 +115,8 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    // MARK: - Intersection
+
     /// Returns a list of pairs for periods where `self` and `other` intersect
     /// in space.
     ///
@@ -123,6 +125,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     public func intersectionPeriods(with other: Self) -> [(`self`: Period, other: Period)] {
         switch (self, other) {
         case (.lineSegment2(let lhs), .lineSegment2(let rhs)):
+            // MARK: Line / Line
             guard let intersection = lhs.lineSegment.intersection(with: rhs.lineSegment) else {
                 return []
             }
@@ -139,6 +142,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
             return [(period1, period2)]
 
         case (.lineSegment2(let lhs), .circleArc2(let rhs)):
+            // MARK: Line / Arc
             let intersections = rhs.circleArc.intersections(with: lhs.lineSegment).intersections
             return intersections.compactMap { intersection in
                 let period1 = self.period(onRatio: intersection.lineIntersectionPointNormal.normalizedMagnitude)
@@ -158,6 +162,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
             }
 
         case (.circleArc2(let lhs), .lineSegment2(let rhs)):
+            // MARK: Arc / Line
             let intersections = lhs.circleArc.intersections(with: rhs.lineSegment).intersections
             return intersections.compactMap { intersection in
                 guard
@@ -177,6 +182,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
             }
 
         case (.circleArc2(let lhs), .circleArc2(let rhs)):
+            // MARK: Arc / Arc
             let intersections =
                 lhs.asCircle2
                 .intersection(with: rhs.asCircle2)
@@ -209,6 +215,8 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
             }
         }
     }
+
+    // MARK: -
 
     public func reversed() -> Self {
         switch self {

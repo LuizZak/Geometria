@@ -8,6 +8,32 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
+        intersections: [ParametricClip2Intersection<T1, T2>],
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+        for intersection in intersections {
+            self.add(t1, t2, intersection: intersection, style: style, file: file, line: line)
+        }
+    }
+
+    /// - note: Adds only the intersections, and not the geometries themselves.
+    func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
+        _ t1: T1,
+        _ t2: T2,
+        intersection: ParametricClip2Intersection<T1, T2>,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+        add(t1, t2, intersections: intersection.periods, style: style, file: file, line: line)
+    }
+
+    /// - note: Adds only the intersections, and not the geometries themselves.
+    func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
+        _ t1: T1,
+        _ t2: T2,
         intersections: [(`self`: T1.Period, `other`: T2.Period)],
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
@@ -104,7 +130,7 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
     func assertIntersections<T2: ParametricClip2Geometry>(
         _ other: T2,
         tolerance: T.Period = T.Period.leastNonzeroMagnitude,
-        _ expected: [(`self`: T.Period, `other`: T2.Period)],
+        _ expected: [ParametricClip2Intersection<T, T2>],
         file: StaticString = #file,
         line: UInt = #line
     ) where T2: VisualizableGeometricType2, T2.Vector == T.Vector, T.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
@@ -114,7 +140,7 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
             tolerance: tolerance
         )
 
-        if !actual.elementsEqual(expected, by: ==) {
+        if actual != expected {
             visualize()
             fixture.add(other, file: file, line: line)
 

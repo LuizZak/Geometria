@@ -152,7 +152,7 @@ extension P5Printer {
             
             noFill()
             const segments = 50;
-            for (let i = 0; i < segments - 1; i++) {
+            for (let i = 0; i < segments; i++) {
               let angle = this.startAngle + arcEndSweep * (i / segments)
               let angleNext = this.startAngle + (arcEndSweep * ((i + 1) / segments))
               

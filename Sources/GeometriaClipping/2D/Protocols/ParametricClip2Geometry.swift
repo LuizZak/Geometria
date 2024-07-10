@@ -76,13 +76,17 @@ public protocol ParametricClip2Geometry: ParametricClipGeometry {
     /// period value twice for all `tuple.self` and for all `tuple.other`,
     /// separately.
     ///
+    /// The intersections are sorted by their occurrence within `self`, and
+    /// intersection pairs do not overlap with each other with respect to the
+    /// `intersection.self` side of each intersection.
+    ///
     /// If two intersections have a difference smaller than `tolerance`, the
     /// two intersections are elided from the result. Passing `.infinity` to
     /// `tolerance` disables this behavior.
     func allIntersectionPeriods<T: ParametricClip2Geometry>(
         _ other: T,
         tolerance: Scalar
-    ) -> [(`self`: Period, other: Period)] where T.Vector == Vector
+    ) -> [ParametricClip2Intersection<Self, T>] where T.Vector == Vector
 }
 
 extension ParametricClip2Geometry {
@@ -154,7 +158,148 @@ extension ParametricClip2Geometry {
     public func allIntersectionPeriods<T: ParametricClip2Geometry>(
         _ other: T,
         tolerance: Scalar = Scalar.leastNonzeroMagnitude
-    ) -> [(`self`: Period, other: Period)] where T.Vector == Vector {
+    ) -> [ParametricClip2Intersection<Self, T>] where T.Vector == Vector {
+
+        #if true
+
+        typealias Intersection = ParametricClip2Intersection<Self, T>
+        typealias Atom = Intersection.Atom
+
+        func normalizedCenter(_ left: Period, _ right: Period, normalizer: (Period) -> Period) -> Period {
+            // TODO: Refactor this operation out into a reusable global function
+            if left > right {
+                // Handle the case the range is actually:
+                // ↪|------right     left--|↩
+                //
+                // By wrapping the 'right' element at the end of 'left', and
+                // then normalizing:
+                //  |                left--|------right
+                //  |                      | .          ! before normalization
+                //  | .                    | < result   ✓ after normalization
+                return normalizer(
+                    ((endPeriod - left) + right) / 2
+                )
+            } else {
+                // Handle the more regular case:
+                //  |   left-------right   |
+                //  |          .           | < result
+                return normalizer((left + right) / 2)
+            }
+        }
+
+        /// Returns `true` if the mid point between `left` and `right` produces
+        /// a period that computes a point in `self` such that `other` contains it,
+        /// i.e. `other.contains(self.compute(at: mid(left, right))) == true`, or
+        /// if the same is true if `self.contains(other.compute(at: mid(left, right)))`.
+        func probeCenter(_ left: Atom, _ right: Atom) -> Bool {
+            let centerSelf = normalizedCenter(
+                left.`self`,
+                right.`self`,
+                normalizer: self.normalizedPeriod
+            )
+
+            if other.contains(self.compute(at: centerSelf)) {
+                return true
+            }
+
+            let centerOther = normalizedCenter(
+                left.other,
+                right.other,
+                normalizer: other.normalizedPeriod
+            )
+
+            return self.contains(other.compute(at: centerOther))
+        }
+
+        var atoms: [Atom] = []
+        let selfSimplexes = self.allSimplexes()
+        let otherSimplexes = other.allSimplexes()
+
+        for selfSimplex in selfSimplexes {
+            for otherSimplex in otherSimplexes {
+                atoms.append(
+                    contentsOf: selfSimplex.intersectionPeriods(with: otherSimplex)
+                )
+            }
+        }
+
+        // Attempt to tie intersections as pairs by biasing the list of atoms as
+        // sorted periods on 'self', and working on sequential periods instead
+        // of sequential points of intersections
+        atoms = atoms.sorted(by: { $0.`self` < $1.`self` })
+
+        // Combine atoms with `tolerance`
+        if tolerance.isFinite {
+            var index = 0
+            while index < (atoms.count - 1) {
+                defer { atoms.formIndex(after: &index) }
+
+                let atom = atoms[index]
+                let next = atoms[atoms.index(after: index)]
+
+                if Intersection.areApproximatelyEqual(atom, next, tolerance: tolerance) {
+                    atoms.remove(at: atoms.index(after: index))
+                    atoms.formIndex(before: &index)
+                }
+            }
+        }
+
+        var intersections: [Intersection] = []
+
+        if atoms.count > 1, let lastAtom = atoms.last {
+            // Ensure that the mid-period between the first two atoms is always
+            // contained within 'other' before producing pairs so that the pairs
+            // are more likely to be properly ordered from the get-go
+            if probeCenter(lastAtom, atoms[0]) {
+                atoms = [lastAtom] + atoms.dropLast()
+            }
+
+            var remaining = atoms
+
+            while !remaining.isEmpty {
+                let candidate: Intersection
+
+                let current = remaining[0]
+
+                if remaining.count > 1 {
+                    let next = remaining[1]
+
+                    if probeCenter(current, next) {
+                        remaining.remove(at: 1)
+                        remaining.remove(at: 0)
+
+                        candidate = .pair(current, next)
+                    } else {
+                        remaining.remove(at: 0)
+
+                        candidate = .singlePoint(current)
+                    }
+                } else {
+                    // Any remaining point is single-point by definition
+                    candidate = .singlePoint(remaining[0])
+                    remaining.remove(at: 0)
+                }
+
+                if
+                    tolerance.isFinite,
+                    let last = intersections.last,
+                    let joined = last.attemptCombine(withNext: candidate, tolerance: tolerance)
+                {
+                    intersections[intersections.count - 1] = joined
+                } else {
+                    intersections.append(candidate)
+                }
+            }
+        } else if atoms.count == 1 {
+            intersections = [
+                .singlePoint(atoms[0])
+            ]
+        }
+
+        return intersections
+
+        #else
+
         typealias Intersection = (`self`: Period, other: Period)
 
         func absoluteDifference<Period: FloatingPoint>(
@@ -267,5 +412,7 @@ extension ParametricClip2Geometry {
         } while hasChanged
 
         return allIntersections.compactMap { $0 }
+
+        #endif
     }
 }

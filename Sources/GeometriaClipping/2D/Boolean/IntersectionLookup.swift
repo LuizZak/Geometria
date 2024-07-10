@@ -15,7 +15,11 @@ internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricCli
     let otherShape: T2
     let intersections: [Intersection]
 
-    convenience init(intersectionsOfSelfShape selfShape: T1, otherShape: T2, tolerance: T1.Scalar) {
+    convenience init(
+        intersectionsOfSelfShape selfShape: T1,
+        otherShape: T2,
+        tolerance: T1.Scalar
+    ) {
         let intersections = selfShape.allIntersectionPeriods(
             otherShape,
             tolerance: tolerance
@@ -24,7 +28,7 @@ internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricCli
         self.init(
             selfShape: selfShape,
             otherShape: otherShape,
-            intersections: intersections
+            intersections: intersections.flatMap(\.periods)
         )
     }
 

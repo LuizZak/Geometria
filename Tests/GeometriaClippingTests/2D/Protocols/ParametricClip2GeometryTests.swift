@@ -12,8 +12,8 @@ class ParametricClip2GeometryTests: XCTestCase {
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
                 .assertIntersections(box, [
-                    (self: 0.0, other: 0.08333333333333333),
-                    (self: 0.5, other: 0.0),
+                    .pair((self: 0.5, other: 1.0), (self: 0.0, other: 0.08333333333333333)),
+                    .singlePoint((self: 0.5, other: 0.0))
                 ])
         }
     }
@@ -25,8 +25,7 @@ class ParametricClip2GeometryTests: XCTestCase {
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
                 .assertIntersections(box, [
-                    (self: 0.0, other: 0.17499999999999996),
-                    (self: 0.5, other: 0.08454915028125264)
+                    .pair((self: 0.5, other: 0.08454915028125264), (self: 0.0, other: 0.17499999999999996))
                 ])
         }
     }
