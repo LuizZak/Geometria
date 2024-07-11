@@ -140,3 +140,15 @@ extension LineIntersection.Intersection: VisualizableGeometricType2 where Vector
         pointNormal.addVisualization2D(to: printer, style: style, file: file, line: line)
     }
 }
+
+extension PointCloud2: VisualizableGeometricType2 where Vector: Vector2Type & VisualizableGeometricType2, Vector.Scalar: Numeric & CustomStringConvertible {
+    public func addVisualization2D(to printer: P5Printer, style: BaseP5Printer.Style?, file: StaticString, line: UInt) {
+        printer.add(self, style: style, file: file, line: line)
+    }
+}
+
+extension PointCloud3: VisualizableGeometricType3 where Vector: Vector3Type & VisualizableGeometricType2, Vector.Scalar: Numeric & CustomStringConvertible {
+    public func addVisualization3D(to printer: P5Printer, style: BaseP5Printer.Style?, file: StaticString, line: UInt) {
+        printer.add(self, style: style, file: file, line: line)
+    }
+}

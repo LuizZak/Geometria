@@ -4,7 +4,13 @@ public struct PointCloud<Vector: VectorType> {
     /// The points contained within this point-cloud.
     public var points: [Vector]
 
+    /// Initializes an empty point-cloud.
+    public init() {
+        self.points = []
+    }
+
     /// Initializes a new point-cloud with a given sequence of points.
+    @inlinable
     public init<S: Sequence>(points: S) where S.Element == Vector {
         self.points = Array(points)
     }
