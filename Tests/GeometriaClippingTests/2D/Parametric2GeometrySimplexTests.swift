@@ -203,26 +203,6 @@ private func makeCircleArc(
     )
 }
 
-private extension TestFixture {
-    func assertEquals<Period: FloatingPoint>(
-        _ actual: (`self`: Period, other: Period),
-        _ expected: (`self`: Period, other: Period),
-        accuracy: Period = .infinity,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) -> Bool {
-
-        guard assertEquals(actual.`self`, expected.`self`, accuracy: accuracy, file: file, line: line) else {
-            return false
-        }
-        guard assertEquals(actual.other, expected.other, accuracy: accuracy, file: file, line: line) else {
-            return false
-        }
-
-        return true
-    }
-}
-
 private extension TestFixture.AssertionWrapperBase where T == Parametric2GeometrySimplexTests.Sut {
     func assertIntersectionPeriods(
         _ other: T,

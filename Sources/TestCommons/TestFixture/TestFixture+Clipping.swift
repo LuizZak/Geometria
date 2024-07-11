@@ -69,6 +69,26 @@ public extension TestFixture {
     }
 
     @discardableResult
+    func assertEquals<Period: FloatingPoint>(
+        _ actual: (`self`: Period, other: Period),
+        _ expected: (`self`: Period, other: Period),
+        accuracy: Period = .infinity,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        guard assertEquals(actual.`self`, expected.`self`, accuracy: accuracy, message(), file: file, line: line) else {
+            return false
+        }
+        guard assertEquals(actual.other, expected.other, accuracy: accuracy, message(), file: file, line: line) else {
+            return false
+        }
+
+        return true
+    }
+
+    @discardableResult
     func assertEquals<Vector>(
         _ actual: LineSegment2Simplex<Vector>,
         _ expected: LineSegment2Simplex<Vector>,
@@ -131,9 +151,9 @@ public extension TestFixture {
     @discardableResult
     func assertEquals<Vector>(
         _ actual: [Parametric2GeometrySimplex<Vector>],
-        _ expected: [Parametric2GeometrySimplex<Vector>],
         accuracy: Vector.Scalar = .infinity,
-        message: @autoclosure () -> String = "",
+        _ expected: [Parametric2GeometrySimplex<Vector>],
+        _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) -> Bool {
@@ -145,6 +165,68 @@ public extension TestFixture {
 
         for (i, (actual, expected)) in zip(actual, expected).enumerated() {
             if !assertEquals(actual, expected, "[\(i)] \(message())", file: file, line: line) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    @discardableResult
+    func assertEquals<T: FloatingPoint>(
+        _ actual: [(`self`: T, other: T)],
+        _ expected: [(`self`: T, other: T)],
+        accuracy: T = .infinity,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if actual.count != expected.count {
+            failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
+            return false
+        }
+
+        for (i, (actual, expected)) in zip(actual, expected).enumerated() {
+            assertEquals(actual, expected, accuracy: accuracy, file: file, line: line)
+            if !assertEquals(actual, expected, "[\(i)] \(message())", file: file, line: line) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    @discardableResult
+    func assertEquals<T1, T2>(
+        _ actual: ParametricClip2Intersection<T1, T2>,
+        _ expected: ParametricClip2Intersection<T1, T2>,
+        accuracy: T1.Scalar = .infinity,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool where T1.Scalar: FloatingPoint {
+
+        return assertEquals(actual.periods, expected.periods, accuracy: accuracy, file: file, line: line)
+    }
+
+    @discardableResult
+    func assertEquals<T1, T2>(
+        _ actual: [ParametricClip2Intersection<T1, T2>],
+        _ expected: [ParametricClip2Intersection<T1, T2>],
+        accuracy: T1.Scalar = .infinity,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool where T1.Scalar: FloatingPoint {
+
+        if actual.count != expected.count {
+            failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
+            return false
+        }
+
+        for (i, (actual, expected)) in zip(actual, expected).enumerated() {
+            if !assertEquals(actual, expected, accuracy: accuracy, "[\(i)] \(message())", file: file, line: line) {
                 return false
             }
         }
@@ -205,7 +287,7 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
     ) -> Bool {
 
         let actual = value.allSimplexes()
-        if !fixture.assertEquals(actual, expected, accuracy: accuracy, file: file, line: line) {
+        if !fixture.assertEquals(actual, accuracy: accuracy, expected, file: file, line: line) {
             fixture.add(actual)
             fixture.add(expected)
 
@@ -217,6 +299,7 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
 
     func assertIntersections<T2: ParametricClip2Geometry>(
         _ other: T2,
+        accuracy: T.Scalar,
         tolerance: T.Period = T.Period.leastNonzeroMagnitude,
         _ expected: [ParametricClip2Intersection<T, T2>],
         file: StaticString = #file,
@@ -228,14 +311,12 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
             tolerance: tolerance
         )
 
-        if actual != expected {
+        if !fixture.assertEquals(actual, expected, accuracy: accuracy, file: file, line: line) {
             visualize()
             fixture.add(other, file: file, line: line)
 
             fixture.add(value, other, intersections: actual, style: fixture.resultStyle().with(\.fillColor, .green))
             fixture.add(value, other, intersections: expected, style: fixture.expectedStyle().with(\.fillColor, .red))
-
-            fixture.failure("\(actual) != \(expected)", file: file, line: line)
         }
     }
 }
