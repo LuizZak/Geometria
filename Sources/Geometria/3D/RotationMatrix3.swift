@@ -260,7 +260,7 @@ public extension RotationMatrix3 {
         }
 
         let rAxis = vectorA.cross(vectorB) * (orientation == .rightHanded ? 1 : -1)
-        let angle = Scalar.acos(vectorA.dot(vectorB))
+        let angle = Angle(radians: Scalar.acos(vectorA.dot(vectorB)))
         let m = RotationMatrix3.make3DRotationFromAxisAngle(axis: rAxis, angle)
 
         return m

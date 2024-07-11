@@ -286,6 +286,18 @@ public class P5Printer: BaseP5Printer {
         add(capsule.endAsSphere, style: style, file: file, line: line)
     }
 
+    func add<V: Vector2Type>(_ pointCloud: PointCloud<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Numeric & CustomStringConvertible {
+        for point in pointCloud.points {
+            add(point, style: style, file: file, line: line)
+        }
+    }
+
+    func add<V: Vector3Type>(_ pointCloud: PointCloud<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: Numeric & CustomStringConvertible {
+        for point in pointCloud.points {
+            add(point, style: style, file: file, line: line)
+        }
+    }
+
     // MARK: Transformations
 
     func vec3ToP5Vec<Vector: Vector3Type>(_ vec: Vector) -> Vector where Vector.Scalar: SignedNumeric {
