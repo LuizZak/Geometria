@@ -540,6 +540,9 @@
                 <a class="nav-group-task-link" href="../Structs/NSquare.html">NSquare</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PointCloud.html">PointCloud</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PointNormal.html">PointNormal</a>
               </li>
               <li class="nav-group-task">
@@ -795,6 +798,24 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria10Matrix3x2Da">Matrix3x2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11PointCloud2a">PointCloud2</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria12PointCloud2Da">PointCloud2D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria12PointCloud2Fa">PointCloud2F</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria11PointCloud3a">PointCloud3</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria12PointCloud3Da">PointCloud3D</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria12PointCloud3Fa">PointCloud3F</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:9Geometria17PointNormalPlane2a">PointNormalPlane2</a>
@@ -1142,6 +1163,78 @@ in the direction of <code>ac</code>.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria21Vector2MultiplicativeP7windingy6ScalarQzx_xxtFZ"></a>
+                    <a name="//apple_ref/swift/Method/winding(_:_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria21Vector2MultiplicativeP7windingy6ScalarQzx_xxtFZ">winding(_:<wbr>_:<wbr>_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the winding value of the three given input points.</p>
+
+<p>Winding indicates whether the vectors are clockwise (&gt; 0), colinear (== 0),
+or counter-clockwise (&lt; 0)</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Returns the winding value of the three given input points.</p>
+
+<p>Winding indicates whether the vectors are clockwise (&gt; 0), colinear (== 0),
+or counter-clockwise (&lt; 0)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">winding</span><span class="p">(</span><span class="n">_</span> <span class="nv">p0</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">p1</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">p2</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria21Vector2MultiplicativePAAE12areClockwiseySbx_xxtSL6ScalarRpzrlFZ"></a>
+                    <a name="//apple_ref/swift/Method/areClockwise(_:_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria21Vector2MultiplicativePAAE12areClockwiseySbx_xxtSL6ScalarRpzrlFZ">areClockwise(_:<wbr>_:<wbr>_:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>true</code> if the three given input points are wound in clockwise order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">areClockwise</span><span class="p">(</span><span class="n">_</span> <span class="nv">p0</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">p1</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="n">_</span> <span class="nv">p2</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Scalar</span> <span class="p">:</span> <span class="kt">Comparable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -1150,7 +1243,7 @@ in the direction of <code>ac</code>.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-06)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-11)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
