@@ -149,6 +149,10 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
             return [lhs.allSimplexes(), rhs.allSimplexes()]
         }
 
+        var resultOverall: [[Simplex]] = []
+        var simplexVisited: Set<State> = []
+        var visitedOverall: Set<State> = []
+
         var state = State.onLhs(lhs.startPeriod, rhs.startPeriod)
         if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
             state = lookup.next(state)
@@ -156,25 +160,37 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
             state = lookup.previous(state)
         }
 
-        var result: [Simplex] = []
-        var visited: Set<State> = []
+        while visitedOverall.insert(state).inserted {
+            if !simplexVisited.contains(state) {
+                var result: [Simplex] = []
+                var visited: Set<State> = []
 
-        while visited.insert(state).inserted {
-            // Find next intersection
-            let next = lookup.next(state)
+                while visited.insert(state).inserted {
+                    // Find next intersection
+                    let next = lookup.next(state)
 
-            // Append simplex
-            let simplex = lookup.clampedSimplexesRange(state, next)
-            result.append(contentsOf: simplex)
+                    // Append simplex
+                    let simplex = lookup.clampedSimplexesRange(state, next)
+                    result.append(contentsOf: simplex)
 
-            // Flip over to the next geometry
-            state = next.flipped()
+                    // Flip to the next intersection
+                    state = next.flipped()
+                }
+
+                simplexVisited.formUnion(visited)
+
+                // Re-normalize the simplex periods
+                result = result.normalized(startPeriod: .zero, endPeriod: 1)
+                resultOverall.append(result)
+            }
+
+            // Here we skip twice in order to skip the portion of lhs that is
+            // occluded behind rhs, and land on the next intersection that brings
+            // lhs inside rhs
+            state = lookup.next(lookup.next(state))
         }
 
-        // Re-normalize the simplex periods
-        result = result.normalized(startPeriod: .zero, endPeriod: 1)
-
-        return [result]
+        return resultOverall
 
         #endif
     }
