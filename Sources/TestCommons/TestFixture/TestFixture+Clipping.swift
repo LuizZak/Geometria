@@ -73,12 +73,13 @@ public extension TestFixture {
         _ actual: LineSegment2Simplex<Vector>,
         _ expected: LineSegment2Simplex<Vector>,
         accuracy: Vector.Scalar = .infinity,
+        _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) -> Bool {
 
-        return assertEquals(actual.lineSegment.start, expected.lineSegment.start, accuracy: accuracy, file: file, line: line)
-            && assertEquals(actual.lineSegment.end, expected.lineSegment.end, accuracy: accuracy, file: file, line: line)
+        return assertEquals(actual.lineSegment.start, expected.lineSegment.start, accuracy: accuracy, message(), file: file, line: line)
+            && assertEquals(actual.lineSegment.end, expected.lineSegment.end, accuracy: accuracy, message(), file: file, line: line)
     }
 
     @discardableResult
@@ -86,6 +87,7 @@ public extension TestFixture {
         _ actual: CircleArc2Simplex<Vector>,
         _ expected: CircleArc2Simplex<Vector>,
         accuracy: Vector.Scalar = .infinity,
+        _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) -> Bool {
@@ -100,27 +102,28 @@ public extension TestFixture {
         _ actual: Parametric2GeometrySimplex<Vector>,
         _ expected: Parametric2GeometrySimplex<Vector>,
         accuracy: Vector.Scalar = .infinity,
+        _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) -> Bool {
 
-        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy) {
+        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy, message()) {
             return false
         }
 
-        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy) {
+        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy, message()) {
             return false
         }
 
         switch (actual, expected) {
         case (.lineSegment2(let lhs), .lineSegment2(let rhs)):
-            return assertEquals(lhs, rhs, file: file, line: line)
+            return assertEquals(lhs, rhs, message(), file: file, line: line)
 
         case (.circleArc2(let lhs), .circleArc2(let rhs)):
-            return assertEquals(lhs, rhs, file: file, line: line)
+            return assertEquals(lhs, rhs, message(), file: file, line: line)
 
         default:
-            failure("\(actual) != \(expected)", file: file, line: line)
+            failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
             return false
         }
     }
@@ -130,17 +133,18 @@ public extension TestFixture {
         _ actual: [Parametric2GeometrySimplex<Vector>],
         _ expected: [Parametric2GeometrySimplex<Vector>],
         accuracy: Vector.Scalar = .infinity,
+        message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) -> Bool {
 
         if actual.count != expected.count {
-            failure("\(actual) != \(expected)", file: file, line: line)
+            failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
             return false
         }
 
-        for (actual, expected) in zip(actual, expected) {
-            if !assertEquals(actual, expected, file: file, line: line) {
+        for (i, (actual, expected)) in zip(actual, expected).enumerated() {
+            if !assertEquals(actual, expected, "[\(i)] \(message())", file: file, line: line) {
                 return false
             }
         }
@@ -250,11 +254,10 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
             for expected in expected {
                 fixture.add(expected, style: fixture.expectedStyle(), file: file, line: line)
             }
-
-            fixture.failure("\(actual) != \(expected)", file: file, line: line)
         }
 
         guard actual.count == expected.count else {
+            fixture.failure("\(actual) != \(expected)", file: file, line: line)
             return reportFailure()
         }
 
