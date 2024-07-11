@@ -157,7 +157,7 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
         if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
             state = lookup.next(state)
         } else {
-            state = lookup.previous(state)
+            state = lookup.previousOrEqual(state)
         }
 
         while visitedOverall.insert(state).inserted {

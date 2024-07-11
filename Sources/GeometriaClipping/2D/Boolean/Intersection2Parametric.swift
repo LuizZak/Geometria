@@ -46,7 +46,7 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
             state = lookup.next(state).flipped()
         } else {
-            state = lookup.previous(state).flipped()
+            state = lookup.previousOrEqual(state).flipped()
         }
 
         while visitedOverall.insert(state).inserted {

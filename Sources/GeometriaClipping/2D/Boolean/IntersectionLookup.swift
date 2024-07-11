@@ -182,6 +182,20 @@ internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricCli
         return selfSorted[index]
     }
 
+    /// Returns the immediately previous intersection period of the `self` shape
+    /// in the intersection list that is less than or equal to `period`.
+    ///
+    /// If this intersection lookup is empty, `nil` is returned, instead.
+    ///
+    /// - note: Wraps around the list if no suitable candidate is found.
+    func previousOrEqual(onSelf period: T1.Period) -> Intersection? {
+        guard let index = selfSorted.lastIndex(where: { $0.`self` <= period }) else {
+            return selfSorted.last
+        }
+
+        return selfSorted[index]
+    }
+
     /// Returns the immediately previous intersection period of the `other` shape
     /// in the intersection list that is strictly less than `period`.
     ///
@@ -190,6 +204,20 @@ internal class IntersectionLookup<T1: ParametricClip2Geometry, T2: ParametricCli
     /// - note: Wraps around the list if no suitable candidate is found.
     func previous(onOther period: T2.Period) -> Intersection? {
         guard let index = otherSorted.lastIndex(where: { $0.other < period }) else {
+            return otherSorted.first
+        }
+
+        return otherSorted[index]
+    }
+
+    /// Returns the immediately previous intersection period of the `other` shape
+    /// in the intersection list that is less than or equal to `period`.
+    ///
+    /// If this intersection lookup is empty, `nil` is returned, instead.
+    ///
+    /// - note: Wraps around the list if no suitable candidate is found.
+    func previousOrEqual(onOther period: T1.Period) -> Intersection? {
+        guard let index = otherSorted.lastIndex(where: { $0.other <= period }) else {
             return otherSorted.first
         }
 
@@ -330,6 +358,31 @@ extension IntersectionLookup where T1.Vector: Hashable {
 
         case .onRhs(_, let rhs):
             guard let intersection = previous(onOther: rhs) else {
+                return state
+            }
+
+            return .onRhs(intersection.`self`, intersection.other)
+        }
+    }
+
+    /// Returns the immediately previous intersection period of the shape associated
+    /// with the handedness of the given state in the intersection list that is
+    /// lesser than or equal to `state.activePeriod`.
+    ///
+    /// If this intersection lookup is empty, `nil` is returned, instead.
+    ///
+    /// - note: Wraps around the list if no suitable candidate is found.
+    func previousOrEqual(_ state: State) -> State {
+        switch state {
+        case .onLhs(let lhs, _):
+            guard let intersection = previousOrEqual(onSelf: lhs) else {
+                return state
+            }
+
+            return .onLhs(intersection.`self`, intersection.other)
+
+        case .onRhs(_, let rhs):
+            guard let intersection = previousOrEqual(onOther: rhs) else {
                 return state
             }
 

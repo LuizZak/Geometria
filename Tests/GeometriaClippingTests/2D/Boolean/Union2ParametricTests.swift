@@ -292,8 +292,8 @@ class Union2ParametricTests: XCTestCase {
                                     circleArc: .init(
                                         center: .init(x: 0.0, y: 0.0),
                                         radius: 95.0,
-                                        startAngle: Angle<Double>(radians: 0.09997590556877552),
-                                        sweepAngle: Angle<Double>(radians: 0.8472457400590464)
+                                        startAngle: Angle(radians: 0.09997590556877552),
+                                        sweepAngle: Angle(radians: 0.8472457400590464)
                                     ),
                                     startPeriod: 0.03564539362908016,
                                     endPeriod: 0.16666666666666663
@@ -324,8 +324,8 @@ class Union2ParametricTests: XCTestCase {
                                     circleArc: .init(
                                         center: .init(x: 0.0, y: 0.0),
                                         radius: 95.0,
-                                        startAngle: Angle<Double>(radians: 1.1471734567653735),
-                                        sweepAngle: Angle<Double>(radians: 0.847245740059046)
+                                        startAngle: Angle(radians: 1.1471734567653735),
+                                        sweepAngle: Angle(radians: 0.847245740059046)
                                     ),
                                     startPeriod: 0.2023120602957469,
                                     endPeriod: 0.3333333333333333
@@ -356,8 +356,8 @@ class Union2ParametricTests: XCTestCase {
                                     circleArc: .init(
                                         center: .init(x: 0.0, y: 0.0),
                                         radius: 95.0,
-                                        startAngle: Angle<Double>(radians: 2.194371007961971),
-                                        sweepAngle: Angle<Double>(radians: 0.8472457400590464)
+                                        startAngle: Angle(radians: 2.194371007961971),
+                                        sweepAngle: Angle(radians: 0.8472457400590464)
                                     ),
                                     startPeriod: 0.36897872696241346,
                                     endPeriod: 0.4999999999999999
@@ -388,8 +388,8 @@ class Union2ParametricTests: XCTestCase {
                                     circleArc: .init(
                                         center: .init(x: 0.0, y: 0.0),
                                         radius: 95.0,
-                                        startAngle: Angle<Double>(radians: 3.241568559158569),
-                                        sweepAngle: Angle<Double>(radians: 0.8472457400590453)
+                                        startAngle: Angle(radians: 3.241568559158569),
+                                        sweepAngle: Angle(radians: 0.8472457400590453)
                                     ),
                                     startPeriod: 0.5356453936290801,
                                     endPeriod: 0.6666666666666664
@@ -420,8 +420,8 @@ class Union2ParametricTests: XCTestCase {
                                     circleArc: .init(
                                         center: .init(x: 0.0, y: 0.0),
                                         radius: 95.0,
-                                        startAngle: Angle<Double>(radians: 4.288766110355166),
-                                        sweepAngle: Angle<Double>(radians: 0.8472457400590481)
+                                        startAngle: Angle(radians: 4.288766110355166),
+                                        sweepAngle: Angle(radians: 0.8472457400590481)
                                     ),
                                     startPeriod: 0.7023120602957467,
                                     endPeriod: 0.8333333333333334
@@ -452,8 +452,8 @@ class Union2ParametricTests: XCTestCase {
                                     circleArc: .init(
                                         center: .init(x: 0.0, y: 0.0),
                                         radius: 95.0,
-                                        startAngle: Angle<Double>(radians: 5.335963661551764),
-                                        sweepAngle: Angle<Double>(radians: 0.8472457400590467)
+                                        startAngle: Angle(radians: 5.335963661551764),
+                                        sweepAngle: Angle(radians: 0.8472457400590467)
                                     ),
                                     startPeriod: 0.8689787269624135,
                                     endPeriod: 1.0
@@ -679,6 +679,89 @@ class Union2ParametricTests: XCTestCase {
                                 )
                             ),
                         ],
+                    ]
+                )
+        }
+    }
+
+    func testUnion_intersectionOnStartPeriod() {
+        let lhs = Circle2Parametric.makeTestCircle()
+        let rhs = LinePolygon2Parametric.makeRectangle(
+            width: 220,
+            height: 220,
+            center: .init(x: 0.0, y: -110.0)
+        )
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture(renderScale: 2) { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [
+                        [
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 0.0),
+                                        radius: 100.0,
+                                        startAngle: Angle(radians: 0.0),
+                                        sweepAngle: Angle(radians: 3.141592653589793)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.31600496651363
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -100.00000000000001, y: 0.0),
+                                        end: .init(x: -110.0, y: 0.0)
+                                    ),
+                                    startPeriod: 0.31600496651363,
+                                    endPeriod: 0.32606371700607667
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -110.0, y: 0.0),
+                                        end: .init(x: -110.0, y: -220.0)
+                                    ),
+                                    startPeriod: 0.32606371700607667,
+                                    endPeriod: 0.5473562278399022
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -110.0, y: -220.0),
+                                        end: .init(x: 110.0, y: -220.0)
+                                    ),
+                                    startPeriod: 0.5473562278399022,
+                                    endPeriod: 0.7686487386737278
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: 110.0, y: -220.0),
+                                        end: .init(x: 110.0, y: 0.0)
+                                    ),
+                                    startPeriod: 0.7686487386737278,
+                                    endPeriod: 0.9899412495075534
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: 110.0, y: 0.0),
+                                        end: .init(x: 100.00000000000001, y: 0.0)
+                                    ),
+                                    startPeriod: 0.9899412495075534,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ]
                     ]
                 )
         }
