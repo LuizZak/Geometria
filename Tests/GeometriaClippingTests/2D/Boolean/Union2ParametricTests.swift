@@ -636,7 +636,49 @@ class Union2ParametricTests: XCTestCase {
                                     endPeriod: 1.0
                                 )
                             ),
-                        ]
+                        ],
+                        [
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -4.999999999999996, y: -30.0),
+                                        end: .init(x: -30.0, y: -30.0)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.14705882352941183
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -30.0, y: -30.0),
+                                        end: .init(x: -30.0, y: 30.0)
+                                    ),
+                                    startPeriod: 0.14705882352941183,
+                                    endPeriod: 0.5000000000000002
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -30.0, y: 30.0),
+                                        end: .init(x: -5.000000000000022, y: 30.0)
+                                    ),
+                                    startPeriod: 0.5000000000000002,
+                                    endPeriod: 0.6470588235294118
+                                )
+                            ),
+                            .lineSegment2(
+                                .init(
+                                    lineSegment: .init(
+                                        start: .init(x: -5.0, y: 29.999999999999993),
+                                        end: .init(x: -5.0, y: -29.999999999999986)
+                                    ),
+                                    startPeriod: 0.6470588235294118,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ],
                     ]
                 )
         }
