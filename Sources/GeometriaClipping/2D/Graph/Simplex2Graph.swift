@@ -9,6 +9,12 @@ struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     fileprivate(set) var nodes: Set<Node> = []
     fileprivate(set) var edges: Set<Edge> = []
 
+    /// Returns `true` if any of the nodes within this simplex graph is an
+    /// intersection.
+    func hasIntersections() -> Bool {
+        nodes.contains(where: \.isIntersection)
+    }
+
     /// Returns first intersection before `node`
     ///
     /// - note: Respects `onLhs` of node, if it's a geometry node.

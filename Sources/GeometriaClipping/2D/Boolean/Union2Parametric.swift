@@ -1,3 +1,5 @@
+import Geometria
+
 /// A Union boolean parametric that joins two shapes into a single shape, if they
 /// intersect in space.
 public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Boolean2Parametric
@@ -35,14 +37,18 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
                     )
                 )
 
-            case .circleArc(_, let sweep):
+            case .circleArc(let center, let sweep):
+                var arc: CircleArc2 = .init(
+                    startPoint: startPoint,
+                    endPoint: endPoint,
+                    sweepAngle: sweep
+                )
+                // Re-adjust center
+                arc.center = center
+
                 return .circleArc2(
                     .init(
-                        circleArc: .init(
-                            startPoint: startPoint,
-                            endPoint: endPoint,
-                            sweepAngle: sweep
-                        ),
+                        circleArc: arc,
                         startPeriod: .zero,
                         endPeriod: .zero
                     )
@@ -50,11 +56,31 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
             }
         }
 
+        let intersections = lhs
+            .allIntersectionPeriods(rhs, tolerance: tolerance)
+            .flatMap(\.periods)
         let graph = Graph.fromParametricIntersections(
             lhs,
             rhs,
-            intersections: lhs.allIntersectionPeriods(rhs, tolerance: tolerance)
+            intersections: intersections
         )
+
+        if !graph.hasIntersections() {
+            let lookup: IntersectionLookup<T1, T2> = .init(
+                selfShape: lhs,
+                otherShape: rhs,
+                intersections: intersections
+            )
+
+            if lookup.isOtherWithinSelf() {
+                return [lhs.allSimplexes()]
+            }
+            if lookup.isSelfWithinOther() {
+                return [rhs.allSimplexes()]
+            }
+
+            return [lhs.allSimplexes(), rhs.allSimplexes()]
+        }
 
         let start = lhs.compute(at: lhs.startPeriod)
         guard let startNode = graph.nodes.first(where: { $0.point == start }) else {
@@ -70,7 +96,7 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
         var result: [Simplex] = []
 
         var visited: Set<Graph.Node> = []
-        var isOnLhs = true
+        var isOnLhs = false
 
         while visited.insert(current).inserted {
             let edges = graph.edges(from: current).filter { edge -> Bool in

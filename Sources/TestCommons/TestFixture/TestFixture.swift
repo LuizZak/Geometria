@@ -93,10 +93,51 @@ public class TestFixture {
         line: UInt = #line
     ) -> Bool {
 
-        if !actual.isApproximatelyEqual(to: expected, absoluteTolerance: accuracy) {
+        if (actual - expected).magnitude > accuracy {
             XCTAssertEqual(actual, expected, file: file, line: line)
             didFail = true
             return false
+        }
+
+        return true
+    }
+
+    @discardableResult
+    public func assertEquals<T: FloatingPoint>(
+        _ actual: Angle<T>,
+        _ expected: Angle<T>,
+        accuracy: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if (actual.radians - expected.radians).magnitude > accuracy {
+            XCTAssertEqual(actual, expected, file: file, line: line)
+            didFail = true
+            return false
+        }
+
+        return true
+    }
+
+    @discardableResult
+    public func assertEquals<Vector: VectorFloatingPoint>(
+        _ actual: Vector,
+        _ expected: Vector,
+        accuracy: Vector.Scalar,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if actual.scalarCount != expected.scalarCount {
+            failure("\(actual) != \(expected)", file: file, line: line)
+            return false
+        }
+
+        for index in 0..<actual.scalarCount {
+            if !assertEquals(actual[index], expected[index], accuracy: accuracy, file: file, line: line) {
+                return false
+            }
         }
 
         return true

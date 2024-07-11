@@ -45,7 +45,7 @@ class Intersection2ParametricTests: XCTestCase {
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([
+                .assertAllSimplexes(accuracy: 1e-14, [
                     [
                         .lineSegment2(
                             .init(
@@ -220,7 +220,7 @@ class Intersection2ParametricTests: XCTestCase {
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([
+                .assertAllSimplexes(accuracy: 1e-14, [
                     [
                         .circleArc2(
                             .init(
@@ -390,7 +390,7 @@ class Intersection2ParametricTests: XCTestCase {
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([
+                .assertAllSimplexes(accuracy: 1e-14, [
                     [
                         .lineSegment2(
                             .init(

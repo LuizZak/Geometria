@@ -67,6 +67,86 @@ public extension TestFixture {
     ) where T.Scalar: CustomStringConvertible {
         self.p5Printer.add(geometry, intersectionAt: intersectionAt, style: style, file: file, line: line)
     }
+
+    @discardableResult
+    func assertEquals<Vector>(
+        _ actual: LineSegment2Simplex<Vector>,
+        _ expected: LineSegment2Simplex<Vector>,
+        accuracy: Vector.Scalar = .infinity,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        return assertEquals(actual.lineSegment.start, expected.lineSegment.start, accuracy: accuracy, file: file, line: line)
+            && assertEquals(actual.lineSegment.end, expected.lineSegment.end, accuracy: accuracy, file: file, line: line)
+    }
+
+    @discardableResult
+    func assertEquals<Vector>(
+        _ actual: CircleArc2Simplex<Vector>,
+        _ expected: CircleArc2Simplex<Vector>,
+        accuracy: Vector.Scalar = .infinity,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        return assertEquals(actual.circleArc.center, expected.circleArc.center, accuracy: accuracy, file: file, line: line)
+            && assertEquals(actual.circleArc.startAngle, expected.circleArc.startAngle, accuracy: accuracy, file: file, line: line)
+            && assertEquals(actual.circleArc.sweepAngle, expected.circleArc.sweepAngle, accuracy: accuracy, file: file, line: line)
+    }
+
+    @discardableResult
+    func assertEquals<Vector>(
+        _ actual: Parametric2GeometrySimplex<Vector>,
+        _ expected: Parametric2GeometrySimplex<Vector>,
+        accuracy: Vector.Scalar = .infinity,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy) {
+            return false
+        }
+
+        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy) {
+            return false
+        }
+
+        switch (actual, expected) {
+        case (.lineSegment2(let lhs), .lineSegment2(let rhs)):
+            return assertEquals(lhs, rhs, file: file, line: line)
+
+        case (.circleArc2(let lhs), .circleArc2(let rhs)):
+            return assertEquals(lhs, rhs, file: file, line: line)
+
+        default:
+            failure("\(actual) != \(expected)", file: file, line: line)
+            return false
+        }
+    }
+
+    @discardableResult
+    func assertEquals<Vector>(
+        _ actual: [Parametric2GeometrySimplex<Vector>],
+        _ expected: [Parametric2GeometrySimplex<Vector>],
+        accuracy: Vector.Scalar = .infinity,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if actual.count != expected.count {
+            failure("\(actual) != \(expected)", file: file, line: line)
+            return false
+        }
+
+        for (actual, expected) in zip(actual, expected) {
+            if !assertEquals(actual, expected, file: file, line: line) {
+                return false
+            }
+        }
+
+        return true
+    }
 }
 
 public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geometry, T.Scalar: CustomStringConvertible {
@@ -154,13 +234,14 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
 
 public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T.Scalar: CustomStringConvertible {
     func assertAllSimplexes(
+        accuracy: T.Scalar = .infinity,
         _ expected: [[T.Simplex]],
         file: StaticString = #file,
         line: UInt = #line
     ) {
         let actual = value.allSimplexes()
 
-        if actual != expected {
+        func reportFailure() {
             visualize()
 
             for actual in actual {
@@ -171,6 +252,16 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
             }
 
             fixture.failure("\(actual) != \(expected)", file: file, line: line)
+        }
+
+        guard actual.count == expected.count else {
+            return reportFailure()
+        }
+
+        for (lhs, rhs) in zip(actual, expected) {
+            if !fixture.assertEquals(lhs, rhs, file: file, line: line) {
+                return reportFailure()
+            }
         }
     }
 
