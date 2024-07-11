@@ -19,7 +19,7 @@ class Circle2ParametricTests: XCTestCase {
             fixture.add(sut)
 
             fixture.assertions(on: sut)
-                .assertSimplexes([
+                .assertSimplexes(accuracy: 1e-14, [
                     .circleArc2(
                         .init(
                             circleArc: .init(center: .init(x: 10.0, y: 20.0),

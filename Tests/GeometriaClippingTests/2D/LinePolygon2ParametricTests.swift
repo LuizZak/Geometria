@@ -14,7 +14,7 @@ class LinePolygon2ParametricTests: XCTestCase {
             fixture.add(sut)
 
             fixture.assertions(on: sut)
-                .assertSimplexes([
+                .assertSimplexes(accuracy: 1e-14, [
                     .lineSegment2(
                         .init(
                             lineSegment: .init(

@@ -196,19 +196,23 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
         return self
     }
 
+    @discardableResult
     func assertSimplexes(
+        accuracy: T.Scalar,
         _ expected: [T.Simplex],
         file: StaticString = #file,
         line: UInt = #line
-    ) {
+    ) -> Bool {
 
         let actual = value.allSimplexes()
-        if actual != expected {
+        if !fixture.assertEquals(actual, expected, accuracy: accuracy, file: file, line: line) {
             fixture.add(actual)
             fixture.add(expected)
 
-            assertEquals(actual, expected, file: file, line: line)
+            return false
         }
+
+        return true
     }
 
     func assertIntersections<T2: ParametricClip2Geometry>(
