@@ -2,6 +2,8 @@ import XCTest
 import Geometria
 import TestCommons
 
+#if GEOMETRIA_PERFORMANCE_TESTS
+
 #if ENABLE_SIMD
 #if canImport(simd)
 
@@ -12,13 +14,13 @@ import simd
 
 class PerformanceTests: XCTestCase {
     // MARK: Line - Vector projection
-    
-    func xtestLineProject2D() {
+
+    func testLineProject2D() {
         typealias Vector = Vector2D
-        
+
         let line = Line<Vector>(x1: 0, y1: 0, x2: 10, y2: 10)
         let point = Vector(x: 0, y: 10)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -27,13 +29,13 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
-    func xtestLineProject3D() {
+
+    func testLineProject3D() {
         typealias Vector = Vector3D
-        
+
         let line = Line<Vector>(x1: 0, y1: 0, z1: 0, x2: 10, y2: 10, z2: 10)
         let point = Vector(x: 10, y: 10, z: 0)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -42,16 +44,16 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
+
     #if ENABLE_SIMD
     #if canImport(simd)
 
-    func xtestLineProject2D_simd() {
+    func testLineProject2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         let line = Line<Vector>(x1: 0.0, y1: 0.0, x2: 10.0, y2: 10.0)
         let point = Vector(x: 0.0, y: 10.0)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -60,13 +62,13 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
-    func xtestLineProject3D_simd() {
+
+    func testLineProject3D_simd() {
         typealias Vector = SIMD3<Double>
-        
+
         let line = Line<Vector>(x1: 0.0, y1: 0.0, z1: 0.0, x2: 10.0, y2: 10.0, z2: 10.0)
         let point = Vector(x: 10.0, y: 10.0, z: 0.0)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -79,12 +81,12 @@ class PerformanceTests: XCTestCase {
     #endif // #if canImport(simd)
     #endif // #if ENABLE_SIMD
 
-    func xtestDirectionalRayProject2D() {
+    func testDirectionalRayProject2D() {
         typealias Vector = Vector2D
-        
+
         let ray = DirectionalRay<Vector>(x: 0, y: 0, dx: 10, dy: 10)
         let point = Vector(x: 0, y: 10)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -93,13 +95,13 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
-    func xtestDirectionalRayProject3D() {
+
+    func testDirectionalRayProject3D() {
         typealias Vector = Vector3D
-        
+
         let ray = DirectionalRay<Vector>(x: 0, y: 0, z: 0, dx: 10, dy: 10, dz: 10)
         let point = Vector(x: 10, y: 10, z: 0)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -108,16 +110,16 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
+
     #if ENABLE_SIMD
     #if canImport(simd)
 
-    func xtestDirectionalRayProject2D_simd() {
+    func testDirectionalRayProject2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         let ray = DirectionalRay<Vector>(x: 0, y: 0, dx: 10, dy: 10)
         let point = Vector(x: 0, y: 10)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -126,13 +128,13 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
-    func xtestDirectionalRayProject3D_simd() {
+
+    func testDirectionalRayProject3D_simd() {
         typealias Vector = SIMD3<Double>
-        
+
         let ray = DirectionalRay<Vector>(x: 0, y: 0, z: 0, dx: 10, dy: 10, dz: 10)
         let point = Vector(x: 10, y: 10, z: 0)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -149,12 +151,12 @@ class PerformanceTests: XCTestCase {
 // MARK: AABB - Line intersection
 
 extension PerformanceTests {
-    func xtestAABBLineIntersects2D() {
+    func testAABBLineIntersects2D() {
         typealias Vector = Vector2D
-        
+
         var aabb = AABB<Vector>(left: 3, top: 5, right: 12, bottom: 15)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -167,13 +169,13 @@ extension PerformanceTests {
 
     #if ENABLE_SIMD
     #if canImport(simd)
-    
-    func xtestAABBLineIntersects2D_simd() {
+
+    func testAABBLineIntersects2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         var aabb = AABB<Vector>(left: 3, top: 5, right: 12, bottom: 15)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -186,13 +188,13 @@ extension PerformanceTests {
 
     #endif // #if canImport(simd)
     #endif // #if ENABLE_SIMD
-    
-    func xtestAABBLineIntersection2D() {
+
+    func testAABBLineIntersection2D() {
         typealias Vector = Vector2D
-        
+
         var aabb = AABB<Vector>(left: 3, top: 5, right: 12, bottom: 15)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -202,16 +204,16 @@ extension PerformanceTests {
             }
         }
     }
-    
+
     #if ENABLE_SIMD
     #if canImport(simd)
 
-    func xtestAABBLineIntersection2D_simd() {
+    func testAABBLineIntersection2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         var aabb = AABB<Vector>(left: 3, top: 5, right: 12, bottom: 15)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -229,7 +231,7 @@ extension PerformanceTests {
 // MARK: Sphere - Line intersection
 
 extension PerformanceTests {
-    func xtestSphereLineIntersects2D() {
+    func testSphereLineIntersects2D() {
         typealias Vector = Vector2D
 
         var sphere = Circle2<Vector>(center: .init(x: 3, y: 5), radius: 3)
@@ -244,16 +246,16 @@ extension PerformanceTests {
             }
         }
     }
-    
+
     #if ENABLE_SIMD
     #if canImport(simd)
 
-    func xtestSphereLineIntersects2D_simd() {
+    func testSphereLineIntersects2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         var sphere = Circle2<Vector>(center: .init(x: 3, y: 5), radius: 3)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -267,12 +269,12 @@ extension PerformanceTests {
     #endif // #if canImport(simd)
     #endif // #if ENABLE_SIMD
 
-    func xtestSphereLineIntersection2D() {
+    func testSphereLineIntersection2D() {
         typealias Vector = Vector2D
-        
+
         var sphere = Circle2<Vector>(center: .init(x: 3, y: 5), radius: 3)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -285,13 +287,13 @@ extension PerformanceTests {
 
     #if ENABLE_SIMD
     #if canImport(simd)
-    
-    func xtestSphereLineIntersection2D_simd() {
+
+    func testSphereLineIntersection2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         var sphere = Circle2<Vector>(center: .init(x: 3, y: 5), radius: 3)
         let line = Line<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -305,15 +307,15 @@ extension PerformanceTests {
     #endif // #if canImport(simd)
     #endif // #if ENABLE_SIMD
 
-    func xtestSphereLineIntersection3D() {
+    func testSphereLineIntersection3D() {
         typealias Vector = Vector3D
-        
+
         var sphere = Sphere3<Vector>(center: .init(x: 1, y: 2, z: 3), radius: 3)
         let line = Line<Vector>(
             x1: -5, y1: 2, z1: 3,
             x2:  5, y2: 2, z2: 3
         )
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -323,13 +325,13 @@ extension PerformanceTests {
             }
         }
     }
-    
-    func xtestSphereDirectionalRayIntersection2D() {
+
+    func testSphereDirectionalRayIntersection2D() {
         typealias Vector = Vector2D
-        
+
         var sphere = Circle2<Vector>(center: .init(x: 3, y: 5), radius: 3)
         let line = DirectionalRay<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -342,13 +344,13 @@ extension PerformanceTests {
 
     #if ENABLE_SIMD
     #if canImport(simd)
-    
-    func xtestSphereDirectionalRayIntersection2D_simd() {
+
+    func testSphereDirectionalRayIntersection2D_simd() {
         typealias Vector = SIMD2<Double>
-        
+
         var sphere = Circle2<Vector>(center: .init(x: 3, y: 5), radius: 3)
         let line = DirectionalRay<Vector>(x1: 2, y1: 3, x2: 3, y2: 4)
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -358,7 +360,7 @@ extension PerformanceTests {
             }
         }
     }
-    
+
     #endif // #if canImport(simd)
     #endif // #if ENABLE_SIMD
 }
@@ -366,11 +368,11 @@ extension PerformanceTests {
 // MARK: Triangle.area
 
 extension PerformanceTests {
-    func xtestTriangleArea() {
+    func testTriangleArea() {
         typealias Vector = Vector2D
-        
+
         let triangle = Triangle<Vector>(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -384,15 +386,15 @@ extension PerformanceTests {
 // MARK: Triangle / line intersection
 
 extension PerformanceTests {
-    func xtestTriangleIntersectionWith() {
+    func testTriangleIntersectionWith() {
         typealias Vector = Vector3D
-        
+
         let triangle = Triangle<Vector>(
             a: .init(x: 0, y: 1, z: 2),
             b: .init(x: 2, y: 130, z: 5),
             c: .init(x: 121, y: 5, z: 11)
         )
-        
+
         var line = Line<Vector>(
             x1: -10,
             y1: 0,
@@ -401,7 +403,7 @@ extension PerformanceTests {
             y2: 50,
             z2: -20
         )
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -411,16 +413,16 @@ extension PerformanceTests {
             }
         }
     }
-    
-    func xtestTriangleMollerTrumboreIntersect() {
+
+    func testTriangleMollerTrumboreIntersect() {
         typealias Vector = Vector3D
-        
+
         let triangle = Triangle<Vector>(
             a: .init(x: 0, y: 1, z: 2),
             b: .init(x: 2, y: 130, z: 5),
             c: .init(x: 121, y: 5, z: 11)
         )
-        
+
         var line = Line<Vector>(
             x1: -10,
             y1: 0,
@@ -429,7 +431,7 @@ extension PerformanceTests {
             y2: 50,
             z2: -20
         )
-        
+
         measure {
             var i = 0
             while i < 100_000 {
@@ -440,3 +442,5 @@ extension PerformanceTests {
         }
     }
 }
+
+#endif
