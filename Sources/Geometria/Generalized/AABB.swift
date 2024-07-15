@@ -389,9 +389,14 @@ public extension AABB where Vector: VectorAdditive & VectorComparable {
     ///
     /// If `aabbs` is empty, initializes `self` as `Self.zero`.
     @inlinable
-    init(aabbs: [Self]) {
-        let minimum = aabbs.map(\.minimum).reduce(.zero, Vector.pointwiseMin)
-        let maximum = aabbs.map(\.maximum).reduce(.zero, Vector.pointwiseMax)
+    init<C: Collection>(aabbs: C) where C.Element == Self {
+        guard let first = aabbs.first else {
+            self.init(minimum: .zero, maximum: .zero)
+            return
+        }
+
+        let minimum = aabbs.map(\.minimum).reduce(first.maximum, Vector.pointwiseMin)
+        let maximum = aabbs.map(\.maximum).reduce(first.minimum, Vector.pointwiseMax)
 
         self.init(minimum: minimum, maximum: maximum)
     }

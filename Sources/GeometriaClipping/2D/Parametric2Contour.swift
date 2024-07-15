@@ -102,18 +102,47 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         self.endPeriod = endPeriod
     }
 
-    /// Performs a point-containment check against this parametric geometry.
+    /// Performs a point-containment check against this parametric contour.
     public func contains(_ point: Vector) -> Bool {
+        /*
+        func leftWinding(_ p0: Vector, _ p1: Vector, _ p2: Vector) -> Scalar {
+            let w = (p1.x - p0.x) * (p2.y - p0.y)
+            return w - (p2.x - p0.x) * (p1.y - p0.y)
+        }
+
+        let points = self.allSimplexes().map(\.start)
+        var totalWinding: Scalar = .zero
+
+        for (i, cur) in points.enumerated() {
+            let next = points[(i + 1) % points.count]
+
+            if cur.y <= point.y {
+                if next.y > point.y, leftWinding(cur, next, point) < 0 {
+                    totalWinding += 1
+                }
+            } else if cur.y > point.y {
+                if next.y <= point.y, leftWinding(cur, next, point) > 0 {
+                    totalWinding -= 1
+                }
+            }
+        }
+
+        return totalWinding == .zero
+        // */
+        //*
         // Construct a line segment that starts at the queried point and ends at
-        // a point known to be outside the geometry, then count the number of
+        // a point known to be outside the contour, then count the number of
         // unique point-intersections along the way; if the intersection count
         // is divisible by two, then the point is not contained within the
-        // geometry.
+        // contour.
 
         let simplexes = allSimplexes()
         var points: [Vector] = []
 
         let bounds = simplexes.bounds()
+        if !bounds.contains(point) {
+            return false
+        }
 
         let lineSegment = LineSegment2<Vector>(
             start: point,
@@ -136,6 +165,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         }
 
         return points.count % 2 == 1
+        // */
     }
 
     /// Computes the point on this parametric geometry matching a given period.
@@ -326,6 +356,15 @@ extension Collection {
 
 private extension Parametric2Contour {
     static func computeWinding(_ simplexes: [Simplex]) -> Winding {
-        .clockwise
+        //.clockwise
+        let points = simplexes.map(\.start)
+        let polygon = LinePolygon2(vertices: points)
+        let polygonWinding = polygon.winding()
+
+        if polygonWinding < 0 {
+            return .counterClockwise
+        } else {
+            return .clockwise
+        }
     }
 }

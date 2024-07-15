@@ -388,6 +388,18 @@ extension AABBTests {
         XCTAssertEqual(result.maximum, .init(x: 7, y: 12))
     }
 
+    func testInitAABBs_singleAABB() {
+        let aabb1 = Box(
+            minimum: .init(x: -25, y: -16),
+            maximum: .init(x: -15, y: -20)
+        )
+
+        let result = Box(aabbs: [aabb1])
+
+        XCTAssertEqual(result.minimum, .init(x: -25, y: -20))
+        XCTAssertEqual(result.maximum, .init(x: -15, y: -16))
+    }
+
     func testInitAABBs_empty() {
         let result = Box(aabbs: [])
 
