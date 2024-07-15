@@ -289,12 +289,160 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     }
 }
 
+extension Sequence {
+    /// Returns the result of clamping all simplexes within this sequence to be
+    /// within a given range.
+    ///
+    /// If no simplex overlaps the given region, an empty array is returned, instead.
+    public func clampedSimplexes<Vector>(
+        in range: Range<Vector.Scalar>
+    ) -> [Parametric2GeometrySimplex<Vector>] where Element == Parametric2GeometrySimplex<Vector> {
+        compactMap { simplex in
+            simplex.clamped(in: range)
+        }
+    }
+
+    /// Returns the result of clamping all simplexes within this sequence to be
+    /// within a given range.
+    ///
+    /// If no simplex overlaps the given region, an array of empty arrays is
+    /// returned, one for each element in this array, instead.
+    public func clampedSimplexes<Vector>(
+        in range: Range<Vector.Scalar>
+    ) -> [[Parametric2GeometrySimplex<Vector>]] where Element == [Parametric2GeometrySimplex<Vector>] {
+        map { $0.clampedSimplexes(in: range) }
+    }
+}
+
 extension Collection {
     /// Computes the minimal bounding box capable of containing this collection
     /// of simplexes.
     @inlinable
     func bounds<Vector>() -> AABB2<Vector> where Element == Parametric2GeometrySimplex<Vector> {
         return AABB2(aabbs: self.map(\.bounds))
+    }
+
+    func allIntersectionPeriods<C: Collection, Vector>(
+        with other: C,
+        tolerance: Vector.Scalar,
+        normalizedCenterSelf: (_ left: Vector.Scalar, _ right: Vector.Scalar) -> Vector.Scalar,
+        otherContainsSelf: (Vector.Scalar) -> Bool,
+        normalizedCenterOther: (_ left: Vector.Scalar, _ right: Vector.Scalar) -> Vector.Scalar,
+        selfContainsOther: (Vector.Scalar) -> Bool
+    ) -> [ParametricClip2Intersection<Vector.Scalar>] where Element == Parametric2GeometrySimplex<Vector>, C.Element == Parametric2GeometrySimplex<Vector> {
+        typealias Period = Vector.Scalar
+
+        typealias Intersection = ParametricClip2Intersection<Vector.Scalar>
+        typealias Atom = Intersection.Atom
+
+        /// Returns `true` if the mid point between `left` and `right` produces
+        /// a period that computes a point in `self` such that `other` contains it,
+        /// i.e. `other.contains(self.compute(at: mid(left, right))) == true`, or
+        /// if the same is true if `self.contains(other.compute(at: mid(left, right)))`.
+        func probeCenter(_ left: Atom, _ right: Atom) -> Bool {
+            let centerSelf = normalizedCenterSelf(
+                left.`self`,
+                right.`self`
+            )
+
+            if otherContainsSelf(centerSelf) {
+                return true
+            }
+
+            let centerOther = normalizedCenterOther(
+                left.other,
+                right.other
+            )
+
+            return selfContainsOther(centerOther)
+        }
+
+        var atoms: [Atom] = []
+        let selfSimplexes = self
+        let otherSimplexes = other
+
+        for selfSimplex in selfSimplexes {
+            for otherSimplex in otherSimplexes {
+                atoms.append(
+                    contentsOf: selfSimplex.intersectionPeriods(with: otherSimplex)
+                )
+            }
+        }
+
+        // Attempt to tie intersections as pairs by biasing the list of atoms as
+        // sorted periods on 'self', and working on sequential periods instead
+        // of sequential points of intersections
+        atoms = atoms.sorted(by: { $0.`self` < $1.`self` })
+
+        // Combine atoms with `tolerance`
+        if tolerance.isFinite {
+            var index = 0
+            while index < (atoms.count - 1) {
+                defer { atoms.formIndex(after: &index) }
+
+                let atom = atoms[index]
+                let next = atoms[atoms.index(after: index)]
+
+                if Intersection.areApproximatelyEqual(atom, next, tolerance: tolerance) {
+                    atoms.remove(at: atoms.index(after: index))
+                    atoms.formIndex(before: &index)
+                }
+            }
+        }
+
+        var intersections: [Intersection] = []
+
+        if atoms.count > 1, let lastAtom = atoms.last {
+            // Ensure that the mid-period between the first two atoms is always
+            // contained within 'other' before producing pairs so that the pairs
+            // are more likely to be properly ordered from the get-go
+            if probeCenter(lastAtom, atoms[0]) {
+                atoms = [lastAtom] + atoms.dropLast()
+            }
+
+            var remaining = atoms
+
+            while !remaining.isEmpty {
+                let candidate: Intersection
+
+                let current = remaining[0]
+
+                if remaining.count > 1 {
+                    let next = remaining[1]
+
+                    if probeCenter(current, next) {
+                        remaining.remove(at: 1)
+                        remaining.remove(at: 0)
+
+                        candidate = .pair(current, next)
+                    } else {
+                        remaining.remove(at: 0)
+
+                        candidate = .singlePoint(current)
+                    }
+                } else {
+                    // Any remaining point is single-point by definition
+                    candidate = .singlePoint(remaining[0])
+                    remaining.remove(at: 0)
+                }
+
+                if
+                    tolerance.isFinite,
+                    let last = intersections.last,
+                    let joined = last.attemptCombine(withNext: candidate, tolerance: tolerance)
+                {
+                    intersections[intersections.count - 1] = joined
+                } else {
+                    intersections.append(candidate)
+                }
+            }
+        } else if atoms.count == 1 {
+            intersections = [
+                .singlePoint(atoms[0])
+            ]
+        }
+
+        return intersections
     }
 
     /// Renormalizes the simplexes within this collection such that the periods

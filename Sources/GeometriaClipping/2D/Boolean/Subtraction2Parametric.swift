@@ -12,33 +12,12 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
         self.tolerance = tolerance
     }
 
-    public func allSimplexes() -> [[Simplex]] {
-        typealias State = GeometriaClipping.State<T1, T2>
-
+    public func allContours() -> [Contour] {
+        typealias State = GeometriaClipping.State<T1.Period>
 
         let rhsReversed = rhs.reversed()
 
-        let lookup: IntersectionLookup<T1, T2> = .init(
-            intersectionsOfSelfShape: lhs,
-            otherShape: rhsReversed,
-            tolerance: tolerance
-        )
-
-        // If no intersections have been found, check if one of the shapes is
-        // contained within the other
-        guard !lookup.intersections.isEmpty else {
-            if lookup.isOtherWithinSelf() {
-                // TODO: Implement holes
-                return [lhs.allSimplexes()]
-            }
-            if lookup.isSelfWithinOther() {
-                return []
-            }
-
-            return [lhs.allSimplexes()]
-        }
-
         // A subtraction is a union of a geometry and a reverse-wound input geometry
-        return Union2Parametric(lhs, rhsReversed, tolerance: tolerance).allSimplexes()
+        return Union2Parametric(lhs, rhsReversed, tolerance: tolerance).allContours()
     }
 }

@@ -8,11 +8,12 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
-        intersections: [ParametricClip2Intersection<T1, T2>],
+        intersections: [ParametricClip2Intersection<T1.Scalar>],
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) where T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+    ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+
         for intersection in intersections {
             self.add(t1, t2, intersection: intersection, style: style, file: file, line: line)
         }
@@ -22,11 +23,11 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
-        intersection: ParametricClip2Intersection<T1, T2>,
+        intersection: ParametricClip2Intersection<T1.Scalar>,
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) where T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+    ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
         add(t1, t2, intersections: intersection.periods, style: style, file: file, line: line)
     }
 
@@ -34,11 +35,11 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
-        intersections: [(`self`: T1.Period, `other`: T2.Period)],
+        intersections: [(`self`: T1.Scalar, `other`: T1.Scalar)],
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) where T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+    ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
         for intersection in intersections {
             self.add(t1, t2, intersection: intersection, style: style, file: file, line: line)
         }
@@ -48,11 +49,11 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
-        intersection: (`self`: T1.Period, `other`: T2.Period),
+        intersection: (`self`: T1.Scalar, `other`: T1.Scalar),
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
-    ) where T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+    ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
         self.add(t1, intersectionAt: intersection.`self`, style: style, file: file, line: line)
         self.add(t2, intersectionAt: intersection.`other`, style: style, file: file, line: line)
     }
@@ -173,6 +174,58 @@ public extension TestFixture {
     }
 
     @discardableResult
+    func assertEquals<Vector>(
+        _ actual: Parametric2Contour<Vector>,
+        _ expected: Parametric2Contour<Vector>,
+        accuracy: Vector.Scalar = .infinity,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy, message()) {
+            return false
+        }
+
+        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy, message()) {
+            return false
+        }
+
+        return assertEquals(
+            actual.allSimplexes(),
+            accuracy: accuracy,
+            expected.allSimplexes(),
+            message(),
+            file: file,
+            line: line
+        )
+    }
+
+    @discardableResult
+    func assertEquals<Vector>(
+        _ actual: [Parametric2Contour<Vector>],
+        accuracy: Vector.Scalar = .infinity,
+        _ expected: [Parametric2Contour<Vector>],
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if actual.count != expected.count {
+            failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
+            return false
+        }
+
+        for (i, (actual, expected)) in zip(actual, expected).enumerated() {
+            if !assertEquals(actual, expected, "[\(i)] \(message())", file: file, line: line) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    @discardableResult
     func assertEquals<T: FloatingPoint>(
         _ actual: [(`self`: T, other: T)],
         _ expected: [(`self`: T, other: T)],
@@ -198,27 +251,27 @@ public extension TestFixture {
     }
 
     @discardableResult
-    func assertEquals<T1, T2>(
-        _ actual: ParametricClip2Intersection<T1, T2>,
-        _ expected: ParametricClip2Intersection<T1, T2>,
-        accuracy: T1.Scalar = .infinity,
+    func assertEquals<Period>(
+        _ actual: ParametricClip2Intersection<Period>,
+        _ expected: ParametricClip2Intersection<Period>,
+        accuracy: Period = .infinity,
         _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
-    ) -> Bool where T1.Scalar: FloatingPoint {
+    ) -> Bool where Period: FloatingPoint {
 
         return assertEquals(actual.periods, expected.periods, accuracy: accuracy, file: file, line: line)
     }
 
     @discardableResult
-    func assertEquals<T1, T2>(
-        _ actual: [ParametricClip2Intersection<T1, T2>],
-        _ expected: [ParametricClip2Intersection<T1, T2>],
-        accuracy: T1.Scalar = .infinity,
+    func assertEquals<Period>(
+        _ actual: [ParametricClip2Intersection<Period>],
+        _ expected: [ParametricClip2Intersection<Period>],
+        accuracy: Period = .infinity,
         _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
-    ) -> Bool where T1.Scalar: FloatingPoint {
+    ) -> Bool where Period: FloatingPoint {
 
         if actual.count != expected.count {
             failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
@@ -279,6 +332,25 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
     }
 
     @discardableResult
+    func assertContours(
+        accuracy: T.Scalar,
+        _ expected: [T.Contour],
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        let actual = value.allContours()
+        if !fixture.assertEquals(actual, accuracy: accuracy, expected, file: file, line: line) {
+            fixture.add(actual)
+            fixture.add(expected)
+
+            return false
+        }
+
+        return true
+    }
+
+    @discardableResult
     func assertSimplexes(
         accuracy: T.Scalar,
         _ expected: [T.Simplex],
@@ -286,7 +358,7 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
         line: UInt = #line
     ) -> Bool {
 
-        let actual = value.allSimplexes()
+        let actual = value.allContours().flatMap { $0.allSimplexes() }
         if !fixture.assertEquals(actual, accuracy: accuracy, expected, file: file, line: line) {
             fixture.add(actual)
             fixture.add(expected)
@@ -301,11 +373,12 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
         _ other: T2,
         accuracy: T.Scalar,
         tolerance: T.Period = T.Period.leastNonzeroMagnitude,
-        _ expected: [ParametricClip2Intersection<T, T2>],
+        _ expected: [ParametricClip2Intersection<T.Scalar>],
         file: StaticString = #file,
         line: UInt = #line
     ) where T2: VisualizableGeometricType2, T2.Vector == T.Vector, T.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
 
+        /* TODO: Re-implement
         let actual = value.allIntersectionPeriods(
             other,
             tolerance: tolerance
@@ -318,17 +391,18 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
             fixture.add(value, other, intersections: actual, style: fixture.resultStyle().with(\.fillColor, .green))
             fixture.add(value, other, intersections: expected, style: fixture.expectedStyle().with(\.fillColor, .red))
         }
+        */
     }
 }
 
 public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T.Scalar: CustomStringConvertible {
-    func assertAllSimplexes(
+    func assertAllContours(
         accuracy: T.Scalar = .infinity,
-        _ expected: [[T.Simplex]],
+        _ expected: [T.Contour],
         file: StaticString = #file,
         line: UInt = #line
     ) {
-        let actual = value.allSimplexes()
+        let actual = value.allContours()
 
         func reportFailure() {
             visualize()
@@ -353,6 +427,38 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
         }
     }
 
+    func assertAllSimplexes(
+        accuracy: T.Scalar = .infinity,
+        _ expected: [[T.Simplex]],
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        let actual = value.allContours().map { $0.allSimplexes() }
+
+        func reportFailure() {
+            visualize()
+
+            for actual in actual {
+                fixture.add(actual, style: fixture.resultStyle(), file: file, line: line)
+            }
+            for expected in expected {
+                fixture.add(expected, style: fixture.expectedStyle(), file: file, line: line)
+            }
+        }
+
+        guard actual.count == expected.count else {
+            fixture.failure("\(actual) != \(expected)", file: file, line: line)
+            return reportFailure()
+        }
+
+        for (lhs, rhs) in zip(actual, expected) {
+            if !fixture.assertEquals(lhs, rhs, file: file, line: line) {
+                return reportFailure()
+            }
+        }
+    }
+
+    /*
     func assertAllSimplexesString(
         bufferWidth: Int,
         bufferHeight: Int,
@@ -383,4 +489,5 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
             XCTAssertEqual(bufferString.buffer, expectedBuffer, file: file, line: line)
         }
     }
+    */
 }

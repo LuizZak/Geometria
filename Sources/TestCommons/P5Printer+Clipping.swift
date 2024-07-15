@@ -4,22 +4,22 @@ import Geometria
 import GeometriaClipping
 
 extension P5Printer {
-    func printPeriodicsSlider() {
+    func printPeriodSlider() {
         printMultiline("""
         periodSlider = createSlider(0.0, 1.0, 0.5, 0.0)
         periodSlider.size(width)
         """)
         printLine("")
-        printLine("periodics = [")
+        printLine("parametrics = [")
         indented {
-            for periodic in periodicsToDraw {
-                printMultiline(periodic)
+            for parametric in parametricsToDraw {
+                printMultiline(parametric)
             }
         }
         printLine("]")
     }
 
-    func printPeriodicsDraw() {
+    func printParametricsDraw() {
         printMultiline(#"""
             fill(0)
             noStroke()
@@ -28,17 +28,17 @@ extension P5Printer {
             scale(renderScale)
             stroke(0)
             noFill()
-            for (let periodic of periodics) {
-                periodic.render(periodSlider.value())
+            for (let parametric of parametrics) {
+                parametric.render(periodSlider.value())
             }
             noStroke()
             fill(0)
             """#)
     }
 
-    func printPeriodicTypes() {
+    func printParametricTypes() {
         printMultiline(#"""
-        class Periodic {
+        class Parametric {
           constructor(startPeriod, endPeriod, fillColor, strokeColor) {
             this.startPeriod = startPeriod
             this.endPeriod = endPeriod
@@ -68,7 +68,7 @@ extension P5Printer {
           }
         }
         
-        class IntersectionPeriodic extends Periodic {
+        class IntersectionParametric extends Parametric {
           constructor(position, startPeriod, endPeriod, fillColor, strokeColor) {
             super(startPeriod, endPeriod, fillColor, strokeColor)
             
@@ -86,7 +86,7 @@ extension P5Printer {
           }
         }
 
-        class LinePeriodic extends Periodic {
+        class LineParametric extends Parametric {
           constructor(start, end, startPeriod, endPeriod, fillColor, strokeColor) {
             super(startPeriod, endPeriod, fillColor, strokeColor)
             
@@ -122,7 +122,7 @@ extension P5Printer {
           }
         }
         
-        class ArcPeriodic extends Periodic {
+        class ArcParametric extends Parametric {
           constructor(center, radius, startAngle, sweep, startPeriod, endPeriod, fillColor, strokeColor) {
             super(startPeriod, endPeriod, fillColor, strokeColor)
             
@@ -188,9 +188,16 @@ extension P5Printer {
         """#)
     }
 
-    func add<Periodic: ParametricClip2Geometry>(_ periodic: Periodic, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
-        periodicsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
-        for simplex in periodic.allSimplexes() {
+    func add<Vector: Vector2Real>(_ contour: Parametric2Contour<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        parametricsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
+        for simplex in contour.allSimplexes() {
+            add(simplex, style: style, file: file, line: line)
+        }
+    }
+
+    func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
+        parametricsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
+        for simplex in parametric.allContours() {
             add(simplex, style: style, file: file, line: line)
         }
     }
@@ -206,11 +213,11 @@ extension P5Printer {
     }
 
     func add<Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
-        requiresPeriodicTypes = true
+        requiresParametricTypes = true
         requiresPeriodSlider = true
 
-        periodicsToDraw.append(#"""
-        new ArcPeriodic(
+        parametricsToDraw.append(#"""
+        new ArcParametric(
           \#(vec2PVectorString(simplex.circleArc.center)),
           \#(simplex.circleArc.radius),
           \#(simplex.circleArc.startAngle.normalized(from: .zero)),
@@ -222,11 +229,11 @@ extension P5Printer {
     }
 
     func add<Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
-        requiresPeriodicTypes = true
+        requiresParametricTypes = true
         requiresPeriodSlider = true
 
-        periodicsToDraw.append(#"""
-        new LinePeriodic(
+        parametricsToDraw.append(#"""
+        new LineParametric(
           \#(vec2PVectorString(simplex.start)),
           \#(vec2PVectorString(simplex.end)),
           \#(simplex.startPeriod), \#(simplex.endPeriod),
@@ -235,19 +242,25 @@ extension P5Printer {
         """#)
     }
 
-    func add<Periodic: ParametricClip2Geometry>(_ periodic: Periodic, intersectionAt period: Periodic.Period, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Periodic.Vector.Scalar: CustomStringConvertible {
-        requiresPeriodicTypes = true
+    func add<Vector: Vector2Real>(_ contour: Parametric2Contour<Vector>, intersectionAt period: Vector.Scalar, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        requiresParametricTypes = true
         requiresPeriodSlider = true
 
-        let point = periodic.compute(at: period)
+        let point = contour.compute(at: period)
 
-        periodicsToDraw.append(#"""
-        new IntersectionPeriodic(
+        parametricsToDraw.append(#"""
+        new IntersectionParametric(
           \#(vec2PVectorString(point)),
           \#(period), \#(period),
           \#(periodicStyle2String(style))
         ),
         """#)
+    }
+
+    func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, intersectionAt period: Parametric.Period, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
+        for contour in parametric.allContours() {
+            add(contour, intersectionAt: period, style: style, file: file, line: line)
+        }
     }
 
     func periodicStyle2String(_ style: Style?) -> String {

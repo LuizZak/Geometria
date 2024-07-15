@@ -41,5 +41,5 @@ private func makeSut(
 private func makeSut(
     normalizing simplexes: [Parametric2GeometrySimplex<Vector2D>]
 ) -> Compound2ParametricTests.Sut {
-    .init(normalizing: simplexes)
+    .init(normalizing: [.init(normalizing: simplexes)])
 }

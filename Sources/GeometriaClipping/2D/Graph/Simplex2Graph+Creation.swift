@@ -1,6 +1,7 @@
 import Geometria
 
 extension Simplex2Graph {
+    /* TODO: Migrate to new contour-based shapes or remove altogether
     static func fromParametricIntersections<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ lhs: T1,
         _ rhs: T2,
@@ -162,6 +163,7 @@ extension Simplex2Graph {
 
         return result
     }
+    */
 
     fileprivate func edge(from start: Node.ID, to end: Node.ID) -> Edge? {
         edges.first(where: { $0.start == start && $0.end == end })

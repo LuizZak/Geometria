@@ -2,12 +2,9 @@ import Numerics
 
 /// Contains information relating to the intersection of two solid parametric
 /// geometries.
-public enum ParametricClip2Intersection<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry> where T1.Period == T2.Period {
-    /// Convenience for `T1.Period`
-    public typealias Period = T1.Period
-
+public enum ParametricClip2Intersection<Period: Hashable & FloatingPoint> {
     /// The compact information present for intersections.
-    public typealias Atom = (self: T1.Period, other: T2.Period)
+    public typealias Atom = (self: Period, other: Period)
 
     /// An intersection that occurs at a single point.
     case singlePoint(Atom)

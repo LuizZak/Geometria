@@ -52,7 +52,7 @@ class Circle2ParametricTests: XCTestCase {
             endPeriod: 1.0
         )
 
-        let result = sut.clampedSimplexes(in: 0.3..<0.7)
+        let result = sut.allContours().flatMap { $0.clampedSimplexes(in: 0.3..<0.73) }
 
         TestFixture.beginFixture { fixture in
             fixture.assertEquals(result, [
@@ -73,10 +73,10 @@ class Circle2ParametricTests: XCTestCase {
                             center: .init(x: 0.0, y: 0.0),
                             radius: 100.0,
                             startAngle: Angle(radians: 3.141592653589793),
-                            sweepAngle: Angle(radians: 1.256637061435917)
+                            sweepAngle: Angle(radians: 1.4451326206513047)
                         ),
                         startPeriod: 0.5,
-                        endPeriod: 0.7
+                        endPeriod: 0.73
                     )
                 ),
             ])

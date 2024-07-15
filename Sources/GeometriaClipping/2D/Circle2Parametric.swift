@@ -4,6 +4,7 @@ import Geometria
 public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
+    public typealias Contour = Parametric2Contour<Vector>
 
     /// The underlying circle shape that comprises this parametric geometry.
     public var circle2: Circle2<Vector>
@@ -44,6 +45,15 @@ public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, E
 
     public func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool {
         circle2.distanceSquared(to: point) < toleranceSquared
+    }
+
+    public func allContours() -> [Contour] {
+        return [
+            .init(
+                simplexes: allSimplexes(),
+                winding: isReversed ? .counterClockwise : .clockwise
+            )
+        ]
     }
 
     public func allSimplexes() -> [Simplex] {

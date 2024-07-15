@@ -5,6 +5,7 @@ import Geometria
 public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
+    public typealias Contour = Parametric2Contour<Vector>
 
     private var _cachedSimplexes: [Simplex]
 
@@ -64,8 +65,8 @@ public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geomet
         linePolygon2.isPointOnEdge(point, toleranceSquared: toleranceSquared)
     }
 
-    public func allSimplexes() -> [Simplex] {
-        _cachedSimplexes
+    public func allContours() -> [Contour] {
+        return [.init(simplexes: _cachedSimplexes)]
     }
 
     private static func computeSimplexes(_ linePolygon2: LinePolygon2<Vector>) -> [Simplex] {

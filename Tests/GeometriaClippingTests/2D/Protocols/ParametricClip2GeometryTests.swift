@@ -8,7 +8,7 @@ class ParametricClip2GeometryTests: XCTestCase {
     func testClampedSimplexes_lines() {
         let sut = LinePolygon2Parametric.makeStar()
 
-        let result = sut.clampedSimplexes(in: 0.3..<0.73)
+        let result = sut.allContours().flatMap { $0.clampedSimplexes(in: 0.3..<0.73) }
 
         TestFixture.beginFixture { fixture in
             fixture.add(result)

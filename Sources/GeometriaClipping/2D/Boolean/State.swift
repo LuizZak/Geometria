@@ -6,14 +6,14 @@ import Geometria
 /// The state always keeps track of the equivalency of periods during intersections,
 /// and each case indicates which geometry to follow in subsequent
 /// `IntersectionLookup.next()`/`.previous()` calls.
-enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable where T1.Period == T2.Period {
+enum State<Period: Hashable>: Hashable {
     /// The current intersection point is being examined on the left-hand side
     /// geometry.
-    case onLhs(T1.Period, T2.Period)
+    case onLhs(Period, lhsIndex: Int, Period, rhsIndex: Int)
 
     /// The current intersection point is being examined on the right-hand side
     /// geometry.
-    case onRhs(T1.Period, T2.Period)
+    case onRhs(Period, lhsIndex: Int, Period, rhsIndex: Int)
 
     /// Returns `true` if `self` is a `onLhs` case.
     var isLhs: Bool {
@@ -33,27 +33,43 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
 
     /// Returns the active period, depending on whether this state is on the
     /// left-hand side or right-hand side of the state period.
-    var activePeriod: T1.Period {
+    var activePeriod: Period {
         switch self {
-        case .onLhs(let period, _),
-            .onRhs(_, let period):
+        case .onLhs(let period, _, _, _),
+            .onRhs(_, _, let period, _):
             return period
         }
     }
 
     /// Returns the left-hand side period of this state.
-    var lhsPeriod: T1.Period {
+    var lhsPeriod: Period {
         switch self {
-        case .onLhs(let lhs, _), .onRhs(let lhs, _):
+        case .onLhs(let lhs, _, _, _), .onRhs(let lhs, _, _, _):
             return lhs
         }
     }
 
-    /// Returns the right-hand side period of this state.
-    var rhsPeriod: T1.Period {
+    /// Returns the left-hand side index of this state.
+    var lhsIndex: Int {
         switch self {
-        case .onLhs(_, let rhs), .onRhs(_, let rhs):
+        case .onLhs(_, let lhsIndex, _, _), .onRhs(_, let lhsIndex, _, _):
+            return lhsIndex
+        }
+    }
+
+    /// Returns the right-hand side period of this state.
+    var rhsPeriod: Period {
+        switch self {
+        case .onLhs(_, _, let rhs, _), .onRhs(_, _, let rhs, _):
             return rhs
+        }
+    }
+
+    /// Returns the right-hand side index of this state.
+    var rhsIndex: Int {
+        switch self {
+        case .onLhs(_, _, _, let rhsIndex), .onRhs(_, _, _, let rhsIndex):
+            return rhsIndex
         }
     }
 
@@ -63,11 +79,11 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
     /// Effectively changes the focused geometry from lhs to rhs.
     func flipped() -> Self {
         switch self {
-        case .onLhs(let lhs, let rhs):
-            return .onRhs(lhs, rhs)
+        case .onLhs(let lhs, let lhsIndex, let rhs, let rhsIndex):
+            return .onRhs(lhs, lhsIndex: lhsIndex, rhs, rhsIndex: rhsIndex)
 
-        case .onRhs(let lhs, let rhs):
-            return .onLhs(lhs, rhs)
+        case .onRhs(let lhs, let lhsIndex, let rhs, let rhsIndex):
+            return .onLhs(lhs, lhsIndex: lhsIndex, rhs, rhsIndex: rhsIndex)
         }
     }
 
@@ -77,13 +93,15 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
     /// discriminator for the handedness of the enumeration.
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .onLhs(let value, _):
+        case .onLhs(let value, let index, _, _):
             hasher.combine(0)
             hasher.combine(value)
+            hasher.combine(index)
 
-        case .onRhs(_, let value):
+        case .onRhs(_, _, let value, let index):
             hasher.combine(1)
             hasher.combine(value)
+            hasher.combine(index)
         }
     }
 
@@ -94,10 +112,10 @@ enum State<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Hashable w
     static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs.isLhs, rhs.isLhs) {
         case (true, true):
-            return lhs.lhsPeriod == rhs.lhsPeriod
+            return lhs.lhsPeriod == rhs.lhsPeriod && lhs.lhsIndex == rhs.lhsIndex
 
         case (false, false):
-            return lhs.rhsPeriod == rhs.rhsPeriod
+            return lhs.rhsPeriod == rhs.rhsPeriod && lhs.rhsIndex == rhs.rhsIndex
 
         default:
             return false

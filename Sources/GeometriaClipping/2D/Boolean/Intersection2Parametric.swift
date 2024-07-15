@@ -12,38 +12,45 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         self.tolerance = tolerance
     }
 
-    public func allSimplexes() -> [[Simplex]] {
-        typealias State = GeometriaClipping.State<T1, T2>
+    public func allContours() -> [Contour] {
+        typealias State = GeometriaClipping.State<Period>
 
-        let lookup: IntersectionLookup<T1, T2> = .init(
-            intersectionsOfSelfShape: lhs,
-            otherShape: rhs,
+        let lhsContours = lhs.allContours()
+        let rhsContours = rhs.allContours()
+
+        let lookup: IntersectionLookup<Vector> = .init(
+            lhsShapes: lhsContours,
+            lhsRange: lhs.startPeriod..<lhs.endPeriod,
+            rhsShapes: rhsContours,
+            rhsRange: rhs.startPeriod..<rhs.endPeriod,
             tolerance: tolerance
         )
 
-        // If no intersections have been found, check if one of the shapes is
-        // contained within the other
-        guard !lookup.intersections.isEmpty else {
-            if lookup.isOtherWithinSelf() {
-                return [rhs.allSimplexes()]
-            }
-            if lookup.isSelfWithinOther() {
-                return [lhs.allSimplexes()]
-            }
+        let resultOverall = ContourManager<Vector>()
 
-            return []
+        // Re-combine the contours by working from bottom-to-top, stopping at
+        // contours that participate in intersections, adding the contours on top
+        // of the result
+        for index in 0..<lhsContours.count {
+            if !lookup.hasIntersections(lhsIndex: index) {
+                resultOverall.append(lhsContours[index])
+            }
+        }
+        for index in 0..<rhsContours.count {
+            if !lookup.hasIntersections(rhsIndex: index) {
+                resultOverall.append(rhsContours[index])
+            }
         }
 
         // For intersections, we need to visit every possible corner of lhs, so
         // we keep track of simplexes visited overall during production, as well
         // as continually produce simplexes for the isolated segments that need
         // to be built
-        var resultOverall: [[Simplex]] = []
         var simplexVisited: Set<State> = []
         var visitedOverall: Set<State> = []
 
-        var state = State.onLhs(lhs.startPeriod, rhs.startPeriod)
-        if lookup.isInsideOther(selfPeriod: state.lhsPeriod) {
+        var state = State.onLhs(lhs.startPeriod, lhsIndex: 0, rhs.startPeriod, rhsIndex: 0)
+        if lookup.isInsideRhs(at: state) {
             state = lookup.next(state).flipped()
         } else {
             state = lookup.previousOrEqual(state).flipped()
@@ -51,7 +58,7 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
 
         while visitedOverall.insert(state).inserted {
             if !simplexVisited.contains(state) {
-                var result: [Simplex] = []
+                let result = resultOverall.beginContour()
                 var visited: Set<State> = []
 
                 while visited.insert(state).inserted {
@@ -69,8 +76,7 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
                 simplexVisited.formUnion(visited)
 
                 // Re-normalize the simplex periods
-                result = result.normalized(startPeriod: .zero, endPeriod: 1)
-                resultOverall.append(result)
+                result.endContour(startPeriod: .zero, endPeriod: 1)
             }
 
             // Here we skip twice in order to skip the portion of lhs that is
@@ -79,6 +85,6 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
             state = lookup.next(lookup.next(state))
         }
 
-        return resultOverall
+        return resultOverall.allContours()
     }
 }

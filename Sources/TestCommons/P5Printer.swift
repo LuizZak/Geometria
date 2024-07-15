@@ -4,29 +4,29 @@ import Geometria
 
 public class P5Printer: BaseP5Printer {
     var requiresPeriodSlider: Bool = false
-    var requiresPeriodicTypes: Bool = false
-    var periodicsToDraw: [String] = []
+    var requiresParametricTypes: Bool = false
+    var parametricsToDraw: [String] = []
 
     public override func printCustomHeader() {
         if requiresPeriodSlider {
             printLine("let periodSlider")
-            printLine("let periodics")
+            printLine("let parametrics")
         }
-        if requiresPeriodicTypes {
-            printPeriodicTypes()
+        if requiresParametricTypes {
+            printParametricTypes()
             printDrawAnchor()
         }
     }
 
     public override func printCustomPostSetup() {
         if requiresPeriodSlider {
-            printPeriodicsSlider()
+            printPeriodSlider()
         }
     }
 
     public override func printCustomPostDraw() {
-        if requiresPeriodicTypes {
-            printPeriodicsDraw()
+        if requiresParametricTypes {
+            printParametricsDraw()
         }
     }
 

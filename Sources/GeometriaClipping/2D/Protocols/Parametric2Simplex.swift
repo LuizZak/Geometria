@@ -48,3 +48,11 @@ extension Parametric2Simplex {
         startPeriod..<endPeriod
     }
 }
+
+public enum SimplexWinding {
+    /// A clockwise winding.
+    case clockwise
+
+    /// A counter-clockwise winding.
+    case counterClockwise
+}

@@ -16,6 +16,8 @@ public protocol Boolean2Parametric where T1.Vector == T2.Vector {
     typealias Scalar = Vector.Scalar
     typealias Period = Vector.Scalar
 
+    /// The contour type produced by this parametric geometry.
+    typealias Contour = Parametric2Contour<Vector>
     /// The simplex type produced by this parametric geometry.
     typealias Simplex = Parametric2GeometrySimplex<Vector>
 
@@ -28,11 +30,11 @@ public protocol Boolean2Parametric where T1.Vector == T2.Vector {
     /// which are always ignored.
     init(_ lhs: T1, _ rhs: T2, tolerance: Scalar) where T1.Vector == Vector, T2.Vector == Vector
 
-    /// Generates the simplexes for this boolean parametric.
+    /// Generates the contours for this boolean parametric.
     ///
-    /// More than one simplex collection may be generated, depending on the input
-    /// shapes and the underlying operation being applied.
-    func allSimplexes() -> [[Simplex]]
+    /// More than one contour may be generated, depending on the input shapes and
+    /// the underlying operation being applied.
+    func allContours() -> [Contour]
 }
 
 extension Boolean2Parametric {
