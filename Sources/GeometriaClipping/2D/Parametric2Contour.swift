@@ -32,6 +32,11 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     /// This value is not part of the addressable period range.
     public var endPeriod: Period
 
+    /// Returns the bounds for this parametric contour.
+    public var bounds: AABB<Vector> {
+        AABB(aabbs: simplexes.map(\.bounds))
+    }
+
     var periodRange: Period {
         endPeriod - startPeriod
     }

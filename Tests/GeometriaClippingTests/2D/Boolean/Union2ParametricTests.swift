@@ -766,4 +766,84 @@ class Union2ParametricTests: XCTestCase {
                 )
         }
     }
+
+    func testUnion_lhsOccludesRhsHole() {
+        let lhs = Circle2Parametric.makeTestCircle(radius: 90.0)
+        let rhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
+        let rhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
+        let rhs = Compound2Parametric(contours: Subtraction2Parametric(rhs1, rhs2).allContours())
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([
+                    [
+                        .circleArc2(
+                            .init(
+                                circleArc: .init(
+                                    center: .init(x: 0.0, y: 0.0),
+                                    radius: 100.0,
+                                    startAngle: Angle(radians: 0.0),
+                                    sweepAngle: Angle(radians: 3.141592653589793)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.5
+                            )
+                        ),
+                        .circleArc2(
+                            .init(
+                                circleArc: .init(
+                                    center: .init(x: 0.0, y: 0.0),
+                                    radius: 100.0,
+                                    startAngle: Angle(radians: 3.141592653589793),
+                                    sweepAngle: Angle(radians: 3.141592653589793)
+                                ),
+                                startPeriod: 0.5,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                ])
+        }
+    }
+
+    func testUnion_rhsOccludesLhsHole() {
+        let lhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
+        let lhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
+        let lhs = Compound2Parametric(contours: Subtraction2Parametric(lhs1, lhs2).allContours())
+        let rhs = Circle2Parametric.makeTestCircle(radius: 90.0)
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes([
+                    [
+                        .circleArc2(
+                            .init(
+                                circleArc: .init(
+                                    center: .init(x: 0.0, y: 0.0),
+                                    radius: 100.0,
+                                    startAngle: Angle(radians: 0.0),
+                                    sweepAngle: Angle(radians: 3.141592653589793)
+                                ),
+                                startPeriod: 0.0,
+                                endPeriod: 0.5
+                            )
+                        ),
+                        .circleArc2(
+                            .init(
+                                circleArc: .init(
+                                    center: .init(x: 0.0, y: 0.0),
+                                    radius: 100.0,
+                                    startAngle: Angle(radians: 3.141592653589793),
+                                    sweepAngle: Angle(radians: 3.141592653589793)
+                                ),
+                                startPeriod: 0.5,
+                                endPeriod: 1.0
+                            )
+                        ),
+                    ],
+                ])
+        }
+    }
 }

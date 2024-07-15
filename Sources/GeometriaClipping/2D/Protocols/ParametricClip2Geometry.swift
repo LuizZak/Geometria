@@ -24,6 +24,9 @@ public protocol ParametricClip2Geometry: ParametricClipGeometry {
     /// This value is not part of the addressable period range.
     var endPeriod: Period { get }
 
+    /// Gets the bounds for this parametric geometry.
+    var bounds: AABB<Vector> { get }
+
     /// Gets all contours that make up this parametric geometry.
     ///
     /// Contours are ordered according to their containment incidence: A contour
@@ -59,6 +62,10 @@ public protocol ParametricClip2Geometry: ParametricClipGeometry {
 extension ParametricClip2Geometry {
     var periodRange: Period {
         endPeriod - startPeriod
+    }
+
+    public var bounds: AABB<Vector> {
+        AABB(aabbs: self.allContours().map(\.bounds))
     }
 
     func normalizedPeriod(_ period: Period) -> Period {

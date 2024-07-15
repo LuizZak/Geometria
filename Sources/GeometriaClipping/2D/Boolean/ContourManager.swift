@@ -90,7 +90,7 @@ class ContourManager<Vector: Vector2Real> {
 
             for nodeFrom in nodesFrom {
                 for nodeTo in nodesTo {
-                    graph.addEdge(from: nodeFrom, to: nodeTo)
+                    graph.addEdge(from: nodeTo, to: nodeFrom)
                 }
             }
         }
