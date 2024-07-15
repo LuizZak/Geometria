@@ -33,12 +33,16 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         // of the result
         for index in 0..<lhsContours.count {
             if !lookup.hasIntersections(lhsIndex: index) {
-                resultOverall.append(lhsContours[index])
+                if lookup.isInside(lhsContours[index], rhsContours) {
+                    resultOverall.append(lhsContours[index])
+                }
             }
         }
         for index in 0..<rhsContours.count {
             if !lookup.hasIntersections(rhsIndex: index) {
-                resultOverall.append(rhsContours[index])
+                if lookup.isInside(rhsContours[index], lhsContours) {
+                    resultOverall.append(lhsContours[index])
+                }
             }
         }
 
@@ -49,11 +53,8 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
         var simplexVisited: Set<State> = []
         var visitedOverall: Set<State> = []
 
-        var state = State.onLhs(lhs.startPeriod, lhsIndex: 0, rhs.startPeriod, rhsIndex: 0)
-        if lookup.isInsideRhs(at: state) {
-            state = lookup.next(state).flipped()
-        } else {
-            state = lookup.previousOrEqual(state).flipped()
+        guard var state = lookup.candidateStart()?.flipped() else {
+            return resultOverall.allContours()
         }
 
         while visitedOverall.insert(state).inserted {

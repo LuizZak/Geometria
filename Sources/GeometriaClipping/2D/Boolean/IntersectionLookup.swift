@@ -165,10 +165,11 @@ extension IntersectionLookup where Vector: Hashable {
     func isInsideRhs(lhsIndex: Int) -> Bool {
         let contour = lhsShapes[lhsIndex]
 
-        return _innerIsInside(contour, rhsShapes)
+        return isInside(contour, rhsShapes)
     }
 
-    private func _innerIsInside(_ contour: Contour, _ otherContours: [Contour]) -> Bool {
+    /// Returns `true` if `contour` is inside at least one item in `otherContours`.
+    func isInside(_ contour: Contour, _ otherContours: [Contour]) -> Bool {
         _innerIsInside(contour, period: contour.startPeriod, otherContours)
     }
 
