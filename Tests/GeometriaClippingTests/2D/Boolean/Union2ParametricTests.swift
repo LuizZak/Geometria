@@ -767,6 +767,149 @@ class Union2ParametricTests: XCTestCase {
         }
     }
 
+    func testUnion_rhsOccludesLhsHole() {
+        let radius: Double = 50.0
+        let circles = [
+            Circle2Parametric.makeTestCircle(center: .init(x: 110, y: 95), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: 63, y: 11), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: 158, y: 13), radius: radius),
+        ]
+        let lhs = union(circles)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 110, y: 40), radius: radius)
+        let sut: Union2Parametric = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [
+                        [
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 110.0, y: 95.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 5.700821069310843),
+                                        sweepAngle: Angle(radians: 0.5823642378687434)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.043833219568801846
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 110.0, y: 95.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 0.0),
+                                        sweepAngle: Angle(radians: 3.141592653589793)
+                                    ),
+                                    startPeriod: 0.043833219568801846,
+                                    endPeriod: 0.28029368816573047
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 110.0, y: 95.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.141592653589793),
+                                        sweepAngle: Angle(radians: 0.5823642378687437)
+                                    ),
+                                    startPeriod: 0.28029368816573047,
+                                    endPeriod: 0.32412690773453234
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 110.0, y: 40.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 2.5592284157210496),
+                                        sweepAngle: Angle(radians: 0.1494914997131486)
+                                    ),
+                                    startPeriod: 0.32412690773453234,
+                                    endPeriod: 0.3353787898119356
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 63.0, y: 11.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 1.5385551813406733),
+                                        sweepAngle: Angle(radians: 1.6030374722491199)
+                                    ),
+                                    startPeriod: 0.3353787898119356,
+                                    endPeriod: 0.45603574113034706
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 63.0, y: 11.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.141592653589793),
+                                        sweepAngle: Angle(radians: 2.7087199154341977)
+                                    ),
+                                    startPeriod: 0.45603574113034706,
+                                    endPeriod: 0.659914872235877
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 110.0, y: 40.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 4.680147834930466),
+                                        sweepAngle: Angle(radians: 0.1030864112323703)
+                                    ),
+                                    startPeriod: 0.659914872235877,
+                                    endPeriod: 0.667673949810154
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 158.0, y: 13.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.6167647939850682),
+                                        sweepAngle: Angle(radians: 2.6664205131945184)
+                                    ),
+                                    startPeriod: 0.667673949810154,
+                                    endPeriod: 0.8683693019927433
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 158.0, y: 13.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 0.0),
+                                        sweepAngle: Angle(radians: 1.641641592573043)
+                                    ),
+                                    startPeriod: 0.8683693019927433,
+                                    endPeriod: 0.9919318968455375
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 110.0, y: 40.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 0.4751721403952749),
+                                        sweepAngle: Angle(radians: 0.10719209747346851)
+                                    ),
+                                    startPeriod: 0.9919318968455375,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ],
+                    ]
+                )
+        }
+    }
+
     func testUnion_lhsOccludesRhsHole() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 90.0)
         let rhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
@@ -804,46 +947,7 @@ class Union2ParametricTests: XCTestCase {
                         ),
                     ],
                 ])
-        }
-    }
 
-    func testUnion_rhsOccludesLhsHole() {
-        let lhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
-        let lhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
-        let lhs = Compound2Parametric(contours: Subtraction2Parametric(lhs1, lhs2).allContours())
-        let rhs = Circle2Parametric.makeTestCircle(radius: 90.0)
-        let sut = Union2Parametric(lhs, rhs)
-
-        TestFixture.beginFixture { fixture in
-            fixture.assertions(on: sut)
-                .assertAllSimplexes([
-                    [
-                        .circleArc2(
-                            .init(
-                                circleArc: .init(
-                                    center: .init(x: 0.0, y: 0.0),
-                                    radius: 100.0,
-                                    startAngle: Angle(radians: 0.0),
-                                    sweepAngle: Angle(radians: 3.141592653589793)
-                                ),
-                                startPeriod: 0.0,
-                                endPeriod: 0.5
-                            )
-                        ),
-                        .circleArc2(
-                            .init(
-                                circleArc: .init(
-                                    center: .init(x: 0.0, y: 0.0),
-                                    radius: 100.0,
-                                    startAngle: Angle(radians: 3.141592653589793),
-                                    sweepAngle: Angle(radians: 3.141592653589793)
-                                ),
-                                startPeriod: 0.5,
-                                endPeriod: 1.0
-                            )
-                        ),
-                    ],
-                ])
         }
     }
 }

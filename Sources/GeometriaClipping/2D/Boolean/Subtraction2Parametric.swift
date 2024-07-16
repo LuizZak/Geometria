@@ -17,7 +17,10 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
 
         let rhsReversed = rhs.reversed()
 
+        _ = Double.random(in: 0...10)
+
         // A subtraction is a union of a geometry and a reverse-wound input geometry
-        return Union2Parametric(lhs, rhsReversed, tolerance: tolerance).allContours()
+        let union = Union2Parametric(lhs, rhsReversed, tolerance: tolerance)
+        return union.allContours()
     }
 }

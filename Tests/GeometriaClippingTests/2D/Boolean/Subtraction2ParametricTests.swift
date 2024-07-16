@@ -700,4 +700,175 @@ class Subtraction2ParametricTests: XCTestCase {
                 )
         }
     }
+
+    func testSubtraction_rhsOccludesLhsHole() {
+        let radius: Double = 50.0
+        let circles = [
+            Circle2Parametric.makeTestCircle(center: .init(x: 0, y: 55), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: -47, y: -29), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: 48, y: -27), radius: radius),
+        ]
+        let lhs = union(circles)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 0, y: 0), radius: radius)
+        let sut: Subtraction2Parametric = Subtraction2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture(lineScale: 5.0, renderScale: 2.5) { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [
+                        [
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 55.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 5.700821069310843),
+                                        sweepAngle: Angle(radians: 0.5823642378687434)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.09268614713675483
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 55.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 0.0),
+                                        sweepAngle: Angle(radians: 3.141592653589793)
+                                    ),
+                                    startPeriod: 0.09268614713675483,
+                                    endPeriod: 0.5926861471367547
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 55.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.141592653589793),
+                                        sweepAngle: Angle(radians: 0.5823642378687437)
+                                    ),
+                                    startPeriod: 0.5926861471367547,
+                                    endPeriod: 0.6853722942735097
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 0.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 2.5592284157210496),
+                                        sweepAngle: Angle(radians: -1.9768641778523066)
+                                    ),
+                                    startPeriod: 0.6853722942735097,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ],
+                        [
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: -47.0, y: -29.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 1.5385551813406733),
+                                        sweepAngle: Angle(radians: 1.6030374722491199)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.25513133766998447
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: -47.0, y: -29.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.141592653589793),
+                                        sweepAngle: Angle(radians: 2.7087199154341977)
+                                    ),
+                                    startPeriod: 0.25513133766998447,
+                                    endPeriod: 0.6862375016627977
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 0.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 4.680147834930466),
+                                        sweepAngle: Angle(radians: -1.5385551813406726)
+                                    ),
+                                    startPeriod: 0.6862375016627977,
+                                    endPeriod: 0.9311061639928133
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 0.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.141592653589793),
+                                        sweepAngle: Angle(radians: -0.4328727381555953)
+                                    ),
+                                    startPeriod: 0.9311061639928133,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ],
+                        [
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 48.0, y: -27.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 3.6167647939850682),
+                                        sweepAngle: Angle(radians: 2.6664205131945184)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.4243740050365359
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 48.0, y: -27.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 0.0),
+                                        sweepAngle: Angle(radians: 1.6416415925730432)
+                                    ),
+                                    startPeriod: 0.4243740050365359,
+                                    endPeriod: 0.685649379279787
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 0.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 0.4751721403952751),
+                                        sweepAngle: Angle(radians: -0.4751721403952751)
+                                    ),
+                                    startPeriod: 0.685649379279787,
+                                    endPeriod: 0.7612753742432511
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 0.0, y: 0.0),
+                                        radius: 50.0,
+                                        startAngle: Angle(radians: 6.283185307179586),
+                                        sweepAngle: Angle(radians: -1.4999510610167501)
+                                    ),
+                                    startPeriod: 0.7612753742432511,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ],
+                    ]
+                )
+        }
+    }
 }

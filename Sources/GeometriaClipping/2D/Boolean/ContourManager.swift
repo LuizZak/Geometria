@@ -9,39 +9,58 @@ class ContourManager<Vector: Vector2Real> {
     typealias Simplex = Parametric2GeometrySimplex<Vector>
     typealias Period = Vector.Scalar
 
-    private var contours: [Contour]
+    private var inputContours: [ContourInfo]
 
     init() {
-        contours = []
+        inputContours = []
     }
 
     func allContours() -> [Contour] {
-        _finishContours()
-
-        return contours
+        return _finishContours()
     }
 
-    func append(_ contour: Contour) {
-        contours.append(contour)
+    func append(_ contour: Contour, isReference: Bool = false) {
+        inputContours.append(
+            .init(contour: contour, isReference: isReference)
+        )
     }
 
     func beginContour() -> ContourBuilder {
         return ContourBuilder(manager: self)
     }
 
+    /// Applies winding rules with the current reference and non-reference contours,
+    /// removing hole contours, and removing all reference contours in the process.
+    func coverHoles() {
+        var graph = _contourGraph()
+        let initialNodes = graph.nodes
+
+        graph.pruneByWinding(
+            windingNumber: windingNumber(of:),
+            winding: winding(of:)
+        )
+
+        let difference = initialNodes.subtracting(graph.nodes).sorted(by: { $0 > $1 })
+        for index in difference {
+            inputContours.remove(at: index)
+        }
+
+        inputContours.removeAll(where: { $0.isReference })
+    }
+
     /// Creates a graph of the containment dependencies: Contours that contain
     /// others have an edge added such that: outer -> inner
     private func _contourGraph() -> ContourContainmentGraph {
-        let range = 0..<contours.count
+        let range = 0..<inputContours.count
 
         var graph = ContourContainmentGraph()
-        graph.addNodes(0..<contours.count)
+        graph.addNodes(0..<inputContours.count)
 
         for lhsIndex in range {
-            let lhs = contours[lhsIndex]
+            let lhs = inputContours[lhsIndex].contour
 
             for rhsIndex in range.dropFirst(lhsIndex + 1) {
-                let rhs = contours[rhsIndex]
+                let rhs = inputContours[rhsIndex].contour
 
                 if _isContained(lhs, within: rhs) {
                     graph.addEdge(from: rhsIndex, to: lhsIndex)
@@ -54,86 +73,62 @@ class ContourManager<Vector: Vector2Real> {
         return graph
     }
 
-    private func _finishContours() {
+    private func _finishContours() -> [Contour] {
         var graph = self._contourGraph()
 
-        func contourForNode(_ node: ContourContainmentGraph.Node) -> Contour {
-            contours[node]
-        }
-        func windingNumber(of contour: Contour) -> Int {
-            switch contour.winding {
-            case .clockwise: return 1
-            case .counterClockwise: return -1
-            }
-        }
-        func windingNumber(of node: ContourContainmentGraph.Node) -> Int {
-            windingNumber(of: contourForNode(node))
-        }
-        func totalWindingNumber(of node: ContourContainmentGraph.Node) -> Int {
-            var totalWinding = 0
-
-            var queue = [node]
-            while !queue.isEmpty {
-                let next = queue.removeFirst()
-                totalWinding += windingNumber(of: next)
-
-                queue.append(contentsOf: graph.nodesConnected(towards: next))
-            }
-
-            return totalWinding
-        }
-        func removeNode(_ node: ContourContainmentGraph.Node) {
-            let nodesFrom = graph.nodesConnected(from: node)
-            let nodesTo = graph.nodesConnected(towards: node)
-
-            graph.removeNode(node)
-
-            for nodeFrom in nodesFrom {
-                for nodeTo in nodesTo {
-                    graph.addEdge(from: nodeTo, to: nodeFrom)
-                }
-            }
+        func isReference(_ node: ContourContainmentGraph.Node) -> Bool {
+            inputContours[node].isReference
         }
 
-        // If the outermost contour is a counter-clockwise contour, it is actually
-        // removing all inner contours of depth 1
-        var nodesToRemove: [ContourContainmentGraph.Node] = []
-        for node in graph.nodes {
-            let contour = contourForNode(node)
-            let totalWinding = totalWindingNumber(of: node)
-            let shouldRemove: Bool
-
-            switch contour.winding {
-            case .clockwise:
-                shouldRemove = totalWinding != 1
-
-            case .counterClockwise:
-                shouldRemove = totalWinding != 0
-            }
-
-            if shouldRemove {
-                nodesToRemove.append(node)
-            }
-        }
-
-        for node in nodesToRemove {
-            removeNode(node)
-        }
+        graph.pruneByWinding(
+            windingNumber: windingNumber(of:),
+            winding: winding(of:)
+        )
 
         guard let sorted = graph.topologicalSorted(breakTiesWith: { $0 < $1 }) else {
             fatalError("Found cyclic contour containment dependency?")
         }
 
-        self.contours = sorted.map(contourForNode)
+        return sorted.filter({ !isReference($0) }).map(contourForNode)
+    }
+
+    private func contourForNode(_ node: ContourContainmentGraph.Node) -> Contour {
+        inputContours[node].contour
+    }
+
+    private func windingNumber(of contour: Contour) -> Int {
+        switch contour.winding {
+        case .clockwise: return 1
+        case .counterClockwise: return -1
+        }
+    }
+
+    private func winding(of node: ContourContainmentGraph.Node) -> Contour.Winding {
+        contourForNode(node).winding
+    }
+
+    private func windingNumber(of node: ContourContainmentGraph.Node) -> Int {
+        windingNumber(of: contourForNode(node))
     }
 
     private func _isContained(_ lhs: Contour, within rhs: Contour) -> Bool {
+        guard rhs.bounds.contains(lhs.bounds) else {
+            return false
+        }
+
         func probe(_ period: Contour.Period) -> Bool {
             rhs.contains(lhs.compute(at: period))
         }
 
         return probe(lhs.startPeriod)
             || probe((lhs.endPeriod - lhs.startPeriod) / 2)
+    }
+
+    struct ContourInfo {
+        var contour: Contour
+        var isReference: Bool
+        var isShell: Bool { contour.winding == .clockwise }
+        var isHole: Bool { contour.winding == .counterClockwise }
     }
 
     class ContourBuilder {
@@ -180,5 +175,74 @@ class ContourManager<Vector: Vector2Real> {
 private extension DirectedGraphType {
     func entryNodes() -> Set<Node> {
         nodes.filter { indegree(of: $0) == 0 }
+    }
+}
+
+private extension CachingDirectedGraph where Node == Int, Edge: SimpleDirectedGraphEdge {
+    /// Traverses the graph, ensuring that the nested winding number of each
+    /// contour matches the contour's winding.
+    mutating func pruneByWinding<Vector>(
+        windingNumber: (Node) -> Int,
+        winding: (Node) -> Parametric2Contour<Vector>.Winding
+    ) {
+        func _removeNode(_ node: Node) {
+            let nodesFrom = nodesConnected(from: node)
+            let nodesTo = nodesConnected(towards: node)
+
+            removeNode(node)
+
+            for nodeFrom in nodesFrom {
+                for nodeTo in nodesTo {
+                    addEdge(from: nodeTo, to: nodeFrom)
+                }
+            }
+        }
+
+        var nodesToRemove: [Node] = []
+        for node in nodes {
+            let totalWinding = totalWindingNumber(
+                of: node,
+                windingNumber: windingNumber
+            )
+            let shouldRemove: Bool
+
+            switch winding(node) {
+            case .clockwise:
+                // 'Shell' contours require a winding of exactly 1
+                shouldRemove = totalWinding != 1
+
+            case .counterClockwise:
+                // 'Hole' contours require a winding of exactly 0
+                shouldRemove = totalWinding != 0
+            }
+
+            if shouldRemove {
+                nodesToRemove.append(node)
+            }
+        }
+
+        for node in nodesToRemove {
+            _removeNode(node)
+        }
+    }
+
+    func totalWindingNumber(
+        of node: Node,
+        windingNumber: (Node) -> Int
+    ) -> Int {
+        var totalWinding = 0
+
+        var queue = [node]
+        var visited: Set<Node> = []
+        while !queue.isEmpty {
+            let next = queue.removeFirst()
+
+            if visited.insert(next).inserted {
+                totalWinding += windingNumber(next)
+                queue.append(contentsOf: nodesConnected(towards: next))
+            }
+        }
+
+        return totalWinding
     }
 }

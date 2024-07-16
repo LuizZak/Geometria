@@ -10,7 +10,9 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     /// The simplex type produced by this parametric geometry.
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
 
-    public var simplexes: [Simplex]
+    public var simplexes: [Simplex] {
+        didSet { bounds = simplexes.bounds() }
+    }
 
     /// The winding of this contour.
     ///
@@ -33,9 +35,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     public var endPeriod: Period
 
     /// Returns the bounds for this parametric contour.
-    public var bounds: AABB<Vector> {
-        AABB(aabbs: simplexes.map(\.bounds))
-    }
+    private(set) public var bounds: AABB<Vector>
 
     var periodRange: Period {
         endPeriod - startPeriod
@@ -105,6 +105,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         self.winding = winding
         self.startPeriod = startPeriod
         self.endPeriod = endPeriod
+        self.bounds = simplexes.bounds()
     }
 
     /// Performs a point-containment check against this parametric contour.
@@ -117,7 +118,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
 
         let simplexes = allSimplexes()
 
-        let bounds = simplexes.bounds()
+        let bounds = self.bounds
         if !bounds.contains(point) {
             return false
         }

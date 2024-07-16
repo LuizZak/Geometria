@@ -2,7 +2,7 @@ import Geometria
 
 /// A 2-dimensional parametric geometry that produces lines and circular arcs as
 /// parametric simplexes.
-public protocol ParametricClip2Geometry: ParametricClipGeometry {
+public protocol ParametricClip2Geometry<Vector>: ParametricClipGeometry {
     /// The type of vectors used to represent geometry within this parametric
     /// geometry.
     associatedtype Vector: Vector2Real

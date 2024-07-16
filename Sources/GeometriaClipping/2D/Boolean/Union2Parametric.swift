@@ -147,15 +147,23 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
         // contours that participate in intersections, adding the contours on top
         // of the result
         for index in 0..<lhsContours.count {
-            if !lookup.hasIntersections(lhsIndex: index) {
-                resultOverall.append(lhsContours[index])
-            }
+            let contour = lhsContours[index]
+
+            resultOverall.append(
+                contour,
+                isReference: lookup.hasIntersections(lhsIndex: index)
+            )
         }
         for index in 0..<rhsContours.count {
-            if !lookup.hasIntersections(rhsIndex: index) {
-                resultOverall.append(rhsContours[index])
-            }
+            let contour = rhsContours[index]
+
+            resultOverall.append(
+                contour,
+                isReference: lookup.hasIntersections(rhsIndex: index)
+            )
         }
+
+        resultOverall.coverHoles()
 
         var simplexVisited: Set<State> = []
         var visitedOverall: Set<State> = []
@@ -197,4 +205,40 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
 
         #endif
     }
+
+    static func union(
+        tolerance: Vector.Scalar = .leastNonzeroMagnitude,
+        _ lhs: T1,
+        _ rhs: T2
+    ) -> Compound2Parametric<Vector> {
+        let union = Self(lhs, rhs, tolerance: tolerance)
+        return .init(contours: union.allContours())
+    }
+}
+
+/// Performs a union operation across all given parametric geometries.
+///
+/// - precondition: `shapes` is not empty.
+public func union<Vector: Hashable>(
+    tolerance: Vector.Scalar = .leastNonzeroMagnitude,
+    _ shapes: [some ParametricClip2Geometry<Vector>]
+) -> Compound2Parametric<Vector> {
+    guard let first = shapes.first else {
+        preconditionFailure("!shapes.isEmpty")
+    }
+
+    var result = Compound2Parametric<Vector>(first)
+    for next in shapes.dropFirst() {
+        result = Union2Parametric<Compound2Parametric<Vector>, Compound2Parametric<Vector>>
+            .union(
+                tolerance: tolerance,
+                result,
+                Compound2Parametric<Vector>(next)
+            )
+    }
+    return result
+}
+
+fileprivate extension Parametric2Contour {
+    var isHole: Bool { winding == .counterClockwise }
 }

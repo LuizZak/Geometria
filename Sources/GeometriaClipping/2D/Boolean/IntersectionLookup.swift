@@ -46,6 +46,10 @@ internal class IntersectionLookup<Vector: Vector2Real> {
 
             for (rhsIndex, rhs) in rhsShapes.enumerated() {
                 let rhsOnSorted = lhsShapes.count + rhsIndex
+                guard lhs.bounds.intersects(rhs.bounds) else {
+                    continue
+                }
+
                 let intersections = lhs
                     .allIntersectionPeriods(rhs, tolerance: tolerance)
                     .flatMap { $0.periods }
@@ -154,6 +158,8 @@ extension IntersectionLookup where Vector: Hashable {
 
     /// Returns `true` if the given state on `lhsShapes` computes to a point
     /// that is contained within `rhsShapes`.
+    ///
+    /// - note: Does not take contour's winding in consideration.
     func isInsideRhs(at state: State) -> Bool {
         let contour = lhsShapes[state.lhsIndex]
 
@@ -162,6 +168,8 @@ extension IntersectionLookup where Vector: Hashable {
 
     /// Returns `true` if the given index in `lhsShapes` has a containment within
     /// `rhsShapes`.
+    ///
+    /// - note: Does not take contour's winding in consideration.
     func isInsideRhs(lhsIndex: Int) -> Bool {
         let contour = lhsShapes[lhsIndex]
 
@@ -169,14 +177,17 @@ extension IntersectionLookup where Vector: Hashable {
     }
 
     /// Returns `true` if `contour` is inside at least one item in `otherContours`.
+    ///
+    /// - note: Does not take contour's winding in consideration.
     func isInside(_ contour: Contour, _ otherContours: [Contour]) -> Bool {
         _innerIsInside(contour, period: contour.startPeriod, otherContours)
     }
 
+    /// - note: Does not take contour's winding in consideration.
     private func _innerIsInside(_ contour: Contour, period: Period, _ otherContours: [Contour]) -> Bool {
         for rhs in otherContours.reversed() {
             if isShape(contour, period, inside: rhs) {
-                return rhs.winding == .clockwise ? true : false
+                return true
             }
         }
 
@@ -206,7 +217,31 @@ extension IntersectionLookup where Vector: Hashable {
         _ period: Period,
         inside other: Contour
     ) -> Bool {
+        guard other.bounds.intersects(shape.bounds) else {
+            return false
+        }
+
         let point = shape.compute(at: period)
+
+        return other.contains(point)
+    }
+
+    /// Returns `true` if a given shape is fully contained within another.
+    ///
+    /// - note: Does not take contour's winding in consideration.
+    private func isShape(
+        _ shape: Contour,
+        fullyInside other: Contour
+    ) -> Bool {
+        guard other.bounds.contains(shape.bounds) else {
+            return false
+        }
+        // Shapes that intersect cannot be contained within another
+        guard shape.allIntersectionPeriods(other, tolerance: tolerance).isEmpty else {
+            return false
+        }
+
+        let point = shape.compute(at: shape.startPeriod)
 
         return other.contains(point)
     }

@@ -7,11 +7,37 @@ public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry 
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
     public typealias Contour = Parametric2Contour<Vector>
 
-    /// The list of contours that compose this compound parametric.
-    public var contours: [Contour]
+    private var _cache: _Cache
 
-    public var startPeriod: Period
-    public var endPeriod: Period
+    /// The list of contours that compose this compound parametric.
+    public var contours: [Contour] {
+        willSet { _ensureUnique() }
+    }
+
+    public var startPeriod: Period {
+        willSet { _ensureUnique() }
+    }
+    public var endPeriod: Period {
+        willSet { _ensureUnique() }
+    }
+
+    public var bounds: AABB<Vector> {
+        if let cached = _cache.bounds {
+            return cached
+        }
+
+        let result = AABB(aabbs: self.allContours().map(\.bounds))
+        _cache.bounds = result
+        return result
+    }
+
+    public init(_ geometry: some ParametricClip2Geometry<Vector>) {
+        self.init(
+            contours: geometry.allContours(),
+            startPeriod: geometry.startPeriod,
+            endPeriod: geometry.endPeriod
+        )
+    }
 
     /// Initializes a new compound parametric with a given list of contours, using
     /// the start and end periods of the first contour as the start and end
@@ -64,21 +90,45 @@ public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry 
         self.contours = contours
         self.startPeriod = startPeriod
         self.endPeriod = endPeriod
+        self._cache = _Cache()
+    }
+
+    private mutating func _ensureUnique() {
+        if !isKnownUniquelyReferenced(&_cache) {
+            _cache = _cache.copy()
+        }
     }
 
     public func allContours() -> [Parametric2Contour<Vector>] {
         contours
     }
 
-    public func reversed() -> Compound2Parametric<Vector> {
+    public func reversed() -> Self {
+        if let cached = _cache.reversed {
+            return cached
+        }
+
         let contours = self.contours
             .map({ $0.reversed() })
             .reversed()
 
-        return .init(
+        let result = Self(
             normalizing: Array(contours),
             startPeriod: startPeriod,
             endPeriod: endPeriod
         )
+
+        _cache.reversed = result
+
+        return result
+    }
+
+    private class _Cache {
+        var reversed: Compound2Parametric?
+        var bounds: AABB<Vector>?
+
+        func copy() -> _Cache {
+            return _Cache()
+        }
     }
 }
