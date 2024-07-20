@@ -4,10 +4,66 @@ import GeometriaClipping
 import XCTest
 
 public extension TestFixture {
+    func add<T: ParametricClip2Geometry>(
+        _ value: T,
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where T.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector>(
+        _ value: [Parametric2GeometrySimplex<Vector>],
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector>(
+        _ value: Parametric2GeometrySimplex<Vector>,
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector>(
+        _ value: Circle2Parametric<Vector>,
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector>(
+        _ value: LinePolygon2Parametric<Vector>,
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
     /// - note: Adds only the intersections, and not the geometries themselves.
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
+        category: String,
         intersections: [ParametricClip2Intersection<T1.Scalar>],
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
@@ -15,7 +71,7 @@ public extension TestFixture {
     ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
 
         for intersection in intersections {
-            self.add(t1, t2, intersection: intersection, style: style, file: file, line: line)
+            self.add(t1, t2, category: category, intersection: intersection, style: style, file: file, line: line)
         }
     }
 
@@ -23,25 +79,27 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
+        category: String,
         intersection: ParametricClip2Intersection<T1.Scalar>,
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
     ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
-        add(t1, t2, intersections: intersection.periods, style: style, file: file, line: line)
+        add(t1, t2, category: category, intersections: intersection.periods, style: style, file: file, line: line)
     }
 
     /// - note: Adds only the intersections, and not the geometries themselves.
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
+        category: String,
         intersections: [(`self`: T1.Scalar, `other`: T1.Scalar)],
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
     ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
         for intersection in intersections {
-            self.add(t1, t2, intersection: intersection, style: style, file: file, line: line)
+            self.add(t1, t2, category: category, intersection: intersection, style: style, file: file, line: line)
         }
     }
 
@@ -49,24 +107,26 @@ public extension TestFixture {
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,
         _ t2: T2,
+        category: String,
         intersection: (`self`: T1.Scalar, `other`: T1.Scalar),
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
     ) where T1.Vector == T2.Vector, T1.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
-        self.add(t1, intersectionAt: intersection.`self`, style: style, file: file, line: line)
-        self.add(t2, intersectionAt: intersection.`other`, style: style, file: file, line: line)
+        self.add(t1, category: category, intersectionAt: intersection.`self`, style: style, file: file, line: line)
+        self.add(t2, category: category, intersectionAt: intersection.`other`, style: style, file: file, line: line)
     }
 
     /// - note: Adds only the intersections, and not the geometries themselves.
     func add<T: ParametricClip2Geometry>(
         _ geometry: T,
+        category: String,
         intersectionAt: T.Period,
         style: P5Printer.Style? = nil,
         file: StaticString = #file,
         line: UInt = #line
     ) where T.Scalar: CustomStringConvertible {
-        self.p5Printer.add(geometry, intersectionAt: intersectionAt, style: style, file: file, line: line)
+        self.p5Printer.add(geometry, intersectionAt: intersectionAt, category: category, style: style, file: file, line: line)
     }
 
     @discardableResult
@@ -296,9 +356,9 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
         line: UInt = #line
     ) -> Self where T.Vector: VisualizableGeometricType2 {
         if !value.contains(point) {
-            visualize()
+            fixture.add(value, category: "input", file: file, line: line)
 
-            fixture.add(point)
+            fixture.add(point, file: file, line: line)
 
             fixture.failure(
                 "Expected geometry to contain point @ \(point)",
@@ -317,9 +377,9 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
         line: UInt = #line
     ) -> Self where T.Vector: VisualizableGeometricType2 {
         if value.contains(point) {
-            visualize()
+            fixture.add(value, category: "input", file: file, line: line)
 
-            fixture.add(point)
+            fixture.add(point, file: file, line: line)
 
             fixture.failure(
                 "Expected geometry to not contain point @ \(point)",
@@ -341,8 +401,8 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
 
         let actual = value.allContours()
         if !fixture.assertEquals(actual, accuracy: accuracy, expected, file: file, line: line) {
-            fixture.add(actual)
-            fixture.add(expected)
+            fixture.p5Printer.add(actual, category: "result", file: file, line: line)
+            fixture.p5Printer.add(expected, category: "result", file: file, line: line)
 
             return false
         }
@@ -360,8 +420,8 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
 
         let actual = value.allContours().flatMap { $0.allSimplexes() }
         if !fixture.assertEquals(actual, accuracy: accuracy, expected, file: file, line: line) {
-            fixture.add(actual)
-            fixture.add(expected)
+            fixture.p5Printer.add(actual, category: "result", file: file, line: line)
+            fixture.p5Printer.add(expected, category: "result", file: file, line: line)
 
             return false
         }
@@ -376,7 +436,7 @@ public extension TestFixture.AssertionWrapperBase where T: ParametricClip2Geomet
         _ expected: [ParametricClip2Intersection<T.Scalar>],
         file: StaticString = #file,
         line: UInt = #line
-    ) where T2: VisualizableGeometricType2, T2.Vector == T.Vector, T.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
+    ) where T2.Vector == T.Vector, T.Scalar: CustomStringConvertible, T2.Scalar: CustomStringConvertible {
 
         /* TODO: Re-implement
         let actual = value.allIntersectionPeriods(
@@ -408,10 +468,10 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
             visualize()
 
             for actual in actual {
-                fixture.add(actual, style: fixture.resultStyle(), file: file, line: line)
+                fixture.p5Printer.add(actual, category: "result", style: fixture.resultStyle(), file: file, line: line)
             }
             for expected in expected {
-                fixture.add(expected, style: fixture.expectedStyle(), file: file, line: line)
+                fixture.p5Printer.add(expected, category: "expected", style: fixture.expectedStyle(), file: file, line: line)
             }
         }
 
@@ -439,10 +499,10 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
             visualize()
 
             for actual in actual {
-                fixture.add(actual, style: fixture.resultStyle(), file: file, line: line)
+                fixture.p5Printer.add(actual, category: "result", style: fixture.resultStyle(), file: file, line: line)
             }
             for expected in expected {
-                fixture.add(expected, style: fixture.expectedStyle(), file: file, line: line)
+                fixture.p5Printer.add(expected, category: "expected", style: fixture.expectedStyle(), file: file, line: line)
             }
         }
 

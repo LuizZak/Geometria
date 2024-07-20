@@ -17,6 +17,19 @@ extension P5Printer {
             }
         }
         printLine("]")
+
+        printMultiline("""
+        for (let parametric of parametrics) {
+          if (parametricCheckboxes[parametric.category] !== undefined) {
+            parametricCheckboxes[parametric.category].parametrics.push(parametric)
+          } else {
+            parametricCheckboxes[parametric.category] = {
+              checkbox: createCheckbox(parametric.category, true),
+              parametrics: [],
+            }
+          }
+        }
+        """)
     }
 
     func printParametricsDraw() {
@@ -29,7 +42,9 @@ extension P5Printer {
             stroke(0)
             noFill()
             for (let parametric of parametrics) {
-                parametric.render(periodSlider.value())
+              if (parametricCheckboxes[parametric.category].checkbox.checked()) {
+                parametric.render(periodSlider.value()) 
+              }
             }
             noStroke()
             fill(0)
@@ -39,11 +54,12 @@ extension P5Printer {
     func printParametricTypes() {
         printMultiline(#"""
         class Parametric {
-          constructor(startPeriod, endPeriod, fillColor, strokeColor) {
+          constructor(startPeriod, endPeriod, fillColor, strokeColor, category) {
             this.startPeriod = startPeriod
             this.endPeriod = endPeriod
             this.fillColor = fillColor
             this.strokeColor = strokeColor
+            this.category = category
           }
           
           render(ratio) {
@@ -69,8 +85,8 @@ extension P5Printer {
         }
         
         class IntersectionParametric extends Parametric {
-          constructor(position, startPeriod, endPeriod, fillColor, strokeColor) {
-            super(startPeriod, endPeriod, fillColor, strokeColor)
+          constructor(position, startPeriod, endPeriod, fillColor, strokeColor, category) {
+            super(startPeriod, endPeriod, fillColor, strokeColor, category)
             
             this.position = position
           }
@@ -87,8 +103,8 @@ extension P5Printer {
         }
 
         class LineParametric extends Parametric {
-          constructor(start, end, startPeriod, endPeriod, fillColor, strokeColor) {
-            super(startPeriod, endPeriod, fillColor, strokeColor)
+          constructor(start, end, startPeriod, endPeriod, fillColor, strokeColor, category) {
+            super(startPeriod, endPeriod, fillColor, strokeColor, category)
             
             this.start = start
             this.end = end
@@ -123,8 +139,8 @@ extension P5Printer {
         }
         
         class ArcParametric extends Parametric {
-          constructor(center, radius, startAngle, sweep, startPeriod, endPeriod, fillColor, strokeColor) {
-            super(startPeriod, endPeriod, fillColor, strokeColor)
+          constructor(center, radius, startAngle, sweep, startPeriod, endPeriod, fillColor, strokeColor, category) {
+            super(startPeriod, endPeriod, fillColor, strokeColor, category)
             
             this.center = center
             this.radius = radius
@@ -188,31 +204,43 @@ extension P5Printer {
         """#)
     }
 
-    func add<Vector: Vector2Real>(_ contour: Parametric2Contour<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
-        parametricsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
-        for simplex in contour.allSimplexes() {
-            add(simplex, style: style, file: file, line: line)
+    func add<Vector: Vector2Real>(_ simplexGraph: Simplex2Graph<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        for edge in simplexGraph.edges {
+            add(edge.materialize(), category: category, style: style, file: file, line: line)
         }
     }
 
-    func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
-        parametricsToDraw.append("// \(URL(fileURLWithPath: "\(file)").lastPathComponent):\(line)")
-        for simplex in parametric.allContours() {
-            add(simplex, style: style, file: file, line: line)
+    func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
+        add(parametric.allContours(), category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector: Vector2Real>(_ contours: [Parametric2Contour<Vector>], category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        for contour in contours {
+            add(contour, category: category, style: style, file: file, line: line)
         }
     }
 
-    func add<Vector: Vector2Type>(_ simplex: Parametric2GeometrySimplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+    func add<Vector: Vector2Real>(_ contour: Parametric2Contour<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        add(contour.allSimplexes(), category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector: Vector2Type>(_ simplexes: [Parametric2GeometrySimplex<Vector>], category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        for simplex in simplexes {
+            add(simplex, category: category, style: style, file: file, line: line)
+        }
+    }
+
+    func add<Vector: Vector2Type>(_ simplex: Parametric2GeometrySimplex<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         switch simplex {
         case .lineSegment2(let lineSegment):
-            add(lineSegment, style: style, file: file, line: line)
+            add(lineSegment, category: category, style: style, file: file, line: line)
 
         case .circleArc2(let circleArc):
-            add(circleArc, style: style, file: file, line: line)
+            add(circleArc, category: category, style: style, file: file, line: line)
         }
     }
 
-    func add<Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: CircleArc2Simplex<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         requiresParametricTypes = true
         requiresPeriodSlider = true
 
@@ -223,12 +251,12 @@ extension P5Printer {
           \#(simplex.circleArc.startAngle.normalized(from: .zero)),
           \#(simplex.circleArc.sweepAngle.radians),
           \#(simplex.startPeriod), \#(simplex.endPeriod),
-          \#(periodicStyle2String(style))
+          \#(periodicStyle2String(style)), \#(periodicCategory2String(category))
         ),
         """#)
     }
 
-    func add<Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Vector>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+    func add<Vector: Vector2Type>(_ simplex: LineSegment2Simplex<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         requiresParametricTypes = true
         requiresPeriodSlider = true
 
@@ -237,34 +265,43 @@ extension P5Printer {
           \#(vec2PVectorString(simplex.start)),
           \#(vec2PVectorString(simplex.end)),
           \#(simplex.startPeriod), \#(simplex.endPeriod),
-          \#(periodicStyle2String(style))
+          \#(periodicStyle2String(style)), \#(periodicCategory2String(category))
         ),
         """#)
     }
 
-    func add<Vector: Vector2Real>(_ contour: Parametric2Contour<Vector>, intersectionAt period: Vector.Scalar, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+    func add<Vector: Vector2Real>(_ contour: Parametric2Contour<Vector>, intersectionAt period: Vector.Scalar, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        let point = contour.compute(at: period)
+
+        add(intersection: point, at: period, category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector: Vector2Real>(intersection point: Vector, at period: Vector.Scalar, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         requiresParametricTypes = true
         requiresPeriodSlider = true
-
-        let point = contour.compute(at: period)
 
         parametricsToDraw.append(#"""
         new IntersectionParametric(
           \#(vec2PVectorString(point)),
           \#(period), \#(period),
-          \#(periodicStyle2String(style))
+          \#(periodicStyle2String(style)), \#(periodicCategory2String(category))
         ),
         """#)
     }
 
-    func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, intersectionAt period: Parametric.Period, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
+
+    func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, intersectionAt period: Parametric.Period, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
         for contour in parametric.allContours() {
-            add(contour, intersectionAt: period, style: style, file: file, line: line)
+            add(contour, intersectionAt: period, category: category, style: style, file: file, line: line)
         }
     }
 
     func periodicStyle2String(_ style: Style?) -> String {
         return "\(periodicColor2String(style?.fillColor)), \(periodicColor2String(style?.strokeColor))"
+    }
+
+    func periodicCategory2String(_ category: String) -> String {
+        return category.debugDescription
     }
 
     func periodicColor2String(_ color: Color?) -> String {
@@ -286,5 +323,25 @@ extension BaseP5Printer.Color {
         }
 
         return "#\(format(red))\(format(green))\(format(blue))"
+    }
+}
+
+extension P5Printer {
+    static func printGraph<Vector>(_ simplexGraph: Simplex2Graph<Vector>) where Vector.Scalar: CustomStringConvertible {
+        let printer = P5Printer()
+        printer.add(simplexGraph, category: "input")
+
+        for node in simplexGraph.nodes {
+            switch node.kind {
+            case .intersection(_, let lhsPeriod, _, let rhsPeriod):
+                printer.add(intersection: node.location, at: lhsPeriod, category: "lhs intersections")
+                printer.add(intersection: node.location, at: rhsPeriod, category: "rhs intersections")
+
+            case .geometry:
+                break
+            }
+        }
+
+        printer.printAll()
     }
 }

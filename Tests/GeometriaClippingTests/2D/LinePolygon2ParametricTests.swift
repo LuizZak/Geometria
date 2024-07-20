@@ -11,7 +11,7 @@ class LinePolygon2ParametricTests: XCTestCase {
         let sut = Sut.makeStar()
 
         TestFixture.beginFixture { fixture in
-            fixture.add(sut)
+            fixture.add(sut, category: "input")
 
             fixture.assertions(on: sut)
                 .assertSimplexes(accuracy: 1e-14, [

@@ -218,8 +218,8 @@ private extension TestFixture.AssertionWrapperBase where T == Parametric2Geometr
             return
         }
 
-        fixture.add(value)
-        fixture.add(other)
+        fixture.add(value, category: "input 1")
+        fixture.add(other, category: "input 2")
         fixture.failure("\(intersections) != \(expected)", file: file, line: line)
     }
 }

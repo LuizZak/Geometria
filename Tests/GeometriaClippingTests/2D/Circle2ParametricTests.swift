@@ -16,7 +16,7 @@ class Circle2ParametricTests: XCTestCase {
         )
 
         TestFixture.beginFixture { fixture in
-            fixture.add(sut)
+            fixture.add(sut, category: "input")
 
             fixture.assertions(on: sut)
                 .assertSimplexes(accuracy: 1e-14, [

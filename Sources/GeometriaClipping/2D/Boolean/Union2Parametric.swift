@@ -19,112 +19,115 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
 
         typealias Graph = Simplex2Graph<Vector>
 
-        func materialize(
-            _ edge: Graph.Edge,
-            from start: Graph.Node,
-            to end: Graph.Node
-        ) -> Parametric2GeometrySimplex<Vector> {
-            let startPoint = start.point
-            let endPoint = end.point
+        let lhsContours = lhs.allContours()
+        let rhsContours = rhs.allContours()
 
-            switch edge.kind {
-            case .line:
-                return .lineSegment2(
-                    .init(
-                        lineSegment: .init(start: startPoint, end: endPoint),
-                        startPeriod: .zero,
-                        endPeriod: .zero
-                    )
-                )
-
-            case .circleArc(let center, let sweep):
-                var arc: CircleArc2 = .init(
-                    startPoint: startPoint,
-                    endPoint: endPoint,
-                    sweepAngle: sweep
-                )
-                // Re-adjust center
-                arc.center = center
-
-                return .circleArc2(
-                    .init(
-                        circleArc: arc,
-                        startPeriod: .zero,
-                        endPeriod: .zero
-                    )
-                )
-            }
-        }
-
-        let intersections = lhs
-            .allIntersectionPeriods(rhs, tolerance: tolerance)
-            .flatMap(\.periods)
-        let graph = Graph.fromParametricIntersections(
+        var graph = Graph.fromParametricIntersections(
             lhs,
             rhs,
-            intersections: intersections
+            tolerance: tolerance
         )
 
-        if !graph.hasIntersections() {
-            let lookup: IntersectionLookup<T1, T2> = .init(
-                selfShape: lhs,
-                otherShape: rhs,
-                intersections: intersections
+        // Remove all edges that have incompatible total windings according to
+        // their contour windings
+        for edge in graph.edges {
+            let shouldRemove: Bool
+
+            switch edge.winding {
+            case .clockwise:
+                shouldRemove = edge.totalWinding != 1
+
+            case .counterClockwise:
+                shouldRemove = edge.totalWinding != 0
+            }
+
+            if shouldRemove {
+                graph.removeEdge(edge)
+            }
+        }
+
+        graph.prune()
+
+        let lookup: IntersectionLookup<Vector> = .init(
+            lhsShapes: lhsContours,
+            lhsRange: lhs.startPeriod..<lhs.endPeriod,
+            rhsShapes: rhsContours,
+            rhsRange: rhs.startPeriod..<rhs.endPeriod,
+            tolerance: tolerance
+        )
+
+        let resultOverall = ContourManager<Vector>()
+
+        // Re-combine the contours by working from bottom-to-top, stopping at
+        // contours that participate in intersections, adding the contours on top
+        // of the result
+        for index in 0..<lhsContours.count {
+            let contour = lhsContours[index]
+
+            resultOverall.append(
+                contour,
+                isReference: lookup.hasIntersections(lhsIndex: index)
             )
+        }
+        for index in 0..<rhsContours.count {
+            let contour = rhsContours[index]
 
-            if lookup.isOtherWithinSelf() {
-                return [lhs.allSimplexes()]
-            }
-            if lookup.isSelfWithinOther() {
-                return [rhs.allSimplexes()]
-            }
-
-            return [lhs.allSimplexes(), rhs.allSimplexes()]
+            resultOverall.append(
+                contour,
+                isReference: lookup.hasIntersections(rhsIndex: index)
+            )
         }
 
-        let start = lhs.compute(at: lhs.startPeriod)
-        guard let startNode = graph.nodes.first(where: { $0.point == start }) else {
-            return []
-        }
-        var current = startNode
-        if rhs.contains(current.point) {
-            current = graph.firstIntersection(after: current) ?? current
-        } else {
-            current = graph.firstIntersection(before: current) ?? current
+        resultOverall.coverHoles()
+
+        guard lookup.hasIntersections() else {
+            return resultOverall.allContours()
         }
 
-        var result: [Simplex] = []
+        var simplexVisited: Set<Graph.Node> = []
+        var visitedOverall: Set<Graph.Node> = []
 
-        var visited: Set<Graph.Node> = []
-        var isOnLhs = false
-
-        while visited.insert(current).inserted {
-            let edges = graph.edges(from: current).filter { edge -> Bool in
-                let node = graph.endNode(for: edge)
-                return node.isIntersection || node.onLhs == isOnLhs
-            }
-
-            guard let shortest = edges.min(by: { $0.lengthSquared < $1.lengthSquared }) else {
-                // Found non-periodic geometry?
-                continue
-            }
-            let next = graph.endNode(for: shortest)
-
-            let simplex = materialize(shortest, from: current, to: next)
-
-            result.append(simplex)
-
-            if next.isIntersection {
-                isOnLhs = !isOnLhs
-            }
-
-            current = next
+        guard var current = graph.candidateStart() else {
+            return resultOverall.allContours()
         }
 
-        // Re-normalize the simplex periods
-        result = result.normalized(startPeriod: .zero, endPeriod: 1)
+        var isOnLhs = true
 
-        return [result]
+        while visitedOverall.insert(current).inserted {
+            if !simplexVisited.contains(current) {
+                let result = resultOverall.beginContour()
+                var visited: Set<Graph.Node> = []
+
+                while visited.insert(current).inserted {
+                    guard let nextEdge = graph.edges(from: current).first else {
+                        break
+                    }
+
+                    graph.removeEdge(nextEdge)
+
+                    result.append(nextEdge.materialize())
+                    current = nextEdge.end
+
+                    if current.isIntersection {
+                        isOnLhs = !isOnLhs
+                    }
+                }
+
+                result.endContour(startPeriod: .zero, endPeriod: 1)
+
+                simplexVisited.formUnion(visited)
+            }
+
+            graph.prune()
+
+            guard let next = graph.edges.first(where: { $0.shapeIndex < lhsContours.count }) else {
+                return resultOverall.allContours()
+            }
+
+            current = next.start
+        }
+
+        return resultOverall.allContours()
 
         #else
 
@@ -237,8 +240,4 @@ public func union<Vector: Hashable>(
             )
     }
     return result
-}
-
-fileprivate extension Parametric2Contour {
-    var isHole: Bool { winding == .counterClockwise }
 }

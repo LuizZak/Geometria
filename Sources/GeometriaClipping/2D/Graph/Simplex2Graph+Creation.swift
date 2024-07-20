@@ -1,210 +1,182 @@
 import Geometria
+import MiniDigraph
 
 extension Simplex2Graph {
-    /* TODO: Migrate to new contour-based shapes or remove altogether
     static func fromParametricIntersections<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ lhs: T1,
         _ rhs: T2,
-        intersections: [(`self`: T1.Period, other: T2.Period)]
+        tolerance: Scalar
     ) -> Self where T1.Vector == Vector, T2.Vector == Vector {
-        typealias Period = T1.Period
 
-        var result = Self()
+        typealias Winding = Parametric2Contour<Vector>.Winding
 
-        var lhsNodeLookup: [Vector: Node] = [:]
-        var rhsNodeLookup: [Vector: Node] = [:]
+        let lhsContours = lhs.allContours()
+        let rhsContours = rhs.allContours()
 
-        var lhsSimplexLookup: [Node.ID] = []
-        var rhsSimplexLookup: [Node.ID] = []
+        var result = Self(
+            lhsCount: lhsContours.count,
+            rhsCount: rhsContours.count
+        )
 
-        var _nodeId = 0
-        func nextNodeId() -> Int {
-            defer { _nodeId += 1 }
-            return _nodeId
-        }
-        func makeGeometryNode(_ location: Vector, onLhs: Bool) -> Node {
-            return Node(
-                id: nextNodeId(),
-                kind: .geometry(location, onLhs: onLhs)
-            )
-        }
-        func createGeometry(_ location: Vector, onLhs: Bool) -> Node {
-            let node = makeGeometryNode(location, onLhs: onLhs)
-
-            if onLhs {
-                lhsNodeLookup[location] = node
-            } else {
-                rhsNodeLookup[location] = node
-            }
-
-            result.addNode(node)
-            return node
-        }
-        func getGeometry(_ index: Int, onLhs: Bool) -> Node.ID {
-            if onLhs {
-                return lhsSimplexLookup[index]
-            } else {
-                return rhsSimplexLookup[index]
-            }
-        }
-        func addSimplexEdge(
-            _ simplex: Parametric2GeometrySimplex<Vector>,
-            from start: Node.ID,
-            to end: Node.ID
+        func addContour(
+            _ contour: Parametric2Contour<Vector>,
+            shapeIndex: Int
         ) {
-            switch simplex {
-            case .lineSegment2(let line):
-                result.addEdge(
-                    from: start,
-                    to: end,
-                    lengthSquared: line.lengthSquared,
-                    kind: .line
-                )
+            let simplexes = contour.allSimplexes()
 
-            case .circleArc2(let arc):
-                result.addEdge(
-                    from: start,
-                    to: end,
-                    lengthSquared: arc.lengthSquared,
-                    kind: .circleArc(
-                        center: arc.circleArc.center,
-                        sweep: arc.circleArc.sweepAngle
+            // Create nodes
+            var nodes: [(Parametric2GeometrySimplex<Vector>, Node)] = []
+            for simplex in simplexes {
+                let node = Node(
+                    location: simplex.start,
+                    kind: .geometry(
+                        shapeIndex: shapeIndex,
+                        period: simplex.startPeriod
                     )
                 )
+                nodes.append((simplex, node))
             }
-        }
-        func register(_ simplexes: [Parametric2GeometrySimplex<Vector>], onLhs: Bool) {
-            var simplexNodes: [Node.ID] = []
 
-            for simplex in simplexes {
-                let start = createGeometry(simplex.start, onLhs: onLhs)
+            guard nodes.count > 1 else {
+                return
+            }
 
-                if onLhs {
-                    lhsSimplexLookup.append(start.id)
-                } else {
-                    rhsSimplexLookup.append(start.id)
+            // Create edges
+            var edges: [Edge] = []
+            for (current, next) in zip(nodes, nodes.dropFirst() + [nodes[0]]) {
+                let kind: Edge.Kind
+                switch current.0 {
+                case .lineSegment2:
+                    kind = .line
+
+                case .circleArc2(let arc):
+                    kind = .circleArc(
+                        center: arc.circleArc.center,
+                        sweepAngle: arc.circleArc.sweepAngle
+                    )
                 }
 
-                simplexNodes.append(start.id)
+                let edge = Edge(
+                    start: current.1,
+                    end: next.1,
+                    shapeIndex: shapeIndex,
+                    startPeriod: current.0.startPeriod,
+                    endPeriod: current.0.endPeriod,
+                    kind: kind
+                )
+                edges.append(edge)
             }
 
-            for index in 0..<simplexes.count {
-                let simplex = simplexes[index]
-                let prev = simplexNodes[index]
-                let next = simplexNodes[(index + 1) % simplexNodes.count]
-
-                addSimplexEdge(simplex, from: prev, to: next)
-            }
-        }
-        func register<T: ParametricClip2Geometry>(
-            _ intersection: T.Period,
-            _ simplexes: [T.Simplex],
-            _ node: Node,
-            _ shape: T,
-            onLhs: Bool
-        ) where T.Vector == T1.Vector {
-            let intersection = shape.normalizedPeriod(intersection)
-
-            guard let simplexIndex = simplexes.simplexIndex(containingPeriod: intersection) else {
-                return
-            }
-
-            let simplex = simplexes[simplexIndex]
-
-            guard let clampedLow = simplex.clamped(in: simplex.startPeriod..<intersection) else {
-                return
-            }
-            guard let clampedHigh = simplex.clamped(in: intersection..<simplex.endPeriod) else {
-                return
-            }
-            let start = getGeometry(simplexIndex, onLhs: onLhs)
-            let end = getGeometry((simplexIndex + 1) % simplexes.count, onLhs: onLhs)
-
-            // Remove existing edge
-            if let edge = result.edge(from: start, to: end) {
-                result.removeEdge(edge)
-            }
-
-            addSimplexEdge(clampedLow, from: start, to: node.id)
-            addSimplexEdge(clampedHigh, from: node.id, to: end)
-        }
-        func register(
-            _ lhsSimplexes: [T1.Simplex],
-            _ rhsSimplexes: [T2.Simplex],
-            _ intersection: (`self`: T1.Period, other: T2.Period)
-        ) {
-            let point = lhs.compute(at: intersection.`self`)
-            let node = Node(
-                id: nextNodeId(),
-                kind: .intersection(point)
-            )
-
-            result.addNode(node)
-
-            register(intersection.`self`, lhsSimplexes, node, lhs, onLhs: true)
-            register(intersection.other, rhsSimplexes, node, rhs, onLhs: false)
+            result.addNodes(nodes.map(\.1))
+            result.addEdges(edges)
         }
 
-        // Add simplexes
-        let lhsSimplexes = lhs.allSimplexes()
-        let rhsSimplexes = rhs.allSimplexes()
+        // Populate with contours
+        for (i, contour) in lhsContours.enumerated() {
+            addContour(contour, shapeIndex: i)
+        }
+        for (i, contour) in rhsContours.enumerated() {
+            addContour(contour, shapeIndex: lhsContours.count + i)
+        }
 
-        register(lhsSimplexes, onLhs: true)
-        register(rhsSimplexes, onLhs: false)
+        let allContours = lhsContours + rhsContours
 
-        result.assertIsValid()
+        func computeWinding(_ edge: Edge) {
+            let contour = allContours[edge.shapeIndex]
+            edge.winding = contour.winding
 
-        // Add intersections
-        for intersection in intersections {
-            register(lhsSimplexes, rhsSimplexes, intersection)
+            let center = edge.queryPoint(contour.normalizedCenter(_:_:))
+
+            edge.totalWinding =
+                allContours.enumerated()
+                .filter({ $0.offset != edge.shapeIndex })
+                .filter({ $0.element.contains(center) })
+                .reduce(contour.winding.value, { $0 + $1.element.winding.value })
+        }
+
+        // Populate with intersections
+        for (lhs, lhsContour) in lhsContours.enumerated() {
+            for (rhs, rhsContour) in rhsContours.enumerated() {
+
+                let rhs = rhs + lhsContours.count
+                let intersections = lhsContour.rawIntersectionPeriods(
+                    rhsContour,
+                    tolerance: tolerance
+                )
+
+                for intersection in intersections {
+                    guard
+                        let lhsEdge = result.edgeForPeriod(
+                            intersection.`self`,
+                            shapeIndex: lhs
+                        ),
+                        let rhsEdge = result.edgeForPeriod(
+                            intersection.other,
+                            shapeIndex: rhs
+                        )
+                    else {
+                        continue
+                    }
+
+                    let point = lhsContour.compute(at: intersection.`self`)
+                    let node = Node(
+                        location: point,
+                        kind: .intersection(
+                            lhs: lhs,
+                            lhsPeriod: intersection.`self`,
+                            rhs: rhs,
+                            rhsPeriod: intersection.other
+                        )
+                    )
+
+                    result.addNode(node)
+
+                    result.splitEdge(
+                        lhsEdge,
+                        period: intersection.`self`,
+                        midNode: node
+                    )
+
+                    result.splitEdge(
+                        rhsEdge,
+                        period: intersection.other,
+                        midNode: node
+                    )
+
+                    result.assertIsValid()
+                }
+            }
+        }
+
+        // Compute edge windings
+        for edge in result.edges {
+            computeWinding(edge)
         }
 
         result.assertIsValid()
 
         return result
     }
-    */
 
-    fileprivate func edge(from start: Node.ID, to end: Node.ID) -> Edge? {
-        edges.first(where: { $0.start == start && $0.end == end })
-    }
-
-    @discardableResult
-    fileprivate mutating func addEdge(
-        from start: Node,
-        to end: Node,
-        lengthSquared: Scalar,
-        kind: Edge.Kind
-    ) -> Edge {
-
-        return addEdge(
-            from: start.id,
-            to: end.id,
-            lengthSquared: lengthSquared,
-            kind: kind
-        )
-    }
-
-    @discardableResult
-    fileprivate mutating func addEdge(
-        from start: Node.ID,
-        to end: Node.ID,
-        lengthSquared: Scalar,
-        kind: Edge.Kind
-    ) -> Edge {
-
-        let edge = Edge(
-            start: start,
-            end: end,
-            lengthSquared: lengthSquared,
-            kind: kind
-        )
-        return addEdge(edge)
+    /// Prunes all nodes that have no ingoing and/or outgoing connections.
+    ///
+    /// Edges still connected to the nodes are also removed in the process.
+    internal mutating func prune() {
+        for node in nodes {
+            if indegree(of: node) == 0 || outdegree(of: node) == 0 {
+                removeNode(node)
+            }
+        }
     }
 
     @inlinable
     internal func assertIsValid(file: StaticString = #file, line: UInt = #line) {
         #if DEBUG
+
+        for edge in self.edges {
+            assert(containsNode(edge.start))
+            assert(containsNode(edge.end))
+        }
 
         for node in self.nodes {
             if node.isIntersection {
@@ -224,6 +196,91 @@ extension Simplex2Graph {
 
         #endif
     }
+
+    /// Splits an edge into two sub-edges, covering the same period range, but with
+    /// an intermediary node `midNode` in between the end nodes at `period`.
+    ///
+    /// If `period` matches the edge's `startPeriod` or `endPeriod`, then the
+    /// node at the end point of the edge is replaced with 'midNode' instead of
+    /// being spliced in, with all edges from the original node copied to the
+    /// new node.
+    mutating func splitEdge(_ edge: Edge, period: Period, midNode: Node) {
+        assert(edge.periodRange.contains(period))
+
+        if period == edge.startPeriod {
+            let incoming = edges(towards: edge.start)
+            let outgoing = edges(from: edge.start)
+
+            removeNode(edge.start)
+
+            for incoming in incoming {
+                incoming.end = midNode
+                addEdge(incoming)
+            }
+            for outgoing in outgoing {
+                outgoing.start = midNode
+                addEdge(outgoing)
+            }
+
+            return
+        } else if period == edge.endPeriod {
+            let incoming = edges(towards: edge.end)
+            let outgoing = edges(from: edge.end)
+
+            removeNode(edge.start)
+
+            for incoming in incoming {
+                incoming.end = midNode
+            }
+            for outgoing in outgoing {
+                outgoing.start = midNode
+            }
+
+            return
+        }
+
+        let periodDiff = edge.endPeriod - edge.startPeriod
+
+        let kindStart: Edge.Kind
+        let kindEnd: Edge.Kind
+        switch edge.kind {
+        case .line:
+            kindStart = .line
+            kindEnd = .line
+
+        case .circleArc(let center, let sweepAngle):
+            kindStart = .circleArc(
+                center: center,
+                sweepAngle: sweepAngle * ((period - edge.startPeriod) / periodDiff)
+            )
+
+            kindEnd = .circleArc(
+                center: center,
+                sweepAngle: sweepAngle * (1 - (period - edge.startPeriod) / periodDiff)
+            )
+        }
+
+        let newStart = Edge(
+            start: edge.start,
+            end: midNode,
+            shapeIndex: edge.shapeIndex,
+            startPeriod: edge.startPeriod,
+            endPeriod: period,
+            kind: kindStart
+        )
+        let newEnd = Edge(
+            start: midNode,
+            end: edge.end,
+            shapeIndex: edge.shapeIndex,
+            startPeriod: period,
+            endPeriod: edge.endPeriod,
+            kind: kindEnd
+        )
+
+        removeEdge(edge)
+        addEdge(newStart)
+        addEdge(newEnd)
+    }
 }
 
 fileprivate extension Collection {
@@ -239,5 +296,51 @@ fileprivate extension Collection {
         }
 
         return nil
+    }
+}
+
+extension Parametric2Contour {
+    func rawIntersectionPeriods(
+        _ other: Self,
+        tolerance: Scalar
+    ) -> [ParametricClip2Intersection<Scalar>.Atom] {
+        var atoms: [ParametricClip2Intersection<Scalar>.Atom] = []
+
+        for selfSimplex in self.allSimplexes() {
+            for otherSimplex in other.allSimplexes() {
+                atoms.append(
+                    contentsOf: selfSimplex.intersectionPeriods(with: otherSimplex)
+                )
+            }
+        }
+
+        // Attempt to tie intersections as pairs by biasing the list of atoms as
+        // sorted periods on 'self', and working on sequential periods instead
+        // of sequential points of intersections
+        atoms = atoms.sorted(by: { $0.`self` < $1.`self` })
+
+        // Combine atoms with `tolerance`
+        if tolerance.isFinite {
+            var index = 0
+            while index < (atoms.count - 1) {
+                defer { atoms.formIndex(after: &index) }
+
+                let atom = atoms[index]
+                let next = atoms[atoms.index(after: index)]
+
+                if
+                    ParametricClip2Intersection<Scalar>.areApproximatelyEqual(
+                        atom,
+                        next,
+                        tolerance: tolerance
+                    )
+                {
+                    atoms.remove(at: atoms.index(after: index))
+                    atoms.formIndex(before: &index)
+                }
+            }
+        }
+
+        return atoms
     }
 }

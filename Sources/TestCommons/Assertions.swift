@@ -1,6 +1,50 @@
 import XCTest
 import Geometria
 
+// MARK: Collection equality
+
+/// Asserts that two collection of items contains the same set of `T` values the
+/// same number of times.
+public func assertEqualUnordered<T>(
+    _ lhs: some Collection<T>,
+    _ rhs: some Collection<T>,
+    compare: (T, T) -> Bool,
+    message: @autoclosure () -> String = "",
+    file: StaticString = #file,
+    line: UInt = #line
+) {
+
+    if lhs.count != rhs.count {
+        XCTFail(
+            "lhs.count != rhs.count (\(lhs.count) != \(rhs.count)) lhs: \(lhs) rhs: \(rhs) \(message())",
+            file: file,
+            line: line
+        )
+        return
+    }
+
+    let signal: (String) -> Void = {
+        XCTFail(
+            "lhs != rhs (\(lhs) != \(rhs)) \($0)",
+            file: file,
+            line: line
+        )
+    }
+
+    var remaining = Array(lhs)
+    for item in rhs {
+        if let nextIndex = remaining.firstIndex(where: { compare($0, item) }) {
+            remaining.remove(at: nextIndex)
+        } else {
+            return signal(message())
+        }
+    }
+
+    if !remaining.isEmpty {
+        signal(message())
+    }
+}
+
 // MARK: FloatingPoint equality
 
 @discardableResult
@@ -20,6 +64,20 @@ public func assertEqual<T: FloatingPoint>(
     } else {
         XCTAssertEqual(v1, v2, "\(messagePrefix())", file: file, line: line)
 
+        return v1 == v2
+    }
+}
+
+@discardableResult
+public func areEqual<T: FloatingPoint>(
+    _ v1: T,
+    _ v2: T,
+    accuracy: T? = nil
+) -> Bool {
+
+    if let accuracy = accuracy {
+        return v1.isApproximatelyEqual(to: v2, absoluteTolerance: accuracy)
+    } else {
         return v1 == v2
     }
 }
@@ -47,6 +105,20 @@ public func assertEqual<T: FloatingPoint>(
     }
 }
 
+@discardableResult
+public func areEqual<T: FloatingPoint>(
+    _ v1: Angle<T>,
+    _ v2: Angle<T>,
+    accuracy: T? = nil
+) -> Bool {
+
+    if let accuracy = accuracy {
+        return v1.radians.isApproximatelyEqual(to: v2.radians, absoluteTolerance: accuracy)
+    } else {
+        return v1.radians == v2.radians
+    }
+}
+
 // MARK: Vector equality
 
 @discardableResult
@@ -61,6 +133,17 @@ public func assertEqual<V: Vector2Type>(
 
     assertEqual(vec1.x, vec2.x, accuracy: accuracy, "\(messagePrefix())x", file: file, line: line) &&
     assertEqual(vec1.y, vec2.y, accuracy: accuracy, "\(messagePrefix())y", file: file, line: line)
+}
+
+@discardableResult
+public func areEqual<V: Vector2Type>(
+    _ vec1: V,
+    _ vec2: V,
+    accuracy: V.Scalar
+) -> Bool where V.Scalar: FloatingPoint {
+
+    areEqual(vec1.x, vec2.x, accuracy: accuracy) &&
+    areEqual(vec1.y, vec2.y, accuracy: accuracy)
 }
 
 @discardableResult

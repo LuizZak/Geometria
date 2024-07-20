@@ -16,6 +16,20 @@ internal class IntersectionLookup<Vector: Vector2Real> {
     private let tolerance: Vector.Scalar
     private(set) var intersections: [Intersection]
 
+    convenience init(
+        lhs: some ParametricClip2Geometry<Vector>,
+        rhs: some ParametricClip2Geometry<Vector>,
+        tolerance: Vector.Scalar
+    ) {
+        self.init(
+            lhsShapes: lhs.allContours(),
+            lhsRange: lhs.startPeriod..<lhs.endPeriod,
+            rhsShapes: rhs.allContours(),
+            rhsRange: rhs.startPeriod..<rhs.endPeriod,
+            tolerance: tolerance
+        )
+    }
+
     init(
         lhsShapes: [Contour],
         lhsRange: Range<Period>,

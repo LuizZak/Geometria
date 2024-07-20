@@ -251,6 +251,19 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     public enum Winding {
         case clockwise
         case counterClockwise
+
+        /// A numerical value associated with this winding.
+        ///
+        /// Clockwise windings have value `1`, and counter-clockwise `-1`.
+        var value: Int {
+            switch self {
+            case .clockwise:
+                return 1
+
+            case .counterClockwise:
+                return -1
+            }
+        }
     }
 }
 

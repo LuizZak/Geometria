@@ -11,6 +11,7 @@ public class P5Printer: BaseP5Printer {
         if requiresPeriodSlider {
             printLine("let periodSlider")
             printLine("let parametrics")
+            printLine("let parametricCheckboxes = {}")
         }
         if requiresParametricTypes {
             printParametricTypes()

@@ -2,6 +2,7 @@ import MiniP5Printer
 import Geometria
 import GeometriaClipping
 
+/*
 extension LinePolygon2Parametric: VisualizableGeometricType2 where Vector.Scalar: CustomStringConvertible {
     public func addVisualization2D(to printer: P5Printer, style: P5Printer.Style?, file: StaticString = #file, line: UInt = #line) {
         printer.add(self, style: style, file: file, line: line)
@@ -52,3 +53,4 @@ extension Subtraction2Parametric: VisualizableGeometricType2 where Vector.Scalar
         printer.add(self.rhs, style: style, file: file, line: line)
     }
 }
+*/

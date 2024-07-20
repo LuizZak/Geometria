@@ -31,6 +31,8 @@ public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry 
         return result
     }
 
+    /// Initializes a new compound parametric with the contour and start/end period
+    /// of a given parametric geometry.
     public init(_ geometry: some ParametricClip2Geometry<Vector>) {
         self.init(
             contours: geometry.allContours(),

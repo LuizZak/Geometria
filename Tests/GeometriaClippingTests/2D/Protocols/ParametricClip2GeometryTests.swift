@@ -11,7 +11,7 @@ class ParametricClip2GeometryTests: XCTestCase {
         let result = sut.allContours().flatMap { $0.clampedSimplexes(in: 0.3..<0.73) }
 
         TestFixture.beginFixture { fixture in
-            fixture.add(result)
+            fixture.add(result, category: "result")
 
             fixture.assertEquals(
                 result,

@@ -60,6 +60,14 @@ public class TestFixture {
         .init(fixture: self, value: visualizable, file: file, line: line)
     }
 
+    public func assertions<T>(
+        on value: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> AssertionWrapperBase<T> {
+        .init(fixture: self, value: value, file: file, line: line)
+    }
+
     // MARK: General assertions
 
     public func failure(
@@ -368,7 +376,7 @@ public class TestFixture {
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle())
+            expected.addVisualization2D(to: p5Printer, style: expectedStyle(), file: file, line: line)
 
             return false
         }
@@ -394,7 +402,7 @@ public class TestFixture {
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+            expected.addVisualization3D(to: p5Printer, style: expectedStyle(), file: file, line: line)
 
             return false
         }
@@ -544,7 +552,6 @@ public class TestFixture {
         }
 
         public func addVisualization() {
-            fatalError("Must be overridden by subclasses")
         }
     }
 
