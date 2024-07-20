@@ -1,3 +1,5 @@
+import Geometria
+
 /// A Union boolean parametric that joins two shapes into a single shape, if they
 /// intersect in space.
 public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Boolean2Parametric
@@ -173,4 +175,36 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
 
         #endif
     }
+
+    public static func intersection(
+        tolerance: Scalar = .leastNonzeroMagnitude,
+        _ lhs: T1,
+        _ rhs: T2
+    ) -> Compound2Parametric<Vector> {
+        let op = Self(lhs, rhs, tolerance: tolerance)
+        return .init(contours: op.allContours())
+    }
+}
+
+/// Performs an intersection operation across all given parametric geometries.
+///
+/// - precondition: `shapes` is not empty.
+public func intersection<Vector: Hashable>(
+    tolerance: Vector.Scalar = .leastNonzeroMagnitude,
+    _ shapes: [some ParametricClip2Geometry<Vector>]
+) -> Compound2Parametric<Vector> {
+    guard let first = shapes.first else {
+        preconditionFailure("!shapes.isEmpty")
+    }
+
+    var result = Compound2Parametric<Vector>(first)
+    for next in shapes.dropFirst() {
+        result = Intersection2Parametric<Compound2Parametric<Vector>, Compound2Parametric<Vector>>
+            .intersection(
+                tolerance: tolerance,
+                result,
+                Compound2Parametric(next)
+            )
+    }
+    return result
 }

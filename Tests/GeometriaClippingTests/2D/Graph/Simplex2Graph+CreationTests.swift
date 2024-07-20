@@ -226,8 +226,10 @@ extension Simplex2Graph.Edge {
         case (.line, .line):
             return true
 
-        case (.circleArc(let lhsCenter, let lhsSweep), .circleArc(let rhsCenter, let rhsSweep)):
+        case (.circleArc(let lhsCenter, let lhsRadius, let lhsStartAngle, let lhsSweep), .circleArc(let rhsCenter, let rhsRadius, let rhsStartAngle, let rhsSweep)):
             return areEqual(lhsCenter, rhsCenter, accuracy: accuracy)
+                && areEqual(lhsRadius, rhsRadius, accuracy: accuracy)
+                && areEqual(lhsStartAngle, rhsStartAngle, accuracy: accuracy)
                 && areEqual(lhsSweep, rhsSweep, accuracy: accuracy)
 
         default:

@@ -181,8 +181,8 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
         _ lhs: T1,
         _ rhs: T2
     ) -> Compound2Parametric<Vector> {
-        let union = Self(lhs, rhs, tolerance: tolerance)
-        return .init(contours: union.allContours())
+        let op = Self(lhs, rhs, tolerance: tolerance)
+        return .init(contours: op.allContours())
     }
 }
 

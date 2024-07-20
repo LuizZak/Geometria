@@ -121,7 +121,7 @@ class ContourManager<Vector: Vector2Real> {
         }
 
         return probe(lhs.startPeriod)
-            || probe((lhs.endPeriod - lhs.startPeriod) / 2)
+            || probe((lhs.endPeriod + lhs.startPeriod) / 2)
     }
 
     struct ContourInfo {

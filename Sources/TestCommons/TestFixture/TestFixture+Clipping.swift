@@ -185,6 +185,7 @@ public extension TestFixture {
     ) -> Bool {
 
         return assertEquals(actual.circleArc.center, expected.circleArc.center, accuracy: accuracy, file: file, line: line)
+            && assertEquals(actual.circleArc.radius, expected.circleArc.radius, accuracy: accuracy, file: file, line: line)
             && assertEquals(actual.circleArc.startAngle, expected.circleArc.startAngle, accuracy: accuracy, file: file, line: line)
             && assertEquals(actual.circleArc.sweepAngle, expected.circleArc.sweepAngle, accuracy: accuracy, file: file, line: line)
     }
@@ -209,10 +210,10 @@ public extension TestFixture {
 
         switch (actual, expected) {
         case (.lineSegment2(let lhs), .lineSegment2(let rhs)):
-            return assertEquals(lhs, rhs, message(), file: file, line: line)
+            return assertEquals(lhs, rhs, accuracy: accuracy, message(), file: file, line: line)
 
         case (.circleArc2(let lhs), .circleArc2(let rhs)):
-            return assertEquals(lhs, rhs, message(), file: file, line: line)
+            return assertEquals(lhs, rhs, accuracy: accuracy, message(), file: file, line: line)
 
         default:
             failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)

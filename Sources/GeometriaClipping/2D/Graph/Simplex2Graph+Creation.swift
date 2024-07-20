@@ -59,6 +59,8 @@ extension Simplex2Graph {
                 case .circleArc2(let arc):
                     kind = .circleArc(
                         center: arc.circleArc.center,
+                        radius: arc.circleArc.radius,
+                        startAngle: arc.circleArc.startAngle,
                         sweepAngle: arc.circleArc.sweepAngle
                     )
                 }
@@ -254,8 +256,6 @@ extension Simplex2Graph {
             return
         }
 
-        let periodDiff = edge.endPeriod - edge.startPeriod
-
         let kindStart: Edge.Kind
         let kindEnd: Edge.Kind
         switch edge.kind {
@@ -263,15 +263,25 @@ extension Simplex2Graph {
             kindStart = .line
             kindEnd = .line
 
-        case .circleArc(let center, let sweepAngle):
+        case .circleArc(let center, let radius, let startAngle, let sweepAngle):
+            func ratioForPeriod(_ period: Period) -> Period {
+                (period - edge.startPeriod) / (edge.endPeriod - edge.startPeriod)
+            }
+
+            let ratio = ratioForPeriod(period)
+
             kindStart = .circleArc(
                 center: center,
-                sweepAngle: sweepAngle * ((period - edge.startPeriod) / periodDiff)
+                radius: radius,
+                startAngle: startAngle,
+                sweepAngle: sweepAngle * ratio
             )
 
             kindEnd = .circleArc(
                 center: center,
-                sweepAngle: sweepAngle * (1 - (period - edge.startPeriod) / periodDiff)
+                radius: radius,
+                startAngle: startAngle + sweepAngle * ratio,
+                sweepAngle: sweepAngle * (1 - ratio)
             )
         }
 
@@ -297,22 +307,6 @@ extension Simplex2Graph {
         removeEdge(edge)
         addEdge(newStart)
         addEdge(newEnd)
-    }
-}
-
-fileprivate extension Collection {
-    func simplexIndex<V: VectorType>(
-        containingPeriod period: V.Scalar
-    ) -> Index? where Element == Parametric2GeometrySimplex<V> {
-        for index in indices {
-            let element = self[index]
-
-            if element.periodRange.contains(period) {
-                return index
-            }
-        }
-
-        return nil
     }
 }
 

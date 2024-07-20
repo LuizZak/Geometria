@@ -196,13 +196,13 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                     )
                 )
 
-            case .circleArc(let center, let sweepAngle):
-                var arc = CircleArc2(
-                    startPoint: start.location,
-                    endPoint: end.location,
+            case .circleArc(let center, let radius, let startAngle, let sweepAngle):
+                let arc = CircleArc2(
+                    center: center,
+                    radius: radius,
+                    startAngle: startAngle,
                     sweepAngle: sweepAngle
                 )
-                arc.center = center
 
                 return .circleArc2(
                     .init(
@@ -226,9 +226,12 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             /// A straight line edge.
             case line
 
-            /// A circular arc edge, with a center point and sweep.
+            /// A circular arc edge, with a center point, radius, and start+sweep
+            /// angles.
             case circleArc(
                 center: Vector,
+                radius: Vector.Scalar,
+                startAngle: Angle<Vector.Scalar>,
                 sweepAngle: Angle<Vector.Scalar>
             )
 
@@ -237,8 +240,8 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 case .line:
                     return ".line"
 
-                case .circleArc(let center, let sweepAngle):
-                    return ".circleArc(center: \(center), sweepAngle: \(sweepAngle))"
+                case .circleArc(let center, let radius, let startAngle, let sweepAngle):
+                    return ".circleArc(center: \(center), radius: \(radius), startAngle: \(startAngle), sweepAngle: \(sweepAngle))"
                 }
             }
         }

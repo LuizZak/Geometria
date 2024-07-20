@@ -489,6 +489,96 @@ class Union2ParametricTests: XCTestCase {
         }
     }
 
+    func testUnion_arcsArcs() {
+        let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -25.0, y: 5.0), radius: 115)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 25.0, y: -5.0), radius: 85)
+
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [
+                        [
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: -25.0, y: 5.0),
+                                        radius: 115.0,
+                                        startAngle: Angle(radians: 1.5707963267948966),
+                                        sweepAngle: Angle(radians: 1.5707963267948966)
+                                    ),
+                                    startPeriod: 0.0,
+                                    endPeriod: 0.24166701155392442
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: -25.0, y: 5.0),
+                                        radius: 115.0,
+                                        startAngle: Angle(radians: 3.141592653589793),
+                                        sweepAngle: Angle(radians: 1.5707963267948966)
+                                    ),
+                                    startPeriod: 0.24166701155392442,
+                                    endPeriod: 0.48333402310784884
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: -25.0, y: 5.0),
+                                        radius: 114.99999999999997,
+                                        startAngle: Angle(radians: -1.570796326794897),
+                                        sweepAngle: Angle(radians: 0.8317784477809788)
+                                    ),
+                                    startPeriod: 0.48333402310784884,
+                                    endPeriod: 0.6113031355390863
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 25.0, y: -5.0),
+                                        radius: 85.00000000000009,
+                                        startAngle: Angle(radians: -1.14640661820171),
+                                        sweepAngle: Angle(radians: 1.1464066182017099)
+                                    ),
+                                    startPeriod: 0.6113031355390863,
+                                    endPeriod: 0.7416670115539244
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: 25.0, y: -5.0),
+                                        radius: 85.00000000000001,
+                                        startAngle: Angle(radians: -8.359326303060001e-17),
+                                        sweepAngle: Angle(radians: 1.14640661820171)
+                                    ),
+                                    startPeriod: 0.7416670115539244,
+                                    endPeriod: 0.8720308875687625
+                                )
+                            ),
+                            .circleArc2(
+                                .init(
+                                    circleArc: .init(
+                                        center: .init(x: -25.0, y: -5.0),
+                                        radius: 115.00000000000003,
+                                        startAngle: Angle(radians: 0.7390178790139179),
+                                        sweepAngle: Angle(radians: 0.8317784477809788)
+                                    ),
+                                    startPeriod: 0.8720308875687625,
+                                    endPeriod: 1.0
+                                )
+                            ),
+                        ]
+                    ]
+                )
+        }
+    }
+
     func testUnion_concaveShape() {
         let lhs = LinePolygon2Parametric.makeCShape()
         let rhs = LinePolygon2Parametric.makeRectangle(width: 10, height: 120)
