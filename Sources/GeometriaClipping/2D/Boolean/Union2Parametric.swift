@@ -15,8 +15,6 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
     }
 
     public func allContours() -> [Contour] {
-        #if true
-
         typealias Graph = Simplex2Graph<Vector>
 
         var graph = Graph.fromParametricIntersections(
@@ -92,85 +90,6 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
         }
 
         return resultOverall.allContours()
-
-        #else
-
-        typealias State = GeometriaClipping.State<Period>
-
-        let lhsContours = lhs.allContours()
-        let rhsContours = rhs.allContours()
-
-        let lookup: IntersectionLookup<Vector> = .init(
-            lhsShapes: lhsContours,
-            lhsRange: lhs.startPeriod..<lhs.endPeriod,
-            rhsShapes: rhsContours,
-            rhsRange: rhs.startPeriod..<rhs.endPeriod,
-            tolerance: tolerance
-        )
-
-        let resultOverall = ContourManager<Vector>()
-
-        // Re-combine the contours by working from bottom-to-top, stopping at
-        // contours that participate in intersections, adding the contours on top
-        // of the result
-        for index in 0..<lhsContours.count {
-            let contour = lhsContours[index]
-
-            resultOverall.append(
-                contour,
-                isReference: lookup.hasIntersections(lhsIndex: index)
-            )
-        }
-        for index in 0..<rhsContours.count {
-            let contour = rhsContours[index]
-
-            resultOverall.append(
-                contour,
-                isReference: lookup.hasIntersections(rhsIndex: index)
-            )
-        }
-
-        resultOverall.coverHoles()
-
-        var simplexVisited: Set<State> = []
-        var visitedOverall: Set<State> = []
-
-        guard var state = lookup.candidateStart() else {
-            return resultOverall.allContours()
-        }
-
-        while visitedOverall.insert(state).inserted {
-            if !simplexVisited.contains(state) {
-                let result = resultOverall.beginContour()
-                var visited: Set<State> = []
-
-                while visited.insert(state).inserted {
-                    // Find next intersection
-                    let next = lookup.next(state)
-
-                    // Append simplex
-                    let simplex = lookup.clampedSimplexesRange(state, next)
-                    result.append(contentsOf: simplex)
-
-                    // Flip to the next intersection
-                    state = next.flipped()
-                }
-
-                simplexVisited.formUnion(visited)
-
-                // Re-normalize the simplex periods
-                result.endContour(startPeriod: .zero, endPeriod: 1)
-            }
-
-            // Here we skip twice in order to skip the portion of lhs that is
-            // occluded behind rhs, and land on the next intersection that brings
-            // lhs inside rhs
-            state = lookup.next(lookup.next(state))
-        }
-
-        return resultOverall.allContours()
-
-        #endif
     }
 
     static func union(

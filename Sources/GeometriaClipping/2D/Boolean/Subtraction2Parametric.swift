@@ -15,8 +15,6 @@ public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: Parametric
     }
 
     public func allContours() -> [Contour] {
-        typealias State = GeometriaClipping.State<T1.Period>
-
         let rhsReversed = rhs.reversed()
 
         // A subtraction is a union of a geometry and a reverse-wound input geometry

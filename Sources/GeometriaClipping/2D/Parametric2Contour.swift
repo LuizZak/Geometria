@@ -206,33 +206,6 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         }
     }
 
-    /// Returns all unique intersection periods between `self` and `other`.
-    /// The resulting array of periods is guaranteed to not contain the same
-    /// period value twice for all `tuple.self` and for all `tuple.other`,
-    /// separately.
-    ///
-    /// The intersections are sorted by their occurrence within `self`, and
-    /// intersection pairs do not overlap with each other with respect to the
-    /// `intersection.self` side of each intersection.
-    ///
-    /// If two intersections have a difference smaller than `tolerance`, the
-    /// two intersections are elided from the result. Passing `.infinity` to
-    /// `tolerance` disables this behavior.
-    public func allIntersectionPeriods(
-        _ other: Self,
-        tolerance: Scalar
-    ) -> [ParametricClip2Intersection<Period>] {
-
-        self.allSimplexes().allIntersectionPeriods(
-            with: other.allSimplexes(),
-            tolerance: tolerance,
-            normalizedCenterSelf: self.normalizedCenter(_:_:),
-            otherContainsSelf: { other.contains(self.compute(at: $0)) },
-            normalizedCenterOther: other.normalizedCenter(_:_:),
-            selfContainsOther: { self.contains(other.compute(at: $0)) }
-        )
-    }
-
     /// Returns the reverse of this parametric geometry by inverting the order
     /// and direction of each of its simplexes, while maintaining `self.startPeriod`
     /// and `self.endPeriod`.
