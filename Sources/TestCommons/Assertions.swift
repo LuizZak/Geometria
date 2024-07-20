@@ -16,7 +16,7 @@ public func assertEqualUnordered<T>(
 
     if lhs.count != rhs.count {
         XCTFail(
-            "lhs.count != rhs.count (\(lhs.count) != \(rhs.count)) lhs: \(lhs) rhs: \(rhs) \(message())",
+            "\(message()) lhs.count != rhs.count (\(lhs.count) != \(rhs.count)) lhs: \(lhs) rhs: \(rhs)".trimmingCharacters(in: .whitespaces),
             file: file,
             line: line
         )
@@ -25,7 +25,7 @@ public func assertEqualUnordered<T>(
 
     let signal: (String) -> Void = {
         XCTFail(
-            "lhs != rhs (\(lhs) != \(rhs)) \($0)",
+            "\($0) lhs != rhs (\(lhs) != \(rhs))".trimmingCharacters(in: .whitespaces),
             file: file,
             line: line
         )
@@ -36,12 +36,12 @@ public func assertEqualUnordered<T>(
         if let nextIndex = remaining.firstIndex(where: { compare($0, item) }) {
             remaining.remove(at: nextIndex)
         } else {
-            return signal(message())
+            return signal("Found unmatched rhs element \(item) \(message())")
         }
     }
 
     if !remaining.isEmpty {
-        signal(message())
+        signal("Found unmatched lhs elements \(remaining) \(message())")
     }
 }
 
