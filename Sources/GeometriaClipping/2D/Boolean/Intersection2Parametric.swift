@@ -58,33 +58,29 @@ public struct Intersection2Parametric<T1: ParametricClip2Geometry, T2: Parametri
             return resultOverall.allContours()
         }
 
-        var isOnLhs = true
-
+        // Keep visiting nodes on the graph, removing them after each complete visit
         while visitedOverall.insert(current).inserted {
-            if !simplexVisited.contains(current) {
-                let result = resultOverall.beginContour()
-                var visited: Set<Graph.Node> = []
+            let result = resultOverall.beginContour()
+            var visited: Set<Graph.Node> = []
 
-                while visited.insert(current).inserted {
-                    guard let nextEdge = graph.edges(from: current).min(by: candidateIsAscending) else {
-                        break
-                    }
-
-                    graph.removeEdge(nextEdge)
-
-                    result.append(nextEdge.materialize())
-                    current = nextEdge.end
-
-                    if current.isIntersection {
-                        isOnLhs = !isOnLhs
-                    }
+            // Visit all reachable nodes
+            // The existing edges shouldn't matter as long as we pick any
+            // suitable edge in a stable fashion for unit testing
+            while visited.insert(current).inserted {
+                guard let nextEdge = graph.edges(from: current).min(by: candidateIsAscending) else {
+                    break
                 }
 
-                result.endContour(startPeriod: .zero, endPeriod: 1)
+                graph.removeEdge(nextEdge)
 
-                simplexVisited.formUnion(visited)
+                result.append(nextEdge.materialize())
+                current = nextEdge.end
             }
 
+            result.endContour(startPeriod: .zero, endPeriod: 1)
+
+            // Prune the graph by removing dead-end nodes and pull a new edge to
+            // start traversing on any remaining nodes
             graph.prune()
 
             guard let next = graph.edges.min(by: candidateIsAscending) else {
