@@ -11,8 +11,12 @@ class Simplex2Graph_CreationTests: XCTestCase {
 
         let result = Simplex2Graph.fromParametricIntersections(lhs, rhs, tolerance: 1e-14)
 
-        result.assertNodesUnordered(
+        result.assertNodesUnordered(accuracy: 1e-14,
             [
+                .init(
+                    location: Vector2<Double>(x: -1.745121688784978e-14, y: -95.0),
+                    kind: .geometry(shapeIndex: 1, period: 0.75)
+                ),
                 .init(
                     location: Vector2<Double>(x: -39.05124837953324, y: 86.60254037844388),
                     kind: .intersection(
@@ -23,85 +27,12 @@ class Simplex2Graph_CreationTests: XCTestCase {
                     )
                 ),
                 .init(
-                    location: Vector2<Double>(x: 50.000000000000014, y: -86.60254037844386),
-                    kind: .geometry(shapeIndex: 0, period: 0.8333333333333334)
-                ),
-                .init(
-                    location: Vector2<Double>(x: -94.52562418976665, y: 9.481897043050225),
+                    location: Vector2<Double>(x: 55.47437581023337, y: -77.12064333539365),
                     kind: .intersection(
                         lhs: 0,
-                        lhsPeriod: 0.4817520806325555,
+                        lhsPeriod: 0.8515812527007779,
                         rhs: 1,
-                        rhsPeriod: 0.4840883404386408
-                    )
-                ),
-                .init(
-                    location: Vector2<Double>(x: 95.0, y: 0.0),
-                    kind: .geometry(shapeIndex: 1, period: 0.0)
-                ),
-                .init(
-                    location: Vector2<Double>(x: -55.4743758102334, y: -77.12064333539362),
-                    kind: .intersection(
-                        lhs: 0,
-                        lhsPeriod: 0.648418747299222,
-                        rhs: 1,
-                        rhsPeriod: 0.6507550071053073
-                    )
-                ),
-                .init(
-                    location: Vector2<Double>(x: 100.0, y: 0.0),
-                    kind: .geometry(shapeIndex: 0, period: 0.0)
-                ),
-                .init(
-                    location: Vector2<Double>(x: -95.0, y: 1.1634144591899855e-14),
-                    kind: .geometry(shapeIndex: 1, period: 0.5)
-                ),
-                .init(
-                    location: Vector2<Double>(x: -100.0, y: 1.2246467991473532e-14),
-                    kind: .geometry(shapeIndex: 0, period: 0.5)
-                ),
-                .init(
-                    location: Vector2<Double>(x: -39.051248379533334, y: -86.60254037844383),
-                    kind: .intersection(
-                        lhs: 0,
-                        lhsPeriod: 0.684914586034111,
-                        rhs: 1,
-                        rhsPeriod: 0.6825783262280257
-                    )
-                ),
-                .init(
-                    location: Vector2<Double>(x: 39.051248379533305, y: -86.60254037844386),
-                    kind: .intersection(
-                        lhs: 0,
-                        lhsPeriod: 0.8150854139658888,
-                        rhs: 1,
-                        rhsPeriod: 0.8174216737719743
-                    )
-                ),
-                .init(
-                    location: Vector2<Double>(x: -50.00000000000004, y: -86.60254037844383),
-                    kind: .geometry(shapeIndex: 0, period: 0.6666666666666665)
-                ),
-                .init(
-                    location: Vector2<Double>(x: 94.52562418976665, y: 9.481897043050221),
-                    kind: .intersection(
-                        lhs: 0,
-                        lhsPeriod: 0.018247919367444534,
-                        rhs: 1,
-                        rhsPeriod: 0.01591165956135917
-                    )
-                ),
-                .init(
-                    location: Vector2<Double>(x: 50.000000000000014, y: 86.60254037844386),
-                    kind: .geometry(shapeIndex: 0, period: 0.16666666666666663)
-                ),
-                .init(
-                    location: Vector2<Double>(x: 39.051248379533256, y: 86.60254037844386),
-                    kind: .intersection(
-                        lhs: 0,
-                        lhsPeriod: 0.18491458603411123,
-                        rhs: 1,
-                        rhsPeriod: 0.1825783262280259
+                        rhsPeriod: 0.8492449928946925
                     )
                 ),
                 .init(
@@ -114,12 +45,68 @@ class Simplex2Graph_CreationTests: XCTestCase {
                     )
                 ),
                 .init(
-                    location: Vector2<Double>(x: -55.47437581023333, y: 77.12064333539367),
+                    location: Vector2<Double>(x: 50.000000000000014, y: -86.60254037844386),
+                    kind: .geometry(shapeIndex: 0, period: 0.8333333333333334)
+                ),
+                .init(
+                    location: Vector2<Double>(x: 100.0, y: 0.0),
+                    kind: .geometry(shapeIndex: 0, period: 0.0)
+                ),
+                .init(
+                    location: Vector2<Double>(x: 39.051248379533305, y: -86.60254037844386),
                     kind: .intersection(
                         lhs: 0,
-                        lhsPeriod: 0.35158125270077784,
+                        lhsPeriod: 0.8150854139658888,
                         rhs: 1,
-                        rhsPeriod: 0.3492449928946925
+                        rhsPeriod: 0.8174216737719743
+                    )
+                ),
+                .init(
+                    location: Vector2<Double>(x: -39.051248379533334, y: -86.60254037844383),
+                    kind: .intersection(
+                        lhs: 0,
+                        lhsPeriod: 0.684914586034111,
+                        rhs: 1,
+                        rhsPeriod: 0.6825783262280257
+                    )
+                ),
+                .init(
+                    location: Vector2<Double>(x: -49.99999999999998, y: 86.60254037844388),
+                    kind: .geometry(shapeIndex: 0, period: 0.3333333333333333)
+                ),
+                .init(
+                    location: Vector2<Double>(x: -95.0, y: 1.1634144591899855e-14),
+                    kind: .geometry(shapeIndex: 1, period: 0.5)
+                ),
+                .init(
+                    location: Vector2<Double>(x: -100.0, y: 1.2246467991473532e-14),
+                    kind: .geometry(shapeIndex: 0, period: 0.5)
+                ),
+                .init(
+                    location: Vector2<Double>(x: 94.52562418976665, y: 9.481897043050221),
+                    kind: .intersection(
+                        lhs: 0,
+                        lhsPeriod: 0.018247919367444534,
+                        rhs: 1,
+                        rhsPeriod: 0.01591165956135917
+                    )
+                ),
+                .init(
+                    location: Vector2<Double>(x: -94.52562418976665, y: 9.481897043050225),
+                    kind: .intersection(
+                        lhs: 0,
+                        lhsPeriod: 0.4817520806325555,
+                        rhs: 1,
+                        rhsPeriod: 0.4840883404386408
+                    )
+                ),
+                .init(
+                    location: Vector2<Double>(x: -94.52562418976665, y: -9.481897043050205),
+                    kind: .intersection(
+                        lhs: 0,
+                        lhsPeriod: 0.5182479193674445,
+                        rhs: 1,
+                        rhsPeriod: 0.5159116595613592
                     )
                 ),
                 .init(
@@ -132,29 +119,49 @@ class Simplex2Graph_CreationTests: XCTestCase {
                     )
                 ),
                 .init(
-                    location: Vector2<Double>(x: -49.99999999999998, y: 86.60254037844388),
-                    kind: .geometry(shapeIndex: 0, period: 0.3333333333333333)
-                ),
-                .init(
-                    location: Vector2<Double>(x: -94.52562418976665, y: -9.481897043050205),
+                    location: Vector2<Double>(x: -55.47437581023333, y: 77.12064333539367),
                     kind: .intersection(
                         lhs: 0,
-                        lhsPeriod: 0.5182479193674445,
+                        lhsPeriod: 0.35158125270077784,
                         rhs: 1,
-                        rhsPeriod: 0.5159116595613592
+                        rhsPeriod: 0.3492449928946925
                     )
                 ),
                 .init(
-                    location: Vector2<Double>(x: 55.47437581023337, y: -77.12064333539365),
+                    location: Vector2<Double>(x: -55.4743758102334, y: -77.12064333539362),
                     kind: .intersection(
                         lhs: 0,
-                        lhsPeriod: 0.8515812527007779,
+                        lhsPeriod: 0.648418747299222,
                         rhs: 1,
-                        rhsPeriod: 0.8492449928946926
+                        rhsPeriod: 0.6507550071053073
                     )
                 ),
-            ],
-            accuracy: 1e-14
+                .init(
+                    location: Vector2<Double>(x: 39.051248379533256, y: 86.60254037844386),
+                    kind: .intersection(
+                        lhs: 0,
+                        lhsPeriod: 0.18491458603411123,
+                        rhs: 1,
+                        rhsPeriod: 0.1825783262280259
+                    )
+                ),
+                .init(
+                    location: Vector2<Double>(x: -50.00000000000004, y: -86.60254037844383),
+                    kind: .geometry(shapeIndex: 0, period: 0.6666666666666665)
+                ),
+                .init(
+                    location: Vector2<Double>(x: 50.000000000000014, y: 86.60254037844386),
+                    kind: .geometry(shapeIndex: 0, period: 0.16666666666666663)
+                ),
+                .init(
+                    location: Vector2<Double>(x: 95.0, y: 0.0),
+                    kind: .geometry(shapeIndex: 1, period: 0.0)
+                ),
+                .init(
+                    location: Vector2<Double>(x: 5.8170722959499274e-15, y: 95.0),
+                    kind: .geometry(shapeIndex: 1, period: 0.25)
+                ),
+            ]
         )
     }
 }
@@ -163,8 +170,8 @@ class Simplex2Graph_CreationTests: XCTestCase {
 
 extension Simplex2Graph {
     func assertNodesUnordered(
-        _ expected: [Node],
         accuracy: Vector.Scalar,
+        _ expected: [Node],
         file: StaticString = #file,
         line: UInt = #line
     ) {

@@ -348,8 +348,35 @@ extension Collection {
 
 private extension Parametric2Contour {
     static func computeWinding(_ simplexes: [Simplex]) -> Winding {
-        //.clockwise
-        let points = simplexes.map(\.start)
+        // Compute a polygon out of each simplex, and use that to compute the
+        // winding number
+        var points: [Vector] = []
+
+        for simplex in simplexes {
+            switch simplex {
+            case .lineSegment2(let simplex):
+                points.append(simplex.start)
+
+            case .circleArc2(let simplex):
+                let arc = simplex.circleArc
+
+                points.append(simplex.start)
+
+                // For low-simplex count contours, ensure that the low count of
+                // vertices due to usage of circular arcs doesn't lead to an
+                // incorrect winding number
+                //
+                // It is simply enough to compute some extra points along the
+                // arc, respecting the sign of its sweep angle
+                if simplexes.count < 2 {
+                    points.append(arc.pointOnAngle(arc.startAngle + arc.sweepAngle / 4))
+                }
+                if simplexes.count < 3 {
+                    points.append(arc.pointOnAngle(arc.startAngle + arc.sweepAngle / 2))
+                }
+            }
+        }
+
         let polygon = LinePolygon2(vertices: points)
         let polygonWinding = polygon.winding()
 

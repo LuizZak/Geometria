@@ -16,6 +16,17 @@ public extension TestFixture {
     }
 
     func add<Vector>(
+        _ value: Parametric2Contour<Vector>,
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
+    func add<Vector>(
         _ value: [Parametric2GeometrySimplex<Vector>],
         category: String,
         style: P5Printer.Style? = nil,

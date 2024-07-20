@@ -13,6 +13,13 @@ extension Simplex2Graph {
         let lhsContours = lhs.allContours()
         let rhsContours = rhs.allContours()
 
+        var edgeId: Int = 0
+        func nextEdgeId() -> Int {
+            defer { edgeId += 1 }
+            return edgeId
+        }
+
+
         var result = Self(
             lhsCount: lhsContours.count,
             rhsCount: rhsContours.count
@@ -57,6 +64,7 @@ extension Simplex2Graph {
                 }
 
                 let edge = Edge(
+                    id: nextEdgeId(),
                     start: current.1,
                     end: next.1,
                     shapeIndex: shapeIndex,
@@ -134,13 +142,15 @@ extension Simplex2Graph {
                     result.splitEdge(
                         lhsEdge,
                         period: intersection.`self`,
-                        midNode: node
+                        midNode: node,
+                        idGenerator: nextEdgeId
                     )
 
                     result.splitEdge(
                         rhsEdge,
                         period: intersection.other,
-                        midNode: node
+                        midNode: node,
+                        idGenerator: nextEdgeId
                     )
 
                     result.assertIsValid()
@@ -204,7 +214,12 @@ extension Simplex2Graph {
     /// node at the end point of the edge is replaced with 'midNode' instead of
     /// being spliced in, with all edges from the original node copied to the
     /// new node.
-    mutating func splitEdge(_ edge: Edge, period: Period, midNode: Node) {
+    mutating func splitEdge(
+        _ edge: Edge,
+        period: Period,
+        midNode: Node,
+        idGenerator: () -> Int
+    ) {
         assert(edge.periodRange.contains(period))
 
         if period == edge.startPeriod {
@@ -261,6 +276,7 @@ extension Simplex2Graph {
         }
 
         let newStart = Edge(
+            id: idGenerator(),
             start: edge.start,
             end: midNode,
             shapeIndex: edge.shapeIndex,
@@ -269,6 +285,7 @@ extension Simplex2Graph {
             kind: kindStart
         )
         let newEnd = Edge(
+            id: idGenerator(),
             start: midNode,
             end: edge.end,
             shapeIndex: edge.shapeIndex,

@@ -15,12 +15,9 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
     }
 
     public func allContours() -> [Contour] {
-        #if false
+        #if true
 
         typealias Graph = Simplex2Graph<Vector>
-
-        let lhsContours = lhs.allContours()
-        let rhsContours = rhs.allContours()
 
         var graph = Graph.fromParametricIntersections(
             lhs,
@@ -48,46 +45,16 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
 
         graph.prune()
 
-        let lookup: IntersectionLookup<Vector> = .init(
-            lhsShapes: lhsContours,
-            lhsRange: lhs.startPeriod..<lhs.endPeriod,
-            rhsShapes: rhsContours,
-            rhsRange: rhs.startPeriod..<rhs.endPeriod,
-            tolerance: tolerance
-        )
-
         let resultOverall = ContourManager<Vector>()
 
-        // Re-combine the contours by working from bottom-to-top, stopping at
-        // contours that participate in intersections, adding the contours on top
-        // of the result
-        for index in 0..<lhsContours.count {
-            let contour = lhsContours[index]
-
-            resultOverall.append(
-                contour,
-                isReference: lookup.hasIntersections(lhsIndex: index)
-            )
-        }
-        for index in 0..<rhsContours.count {
-            let contour = rhsContours[index]
-
-            resultOverall.append(
-                contour,
-                isReference: lookup.hasIntersections(rhsIndex: index)
-            )
-        }
-
-        resultOverall.coverHoles()
-
-        guard lookup.hasIntersections() else {
-            return resultOverall.allContours()
+        func candidateIsAscending(_ lhs: Graph.Edge, _ rhs: Graph.Edge) -> Bool {
+            return lhs.id < rhs.id
         }
 
         var simplexVisited: Set<Graph.Node> = []
         var visitedOverall: Set<Graph.Node> = []
 
-        guard var current = graph.candidateStart() else {
+        guard var current = graph.edges.min(by: candidateIsAscending)?.start else {
             return resultOverall.allContours()
         }
 
@@ -99,7 +66,7 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
                 var visited: Set<Graph.Node> = []
 
                 while visited.insert(current).inserted {
-                    guard let nextEdge = graph.edges(from: current).first else {
+                    guard let nextEdge = graph.edges(from: current).min(by: candidateIsAscending) else {
                         break
                     }
 
@@ -120,7 +87,7 @@ public struct Union2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2G
 
             graph.prune()
 
-            guard let next = graph.edges.first(where: { $0.shapeIndex < lhsContours.count }) else {
+            guard let next = graph.edges.min(by: candidateIsAscending) else {
                 return resultOverall.allContours()
             }
 

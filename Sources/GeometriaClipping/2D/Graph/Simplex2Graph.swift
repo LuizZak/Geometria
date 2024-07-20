@@ -242,6 +242,10 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     }
 
     public class Edge: DirectedGraphEdge, Hashable, CustomStringConvertible {
+        /// A unique identifier assigned during graph generation, used to sort
+        /// edges by earliest generation.
+        public var id: Int
+
         public var start: Node
         public var end: Node
         public var shapeIndex: Int
@@ -265,6 +269,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
 
         public init(
+            id: Int,
             start: Node,
             end: Node,
             shapeIndex: Int,
@@ -272,6 +277,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             endPeriod: Period,
             kind: Kind
         ) {
+            self.id = id
             self.start = start
             self.end = end
             self.shapeIndex = shapeIndex

@@ -18,6 +18,24 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
         lineSegment.bounds
     }
 
+    /// Initializes a new line segment simplex value with a line segment that spans
+    /// the given start/end points.
+    public init(
+        start: Vector,
+        end: Vector,
+        startPeriod: Period,
+        endPeriod: Period
+    ) {
+        self.init(
+            lineSegment: .init(
+                start: start,
+                end: end
+            ),
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
+
     /// Initializes a new line segment simplex value with a given line segment.
     public init(
         lineSegment: LineSegment2<Vector>,
