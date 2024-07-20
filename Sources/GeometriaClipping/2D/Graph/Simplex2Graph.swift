@@ -26,119 +26,6 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
     }
 
-    /// Finds a candidate next edge for continuing to traverse past a given starting
-    /// node within this graph.
-    ///
-    /// This method respects the specified 'lhs' flag of the edges being traversed.
-    func nextEdge(from current: Node, onLhs: Bool) -> Edge? {
-        let nextEdges = edges(from: current)
-
-        // Favor intersections first
-        if
-            let nextEdge = nextEdges.first(where: { edge in
-                edge.end.isIntersection && (
-                    (onLhs && isOnLhs(edge)) ||
-                    (!onLhs && !isOnLhs(edge))
-                )
-            })
-        {
-            return nextEdge
-        }
-
-        // Continue within the same geometry
-        if
-            let nextEdge = nextEdges.first(where: { edge in
-                (onLhs && isOnLhs(edge)) ||
-                (!onLhs && !isOnLhs(edge))
-            })
-        {
-            return nextEdge
-        }
-
-        return nil
-    }
-
-    /// Finds a candidate previous edge for continuing to traverse past a given
-    /// starting node within this graph.
-    ///
-    /// This method respects the specified 'lhs' flag of the edges being traversed.
-    func previousEdge(from current: Node, onLhs: Bool) -> Edge? {
-        let nextEdges = edges(towards: current)
-
-        // Favor intersections first
-        if
-            let nextEdge = nextEdges.first(where: { edge in
-                edge.start.isIntersection && (
-                    (onLhs && isOnLhs(edge)) ||
-                    (!onLhs && !isOnLhs(edge))
-                )
-            })
-        {
-            return nextEdge
-        }
-
-        // Continue within the same geometry
-        if
-            let nextEdge = nextEdges.first(where: { edge in
-                edge.shapeIndex == current.shapeIndex ||
-                (onLhs && edge.shapeIndex == current.lhsIndex) ||
-                (!onLhs && edge.shapeIndex == current.rhsIndex)
-            })
-        {
-            return nextEdge
-        }
-
-        return nil
-    }
-
-    /// Returns a potential candidate start for intersection traversal, based on
-    /// the available nodes, and their intersections.
-    ///
-    /// Unless there are no nodes, the result is the first outermost,
-    /// clockwise contour node within `lhsShapes` that is tied with the starting
-    /// `Period.zero` period.
-    ///
-    /// If there are no nodes, `nil` is returned, instead.
-    func candidateStart() -> Node? {
-        for contourIndex in 0..<lhsCount {
-            guard let edge = edgeForPeriod(.zero, shapeIndex: contourIndex) else {
-                continue
-            }
-
-            guard edge.winding == .clockwise else {
-                continue
-            }
-
-            return edge.start
-        }
-
-        return nil
-    }
-
-    private func isOnLhs(_ edge: Edge) -> Bool {
-        return edge.shapeIndex < lhsCount
-    }
-
-    private func isOnLhs(_ node: Node) -> Bool {
-        switch node.kind {
-        case .geometry(let shapeIndex, _):
-            return shapeIndex < lhsCount
-
-        case .intersection:
-            return true
-        }
-    }
-
-    private func isOnRhs(_ node: Node) -> Bool {
-        switch node.kind {
-        case .geometry(let shapeIndex, _):
-            return shapeIndex >= lhsCount
-
-        case .intersection:
-            return true
-        }
-    }
-
     public class Node: Hashable, CustomStringConvertible {
         public typealias ShapeIndex = Int
 
@@ -396,11 +283,11 @@ extension Simplex2Graph: MutableDirectedGraphType {
         self.rhsCount = 0
     }
 
-    public mutating func addNode(_ node: Simplex2Graph<Vector>.Node) {
+    public mutating func addNode(_ node: Node) {
         nodes.insert(node)
     }
 
-    public mutating func removeNode(_ node: Simplex2Graph<Vector>.Node) {
+    public mutating func removeNode(_ node: Node) {
         nodes.remove(node)
         edges = edges.filter { edge in
             edge.start != node && edge.end != node
@@ -408,11 +295,11 @@ extension Simplex2Graph: MutableDirectedGraphType {
     }
 
     @discardableResult
-    public mutating func addEdge(_ edge: Simplex2Graph<Vector>.Edge) -> Simplex2Graph<Vector>.Edge {
+    public mutating func addEdge(_ edge: Edge) -> Edge {
         edges.insert(edge).memberAfterInsert
     }
 
-    public mutating func removeEdge(_ edge: Simplex2Graph<Vector>.Edge) {
+    public mutating func removeEdge(_ edge: Edge) {
         edges.remove(edge)
     }
 }
