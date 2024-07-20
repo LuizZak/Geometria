@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Vector4AdditiveTests: XCTestCase {
     private typealias Vector = TestVector

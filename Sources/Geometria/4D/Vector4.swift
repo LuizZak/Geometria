@@ -13,21 +13,21 @@ public typealias Vector4i = Vector4<Int>
 public struct Vector4<Scalar>: Vector4Type {
     /// X coordinate of this vector
     public var x: Scalar
-    
+
     /// Y coordinate of this vector
     public var y: Scalar
-    
+
     /// Z coordinate of this vector
     public var z: Scalar
-    
+
     /// w coordinate of this vector
     public var w: Scalar
-    
+
     /// Textual representation of this `Vector4`
     public var description: String {
         "\(type(of: self))(x: \(x), y: \(y), z: \(z), w: \(w))"
     }
-    
+
     @_transparent
     public init(x: Scalar, y: Scalar, z: Scalar, w: Scalar) {
         self.x = x
@@ -35,12 +35,12 @@ public struct Vector4<Scalar>: Vector4Type {
         self.z = z
         self.w = w
     }
-    
+
     @_transparent
     public init(repeating scalar: Scalar) {
         (x, y, z, w) = (scalar, scalar, scalar, scalar)
     }
-    
+
     /// Initializes this ``Vector4`` with the values from a given tuple.
     @_transparent
     public init(_ tuple: (Scalar, Scalar, Scalar, Scalar)) {
@@ -66,7 +66,7 @@ extension Vector4: VectorComparable where Scalar: Comparable {
             w: min(lhs.w, rhs.w)
         )
     }
-    
+
     /// Returns the pointwise maximal Vector where each component is the maximal
     /// scalar value at each index for both vectors.
     @_transparent
@@ -78,7 +78,7 @@ extension Vector4: VectorComparable where Scalar: Comparable {
             w: max(lhs.w, rhs.w)
         )
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than `rhs`.
     ///
@@ -87,7 +87,7 @@ extension Vector4: VectorComparable where Scalar: Comparable {
     public static func > (lhs: Self, rhs: Self) -> Bool {
         lhs.x > rhs.x && lhs.y > rhs.y && lhs.z > rhs.z && lhs.w > rhs.w
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// greater than or equal to `rhs`.
     ///
@@ -96,7 +96,7 @@ extension Vector4: VectorComparable where Scalar: Comparable {
     public static func >= (lhs: Self, rhs: Self) -> Bool {
         lhs.x >= rhs.x && lhs.y >= rhs.y && lhs.z >= rhs.z && lhs.w >= rhs.w
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than `rhs`.
     ///
@@ -105,7 +105,7 @@ extension Vector4: VectorComparable where Scalar: Comparable {
     public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.x < rhs.x && lhs.y < rhs.y && lhs.z < rhs.z && lhs.w < rhs.w
     }
-    
+
     /// Compares two vectors and returns `true` if all components of `lhs` are
     /// less than or equal to `rhs`.
     ///
@@ -145,7 +145,7 @@ extension Vector4: VectorAdditive where Scalar: AdditiveArithmetic {
             w: lhs.w + rhs.w
         )
     }
-    
+
     @_transparent
     public static func - (lhs: Self, rhs: Self) -> Self {
         Self(
@@ -155,12 +155,12 @@ extension Vector4: VectorAdditive where Scalar: AdditiveArithmetic {
             w: lhs.w - rhs.w
         )
     }
-    
+
     @_transparent
     public static func + (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x + rhs, y: lhs.y + rhs, z: lhs.z + rhs, w: lhs.w + rhs)
     }
-    
+
     @_transparent
     public static func - (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x - rhs, y: lhs.y - rhs, z: lhs.z - rhs, w: lhs.w - rhs)
@@ -174,7 +174,7 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
     public static var one: Self {
         Self(repeating: 1)
     }
-    
+
     /// Calculates the dot product between this and another provided `Vector4Type`
     @_transparent
     public func dot(_ other: Self) -> Scalar {
@@ -183,10 +183,10 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
         let dy = y * other.y
         let dz = z * other.z
         let dw = w * other.w
-        
+
         return dx + dy + dz + dw
     }
-    
+
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         Self(
@@ -196,12 +196,12 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
             w: lhs.w * rhs.w
         )
     }
-    
+
     @_transparent
     public static func * (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x * rhs, y: lhs.y * rhs, z: lhs.z * rhs, w: lhs.w * rhs)
     }
-    
+
     @_transparent
     public static func * (lhs: Scalar, rhs: Self) -> Self {
         Self(x: lhs * rhs.x, y: lhs * rhs.y, z: lhs * rhs.z, w: lhs * rhs.w)
@@ -209,7 +209,7 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
 }
 
 extension Vector4: Vector4Additive where Scalar: AdditiveArithmetic {
-    
+
 }
 
 extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
@@ -219,7 +219,7 @@ extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
     public var absolute: Self {
         Self(x: abs(x), y: abs(y), z: abs(z), w: abs(w))
     }
-    
+
     @_transparent
     public var sign: Self {
         Self(
@@ -229,7 +229,7 @@ extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
             w: w < 0 ? -1 : (w > 0 ? 1 : 0)
         )
     }
-    
+
     /// Negates this Vector
     @_transparent
     public static prefix func - (lhs: Self) -> Self {
@@ -247,12 +247,12 @@ extension Vector4: VectorDivisible where Scalar: DivisibleArithmetic {
             w: lhs.w / rhs.w
         )
     }
-    
+
     @_transparent
     public static func / (lhs: Self, rhs: Scalar) -> Self {
         Self(x: lhs.x / rhs, y: lhs.y / rhs, z: lhs.z / rhs, w: lhs.w / rhs)
     }
-    
+
     @_transparent
     public static func / (lhs: Scalar, rhs: Self) -> Self {
         Self(x: lhs / rhs.x, y: lhs / rhs.y, z: lhs / rhs.z, w: lhs / rhs.w)
@@ -279,7 +279,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
             w: w.addingProduct(a.w, b.w)
         )
     }
-    
+
     /// Returns the result of adding the product of the given scalar and vector
     /// to this vector, computed without intermediate rounding.
     ///
@@ -298,7 +298,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
             w: w.addingProduct(a, b.w)
         )
     }
-    
+
     /// Returns the result of adding the product of the given vector and scalar
     /// to this vector, computed without intermediate rounding.
     ///
@@ -317,7 +317,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
             w: w.addingProduct(a.w, b)
         )
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent
@@ -329,7 +329,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
             w: w.rounded(rule)
         )
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule.toNearestOrAwayFromZero`.
     ///
@@ -338,7 +338,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func rounded() -> Self {
         rounded(.toNearestOrAwayFromZero)
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule.up`.
     ///
@@ -347,7 +347,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func ceil() -> Self {
         rounded(.up)
     }
-    
+
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule.down`.
     ///
@@ -356,7 +356,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     public func floor() -> Self {
         rounded(.down)
     }
-    
+
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
         Self(
@@ -366,7 +366,7 @@ extension Vector4: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
             w: lhs.w.truncatingRemainder(dividingBy: rhs.w)
         )
     }
-    
+
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
         Self(
@@ -407,7 +407,7 @@ extension Vector4: VectorReal where Scalar: DivisibleArithmetic & Real {
             w: Scalar.pow(vec.w, exponent)
         )
     }
-    
+
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Self) -> Self {
         Self(

@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Line3Tests: XCTestCase {
     typealias Line = Line3D

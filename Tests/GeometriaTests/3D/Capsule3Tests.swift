@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Capsule3Tests: XCTestCase {
     typealias Capsule = Capsule3D

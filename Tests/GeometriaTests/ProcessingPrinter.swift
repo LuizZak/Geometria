@@ -1,4 +1,5 @@
 import Geometria
+import TestCommons
 
 class ProcessingPrinter {
     private var _lastStrokeColorCall: String? = ""

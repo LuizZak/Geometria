@@ -6,19 +6,19 @@ import RealModule
 /// [line segment]: https://en.wikipedia.org/wiki/Line_segment
 public struct LineSegment<Vector: VectorType>: LineType {
     public typealias Scalar = Vector.Scalar
-    
+
     /// The bounded start of this line segment, inclusive.
     public var start: Vector
-    
+
     /// The bounded end of this line segment, inclusive.
     public var end: Vector
-    
+
     /// Alias for ``start``.
     @_transparent
     public var a: Vector {
         start
     }
-    
+
     /// Alias for ``b``.
     @_transparent
     public var b: Vector {
@@ -27,7 +27,7 @@ public struct LineSegment<Vector: VectorType>: LineType {
 
     @inlinable
     public var category: LineCategory { .lineSegment }
-    
+
     @_transparent
     public init(start: Vector, end: Vector) {
         self.start = start
@@ -47,12 +47,19 @@ public extension LineSegment {
     var asLine: Line<Vector> {
         Line(a: start, b: end)
     }
-    
+
     /// Returns a ``Ray`` representation of this line segment, where the
     /// result's ``Ray/start`` matches ``start`` and ``Ray/b`` matches ``end``.
     @_transparent
     var asRay: Ray<Vector> {
         Ray(start: start, b: end)
+    }
+
+    /// Returns a new line segment that has the `start` and `end` points of this
+    /// line, in reverse order.
+    @inlinable
+    var reversed: Self {
+        .init(start: end, end: start)
     }
 }
 
@@ -83,12 +90,12 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     public var lengthSquared: Scalar {
         (end - start).lengthSquared
     }
-    
+
     @_transparent
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(start: start * factor, end: end * factor)
     }
-    
+
     @_transparent
     public func withPointsScaledBy(
         _ factor: Vector,
@@ -97,7 +104,7 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
 
         let newStart: Vector = (start - center) * factor + center
         let newEnd: Vector = (end - center) * factor + center
-        
+
         return Self(start: newStart, end: newEnd)
     }
 }
@@ -118,7 +125,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     public var length: Scalar {
         (end - start).length
     }
-    
+
     /// Returns a ``DirectionalRay`` representation of this ray, where the
     /// result's ``DirectionalRay/start`` matches ``start`` and
     /// ``DirectionalRay/direction`` matches `(end - start).normalized()`.
@@ -128,7 +135,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     public var asDirectionalRay: DirectionalRay<Vector> {
         DirectionalRay(start: start, direction: end - start)
     }
-    
+
     /// Returns `true` for projected scalars (0-1), which describes a
     /// [line segment].
     ///
@@ -140,7 +147,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
 
         scalar >= 0 && scalar <= 1
     }
-    
+
     /// Returns a projected normalized magnitude that is guaranteed to be
     /// contained in this line.
     ///
@@ -152,7 +159,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
         
         min(1, max(0, scalar))
     }
-    
+
     /// Returns the squared distance between this line and a given vector.
     ///
     /// The projected point on which the distance is taken is capped between
@@ -171,13 +178,13 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = min(1, max(0, projectAsScalar(vector)))
-        
+
         let point = start.addingProduct(end - start, proj)
-        
+
         return vector.distanceSquared(to: point)
     }
 }
 
 extension LineSegment: LineReal where Vector: VectorReal {
-    
+
 }

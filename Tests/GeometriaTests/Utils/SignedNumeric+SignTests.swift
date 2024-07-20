@@ -1,5 +1,6 @@
 import XCTest
 @testable import Geometria
+import TestCommons
 
 class SignedNumeric_SignTests: XCTestCase {
     func testSignValueFunction_integer() {

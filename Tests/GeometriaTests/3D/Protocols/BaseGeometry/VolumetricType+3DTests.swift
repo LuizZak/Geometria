@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class VolumetricType_3DTests: XCTestCase {
     func testContainsXYZ() {

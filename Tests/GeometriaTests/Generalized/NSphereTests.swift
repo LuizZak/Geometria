@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class NSphereTests: XCTestCase {
     typealias NSphere = Circle2D

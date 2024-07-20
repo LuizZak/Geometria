@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class LineIntersectablePlaneTypeTests: XCTestCase {
     typealias Vector = Vector3D

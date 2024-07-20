@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class VectorTakeableTests: XCTestCase {
 

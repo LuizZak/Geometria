@@ -12,19 +12,19 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 1)
         ))
     }
-    
+
     /// The full type of this matrix's backing, as a tuple of columns.
     public typealias M = (Row, Row)
-    
+
     /// The type of this matrix's row.
     public typealias Row = (Scalar, Scalar)
-    
+
     /// The type of this matrix's column.
     public typealias Column = (Scalar, Scalar)
-    
+
     /// Gets or sets all coefficients of this matrix as a single 2x2 tuple.
     public var m: M
-    
+
     /// The first row of this matrix
     ///
     /// Equivalent to `self.m.0`.
@@ -34,7 +34,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.0 = newValue }
     }
-    
+
     /// The second row of this matrix
     ///
     /// Equivalent to `self.m.1`.
@@ -44,7 +44,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.1 = newValue }
     }
-    
+
     /// The first column of this matrix
     ///
     /// Equivalent to `(self.r0.0, self.r1.0)`.
@@ -54,7 +54,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.0, r1.0) = newValue }
     }
-    
+
     /// The second column of this matrix
     ///
     /// Equivalent to `(self.r0.1, self.r1.1)`.
@@ -64,41 +64,41 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.1, r1.1) = newValue }
     }
-    
+
     /// Gets the first row of this matrix in a Vector2.
     public var r0Vec: Vector2<Scalar> {
         @_transparent
         get { Vector2(r0) }
     }
-    
+
     /// Gets the second row of this matrix in a Vector2.
     public var r1Vec: Vector2<Scalar> {
         @_transparent
         get { Vector2(r1) }
     }
-    
+
     /// Gets the first column of this matrix in a Vector2.
     public var c0Vec: Vector2<Scalar> {
         @_transparent
         get { Vector2(c0) }
     }
-    
+
     /// Gets the second column of this matrix in a Vector2.
     public var c1Vec: Vector2<Scalar> {
         @_transparent
         get { Vector2(c1) }
     }
-    
+
     /// Returns the number of rows in this matrix.
     ///
     /// For ``Matrix2x2`` instances, this value is always `2`.
     public let rowCount: Int = 2
-    
+
     /// Returns the number of columns in this matrix.
     ///
     /// For ``Matrix2x2`` instances, this value is always `2`.
     public let columnCount: Int = 2
-    
+
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -128,7 +128,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             }
         }
     }
-    
+
     /// Returns the [trace] of this matrix, i.e. the sum of all the values on
     /// its diagonal:
     ///
@@ -141,24 +141,24 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public var trace: Scalar {
         r0.0 + r1.1
     }
-    
+
     /// Returns a `String` that represents this instance.
     public var description: String {
         "\(type(of: self))(rows: \(m))"
     }
-    
+
     /// Initializes an identity matrix.
     @_transparent
     public init() {
         m = ((1, 0), (0, 1))
     }
-    
+
     /// Initializes a new matrix with the given row values.
     @_transparent
     public init(rows: (Row, Row)) {
         m = rows
     }
-    
+
     /// Initializes a new matrix with the given ``Vector2Type`` values as the
     /// values for each row.
     @_transparent
@@ -171,7 +171,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (rows.1.x, rows.1.y)
         ))
     }
-    
+
     /// Initializes a matrix with the given scalar on all positions.
     @_transparent
     public init(repeating scalar: Scalar) {
@@ -180,7 +180,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (scalar, scalar)
         )
     }
-    
+
     /// Initializes a matrix with the given scalars laid out on the diagonal,
     /// with all remaining elements being `.zero`.
     @_transparent
@@ -190,14 +190,14 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (         0, diagonal.1)
         )
     }
-    
+
     /// Initializes a matrix with the given scalar laid out on the diagonal,
     /// with all remaining elements being `.zero`.
     @_transparent
     public init(diagonal: Scalar) {
         self.init(diagonal: (diagonal, diagonal))
     }
-    
+
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant
@@ -205,12 +205,12 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public func determinant() -> Scalar {
         let (a, b) = r0
         let (c, d) = r1
-        
+
         return a * d - c * b
     }
-    
+
     // TODO: Support specifying row-major/column-major when multiplying vectors.
-    
+
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
@@ -220,10 +220,10 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         
         let px = vec.dot(.init(r0Vec))
         let py = vec.dot(.init(r1Vec))
-        
+
         return Vector(x: px, y: py)
     }
-    
+
     /// Returns a new ``Matrix2x2`` that is a [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose
@@ -233,7 +233,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             c0, c1
         ))
     }
-    
+
     /// Performs an in-place [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose
@@ -241,7 +241,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public mutating func transpose() {
         self = transposed()
     }
-    
+
     /// Returns the [inverse of this matrix](https://en.wikipedia.org/wiki/Invertible_matrix).
     ///
     /// If this matrix has no inversion, `nil` is returned, instead.
@@ -249,28 +249,28 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public func inverted() -> Self? {
         // Use technique described in:
         // https://en.wikipedia.org/wiki/Invertible_matrix#Inversion_of_2_%C3%97_2_matrices
-        
+
         let det = determinant()
         if det.isZero {
             return nil
         }
-        
+
         let a = r0.0
         let b = r0.1
         let c = r1.0
         let d = r1.1
-        
-        let invDet = 1 / det
-        
+
+        let invDet: Scalar = 1 / det
+
         let intermediary =
         Self(rows: (
             ( d, -b),
             (-c,  a)
         ))
-        
+
         return intermediary * invDet
     }
-    
+
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -278,10 +278,10 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func + (lhs: Self, rhs: Self) -> Self {
         let r0 = lhs.r0Vec + rhs.r0Vec
         let r1 = lhs.r1Vec + rhs.r1Vec
-        
+
         return Self(rows: (r0, r1))
     }
-    
+
     /// Performs a [matrix subtraction] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -289,18 +289,18 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func - (lhs: Self, rhs: Self) -> Self {
         let r0 = lhs.r0Vec - rhs.r0Vec
         let r1 = lhs.r1Vec - rhs.r1Vec
-        
+
         return Self(rows: (r0, r1))
     }
-    
+
     /// Negates (i.e. flips) the signs of all the values of this matrix.
     public static prefix func - (value: Self) -> Self {
         let r0 = -value.r0Vec
         let r1 = -value.r1Vec
-        
+
         return Self(rows: (r0, r1))
     }
-    
+
     /// Performs a [scalar multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -308,19 +308,19 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func * (lhs: Self, rhs: Scalar) -> Self {
         let r0 = lhs.r0Vec * rhs
         let r1 = lhs.r1Vec * rhs
-        
+
         return Self(rows: (r0, r1))
     }
-    
+
     /// Performs a scalar division between the elements of `lhs` and `rhs` and
     /// returns the result.
     public static func / (lhs: Self, rhs: Scalar) -> Self {
         let r0 = lhs.r0Vec / rhs
         let r1 = lhs.r1Vec / rhs
-        
+
         return Self(rows: (r0, r1))
     }
-    
+
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -331,13 +331,13 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r01 = lhs.r0Vec.dot(rhs.c1Vec)
         let r10 = lhs.r1Vec.dot(rhs.c0Vec)
         let r11 = lhs.r1Vec.dot(rhs.c1Vec)
-        
+
         return Self(rows: (
             (r00, r01),
             (r10, r11)
         ))
     }
-    
+
     /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`
     /// and stores the result back to `lhs`.
     ///
@@ -346,7 +346,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }
-    
+
     /// Returns `true` iff all coefficients from `lhs` and `rhs` are equal.
     @_transparent
     public static func == (lhs: Self, rhs: Self) -> Bool {

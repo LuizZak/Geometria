@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class EdgeInsets2Tests: XCTestCase {
     typealias EdgeInsets = EdgeInsets2D

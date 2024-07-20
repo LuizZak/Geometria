@@ -3,6 +3,7 @@
 
 import XCTest
 import Geometria
+import TestCommons
 
 class SIMD4_DoubleTests: XCTestCase {
     typealias Vector = SIMD4<Double>

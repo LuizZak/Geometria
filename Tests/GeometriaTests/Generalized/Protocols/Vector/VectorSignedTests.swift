@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class VectorSignedTests: XCTestCase {
     func testWithSignOf() {

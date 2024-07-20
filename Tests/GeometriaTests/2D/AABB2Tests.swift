@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class AABB2Tests: XCTestCase {
     typealias AABB = AABB2D

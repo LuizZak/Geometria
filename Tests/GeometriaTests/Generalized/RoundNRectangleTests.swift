@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class RoundNRectangleTests: XCTestCase {
     typealias RoundRectangle = RoundNRectangle<Vector2D>

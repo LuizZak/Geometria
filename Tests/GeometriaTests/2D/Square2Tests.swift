@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Square2Tests: XCTestCase {
     typealias Square = Square2D

@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Vector2FloatingPointTests: XCTestCase {
     let accuracy: Double = 1.0e-15

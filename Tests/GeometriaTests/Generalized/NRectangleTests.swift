@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class NRectangleTests: XCTestCase {
     typealias Rectangle = Rectangle2D

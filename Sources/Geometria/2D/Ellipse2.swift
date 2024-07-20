@@ -20,7 +20,7 @@ public extension Ellipse2 {
         get { radius.x }
         set { radius.x = newValue }
     }
-    
+
     @_transparent
     var radiusY: Scalar {
         get { radius.y }
@@ -33,7 +33,7 @@ public extension Ellipse2 where Vector: VectorReal {
     init(center: Vector, radiusX: Scalar, radiusY: Scalar) {
         self.init(center: center, radius: Vector(x: radiusX, y: radiusY))
     }
-    
+
     /// Returns `true` if the point described by the given coordinates is
     /// contained within this ellipse.
     ///
@@ -45,6 +45,32 @@ public extension Ellipse2 where Vector: VectorReal {
     }
 }
 
+public extension Ellipse2 where Vector: VectorFloatingPoint {
+    /// Computes the focal points of this 2D ellipse, as two vectors in space
+    /// that form [pins-and-string construction method](https://en.wikipedia.org/wiki/Ellipse#Pins-and-string_method)
+    /// for the ellipse.
+    func foci() -> (a: Vector, b: Vector) {
+        if radius.x > radius.y {
+            let dist: Scalar = (radius.x * radius.x - radius.y * radius.y).squareRoot()
+
+            return (
+                a: .init(x: center.x - dist, y: center.y),
+                b: .init(x: center.x + dist, y: center.y)
+            )
+        } else if radius.y > radius.x {
+            let dist: Scalar = (radius.y * radius.y - radius.x * radius.x).squareRoot()
+
+            return (
+                a: .init(x: center.x, y: center.y - dist),
+                b: .init(x: center.x, y: center.y + dist)
+            )
+        } else {
+            // Ellipse is spheroid; focal points are the center of the sphere.
+            return (center, center)
+        }
+    }
+}
+
 extension Ellipse2: Convex2Type where Vector: Vector2Real {
-    
+
 }

@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class RectangleType_2DTests: XCTestCase {
     func testX() {

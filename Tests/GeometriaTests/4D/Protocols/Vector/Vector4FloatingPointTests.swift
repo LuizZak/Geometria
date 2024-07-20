@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Vector4FloatingPointTests: XCTestCase {
     typealias Vector = Vector4D

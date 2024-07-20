@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class PointProjectablePlaneTypeTests: XCTestCase {
     typealias Vector = Vector3D

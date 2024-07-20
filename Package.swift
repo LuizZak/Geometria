@@ -15,6 +15,15 @@ let reportingSwiftSettings: [SwiftSetting] = [
     ])
 ]
 
+let testCommons: Target = .target(
+    name: "TestCommons",
+    dependencies: [
+        "Geometria",
+        .product(name: "MiniP5Printer", package: "MiniP5Printer"),
+    ]
+)
+
+// Geometria
 let geometriaTarget: Target = .target(
     name: "Geometria",
     dependencies: geometriaDependencies,
@@ -22,26 +31,33 @@ let geometriaTarget: Target = .target(
 )
 let geometriaTestsTarget: Target = .testTarget(
     name: "GeometriaTests",
-    dependencies: ["Geometria"],
-    swiftSettings: []
-)
-let geometriaAlgorithmsTarget: Target = .target(
-    name: "GeometriaAlgorithms",
-    dependencies: ["Geometria"],
-    swiftSettings: []
-)
-let geometriaAlgorithmsTestsTarget: Target = .testTarget(
-    name: "GeometriaAlgorithmsTests",
-    dependencies: ["GeometriaAlgorithms", "Geometria"],
+    dependencies: ["Geometria", "TestCommons"],
     swiftSettings: []
 )
 
-if ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" {
-    geometriaTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-    geometriaTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-    geometriaAlgorithmsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-    geometriaAlgorithmsTestsTarget.swiftSettings?.append(contentsOf: reportingSwiftSettings)
-}
+// GeometriaAlgorithms
+let geometriaAlgorithmsTarget: Target = .target(
+    name: "GeometriaAlgorithms",
+    dependencies: geometriaDependencies + ["Geometria"],
+    swiftSettings: []
+)
+let geometriaAlgorithmsTestTarget: Target = .testTarget(
+    name: "GeometriaAlgorithmsTests",
+    dependencies: geometriaDependencies + ["GeometriaAlgorithms", "TestCommons"],
+    swiftSettings: []
+)
+
+// GeometriaPeriodics
+let geometriaPeriodicsTarget: Target = .target(
+    name: "GeometriaPeriodics",
+    dependencies: geometriaDependencies + ["Geometria"],
+    swiftSettings: []
+)
+let geometriaPeriodicsTestTarget: Target = .testTarget(
+    name: "GeometriaPeriodicsTests",
+    dependencies: geometriaDependencies + ["GeometriaPeriodics", "TestCommons"],
+    swiftSettings: []
+)
 
 let package = Package(
     name: "Geometria",
@@ -54,12 +70,32 @@ let package = Package(
             targets: ["GeometriaAlgorithms"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
+        .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
     ],
     targets: [
-        geometriaTarget,
-        geometriaTestsTarget,
-        geometriaAlgorithmsTarget,
-        geometriaAlgorithmsTestsTarget,
+        geometriaTarget.applyReportBuildTime(),
+        geometriaTestsTarget.applyReportBuildTime(),
+        geometriaAlgorithmsTarget.applyReportBuildTime(),
+        geometriaAlgorithmsTestTarget.applyReportBuildTime(),
+        geometriaPeriodicsTarget.applyReportBuildTime(),
+        geometriaPeriodicsTestTarget.applyReportBuildTime(),
+        testCommons,
     ]
 )
+
+extension Target {
+    func applyReportBuildTime() -> Self {
+        guard ProcessInfo.processInfo.environment["REPORT_BUILD_TIME"] == "YES" else {
+            return self
+        }
+
+        if swiftSettings == nil {
+            swiftSettings = []
+        }
+
+        swiftSettings?.append(contentsOf: reportingSwiftSettings)
+
+        return self
+    }
+}

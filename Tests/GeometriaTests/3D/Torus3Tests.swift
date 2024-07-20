@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Torus3Tests: XCTestCase {
     let accuracy = 1e-13

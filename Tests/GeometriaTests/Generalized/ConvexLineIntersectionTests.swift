@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class ConvexLineIntersectionTests: XCTestCase {
     typealias Vector = Vector2D

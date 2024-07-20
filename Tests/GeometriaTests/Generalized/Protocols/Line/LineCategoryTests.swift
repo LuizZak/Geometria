@@ -1,6 +1,7 @@
 import XCTest
 
 @testable import Geometria
+import TestCommons
 
 class LineCategoryTests: XCTestCase {
     func testEquals() {

@@ -1,6 +1,7 @@
 import XCTest
 
 @testable import Geometria
+import TestCommons
 
 class PlaneIntersectablePlane3TypeTests: XCTestCase {
     typealias Vector = Vector3D

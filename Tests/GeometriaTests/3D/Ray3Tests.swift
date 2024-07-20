@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class Ray3Tests: XCTestCase {
     typealias Ray = Ray3D

@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class LineDivisibleTests: XCTestCase {
     typealias Line = Line2D

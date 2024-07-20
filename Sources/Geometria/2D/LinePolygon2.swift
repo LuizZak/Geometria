@@ -34,14 +34,14 @@ extension LinePolygon2 where Vector: Vector2Multiplicative {
         guard var v2 = vertices.last else {
             return 0
         }
-        
+
         var winding: Vector.Scalar = 0
-        
+
         for p in vertices {
             winding += v2.cross(p)
             v2 = p
         }
-        
+
         return winding
     }
 }
@@ -65,38 +65,38 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
     public func isConvex() -> Bool {
         // Implementation based on:
         // https://math.stackexchange.com/a/1745427
-        
+
         if vertices.count < 3 {
             return false
         }
-        
+
         var xSign = SignFlipHandler()
         var ySign = SignFlipHandler()
-        
+
         let secondToLast: Vector = vertices[vertices.count - 2]
         let last: Vector = vertices[vertices.count - 1]
-        
+
         let diffLast = last - secondToLast
         let diffFirst = vertices[0] - last
         let wSign: Scalar = diffLast.cross(diffFirst)
-        
+
         var current: Vector = secondToLast
         var next: Vector = last
-        
+
         for v in vertices {
             let prev = current
             current = next
             next = v
-            
+
             let b: Vector = current - prev
             let a: Vector = next - current
-            
+
             // Calculate sign flips using the next edge vector, recording the
             // first sign
             if xSign.recordValue(a.x) || ySign.recordValue(a.y) {
                 return false
             }
-            
+
             // Find out the orientation of this pair of edges, and ensure it
             // does not differ from previous ones
             let w = b.cross(a)
@@ -104,20 +104,20 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
                 return false
             }
         }
-        
+
         // Final/wraparound sign flips:
         xSign.finish()
         ySign.finish()
-        
+
         // Convex polygons have exactly two sign flips along each axis
         if xSign.flips != 2 || ySign.flips != 2 {
             return false
         }
-        
+
         // This is a convex polygon
         return true
     }
-    
+
     // Auxiliary struct for LinePolygon2.isConvex used to track value sign changes
     struct SignFlipHandler {
         private var sign: Sign = .indeterminate
@@ -148,17 +148,17 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
 
             return hasFlippedTwice()
         }
-        
+
         /// Returns `true` when the sign of a scalar value has flipped at least
         /// two times.
         func hasFlippedTwice() -> Bool {
             if flips > 2 {
                 return true
             }
-            
+
             return false
         }
-        
+
         mutating func finish() {
             if sign != .indeterminate && firstSign != .indeterminate && sign != firstSign {
                 flips += 1
@@ -182,42 +182,69 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
         if vertices.count < 3 {
             return false
         }
-        
+
         let aabb = AABB(points: vertices)
         if !aabb.contains(vector) {
             return false
         }
-        
+
         // Basic idea: Draw a line from the point to a point known to be outside
         // the body. Count the number of lines in the polygon it intersects.
         // If that number is odd, we are inside. If it's even, we are outside.
         // In this implementation we will always use a line that moves off in
         // the positive X direction from the point to simplify things.
         let endPtX = aabb.maximum.x + 1
-        
+
         var inside = false
-        
+
         var edgeSt = vertices[0]
-        
+
         for i in 0..<vertices.count {
             let next = (i + 1) % vertices.count
-            
+
             let edgeEnd = vertices[next]
-            
+
             if ((edgeSt.y <= vector.y) && (edgeEnd.y > vector.y)) || ((edgeEnd.y <= vector.y) && (edgeSt.y > vector.y)) {
                 let edge: Vector = edgeEnd - edgeSt
                 let slope: Scalar = edge.x / edge.y
                 let vecDiff: Scalar = vector.y - edgeSt.y
                 let hitX: Scalar = edgeSt.x + vecDiff * slope
-                
+
                 if hitX >= vector.x && hitX <= endPtX {
                     inside = !inside
                 }
             }
-            
+
             edgeSt = edgeEnd
         }
-        
+
         return inside
+    }
+}
+
+extension LinePolygon2 where Vector: VectorFloatingPoint {
+    /// Returns `true` if the given point lies within an edge of the polygon
+    /// represented by `self`, up to a given `tolerance` value.
+    ///
+    /// Points lie within the edges of the polygon if the distance between the
+    /// point and any two adjacent vertices is equal to the distance of the
+    /// adjacent vertices, up to `sqrt(tolerance)`.
+    @inlinable
+    public func isPointOnEdge(_ point: Vector, tolerance: Scalar) -> Bool {
+        for (i, vertex) in vertices.enumerated() {
+            let next = vertices[(i + 1) % vertices.count]
+
+            let edgeSquared = vertex.distanceSquared(to: next)
+            let d1 = point.distanceSquared(to: vertex)
+            let d2 = point.distanceSquared(to: next)
+
+            let diff = (edgeSquared - (d1 + d2)).magnitude
+
+            if diff < tolerance {
+                return true
+            }
+        }
+
+        return false
     }
 }

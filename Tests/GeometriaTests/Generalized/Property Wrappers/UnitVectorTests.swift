@@ -1,5 +1,6 @@
 import XCTest
 import Geometria
+import TestCommons
 
 class UnitVectorTests: XCTestCase {
     typealias UnitVector = Geometria.UnitVector<Vector2D>

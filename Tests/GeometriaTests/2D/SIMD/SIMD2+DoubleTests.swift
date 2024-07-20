@@ -3,6 +3,7 @@
 
 import XCTest
 import Geometria
+import TestCommons
 
 class SIMD2_DoubleTests: XCTestCase {
     let accuracy: Double = 1.0e-15

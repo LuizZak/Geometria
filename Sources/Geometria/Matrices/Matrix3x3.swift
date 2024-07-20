@@ -13,19 +13,19 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0, 1)
         ))
     }
-    
+
     /// The full type of this matrix's backing, as a tuple of columns.
     public typealias M = (Row, Row, Row)
-    
+
     /// The type of this matrix's row.
     public typealias Row = (Scalar, Scalar, Scalar)
-    
+
     /// The type of this matrix's column.
     public typealias Column = (Scalar, Scalar, Scalar)
-    
+
     /// Gets or sets all coefficients of this matrix as a single 3x3 tuple.
     public var m: M
-    
+
     /// The first row of this matrix
     ///
     /// Equivalent to `self.m.0`.
@@ -35,7 +35,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.0 = newValue }
     }
-    
+
     /// The second row of this matrix
     ///
     /// Equivalent to `self.m.1`.
@@ -45,7 +45,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.1 = newValue }
     }
-    
+
     /// The third row of this matrix
     ///
     /// Equivalent to `self.m.2`.
@@ -55,7 +55,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.2 = newValue }
     }
-    
+
     /// The first column of this matrix
     ///
     /// Equivalent to `(self.r0.0, self.r1.0, self.r2.0)`.
@@ -65,7 +65,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.0, r1.0, r2.0) = newValue }
     }
-    
+
     /// The second column of this matrix
     ///
     /// Equivalent to `(self.r0.1, self.r1.1, self.r2.1)`.
@@ -75,7 +75,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.1, r1.1, r2.1) = newValue }
     }
-    
+
     /// The third column of this matrix
     ///
     /// Equivalent to `(self.r0.2, self.r1.2, self.r2.2)`.
@@ -85,53 +85,53 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.2, r1.2, r2.2) = newValue }
     }
-    
+
     /// Gets the first row of this matrix in a Vector3.
     public var r0Vec: Vector3<Scalar> {
         @_transparent
         get { Vector3(r0) }
     }
-    
+
     /// Gets the second row of this matrix in a Vector3.
     public var r1Vec: Vector3<Scalar> {
         @_transparent
         get { Vector3(r1) }
     }
-    
+
     /// Gets the third row of this matrix in a Vector3.
     public var r2Vec: Vector3<Scalar> {
         @_transparent
         get { Vector3(r2) }
     }
-    
+
     /// Gets the first column of this matrix in a Vector3.
     public var c0Vec: Vector3<Scalar> {
         @_transparent
         get { Vector3(c0) }
     }
-    
+
     /// Gets the second column of this matrix in a Vector3.
     public var c1Vec: Vector3<Scalar> {
         @_transparent
         get { Vector3(c1) }
     }
-    
+
     /// Gets the third column of this matrix in a Vector3.
     public var c2Vec: Vector3<Scalar> {
         @_transparent
         get { Vector3(c2) }
     }
-    
+
     /// Returns the number of rows in this matrix.
     ///
     /// For ``Matrix3x3`` instances, this value is always `3`.
     public let rowCount: Int = 3
-    
+
     /// Returns the number of columns in this matrix.
     ///
     /// For ``Matrix3x3`` instances, this value is always `3`.
     public let columnCount: Int = 3
-    
+
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -173,7 +173,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             }
         }
     }
-    
+
     /// Returns the [trace] of this matrix, i.e. the sum of all the values on
     /// its diagonal:
     ///
@@ -186,12 +186,12 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public var trace: Scalar {
         r0.0 + r1.1 + r2.2
     }
-    
+
     /// Returns a `String` that represents this instance.
     public var description: String {
         "\(type(of: self))(rows: \(m))"
     }
-    
+
     /// Initializes an identity matrix.
     @_transparent
     public init() {
@@ -199,13 +199,13 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
              (0, 1, 0),
              (0, 0, 1))
     }
-    
+
     /// Initializes a new matrix with the given row values.
     @_transparent
     public init(rows: (Row, Row, Row)) {
         m = rows
     }
-    
+
     /// Initializes a new matrix with the given ``Vector3Type`` values as the
     /// values for each row.
     @_transparent
@@ -219,7 +219,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (rows.2.x, rows.2.y, rows.2.z)
         ))
     }
-    
+
     /// Initializes a matrix with the given scalar on all positions.
     @_transparent
     public init(repeating scalar: Scalar) {
@@ -229,7 +229,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (scalar, scalar, scalar)
         )
     }
-    
+
     /// Initializes a matrix with the given scalars laid out on the diagonal,
     /// with all remaining elements being `.zero`.
     @_transparent
@@ -240,14 +240,14 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (         0,          0, diagonal.2)
         )
     }
-    
+
     /// Initializes a matrix with the given scalar laid out on the diagonal,
     /// with all remaining elements being `.zero`.
     @_transparent
     public init(diagonal: Scalar) {
         self.init(diagonal: (diagonal, diagonal, diagonal))
     }
-    
+
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant
@@ -255,30 +255,30 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public func determinant() -> Scalar {
         // Use Rule os Sarrus (https://en.wikipedia.org/wiki/Rule_of_Sarrus)
         // to simplify 3x3 det computation here
-        
+
         // | a b c |   | r0 |
         // | d e f | = | r1 |
         // | g h i |   | r2 |
-        
+
         let (a, b, c) = r0
         let (d, e, f) = r1
         let (g, h, i) = r2
-        
+
         let d1: Scalar = a * e * i
         let d2: Scalar = b * f * g
         let d3: Scalar = c * d * h
-        
+
         let d4: Scalar = g * e * c
         let d5: Scalar = h * f * a
         let d6: Scalar = i * d * b
-        
+
         let det: Scalar = d1 + d2 + d3 - d4 - d5 - d6
-        
+
         return det
     }
-    
+
     // TODO: Support specifying row-major/column-major when multiplying vectors.
-    
+
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
@@ -289,10 +289,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let px = vec.dot(.init(r0Vec))
         let py = vec.dot(.init(r1Vec))
         let pz = vec.dot(.init(r2Vec))
-        
+
         return Vector(x: px, y: py, z: pz)
     }
-    
+
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
@@ -301,17 +301,17 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     ) -> Vector where Vector.Scalar == Scalar {
 
         let vec3 = Vector3(vec, z: 1)
-        
+
         let result = transformPoint(vec3)
-        
+
         // Normalize z component
         if result.z != 0 && result.z != 1 {
             return Vector(x: result.x, y: result.y) / result.z
         }
-        
+
         return Vector(x: result.x, y: result.y)
     }
-    
+
     /// Transforms a given vector, applying scaling, rotation and translation to
     /// the vector.
     ///
@@ -323,12 +323,12 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     ) -> Vector where Vector.Scalar == Scalar {
 
         let vec3 = Vector3(vec, z: 1)
-        
+
         let result = transformPoint(vec3)
-        
+
         return Vector(x: result.x, y: result.y)
     }
-    
+
     /// Returns a new ``Matrix3x3`` that is a [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose
@@ -338,7 +338,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             c0, c1, c2
         ))
     }
-    
+
     /// Performs an in-place [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose
@@ -346,7 +346,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public mutating func transpose() {
         self = transposed()
     }
-    
+
     /// Returns the [inverse of this matrix](https://en.wikipedia.org/wiki/Invertible_matrix).
     ///
     /// If this matrix has no inversion, `nil` is returned, instead.
@@ -354,28 +354,28 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public func inverted() -> Self? {
         // Use technique described in:
         // https://en.wikipedia.org/wiki/Invertible_matrix#Inversion_of_3_%C3%97_3_matrices
-        
+
         let det = determinant()
         if det.isZero {
             return nil
         }
-        
-        let invDet = 1 / det
-        
+
+        let invDet: Scalar = 1 / det
+
         let x0 = c0Vec
         let x1 = c1Vec
         let x2 = c2Vec
-        
+
         let intermediary =
         Self(rows: (
             x1.cross(x2),
             x2.cross(x0),
             x0.cross(x1)
         ))
-        
+
         return intermediary * invDet
     }
-    
+
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the given amount.
     @_transparent
@@ -386,7 +386,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0, 1)
         ))
     }
-    
+
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the corresponding coordinate on a supplied vector.
     @_transparent
@@ -396,21 +396,21 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
 
         make2DScale(x: vec.x, y: vec.y)
     }
-    
-    /// Creates a rotation matrix that when applied to a 2-dimensional vector, 
+
+    /// Creates a rotation matrix that when applied to a 2-dimensional vector,
     /// rotates it around the origin (Z-axis) by a specified radian amount.
     @_transparent
     public static func make2DRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
-        
+
         return Self(rows: (
             ( c, s, 0),
             (-s, c, 0),
             ( 0, 0, 1)
         ))
     }
-    
+
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
@@ -421,7 +421,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0, 1)
         ))
     }
-    
+
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
@@ -434,8 +434,8 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
 
     /// Creates a [skew-symmetric cross product] matrix for a given vector.
     ///
-    /// When a skew-symmetric matrix `m` is created using this method with a 
-    /// vector `a`, a vector `b` multiplied by the matrix is equivalent to the 
+    /// When a skew-symmetric matrix `m` is created using this method with a
+    /// vector `a`, a vector `b` multiplied by the matrix is equivalent to the
     /// result of `a × b`.
     ///
     /// Changing the [orientation] parameter results in a matrix that flips the
@@ -445,10 +445,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     /// [orientation]: https://en.wikipedia.org/wiki/Orientation_(vector_space)
     @_transparent
     public static func make3DSkewSymmetricCrossProduct<Vector: Vector3Type>(
-        _ vector: Vector, 
+        _ vector: Vector,
         orientation: Orientation3 = .rightHanded
     ) -> Self where Vector.Scalar == Scalar {
-        
+
         let x = vector.x
         let y = vector.y
         let z = vector.z
@@ -461,7 +461,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
 
         return orientation == .rightHanded ? m : m.transposed()
     }
-    
+
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -470,10 +470,10 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r0 = lhs.r0Vec + rhs.r0Vec
         let r1 = lhs.r1Vec + rhs.r1Vec
         let r2 = lhs.r2Vec + rhs.r2Vec
-        
+
         return Self(rows: (r0, r1, r2))
     }
-    
+
     /// Performs a [matrix subtraction] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -482,19 +482,19 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r0 = lhs.r0Vec - rhs.r0Vec
         let r1 = lhs.r1Vec - rhs.r1Vec
         let r2 = lhs.r2Vec - rhs.r2Vec
-        
+
         return Self(rows: (r0, r1, r2))
     }
-    
+
     /// Negates (i.e. flips) the signs of all the values of this matrix.
     public static prefix func - (value: Self) -> Self {
         let r0 = -value.r0Vec
         let r1 = -value.r1Vec
         let r2 = -value.r2Vec
-        
+
         return Self(rows: (r0, r1, r2))
     }
-    
+
     /// Performs a [scalar multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -503,20 +503,20 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r0 = lhs.r0Vec * rhs
         let r1 = lhs.r1Vec * rhs
         let r2 = lhs.r2Vec * rhs
-        
+
         return Self(rows: (r0, r1, r2))
     }
-    
+
     /// Performs a scalar division between the elements of `lhs` and `rhs` and
     /// returns the result.
     public static func / (lhs: Self, rhs: Scalar) -> Self {
         let r0 = lhs.r0Vec / rhs
         let r1 = lhs.r1Vec / rhs
         let r2 = lhs.r2Vec / rhs
-        
+
         return Self(rows: (r0, r1, r2))
     }
-    
+
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -532,14 +532,14 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r20 = lhs.r2Vec.dot(rhs.c0Vec)
         let r21 = lhs.r2Vec.dot(rhs.c1Vec)
         let r22 = lhs.r2Vec.dot(rhs.c2Vec)
-        
+
         return Self(rows: (
             (r00, r01, r02),
             (r10, r11, r12),
             (r20, r21, r22)
         ))
     }
-    
+
     /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`
     /// and stores the result back to `lhs`.
     ///
@@ -548,7 +548,7 @@ public struct Matrix3x3<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }
-    
+
     /// Returns `true` iff all coefficients from `lhs` and `rhs` are equal.
     @_transparent
     public static func == (lhs: Self, rhs: Self) -> Bool {
