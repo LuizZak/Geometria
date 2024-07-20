@@ -111,16 +111,6 @@ public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, E
                 )
             )
         }
-        /*
-        let simplexes: [Simplex] = [
-            .circleArc2(
-                .init(circleArc: arc1, startPeriod: 0, endPeriod: 1 / 2)
-            ),
-            .circleArc2(
-                .init(circleArc: arc2, startPeriod: 1 / 2, endPeriod: 1)
-            ),
-        ]
-        */
 
         return simplexes
     }
