@@ -255,7 +255,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         /// A numerical value associated with this winding.
         ///
         /// Clockwise windings have value `1`, and counter-clockwise `-1`.
-        var value: Int {
+        public var value: Int {
             switch self {
             case .clockwise:
                 return 1
