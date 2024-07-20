@@ -5,10 +5,11 @@ import Geometria
 public struct Subtraction2Parametric<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>: Boolean2Parametric
     where T1.Vector == T2.Vector, T1.Vector: Hashable
 {
+    public typealias Vector = T1.Vector
     public let lhs: T1, rhs: T2
     public let tolerance: Scalar
 
-    public init(_ lhs: T1, _ rhs: T2, tolerance: T1.Scalar) where T1.Vector == T2.Vector {
+    public init(_ lhs: T1, _ rhs: T2, tolerance: T1.Scalar = .leastNonzeroMagnitude) where T1.Vector == T2.Vector {
         self.lhs = lhs
         self.rhs = rhs
         self.tolerance = tolerance
