@@ -11,7 +11,7 @@ class SpatialTreeTests: XCTestCase {
             .init(x: 50, y: -50),
             .init(x: 50, y: 50),
         ]
-        
+
         let sut = SpatialTree(
             points,
             maxSubdivisions: 3,
@@ -35,7 +35,7 @@ class SpatialTreeTests: XCTestCase {
             .init(center: .init(x: -10, y: 10), size: .init(x: 5, y: 5)),
             .init(center: .init(x: 10, y: 10), size: .init(x: 5, y: 5)),
         ]
-        
+
         let sut = SpatialTree(
             aabbs,
             maxSubdivisions: 3,
@@ -179,7 +179,7 @@ class SpatialTreeTests: XCTestCase {
         )
 
         let result = sut.deepestSubdivisionContaining(.init(x: 15, y: 20))
-        
+
         XCTAssertEqual(
             result,
             .root.childAt(3).childAt(0)
@@ -194,8 +194,34 @@ class SpatialTreeTests: XCTestCase {
         )
 
         let result = sut.deepestSubdivisionContaining(.init(x: 15, y: 20))
-        
+
         XCTAssertNil(result)
+    }
+
+    func testQuery() {
+        let aabbs: [AABB2D] = [
+            .init(center: .init(x: 0, y: 0), size: .init(x: 5, y: 5)),
+            .init(center: .init(x: -10, y: -10), size: .init(x: 5, y: 5)),
+            .init(center: .init(x: 10, y: -10), size: .init(x: 5, y: 5)),
+            .init(center: .init(x: -10, y: 10), size: .init(x: 5, y: 5)),
+            .init(center: .init(x: 10, y: 10), size: .init(x: 5, y: 5)),
+        ]
+
+        let sut = SpatialTree(
+            aabbs,
+            maxSubdivisions: 3,
+            maxElementsPerLevelBeforeSplit: 1
+        )
+
+        let result = sut.query(
+            aabbs[0].union(aabbs[1])
+        )
+
+        SequenceAsserter
+            .forSet(actual: result)
+            .assert(equals: [
+                aabbs[0], aabbs[1]
+            ])
     }
 }
 

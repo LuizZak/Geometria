@@ -36,7 +36,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         maxSubdivisions: Int,
         maxElementsPerLevelBeforeSplit: Int
     ) {
-        
+
         self.geometryList = geometryList
 
         // Calculate minimum bounds
@@ -116,6 +116,22 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             let geometry = geometryList[index]
 
             if geometry.bounds.intersects(line: line) {
+                result.append(geometry)
+            }
+        }
+
+        return result
+    }
+
+    /// Returns all of the geometry that overlap a given AABB within this spatial
+    /// tree.
+    public func query(_ aabb: AABB<Vector>) -> [Element] {
+        var result: [Element] = []
+
+        root.queryRecursive(aabb) { index in
+            let geometry = geometryList[index]
+
+            if geometry.bounds.intersects(aabb) {
                 result.append(geometry)
             }
         }
@@ -228,12 +244,12 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         /// Defines the boundaries of a subdivision.
         var bounds: Bounds
 
-        /// Indices in the root geometry array from the owning `SpatialTree` that 
+        /// Indices in the root geometry array from the owning `SpatialTree` that
         /// represent the geometry that is allocated at this depth.
         ///
         /// The same index is not present in sub-divisions of this tree.
         var indices: Set<Int>
-        
+
         /// The depth of this particular subdivision tree from the root of the
         /// spatial tree.
         var depth: Int
@@ -272,10 +288,10 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
         /// index was already present.
         @discardableResult
         mutating func addIndex(_ index: Int) -> Bool {
-            guard !indices.insert(index).inserted else {
+            guard indices.insert(index).inserted else {
                 return false
             }
-            
+
             totalIndicesCount += 1
             isEmpty = false
 
@@ -347,7 +363,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
                 )
             )
         }
-        
+
         case leaf(
             state: SubdivisionState
         )
@@ -397,7 +413,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             switch self {
             case .leaf:
                 return false
-            
+
             case .subdivision:
                 return true
             }
@@ -483,6 +499,25 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             }
         }
 
+        /// Executes a closure for each index that is contained within this
+        /// subdivision tree, and all subsequent depths on this tree recursively
+        /// whose bounds intersect the given boundable area.
+        func queryRecursive<Bounds: BoundableType>(
+            _ area: Bounds,
+            closure: (Int) -> Void
+        ) where Bounds.Vector == Vector {
+
+            if !bounds.intersects(area.bounds) {
+                return
+            }
+
+            indices.forEach(closure)
+
+            applyToSubdivisions { sub in
+                sub.queryRecursive(area, closure: closure)
+            }
+        }
+
         /// Recursively checks that geometry indices referenced by this subdivision
         /// object, whose bounds are contained in the passed `geometryBounds`
         /// array, can be fitted into a deeper subdivision level, and performs
@@ -517,7 +552,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
                 maxSubdivisions: maxSubdivisions,
                 maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
             )
-            
+
             return copy
         }
 
@@ -535,7 +570,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             let fittingIndices = newIndices.filter {
                 bounds.contains(geometryBounds[$0])
             }
-            
+
             // Accept all geometries that can be contained within this subdivision
             // first
             let accepted = mutateState { state in
@@ -600,7 +635,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
             switch self {
             case .leaf(let state):
                 let subdivisions = state.bounds.subdivided()
-                
+
                 return .subdivision(
                     state: state,
                     subdivisions: subdivisions.enumerated().map {
@@ -708,7 +743,7 @@ public class SpatialTree<Element: BoundableType>: SpatialTreeType where Element.
                 defer { self = .leaf(state: state) }
 
                 return try mutator(&state)
-            
+
             case .subdivision(
                 var state,
                 let subdivisions

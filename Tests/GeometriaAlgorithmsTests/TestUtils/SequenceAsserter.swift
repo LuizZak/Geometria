@@ -60,7 +60,7 @@ class SequenceAsserter<T: Hashable> {
 
                         Actual:
 
-                        \(actual[nextIndex])
+                        \(actual[i])
 
                         Expected:
 
@@ -132,7 +132,7 @@ class SequenceAsserter<T: Hashable> {
                 exactElementCount: false
             )
         }
-        
+
         /// Returns options fit for asserting sequences that are arrays, with exact
         /// element counts.
         static var completeArray: Self {
@@ -142,7 +142,7 @@ class SequenceAsserter<T: Hashable> {
                 exactElementCount: true
             )
         }
-        
+
         /// Returns options fit for asserting sequences that are arrays, with
         /// potentially more elements than where expected.
         static var partialArray: Self {
@@ -173,9 +173,9 @@ extension SequenceAsserter {
     ///
     /// ```swift
     /// let actual = [0, 1, 3, 2, 4]
-    /// 
+    ///
     /// SequenceAsserter
-    ///     .forSet(
+    ///     .forArray(
     ///         actual: actual
     ///     ).assert(
     ///         equals: [
@@ -200,7 +200,7 @@ extension SequenceAsserter {
     ///
     /// ```swift
     /// let actual = [0, 1]
-    /// 
+    ///
     /// SequenceAsserter
     ///     .forSet(
     ///         actual: actual
