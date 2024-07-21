@@ -6,7 +6,7 @@ import Geometria
 class KDTreeTests: XCTestCase {
     func testInit_empty_2D() {
         let points: [Vector2D] = []
-        
+
         let sut = KDTree(points: points)
 
         XCTAssertEqual(sut.count, 0)
@@ -25,7 +25,7 @@ class KDTreeTests: XCTestCase {
             .init(x: 50, y: -50),
             .init(x: 50, y: 50),
         ]
-        
+
         let sut = KDTree(points: points)
 
         XCTAssertEqual(sut.count, 4)
@@ -126,7 +126,7 @@ class KDTreeTests: XCTestCase {
 
     // MARK: - Performance tests
 
-    func testNearestNeighbor_pointCloudPartition_2D_randomSampling_performance() {
+    func testPerformance_nearestNeighbor_pointCloudPartition_2D_randomSampling() {
         let totalPoints = makePointCloud(count: 10_000)
         let points = totalPoints[..<(totalPoints.count / 2)]
         let searchPoints = totalPoints[(totalPoints.count / 2)...]
@@ -139,7 +139,7 @@ class KDTreeTests: XCTestCase {
         }
     }
 
-    func testInit_pointCloudPartition_2D_performance() {
+    func testPerformance_init_pointCloudPartition_2D() {
         let points = makePointCloud(count: 2_000)
 
         measure {
