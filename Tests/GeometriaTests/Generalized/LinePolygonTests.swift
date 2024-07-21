@@ -22,8 +22,10 @@ class LinePolygonTests: XCTestCase {
 
     func testEquals() {
         XCTAssertEqual(LinePolygon(), LinePolygon())
-        XCTAssertEqual(LinePolygon(vertices: [.init(x: 0, y: 0)]),
-                       LinePolygon(vertices: [.init(x: 0, y: 0)]))
+        XCTAssertEqual(
+            LinePolygon(vertices: [.init(x: 0, y: 0)]),
+            LinePolygon(vertices: [.init(x: 0, y: 0)])
+        )
     }
 
     func testUnequals() {

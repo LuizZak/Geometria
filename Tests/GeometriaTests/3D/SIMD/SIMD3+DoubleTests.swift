@@ -305,7 +305,11 @@ class SIMD3_DoubleTests: XCTestCase {
     }
     
     func testLength() {
-        XCTAssertEqual(Vector(x: 3, y: 2, z: 1).length, 3.7416573867739413, accuracy: accuracy)
+        XCTAssertEqual(
+            Vector(x: 3, y: 2, z: 1).length,
+            3.7416573867739413,
+            accuracy: accuracy
+        )
     }
     
     func testPowFactor_double() {
@@ -374,7 +378,11 @@ class SIMD3_DoubleTests: XCTestCase {
         let v1 = Vector(x: 10, y: 20, z: 30)
         let v2 = Vector(x: 40, y: 50, z: 60)
         
-        XCTAssertEqual(v1.distance(to: v2), 51.96152422706632, accuracy: accuracy)
+        XCTAssertEqual(
+            v1.distance(to: v2),
+            51.96152422706632,
+            accuracy: accuracy
+        )
     }
     
     func testDistanceTo_zeroDistance() {
@@ -387,7 +395,10 @@ class SIMD3_DoubleTests: XCTestCase {
         let vec = Vector(x: -2, y: 3, z: 1)
         
         XCTAssertEqual(vec.signedDistance(to: vec), 0.0)
-        XCTAssertEqual(vec.signedDistance(to: .init(x: 2, y: 5, z: 2)), 4.58257569495584)
+        XCTAssertEqual(
+            vec.signedDistance(to: .init(x: 2, y: 5, z: 2)),
+            4.58257569495584
+        )
     }
     
     func testNormalize() {
@@ -395,10 +406,15 @@ class SIMD3_DoubleTests: XCTestCase {
         
         vec.normalize()
         
-        assertEqual(vec, Vector(x: -0.3713906763541037,
-                                y: 0.7427813527082074,
-                                z: 0.5570860145311556),
-                    accuracy: accuracy)
+        assertEqual(
+            vec,
+            Vector(
+                x: -0.3713906763541037,
+                y: 0.7427813527082074,
+                z: 0.5570860145311556
+            ),
+            accuracy: accuracy
+        )
     }
     
     func testNormalize_zero() {
@@ -412,10 +428,15 @@ class SIMD3_DoubleTests: XCTestCase {
     func testNormalized() {
         let vec = Vector(x: -10, y: 20, z: 15.0)
         
-        assertEqual(vec.normalized(), Vector(x: -0.3713906763541037,
-                                             y: 0.7427813527082074,
-                                             z: 0.5570860145311556),
-                    accuracy: accuracy)
+        assertEqual(
+            vec.normalized(),
+            Vector(
+                x: -0.3713906763541037,
+                y: 0.7427813527082074,
+                z: 0.5570860145311556
+            ),
+            accuracy: accuracy
+        )
     }
     
     func testNormalized_zero() {

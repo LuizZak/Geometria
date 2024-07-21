@@ -24,9 +24,11 @@ public extension Triangle2 where Vector: Vector2Multiplicative {
     /// ```
     @_transparent
     static var unitTriangle: Self {
-        .init(a: .init(x: .zero, y: .zero),
-              b: .init(x: 1, y: .zero),
-              c: .init(x: .zero, y: 1))
+        .init(
+            a: .init(x: .zero, y: .zero),
+            b: .init(x: 1, y: .zero),
+            c: .init(x: .zero, y: 1)
+        )
     }
 
     /// Returns the signed doubled area of this triangle.
@@ -79,7 +81,7 @@ public extension Triangle2 where Vector: Vector2Multiplicative & VectorDivisible
     /// In Cartesian space where Y grows positively up, the winding is `-1` for
     /// clockwise windings and `-1` for counter-clockwise windings.
     ///
-    /// If the area of this triangle is `== .zerp`, `0` is returned, instead.
+    /// If the area of this triangle is `== .zero`, `0` is returned, instead.
     @_transparent
     var winding: Scalar {
         let a = signedDoubleArea
@@ -157,7 +159,10 @@ extension Triangle2: Convex2Type where Vector: Vector2FloatingPoint {
     /// Performs an intersection test against the given line, returning up to
     /// two points representing the entrance and exit intersections against this
     /// 2D triangle's outer perimeter.
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : Line2FloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line : Line2FloatingPoint, Vector == Line.Vector {
+        
         var minUA: Scalar = .infinity
         var minNorm: Vector = .zero
 

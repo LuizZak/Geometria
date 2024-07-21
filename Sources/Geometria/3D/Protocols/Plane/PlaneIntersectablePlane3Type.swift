@@ -6,11 +6,16 @@ public protocol PlaneIntersectablePlane3Type: LineIntersectablePlaneType where V
     /// Returns the intersection of this 3 dimensional plane with another
     /// plane as a line, or `nil`, if the planes are parallel or
     /// [coplanar](https://en.wikipedia.org/wiki/Coplanarity).
-    func intersection<Plane: LineIntersectablePlaneType>(with other: Plane) -> Line<Vector>? where Plane.Vector == Vector
+    func intersection<Plane: LineIntersectablePlaneType>(
+        with other: Plane
+    ) -> Line<Vector>? where Plane.Vector == Vector
 }
 
 extension PlaneIntersectablePlane3Type where Vector: Vector3Multiplicative {
-    public func intersection<Plane: LineIntersectablePlaneType>(with other: Plane) -> Line<Vector>? where Plane.Vector == Vector {
+    public func intersection<Plane: LineIntersectablePlaneType>(
+        with other: Plane
+    ) -> Line<Vector>? where Plane.Vector == Vector {
+
         guard other.normal.absolute != normal.absolute else {
             return nil
         }

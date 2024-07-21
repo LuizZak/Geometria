@@ -71,8 +71,9 @@ public struct CircleArc2<Vector: Vector2Real>: GeometricType, CustomStringConver
         let gapDistance = endPoint.distance(to: startPoint)
         let arcNormal = (endPoint - startPoint).normalized().rightRotated()
 
-        let center: Vector =
-            mid - (arcNormal / 2) * gapDistance / Scalar.tan(sweepAngle.radians / 2)
+        let sweepTan: Scalar = Scalar.tan(sweepAngle.radians / 2)
+        let a: Vector = (arcNormal / 2) * gapDistance
+        let center: Vector = mid - a / sweepTan
 
         self.init(
             center: center,
@@ -151,7 +152,9 @@ public extension CircleArc2 {
     /// [chord]: https://en.wikipedia.org/wiki/Chord_(geometry)
     @inlinable
     var chordLength: Scalar {
-        2 * radius * (sweepAngle / 2).sin
+        let radii2: Scalar = radius * 2
+        let halfSweep = (sweepAngle / 2)
+        return radii2 * halfSweep.sin
     }
 
     /// Returns the starting point on this arc.
@@ -234,9 +237,12 @@ public extension CircleArc2 {
     /// representing an axis, from the arc's center point, in the +/- x and +/- y
     /// direction, if the arc's sweep includes that point.
     func quadrants() -> [Vector] {
-        let quadrantAngles: [Angle<Scalar>] = [
+        let quadrants: [Scalar] = [
             0, Scalar.pi / 2, Scalar.pi, Scalar.pi * 3 / 2
-        ].map(Angle.init(radians:))
+        ]
+        let quadrantAngles: [Angle<Scalar>] =
+            quadrants.map(Angle.init(radians:))
+
         var result: [Vector] = []
 
         let sweep = AngleSweep(start: startAngle, sweep: sweepAngle)

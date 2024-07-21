@@ -33,8 +33,10 @@ extension DirectionalRay3: Line3Type where Vector.SubVector2: Vector2FloatingPoi
     /// describing the direction of the ray relative to the position.
     @_transparent
     public init(x: Scalar, y: Scalar, z: Scalar, dx: Scalar, dy: Scalar, dz: Scalar) {
-        self.init(start: Vector(x: x, y: y, z: z),
-                  direction: Vector(x: dx, y: dy, z: dz))
+        self.init(
+            start: Vector(x: x, y: y, z: z),
+            direction: Vector(x: dx, y: dy, z: dz)
+        )
     }
     
     /// Creates a 2D line of the same underlying type as this line.

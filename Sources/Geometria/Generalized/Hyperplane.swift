@@ -64,7 +64,10 @@ extension Hyperplane: ConvexType {
     ///
     /// Note that hyperplanes are infinitely bounded, thus intersections with
     /// lines will consist of at most one point.
-    public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+        
         let magnitude = unclampedNormalMagnitudeForIntersection(with: line)
         guard let magnitude = magnitude, line.containsProjectedNormalizedMagnitude(magnitude) else {
             // No intersection:

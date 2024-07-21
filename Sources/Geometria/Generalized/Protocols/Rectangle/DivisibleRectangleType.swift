@@ -5,6 +5,10 @@
 public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: VectorDivisible {
     /// Gets the center point of this rectangle.
     var center: Vector { get }
+
+    /// Initializes a new rectangle centered around a given point encompassing
+    /// a given size.
+    init(center: Vector, size: Vector)
     
     /// Returns a new rectangle which is an inflated version of this rectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
@@ -56,6 +60,11 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
         }
         @_transparent
         set { self = self.movingCenter(to: newValue) }
+    }
+
+    @_transparent
+    init(center: Vector, size: Vector) {
+        self.init(location: center - size / 2, size: size)
     }
     
     /// Returns a rectangle which is an inflated version of this rectangle

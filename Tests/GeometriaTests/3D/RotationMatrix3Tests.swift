@@ -379,15 +379,14 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotation_yzy_leftHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotation(
-            .pi / 2,
-            .pi / 3,
-            .pi / 4,
-            order: .yzy,
-            orientation: .leftHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotation(
+                .pi / 2,
+                .pi / 3,
+                .pi / 4,
+                order: .yzy,
+                orientation: .leftHanded
+            )
 
         assertEqual(sut.r0, (-0.7071067811865475, -5.302876193624534e-17, -0.7071067811865476 ))
         assertEqual(sut.r1, ( 0.6123724356957946,  0.5000000000000001   , -0.6123724356957945 ))
@@ -397,12 +396,11 @@ class RotationMatrix3Tests: XCTestCase {
     // MARK: Individual axis rotations
 
     func testMake3DRotationX_rightHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotationX(
-            .pi / 2,
-            orientation: .rightHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotationX(
+                .pi / 2,
+                orientation: .rightHanded
+            )
 
         assertEqual(sut.r0, (1.0, 0.0                  ,  0.0                  ))
         assertEqual(sut.r1, (0.0, 6.123233995736766e-17, -1.0                  ))
@@ -410,12 +408,11 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotationX_leftHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotationX(
-            .pi / 2,
-            orientation: .leftHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotationX(
+                .pi / 2,
+                orientation: .leftHanded
+            )
 
         assertEqual(sut.r0, (1.0,  0.0                  , 0.0                  ))
         assertEqual(sut.r1, (0.0,  6.123233995736766e-17, 1.0                  ))
@@ -423,12 +420,11 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotationY_rightHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotationY(
-            .pi / 2,
-            orientation: .rightHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotationY(
+                .pi / 2,
+                orientation: .rightHanded
+            )
 
         assertEqual(sut.r0, ( 6.123233995736766e-17, 0.0, 1.0                  ))
         assertEqual(sut.r1, ( 0.0                  , 1.0, 0.0                  ))
@@ -436,12 +432,11 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotationY_leftHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotationY(
-            .pi / 2,
-            orientation: .leftHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotationY(
+                .pi / 2,
+                orientation: .leftHanded
+            )
 
         assertEqual(sut.r0, (6.123233995736766e-17, 0.0, -1.0                  ))
         assertEqual(sut.r1, (0.0                  , 1.0,  0.0                  ))
@@ -449,12 +444,11 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotationZ_rightHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotationY(
-            .pi / 2,
-            orientation: .rightHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotationY(
+                .pi / 2,
+                orientation: .rightHanded
+            )
 
         assertEqual(sut.r0, ( 6.123233995736766e-17, 0.0, 1.0                  ))
         assertEqual(sut.r1, ( 0.0                  , 1.0, 0.0                  ))
@@ -462,12 +456,11 @@ class RotationMatrix3Tests: XCTestCase {
     }
 
     func testMake3DRotationZ_leftHanded() {
-        let sut =
-        RotationMatrix
-        .make3DRotationY(
-            .pi / 2,
-            orientation: .leftHanded
-        )
+        let sut = RotationMatrix
+            .make3DRotationY(
+                .pi / 2,
+                orientation: .leftHanded
+            )
 
         assertEqual(sut.r0, (6.123233995736766e-17, 0.0, -1.0                  ))
         assertEqual(sut.r1, (0.0                  , 1.0,  0.0                  ))

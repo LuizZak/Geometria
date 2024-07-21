@@ -19,10 +19,12 @@ public struct EdgeInsets2<Vector: Vector2Type> {
     public var bottom: Scalar
     
     @_transparent
-    public init(left: Scalar,
-                top: Scalar,
-                right: Scalar,
-                bottom: Scalar) {
+    public init(
+        left: Scalar,
+        top: Scalar,
+        right: Scalar,
+        bottom: Scalar
+    ) {
         
         self.left = left
         self.top = top

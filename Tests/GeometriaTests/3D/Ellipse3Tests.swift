@@ -131,9 +131,11 @@ extension Ellipse3Tests {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 0, y: 7, z: 0),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 0, y: 7, z: 0),
+            accuracy: 1e-15
+        )
     }
     
     func testProjectOut_xNegative() {
@@ -142,9 +144,11 @@ extension Ellipse3Tests {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: -5, y: 0, z: 0),
-                    accuracy: 1e-14)
+        assertEqual(
+            vector,
+            .init(x: -5, y: 0, z: 0),
+            accuracy: 1e-14
+        )
     }
     
     func testProjectOut_yNegative() {
@@ -153,9 +157,11 @@ extension Ellipse3Tests {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 0, y: -7, z: 0),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 0, y: -7, z: 0),
+            accuracy: 1e-15
+        )
     }
     
     func testProjectOut_zPositive() {
@@ -164,9 +170,11 @@ extension Ellipse3Tests {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 0, y: 0, z: 9),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 0, y: 0, z: 9),
+            accuracy: 1e-15
+        )
     }
     
     func testProjectOut_zNegative() {
@@ -175,8 +183,10 @@ extension Ellipse3Tests {
         
         let vector = sut.projectOut(coord)
         
-        assertEqual(vector,
-                    .init(x: 0, y: 0, z: -9),
-                    accuracy: 1e-15)
+        assertEqual(
+            vector,
+            .init(x: 0, y: 0, z: -9),
+            accuracy: 1e-15
+        )
     }
 }

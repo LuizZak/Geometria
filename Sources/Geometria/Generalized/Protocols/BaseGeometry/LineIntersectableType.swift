@@ -9,5 +9,7 @@ public protocol LineIntersectableType: GeometricType {
     ///
     /// The resulting intersection list is ordered by the order of occurrence of
     /// each intersection relative to the line's starting position.
-    func intersections<Line>(with line: Line) -> LineIntersection<Vector> where Line: LineFloatingPoint, Line.Vector == Vector
+    func intersections<Line>(
+        with line: Line
+    ) -> LineIntersection<Vector> where Line: LineFloatingPoint, Line.Vector == Vector
 }

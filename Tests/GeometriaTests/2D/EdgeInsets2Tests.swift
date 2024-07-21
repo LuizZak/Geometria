@@ -26,32 +26,52 @@ class EdgeInsets2Tests: XCTestCase {
     }
     
     func testEquals() {
-        XCTAssertEqual(EdgeInsets(left: 1, top: 2, right: 3, bottom: 5),
-                       EdgeInsets(left: 1, top: 2, right: 3, bottom: 5))
+        XCTAssertEqual(
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5),
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5)
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(EdgeInsets(left: 2, top: 999, right: 5, bottom: 3),
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5))
-        XCTAssertNotEqual(EdgeInsets(left: 999, top: 1, right: 5, bottom: 3),
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5))
-        XCTAssertNotEqual(EdgeInsets(left: 2, top: 1, right: 5, bottom: 999),
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5))
-        XCTAssertNotEqual(EdgeInsets(left: 2, top: 1, right: 999, bottom: 3),
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5))
+        XCTAssertNotEqual(
+            EdgeInsets(left: 2, top: 999, right: 5, bottom: 3),
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5)
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 999, top: 1, right: 5, bottom: 3),
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5)
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 2, top: 1, right: 5, bottom: 999),
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5)
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 2, top: 1, right: 999, bottom: 3),
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5)
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue,
-                       EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue)
-        XCTAssertNotEqual(EdgeInsets(left: 2, top: 999, right: 3, bottom: 5).hashValue,
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue)
-        XCTAssertNotEqual(EdgeInsets(left: 999, top: 1, right: 3, bottom: 5).hashValue,
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue)
-        XCTAssertNotEqual(EdgeInsets(left: 1, top: 2, right: 3, bottom: 999).hashValue,
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue)
-        XCTAssertNotEqual(EdgeInsets(left: 1, top: 2, right: 999, bottom: 5).hashValue,
-                          EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue)
+        XCTAssertEqual(
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue,
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 2, top: 999, right: 3, bottom: 5).hashValue,
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 999, top: 1, right: 3, bottom: 5).hashValue,
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 999).hashValue,
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue
+        )
+        XCTAssertNotEqual(
+            EdgeInsets(left: 1, top: 2, right: 999, bottom: 5).hashValue,
+            EdgeInsets(left: 1, top: 2, right: 3, bottom: 5).hashValue
+        )
     }
     
     func testZero() {

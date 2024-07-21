@@ -85,14 +85,17 @@ extension Disk3: LineIntersectablePlaneType {
     public var pointOnPlane: Vector { center }
     
     @usableFromInline
-    func normalMagnitude<Line: LineFloatingPoint>(_ line: Line) -> Vector.Scalar? where Line.Vector == Vector {
+    func normalMagnitude<Line: LineFloatingPoint>(
+        _ line: Line
+    ) -> Vector.Scalar? where Line.Vector == Vector {
+
         let denom = normal.dot(line.lineSlope)
         if abs(denom) <= .leastNonzeroMagnitude {
             return nil
         }
         
-        let numer = normal.dot(pointOnPlane - line.a)
-        return numer / denom
+        let num = normal.dot(pointOnPlane - line.a)
+        return num / denom
     }
     
     /// Returns the normalized magnitude for a line's intersection point on this
@@ -102,8 +105,9 @@ extension Disk3: LineIntersectablePlaneType {
     /// line is parallel to this disk, or the intersection point is not within
     /// this disk's radius.
     @inlinable
-    public func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line)
-    -> Vector.Scalar? where Line.Vector == Vector {
+    public func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> Vector.Scalar? where Line.Vector == Vector {
         
         guard let magnitude = normalMagnitude(line) else {
             return nil
@@ -123,7 +127,10 @@ extension Disk3: LineIntersectablePlaneType {
     /// line is parallel to this disk, or the intersection point is not within
     /// this disk's radius.
     @inlinable
-    public func intersection<Line: LineFloatingPoint>(with line: Line) -> Vector? where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> Vector? where Line.Vector == Vector {
+        
         guard let magnitude = normalMagnitude(line) else {
             return nil
         }

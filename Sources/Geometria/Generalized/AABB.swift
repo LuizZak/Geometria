@@ -116,8 +116,20 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// ```
     @_transparent
     public init(of p1: Vector, _ p2: Vector, _ p3: Vector, _ p4: Vector) {
-        let min = Vector.pointwiseMin(p1, Vector.pointwiseMin(p2, Vector.pointwiseMin(p3, p4)))
-        let max = Vector.pointwiseMax(p1, Vector.pointwiseMax(p2, Vector.pointwiseMax(p3, p4)))
+        let min: Vector =
+            .pointwiseMin(
+                p1,
+                .pointwiseMin(
+                    p2, .pointwiseMin(p3, p4)
+                )
+            )
+        let max: Vector =
+            .pointwiseMax(
+                p1,
+                .pointwiseMax(
+                    p2, .pointwiseMax(p3, p4)
+                )
+            )
 
         self.init(minimum: min, maximum: max)
     }
@@ -160,7 +172,10 @@ extension AABB: VolumetricType where Vector: VectorComparable {
     /// print(box) // Prints "(minimum: (x: -5, y: -2), maximum: (x: 3, y: 6))"
     /// ```
     @inlinable
-    public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
+    public mutating func expand<S: Sequence>(
+        toInclude points: S
+    ) where S.Element == Vector {
+
         for p in points {
             expand(toInclude: p)
         }
@@ -288,8 +303,10 @@ extension AABB: SelfIntersectableRectangleType where Vector: VectorAdditive & Ve
     /// ```
     @_transparent
     public static func union(_ left: AABB, _ right: AABB) -> AABB {
-        AABB(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-             maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+        AABB(
+            minimum: Vector.pointwiseMin(left.minimum, right.minimum),
+            maximum: Vector.pointwiseMax(left.maximum, right.maximum)
+        )
     }
 }
 
@@ -430,7 +447,10 @@ extension AABB: DivisibleRectangleType where Vector: VectorDivisible & VectorCom
 extension AABB: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this AABB's area intersects the given line type.
     @inlinable
-    public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+    public func intersects<Line: LineFloatingPoint>(
+        line: Line
+    ) -> Bool where Line.Vector == Vector {
+
         // Early success if any point of the line is within the bounds of the AABB
         if contains(line.a) {
             return true
@@ -487,7 +507,10 @@ extension AABB: ConvexType where Vector: VectorFloatingPoint {
     /// two points representing the entrance and exit intersections against this
     /// AABB's outer perimeter.
     @inlinable
-    public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+
         // Derived from C# implementation at: https://stackoverflow.com/a/3115514
         let lineSlope = line.lineSlope
 

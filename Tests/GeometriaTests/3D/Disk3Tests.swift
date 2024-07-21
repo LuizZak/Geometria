@@ -193,9 +193,11 @@ extension Disk3Tests {
 
 extension Disk3Tests {
     func testProject_vectorOnCenter_returnsCenterPoint() {
-        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
-                       normal: .init(x: 2, y: 2, z: 2),
-                       radius: 10)
+        let sut = Disk(
+            center: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 2, y: 2, z: 2),
+            radius: 10
+        )
         let point = Vector3D(x: 1, y: 2, z: 3)
         
         let result = sut.project(point)
@@ -204,9 +206,11 @@ extension Disk3Tests {
     }
     
     func testProject_vectorWithinRadius_returnsProjection() {
-        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
-                       normal: .init(x: 2, y: 2, z: 2),
-                       radius: 10)
+        let sut = Disk(
+            center: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 2, y: 2, z: 2),
+            radius: 10
+        )
         let point = Vector3D(x: 3, y: 4, z: 7)
         
         let result = sut.project(point)
@@ -215,9 +219,11 @@ extension Disk3Tests {
     }
     
     func testProject_vectorOutsideOfRadius_returnsVectorOnRadius() {
-        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
-                       normal: .unitZ,
-                       radius: 5)
+        let sut = Disk(
+            center: .init(x: 1, y: 2, z: 3),
+            normal: .unitZ,
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: 10)
         
         let result = sut.project(point)
@@ -230,9 +236,11 @@ extension Disk3Tests {
 
 extension Disk3Tests {
     func testSignedDistanceTo_vectorOnDisk() {
-        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
-                       normal: .init(x: 2, y: 2, z: 2),
-                       radius: 10)
+        let sut = Disk(
+            center: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 2, y: 2, z: 2),
+            radius: 10
+        )
         let point = Vector3D(x: 1, y: 2, z: 3)
         
         let result = sut.signedDistance(to: point)
@@ -241,9 +249,11 @@ extension Disk3Tests {
     }
     
     func testSignedDistanceTo_vectorWithinRadius() {
-        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
-                       normal: .init(x: 2, y: 2, z: 2),
-                       radius: 10)
+        let sut = Disk(
+            center: .init(x: 1, y: 2, z: 3),
+            normal: .init(x: 2, y: 2, z: 2),
+            radius: 10
+        )
         let point = Vector3D(x: 3, y: 4, z: 7)
         
         let result = sut.signedDistance(to: point)
@@ -252,9 +262,11 @@ extension Disk3Tests {
     }
     
     func testProject_vectorOutsideOfRadius() {
-        let sut = Disk(center: .init(x: 1, y: 2, z: 3),
-                       normal: .unitZ,
-                       radius: 5)
+        let sut = Disk(
+            center: .init(x: 1, y: 2, z: 3),
+            normal: .unitZ,
+            radius: 5
+        )
         let point = Vector3D(x: -10, y: -10, z: 10)
         
         let result = sut.signedDistance(to: point)
@@ -269,9 +281,11 @@ extension Disk3Tests {
     // MARK: Radius Intersection Check
     
     func testUnclampedNormalMagnitudeForIntersection_radiusCheck() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 2)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 2
+        )
         let line1 = Line(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         let line2 = Line(x1: -6, y1: -6, z1: 3, x2: -5, y2: -5, z2: 2)
         
@@ -283,9 +297,11 @@ extension Disk3Tests {
     }
     
     func testIntersection_radiusCheck() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 2)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 2
+        )
         let line1 = Line(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         let line2 = Line(x1: -6, y1: -6, z1: 3, x2: -5, y2: -5, z2: 2)
         
@@ -299,9 +315,11 @@ extension Disk3Tests {
     // MARK: Line - Disk intersection
     
     func testUnclampedNormalMagnitudeForIntersection_line() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Line(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         
         let result = sut.unclampedNormalMagnitudeForIntersection(with: line)
@@ -310,9 +328,11 @@ extension Disk3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_line_negativeMagnitude() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Line(x1: -2, y1: -2, z1: 2, x2: -3, y2: -3, z2: 3)
         
         let result = sut.unclampedNormalMagnitudeForIntersection(with: line)
@@ -321,9 +341,11 @@ extension Disk3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_line_parallel() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Line(x1: 0, y1: 0, z1: 1, x2: 1, y2: 0, z2: 1)
         
         XCTAssertNil(sut.unclampedNormalMagnitudeForIntersection(with: line))
@@ -332,9 +354,11 @@ extension Disk3Tests {
     // MARK: Ray - Disk intersection
     
     func testUnclampedNormalMagnitudeForIntersection_ray() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Ray(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         
         let result = sut.unclampedNormalMagnitudeForIntersection(with: line)
@@ -343,9 +367,11 @@ extension Disk3Tests {
     }
     
     func testUnclampedNormalMagnitudeForIntersection_ray_negativeMagnitude() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Ray(x1: -2, y1: -2, z1: 2, x2: -3, y2: -3, z2: 3)
         
         let result = sut.unclampedNormalMagnitudeForIntersection(with: line)
@@ -358,35 +384,45 @@ extension Disk3Tests {
     // MARK: Line - Disk intersection
     
     func testIntersection_line() throws {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Line(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         
         let result = try XCTUnwrap(sut.intersection(with: line))
         
-        assertEqual(result,
-                    .init(x: 0, y: 0, z: 0),
-                    accuracy: 1e-15)
+        assertEqual(
+            result,
+            .init(x: 0, y: 0, z: 0),
+            accuracy: 1e-15
+        )
     }
     
     func testIntersection_line_negativeMagnitude() throws {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Line(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         
         let result = try XCTUnwrap(sut.intersection(with: line))
         
-        assertEqual(result,
-                    .init(x: 0.0, y: 0.0, z: 0.0),
-                    accuracy: 1e-15)
+        assertEqual(
+            result,
+            .init(x: 0.0, y: 0.0, z: 0.0),
+            accuracy: 1e-15
+        )
     }
     
     func testIntersection_line_parallel() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Line(x1: 0, y1: 0, z1: 1, x2: 0, y2: 0, z2: 1)
         
         XCTAssertNil(sut.intersection(with: line))
@@ -395,22 +431,28 @@ extension Disk3Tests {
     // MARK: Ray - Disk intersection
     
     func testIntersection_ray() throws {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Ray(x1: -3, y1: -3, z1: 3, x2: -2, y2: -2, z2: 2)
         
         let result = try XCTUnwrap(sut.intersection(with: line))
         
-        assertEqual(result,
-                    .init(x: 0.0, y: 0.0, z: 0.0),
-                    accuracy: 1e-15)
+        assertEqual(
+            result,
+            .init(x: 0.0, y: 0.0, z: 0.0),
+            accuracy: 1e-15
+        )
     }
     
     func testIntersection_ray_negativeMagnitude() {
-        let sut = Disk(center: .init(x: 0, y: 0, z: 0),
-                       normal: .init(x: 0, y: 0, z: 1),
-                       radius: 1)
+        let sut = Disk(
+            center: .init(x: 0, y: 0, z: 0),
+            normal: .init(x: 0, y: 0, z: 1),
+            radius: 1
+        )
         let line = Ray(x1: -2, y1: -2, z1: -2, x2: -3, y2: -3, z2: -3)
         
         XCTAssertNil(sut.intersection(with: line))

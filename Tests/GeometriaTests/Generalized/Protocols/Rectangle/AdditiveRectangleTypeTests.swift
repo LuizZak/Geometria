@@ -24,7 +24,10 @@ class AdditiveRectangleTypeTests: XCTestCase {
     }
 
     func testVertices_2d() {
-        let sut = Rectangle(minimum: .init(x: 1, y: 2), maximum: .init(x: 3, y: 5))
+        let sut = Rectangle(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 3, y: 5)
+        )
 
         let result = sut.vertices
 
@@ -37,7 +40,10 @@ class AdditiveRectangleTypeTests: XCTestCase {
     }
 
     func testVertices_3d() {
-        let sut = NRectangle<Vector3D>(minimum: .init(x: 1, y: 2, z: 3), maximum: .init(x: 5, y: 7, z: 11))
+        let sut = NRectangle<Vector3D>(
+            minimum: .init(x: 1, y: 2, z: 3),
+            maximum: .init(x: 5, y: 7, z: 11)
+        )
 
         let result = sut.vertices
 

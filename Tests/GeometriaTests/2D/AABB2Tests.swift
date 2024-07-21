@@ -6,8 +6,10 @@ class AABB2Tests: XCTestCase {
     typealias AABB = AABB2D
     
     func testDescription() {
-        XCTAssertEqual(AABB(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 3)).description,
-                       "AABB<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)")
+        XCTAssertEqual(
+            AABB(minimum: .init(x: 0, y: 1), maximum: .init(x: 2, y: 3)).description,
+            "AABB<Vector2<Double>>(left: 0.0, top: 1.0, right: 2.0, bottom: 3.0)"
+        )
     }
     
     func testRight() {

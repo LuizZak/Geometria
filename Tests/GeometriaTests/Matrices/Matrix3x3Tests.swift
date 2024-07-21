@@ -31,6 +31,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testUnequality() {
+        // cspell: disable-next-line
         // [D]ifferent value
         let D = 99.0
         
@@ -73,8 +74,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testRows() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -98,8 +98,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testColumns() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -123,8 +122,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testRowsAsVectors() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -136,8 +134,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testColumnsAsVector() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -156,8 +153,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testSubscript() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -178,8 +174,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testSubscript_set() {
-        var sut =
-        Matrix(rows: (
+        var sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -204,8 +199,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTrace() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -215,8 +209,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testDescription() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -237,8 +230,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testInitWithRows() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -250,8 +242,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testInitWithVectorRows() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             Vector3D(x: 0, y: 1, z: 2),
             Vector3D(x: 3, y: 4, z: 5),
             Vector3D(x: 6, y: 7, z: 8)
@@ -287,8 +278,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testDeterminant() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             ( 1,  2,  3),
             ( 5,  7, 11),
             (13, 17, 19)
@@ -298,8 +288,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTransformPoint_vector3() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -314,8 +303,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTransformPoint_vector2() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -329,8 +317,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTransformPoint_vector2_translate() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (1, 0,  4),
             (0, 1, -5),
             (0, 0,  1)
@@ -344,8 +331,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTransformVector_vector2() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -359,8 +345,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTransposed() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -374,8 +359,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testTranspose() {
-        var sut =
-        Matrix(rows: (
+        var sut = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -389,8 +373,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testInverted() throws {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             ( 1, 2, 1),
             (-7, 2, 4),
             ( 5, 0, 3)
@@ -414,8 +397,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testInverted_0DeterminantMatrix_returnsNil() {
-        let sut =
-        Matrix(rows: (
+        let sut = Matrix(rows: (
             (1, 2, 3),
             (4, 5, 6),
             (7, 8, 9)
@@ -530,14 +512,12 @@ class Matrix3x3Tests: XCTestCase {
     }
 
     func testAddition() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
-        let rhs =
-        Matrix(rows: (
+        let rhs = Matrix(rows: (
             ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -551,14 +531,12 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testAddition_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
-        let rhs =
-        Matrix(rows: (
+        let rhs = Matrix(rows: (
             ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -572,14 +550,12 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testSubtraction() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (3, 5, 4),
             (0, 2, 1),
             (6, 8, 7)
         ))
-        let rhs =
-        Matrix(rows: (
+        let rhs = Matrix(rows: (
             ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -593,14 +569,12 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testSubtraction_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             (3, 5, 4),
             (0, 2, 1),
             (6, 8, 7)
         ))
-        let rhs =
-        Matrix(rows: (
+        let rhs = Matrix(rows: (
             ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -614,8 +588,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testNegate() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (-0,  1,   2),
             (-4,  5,  -6),
             ( 8, -9,  10)
@@ -629,8 +602,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testMultiplication_withScalar() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -644,8 +616,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testMultiplication_withScalar_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
@@ -659,8 +630,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testDivision_withScalar() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             ( 0,  2,  4),
             ( 6,  8, 10),
             (12, 14, 16)
@@ -674,8 +644,7 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testDivision_withScalar_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             ( 0,  2,  4),
             ( 6,  8, 10),
             (12, 14, 16)
@@ -689,14 +658,12 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testMultiply() {
-        let lhs =
-        Matrix(rows: (
+        let lhs = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
-        let rhs =
-        Matrix(rows: (
+        let rhs = Matrix(rows: (
             ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)
@@ -710,14 +677,12 @@ class Matrix3x3Tests: XCTestCase {
     }
     
     func testMultiply_inPlace() {
-        var lhs =
-        Matrix(rows: (
+        var lhs = Matrix(rows: (
             (0, 1, 2),
             (3, 4, 5),
             (6, 7, 8)
         ))
-        let rhs =
-        Matrix(rows: (
+        let rhs = Matrix(rows: (
             ( 9, 10, 11),
             (12, 13, 14),
             (15, 16, 17)

@@ -8,21 +8,33 @@ class HyperplaneTests: XCTestCase {
     typealias Hyperplane = Hyperplane3<Vector>
 
     func testEquatable() {
-        XCTAssertEqual(Hyperplane(point: .unitZ, normal: .unitY),
-                       Hyperplane(point: .unitZ, normal: .unitY))
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY),
-                          Hyperplane(point: .unitX, normal: .unitY))
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY),
-                          Hyperplane(point: .unitX, normal: .unitX))
+        XCTAssertEqual(
+            Hyperplane(point: .unitZ, normal: .unitY),
+            Hyperplane(point: .unitZ, normal: .unitY)
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY),
+            Hyperplane(point: .unitX, normal: .unitY)
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY),
+            Hyperplane(point: .unitX, normal: .unitX)
+        )
     }
 
     func testHashable() {
-        XCTAssertEqual(Hyperplane(point: .unitZ, normal: .unitY).hashValue,
-                       Hyperplane(point: .unitZ, normal: .unitY).hashValue)
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY).hashValue,
-                          Hyperplane(point: .unitX, normal: .unitY).hashValue)
-        XCTAssertNotEqual(Hyperplane(point: .unitZ, normal: .unitY).hashValue,
-                          Hyperplane(point: .unitX, normal: .unitX).hashValue)
+        XCTAssertEqual(
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue,
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue,
+            Hyperplane(point: .unitX, normal: .unitY).hashValue
+        )
+        XCTAssertNotEqual(
+            Hyperplane(point: .unitZ, normal: .unitY).hashValue,
+            Hyperplane(point: .unitX, normal: .unitX).hashValue
+        )
     }
 
     func testDescription() {

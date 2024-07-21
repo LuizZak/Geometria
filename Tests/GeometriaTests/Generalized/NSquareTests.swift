@@ -6,21 +6,33 @@ class NSquareTests: XCTestCase {
     typealias Square = NSquare<Vector2D>
 
     func testEquatable() {
-        XCTAssertEqual(Square(location: .unitY, sideLength: 1),
-                       Square(location: .unitY, sideLength: 1))
-        XCTAssertNotEqual(Square(location: .unitY, sideLength: 1),
-                          Square(location: .unitX, sideLength: 1))
-        XCTAssertNotEqual(Square(location: .unitY, sideLength: 1),
-                          Square(location: .unitY, sideLength: 2))
+        XCTAssertEqual(
+            Square(location: .unitY, sideLength: 1),
+            Square(location: .unitY, sideLength: 1)
+        )
+        XCTAssertNotEqual(
+            Square(location: .unitY, sideLength: 1),
+            Square(location: .unitX, sideLength: 1)
+        )
+        XCTAssertNotEqual(
+            Square(location: .unitY, sideLength: 1),
+            Square(location: .unitY, sideLength: 2)
+        )
     }
 
     func testHashable() {
-        XCTAssertEqual(Square(location: .unitY, sideLength: 1).hashValue,
-                       Square(location: .unitY, sideLength: 1).hashValue)
-        XCTAssertNotEqual(Square(location: .unitY, sideLength: 1).hashValue,
-                          Square(location: .unitX, sideLength: 1).hashValue)
-        XCTAssertNotEqual(Square(location: .unitY, sideLength: 1).hashValue,
-                          Square(location: .unitY, sideLength: 2).hashValue)
+        XCTAssertEqual(
+            Square(location: .unitY, sideLength: 1).hashValue,
+            Square(location: .unitY, sideLength: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Square(location: .unitY, sideLength: 1).hashValue,
+            Square(location: .unitX, sideLength: 1).hashValue
+        )
+        XCTAssertNotEqual(
+            Square(location: .unitY, sideLength: 1).hashValue,
+            Square(location: .unitY, sideLength: 2).hashValue
+        )
     }
 
     func testAsRectangle() {

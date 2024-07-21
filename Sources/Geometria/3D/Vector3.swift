@@ -239,7 +239,11 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Self, _ b: Self) -> Self {
-        Self(x: x.addingProduct(a.x, b.x), y: y.addingProduct(a.y, b.y), z: z.addingProduct(a.z, b.z))
+        Self(
+            x: x.addingProduct(a.x, b.x),
+            y: y.addingProduct(a.y, b.y),
+            z: z.addingProduct(a.z, b.z)
+        )
     }
 
     /// Returns the result of adding the product of the given scalar and vector
@@ -253,7 +257,11 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Scalar, _ b: Self) -> Self {
-        Self(x: x.addingProduct(a, b.x), y: y.addingProduct(a, b.y), z: z.addingProduct(a, b.z))
+        Self(
+            x: x.addingProduct(a, b.x),
+            y: y.addingProduct(a, b.y),
+            z: z.addingProduct(a, b.z)
+        )
     }
 
     /// Returns the result of adding the product of the given vector and scalar
@@ -267,14 +275,22 @@ extension Vector3: VectorFloatingPoint where Scalar: DivisibleArithmetic & Float
     /// - Returns: The product of `lhs` and `rhs`, added to this vector.
     @_transparent
     public func addingProduct(_ a: Self, _ b: Scalar) -> Self {
-        Self(x: x.addingProduct(a.x, b), y: y.addingProduct(a.y, b), z: z.addingProduct(a.z, b))
+        Self(
+            x: x.addingProduct(a.x, b),
+            y: y.addingProduct(a.y, b),
+            z: z.addingProduct(a.z, b)
+        )
     }
 
     /// Rounds the components of this `Vector3Type` using a given
     /// `FloatingPointRoundingRule`.
     @_transparent
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
-        Self(x: x.rounded(rule), y: y.rounded(rule), z: z.rounded(rule))
+        Self(
+            x: x.rounded(rule),
+            y: y.rounded(rule),
+            z: z.rounded(rule)
+        )
     }
 
     /// Rounds the components of this `Vector3Type` using a given

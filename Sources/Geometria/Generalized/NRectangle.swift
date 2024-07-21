@@ -161,7 +161,10 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     /// Same as calling ``expand(toInclude:)-970h`` over each point.
     /// If the array is empty, nothing is done.
     @inlinable
-    public mutating func expand<S: Sequence>(toInclude points: S) where S.Element == Vector {
+    public mutating func expand<S: Sequence>(
+        toInclude points: S
+    ) where S.Element == Vector {
+
         for p in points {
             expand(toInclude: p)
         }
@@ -221,8 +224,10 @@ extension NRectangle: SelfIntersectableRectangleType where Vector: VectorAdditiv
     /// given Rectangles.
     @_transparent
     public static func union(_ left: Self, _ right: Self) -> Self {
-        Self(minimum: Vector.pointwiseMin(left.minimum, right.minimum),
-             maximum: Vector.pointwiseMax(left.maximum, right.maximum))
+        Self(
+            minimum: .pointwiseMin(left.minimum, right.minimum),
+            maximum: .pointwiseMax(left.maximum, right.maximum)
+        )
     }
 }
 
@@ -268,12 +273,18 @@ extension NRectangle: DivisibleRectangleType where Vector: VectorDivisible & Vec
 extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
     /// Returns `true` if this NRectangle's area intersects the given line type.
     @_transparent
-    public func intersects<Line>(line: Line) -> Bool where Line : LineFloatingPoint, Vector == Line.Vector {
+    public func intersects<Line>(
+        line: Line
+    ) -> Bool where Line : LineFloatingPoint, Vector == Line.Vector {
+
         bounds.intersects(line: line)
     }
     
     @_transparent
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
+        
         bounds.intersection(with: line)
     }
 }

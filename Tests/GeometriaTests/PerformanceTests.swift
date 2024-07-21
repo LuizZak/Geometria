@@ -12,6 +12,8 @@ import simd
 #endif // #if canImport(simd)
 #endif // #if ENABLE_SIMD
 
+// cspell:disable
+
 class PerformanceTests: XCTestCase {
     // MARK: Line - Vector projection
 

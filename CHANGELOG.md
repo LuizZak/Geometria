@@ -2,6 +2,9 @@
 
 ## [main]
 
+- Adding `GeometriaAlgorithms` library that will feature useful computational geometry algorithm implementations.
+    - Adding `SpatialTree<T>` type that encodes a simple [quad tree](https://en.wikipedia.org/wiki/Quadtree)/[octree](https://en.wikipedia.org/wiki/Octree) structures.
+
 - Adding `TransposableMatrixType` protocol to describe matrices that can be transposed into another known matrix type.
 
 - Added `DivisibleRectangleType.subdivided()`.

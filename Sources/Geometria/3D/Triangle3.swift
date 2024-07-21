@@ -61,7 +61,10 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     }
     
     @usableFromInline
-    func normalMagnitude<Line: LineFloatingPoint>(_ line: Line) -> Vector.Scalar? where Line.Vector == Vector {
+    func normalMagnitude<Line: LineFloatingPoint>(
+        _ line: Line
+    ) -> Vector.Scalar? where Line.Vector == Vector {
+
         let n = normal
         let denom = n.dot(line.lineSlope)
         if abs(denom) <= .leastNonzeroMagnitude {
@@ -74,12 +77,12 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     
     @usableFromInline
     func containsProjectedPoint(_ vector: Vector) -> Bool {
-        let bary = toBarycentric(vector)
-        guard bary.wa >= 0, bary.wb >= 0, bary.wc >= 0 else {
+        let barycenter = toBarycentric(vector)
+        guard barycenter.wa >= 0, barycenter.wb >= 0, barycenter.wc >= 0 else {
             return false
         }
         
-        return (bary.wa + bary.wb + bary.wc) <= 1
+        return (barycenter.wa + barycenter.wb + barycenter.wc) <= 1
     }
     
     /// Returns the normalized magnitude for a line's intersection point on this
@@ -89,8 +92,9 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     /// line is parallel to this triangle, or the intersection point is not
     /// within this triangle's area.
     @inlinable
-    public func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(with line: Line)
-    -> Vector.Scalar? where Line.Vector == Vector {
+    public func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> Vector.Scalar? where Line.Vector == Vector {
         
         guard let magnitude = normalMagnitude(line) else {
             return nil
@@ -110,7 +114,10 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     /// line is parallel to this triangle, or the intersection point is not
     /// within this triangle's area.
     @inlinable
-    public func intersection<Line: LineFloatingPoint>(with line: Line) -> Vector? where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> Vector? where Line.Vector == Vector {
+
         guard let magnitude = normalMagnitude(line) else {
             return nil
         }
@@ -137,7 +144,10 @@ extension Triangle3: LineIntersectablePlaneType where Vector: Vector3FloatingPoi
     /// [Möller-Trumbore intersection algorithm]: https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
     /// [barycentric coordinates]: https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Barycentric_coordinates_on_triangles
     @inlinable
-    public func mollerTrumboreIntersect<Line: LineFloatingPoint>(with line: Line) -> (lineMagnitude: Scalar, Coordinates)? where Line.Vector == Vector {
+    public func mollerTrumboreIntersect<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> (lineMagnitude: Scalar, Coordinates)? where Line.Vector == Vector {
+        
         let orig = line.a
         let slope = line.lineSlope
         let dir = slope.normalized()

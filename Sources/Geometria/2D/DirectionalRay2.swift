@@ -36,8 +36,10 @@ extension DirectionalRay2: Line2Type {
     /// - precondition: `Vector(x: dx, y: dy).length > 0`
     @_transparent
     public init(x: Scalar, y: Scalar, dx: Scalar, dy: Scalar) {
-        self.init(start: Vector(x: x, y: y),
-                  direction: Vector(x: dx, y: dy))
+        self.init(
+            start: Vector(x: x, y: y),
+            direction: Vector(x: dx, y: dy)
+        )
     }
 }
 

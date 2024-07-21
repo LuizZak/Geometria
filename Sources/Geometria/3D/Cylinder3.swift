@@ -199,7 +199,9 @@ extension Cylinder3: SignedDistanceMeasurableType where Vector: VectorFloatingPo
 extension Cylinder3: Convex3Type where Vector: Vector3Real {
     /// Returns the intersection points of a given line along this cylinder's
     /// surface.
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line: Line3FloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line: Line3FloatingPoint, Vector == Line.Vector {
 
         // Procedure:
         // 1: Create a plane along the line

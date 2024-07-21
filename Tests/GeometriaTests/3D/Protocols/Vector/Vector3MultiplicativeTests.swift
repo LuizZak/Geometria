@@ -28,7 +28,7 @@ class Vector3MultiplicativeTests: XCTestCase {
         XCTAssertEqual(result.z, -3.0)
     }
     
-    func testCross_oppositVectors() {
+    func testCross_oppositeVectors() {
         let v1 = Vector(x: 1, y: 2, z: 3)
         let v2 = Vector(x: -1, y: -2, z: -3)
         

@@ -72,8 +72,10 @@ extension LineSegment: BoundableType where Vector: VectorComparable {
     /// points.
     @_transparent
     public var bounds: AABB<Vector> {
-        AABB(minimum: Vector.pointwiseMin(a, b),
-             maximum: Vector.pointwiseMax(a, b))
+        AABB(
+            minimum: Vector.pointwiseMin(a, b),
+            maximum: Vector.pointwiseMax(a, b)
+        )
     }
 }
 
@@ -99,7 +101,11 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     }
 
     @_transparent
-    public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
+    public func withPointsScaledBy(
+        _ factor: Vector,
+        around center: Vector
+    ) -> Self {
+
         let newStart: Vector = (start - center) * factor + center
         let newEnd: Vector = (end - center) * factor + center
 
@@ -139,7 +145,10 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     ///
     /// [line segment]: https://en.wikipedia.org/wiki/Line_segment
     @_transparent
-    public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
+    public func containsProjectedNormalizedMagnitude(
+        _ scalar: Vector.Scalar
+    ) -> Bool {
+
         scalar >= 0 && scalar <= 1
     }
 
@@ -148,7 +157,10 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     ///
     /// For ``LineSegment``, this is a clamped inclusive (0-1) range.
     @_transparent
-    public func clampProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Vector.Scalar {
+    public func clampProjectedNormalizedMagnitude(
+        _ scalar: Vector.Scalar
+    ) -> Vector.Scalar {
+        
         min(1, max(0, scalar))
     }
 

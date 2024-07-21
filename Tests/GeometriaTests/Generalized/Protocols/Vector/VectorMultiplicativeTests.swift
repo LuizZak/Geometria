@@ -33,11 +33,26 @@ class VectorMultiplicativeTests: XCTestCase {
         let v1 = Vector2D(x: 10, y: 20)
         let v2 = Vector2D(x: 30, y: 40)
         
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: -1), Vector2D(x: -10, y: 0))
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 0), v1)
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 0.5), Vector2D(x: 20, y: 30))
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 1), v2)
-        XCTAssertEqual(Vector2D.lerp(start: v1, end: v2, amount: 2), Vector2D(x: 50, y: 60))
+        XCTAssertEqual(
+            Vector2D.lerp(start: v1, end: v2, amount: -1),
+            Vector2D(x: -10, y: 0)
+        )
+        XCTAssertEqual(
+            Vector2D.lerp(start: v1, end: v2, amount: 0),
+            v1
+        )
+        XCTAssertEqual(
+            Vector2D.lerp(start: v1, end: v2, amount: 0.5),
+            Vector2D(x: 20, y: 30)
+        )
+        XCTAssertEqual(
+            Vector2D.lerp(start: v1, end: v2, amount: 1),
+            v2
+        )
+        XCTAssertEqual(
+            Vector2D.lerp(start: v1, end: v2, amount: 2),
+            Vector2D(x: 50, y: 60)
+        )
     }
 
     func testMultiplication_inPlace() {

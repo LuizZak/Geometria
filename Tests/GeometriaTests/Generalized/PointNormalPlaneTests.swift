@@ -7,21 +7,33 @@ class PointNormalPlaneTests: XCTestCase {
     typealias Plane = PointNormalPlane3<Vector>
 
     func testEquatable() {
-        XCTAssertEqual(Plane(point: .unitZ, normal: .unitY),
-                       Plane(point: .unitZ, normal: .unitY))
-        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY),
-                          Plane(point: .unitX, normal: .unitY))
-        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY),
-                          Plane(point: .unitX, normal: .unitX))
+        XCTAssertEqual(
+            Plane(point: .unitZ, normal: .unitY),
+            Plane(point: .unitZ, normal: .unitY)
+        )
+        XCTAssertNotEqual(
+            Plane(point: .unitZ, normal: .unitY),
+            Plane(point: .unitX, normal: .unitY)
+        )
+        XCTAssertNotEqual(
+            Plane(point: .unitZ, normal: .unitY),
+            Plane(point: .unitX, normal: .unitX)
+        )
     }
 
     func testHashable() {
-        XCTAssertEqual(Plane(point: .unitZ, normal: .unitY).hashValue,
-                       Plane(point: .unitZ, normal: .unitY).hashValue)
-        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY).hashValue,
-                          Plane(point: .unitX, normal: .unitY).hashValue)
-        XCTAssertNotEqual(Plane(point: .unitZ, normal: .unitY).hashValue,
-                          Plane(point: .unitX, normal: .unitX).hashValue)
+        XCTAssertEqual(
+            Plane(point: .unitZ, normal: .unitY).hashValue,
+            Plane(point: .unitZ, normal: .unitY).hashValue
+        )
+        XCTAssertNotEqual(
+            Plane(point: .unitZ, normal: .unitY).hashValue,
+            Plane(point: .unitX, normal: .unitY).hashValue
+        )
+        XCTAssertNotEqual(
+            Plane(point: .unitZ, normal: .unitY).hashValue,
+            Plane(point: .unitX, normal: .unitX).hashValue
+        )
     }
 
     func testDescription() {

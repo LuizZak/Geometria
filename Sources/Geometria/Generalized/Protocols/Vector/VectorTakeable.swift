@@ -55,14 +55,26 @@ public protocol VectorTakeable: VectorType {
 
 public extension VectorTakeable {
     subscript(x: TakeDimensions, y: TakeDimensions) -> SubVector2 {
-        return SubVector2(x: self[x.rawValue], y: self[y.rawValue])
+        SubVector2(
+            x: self[x.rawValue],
+            y: self[y.rawValue]
+        )
     }
 
     subscript(x: TakeDimensions, y: TakeDimensions, z: TakeDimensions) -> SubVector3 {
-        return SubVector3(x: self[x.rawValue], y: self[y.rawValue], z: self[z.rawValue])
+        SubVector3(
+            x: self[x.rawValue],
+            y: self[y.rawValue],
+            z: self[z.rawValue]
+        )
     }
 
     subscript(x: TakeDimensions, y: TakeDimensions, z: TakeDimensions, w: TakeDimensions) -> SubVector4 {
-        return SubVector4(x: self[x.rawValue], y: self[y.rawValue], z: self[z.rawValue], w: self[w.rawValue])
+        SubVector4(
+            x: self[x.rawValue],
+            y: self[y.rawValue],
+            z: self[z.rawValue],
+            w: self[w.rawValue]
+        )
     }
 }

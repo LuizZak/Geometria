@@ -31,6 +31,10 @@ class LineDivisibleTests: XCTestCase {
         let sut = Line3(x1: 0, y1: 0, z1: 0, x2: 1, y2: 1, z2: 1)
         let point = Vector3D(x: 1, y: 1, z: 0)
         
-        XCTAssertEqual(sut.distanceSquared(to: point), 0.6666666666666667, accuracy: 1e-15)
+        XCTAssertEqual(
+            sut.distanceSquared(to: point),
+            0.6666666666666667,
+            accuracy: 1e-15
+        )
     }
 }

@@ -23,7 +23,7 @@ public struct ProjectivePointNormalPlane3<Vector: Vector3FloatingPoint>: PointPr
     /// defines the right, or x, axis for the projective plane.
     ///
     /// This value is derived from ``normal`` and ``upAxis``, and is provided
-    /// along with those values to reduce recomputations when handling projections.
+    /// along with those values to reduce recomputation when handling projections.
     @UnitVector public var rightAxis: Vector
     
     @_transparent
@@ -107,7 +107,10 @@ extension ProjectivePointNormalPlane3: ProjectiveSpace {
     /// resulting intersection vector into this projective plane.
     ///
     /// Returns `nil` if this plane and the given line do not intersect.
-    public func projectLineIntersection<Line: Line3FloatingPoint>(_ line: Line) -> Coordinates? where Line.Vector == Vector {
+    public func projectLineIntersection<Line: Line3FloatingPoint>(
+        _ line: Line
+    ) -> Coordinates? where Line.Vector == Vector {
+        
         let plane = asPointNormalPlane
         guard let point = plane.intersection(with: line) else {
             return nil

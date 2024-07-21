@@ -209,11 +209,13 @@
             "swift"
         ],
         "cSpell.words": [
+            "aabb",
             "AABB",
             "aabbs",
             "acosh",
             "asinh",
             "atanh",
+            "boundable",
             "Boundable",
             "exodiusstudios",
             "Geometria",
@@ -221,6 +223,8 @@
             "Intersectable",
             "Möller",
             "periodics",
+            "octree",
+            "Octree",
             "Periodics",
             "Sarrus",
             "swiftpm",

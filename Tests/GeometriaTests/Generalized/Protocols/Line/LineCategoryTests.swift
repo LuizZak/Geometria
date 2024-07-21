@@ -17,13 +17,31 @@ class LineCategoryTests: XCTestCase {
     }
 
     func testHashable() {
-        XCTAssertEqual(LineCategory.line.hashValue, LineCategory.line.hashValue)
-        XCTAssertEqual(LineCategory.ray.hashValue, LineCategory.ray.hashValue)
-        XCTAssertEqual(LineCategory.lineSegment.hashValue, LineCategory.lineSegment.hashValue)
+        XCTAssertEqual(
+            LineCategory.line.hashValue,
+            LineCategory.line.hashValue
+        )
+        XCTAssertEqual(
+            LineCategory.ray.hashValue,
+            LineCategory.ray.hashValue
+        )
+        XCTAssertEqual(
+            LineCategory.lineSegment.hashValue,
+            LineCategory.lineSegment.hashValue
+        )
         //
-        XCTAssertNotEqual(LineCategory.line.hashValue, LineCategory.lineSegment.hashValue)
-        XCTAssertNotEqual(LineCategory.line.hashValue, LineCategory.ray.hashValue)
-        XCTAssertNotEqual(LineCategory.ray.hashValue, LineCategory.lineSegment.hashValue)
+        XCTAssertNotEqual(
+            LineCategory.line.hashValue,
+            LineCategory.lineSegment.hashValue
+        )
+        XCTAssertNotEqual(
+            LineCategory.line.hashValue,
+            LineCategory.ray.hashValue
+        )
+        XCTAssertNotEqual(
+            LineCategory.ray.hashValue,
+            LineCategory.lineSegment.hashValue
+        )
     }
 
     func testIsOpenStart() {

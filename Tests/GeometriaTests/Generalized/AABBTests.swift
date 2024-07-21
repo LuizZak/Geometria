@@ -7,8 +7,10 @@ class AABBTests: XCTestCase {
     typealias AABB3 = AABB3D
 
     func testCodable() throws {
-        let sut = Box(minimum: .init(x: 1, y: 2),
-                      maximum: .init(x: 3, y: 4))
+        let sut = Box(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 3, y: 4)
+        )
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
 
@@ -19,16 +21,20 @@ class AABBTests: XCTestCase {
     }
 
     func testInitWithMinimumMaximum() {
-        let sut = Box(minimum: .init(x: 1, y: 2),
-                      maximum: .init(x: 3, y: 4))
+        let sut = Box(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 3, y: 4)
+        )
 
         XCTAssertEqual(sut.minimum, .init(x: 1, y: 2))
         XCTAssertEqual(sut.maximum, .init(x: 3, y: 4))
     }
 
     func testLocation() {
-        let sut = Box(minimum: .init(x: 1, y: 2),
-                      maximum: .init(x: 3, y: 4))
+        let sut = Box(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 3, y: 4)
+        )
 
         XCTAssertEqual(sut.location, .init(x: 1, y: 2))
     }
@@ -38,8 +44,10 @@ class AABBTests: XCTestCase {
 
 extension AABBTests {
     func testBounds() {
-        let sut = Box(minimum: .init(x: 1, y: 2),
-                      maximum: .init(x: 3, y: 6))
+        let sut = Box(
+            minimum: .init(x: 1, y: 2),
+            maximum: .init(x: 3, y: 6)
+        )
 
         let result = sut.bounds
 
@@ -52,32 +60,61 @@ extension AABBTests {
 
 extension AABBTests {
     func testEquality() {
-        XCTAssertEqual(Box(minimum: .init(x: 1, y: 2),
-                           maximum: .init(x: 3, y: 4)),
-                       Box(minimum: .init(x: 1, y: 2),
-                           maximum: .init(x: 3, y: 4)))
+        XCTAssertEqual(
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 4)
+            ),
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 4)
+            )
+        )
     }
 
     func testUnequality() {
-        XCTAssertNotEqual(Box(minimum: .init(x: 999, y: 2),
-                              maximum: .init(x: 3, y: 4)),
-                          Box(minimum: .init(x: 1, y: 2),
-                              maximum: .init(x: 3, y: 4)))
+        XCTAssertNotEqual(
+            Box(
+                minimum: .init(x: 999, y: 2),
+                maximum: .init(x: 3, y: 4)
+            ),
+            Box(minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 4)
+            )
+        )
 
-        XCTAssertNotEqual(Box(minimum: .init(x: 1, y: 999),
-                              maximum: .init(x: 3, y: 4)),
-                          Box(minimum: .init(x: 1, y: 2),
-                              maximum: .init(x: 3, y: 4)))
+        XCTAssertNotEqual(
+            Box(
+                minimum: .init(x: 1, y: 999),
+                maximum: .init(x: 3, y: 4)
+            ),
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 4)
+            )
+        )
 
-        XCTAssertNotEqual(Box(minimum: .init(x: 1, y: 2),
-                              maximum: .init(x: 999, y: 4)),
-                          Box(minimum: .init(x: 1, y: 2),
-                              maximum: .init(x: 3, y: 4)))
+        XCTAssertNotEqual(
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 999, y: 4)
+            ),
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 4)
+            )
+        )
 
-        XCTAssertNotEqual(Box(minimum: .init(x: 1, y: 2),
-                              maximum: .init(x: 3, y: 999)),
-                          Box(minimum: .init(x: 1, y: 2),
-                              maximum: .init(x: 3, y: 4)))
+        XCTAssertNotEqual(
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 999)
+            ),
+            Box(
+                minimum: .init(x: 1, y: 2),
+                maximum: .init(x: 3, y: 4)
+            )
+        )
     }
 
     func testIsSizeZero_zeroArea() {
@@ -1128,8 +1165,10 @@ extension AABBTests {
         // to rounding errors in the produced intersection points
 
         let sut = Box(left: 162.5, top: 135.0, right: 237.5, bottom: 165.0)
-        let line = LineSegment2D(x1: 101.01359554152113, y1: 164.20182144594258,
-                                 x2: 298.9864044584789, y2: 145.79817855405742)
+        let line = LineSegment2D(
+            x1: 101.01359554152113, y1: 164.20182144594258,
+            x2: 298.9864044584789, y2: 145.79817855405742
+        )
 
         assertEqual(
             sut.intersection(with: line),
@@ -1155,14 +1194,20 @@ extension AABBTests {
     // MARK: intersects(line:)
 
     func testIntersectsLine_3d_line_acrossTopQuadrant() {
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 10, y: 10, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 10, y: 10, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 5, z1: 7, x2: 15, y2: 5, z2: 7)
 
         XCTAssertTrue(sut.intersects(line: line))
     }
 
     func testIntersectsLine_3d_line_zeroDepth_headOn() {
-        let sut = AABB3(minimum: .init(x: 0, y: 5, z: 0), maximum: .init(x: 10, y: 5, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 5, z: 0),
+            maximum: .init(x: 10, y: 5, z: 10)
+        )
         let line = Line3D(x1: 5, y1: -5, z1: 7, x2: 5, y2: 5, z2: 7)
 
         XCTAssertTrue(sut.intersects(line: line))
@@ -1176,7 +1221,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the top (Y: 10, Z: 7) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 10, z1: 7, x2: 40, y2: 10, z2: 7)
 
         assertEqual(
@@ -1200,7 +1248,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the far (Y: 12, Z: 10) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 12, z1: 5, x2: 40, y2: 12, z2: 5)
 
         assertEqual(
@@ -1224,7 +1275,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the bottom (Y: 10, Z: 3) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 10, z1: 3, x2: 40, y2: 10, z2: 3)
 
         assertEqual(
@@ -1248,7 +1302,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the near (Y: 7, Z: 10) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: -5, y1: 7, z1: 5, x2: 40, y2: 7, z2: 5)
 
         assertEqual(
@@ -1274,7 +1331,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the top (Y: 10, Z: 7) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 10, z1: 7, x2: -5, y2: 10, z2: 7)
 
         assertEqual(
@@ -1298,7 +1358,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the far (Y: 12, Z: 10) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 12, z1: 5, x2: -5, y2: 12, z2: 5)
 
         assertEqual(
@@ -1322,7 +1385,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the bottom (Y: 10, Z: 3) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 10, z1: 3, x2: -5, y2: 10, z2: 3)
 
         assertEqual(
@@ -1346,7 +1412,10 @@ extension AABBTests {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the X coordinate through the near (Y: 7, Z: 10) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = Line3D(x1: 40, y1: 7, z1: 5, x2: -5, y2: 7, z2: 5)
 
         assertEqual(
@@ -1369,7 +1438,10 @@ extension AABBTests {
     // MARK: Y - Positive - Zero-depth AABB
 
     func testIntersectionWith_3d_line_zeroDepth_headOn() {
-        let sut = AABB3(minimum: .init(x: 0, y: 5, z: 0), maximum: .init(x: 10, y: 5, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 5, z: 0),
+            maximum: .init(x: 10, y: 5, z: 10)
+        )
         let line = Line3D(x1: 5, y1: -5, z1: 7, x2: 5, y2: 5, z2: 7)
 
         assertEqual(
@@ -1394,9 +1466,12 @@ extension AABBTests {
     func testIntersectionWith_3d_ray_acrossTopQuadrant_yPositiveAngled() {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10),
         // along the Y coordinate through the near (X: 20, Z: 7) quadrant, with
-        // a downard slope that cuts to the far bottom (X: 20, Z: 3) quadrant.
+        // a downward slope that cuts to the far bottom (X: 20, Z: 3) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 0, y: 0, z: 0), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 0, y: 0, z: 0),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = DirectionalRay3D(x1: 20, y1: -5, z1: 7, x2: 20, y2: 25, z2: 3)
 
         assertEqual(
@@ -1419,10 +1494,13 @@ extension AABBTests {
     func testIntersectionWith_3d_ray_offset_acrossTopQuadrant_yPositiveAngled() {
         // Run a line on a rectangular-shaped AABB of dimensions (x30 y20 z10)
         // with an offset from origin of (x2, y3, z4), along the Y coordinate
-        // through the near (X: 20, Z: 7) quadrant, with a downard slope that
+        // through the near (X: 20, Z: 7) quadrant, with a downward slope that
         // cuts to the bottom far (Y: 17, Z: 4) quadrant.
 
-        let sut = AABB3(minimum: .init(x: 2, y: 3, z: 4), maximum: .init(x: 30, y: 20, z: 10))
+        let sut = AABB3(
+            minimum: .init(x: 2, y: 3, z: 4),
+            maximum: .init(x: 30, y: 20, z: 10)
+        )
         let line = DirectionalRay3D(x1: 20, y1: -5, z1: 7, x2: 20, y2: 25, z2: 3)
 
         assertEqual(
@@ -1457,8 +1535,10 @@ extension AABBTests {
         //
         typealias Vector = SIMD3<Double>
 
-        let sut = AABB<Vector>(minimum: .init(x: -20.0, y: 90.0, z: 80.0),
-                               maximum: .init(x: 60.0, y: 110.0, z: 95.0))
+        let sut = AABB<Vector>(
+            minimum: .init(x: -20.0, y: 90.0, z: 80.0),
+            maximum: .init(x: 60.0, y: 110.0, z: 95.0)
+        )
         let ray = DirectionalRay<Vector>(
             start: .init(x: -7.8, y: 0.0, z: 87.0),
             direction: .init(

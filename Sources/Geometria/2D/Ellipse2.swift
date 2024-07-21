@@ -51,18 +51,18 @@ public extension Ellipse2 where Vector: VectorFloatingPoint {
     /// for the ellipse.
     func foci() -> (a: Vector, b: Vector) {
         if radius.x > radius.y {
-            let dist: Scalar = (radius.x * radius.x - radius.y * radius.y).squareRoot()
+            let dist: Scalar = ((radius.x * radius.x) as Scalar - (radius.y * radius.y) as Scalar).squareRoot()
 
             return (
-                a: .init(x: center.x - dist, y: center.y),
-                b: .init(x: center.x + dist, y: center.y)
+                a: .init(x: center.x - dist, y: center.y) as Vector,
+                b: .init(x: center.x + dist, y: center.y) as Vector
             )
         } else if radius.y > radius.x {
-            let dist: Scalar = (radius.y * radius.y - radius.x * radius.x).squareRoot()
+            let dist: Scalar = ((radius.y * radius.y) as Scalar - (radius.x * radius.x) as Scalar).squareRoot()
 
             return (
-                a: .init(x: center.x, y: center.y - dist),
-                b: .init(x: center.x, y: center.y + dist)
+                a: .init(x: center.x, y: center.y - dist) as Vector,
+                b: .init(x: center.x, y: center.y + dist) as Vector
             )
         } else {
             // Ellipse is spheroid; focal points are the center of the sphere.

@@ -104,11 +104,17 @@ public extension NSquare where Vector: VectorDivisible {
 
 extension NSquare: ConvexType where Vector: VectorFloatingPoint {
     /// Returns whether a given line intersects with this square.
-    public func intersects<Line>(line: Line) -> Bool where Line: LineFloatingPoint, Line.Vector == Vector {
+    public func intersects<Line>(
+        line: Line
+    ) -> Bool where Line: LineFloatingPoint, Line.Vector == Vector {
+
         bounds.intersects(line: line)
     }
     
-    public func intersection<Line>(with line: Line) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+    public func intersection<Line>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+        
         bounds.intersection(with: line)
     }
 }
