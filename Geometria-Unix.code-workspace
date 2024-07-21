@@ -221,6 +221,8 @@
             "Hyperrectangle",
             "Intersectable",
             "Möller",
+            "octree",
+            "Octree",
             "Periodics",
             "Sarrus",
             "swiftpm",
