@@ -6,12 +6,20 @@ import Geometria
 public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     public typealias Scalar = Vector.Scalar
     public typealias Period = Scalar
+    public typealias Contour = Parametric2Contour<Vector>
 
-    public var lhsCount: Int
-    public var rhsCount: Int
+    /// The next available edge ID to be used when adding contours.
+    var edgeId: Int = 0
+
+    public internal(set) var contours: [Contour]
 
     public fileprivate(set) var nodes: Set<Node> = []
     public fileprivate(set) var edges: Set<Edge> = []
+
+    mutating func nextEdgeId() -> Int {
+        defer { edgeId += 1 }
+        return edgeId
+    }
 
     /// Returns `true` if any of the nodes within this simplex graph is an
     /// intersection.
@@ -282,8 +290,7 @@ extension Simplex2Graph: MutableDirectedGraphType {
     public init() {
         self.nodes = []
         self.edges = []
-        self.lhsCount = 0
-        self.rhsCount = 0
+        self.contours = []
     }
 
     public mutating func addNode(_ node: Node) {

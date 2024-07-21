@@ -2,113 +2,113 @@ import Geometria
 import MiniDigraph
 
 extension Simplex2Graph {
-    static func fromParametricIntersections<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
+    public static func fromParametricIntersections<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ lhs: T1,
         _ rhs: T2,
         tolerance: Scalar
     ) -> Self where T1.Vector == Vector, T2.Vector == Vector {
 
-        typealias Winding = Parametric2Contour<Vector>.Winding
-
-        let lhsContours = lhs.allContours()
-        let rhsContours = rhs.allContours()
-
-        var edgeId: Int = 0
-        func nextEdgeId() -> Int {
-            defer { edgeId += 1 }
-            return edgeId
-        }
-
-
-        var result = Self(
-            lhsCount: lhsContours.count,
-            rhsCount: rhsContours.count
+        return fromParametricIntersections(
+            contours: lhs.allContours() + rhs.allContours(),
+            tolerance: tolerance
         )
+    }
 
-        func addContour(
-            _ contour: Parametric2Contour<Vector>,
-            shapeIndex: Int
-        ) {
-            let simplexes = contour.allSimplexes()
+    public static func fromParametricIntersections(
+        geometries: [some ParametricClip2Geometry<Vector>],
+        tolerance: Scalar
+    ) -> Self {
 
-            // Create nodes
-            var nodes: [(Parametric2GeometrySimplex<Vector>, Node)] = []
-            for simplex in simplexes {
-                let node = Node(
-                    location: simplex.start,
-                    kind: .geometry(
-                        shapeIndex: shapeIndex,
-                        period: simplex.startPeriod
-                    )
-                )
-                nodes.append((simplex, node))
-            }
+        return fromParametricIntersections(
+            contours: geometries.flatMap({ $0.allContours() }),
+            tolerance: tolerance
+        )
+    }
 
-            guard nodes.count > 1 else {
-                return
-            }
+    public static func fromParametricIntersections(
+        contours: [Contour],
+        tolerance: Scalar
+    ) -> Self {
 
-            // Create edges
-            var edges: [Edge] = []
-            for (current, next) in zip(nodes, nodes.dropFirst() + [nodes[0]]) {
-                let kind: Edge.Kind
-                switch current.0 {
-                case .lineSegment2:
-                    kind = .line
-
-                case .circleArc2(let arc):
-                    kind = .circleArc(
-                        center: arc.circleArc.center,
-                        radius: arc.circleArc.radius,
-                        startAngle: arc.circleArc.startAngle,
-                        sweepAngle: arc.circleArc.sweepAngle
-                    )
-                }
-
-                let edge = Edge(
-                    id: nextEdgeId(),
-                    start: current.1,
-                    end: next.1,
-                    shapeIndex: shapeIndex,
-                    startPeriod: current.0.startPeriod,
-                    endPeriod: current.0.endPeriod,
-                    kind: kind
-                )
-                edges.append(edge)
-            }
-
-            result.addNodes(nodes.map(\.1))
-            result.addEdges(edges)
-        }
+        var result = Self()
 
         // Populate with contours
-        for (i, contour) in lhsContours.enumerated() {
-            addContour(contour, shapeIndex: i)
-        }
-        for (i, contour) in rhsContours.enumerated() {
-            addContour(contour, shapeIndex: lhsContours.count + i)
-        }
-
-        let allContours = lhsContours + rhsContours
-
-        func computeWinding(_ edge: Edge) {
-            let contour = allContours[edge.shapeIndex]
-            edge.winding = contour.winding
-
-            let center = edge.queryPoint(contour.normalizedCenter(_:_:))
-
-            edge.totalWinding =
-                allContours.enumerated()
-                .filter({ $0.offset != edge.shapeIndex })
-                .filter({ $0.element.contains(center) })
-                .reduce(contour.winding.value, { $0 + $1.element.winding.value })
+        for contour in contours {
+            result.appendContour(contour)
         }
 
         // Populate with intersections
-        for (lhs, lhsContour) in lhsContours.enumerated() {
-            for (rhs, rhsContour) in rhsContours.enumerated() {
+        result.computeIntersections(tolerance: tolerance)
 
-                let rhs = rhs + lhsContours.count
+        // Compute edge windings
+        result.computeWinding()
+
+        result.assertIsValid()
+
+        return result
+    }
+
+    /// Appends a new contour into this graph.
+    internal mutating func appendContour(_ contour: Contour) {
+        let simplexes = contour.allSimplexes()
+        let shapeIndex = contours.count
+
+        // Create nodes
+        var nodes: [(Parametric2GeometrySimplex<Vector>, Node)] = []
+        for simplex in simplexes {
+            let node = Node(
+                location: simplex.start,
+                kind: .geometry(
+                    shapeIndex: shapeIndex,
+                    period: simplex.startPeriod
+                )
+            )
+            nodes.append((simplex, node))
+        }
+
+        guard nodes.count > 1 else {
+            return
+        }
+
+        // Create edges
+        var edges: [Edge] = []
+        for (current, next) in zip(nodes, nodes.dropFirst() + [nodes[0]]) {
+            let kind: Edge.Kind
+            switch current.0 {
+            case .lineSegment2:
+                kind = .line
+
+            case .circleArc2(let arc):
+                kind = .circleArc(
+                    center: arc.circleArc.center,
+                    radius: arc.circleArc.radius,
+                    startAngle: arc.circleArc.startAngle,
+                    sweepAngle: arc.circleArc.sweepAngle
+                )
+            }
+
+            let edge = Edge(
+                id: nextEdgeId(),
+                start: current.1,
+                end: next.1,
+                shapeIndex: shapeIndex,
+                startPeriod: current.0.startPeriod,
+                endPeriod: current.0.endPeriod,
+                kind: kind
+            )
+            edges.append(edge)
+        }
+
+        addNodes(nodes.map(\.1))
+        addEdges(edges)
+
+        contours.append(contour)
+    }
+
+    internal mutating func computeIntersections(tolerance: Scalar) {
+        for (lhs, lhsContour) in contours.enumerated() {
+            for (rhs, rhsContour) in contours.enumerated().dropFirst(lhs + 1) {
+
                 let intersections = lhsContour.rawIntersectionPeriods(
                     rhsContour,
                     tolerance: tolerance
@@ -116,11 +116,11 @@ extension Simplex2Graph {
 
                 for intersection in intersections {
                     guard
-                        let lhsEdge = result.edgeForPeriod(
+                        let lhsEdge = edgeForPeriod(
                             intersection.`self`,
                             shapeIndex: lhs
                         ),
-                        let rhsEdge = result.edgeForPeriod(
+                        let rhsEdge = edgeForPeriod(
                             intersection.other,
                             shapeIndex: rhs
                         )
@@ -139,35 +139,40 @@ extension Simplex2Graph {
                         )
                     )
 
-                    result.addNode(node)
+                    addNode(node)
 
-                    result.splitEdge(
+                    splitEdge(
                         lhsEdge,
                         period: intersection.`self`,
-                        midNode: node,
-                        idGenerator: nextEdgeId
+                        midNode: node
                     )
 
-                    result.splitEdge(
+                    splitEdge(
                         rhsEdge,
                         period: intersection.other,
-                        midNode: node,
-                        idGenerator: nextEdgeId
+                        midNode: node
                     )
 
-                    result.assertIsValid()
+                    assertIsValid()
                 }
             }
         }
+    }
 
-        // Compute edge windings
-        for edge in result.edges {
-            computeWinding(edge)
+    /// Re-computes edge windings within this simplex graph.
+    internal mutating func computeWinding() {
+        for edge in edges {
+            let contour = contours[edge.shapeIndex]
+            edge.winding = contour.winding
+
+            let center = edge.queryPoint(contour.normalizedCenter(_:_:))
+
+            edge.totalWinding =
+                contours.enumerated()
+                .filter({ $0.offset != edge.shapeIndex })
+                .filter({ $0.element.contains(center) })
+                .reduce(contour.winding.value, { $0 + $1.element.winding.value })
         }
-
-        result.assertIsValid()
-
-        return result
     }
 
     /// Prunes all nodes that have no ingoing and/or outgoing connections.
@@ -219,8 +224,7 @@ extension Simplex2Graph {
     mutating func splitEdge(
         _ edge: Edge,
         period: Period,
-        midNode: Node,
-        idGenerator: () -> Int
+        midNode: Node
     ) {
         assert(edge.periodRange.contains(period))
 
@@ -286,7 +290,7 @@ extension Simplex2Graph {
         }
 
         let newStart = Edge(
-            id: idGenerator(),
+            id: nextEdgeId(),
             start: edge.start,
             end: midNode,
             shapeIndex: edge.shapeIndex,
@@ -295,7 +299,7 @@ extension Simplex2Graph {
             kind: kindStart
         )
         let newEnd = Edge(
-            id: idGenerator(),
+            id: nextEdgeId(),
             start: midNode,
             end: edge.end,
             shapeIndex: edge.shapeIndex,
