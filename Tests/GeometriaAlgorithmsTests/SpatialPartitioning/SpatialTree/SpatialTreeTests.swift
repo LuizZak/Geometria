@@ -250,6 +250,8 @@ class SpatialTreeTests: XCTestCase {
 
     // MARK: - Performance
 
+    #if GEOMETRIA_PERFORMANCE_TESTS
+
     func testPerformance_initialize_aabbs_100_000_maxSubdivisions_3_maxElementsPerLevelBeforeSplit_10() {
         let aabbCloud = makeAABBCloud(count: 100_000)
 
@@ -288,6 +290,8 @@ class SpatialTreeTests: XCTestCase {
             _=sut.query(bounds)
         }
     }
+
+    #endif
 }
 
 // MARK: - Test internals

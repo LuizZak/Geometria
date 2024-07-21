@@ -126,6 +126,8 @@ class KDTreeTests: XCTestCase {
 
     // MARK: - Performance tests
 
+    #if GEOMETRIA_PERFORMANCE_TESTS
+
     func testPerformance_nearestNeighbor_pointCloudPartition_2D_randomSampling() {
         let totalPoints = makePointCloud(count: 10_000)
         let points = totalPoints[..<(totalPoints.count / 2)]
@@ -146,6 +148,8 @@ class KDTreeTests: XCTestCase {
             _=KDTree<Vector2D>(points: points)
         }
     }
+
+    #endif
 }
 
 private func closestPointBruteForce<C: Collection<Vector2D>>(to point: Vector2D, in list: C) -> Vector2D {
