@@ -59,14 +59,24 @@ extension Vector4: VectorComparable where Scalar: Comparable {
     /// scalar value at each index for both vectors.
     @_transparent
     public static func pointwiseMin(_ lhs: Self, _ rhs: Self) -> Self {
-        Self(x: min(lhs.x, rhs.x), y: min(lhs.y, rhs.y), z: min(lhs.z, rhs.z), w: min(lhs.w, rhs.w))
+        Self(
+            x: min(lhs.x, rhs.x),
+            y: min(lhs.y, rhs.y),
+            z: min(lhs.z, rhs.z),
+            w: min(lhs.w, rhs.w)
+        )
     }
 
     /// Returns the pointwise maximal Vector where each component is the maximal
     /// scalar value at each index for both vectors.
     @_transparent
     public static func pointwiseMax(_ lhs: Self, _ rhs: Self) -> Self {
-        Self(x: max(lhs.x, rhs.x), y: max(lhs.y, rhs.y), z: max(lhs.z, rhs.z), w: max(lhs.w, rhs.w))
+        Self(
+            x: max(lhs.x, rhs.x),
+            y: max(lhs.y, rhs.y),
+            z: max(lhs.z, rhs.z),
+            w: max(lhs.w, rhs.w)
+        )
     }
 
     /// Compares two vectors and returns `true` if all components of `lhs` are
@@ -128,12 +138,22 @@ extension Vector4: VectorAdditive where Scalar: AdditiveArithmetic {
 
     @_transparent
     public static func + (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z, w: lhs.w + rhs.w)
+        Self(
+            x: lhs.x + rhs.x,
+            y: lhs.y + rhs.y,
+            z: lhs.z + rhs.z,
+            w: lhs.w + rhs.w
+        )
     }
 
     @_transparent
     public static func - (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z, w: lhs.w - rhs.w)
+        Self(
+            x: lhs.x - rhs.x,
+            y: lhs.y - rhs.y,
+            z: lhs.z - rhs.z,
+            w: lhs.w - rhs.w
+        )
     }
 
     @_transparent
@@ -169,7 +189,12 @@ extension Vector4: VectorMultiplicative where Scalar: Numeric {
 
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x * rhs.x, y: lhs.y * rhs.y, z: lhs.z * rhs.z, w: lhs.w * rhs.w)
+        Self(
+            x: lhs.x * rhs.x,
+            y: lhs.y * rhs.y,
+            z: lhs.z * rhs.z,
+            w: lhs.w * rhs.w
+        )
     }
 
     @_transparent
@@ -215,7 +240,12 @@ extension Vector4: VectorSigned where Scalar: SignedNumeric & Comparable {
 extension Vector4: VectorDivisible where Scalar: DivisibleArithmetic {
     @_transparent
     public static func / (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x / rhs.x, y: lhs.y / rhs.y, z: lhs.z / rhs.z, w: lhs.w / rhs.w)
+        Self(
+            x: lhs.x / rhs.x,
+            y: lhs.y / rhs.y,
+            z: lhs.z / rhs.z,
+            w: lhs.w / rhs.w
+        )
     }
 
     @_transparent

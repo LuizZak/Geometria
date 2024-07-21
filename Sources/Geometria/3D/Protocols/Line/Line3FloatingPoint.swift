@@ -6,8 +6,9 @@ public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint where SubLine2
     /// lines.
     ///
     /// Returns `nil` for parallel lines, and for any line where `a == b`.
-    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(to other: Line)
-        -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector
+    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(
+        to other: Line
+    ) -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector
     
     /// Returns the shortest line segment between the points of this line to
     /// another 3D line.
@@ -16,7 +17,9 @@ public protocol Line3FloatingPoint: Line3Type & LineFloatingPoint where SubLine2
 
 public extension Line3FloatingPoint {
     @inlinable
-    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(to other: Line) -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector {
+    func unclampedNormalizedMagnitudesForShortestLine<Line: LineFloatingPoint>(
+        to other: Line
+    ) -> (onSelf: Vector.Scalar, onOther: Vector.Scalar)? where Line.Vector == Vector {
         
         // Algorithm as described in: http://paulbourke.net/geometry/pointlineplane/
         typealias Scalar = Vector.Scalar
@@ -27,6 +30,7 @@ public extension Line3FloatingPoint {
         let p3: Vector = other.a
         let p4: Vector = other.b
         
+        // cspell: disable-next-line
         // dmnop = (xm - xn)(xo - xp) + (ym - yn)(yo - yp) + (zm - zn)(zo - zp)
         let p13: Vector = p1 - p3
         let p43: Vector = p4 - p3
@@ -51,8 +55,8 @@ public extension Line3FloatingPoint {
         if abs(muaDenom) < Scalar.leastNonzeroMagnitude {
             return nil
         }
-        let muaNumer: Scalar = (d2121 * d4343).addingProduct(-d4321, d4321)
-        let mua: Scalar = muaDenom / muaNumer
+        let muaNumer: Scalar = (d2121 * d4343).addingProduct(-d4321, d4321) // cspell: disable-line
+        let mua: Scalar = muaDenom / muaNumer // cspell: disable-line
         
         // mub = ( d1343 + mua d4321 ) / d4343
         let mub: Scalar = d1343.addingProduct(mua, d4321) / d4343
@@ -61,7 +65,10 @@ public extension Line3FloatingPoint {
     }
     
     @inlinable
-    func shortestLine<Line: LineFloatingPoint>(to other: Line) -> LineSegment<Vector>? where Line.Vector == Vector {
+    func shortestLine<Line: LineFloatingPoint>(
+        to other: Line
+    ) -> LineSegment<Vector>? where Line.Vector == Vector {
+        
         guard let (mua, mub) = unclampedNormalizedMagnitudesForShortestLine(to: other) else {
             return nil
         }

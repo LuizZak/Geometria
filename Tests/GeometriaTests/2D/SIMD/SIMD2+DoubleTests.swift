@@ -398,8 +398,11 @@ class SIMD2_DoubleTests: XCTestCase {
         
         vec.normalize()
         
-        assertEqual(vec, Vector(x: -0.4472135954999579, y: 0.8944271909999159),
-                    accuracy: accuracy)
+        assertEqual(
+            vec,
+            Vector(x: -0.4472135954999579, y: 0.8944271909999159),
+            accuracy: accuracy
+        )
     }
     
     func testNormalize_zero() {
@@ -413,8 +416,11 @@ class SIMD2_DoubleTests: XCTestCase {
     func testNormalized() {
         let vec = Vector(x: -10, y: 20)
         
-        assertEqual(vec.normalized(), Vector(x: -0.4472135954999579, y: 0.8944271909999159),
-                    accuracy: accuracy)
+        assertEqual(
+            vec.normalized(),
+            Vector(x: -0.4472135954999579, y: 0.8944271909999159),
+            accuracy: accuracy
+        )
     }
     
     func testNormalized_zero() {
@@ -452,25 +458,31 @@ class SIMD2_DoubleTests: XCTestCase {
     }
     
     func testMatrix_scalePrecedesRotation() {
-        let matrix = Vector.matrix(scale: Vector(x: 0.5, y: 0.75),
-                                   rotate: .pi)
+        let matrix = Vector.matrix(
+            scale: Vector(x: 0.5, y: 0.75),
+            rotate: .pi
+        )
         
         assertEqual(matrix.column1, [-0.5, 0, 0.0], accuracy: accuracy)
         assertEqual(matrix.column2, [0.0, -0.75, 0.0], accuracy: accuracy)
     }
     
     func testMatrix_rotationPrecedesTranslation() {
-        let matrix = Vector.matrix(rotate: .pi,
-                                   translate: Vector(x: 10, y: -20))
+        let matrix = Vector.matrix(
+            rotate: .pi,
+            translate: Vector(x: 10, y: -20)
+        )
         
         assertEqual(matrix.column1, [-1.0, 0.0, 10.0], accuracy: accuracy)
         assertEqual(matrix.column2, [0.0, -1.0, -20.0], accuracy: accuracy)
     }
     
     func testMatrix_scaleRotateTranslate() {
-        let matrix = Vector.matrix(scale: Vector(x: 0.5, y: 0.75),
-                                   rotate: .pi,
-                                   translate: Vector(x: 10, y: -20))
+        let matrix = Vector.matrix(
+            scale: Vector(x: 0.5, y: 0.75),
+            rotate: .pi,
+            translate: Vector(x: 10, y: -20)
+        )
         
         assertEqual(matrix.column1, [-0.5, 0.0, 10.0], accuracy: accuracy)
         assertEqual(matrix.column2, [0.0, -0.75, -20.0], accuracy: accuracy)

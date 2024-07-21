@@ -65,6 +65,9 @@ let package = Package(
         .library(
             name: "Geometria",
             targets: ["Geometria"]),
+        .library(
+            name: "GeometriaAlgorithms",
+            targets: ["GeometriaAlgorithms"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),

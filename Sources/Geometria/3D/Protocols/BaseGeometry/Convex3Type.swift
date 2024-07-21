@@ -9,5 +9,7 @@ public protocol Convex3Type: GeometricType {
     /// Performs an intersection test against the given line, returning up to
     /// two points representing the entrance and exit intersections against this
     /// convex shape's outer perimeter.
-    func intersection<Line: Line3FloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector
+    func intersection<Line: Line3FloatingPoint>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line.Vector == Vector
 }

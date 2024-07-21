@@ -43,7 +43,6 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
     public func mappingPointNormals(
         _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>
     ) -> ConvexLineIntersection<Vector> {
-
         switch self {
         case .contained:
             return .contained
@@ -71,7 +70,6 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
     public func replacingPointNormals<NewVector: VectorType>(
         _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>
     ) -> ConvexLineIntersection<NewVector> {
-
         switch self {
         case .contained:
             return .contained

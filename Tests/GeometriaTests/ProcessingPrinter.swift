@@ -176,7 +176,7 @@ class ProcessingPrinter {
         
         if is3D {
             printLine("// 3rd party libraries:")
-            printLine("// PeasyCam by Jonathan Feinberg")
+            printLine("// PeasyCam by Jonathan Feinberg") // cspell:disable-line
             printLine("import peasy.*;")
             printLine("")
             printLine("// Shapes 3D by Peter Lager")
@@ -577,14 +577,14 @@ class ProcessingPrinter {
     func indented(_ block: () -> Void) {
         indent()
         block()
-        deindent()
+        unindent()
     }
     
     func indent() {
         currentIndent += 1
     }
     
-    func deindent() {
+    func unindent() {
         currentIndent -= 1
     }
 }

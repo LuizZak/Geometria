@@ -164,16 +164,20 @@ extension SIMD3: VectorFloatingPoint where Scalar == Double {
     
     @_transparent
     public static func % (lhs: Self, rhs: Self) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs.z))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs.x),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs.y),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs.z)
+        )
     }
     
     @_transparent
     public static func % (lhs: Self, rhs: Scalar) -> Self {
-        Self(x: lhs.x.truncatingRemainder(dividingBy: rhs),
-             y: lhs.y.truncatingRemainder(dividingBy: rhs),
-             z: lhs.z.truncatingRemainder(dividingBy: rhs))
+        Self(
+            x: lhs.x.truncatingRemainder(dividingBy: rhs),
+            y: lhs.y.truncatingRemainder(dividingBy: rhs),
+            z: lhs.z.truncatingRemainder(dividingBy: rhs)
+        )
     }
 }
 
@@ -194,16 +198,20 @@ extension SIMD3: Vector3FloatingPoint where Scalar == Double {
 extension SIMD3: VectorReal where Scalar == Double {
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Int) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent),
-             y: Scalar.pow(vec.y, exponent),
-             z: Scalar.pow(vec.z, exponent))
+        Self(
+            x: Scalar.pow(vec.x, exponent),
+            y: Scalar.pow(vec.y, exponent),
+            z: Scalar.pow(vec.z, exponent)
+        )
     }
     
     @_transparent
     public static func pow(_ vec: Self, _ exponent: Self) -> Self {
-        Self(x: Scalar.pow(vec.x, exponent.x),
-             y: Scalar.pow(vec.y, exponent.y),
-             z: Scalar.pow(vec.z, exponent.z))
+        Self(
+            x: Scalar.pow(vec.x, exponent.x),
+            y: Scalar.pow(vec.y, exponent.y),
+            z: Scalar.pow(vec.z, exponent.z)
+        )
     }
 }
 

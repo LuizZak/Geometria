@@ -6,7 +6,11 @@ class RoundRectangle2Tests: XCTestCase {
     typealias RoundRectangle = RoundRectangle2D
     
     func testInitWithRadiusXY() {
-        let sut = RoundRectangle(rectangle: .init(x: 1, y: 2, width: 3, height: 5), radiusX: 7, radiusY: 11)
+        let sut = RoundRectangle(
+            rectangle: .init(x: 1, y: 2, width: 3, height: 5),
+            radiusX: 7,
+            radiusY: 11
+        )
         
         XCTAssertEqual(sut.bounds.x, 1)
         XCTAssertEqual(sut.bounds.y, 2)

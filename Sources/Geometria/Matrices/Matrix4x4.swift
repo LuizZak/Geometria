@@ -1,6 +1,7 @@
+// cspell: disable
 /*
  Matrix inversion source code's license:
- 
+
  MIT License
 
  Copyright (c) 2017 Wildan Mubarok
@@ -23,6 +24,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
 */
+// cspell: enable
 
 import RealModule
 
@@ -40,19 +42,19 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0, 0, 1)
         ))
     }
-    
+
     /// The full type of this matrix's backing, as a tuple of columns.
     public typealias M = (Row, Row, Row, Row)
-    
+
     /// The type of this matrix's row.
     public typealias Row = (Scalar, Scalar, Scalar, Scalar)
-    
+
     /// The type of this matrix's column.
     public typealias Column = (Scalar, Scalar, Scalar, Scalar)
-    
+
     /// Gets or sets all coefficients of this matrix as a single 4x4 tuple.
     public var m: M
-    
+
     /// The first row of this matrix
     ///
     /// Equivalent to `self.m.0`.
@@ -62,7 +64,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.0 = newValue }
     }
-    
+
     /// The second row of this matrix
     ///
     /// Equivalent to `self.m.1`.
@@ -72,7 +74,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.1 = newValue }
     }
-    
+
     /// The third row of this matrix
     ///
     /// Equivalent to `self.m.2`.
@@ -82,7 +84,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.2 = newValue }
     }
-    
+
     /// The fourth row of this matrix.
     ///
     /// Equivalent to `self.m.3`.
@@ -92,7 +94,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { m.3 = newValue }
     }
-    
+
     /// The first column of this matrix
     ///
     /// Equivalent to `(self.r0.0, self.r1.0, self.r2.0, self.r3.0)`.
@@ -102,7 +104,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.0, r1.0, r2.0, r3.0) = newValue }
     }
-    
+
     /// The second column of this matrix
     ///
     /// Equivalent to `(self.r0.1, self.r1.1, self.r2.1, self.r3.1)`.
@@ -112,7 +114,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.1, r1.1, r2.1, r3.1) = newValue }
     }
-    
+
     /// The third column of this matrix
     ///
     /// Equivalent to `(self.r0.2, self.r1.2, self.r2.2, self.r3.2)`.
@@ -122,7 +124,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.2, r1.2, r2.2, r3.2) = newValue }
     }
-    
+
     /// The fourth column of this matrix
     ///
     /// Equivalent to `(self.r0.3, self.r1.3, self.r2.3, self.r3.3)`.
@@ -132,65 +134,65 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         @_transparent
         set { (r0.3, r1.3, r2.3, r3.3) = newValue }
     }
-    
+
     /// Gets the first row of this matrix in a Vector4.
     public var r0Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(r0) }
     }
-    
+
     /// Gets the second row of this matrix in a Vector4.
     public var r1Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(r1) }
     }
-    
+
     /// Gets the third row of this matrix in a Vector4.
     public var r2Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(r2) }
     }
-    
+
     /// Gets the fourth row of this matrix in a Vector4.
     public var r3Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(r3) }
     }
-    
+
     /// Gets the first column of this matrix in a Vector4.
     public var c0Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(c0) }
     }
-    
+
     /// Gets the second column of this matrix in a Vector4.
     public var c1Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(c1) }
     }
-    
+
     /// Gets the third column of this matrix in a Vector4.
     public var c2Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(c2) }
     }
-    
+
     /// Gets the fourth column of this matrix in a Vector4.
     public var c3Vec: Vector4<Scalar> {
         @_transparent
         get { Vector4(c3) }
     }
-    
+
     /// Returns the number of rows in this matrix.
     ///
     /// For ``Matrix4x4`` instances, this value is always `4`.
     public let rowCount: Int = 4
-    
+
     /// Returns the number of columns in this matrix.
     ///
     /// For ``Matrix4x4`` instances, this value is always `4`.
     public let columnCount: Int = 4
-    
+
     /// Subscripts into this matrix using column/row numbers.
     public subscript(column: Int, row: Int) -> Scalar {
         @_transparent
@@ -248,7 +250,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             }
         }
     }
-    
+
     /// Returns the [trace] of this matrix, i.e. the sum of all the values on
     /// its diagonal:
     ///
@@ -261,12 +263,12 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public var trace: Scalar {
         r0.0 + r1.1 + r2.2 + r3.3
     }
-    
+
     /// Returns a `String` that represents this instance.
     public var description: String {
         "\(type(of: self))(rows: \(m))"
     }
-    
+
     /// Initializes an identity matrix.
     @_transparent
     public init() {
@@ -275,17 +277,20 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
              (0, 0, 1, 0),
              (0, 0, 0, 1))
     }
-    
+
     /// Initializes a new matrix with the given row values.
     @_transparent
     public init(rows: (Row, Row, Row, Row)) {
         m = rows
     }
-    
+
     /// Initializes a new matrix with the given ``Vector4`` values as the values
     /// for each row.
     @_transparent
-    public init<Vector: Vector4Type>(rows: (Vector, Vector, Vector, Vector)) where Vector.Scalar == Scalar {
+    public init<Vector: Vector4Type>(
+        rows: (Vector, Vector, Vector, Vector)
+    ) where Vector.Scalar == Scalar {
+
         self.init(rows: (
             (rows.0.x, rows.0.y, rows.0.z, rows.0.w),
             (rows.1.x, rows.1.y, rows.1.z, rows.1.w),
@@ -293,7 +298,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (rows.3.x, rows.3.y, rows.3.z, rows.3.w)
         ))
     }
-    
+
     /// Initializes a matrix with the given scalar on all positions.
     @_transparent
     public init(repeating scalar: Scalar) {
@@ -304,7 +309,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (scalar, scalar, scalar, scalar)
         )
     }
-    
+
     /// Initializes a matrix with the given scalars laid out on the diagonal,
     /// with all remaining elements being `.zero`.
     @_transparent
@@ -316,14 +321,14 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (         0,          0,          0, diagonal.3)
         )
     }
-    
+
     /// Initializes a matrix with the given scalar laid out on the diagonal,
     /// with all remaining elements being `.zero`.
     @_transparent
     public init(diagonal: Scalar) {
         self.init(diagonal: (diagonal, diagonal, diagonal, diagonal))
     }
-    
+
     /// Returns the [determinant] of this matrix.
     ///
     /// [determinant]: https://en.wikipedia.org/wiki/Determinant
@@ -349,93 +354,102 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         //       | f g h |         | e g h |         | e f h |         | e f g |
         // a det | j k l | - b det | i k l | + c det | i j l | - d det | i j k |
         //       | n o p |         | m o p |         | m n p |         | m n o |
-        
+
         let (a, b, c, d) = r0
         let (e, f, g, h) = r1
         let (i, j, k, l) = r2
         let (m, n, o, p) = r3
-        
+
         let aMatrix =
         Matrix3x3<Scalar>(rows: (
             (f, g, h),
             (j, k, l),
             (n, o, p)
         ))
-        
+
         let bMatrix =
         Matrix3x3<Scalar>(rows: (
             (e, g, h),
             (i, k, l),
             (m, o, p)
         ))
-        
+
         let cMatrix =
         Matrix3x3<Scalar>(rows: (
             (e, f, h),
             (i, j, l),
             (m, n, p)
         ))
-        
+
         let dMatrix =
         Matrix3x3<Scalar>(rows: (
             (e, f, g),
             (i, j, k),
             (m, n, o)
         ))
-        
+
         var det: Scalar = 0
         det.addProduct( a, aMatrix.determinant())
         det.addProduct(-b, bMatrix.determinant())
         det.addProduct( c, cMatrix.determinant())
         det.addProduct(-d, dMatrix.determinant())
-        
+
         return det
     }
-    
+
     // TODO: Support specifying row-major/column-major when multiplying vectors.
-    
+
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
-    public func transformPoint<Vector: Vector4FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+    public func transformPoint<Vector: Vector4FloatingPoint>(
+        _ vec: Vector
+    ) -> Vector where Vector.Scalar == Scalar {
+
         let px = vec.dot(.init(r0Vec))
         let py = vec.dot(.init(r1Vec))
         let pz = vec.dot(.init(r2Vec))
         let pw = vec.dot(.init(r3Vec))
-        
+
         return Vector(x: px, y: py, z: pz, w: pw)
     }
-    
+
     /// Transforms a given vector as a point, applying scaling, rotation and
     /// translation to the vector.
     @_transparent
-    public func transformPoint<Vector: Vector3FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+    public func transformPoint<Vector: Vector3FloatingPoint>(
+        _ vec: Vector
+    ) -> Vector where Vector.Scalar == Scalar {
+
         let vec4 = Vector4(vec, w: 1)
-        
+
         let result = transformPoint(vec4)
-        
+
         // Normalize w component
         if result.w != 0 && result.w != 1 {
             return Vector(x: result.x, y: result.y, z: result.z) / result.w
         }
-        
+
         return Vector(x: result.x, y: result.y, z: result.z)
     }
-    
+
     /// Transforms a given vector, applying scaling, rotation and translation to
     /// the vector.
     ///
     /// The matrix is transformed as a vector and is not normalized by the W
     /// vector.
     @_transparent
-    public func transformVector<Vector: Vector3FloatingPoint>(_ vec: Vector) -> Vector where Vector.Scalar == Scalar {
+    public func transformVector<Vector: Vector3FloatingPoint>(
+        _ vec: Vector
+    ) -> Vector where Vector.Scalar == Scalar {
+
         let vec4 = Vector4(vec, w: 1)
-        
+
         let result = transformPoint(vec4)
-        
+
         return Vector(x: result.x, y: result.y, z: result.z)
     }
-    
+
     /// Returns a new ``Matrix4x4`` that is a [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose
@@ -445,7 +459,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             c0, c1, c2, c3
         ))
     }
-    
+
     /// Performs an in-place [transposition] of this matrix.
     ///
     /// [transposition]: https://en.wikipedia.org/wiki/Transpose
@@ -453,7 +467,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public mutating func transpose() {
         self = transposed()
     }
-    
+
     /// Returns the [inverse of this matrix](https://en.wikipedia.org/wiki/Invertible_matrix).
     ///
     /// If this matrix has no inversion, `nil` is returned, instead.
@@ -476,31 +490,47 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let a0212: Scalar = (r1.0 * r2.2) as Scalar - (r1.2 * r2.0) as Scalar
         let a0113: Scalar = (r1.0 * r3.1) as Scalar - (r1.1 * r3.0) as Scalar
         let a0112: Scalar = (r1.0 * r2.1) as Scalar - (r1.1 * r2.0) as Scalar
-        
+
         var det = determinant()
         if det == 0 {
             return nil
         }
-        
+
         det = 1 / det
 
         // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
-        let m00: Scalar = det *  ((r1.1 * a2323) as Scalar - (r1.2 * a1323) as Scalar + (r1.3 * a1223) as Scalar) as Scalar
-        let m10: Scalar = det * -((r0.1 * a2323) as Scalar - (r0.2 * a1323) as Scalar + (r0.3 * a1223) as Scalar) as Scalar
-        let m20: Scalar = det *  ((r0.1 * a2313) as Scalar - (r0.2 * a1313) as Scalar + (r0.3 * a1213) as Scalar) as Scalar
-        let m30: Scalar = det * -((r0.1 * a2312) as Scalar - (r0.2 * a1312) as Scalar + (r0.3 * a1212) as Scalar) as Scalar
-        let m01: Scalar = det * -((r1.0 * a2323) as Scalar - (r1.2 * a0323) as Scalar + (r1.3 * a0223) as Scalar) as Scalar
-        let m11: Scalar = det *  ((r0.0 * a2323) as Scalar - (r0.2 * a0323) as Scalar + (r0.3 * a0223) as Scalar) as Scalar
-        let m21: Scalar = det * -((r0.0 * a2313) as Scalar - (r0.2 * a0313) as Scalar + (r0.3 * a0213) as Scalar) as Scalar
-        let m31: Scalar = det *  ((r0.0 * a2312) as Scalar - (r0.2 * a0312) as Scalar + (r0.3 * a0212) as Scalar) as Scalar
-        let m02: Scalar = det *  ((r1.0 * a1323) as Scalar - (r1.1 * a0323) as Scalar + (r1.3 * a0123) as Scalar) as Scalar
-        let m12: Scalar = det * -((r0.0 * a1323) as Scalar - (r0.1 * a0323) as Scalar + (r0.3 * a0123) as Scalar) as Scalar
-        let m22: Scalar = det *  ((r0.0 * a1313) as Scalar - (r0.1 * a0313) as Scalar + (r0.3 * a0113) as Scalar) as Scalar
-        let m32: Scalar = det * -((r0.0 * a1312) as Scalar - (r0.1 * a0312) as Scalar + (r0.3 * a0112) as Scalar) as Scalar
-        let m03: Scalar = det * -((r1.0 * a1223) as Scalar - (r1.1 * a0223) as Scalar + (r1.2 * a0123) as Scalar) as Scalar
-        let m13: Scalar = det *  ((r0.0 * a1223) as Scalar - (r0.1 * a0223) as Scalar + (r0.2 * a0123) as Scalar) as Scalar
-        let m23: Scalar = det * -((r0.0 * a1213) as Scalar - (r0.1 * a0213) as Scalar + (r0.2 * a0113) as Scalar) as Scalar
-        let m33: Scalar = det *  ((r0.0 * a1212) as Scalar - (r0.1 * a0212) as Scalar + (r0.2 * a0112) as Scalar) as Scalar
+        var m00: Scalar = det
+        m00 *=  ((r1.1 * a2323) as Scalar - (r1.2 * a1323) as Scalar + (r1.3 * a1223) as Scalar) as Scalar
+        var m10: Scalar = det
+        m10 *= -((r0.1 * a2323) as Scalar - (r0.2 * a1323) as Scalar + (r0.3 * a1223) as Scalar) as Scalar
+        var m20: Scalar = det
+        m20 *=  ((r0.1 * a2313) as Scalar - (r0.2 * a1313) as Scalar + (r0.3 * a1213) as Scalar) as Scalar
+        var m30: Scalar = det
+        m30 *= -((r0.1 * a2312) as Scalar - (r0.2 * a1312) as Scalar + (r0.3 * a1212) as Scalar) as Scalar
+        var m01: Scalar = det
+        m01 *= -((r1.0 * a2323) as Scalar - (r1.2 * a0323) as Scalar + (r1.3 * a0223) as Scalar) as Scalar
+        var m11: Scalar = det
+        m11 *=  ((r0.0 * a2323) as Scalar - (r0.2 * a0323) as Scalar + (r0.3 * a0223) as Scalar) as Scalar
+        var m21: Scalar = det
+        m21 *= -((r0.0 * a2313) as Scalar - (r0.2 * a0313) as Scalar + (r0.3 * a0213) as Scalar) as Scalar
+        var m31: Scalar = det
+        m31 *=  ((r0.0 * a2312) as Scalar - (r0.2 * a0312) as Scalar + (r0.3 * a0212) as Scalar) as Scalar
+        var m02: Scalar = det
+        m02 *=  ((r1.0 * a1323) as Scalar - (r1.1 * a0323) as Scalar + (r1.3 * a0123) as Scalar) as Scalar
+        var m12: Scalar = det
+        m12 *= -((r0.0 * a1323) as Scalar - (r0.1 * a0323) as Scalar + (r0.3 * a0123) as Scalar) as Scalar
+        var m22: Scalar = det
+        m22 *=  ((r0.0 * a1313) as Scalar - (r0.1 * a0313) as Scalar + (r0.3 * a0113) as Scalar) as Scalar
+        var m32: Scalar = det
+        m32 *= -((r0.0 * a1312) as Scalar - (r0.1 * a0312) as Scalar + (r0.3 * a0112) as Scalar) as Scalar
+        var m03: Scalar = det
+        m03 *= -((r1.0 * a1223) as Scalar - (r1.1 * a0223) as Scalar + (r1.2 * a0123) as Scalar) as Scalar
+        var m13: Scalar = det
+        m13 *=  ((r0.0 * a1223) as Scalar - (r0.1 * a0223) as Scalar + (r0.2 * a0123) as Scalar) as Scalar
+        var m23: Scalar = det
+        m23 *= -((r0.0 * a1213) as Scalar - (r0.1 * a0213) as Scalar + (r0.2 * a0113) as Scalar) as Scalar
+        var m33: Scalar = det
+        m33 *=  ((r0.0 * a1212) as Scalar - (r0.1 * a0212) as Scalar + (r0.2 * a0112) as Scalar) as Scalar
 
         return Self(rows: (
             (m00, m10, m20, m30) as Row,
@@ -509,7 +539,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (m03, m13, m23, m33) as Row
         ))
     }
-    
+
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the given amount.
     @_transparent
@@ -521,21 +551,24 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0, 0, 1)
         ))
     }
-    
+
     /// Creates a matrix that when applied to a vector, scales each coordinate
     /// by the corresponding coordinate on a supplied vector.
     @_transparent
-    public static func makeScale<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+    public static func makeScale<Vector: Vector3Type>(
+        _ vec: Vector
+    ) -> Self where Vector.Scalar == Scalar {
+
         makeScale(x: vec.x, y: vec.y, z: vec.z)
     }
-    
+
     /// Creates an X rotation matrix that when applied to a vector, rotates it
     /// around the X axis by a specified radian amount.
     @_transparent
     public static func makeXRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
-        
+
         return Self(rows: (
             (1,  0, 0, 0),
             (0,  c, s, 0),
@@ -543,14 +576,14 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0,  0, 0, 1)
         ))
     }
-    
+
     /// Creates an Y rotation matrix that when applied to a vector, rotates it
     /// around the Y axis by a specified radian amount.
     @_transparent
     public static func makeYRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
-        
+
         return Self(rows: (
             (c, 0, -s, 0),
             (0, 1,  0, 0),
@@ -558,14 +591,14 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0,  0, 1)
         ))
     }
-    
+
     /// Creates a Z rotation matrix that when applied to a vector, rotates it
     /// around the Z axis by a specified radian amount.
     @_transparent
     public static func makeZRotation(_ angleInRadians: Scalar) -> Self {
         let c = Scalar.cos(angleInRadians)
         let s = Scalar.sin(angleInRadians)
-        
+
         return Self(rows: (
             ( c, s, 0, 0),
             (-s, c, 0, 0),
@@ -573,7 +606,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             ( 0, 0, 0, 1)
         ))
     }
-    
+
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
@@ -585,14 +618,17 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (0, 0, 0, 1)
         ))
     }
-    
+
     /// Creates a translation matrix that when applied to a vector, moves it
     /// according to the specified amounts.
     @_transparent
-    public static func makeTranslation<Vector: Vector3Type>(_ vec: Vector) -> Self where Vector.Scalar == Scalar {
+    public static func makeTranslation<Vector: Vector3Type>(
+        _ vec: Vector
+    ) -> Self where Vector.Scalar == Scalar {
+
         makeTranslation(x: vec.x, y: vec.y, z: vec.z)
     }
-    
+
     /// Performs a [matrix addition] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -602,10 +638,10 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r1 = lhs.r1Vec + rhs.r1Vec
         let r2 = lhs.r2Vec + rhs.r2Vec
         let r3 = lhs.r3Vec + rhs.r3Vec
-        
+
         return Self(rows: (r0, r1, r2, r3))
     }
-    
+
     /// Performs a [matrix subtraction] between `lhs` and `rhs` and returns the
     /// result.
     ///
@@ -615,20 +651,20 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r1 = lhs.r1Vec - rhs.r1Vec
         let r2 = lhs.r2Vec - rhs.r2Vec
         let r3 = lhs.r3Vec - rhs.r3Vec
-        
+
         return Self(rows: (r0, r1, r2, r3))
     }
-    
+
     /// Negates (i.e. flips) the signs of all the values of this matrix.
     public static prefix func - (value: Self) -> Self {
         let r0 = -value.r0Vec
         let r1 = -value.r1Vec
         let r2 = -value.r2Vec
         let r3 = -value.r3Vec
-        
+
         return Self(rows: (r0, r1, r2, r3))
     }
-    
+
     /// Performs a [scalar multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -638,10 +674,10 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r1 = lhs.r1Vec * rhs
         let r2 = lhs.r2Vec * rhs
         let r3 = lhs.r3Vec * rhs
-        
+
         return Self(rows: (r0, r1, r2, r3))
     }
-    
+
     /// Performs a scalar division between the elements of `lhs` and `rhs` and
     /// returns the result.
     public static func / (lhs: Self, rhs: Scalar) -> Self {
@@ -649,10 +685,10 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r1 = lhs.r1Vec / rhs
         let r2 = lhs.r2Vec / rhs
         let r3 = lhs.r3Vec / rhs
-        
+
         return Self(rows: (r0, r1, r2, r3))
     }
-    
+
     /// Performs a [matrix multiplication] between `lhs` and `rhs` and returns
     /// the result.
     ///
@@ -675,7 +711,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         let r31 = lhs.r3Vec.dot(rhs.c1Vec)
         let r32 = lhs.r3Vec.dot(rhs.c2Vec)
         let r33 = lhs.r3Vec.dot(rhs.c3Vec)
-        
+
         return Self(rows: (
             (r00, r01, r02, r03),
             (r10, r11, r12, r13),
@@ -683,7 +719,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
             (r30, r31, r32, r33)
         ))
     }
-    
+
     /// Performs an in-place [matrix multiplication] between `lhs` and `rhs`
     /// and stores the result back to `lhs`.
     ///
@@ -692,7 +728,7 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }
-    
+
     /// Returns `true` iff all coefficients from `lhs` and `rhs` are equal.
     @_transparent
     public static func == (lhs: Self, rhs: Self) -> Bool {

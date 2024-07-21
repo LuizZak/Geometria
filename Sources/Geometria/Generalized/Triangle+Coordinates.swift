@@ -22,7 +22,7 @@ public extension Triangle where Scalar: Equatable {
 }
 
 public extension Triangle.Coordinates where Vector.Scalar: AdditiveArithmetic {
-    /// Returns zerod-out barycentric coordinates.
+    /// Returns zeroed-out barycentric coordinates.
     @_transparent
     static var zero: Self { Self(wa: .zero, wb: .zero, wc: .zero) }
 }

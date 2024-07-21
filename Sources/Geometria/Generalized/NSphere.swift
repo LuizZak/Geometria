@@ -57,7 +57,7 @@ public extension NSphere where Scalar: AdditiveArithmetic {
 }
 
 public extension NSphere where Vector: VectorMultiplicative {
-    /// Retunrs an ``NSphere`` with center `.zero` and radius `1`.
+    /// Returns an ``NSphere`` with center `.zero` and radius `1`.
     @_transparent
     static var unit: Self {
         Self(center: .zero, radius: 1)
@@ -100,7 +100,10 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
     
     /// Returns `true` if this N-sphere's area intersects the given line type.
     @inlinable
-    public func intersects<Line: LineFloatingPoint>(line: Line) -> Bool where Line.Vector == Vector {
+    public func intersects<Line: LineFloatingPoint>(
+        line: Line
+    ) -> Bool where Line.Vector == Vector {
+
         line.distanceSquared(to: center) <= radius * radius
     }
     
@@ -108,11 +111,19 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
     /// two points representing the entrance and exit intersections against this
     /// N-sphere's outer perimeter.
     @inlinable
-    public func intersection<Line: LineFloatingPoint>(with line: Line) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+    public func intersection<Line: LineFloatingPoint>(
+        with line: Line
+    ) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
+
         func normal(at point: Vector, inverted: Bool) -> Vector {
             (inverted ? center - point : point - center).normalized()
         }
-        func makePointNormal(at point: Vector, inverted: Bool = false) -> PointNormal<Vector> {
+
+        func makePointNormal(
+            at point: Vector,
+            inverted: Bool = false
+        ) -> PointNormal<Vector> {
+            
             .init(
                 point: point,
                 normal: normal(at: point, inverted: inverted)

@@ -86,9 +86,11 @@ extension TriangleTests {
 
 extension TriangleTests {
     func testCenter() {
-        let sut = Triangle(a: .init(x: 1, y: 2),
-                           b: .init(x: 3, y: 5),
-                           c: .init(x: 7, y: 11))
+        let sut = Triangle(
+            a: .init(x: 1, y: 2),
+            b: .init(x: 3, y: 5),
+            c: .init(x: 7, y: 11)
+        )
         
         let result = sut.center
         
@@ -128,13 +130,21 @@ extension TriangleTests {
     }
     
     func testArea_largeTriangle() {
-        let sut = Triangle(a: .zero, b: .init(x: 131, y: 230), c: .init(x: 97, y: 10))
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 131, y: 230),
+            c: .init(x: 97, y: 10)
+        )
         
         XCTAssertEqual(sut.area, 10500.0)
     }
     
     func testArea_largeTriangle_counterClockwise() {
-        let sut = Triangle(a: .zero, b: .init(x: 97, y: 10), c: .init(x: 131, y: 230))
+        let sut = Triangle(
+            a: .zero,
+            b: .init(x: 97, y: 10),
+            c: .init(x: 131, y: 230)
+        )
         
         XCTAssertEqual(sut.area, 10500.0)
     }

@@ -6,8 +6,10 @@ class Rectangle2Tests: XCTestCase {
     typealias Rectangle = Rectangle2D
 
     func testDescription() {
-        XCTAssertEqual(Rectangle(x: 0, y: 1, width: 2, height: 3).description,
-                       "NRectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)")
+        XCTAssertEqual(
+            Rectangle(x: 0, y: 1, width: 2, height: 3).description,
+            "NRectangle<Vector2<Double>>(x: 0.0, y: 1.0, width: 2.0, height: 3.0)"
+        )
     }
 }
 

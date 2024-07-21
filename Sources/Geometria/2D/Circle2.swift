@@ -64,7 +64,9 @@ extension Circle2: Convex2Type where Vector: Vector2FloatingPoint {
 
         let r0s: Scalar = radius * radius
         let r1s: Scalar = other.radius * other.radius
-        let a: Scalar = (r0s - r1s + (dist * dist)) / (dist * 2)
+        let distSquared: Scalar = (dist * dist)
+        let dist2: Scalar = dist * 2
+        let a: Scalar = (r0s - r1s + distSquared) / dist2
         let h: Scalar = (r0s - (a * a)).squareRoot()
 
         let normCenter: Vector = (other.center - center) / dist

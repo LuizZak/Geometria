@@ -1,4 +1,4 @@
-/// Represents an object that exposese a single function that returns the signed
+/// Represents an object that exposes a single function that returns the signed
 /// distance to the closest point on the surface of a geometry.
 public protocol SignedDistanceMeasurableType: GeometricType {
     /// The type of vector associated with this ``SignedDistanceMeasurableType``.

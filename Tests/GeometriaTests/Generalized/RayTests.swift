@@ -18,39 +18,59 @@ class RayTests: XCTestCase {
     }
     
     func testEquals() {
-        XCTAssertEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)),
-                       Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)))
+        XCTAssertEqual(
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)),
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        )
     }
     
     func testUnequals() {
-        XCTAssertNotEqual(Ray(start: .init(x: 999, y: 2), b: .init(x: 3, y: 5)),
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 999, y: 2), b: .init(x: 3, y: 5)),
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 1, y: 999), b: .init(x: 3, y: 5)),
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 1, y: 999), b: .init(x: 3, y: 5)),
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 999, y: 5)),
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 999, y: 5)),
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 999)),
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)))
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 999)),
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5))
+        )
     }
     
     func testHashable() {
-        XCTAssertEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue,
-                       Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
+        XCTAssertEqual(
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue,
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 999, y: 2), b: .init(x: 3, y: 5)).hashValue,
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 999, y: 2), b: .init(x: 3, y: 5)).hashValue,
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 1, y: 999), b: .init(x: 3, y: 5)).hashValue,
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 1, y: 999), b: .init(x: 3, y: 5)).hashValue,
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 999, y: 5)).hashValue,
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 999, y: 5)).hashValue,
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue
+        )
         
-        XCTAssertNotEqual(Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 999)).hashValue,
-                          Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue)
+        XCTAssertNotEqual(
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 999)).hashValue,
+            Ray(start: .init(x: 1, y: 2), b: .init(x: 3, y: 5)).hashValue
+        )
     }
 
     func testCategory() {

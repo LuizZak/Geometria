@@ -17,8 +17,10 @@ class EllipsoidTests: XCTestCase {
     }
 
     func testEquals() {
-        XCTAssertEqual(Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5),
-                       Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5))
+        XCTAssertEqual(
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5),
+            Ellipsoid(center: .init(x: 1, y: 2), radiusX: 3, radiusY: 5)
+        )
     }
 
     func testUnequals() {

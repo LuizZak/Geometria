@@ -109,10 +109,12 @@ public extension Rectangle2 where Vector: VectorAdditive {
     /// Insets this Rectangle with a given set of edge inset values.
     @inlinable
     func inset(_ inset: EdgeInsets2<Vector>) -> Self {
-        Self(left: left + inset.left,
-             top: top + inset.top,
-             right: right - inset.right,
-             bottom: bottom - inset.bottom)
+        Self(
+            left: left + inset.left,
+            top: top + inset.top,
+            right: right - inset.right,
+            bottom: bottom - inset.bottom
+        )
     }
 }
 
@@ -149,7 +151,12 @@ public extension Rectangle2 where Scalar: FloatingPoint {
     /// Initializes a Rectangle with the coordinates of a rectangle.
     @_transparent
     init<B: BinaryInteger>(x: B, y: B, width: B, height: B) {
-        self.init(x: Scalar(x), y: Scalar(y), width: Scalar(width), height: Scalar(height))
+        self.init(
+            x: Scalar(x),
+            y: Scalar(y),
+            width: Scalar(width),
+            height: Scalar(height)
+        )
     }
 }
 

@@ -37,7 +37,11 @@ extension Ray3: Line3Type where Vector: VectorAdditive {
     
     /// Creates a 2D line of the same underlying type as this line.
     @_transparent
-    public static func make2DLine(_ a: Vector.SubVector2, _ b: Vector.SubVector2) -> SubLine2 {
+    public static func make2DLine(
+        _ a: Vector.SubVector2,
+        _ b: Vector.SubVector2
+    ) -> SubLine2 {
+        
         SubLine2(start: a, b: b)
     }
 }
