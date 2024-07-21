@@ -5,16 +5,16 @@
 public struct Triangle<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     /// The first point of this triangle.
     public var a: Vector
-    
+
     /// The second point of this triangle.
     public var b: Vector
-    
+
     /// The third point of this triangle.
     public var c: Vector
-    
+
     @_transparent
     public init(a: Vector, b: Vector, c: Vector) {
         self.a = a
@@ -29,31 +29,31 @@ public extension Triangle {
     var lineAB: LineSegment<Vector> {
         .init(start: a, end: b)
     }
-    
+
     /// Returns a line segment for the edge between the points ``a`` `->` ``c``.
     @_transparent
     var lineAC: LineSegment<Vector> {
         .init(start: a, end: c)
     }
-    
+
     /// Returns a line segment for the edge between the points ``b`` `->` ``c``.
     @_transparent
     var lineBC: LineSegment<Vector> {
         .init(start: b, end: c)
     }
-    
+
     /// Returns a line segment for the edge between the points ``b`` `->` ``a``.
     @_transparent
     var lineBA: LineSegment<Vector> {
         .init(start: b, end: a)
     }
-    
+
     /// Returns a line segment for the edge between the points ``c`` `->` ``a``.
     @_transparent
     var lineCA: LineSegment<Vector> {
         .init(start: c, end: a)
     }
-    
+
     /// Returns a line segment for the edge between the points ``c`` `->` ``b``.
     @_transparent
     var lineCB: LineSegment<Vector> {
@@ -78,7 +78,8 @@ public extension Triangle where Vector: VectorDivisible {
     /// ```
     @_transparent
     var center: Vector {
-        return (a + b + c) / 3
+        let sum: Vector = a + b + c
+        return sum / 3
     }
 }
 
@@ -109,15 +110,15 @@ public extension Triangle where Vector: VectorFloatingPoint {
     var area: Scalar {
         let ab = lineAB
         let ac = lineAC
-        
+
         let abL = ab.lengthSquared
         let acL = ac.lengthSquared
         let abacD = ab.lineSlope.dot(ac.lineSlope) // cspell: disable-line
-        
+
         let resL: Scalar = abL * acL
         let resR: Scalar = (abacD * abacD) // cspell: disable-line
         let res: Scalar = resL - resR
-        
+
         return res.squareRoot() / 2
     }
 }

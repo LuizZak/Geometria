@@ -215,6 +215,7 @@
             "acosh",
             "asinh",
             "atanh",
+            "boundable",
             "Boundable",
             "exodiusstudios",
             "Geometria",
