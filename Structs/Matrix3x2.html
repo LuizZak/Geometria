@@ -1659,7 +1659,14 @@ components.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">m11</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">m12</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">m21</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">m22</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">m31</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span> <span class="nv">m32</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">m11</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">m12</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">m21</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">m22</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">m31</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">,</span>
+    <span class="nv">m32</span><span class="p">:</span> <span class="kt">Scalar</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1906,7 +1913,10 @@ This must be an array with six elements, otherwise a runtime error is thrown</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -1964,7 +1974,10 @@ This must be an array with six elements, otherwise a runtime error is thrown</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">subtract</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">subtract</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -2022,7 +2035,10 @@ This must be an array with six elements, otherwise a runtime error is thrown</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">multiply</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Scalar</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -2080,7 +2096,10 @@ This must be an array with six elements, otherwise a runtime error is thrown</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">multiply</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -2196,7 +2215,10 @@ This must be an array with six elements, otherwise a runtime error is thrown</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">divide</span><span class="p">(</span><span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">divide</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">left</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="n">_</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">Matrix3x2</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -2303,7 +2325,11 @@ of 1 will cause <code>end</code> to be returned.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">lerp</span><span class="p">(</span><span class="nv">start</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="nv">end</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">lerp</span><span class="p">(</span>
+    <span class="nv">start</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="nv">end</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="nv">amount</span><span class="p">:</span> <span class="kt">Scalar</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Matrix3x2</span></code></pre>
 
                         </div>
                       </div>
@@ -3154,7 +3180,10 @@ clockwise when looking along the rotation axis.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">transformPoint</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="nv">point</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">transformPoint</span><span class="p">(</span>
+    <span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="nv">point</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Matrix3x2.html#/s:9Geometria9Matrix3x2V6Vectora">Vector</a></span></code></pre>
 
                         </div>
                       </div>
@@ -3217,7 +3246,10 @@ clockwise when looking along the rotation axis.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">transformPoint</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">V</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span></code></pre>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">transformPoint</span><span class="o">&lt;</span><span class="kt">V</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix3x2</span><span class="p">,</span>
+    <span class="nv">point</span><span class="p">:</span> <span class="kt">V</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">V</span> <span class="k">where</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -3947,7 +3979,9 @@ origin or center of the rectangle itself.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">func</span> <span class="n">transform</span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">rect</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span><span class="p">,</span> <span class="kt">V</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
+<span class="kd">func</span> <span class="n">transform</span><span class="o">&lt;</span><span class="kt">V</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Type.html">Vector2Type</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">rect</span><span class="p">:</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/NRectangle.html">NRectangle</a></span><span class="o">&lt;</span><span class="kt">V</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">V</span><span class="o">.</span><span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -4016,7 +4050,7 @@ origin or center of the rectangle itself.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-11)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-21)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
