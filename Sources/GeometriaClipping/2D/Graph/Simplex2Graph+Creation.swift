@@ -2,6 +2,7 @@ import Geometria
 import MiniDigraph
 
 extension Simplex2Graph {
+    @inlinable
     public static func fromParametricIntersections<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ lhs: T1,
         _ rhs: T2,
@@ -14,6 +15,7 @@ extension Simplex2Graph {
         )
     }
 
+    @inlinable
     public static func fromParametricIntersections(
         geometries: [some ParametricClip2Geometry<Vector>],
         tolerance: Scalar
@@ -25,6 +27,7 @@ extension Simplex2Graph {
         )
     }
 
+    @inlinable
     public static func fromParametricIntersections(
         contours: [Contour],
         tolerance: Scalar
@@ -49,6 +52,7 @@ extension Simplex2Graph {
     }
 
     /// Appends a new contour into this graph.
+    @inlinable
     internal mutating func appendContour(_ contour: Contour) {
         let simplexes = contour.allSimplexes()
         let shapeIndex = contours.count
@@ -105,6 +109,7 @@ extension Simplex2Graph {
         contours.append(contour)
     }
 
+    @inlinable
     internal mutating func computeIntersections(tolerance: Scalar) {
         for (lhs, lhsContour) in contours.enumerated() {
             for (rhs, rhsContour) in contours.enumerated().dropFirst(lhs + 1) {
@@ -160,6 +165,7 @@ extension Simplex2Graph {
     }
 
     /// Re-computes edge windings within this simplex graph.
+    @inlinable
     internal mutating func computeWinding() {
         for edge in edges {
             let contour = contours[edge.shapeIndex]
@@ -178,6 +184,7 @@ extension Simplex2Graph {
     /// Prunes all nodes that have no ingoing and/or outgoing connections.
     ///
     /// Edges still connected to the nodes are also removed in the process.
+    @inlinable
     internal mutating func prune() {
         for node in nodes {
             if indegree(of: node) == 0 || outdegree(of: node) == 0 {
@@ -221,6 +228,7 @@ extension Simplex2Graph {
     /// node at the end point of the edge is replaced with 'midNode' instead of
     /// being spliced in, with all edges from the original node copied to the
     /// new node.
+    @inlinable
     mutating func splitEdge(
         _ edge: Edge,
         period: Period,
@@ -315,6 +323,7 @@ extension Simplex2Graph {
 }
 
 extension Parametric2Contour {
+    @inlinable
     func rawIntersectionPeriods(
         _ other: Self,
         tolerance: Scalar

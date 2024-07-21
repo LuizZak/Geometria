@@ -53,10 +53,12 @@ public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, E
         self.endPeriod = endPeriod
     }
 
+    @inlinable
     public func contains(_ point: Vector) -> Bool {
         circle2.contains(point)
     }
 
+    @inlinable
     public func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool {
         circle2.distanceSquared(to: point) < toleranceSquared
     }

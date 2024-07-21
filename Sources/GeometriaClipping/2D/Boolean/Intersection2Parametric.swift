@@ -27,6 +27,7 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
         self.tolerance = tolerance
     }
 
+    @inlinable
     public func allContours() -> [Contour] {
         typealias Graph = Simplex2Graph<Vector>
 
@@ -102,6 +103,7 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
         return resultOverall.allContours(applyWindingFiltering: false)
     }
 
+    @inlinable
     public static func intersection<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         tolerance: Vector.Scalar = .leastNonzeroMagnitude,
         _ lhs: T1,
@@ -115,6 +117,7 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
 /// Performs an intersection operation across all given parametric geometries.
 ///
 /// - precondition: `shapes` is not empty.
+@inlinable
 public func intersection<Vector: Hashable>(
     tolerance: Vector.Scalar = .leastNonzeroMagnitude,
     _ shapes: [some ParametricClip2Geometry<Vector>]

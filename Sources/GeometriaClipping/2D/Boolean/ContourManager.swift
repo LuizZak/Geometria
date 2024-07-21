@@ -2,21 +2,28 @@ import Geometria
 import MiniDigraph
 
 /// Manages inclusions/merging of contour objects.
+@usableFromInline
 class ContourManager<Vector: Vector2Real> {
     private typealias ContourContainmentGraph = CachingDirectedGraph<Int, DirectedGraph<Int>.Edge>
 
+    @usableFromInline
     typealias Contour = Parametric2Contour<Vector>
+    @usableFromInline
     typealias Simplex = Parametric2GeometrySimplex<Vector>
+    @usableFromInline
     typealias Period = Vector.Scalar
 
-    private var inputContours: [ContourInfo]
+    @usableFromInline
+    var inputContours: [ContourInfo]
 
+    @usableFromInline
     init() {
         inputContours = []
     }
 
     /// Fetches all contours from this contour manager, optionally applying winding
     /// filtering to contours in the process.
+    @usableFromInline
     func allContours(applyWindingFiltering: Bool) -> [Contour] {
         if applyWindingFiltering {
             return _finishContours()
@@ -25,18 +32,21 @@ class ContourManager<Vector: Vector2Real> {
         }
     }
 
+    @inlinable
     func append(_ contour: Contour, isReference: Bool = false) {
         inputContours.append(
             .init(contour: contour, isReference: isReference)
         )
     }
 
+    @inlinable
     func beginContour() -> ContourBuilder {
         return ContourBuilder(manager: self)
     }
 
     /// Applies winding rules with the current reference and non-reference contours,
     /// removing hole contours, and removing all reference contours in the process.
+    @usableFromInline
     func coverHoles() {
         var graph = _contourGraph()
         let initialNodes = graph.nodes
@@ -130,23 +140,37 @@ class ContourManager<Vector: Vector2Real> {
             || probe((lhs.endPeriod + lhs.startPeriod) / 2)
     }
 
+    @usableFromInline
     struct ContourInfo {
+        @usableFromInline
         var contour: Contour
+        @usableFromInline
         var isReference: Bool
+        @usableFromInline
         var isShell: Bool { contour.winding == .clockwise }
+        @usableFromInline
         var isHole: Bool { contour.winding == .counterClockwise }
+
+        @usableFromInline
+        init(contour: Contour, isReference: Bool) {
+            self.contour = contour
+            self.isReference = isReference
+        }
     }
 
+    @usableFromInline
     class ContourBuilder {
         private var hasEnded: Bool = false
         private let manager: ContourManager
         private var simplexes: [Simplex]
 
+        @usableFromInline
         init(manager: ContourManager) {
             self.manager = manager
             self.simplexes = []
         }
 
+        @usableFromInline
         func append<S: Sequence>(contentsOf simplexes: S) where S.Element == Simplex {
             assert(!hasEnded, "!hasEnded: Attempted to append simplexes to finished contour")
 
@@ -155,6 +179,7 @@ class ContourManager<Vector: Vector2Real> {
             }
         }
 
+        @usableFromInline
         func append(_ simplex: Simplex) {
             assert(!hasEnded, "!hasEnded: Attempted to append simplex to finished contour")
 
@@ -199,6 +224,7 @@ class ContourManager<Vector: Vector2Real> {
             simplexes.append(simplex)
         }
 
+        @usableFromInline
         func endContour(startPeriod: Period, endPeriod: Period) {
             assert(!hasEnded, "!hasEnded: Attempted to end already finished contour")
 

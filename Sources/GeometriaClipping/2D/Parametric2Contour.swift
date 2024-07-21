@@ -37,6 +37,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     /// Returns the bounds for this parametric contour.
     private(set) public var bounds: AABB<Vector>
 
+    @inlinable
     var periodRange: Period {
         endPeriod - startPeriod
     }
@@ -109,6 +110,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     }
 
     /// Performs a point-containment check against this parametric contour.
+    @inlinable
     public func contains(_ point: Vector) -> Bool {
         // Construct a line segment that starts at the queried point and ends at
         // a point known to be outside the contour, then count the number of
@@ -148,6 +150,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     }
 
     /// Computes the point on this parametric geometry matching a given period.
+    @inlinable
     public func compute(at period: Period) -> Vector {
         let normalized = normalizedPeriod(period)
 
@@ -164,6 +167,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
 
     /// Performs a point-surface check against this parametric geometry, up to a
     /// given squared tolerance value.
+    @inlinable
     public func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool {
         for simplex in simplexes {
             if simplex.isOnSurface(point, toleranceSquared: toleranceSquared) {
@@ -211,11 +215,12 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     /// and `self.endPeriod`.
     public func reversed() -> Self {
         let simplexes = self.simplexes
-            .map({ $0.reversed() })
+            .map({ $0.reversed(globalStartPeriod: startPeriod, globalEndPeriod: endPeriod) })
             .reversed()
 
         return .init(
-            normalizing: Array(simplexes),
+            simplexes: Array(simplexes),
+            winding: winding.inverse,
             startPeriod: startPeriod,
             endPeriod: endPeriod
         )
@@ -224,6 +229,17 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     public enum Winding {
         case clockwise
         case counterClockwise
+
+        /// Returns the inverse winding value of `self`.
+        public var inverse: Self {
+            switch self {
+            case .clockwise:
+                return .counterClockwise
+
+            case .counterClockwise:
+                return .clockwise
+            }
+        }
 
         /// A numerical value associated with this winding.
         ///
@@ -241,6 +257,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
 }
 
 extension Parametric2Contour {
+    @inlinable
     func normalizedPeriod(_ period: Period) -> Period {
         if period >= startPeriod && period < endPeriod {
             return period
@@ -251,6 +268,7 @@ extension Parametric2Contour {
 
     /// Returns the mid-period between two input periods within this parametric
     /// geometry.
+    @inlinable
     func normalizedCenter(_ left: Period, _ right: Period) -> Period {
         if left > right {
             // Handle the case the range is actually:
@@ -276,6 +294,7 @@ extension Parametric2Contour {
     ///
     /// Periods are first normalized to be within `startPeriod` and `endPeriod`
     /// before the comparison.
+    @inlinable
     public func periodPrecedes(
         _ lhs: Period,
         _ rhs: Period
@@ -290,6 +309,7 @@ extension Parametric2Contour {
     ///
     /// Periods are first normalized to be within `startPeriod` and `endPeriod`
     /// before the comparison.
+    @inlinable
     public func periodPrecedes(
         from start: Period,
         _ lhs: Period,

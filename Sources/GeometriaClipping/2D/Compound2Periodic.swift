@@ -112,10 +112,9 @@ public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry 
 
         let contours = self.contours
             .map({ $0.reversed() })
-            .reversed()
 
         let result = Self(
-            normalizing: Array(contours),
+            contours: Array(contours),
             startPeriod: startPeriod,
             endPeriod: endPeriod
         )

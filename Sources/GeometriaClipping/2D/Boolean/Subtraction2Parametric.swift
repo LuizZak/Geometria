@@ -31,6 +31,7 @@ public struct Subtraction2Parametric<Vector: Vector2Real & Hashable>: Boolean2Pa
         self.tolerance = tolerance
     }
 
+    @inlinable
     public func allContours() -> [Contour] {
         let rhsReversed = rhsContours.map({ $0.reversed() })
 
@@ -42,6 +43,7 @@ public struct Subtraction2Parametric<Vector: Vector2Real & Hashable>: Boolean2Pa
         return union.allContours()
     }
 
+    @inlinable
     public static func subtraction<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         tolerance: Vector.Scalar = .leastNonzeroMagnitude,
         _ lhs: T1,
@@ -54,6 +56,7 @@ public struct Subtraction2Parametric<Vector: Vector2Real & Hashable>: Boolean2Pa
 
 /// Performs a subtraction operation by removing all given parametric geometries
 /// from `shape1`.
+@inlinable
 public func subtraction<Vector: Hashable>(
     tolerance: Double = .leastNonzeroMagnitude,
     _ shape1: some ParametricClip2Geometry<Vector>,

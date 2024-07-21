@@ -84,6 +84,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     /// Returns `startPeriod + (endPeriod - startPeriod) * ratio`.
     ///
     /// - note: The result is unclamped.
+    @inlinable
     func period(onRatio ratio: Scalar) -> Period {
         startPeriod + (endPeriod - startPeriod) * ratio
     }
@@ -122,6 +123,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     ///
     /// If `self` and `other` do not intersect, an empty array is returned,
     /// instead.
+    @inlinable
     public func intersectionPeriods(with other: Self) -> [(`self`: Period, other: Period)] {
         switch (self, other) {
         case (.lineSegment2(let lhs), .lineSegment2(let rhs)):
@@ -228,10 +230,40 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    /// Reverses this simplex, also reversing its start/end period according to
+    /// the given global start/end periods.
+    public func reversed(globalStartPeriod: Period, globalEndPeriod: Period) -> Self {
+        switch self {
+        case .lineSegment2(let simplex):
+            var simplex = simplex.reversed()
+
+            let toEnd = globalEndPeriod - simplex.endPeriod
+            let toStart = simplex.startPeriod - globalStartPeriod
+
+            simplex.startPeriod = toEnd
+            simplex.endPeriod = globalEndPeriod - toStart
+
+            return .lineSegment2(simplex)
+
+        case .circleArc2(let simplex):
+            var simplex = simplex.reversed()
+
+            let toEnd = globalEndPeriod - simplex.endPeriod
+            let toStart = simplex.startPeriod - globalStartPeriod
+
+            simplex.startPeriod = toEnd
+            simplex.endPeriod = globalEndPeriod - toStart
+
+            return .circleArc2(simplex)
+        }
+    }
+
+    @inlinable
     static func isWithinAbsoluteBounds(_ period: Period) -> Bool {
         period >= .zero && period < 1
     }
 
+    @inlinable
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersection<Vector>.Intersection
@@ -242,6 +274,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         )
     }
 
+    @inlinable
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: LineIntersectionPointNormal<Vector>
@@ -252,6 +285,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         )
     }
 
+    @inlinable
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2Simplex<Vector>,
         intersection: PointNormal<Vector>
@@ -262,6 +296,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         )
     }
 
+    @inlinable
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2<Vector>,
         intersection: LineIntersectionPointNormal<Vector>
@@ -272,6 +307,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         )
     }
 
+    @inlinable
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2<Vector>,
         intersection: PointNormal<Vector>

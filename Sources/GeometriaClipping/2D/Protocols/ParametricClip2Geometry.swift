@@ -60,14 +60,17 @@ public protocol ParametricClip2Geometry<Vector>: ParametricClipGeometry {
 }
 
 extension ParametricClip2Geometry {
+    @inlinable
     var periodRange: Period {
         endPeriod - startPeriod
     }
 
+    @inlinable
     public var bounds: AABB<Vector> {
         AABB(aabbs: self.allContours().map(\.bounds))
     }
 
+    @inlinable
     func normalizedPeriod(_ period: Period) -> Period {
         if period >= startPeriod && period < endPeriod {
             return period
@@ -76,6 +79,7 @@ extension ParametricClip2Geometry {
         return startPeriod + period.truncatingRemainder(dividingBy: periodRange)
     }
 
+    @inlinable
     public func periodPrecedes(
         _ lhs: Period,
         _ rhs: Period
@@ -86,6 +90,7 @@ extension ParametricClip2Geometry {
         return lhsNormalized < rhsNormalized
     }
 
+    @inlinable
     public func periodPrecedes(
         from start: Period,
         _ lhs: Period,
@@ -98,6 +103,7 @@ extension ParametricClip2Geometry {
         return startNormalized < lhsNormalized && lhsNormalized < rhsNormalized
     }
 
+    @inlinable
     public func contains(_ point: Vector) -> Bool {
         for contour in allContours().reversed() {
             if contour.contains(point) {
@@ -114,6 +120,7 @@ extension ParametricClip2Geometry {
         return false
     }
 
+    @inlinable
     public func isOnSurface(_ point: Vector, toleranceSquared: Scalar) -> Bool {
         for contour in allContours() {
             if contour.isOnSurface(point, toleranceSquared: toleranceSquared) {

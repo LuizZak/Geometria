@@ -14,7 +14,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     /// The next available edge ID to be used when adding contours.
     var edgeId: Int = 0
 
-    public internal(set) var contours: [Contour]
+    public var contours: [Contour]
 
     public var nodes: Set<Node> {
         graph.nodes
@@ -23,6 +23,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         graph.edges
     }
 
+    @usableFromInline
     mutating func nextEdgeId() -> Int {
         defer { edgeId += 1 }
         return edgeId
@@ -35,6 +36,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     }
 
     /// Returns the edge for a given period within a given shape index number.
+    @usableFromInline
     func edgeForPeriod(_ period: Period, shapeIndex: Int) -> Edge? {
         edges.first { edge in
             edge.shapeIndex == shapeIndex && edge.periodRange.contains(period)
@@ -67,6 +69,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             kind.rhsIndex
         }
 
+        @usableFromInline
         init(location: Vector, kind: Kind) {
             self.location = location
             self.kind = kind
@@ -188,6 +191,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             self.kind = kind
         }
 
+        @inlinable
         func queryPoint(_ center: (Period, Period) -> Period) -> Vector {
             func centerOfSimplex(_ simplex: Parametric2GeometrySimplex<Vector>) -> Vector {
                 simplex.compute(at: center(simplex.startPeriod, simplex.endPeriod))

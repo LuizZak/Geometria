@@ -44,6 +44,7 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
 
 extension Parametric2Simplex {
     /// Constructs `startPeriod..<endPeriod`
+    @inlinable
     public var periodRange: Range<Period> {
         startPeriod..<endPeriod
     }

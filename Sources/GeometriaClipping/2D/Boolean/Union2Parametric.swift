@@ -27,6 +27,7 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
         self.tolerance = tolerance
     }
 
+    @inlinable
     public func allContours() -> [Contour] {
         typealias Graph = Simplex2Graph<Vector>
 
@@ -104,6 +105,7 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
         return resultOverall.allContours(applyWindingFiltering: false)
     }
 
+    @inlinable
     static func union<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         tolerance: Vector.Scalar = .leastNonzeroMagnitude,
         _ lhs: T1,
@@ -117,6 +119,7 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
 /// Performs a union operation across all given parametric geometries.
 ///
 /// - precondition: `shapes` is not empty.
+@inlinable
 public func union<Vector: Hashable>(
     tolerance: Vector.Scalar = .leastNonzeroMagnitude,
     _ shapes: [some ParametricClip2Geometry<Vector>]
