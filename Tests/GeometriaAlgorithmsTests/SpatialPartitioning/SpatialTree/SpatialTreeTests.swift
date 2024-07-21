@@ -153,6 +153,16 @@ class SpatialTreeTests: XCTestCase {
         XCTAssertNil(subdivision.subdivisions)
     }
 
+    func testRemoveAll() {
+        let pointCloud = makePointCloud()
+        var sut = makeSut(pointCloud, maxSubdivisions: 3, maxElementsPerLevelBeforeSplit: 8)
+
+        sut.removeAll()
+
+        XCTAssertEqual(sut.elements(), [])
+        XCTAssertNil(sut.root.subdivisions)
+    }
+
     // MARK: - Collection conformance
 
     func testCollectionConformance_indices() {

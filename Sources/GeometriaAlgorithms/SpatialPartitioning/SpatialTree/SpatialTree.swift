@@ -158,9 +158,24 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     /// In case removal results in an empty set of subdivisions for a subdivision,
     /// the subdivisions are collapsed and removed.
     public mutating func remove(at index: Index) {
+        ensureUnique()
         if !root.remove(at: index.path) {
             fatalError("Index \(index) is not part of this spatial tree.")
         }
+    }
+
+    /// Removes all elements contained within this spatial tree, resetting its
+    /// root element back to an empty state.
+    ///
+    /// The bounds of the root element are kept as-is.
+    public mutating func removeAll() {
+        ensureUnique()
+        root = .init(
+            bounds: root.bounds,
+            elements: [],
+            subdivisions: nil,
+            depth: 0
+        )
     }
 
     /// A subdivision of a spatial tree.
