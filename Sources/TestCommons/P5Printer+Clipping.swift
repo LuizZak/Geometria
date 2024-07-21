@@ -24,10 +24,14 @@ extension P5Printer {
             parametricCheckboxes[parametric.category].parametrics.push(parametric)
           } else {
             parametricCheckboxes[parametric.category] = {
-              checkbox: createCheckbox(parametric.category, true),
+              checkbox: null,
               parametrics: [],
             }
           }
+        }
+        for (let entry in parametricCheckboxes) {
+          entryCount = parametricCheckboxes[entry].parametrics.length
+          parametricCheckboxes[entry].checkbox = createCheckbox(`${entry} (${entryCount})`, true)
         }
         """)
     }

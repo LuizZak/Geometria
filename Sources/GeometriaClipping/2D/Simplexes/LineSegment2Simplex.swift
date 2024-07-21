@@ -10,10 +10,26 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
     public var startPeriod: Period
     public var endPeriod: Period
 
+    /// Convenience for `lineSegment.start`.
+    @inlinable
+    public var start: Vector {
+        get { lineSegment.start }
+        set { lineSegment.start = newValue }
+    }
+
+    /// Convenience for `lineSegment.end`.
+    @inlinable
+    public var end: Vector {
+        get { lineSegment.end }
+        set { lineSegment.end = newValue }
+    }
+
+    @inlinable
     var lengthSquared: Vector.Scalar {
         lineSegment.lengthSquared
     }
 
+    @inlinable
     public var bounds: AABB2<Vector> {
         lineSegment.bounds
     }
@@ -101,12 +117,4 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
             endPeriod: endPeriod
         )
     }
-}
-
-extension LineSegment2Simplex {
-    @inlinable
-    public var start: Vector { lineSegment.start }
-
-    @inlinable
-    public var end: Vector { lineSegment.end }
 }

@@ -64,7 +64,7 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
         var visitedOverall: Set<Graph.Node> = []
 
         guard var current = graph.edges.min(by: candidateIsAscending)?.start else {
-            return resultOverall.allContours()
+            return resultOverall.allContours(applyWindingFiltering: false)
         }
 
         // Keep visiting nodes on the graph, removing them after each complete visit
@@ -93,13 +93,13 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
             graph.prune()
 
             guard let next = graph.edges.min(by: candidateIsAscending) else {
-                return resultOverall.allContours()
+                break
             }
 
             current = next.start
         }
 
-        return resultOverall.allContours()
+        return resultOverall.allContours(applyWindingFiltering: false)
     }
 
     public static func intersection<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(

@@ -64,7 +64,7 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
         var visitedOverall: Set<Graph.Node> = []
 
         guard var current = graph.edges.min(by: candidateIsAscending)?.start else {
-            return resultOverall.allContours()
+            return resultOverall.allContours(applyWindingFiltering: false)
         }
 
         // TODO: Refactor this common part out of Intersection2Parametric
@@ -95,13 +95,13 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
             graph.prune()
 
             guard let next = graph.edges.min(by: candidateIsAscending) else {
-                return resultOverall.allContours()
+                break
             }
 
             current = next.start
         }
 
-        return resultOverall.allContours()
+        return resultOverall.allContours(applyWindingFiltering: false)
     }
 
     static func union<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(

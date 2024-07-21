@@ -8,13 +8,20 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     public typealias Period = Scalar
     public typealias Contour = Parametric2Contour<Vector>
 
+    /// Internal cached graph implementation.
+    var graph: CachingDirectedGraph<Node, Edge>
+
     /// The next available edge ID to be used when adding contours.
     var edgeId: Int = 0
 
     public internal(set) var contours: [Contour]
 
-    public fileprivate(set) var nodes: Set<Node> = []
-    public fileprivate(set) var edges: Set<Edge> = []
+    public var nodes: Set<Node> {
+        graph.nodes
+    }
+    public var edges: Set<Edge> {
+        graph.edges
+    }
 
     mutating func nextEdgeId() -> Int {
         defer { edgeId += 1 }
@@ -136,7 +143,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
     }
 
-    public class Edge: DirectedGraphEdge, Hashable, CustomStringConvertible {
+    public class Edge: AbstractDirectedGraphEdge, Hashable, CustomStringConvertible {
         /// A unique identifier assigned during graph generation, used to sort
         /// edges by earliest generation.
         public var id: Int
@@ -258,59 +265,55 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
 
 extension Simplex2Graph: DirectedGraphType {
     public func startNode(for edge: Edge) -> Node {
-        guard let node = nodes.first(where: { $0 == edge.start }) else {
-            preconditionFailure("Edge references node ID \(edge.start) that is not in this graph")
-        }
-
-        return node
+        edge.start
     }
 
     public func endNode(for edge: Edge) -> Node {
-        guard let node = nodes.first(where: { $0 == edge.end }) else {
-            preconditionFailure("Edge references node ID \(edge.end) that is not in this graph")
-        }
-
-        return node
+        edge.end
     }
 
     public func edges(from node: Node) -> Set<Edge> {
-        edges.filter { $0.start == node }
+        graph.edges(from: node)
     }
 
     public func edges(towards node: Node) -> Set<Edge> {
-        edges.filter { $0.end == node }
+        graph.edges(towards: node)
     }
 
     public func edge(from start: Node, to end: Node) -> Edge? {
-        edges.first(where: { $0.start == start && $0.end == end })
+        graph.edge(from: start, to: end)
+    }
+
+    public func indegree(of node: Node) -> Int {
+        graph.indegree(of: node)
+    }
+
+    public func outdegree(of node: Node) -> Int {
+        graph.outdegree(of: node)
     }
 }
 
 extension Simplex2Graph: MutableDirectedGraphType {
     public init() {
-        self.nodes = []
-        self.edges = []
+        self.graph = .init()
         self.contours = []
     }
 
     public mutating func addNode(_ node: Node) {
-        nodes.insert(node)
+        graph.addNode(node)
     }
 
     public mutating func removeNode(_ node: Node) {
-        nodes.remove(node)
-        edges = edges.filter { edge in
-            edge.start != node && edge.end != node
-        }
+        graph.removeNode(node)
     }
 
     @discardableResult
     public mutating func addEdge(_ edge: Edge) -> Edge {
-        edges.insert(edge).memberAfterInsert
+        graph.addEdge(edge)
     }
 
     public mutating func removeEdge(_ edge: Edge) {
-        edges.remove(edge)
+        graph.removeEdge(edge)
     }
 }
 

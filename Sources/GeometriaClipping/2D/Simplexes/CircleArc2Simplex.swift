@@ -10,10 +10,59 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
     public var startPeriod: Period
     public var endPeriod: Period
 
+    /// Convenience for `circleArc.center`.
+    @inlinable
+    public var center: Vector {
+        get { circleArc.center }
+        set { circleArc.center = newValue }
+    }
+
+    /// Convenience for `circleArc.radius`.
+    @inlinable
+    public var radius: Scalar {
+        get { circleArc.radius }
+        set { circleArc.radius = newValue }
+    }
+
+    /// Convenience for `circleArc.startAngle`.
+    @inlinable
+    public var startAngle: Angle<Scalar> {
+        get { circleArc.startAngle }
+        set { circleArc.startAngle = newValue }
+    }
+
+    /// Convenience for `circleArc.sweepAngle`.
+    @inlinable
+    public var sweepAngle: Angle<Scalar> {
+        get { circleArc.sweepAngle }
+        set { circleArc.sweepAngle = newValue }
+    }
+
+    /// Convenience for `circleArc.stopAngle`.
+    @inlinable
+    public var stopAngle: Angle<Scalar> {
+        get { circleArc.stopAngle }
+    }
+
+    /// Converts the circular arc represented by this circular arc simplex into
+    /// its full circular representation.
+    @inlinable
+    public var asCircle2: Circle2<Vector> {
+        circleArc.asCircle2
+    }
+
+    @inlinable
     var lengthSquared: Scalar {
         circleArc.arcLength * circleArc.arcLength
     }
 
+    @inlinable
+    public var start: Vector { circleArc.startPoint }
+
+    @inlinable
+    public var end: Vector { circleArc.endPoint }
+
+    @inlinable
     public var bounds: AABB2<Vector> {
         circleArc.bounds()
     }
@@ -95,19 +144,4 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
             endPeriod: endPeriod
         )
     }
-}
-
-extension CircleArc2Simplex {
-    /// Converts the circular arc represented by this circular arc simplex into
-    /// its full circular representation.
-    @inlinable
-    public var asCircle2: Circle2<Vector> {
-        circleArc.asCircle2
-    }
-
-    @inlinable
-    public var start: Vector { circleArc.startPoint }
-
-    @inlinable
-    public var end: Vector { circleArc.endPoint }
 }

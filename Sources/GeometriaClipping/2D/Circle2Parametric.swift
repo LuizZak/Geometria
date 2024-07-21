@@ -13,6 +13,20 @@ public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, E
     public var startPeriod: Period
     public var endPeriod: Period
 
+    /// Convenience for `circle.center`.
+    @inlinable
+    public var center: Vector {
+        get { circle2.center }
+        set { circle2.center = newValue }
+    }
+
+    /// Convenience for `circle.radius`.
+    @inlinable
+    public var radius: Scalar {
+        get { circle2.radius }
+        set { circle2.radius = newValue }
+    }
+
     public init(
         center: Vector,
         radius: Scalar,
