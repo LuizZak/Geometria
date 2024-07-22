@@ -124,6 +124,32 @@ class KDTreeTests: XCTestCase {
         }
     }
 
+    func testNearestNeighbors_pointCloudPartition_2D_randomSampling() {
+        let totalPoints = makePointCloud(count: 500)
+        let points = totalPoints[..<(totalPoints.count / 2)]
+        let searchPoints = totalPoints[(totalPoints.count / 2)...]
+        let sut = KDTree<Vector2D>(elements: points)
+
+        for (i, searchPoint) in searchPoints.enumerated() {
+            let distanceSquared = 5.0
+            let actual = sut.nearestNeighbors(
+                to: searchPoint,
+                distanceSquared: distanceSquared
+            )
+            let expected = closestPointsBruteForce(
+                to: searchPoint,
+                distanceSquared: distanceSquared,
+                in: points
+            )
+
+            XCTAssertEqual(
+                Set(actual),
+                Set(expected),
+                "index: \(i) search point: \(searchPoint)"
+            )
+        }
+    }
+
     // MARK: - Performance tests
 
     #if GEOMETRIA_PERFORMANCE_TESTS
@@ -152,10 +178,23 @@ class KDTreeTests: XCTestCase {
     #endif
 }
 
-private func closestPointBruteForce<C: Collection<Vector2D>>(to point: Vector2D, in list: C) -> Vector2D {
+private func closestPointBruteForce<C: Collection<Vector2D>>(
+    to point: Vector2D,
+    in list: C
+) -> Vector2D {
     list.min(by: {
         $0.distanceSquared(to: point) < $1.distanceSquared(to: point)
     }) ?? point
+}
+
+private func closestPointsBruteForce<C: Collection<Vector2D>>(
+    to point: Vector2D,
+    distanceSquared: Double,
+    in list: C
+) -> [Vector2D] {
+    list.filter({
+        $0.distanceSquared(to: point) <= distanceSquared
+    })
 }
 
 private func makePointCloud(count: Int) -> [Vector2D] {
