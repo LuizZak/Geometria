@@ -53,6 +53,21 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
         root?.nearestNeighbor(to: point).element
     }
 
+    /// Returns the nearest neighbors in this k-d tree to a given point vector
+    /// that are under `distanceSquared` away from the input point.
+    public func nearestNeighbors(
+        to point: Vector,
+        distanceSquared: Vector.Scalar
+    ) -> [Element] {
+        var results: [Element] = []
+        root?.nearestNeighbors(
+            to: point,
+            distanceSquared: distanceSquared,
+            results: &results
+        )
+        return results
+    }
+
     /// Returns all possible subdivision paths within this k-d tree that contain
     /// a point.
     public func subdivisionPaths() -> [SubdivisionPath] {
@@ -445,10 +460,11 @@ extension KDTree.Subdivision {
 
             current = left.nearestNeighbor(to: point)
 
-            if point.distanceSquared(to: state.element.location) < current.distanceSquared {
+            let distanceSquared = point.distanceSquared(to: state.element.location)
+            if distanceSquared < current.distanceSquared {
                 current = (
                     state.element,
-                    distanceSquared: point.distanceSquared(to: state.element.location)
+                    distanceSquared: distanceSquared
                 )
             }
 
@@ -459,10 +475,11 @@ extension KDTree.Subdivision {
 
             current = right.nearestNeighbor(to: point)
 
-            if point.distanceSquared(to: state.element.location) < current.distanceSquared {
+            let distanceSquared = point.distanceSquared(to: state.element.location)
+            if distanceSquared < current.distanceSquared {
                 current = (
                     state.element,
-                    distanceSquared: point.distanceSquared(to: state.element.location)
+                    distanceSquared: distanceSquared
                 )
             }
 
@@ -485,14 +502,85 @@ extension KDTree.Subdivision {
             }
 
             // Check this subdivision's point now.
-            if point.distanceSquared(to: state.element.location) < current.distanceSquared {
+            let distanceSquared = point.distanceSquared(to: state.element.location)
+            if distanceSquared < current.distanceSquared {
                 current = (
                     state.element,
-                    distanceSquared: point.distanceSquared(to: state.element.location)
+                    distanceSquared: distanceSquared
                 )
             }
 
             return current
+        }
+    }
+
+    /// Collects all nearest neighbors that have a distance of `distanceSquared`
+    /// or less to `point` into `results`.
+    func nearestNeighbors(
+        to point: Vector,
+        distanceSquared: Vector.Scalar,
+        results: inout [Element]
+    ) {
+        func makeResult(
+            _ element: Element
+        ) -> (element: Element, distanceSquared: Vector.Scalar) {
+            return (
+                element,
+                distanceSquared: point.distanceSquared(to: element.location)
+            )
+        }
+
+        func checkState(
+            _ state: KDTree.SubdivisionState
+        ) {
+            let result = makeResult(state.element)
+            if result.distanceSquared <= distanceSquared {
+                results.append(result.element)
+            }
+        }
+
+        switch self {
+        case .subdivision(let state, nil, nil):
+            checkState(state)
+
+        case .subdivision(let state, let left?, nil):
+            checkState(state)
+
+            left.nearestNeighbors(
+                to: point,
+                distanceSquared: distanceSquared,
+                results: &results
+            )
+
+        case .subdivision(let state, nil, let right?):
+            checkState(state)
+
+            right.nearestNeighbors(
+                to: point,
+                distanceSquared: distanceSquared,
+                results: &results
+            )
+
+        case .subdivision(let state, let left?, let right?):
+            let (first, second) = isOnLeft(point) ? (left, right) : (right, left)
+
+            first.nearestNeighbors(
+                to: point,
+                distanceSquared: distanceSquared,
+                results: &results
+            )
+
+            checkState(state)
+
+            guard self.distanceSquared(to: point) <= distanceSquared else {
+                return
+            }
+
+            second.nearestNeighbors(
+                to: point,
+                distanceSquared: distanceSquared,
+                results: &results
+            )
         }
     }
 
