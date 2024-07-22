@@ -7,12 +7,12 @@ class KDTreeTests: XCTestCase {
     func testInit_empty_2D() {
         let points: [Vector2D] = []
 
-        let sut = KDTree(points: points)
+        let sut = KDTree(elements: points)
 
         XCTAssertEqual(sut.count, 0)
         SequenceAsserter
             .forSet(
-                actual: sut.points()
+                actual: sut.elements()
             ).assert(
                 equals: points
             )
@@ -26,12 +26,12 @@ class KDTreeTests: XCTestCase {
             .init(x: 50, y: 50),
         ]
 
-        let sut = KDTree(points: points)
+        let sut = KDTree(elements: points)
 
         XCTAssertEqual(sut.count, 4)
         SequenceAsserter
             .forSet(
-                actual: sut.points()
+                actual: sut.elements()
             ).assert(
                 equals: points
             )
@@ -39,7 +39,7 @@ class KDTreeTests: XCTestCase {
 
     func testSubdivisionPaths_pointCloudPartition_2D() {
         let points = makePointCloud(count: 10)
-        let sut = KDTree(points: points)
+        let sut = KDTree(elements: points)
 
         let paths = sut.subdivisionPaths()
 
@@ -64,7 +64,7 @@ class KDTreeTests: XCTestCase {
 
     func testSubdivisionPathForInserting_pointCloud_2D() {
         let points = makePointCloud(count: 10)
-        let sut = KDTree(points: points)
+        let sut = KDTree(elements: points)
 
         let path = sut.subdivisionPath(forInserting: Vector2D(x: 20, y: 15))
 
@@ -83,7 +83,7 @@ class KDTreeTests: XCTestCase {
 
     func testInsert_pointCloudPartition_2D() {
         let points = makePointCloud(count: 10)
-        var sut = KDTree<Vector2D>(points: [])
+        var sut = KDTree<Vector2D>(elements: [])
 
         for point in points {
             sut.insert(point)
@@ -92,7 +92,7 @@ class KDTreeTests: XCTestCase {
         XCTAssertEqual(sut.count, points.count)
         SequenceAsserter
             .forSet(
-                actual: sut.points()
+                actual: sut.elements()
             ).assert(
                 equals: points
             )
@@ -100,7 +100,7 @@ class KDTreeTests: XCTestCase {
 
     func testNearestNeighbor_pointCloudPartition_2D_identitySearch() {
         let points = makePointCloud(count: 50)
-        let sut = KDTree<Vector2D>(points: points)
+        let sut = KDTree<Vector2D>(elements: points)
 
         for point in points {
             XCTAssertEqual(sut.nearestNeighbor(to: point), point)
@@ -111,7 +111,7 @@ class KDTreeTests: XCTestCase {
         let totalPoints = makePointCloud(count: 500)
         let points = totalPoints[..<(totalPoints.count / 2)]
         let searchPoints = totalPoints[(totalPoints.count / 2)...]
-        let sut = KDTree<Vector2D>(points: points)
+        let sut = KDTree<Vector2D>(elements: points)
 
         for (i, searchPoint) in searchPoints.enumerated() {
             let actual = sut.nearestNeighbor(to: searchPoint)
@@ -132,7 +132,7 @@ class KDTreeTests: XCTestCase {
         let totalPoints = makePointCloud(count: 10_000)
         let points = totalPoints[..<(totalPoints.count / 2)]
         let searchPoints = totalPoints[(totalPoints.count / 2)...]
-        let sut = KDTree<Vector2D>(points: points)
+        let sut = KDTree<Vector2D>(elements: points)
 
         measure {
             for searchPoint in searchPoints {
@@ -145,7 +145,7 @@ class KDTreeTests: XCTestCase {
         let points = makePointCloud(count: 2_000)
 
         measure {
-            _=KDTree<Vector2D>(points: points)
+            _=KDTree<Vector2D>(elements: points)
         }
     }
 
