@@ -44,7 +44,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     ///   - maxElementsPerLevelBeforeSplit: The maximum number of elements per
     /// spatial tree subdivision before an attempt to subdivide it further is done.
     public init(
-        _ geometryList: [Element],
+        _ geometryList: some Sequence<Element>,
         maxSubdivisions: Int,
         maxElementsPerLevelBeforeSplit: Int
     ) {
