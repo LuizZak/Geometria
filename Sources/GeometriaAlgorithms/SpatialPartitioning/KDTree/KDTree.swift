@@ -572,7 +572,7 @@ extension KDTree.Subdivision {
 
             checkState(state)
 
-            guard self.distanceSquared(to: point) <= makeResult(first.element).distanceSquared else {
+            guard self.distanceSquared(to: point) <= distanceSquared else {
                 return
             }
 
