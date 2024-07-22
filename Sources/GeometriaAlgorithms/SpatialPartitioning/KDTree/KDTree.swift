@@ -3,7 +3,8 @@ import Geometria
 /// A [k-d tree] implementation for point-clouds.
 ///
 /// [k-d tree](https://en.wikipedia.org/wiki/K-d_tree)
-public struct KDTree<Vector: VectorType> where Vector: VectorComparable & VectorMultiplicative {
+public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorComparable & VectorMultiplicative {
+    public typealias Vector = Element.Vector
     private var root: Subdivision?
 
     /// Returns the total number of items within this k-d tree.
@@ -12,32 +13,32 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
     }
 
     /// Initializes a new k-d tree from a given set of points.
-    public init<C: Collection<Vector>>(points: C) where Vector: VectorAdditive {
+    public init<C: Collection<Element>>(elements: C) where Vector: VectorAdditive {
         self.init(
             dimensionCount: Vector.zero.scalarCount,
-            points: points
+            elements: elements
         )
     }
 
     /// Initializes a new k-d tree from a given set of points.
-    public init<C: Collection<Vector>>(dimensionCount: Int, points: C) {
+    public init<C: Collection<Element>>(dimensionCount: Int, elements: C) {
         self.root = .create(
-            points,
+            elements,
             absolutePath: .root,
             dimensionCount: dimensionCount,
             depth: 0
         )
     }
 
-    /// Returns the list of all points within this k-d tree.
-    public func points() -> [Vector] {
+    /// Returns the list of all elements within this k-d tree.
+    public func elements() -> [Element] {
         guard let root else { return [] }
 
         return .init(unsafeUninitializedCapacity: count) { (buffer, count) in
             var index = 0
 
             root.applyToTreeBreadthFirst { sub in
-                buffer[index] = sub.point
+                buffer[index] = sub.element
 
                 index += 1
             }
@@ -48,8 +49,8 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
 
     /// Returns the nearest neighbor in this k-d tree to a given point vector.
     /// Result is `nil`, if this k-d tree is empty.
-    public func nearestNeighbor(to point: Vector) -> Vector? {
-        root?.nearestNeighbor(to: point).point
+    public func nearestNeighbor(to point: Vector) -> Element? {
+        root?.nearestNeighbor(to: point).element
     }
 
     /// Returns all possible subdivision paths within this k-d tree that contain
@@ -70,10 +71,12 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
     /// either its left or right subdivision, plus the subpath that is either
     /// left or right, depending on which side the point lies on that subdivision
     /// level.
-    public func subdivisionPath(forInserting point: Vector) -> SubdivisionPath {
+    public func subdivisionPath(forInserting element: Element) -> SubdivisionPath {
         guard let root else { return .root }
 
         var current = root
+
+        let point = element.location
 
         while case .subdivision(_, let left, let right) = current {
             let isLeft = current.isOnLeft(point)
@@ -96,12 +99,12 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
         return current.absolutePath
     }
 
-    /// Inserts a given point on this k-d tree.
-    public mutating func insert(_ point: Vector) {
+    /// Inserts a given element on this k-d tree.
+    public mutating func insert(_ element: Element) {
         guard let root else {
             root = .subdivision(
                 .empty(
-                    point: point,
+                    element: element,
                     dimension: 0,
                     totalItemCount: 1,
                     absolutePath: .root
@@ -113,10 +116,10 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
             return
         }
 
-        let path = subdivisionPath(forInserting: point)
+        let path = subdivisionPath(forInserting: element)
         let reversed = path.reversed
 
-        self.root = root.inserting(point, reversePath: reversed)
+        self.root = root.inserting(element, reversePath: reversed)
     }
 
     /// Encodes a path to a specific subdivision within a k-d tree.
@@ -174,7 +177,7 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
         }
 
         /// Resolves this subdivision path into a given tree.
-        /// 
+        ///
         /// - precondition: The depth of this subdivision path is less than or
         /// equal to the maximum depth of `tree`.
         fileprivate func resolve(in tree: Subdivision) -> Subdivision {
@@ -207,7 +210,7 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
 
         /// Path branches to the left, traveling with the remaining path.
         indirect case left(InvertedSubdivisionPath)
-        
+
         /// Path branches to the right, traveling with the remaining path.
         indirect case right(InvertedSubdivisionPath)
 
@@ -223,7 +226,7 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
         }
 
         /// Resolves this subdivision path into a given tree.
-        /// 
+        ///
         /// - precondition: The depth of this subdivision path is less than or
         /// equal to the maximum depth of `tree`.
         fileprivate func resolve(in tree: Subdivision) -> Subdivision {
@@ -252,21 +255,21 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
     fileprivate struct SubdivisionState {
         /// Initializes an empty subdivision state.
         static func empty(
-            point: Vector,
+            element: Element,
             dimension: Int,
             totalItemCount: Int,
             absolutePath: SubdivisionPath
         ) -> Self {
             .init(
-                point: point,
+                element: element,
                 dimension: dimension,
                 totalItemCount: totalItemCount,
                 absolutePath: absolutePath
             )
         }
 
-        /// The point associated with this subdivision state.
-        var point: Vector
+        /// The element associated with this subdivision state.
+        var element: Element
 
         /// The numerical dimension that this subdivision splits between.
         var dimension: Int
@@ -281,15 +284,17 @@ public struct KDTree<Vector: VectorType> where Vector: VectorComparable & Vector
     }
 
     fileprivate enum Subdivision {
-        /// A subdivision of a k-d tree 
+        /// A subdivision of a k-d tree
         indirect case subdivision(SubdivisionState, left: Self?, right: Self?)
     }
 }
 
 extension KDTree.Subdivision {
-    /// The point associated with this subdivision.
-    var point: Vector {
-        state.point
+    typealias Vector = Element.Vector
+
+    /// The element associated with this subdivision.
+    var element: Element {
+        state.element
     }
 
     /// The absolute path from the root subdivision path this subdivision
@@ -377,7 +382,7 @@ extension KDTree.Subdivision {
         switch self {
         case .subdivision(_, nil, nil):
             return []
-            
+
         case .subdivision(_, let left?, nil):
             return [left]
 
@@ -427,44 +432,44 @@ extension KDTree.Subdivision {
     }
 
     /// Returns the nearest neighbor in this subdivision to a given point vector.
-    func nearestNeighbor(to point: Vector) -> (point: Vector, distanceSquared: Vector.Scalar) {
+    func nearestNeighbor(to point: Vector) -> (element: Element, distanceSquared: Vector.Scalar) {
         switch self {
         case .subdivision(let state, nil, nil):
             return (
-                state.point,
-                distanceSquared: point.distanceSquared(to: state.point)
+                state.element,
+                distanceSquared: point.distanceSquared(to: state.element.location)
             )
-        
+
         case .subdivision(let state, let left?, nil):
-            var current: (point: Vector, distanceSquared: Vector.Scalar)
+            var current: (element: Element, distanceSquared: Vector.Scalar)
 
             current = left.nearestNeighbor(to: point)
 
-            if point.distanceSquared(to: state.point) < current.distanceSquared {
+            if point.distanceSquared(to: state.element.location) < current.distanceSquared {
                 current = (
-                    state.point,
-                    distanceSquared: point.distanceSquared(to: state.point)
+                    state.element,
+                    distanceSquared: point.distanceSquared(to: state.element.location)
                 )
             }
 
             return current
 
         case .subdivision(let state, nil, let right?):
-            var current: (point: Vector, distanceSquared: Vector.Scalar)
+            var current: (element: Element, distanceSquared: Vector.Scalar)
 
             current = right.nearestNeighbor(to: point)
 
-            if point.distanceSquared(to: state.point) < current.distanceSquared {
+            if point.distanceSquared(to: state.element.location) < current.distanceSquared {
                 current = (
-                    state.point,
-                    distanceSquared: point.distanceSquared(to: state.point)
+                    state.element,
+                    distanceSquared: point.distanceSquared(to: state.element.location)
                 )
             }
 
             return current
 
         case .subdivision(let state, let left?, let right?):
-            var current: (point: Vector, distanceSquared: Vector.Scalar)
+            var current: (element: Element, distanceSquared: Vector.Scalar)
 
             let (first, second) = isOnLeft(point) ? (left, right) : (right, left)
 
@@ -478,12 +483,12 @@ extension KDTree.Subdivision {
             if childNearest.distanceSquared < current.distanceSquared {
                 current = childNearest
             }
-            
+
             // Check this subdivision's point now.
-            if point.distanceSquared(to: state.point) < current.distanceSquared {
+            if point.distanceSquared(to: state.element.location) < current.distanceSquared {
                 current = (
-                    state.point,
-                    distanceSquared: point.distanceSquared(to: state.point)
+                    state.element,
+                    distanceSquared: point.distanceSquared(to: state.element.location)
                 )
             }
 
@@ -495,20 +500,21 @@ extension KDTree.Subdivision {
     /// the current subdivision dimension is less than or equal to the
     /// same scalar of the given point.
     func isOnLeft(_ point: Vector) -> Bool {
-        point[state.dimension] < state.point[state.dimension]
+        point[state.dimension] < state.element.location[state.dimension]
     }
 
     /// Returns the distance squared from a given point to the subdivision
     /// line of this subdivision.
     func distanceSquared(to point: Vector) -> Vector.Scalar {
-        let dist = point[state.dimension] - state.point[state.dimension]
+        let dist = point[state.dimension] - state.element.location[state.dimension]
 
         return dist * dist
     }
 
     /// Returns a copy of this subdivision, with a new point inserted at a
     /// given subdivision path.
-    func inserting(_ point: Vector, reversePath: KDTree.InvertedSubdivisionPath) -> Self {
+    func inserting(_ element: Element, reversePath: KDTree.InvertedSubdivisionPath) -> Self {
+        let point = element.location
         var copy = self
 
         switch reversePath {
@@ -521,7 +527,7 @@ extension KDTree.Subdivision {
             if child == .self {
                 copy.left = .subdivision(
                     .init(
-                        point: point,
+                        element: element,
                         dimension: (state.dimension + 1) % point.scalarCount,
                         totalItemCount: 1,
                         absolutePath: absolutePath.left
@@ -530,7 +536,7 @@ extension KDTree.Subdivision {
                     right: nil
                 )
             } else {
-                copy.left = copy.left?.inserting(point, reversePath: child)
+                copy.left = copy.left?.inserting(element, reversePath: child)
             }
 
         case .right(let child):
@@ -539,7 +545,7 @@ extension KDTree.Subdivision {
             if child == .self {
                 copy.right = .subdivision(
                     .init(
-                        point: point,
+                        element: element,
                         dimension: (state.dimension + 1) % point.scalarCount,
                         totalItemCount: 1,
                         absolutePath: absolutePath.right
@@ -548,7 +554,7 @@ extension KDTree.Subdivision {
                     right: nil
                 )
             } else {
-                copy.right = copy.right?.inserting(point, reversePath: child)
+                copy.right = copy.right?.inserting(element, reversePath: child)
             }
         }
 
@@ -601,20 +607,20 @@ extension KDTree.Subdivision {
         }
     }
 
-    static func create<C: Collection<Vector>>(
-        _ points: C,
+    static func create<C: Collection<Element>>(
+        _ elements: C,
         absolutePath: KDTree.SubdivisionPath,
         dimensionCount: Int,
         depth: Int
     ) -> Self? {
 
-        guard !points.isEmpty else {
+        guard !elements.isEmpty else {
             return nil
         }
 
         let dim = depth % dimensionCount
 
-        let sorted = points.sorted(by: { $0[dim] < $1[dim] })
+        let sorted = elements.sorted(by: { $0.location[dim] < $1.location[dim] })
         let median = sorted.count / 2
 
         let pivot = sorted[median]
@@ -622,13 +628,13 @@ extension KDTree.Subdivision {
         let left = sorted.prefix(upTo: median)
         let right = sorted.suffix(from: median + 1)
 
-        assert(left.count + right.count == points.count - 1)
+        assert(left.count + right.count == elements.count - 1)
 
         return .subdivision(
             .init(
-                point: pivot,
+                element: pivot,
                 dimension: dim,
-                totalItemCount: points.count,
+                totalItemCount: elements.count,
                 absolutePath: absolutePath
             ),
             left: .create(
@@ -644,5 +650,40 @@ extension KDTree.Subdivision {
                 depth: depth + 1
             )
         )
+    }
+}
+
+/// Protocol for KD-tree elements that are space-locatable by a vector.
+public protocol KDTreeLocatable {
+    associatedtype Vector: VectorType
+
+    /// Gets the location of this locatable object in space.
+    var location: Vector { get }
+}
+
+extension Vector2: KDTreeLocatable {
+    /// Returns `self`.
+    ///
+    /// Default implementation for `KDTreeLocatable`.
+    public var location: Self {
+        self
+    }
+}
+
+extension Vector3: KDTreeLocatable {
+    /// Returns `self`.
+    ///
+    /// Default implementation for `KDTreeLocatable`.
+    public var location: Self {
+        self
+    }
+}
+
+extension Vector4: KDTreeLocatable {
+    /// Returns `self`.
+    ///
+    /// Default implementation for `KDTreeLocatable`.
+    public var location: Self {
+        self
     }
 }
