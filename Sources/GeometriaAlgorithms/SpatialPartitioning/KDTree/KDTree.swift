@@ -138,16 +138,20 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
             return
         }
 
-        let nearest = root.nearestSubdivision(to: element.location)
-        guard nearest.0.element == element else {
-            return
-        }
+        var allNearest: [Subdivision] = []
+        root.nearestSubdivisions(
+            to: element.location,
+            distanceSquared: .zero,
+            onMatch: { if $0.element == element { allNearest.append($0) } }
+        )
 
-        guard let path = root.findPath(to: nearest.0) else {
-            return
-        }
+        for nearest in allNearest {
+            guard let path = root.findPath(to: nearest) else {
+                return
+            }
 
-        remove(at: .init(path: path))
+            remove(at: .init(path: path))
+        }
     }
 
     /// Removes an element at a given index in this k-d tree.
