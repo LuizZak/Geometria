@@ -110,8 +110,6 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
 
     /// Inserts a given element on this k-d tree.
     public mutating func insert(_ element: Element) {
-        ensureUnique()
-
         guard let root else {
             root = Subdivision(
                 state: .empty(
@@ -130,13 +128,12 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
         let path = subdivisionPath(forInserting: element)
         let reversed = path.reversed
 
+        ensureUnique()
         root.inserting(element, path: reversed.asPath)
     }
 
     /// If `element` is contained within this k-d tree, it is removed in-place.
     public mutating func remove(_ element: Element) where Element: Equatable {
-        ensureUnique()
-
         guard let root else {
             return
         }
@@ -155,12 +152,18 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
 
     /// Removes an element at a given index in this k-d tree.
     public mutating func remove(at index: Index) {
-        ensureUnique()
         guard let root, root.pathExists(index.path) else {
             fatalError("Index \(index) is not part of this k-d tree.")
         }
 
+        ensureUnique()
         self.root = root.removing(at: index.path)
+    }
+
+    /// Removes all elements contained within this k-d tree.
+    public mutating func removeAll() {
+        ensureUnique()
+        root = nil
     }
 
     /// Encodes a path to a specific subdivision within a k-d tree.
