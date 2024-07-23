@@ -89,6 +89,7 @@ class KDTreeTests: XCTestCase {
             sut.insert(point)
         }
 
+        assertIsValid(sut)
         XCTAssertEqual(sut.count, points.count)
         SequenceAsserter
             .forSet(
@@ -96,6 +97,20 @@ class KDTreeTests: XCTestCase {
             ).assert(
                 equals: points
             )
+    }
+
+    func testRemove_pointCloudPartition_2D() {
+        let points = makePointCloud(count: 50)
+        var sut = KDTree(elements: points)
+
+        for point in points[..<25] {
+            sut.remove(point)
+        }
+
+        assertIsValid(sut)
+        for point in sut.elements() {
+            XCTAssertEqual(sut.nearestNeighbor(to: point), point)
+        }
     }
 
     func testNearestNeighbor_pointCloudPartition_2D_identitySearch() {
@@ -148,6 +163,79 @@ class KDTreeTests: XCTestCase {
                 "index: \(i) search point: \(searchPoint)"
             )
         }
+    }
+
+    // MARK: - Collection conformance
+
+    func testCollectionConformance_indices() throws {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+        let expected = try XCTUnwrap(sut.root?.availableElementPaths())
+
+        let result = Array(sut.indices)
+
+        XCTAssertEqual(result.map(\.path), expected)
+    }
+
+    func testCollectionConformance_startIndex() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(sut.startIndex, .init(path: .self))
+    }
+
+    func testCollectionConformance_endIndex() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(sut.endIndex, .init(path: .right(.right(.right(.right(.left(.left(.self))))))))
+    }
+
+    func testCollectionConformance_indexAfter() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(
+            sut.index(after: sut.startIndex),
+            .init(path: .left(.self))
+        )
+    }
+
+    func testCollectionConformance_index_offsetBy_25() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(
+            sut.index(sut.startIndex, offsetBy: 25),
+            .init(path: .left(.right(.right(.right(.left(.self))))))
+        )
+    }
+
+    func testCollectionConformance_index_offsetBy_50() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(
+            sut.index(sut.startIndex, offsetBy: 50),
+            .init(path: .right(.right(.right(.right(.left(.left(.self)))))))
+        )
+    }
+
+    func testCollectionConformance_subscript() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(
+            sut[.init(path: .left(.left(.left(.right(.left(.self))))))],
+            points[0]
+        )
+    }
+
+    func testCollectionConformance_sequenceProtocol() {
+        let points = makePointCloud(count: 50)
+        let sut = KDTree<Vector2D>(elements: points)
+
+        XCTAssertEqual(Set(sut), Set(points))
     }
 
     // MARK: - Performance tests
@@ -221,4 +309,29 @@ private func makePointCloud(count: Int) -> [Vector2D] {
     return (0..<count).map { _ in
         randomPoint()
     }
+}
+
+private func assertIsValid(
+    _ tree: KDTree<Vector2D>,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
+    guard let root = tree.root else {
+        return
+    }
+
+    var isValid = true
+    root.applyToTreeBreadthFirst { subdivision in
+        let element = subdivision.element
+        let dimension = subdivision.dimension
+
+        if let left = subdivision.left {
+            isValid = isValid && left.element[dimension] <= element[dimension]
+        }
+        if let right = subdivision.right {
+            isValid = isValid && right.element[dimension] >= element[dimension]
+        }
+    }
+
+    XCTAssertTrue(isValid, "KDTree is not valid: Elements are not subdivided by their dimensions", file: file, line: line)
 }
