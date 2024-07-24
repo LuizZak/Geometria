@@ -111,6 +111,17 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
         circleArc.distanceSquared(to: vector) < toleranceSquared
     }
 
+    @inlinable
+    public func closestPeriod(to vector: Vector) -> Period {
+        let angle = center.angle(to: vector)
+        let angleSweep = circleArc.asAngleSweep
+        let clampedAngle = angleSweep.clamped(angle)
+
+        let ratio = angleSweep.ratioOfAngle(clampedAngle)
+
+        return startPeriod + ratio * (endPeriod - startPeriod)
+    }
+
     /// Clamps this simplex so its contained geometry is only present within a
     /// given period range.
     ///

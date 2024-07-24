@@ -87,7 +87,9 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
     public func queryPoint(_ point: Vector) -> [Element] {
         var result: [Element] = []
-        root.queryPoint(point, to: &result)
+        root.queryPoint(point) { (_, element) in
+            result.append(element)
+        }
         return result
     }
 
@@ -95,7 +97,9 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         _ line: Line
     ) -> [Element] where Line.Vector == Vector {
         var result: [Element] = []
-        root.queryLine(line, to: &result)
+        root.queryLine(line) { (_, element) in
+            result.append(element)
+        }
         return result
     }
 
@@ -103,7 +107,9 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         _ area: Bounds
     ) -> [Element] where Bounds.Vector == Vector {
         var result: [Element] = []
-        root.query(area, to: &result)
+        root.query(area) { (_, element) in
+            result.append(element)
+        }
         return result
     }
 
@@ -164,6 +170,18 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         }
     }
 
+    /// Removes a given element from this spatial tree.
+    ///
+    /// In case removal results in an empty set of subdivisions for a subdivision,
+    /// the subdivisions are collapsed and removed.
+    public mutating func remove(_ element: Element) where Element: Equatable {
+        let bounds = element.bounds
+        root.query(bounds) { (subdivision, _) in
+            subdivision.elements.removeAll(where: { $0 == element })
+        }
+        root.collapseEmpty()
+    }
+
     /// Removes all elements contained within this spatial tree, resetting its
     /// root element back to an empty state.
     ///
@@ -216,10 +234,27 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             )
         }
 
-        func queryPoint(_ point: Vector, to result: inout [Element]) {
+        /// Recursively collapses empty subdivisions within this spatial tree
+        /// subdivision.
+        func collapseEmpty() {
+            guard let subdivisions else { return }
+
+            for subdivision in subdivisions {
+                subdivision.collapseEmpty()
+            }
+
+            if subdivisions.allSatisfy({ $0.elements.isEmpty }) {
+                self.subdivisions = nil
+            }
+        }
+
+        func queryPoint(
+            _ point: Vector,
+            onMatch: (Subdivision, Element) -> Void
+        ) {
             for element in elements {
                 if element.bounds.contains(point) {
-                    result.append(element)
+                    onMatch(self, element)
                 }
             }
 
@@ -228,16 +263,17 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return
                 }
 
-                subdivision.queryPoint(point, to: &result)
+                subdivision.queryPoint(point, onMatch: onMatch)
             }
         }
 
         func queryLine<Line: LineFloatingPoint>(
-            _ line: Line, to result: inout [Element]
+            _ line: Line,
+            onMatch: (Subdivision, Element) -> Void
         ) where Line.Vector == Vector {
             for element in elements {
                 if element.bounds.intersects(line: line) {
-                    result.append(element)
+                    onMatch(self, element)
                 }
             }
 
@@ -246,16 +282,17 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return
                 }
 
-                subdivision.queryLine(line, to: &result)
+                subdivision.queryLine(line, onMatch: onMatch)
             }
         }
 
         func query<Bounds: BoundableType>(
-            _ area: Bounds, to result: inout [Element]
+            _ area: Bounds,
+            onMatch: (Subdivision, Element) -> Void
         ) where Bounds.Vector == Vector {
             for element in elements {
                 if element.bounds.intersects(area.bounds) {
-                    result.append(element)
+                    onMatch(self, element)
                 }
             }
 
@@ -264,7 +301,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return
                 }
 
-                subdivision.query(area, to: &result)
+                subdivision.query(area, onMatch: onMatch)
             }
         }
 
@@ -280,6 +317,8 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Returns `true` if no subdivisions are available, or if they are all
         /// empty.
+        ///
+        /// The check is performed recursively across all subdivisions.
         func areSubdivisionsEmpty() -> Bool {
             guard let subdivisions else {
                 return true

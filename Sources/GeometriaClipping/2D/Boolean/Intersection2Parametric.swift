@@ -1,7 +1,7 @@
 import Geometria
 
-/// A Union boolean parametric that joins two shapes into a single shape, if they
-/// intersect in space.
+/// An Intersection boolean parametric that joins two shapes into a single shape,
+/// if they intersect in space.
 public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametric {
     public typealias Contour = Parametric2Contour<Vector>
 
@@ -56,51 +56,7 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
 
         graph.prune()
 
-        let resultOverall = ContourManager<Vector>()
-
-        func candidateIsAscending(_ lhs: Graph.Edge, _ rhs: Graph.Edge) -> Bool {
-            return lhs.id < rhs.id
-        }
-
-        var visitedOverall: Set<Graph.Node> = []
-
-        guard var current = graph.edges.min(by: candidateIsAscending)?.start else {
-            return resultOverall.allContours(applyWindingFiltering: false)
-        }
-
-        // Keep visiting nodes on the graph, removing them after each complete visit
-        while visitedOverall.insert(current).inserted {
-            let result = resultOverall.beginContour()
-            var visited: Set<Graph.Node> = []
-
-            // Visit all reachable nodes
-            // The existing edges shouldn't matter as long as we pick any
-            // suitable edge in a stable fashion for unit testing
-            while visited.insert(current).inserted {
-                guard let nextEdge = graph.edges(from: current).min(by: candidateIsAscending) else {
-                    break
-                }
-
-                graph.removeEdge(nextEdge)
-
-                result.append(nextEdge.materialize())
-                current = nextEdge.end
-            }
-
-            result.endContour(startPeriod: .zero, endPeriod: 1)
-
-            // Prune the graph by removing dead-end nodes and pull a new edge to
-            // start traversing on any remaining nodes
-            graph.prune()
-
-            guard let next = graph.edges.min(by: candidateIsAscending) else {
-                break
-            }
-
-            current = next.start
-        }
-
-        return resultOverall.allContours(applyWindingFiltering: false)
+        return graph.recombine()
     }
 
     @inlinable

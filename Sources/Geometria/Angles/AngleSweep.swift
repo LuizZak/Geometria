@@ -37,6 +37,21 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         return false
     }
 
+    /// Returns `true` if this angle sweep intersects with another angle sweep.
+    ///
+    /// The result is `true` also for angle sweeps that overlap only on their
+    /// end-points, i.e. the check is inclusive.
+    public func intersects(_ other: Self) -> Bool {
+        if contains(other.start) || contains(other.stop) {
+            return true
+        }
+        if other.contains(start) || other.contains(stop) {
+            return true
+        }
+
+        return false
+    }
+
     /// Returns `true` if this circular arc contains a given angle value within
     /// its start + sweep region.
     public func contains(_ angle: Angle<Scalar>) -> Bool {

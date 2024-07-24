@@ -52,7 +52,7 @@ let geometriaAlgorithmsTestTarget: Target = .testTarget(
 // GeometriaClipping
 let geometriaClippingTarget: Target = .target(
     name: "GeometriaClipping",
-    dependencies: geometriaDependencies + ["Geometria", .product(name: "MiniDigraph", package: "MiniDigraph")],
+    dependencies: geometriaDependencies + ["Geometria", "GeometriaAlgorithms", .product(name: "MiniDigraph", package: "MiniDigraph")],
     swiftSettings: []
 )
 let geometriaClippingTestTarget: Target = .testTarget(
@@ -80,7 +80,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
         .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
-        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.5.2")),
+        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.6.0")),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),

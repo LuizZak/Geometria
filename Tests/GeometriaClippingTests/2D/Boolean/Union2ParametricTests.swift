@@ -710,4 +710,18 @@ class Union2ParametricTests: XCTestCase {
 
         }
     }
+
+    func testUnion_interference_total() {
+        let lhs = Circle2Parametric.makeTestCircle()
+        let rhs = Circle2Parametric.makeTestCircle()
+        let sut = Union2Parametric(lhs, rhs)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [lhs.allSimplexes()]
+                )
+        }
+    }
 }

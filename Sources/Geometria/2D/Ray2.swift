@@ -16,16 +16,13 @@ public typealias Ray2i = Ray2<Vector2i>
 public typealias Ray2<V: Vector2Type> = Ray<V>
 
 extension Ray2: Line2Type {
-    
+
 }
 
-extension Ray2: Line2FloatingPoint where Vector: Vector2FloatingPoint {
-    
-}
-
-extension Ray2: Line2Real where Vector: Vector2Real {
-    
-}
+extension Ray2: Line2Multiplicative where Vector: Vector2Multiplicative { }
+extension Ray2: LineSigned & Line2Signed where Vector: Vector2Signed { }
+extension Ray2: Line2FloatingPoint where Vector: Vector2FloatingPoint { }
+extension Ray2: Line2Real where Vector: Vector2Real { }
 
 public extension Ray2 where Vector: VectorAdditive {
     /// Initializes a new Ray with two 2D vectors representing the starting
@@ -36,7 +33,7 @@ public extension Ray2 where Vector: VectorAdditive {
         start = Vector(x: x1, y: y1)
         b = Vector(x: x2, y: y2)
     }
-    
+
     /// Initializes a new Ray with a 2D vector for its position and another
     /// describing the direction of the ray relative to the position.
     @_transparent

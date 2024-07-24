@@ -1,5 +1,6 @@
-import Geometria
 import MiniDigraph
+import Geometria
+import GeometriaAlgorithms
 
 extension Simplex2Graph {
     @inlinable
@@ -38,6 +39,20 @@ extension Simplex2Graph {
         // Populate with contours
         for contour in contours {
             result.appendContour(contour)
+        }
+
+        // Compute interferences
+        if result.computeInterferences(tolerance: tolerance) {
+            // If interferences where found, we need to recompute the contours
+            // based on the existing edges
+            let recombined = result.recombine()
+
+            result = Self()
+            for contour in recombined {
+                result.appendContour(contour)
+            }
+
+            result.assertIsValid()
         }
 
         // Populate with intersections
@@ -111,57 +126,220 @@ extension Simplex2Graph {
 
     @inlinable
     internal mutating func computeIntersections(tolerance: Scalar) {
-        for (lhs, lhsContour) in contours.enumerated() {
-            for (rhs, rhsContour) in contours.enumerated().dropFirst(lhs + 1) {
+        // TODO: Use quad tree for this step?
+        let edges = Array(edges)
 
-                let intersections = lhsContour.rawIntersectionPeriods(
-                    rhsContour,
-                    tolerance: tolerance
-                )
+        var allIntersections: [(lhs: Int, lhsPeriod: Vector.Scalar, rhs: Int, rhsPeriod: Vector.Scalar)] = []
+        var visited: Set<Edge> = []
+
+        for lhs in edges.sorted(by: { $0.id < $1.id }) where visited.insert(lhs).inserted {
+            let lhsSimplex = lhs.materialize()
+            let coincident = edgeTree.query(lhs)
+
+            for rhs in coincident where lhs.shapeIndex != rhs.shapeIndex {
+                visited.insert(rhs)
+
+                let intersections =
+                    lhsSimplex
+                    .intersectionPeriods(with: rhs.materialize())
 
                 for intersection in intersections {
-                    guard
-                        let lhsEdge = edgeForPeriod(
-                            intersection.`self`,
-                            shapeIndex: lhs
-                        ),
-                        let rhsEdge = edgeForPeriod(
-                            intersection.other,
-                            shapeIndex: rhs
-                        )
-                    else {
-                        continue
-                    }
-
-                    let point = lhsContour.compute(at: intersection.`self`)
-                    let node = Node(
-                        location: point,
-                        kind: .intersection(
-                            lhs: lhs,
-                            lhsPeriod: intersection.`self`,
-                            rhs: rhs,
-                            rhsPeriod: intersection.other
-                        )
+                    allIntersections.append(
+                        (lhs.shapeIndex, intersection.`self`, rhs.shapeIndex, intersection.other)
                     )
-
-                    addNode(node)
-
-                    splitEdge(
-                        lhsEdge,
-                        period: intersection.`self`,
-                        midNode: node
-                    )
-
-                    splitEdge(
-                        rhsEdge,
-                        period: intersection.other,
-                        midNode: node
-                    )
-
-                    assertIsValid()
                 }
             }
         }
+
+        for intersection in allIntersections {
+            guard
+                let lhs = edgeForPeriod(intersection.lhsPeriod, shapeIndex: intersection.lhs),
+                let rhs = edgeForPeriod(intersection.rhsPeriod, shapeIndex: intersection.rhs)
+            else {
+                continue
+            }
+
+            assert(lhs != rhs, "lhs != rhs")
+            assert(lhs.shapeIndex != rhs.shapeIndex, "lhs != rhs")
+
+            let point = lhs.materialize().compute(at: intersection.lhsPeriod)
+            let node = Node(
+                location: point,
+                kind: .intersection(
+                    lhs: intersection.lhs,
+                    lhsPeriod: intersection.lhsPeriod,
+                    rhs: intersection.rhs,
+                    rhsPeriod: intersection.rhsPeriod
+                )
+            )
+
+            addNode(node)
+
+            splitEdge(
+                lhs,
+                period: intersection.lhsPeriod,
+                midNode: node
+            )
+
+            splitEdge(
+                rhs,
+                period: intersection.rhsPeriod,
+                midNode: node
+            )
+
+            assertIsValid()
+        }
+    }
+
+    /// Computes interferences between edges and vertices.
+    ///
+    /// Interferences occur under a specified tolerance, where geometry is
+    /// coincidental under that tolerance in space.
+    ///
+    /// Returns `true` if interferences where found and merged.
+    @inlinable
+    internal mutating func computeInterferences(tolerance: Scalar) -> Bool {
+        var hasMerged = false
+
+        func areClose(_ v1: Vector, _ v2: Vector) -> Bool {
+            let diff = (v1 - v2)
+
+            return diff.maximalComponent.magnitude < tolerance
+        }
+        func areClose(_ n1: Node, _ n2: Node) -> Bool {
+            areClose(n1.location, n2.location)
+        }
+
+        let distanceSquared = tolerance * tolerance
+
+        var nodesToMerge: Set<Set<Node>> = []
+
+        for node in nodes {
+            let neighbors = nodeTree.nearestNeighbors(
+                to: node.location,
+                distanceSquared: distanceSquared
+            )
+
+            nodesToMerge.insert(
+                Set(neighbors)
+            )
+        }
+
+        for nodesToMerge in nodesToMerge {
+            guard nodesToMerge.count > 1, let first = nodesToMerge.first else {
+                continue
+            }
+
+            let geometries: [Node.Kind.SharedGeometryEntry] = nodesToMerge.compactMap { node in
+                switch node.kind {
+                case .geometry(let shapeIndex, let period):
+                    return [Node.Kind.SharedGeometryEntry(
+                        shapeIndex: shapeIndex, period: period
+                    )]
+
+                case .sharedGeometry(let geometries):
+                    return geometries
+
+                case .intersection:
+                    return nil
+                }
+            }.flatMap({ $0 })
+
+            let entries = nodesToMerge.flatMap(edges(towards:))
+            let exits = nodesToMerge.flatMap(edges(from:))
+            let newNode = Node(
+                location: first.location,
+                kind: .sharedGeometry(geometries)
+            )
+
+            // Remove old nodes
+            removeNodes(nodesToMerge)
+
+            // Re-add nodes and edges
+            addNode(newNode)
+
+            for entry in entries {
+                assert(!containsEdge(entry))
+
+                entry.end = newNode
+                addEdge(entry)
+            }
+            for exit in exits {
+                assert(!containsEdge(exit))
+
+                exit.start = newNode
+                addEdge(exit)
+            }
+
+            hasMerged = true
+        }
+
+        var edgesToCheck: Set<Set<Edge>> = []
+        for edge in edges {
+            let coincident =
+                edgeTree
+                .query(edge)
+                .filter({ $0.isCoincident(with: edge, tolerance: tolerance) })
+
+            edgesToCheck.insert(Set(coincident).union([edge]))
+        }
+
+        for edgesToCheck in edgesToCheck {
+            guard edgesToCheck.count > 1 else {
+                continue
+            }
+            let edgesToCheck = Array(edgesToCheck).sorted(by: { $0.shapeIndex > $1.shapeIndex })
+            var currentEdge: Edge? = nil
+
+            // Check two at a time
+            for next in edgesToCheck {
+                guard let current = currentEdge else {
+                    currentEdge = next
+                    continue
+                }
+
+                // •------•
+                // •------•
+                // =
+                // •------•
+                if
+                    areClose(current.start, next.start) && areClose(current.end, next.end) ||
+                    areClose(current.start, next.end) && areClose(current.end, next.start)
+                {
+                    removeEdge(current)
+
+                    if current.isOpposingCoincident(next) {
+                        // Remove both edges
+                        removeEdge(next)
+
+                        currentEdge = nil
+                    } else {
+                        currentEdge = next
+
+                        // Reduce the winding count for the remaining edge
+                        next.totalWinding = contours[next.shapeIndex].winding.value - 1
+                    }
+
+                    hasMerged = true
+                }
+
+                // TODO: Handle different cases of coincidence
+
+                // •----•    or    •----•
+                //    •----•    •----•
+                // =
+                // •--•-•--•    •--•-•--•
+
+                //  •----•   or  •------•
+                // •------•       •----•
+                // =
+                // ••----••      ••----••
+            }
+        }
+
+        prune()
+
+        return hasMerged
     }
 
     /// Re-computes edge windings within this simplex graph.
@@ -177,7 +355,7 @@ extension Simplex2Graph {
                 contours.enumerated()
                 .filter({ $0.offset != edge.shapeIndex })
                 .filter({ $0.element.contains(center) })
-                .reduce(contour.winding.value, { $0 + $1.element.winding.value })
+                .reduce(edge.winding.value, { $0 + $1.element.winding.value })
         }
     }
 
@@ -304,7 +482,9 @@ extension Simplex2Graph {
             shapeIndex: edge.shapeIndex,
             startPeriod: edge.startPeriod,
             endPeriod: period,
-            kind: kindStart
+            kind: kindStart,
+            totalWinding: edge.totalWinding,
+            winding: edge.winding
         )
         let newEnd = Edge(
             id: nextEdgeId(),
@@ -313,7 +493,9 @@ extension Simplex2Graph {
             shapeIndex: edge.shapeIndex,
             startPeriod: period,
             endPeriod: edge.endPeriod,
-            kind: kindEnd
+            kind: kindEnd,
+            totalWinding: edge.totalWinding,
+            winding: edge.winding
         )
 
         removeEdge(edge)
@@ -368,3 +550,6 @@ extension Parametric2Contour {
         return atoms
     }
 }
+
+extension Simplex2Graph.Node: KDTreeLocatable { }
+extension Simplex2Graph.Edge: BoundableType { }

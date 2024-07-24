@@ -1,5 +1,6 @@
 import MiniDigraph
 import Geometria
+import GeometriaAlgorithms
 
 /// A graph that describes a set of geometry vertices + intersection points, with
 /// edges that correspond to simplexes of a 2-dimensional geometry.
@@ -10,6 +11,14 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
 
     /// Internal cached graph implementation.
     var graph: CachingDirectedGraph<Node, Edge>
+
+    /// kd-tree of nodes.
+    @usableFromInline
+    var nodeTree: KDTree<Node> = .init(dimensionCount: 2, elements: [])
+
+    /// Quad-tree of edges.
+    @usableFromInline
+    var edgeTree: QuadTree<Edge> = .init(maxSubdivisions: 8, maxElementsPerLevelBeforeSplit: 5)
 
     /// The next available edge ID to be used when adding contours.
     var edgeId: Int = 0
@@ -90,6 +99,11 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 period: Period
             )
 
+            /// A geometry node that is shared amongst different geometries.
+            case sharedGeometry(
+                [SharedGeometryEntry]
+            )
+
             /// An intersection node.
             case intersection(
                 lhs: ShapeIndex,
@@ -103,6 +117,9 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 case .geometry(let shapeIndex, let period):
                     return ".geometry(shapeIndex: \(shapeIndex), period: \(period))"
 
+                case .sharedGeometry(let entries):
+                    return ".sharedGeometry(\(entries))"
+
                 case .intersection(let lhs, let lhsPeriod, let rhs, let rhsPeriod):
                     return ".intersection(lhs: \(lhs), lhsPeriod: \(lhsPeriod), rhs: \(rhs), rhsPeriod: \(rhsPeriod))"
                 }
@@ -112,6 +129,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 switch self {
                 case .intersection:
                     return true
+
                 default:
                     return false
                 }
@@ -121,6 +139,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 switch self {
                 case .geometry(let shapeIndex, _):
                     return shapeIndex
+
                 default:
                     return nil
                 }
@@ -130,6 +149,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 switch self {
                 case .intersection(let index, _, _, _):
                     return index
+
                 default:
                     return nil
                 }
@@ -139,8 +159,27 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 switch self {
                 case .intersection(_, _, let index, _):
                     return index
+
                 default:
                     return nil
+                }
+            }
+
+            public struct SharedGeometryEntry: Equatable, CustomStringConvertible {
+                public var shapeIndex: ShapeIndex
+                public var period: Period
+
+                public var description: String {
+                    "\(type(of: self))(shapeIndex: \(shapeIndex), period: \(period))"
+                }
+
+                @usableFromInline
+                internal init(
+                    shapeIndex: ShapeIndex,
+                    period: Period
+                ) {
+                    self.shapeIndex = shapeIndex
+                    self.period = period
                 }
             }
         }
@@ -158,11 +197,15 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         public var endPeriod: Period
         public var kind: Kind
 
-        public var totalWinding: Int = 0
-        public var winding: Parametric2Contour<Vector>.Winding = .clockwise
+        public var totalWinding: Int
+        public var winding: Parametric2Contour<Vector>.Winding
 
         public var description: String {
             return "\(ObjectIdentifier(start)) -(\(kind))-> \(ObjectIdentifier(end))"
+        }
+
+        public var bounds: AABB<Vector> {
+            materialize().bounds
         }
 
         public var lengthSquared: Vector.Scalar {
@@ -180,7 +223,9 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             shapeIndex: Int,
             startPeriod: Period,
             endPeriod: Period,
-            kind: Kind
+            kind: Kind,
+            totalWinding: Int = 0,
+            winding: Parametric2Contour<Vector>.Winding = .clockwise
         ) {
             self.id = id
             self.start = start
@@ -189,6 +234,8 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             self.startPeriod = startPeriod
             self.endPeriod = endPeriod
             self.kind = kind
+            self.totalWinding = totalWinding
+            self.winding = winding
         }
 
         @inlinable
@@ -199,6 +246,97 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
 
             let simplex = materialize()
             return centerOfSimplex(simplex)
+        }
+
+        /// Returns `true` if `self` is coincident with `other`, i.e. both edges
+        /// represent the same underlying stroke, overlapping in space.
+        ///
+        /// The check ignores other edges that belong to the same shape.
+        @usableFromInline
+        func isCoincident(with other: Edge, tolerance: Scalar) -> Bool {
+            if other === self {
+                return false
+            }
+            if shapeIndex == other.shapeIndex {
+                return false
+            }
+
+            switch (self.kind, other.kind) {
+            case (.line, .line):
+                let lhsLine = LineSegment2(start: self.start.location, end: self.end.location)
+                let rhsLine = LineSegment2(start: other.start.location, end: other.end.location)
+
+                if lhsLine.isCollinear(with: rhsLine, tolerance: tolerance) {
+                    let lhsStart = rhsLine.projectAsScalar(lhsLine.start)
+                    if lhsStart >= 0 && lhsStart <= 1 {
+                        return true
+                    }
+
+                    let lhsEnd = rhsLine.projectAsScalar(lhsLine.end)
+                    if lhsEnd >= 0 && lhsEnd <= 1 {
+                        return true
+                    }
+
+                    let rhsStart = lhsLine.projectAsScalar(rhsLine.start)
+                    if rhsStart >= 0 && rhsStart <= 1 {
+                        return true
+                    }
+
+                    let rhsEnd = lhsLine.projectAsScalar(rhsLine.end)
+                    if rhsEnd >= 0 && rhsEnd <= 1 {
+                        return true
+                    }
+                }
+
+                return false
+
+            case (
+                .circleArc(let lhsCenter, let lhsRadius, let lhsStart, let lhsSweep),
+                .circleArc(let rhsCenter, let rhsRadius, let rhsStart, let rhsSweep)
+                ) where lhsCenter == rhsCenter && lhsRadius == rhsRadius:
+                let lhsSweep = AngleSweep(start: lhsStart, sweep: lhsSweep)
+                let rhsSweep = AngleSweep(start: rhsStart, sweep: rhsSweep)
+
+                // Ignore angles that are joined end-to-end
+                func withinTolerance(_ v1: Scalar, _ v2: Scalar) -> Bool {
+                    (v1 - v2).magnitude <= tolerance
+                }
+                if
+                    withinTolerance(lhsSweep.start.normalized(from: .zero), rhsSweep.stop.normalized(from: .zero)) ||
+                    withinTolerance(lhsSweep.stop.normalized(from: .zero), rhsSweep.start.normalized(from: .zero))
+                {
+                    return false
+                }
+
+                return lhsSweep.intersects(rhsSweep)
+
+            default:
+                return false
+            }
+        }
+
+        /// Returns `true` if this edge opposes the direction of another coincident
+        /// edge.
+        ///
+        /// - note: Assumes that `self` and `other` are coincident edges, and
+        /// returns `false` if the edges are of different kinds.
+        @usableFromInline
+        func isOpposingCoincident(_ other: Edge) -> Bool {
+            switch (self.kind, other.kind) {
+            case (.line, .line):
+                let lhsLine = LineSegment2(start: self.start.location, end: self.end.location)
+                let lhsSlope = lhsLine.lineSlope
+                let rhsLine = LineSegment2(start: other.start.location, end: other.end.location)
+                let rhsSlope = rhsLine.lineSlope
+
+                return lhsSlope.sign == -rhsSlope.sign
+
+            case (.circleArc(_, _, _, let lhsSweep), .circleArc(_, _, _, let rhsSweep)):
+                return lhsSweep.radians.sign != rhsSweep.radians.sign
+
+            default:
+                return false
+            }
         }
 
         public func materialize() -> Parametric2GeometrySimplex<Vector> {
@@ -284,8 +422,8 @@ extension Simplex2Graph: DirectedGraphType {
         graph.edges(towards: node)
     }
 
-    public func edge(from start: Node, to end: Node) -> Edge? {
-        graph.edge(from: start, to: end)
+    public func edges(from start: Node, to end: Node) -> Set<Edge> {
+        graph.edges(from: start, to: end)
     }
 
     public func indegree(of node: Node) -> Int {
@@ -304,20 +442,47 @@ extension Simplex2Graph: MutableDirectedGraphType {
     }
 
     public mutating func addNode(_ node: Node) {
+        nodeTree.insert(node)
+
         graph.addNode(node)
     }
 
     public mutating func removeNode(_ node: Node) {
+        nodeTree.remove(node)
+
         graph.removeNode(node)
+    }
+
+    public mutating func removeNodes(_ nodes: some Sequence<Node>) {
+        for edge in nodes.flatMap({ allEdges(for: $0) }) {
+            edgeTree.remove(edge)
+        }
+        for node in nodes {
+            nodeTree.remove(node)
+        }
+
+        graph.removeNodes(nodes)
     }
 
     @discardableResult
     public mutating func addEdge(_ edge: Edge) -> Edge {
-        graph.addEdge(edge)
+        edgeTree.insert(edge)
+
+        return graph.addEdge(edge)
     }
 
     public mutating func removeEdge(_ edge: Edge) {
         graph.removeEdge(edge)
+
+        edgeTree.remove(edge)
+    }
+
+    public mutating func removeEdges(_ edgesToRemove: some Sequence<Edge>) {
+        for edge in edgesToRemove {
+            edgeTree.remove(edge)
+        }
+
+        graph.removeEdges(edges)
     }
 }
 

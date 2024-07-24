@@ -81,6 +81,16 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    public func closestPeriod(to vector: Vector) -> Period {
+        switch self {
+        case .lineSegment2(let lineSegment):
+            return lineSegment.closestPeriod(to: vector)
+
+        case .circleArc2(let circleArc):
+            return circleArc.closestPeriod(to: vector)
+        }
+    }
+
     /// Returns `startPeriod + (endPeriod - startPeriod) * ratio`.
     ///
     /// - note: The result is unclamped.
@@ -312,7 +322,18 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         _ circleArc: CircleArc2<Vector>,
         intersection: PointNormal<Vector>
     ) -> Period? {
-        let point = intersection.point
+        return circleArcIntersectionRatio(
+            circleArc,
+            intersection: intersection.point
+        )
+    }
+
+    @inlinable
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2<Vector>,
+        intersection: Vector
+    ) -> Period? {
+        let point = intersection
         let intersectionAngle = circleArc.center.angle(to: point)
 
         let angleSweep = circleArc.asAngleSweep

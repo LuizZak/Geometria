@@ -35,6 +35,9 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
     /// away from this simplex's surface.
     func isOnSurface(_ vector: Vector, toleranceSquared: Vector.Scalar) -> Bool
 
+    /// Returns the closest period to an input vector.
+    func closestPeriod(to vector: Vector) -> Period
+
     /// Reverses this simplex by swapping its start <-> end points, making it
     /// travel in the opposite direction.
     ///

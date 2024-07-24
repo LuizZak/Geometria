@@ -89,6 +89,13 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
         lineSegment.distanceSquared(to: vector) < toleranceSquared
     }
 
+    public func closestPeriod(to vector: Vector) -> Period {
+        let scalar = lineSegment.projectAsScalar(vector)
+        let clamped = lineSegment.clampProjectedNormalizedMagnitude(scalar)
+
+        return startPeriod + clamped * (endPeriod - startPeriod)
+    }
+
     /// Clamps this simplex so its contained geometry is only present within a
     /// given period range.
     ///

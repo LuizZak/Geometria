@@ -25,7 +25,7 @@ extension P5Printer {
           } else {
             parametricCheckboxes[parametric.category] = {
               checkbox: null,
-              parametrics: [],
+              parametrics: [parametric],
             }
           }
         }
@@ -341,7 +341,7 @@ extension P5Printer {
                 printer.add(intersection: node.location, at: lhsPeriod, category: "lhs intersections")
                 printer.add(intersection: node.location, at: rhsPeriod, category: "rhs intersections")
 
-            case .geometry:
+            case .geometry, .sharedGeometry:
                 break
             }
         }
