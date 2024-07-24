@@ -113,6 +113,23 @@ class KDTreeTests: XCTestCase {
         }
     }
 
+    func testRemove_repeatedElement() {
+        let points = makePointCloud(count: 50)
+        var sut = KDTree(elements: points)
+        for point in points {
+            sut.insert(point)
+        }
+
+        for point in points[..<25] {
+            sut.remove(point)
+        }
+
+        assertIsValid(sut)
+        for point in sut.elements() {
+            XCTAssertEqual(sut.nearestNeighbor(to: point), point)
+        }
+    }
+
     func testNearestNeighbor_pointCloudPartition_2D_identitySearch() {
         let points = makePointCloud(count: 50)
         let sut = KDTree<Vector2D>(elements: points)

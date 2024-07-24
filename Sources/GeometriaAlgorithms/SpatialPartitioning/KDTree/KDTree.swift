@@ -137,19 +137,15 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
     public mutating func remove(_ element: Element) where Element: Equatable {
         ensureUnique()
 
-        guard let root else {
-            return
-        }
-
         var allNearest: [Subdivision] = []
-        root.nearestSubdivisions(
+        root?.nearestSubdivisions(
             to: element.location,
             distanceSquared: .zero,
             onMatch: { if $0.element == element { allNearest.append($0) } }
         )
 
         for nearest in allNearest {
-            guard let path = root.findPath(to: nearest) else {
+            guard let path = self.root?.findPath(to: nearest) else {
                 return
             }
 
