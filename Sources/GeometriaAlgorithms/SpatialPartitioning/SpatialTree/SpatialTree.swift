@@ -12,6 +12,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     public typealias Bounds = AABB<Vector>
     public typealias Vector = Element.Vector
 
+    @usableFromInline
     internal var root: Subdivision
 
     /// The maximal subdivisions allowed currently affecting this spatial tree.
@@ -65,32 +66,31 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         }
     }
 
-    private mutating func ensureUnique() {
+    @usableFromInline
+    internal mutating func ensureUnique() {
         if !isKnownUniquelyReferenced(&root) {
             root = root.deepCopy()
         }
     }
 
-    private mutating func ensuringUnique() -> Subdivision {
-        ensureUnique()
-        return root
-    }
-
     // MARK: - Querying
 
     /// Returns all elements contained within this spatial tree.
+    @inlinable
     public func elements() -> [Element] {
         var result: [Element] = []
         root.collectElements(to: &result)
         return result
     }
 
+    @inlinable
     public func queryPoint(_ point: Vector) -> [Element] {
         var result: [Element] = []
         root.queryPoint(point, to: &result)
         return result
     }
 
+    @inlinable
     public func queryLine<Line: LineFloatingPoint>(
         _ line: Line
     ) -> [Element] where Line.Vector == Vector {
@@ -99,6 +99,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         return result
     }
 
+    @inlinable
     public func query<Bounds: BoundableType>(
         _ area: Bounds
     ) -> [Element] where Bounds.Vector == Vector {
@@ -109,14 +110,17 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
     // MARK: - Mutation
 
-    /// Inserts a new element into this spatial tree.
-    ///
-    /// If the given element is outside the boundaries of this spatial tree, it
-    /// is reconstructed to fit all current elements, plus the incoming element.
-    public mutating func insert(_ element: Element) {
-        ensureUnique()
+    @inlinable
+    mutating func reconstruct(_ newBounds: Bounds) {
+        let existing = elements()
+        root = .init(
+            bounds: newBounds,
+            elements: [],
+            subdivisions: nil,
+            depth: 0
+        )
 
-        if root.bounds.contains(element.bounds) {
+        for element in existing {
             root.insert(
                 element: element,
                 .init(
@@ -124,39 +128,68 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
                 )
             )
-        } else {
-            // Reconstruction is required
-            let newBounds: Bounds
-            if root.isEmpty() {
-                newBounds = element.bounds
-            } else {
-                newBounds = root.bounds.union(element.bounds)
-            }
-
-            let existing = elements()
-            root = .init(
-                bounds: newBounds,
-                elements: [element],
-                subdivisions: nil,
-                depth: 0
-            )
-
-            for element in existing {
-                root.insert(
-                    element: element,
-                    .init(
-                        maxSubdivisions: maxSubdivisions,
-                        maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
-                    )
-                )
-            }
         }
+    }
+
+    /// Compacts this spatial tree such that the root subdivision is the minimal
+    /// size capable of containing all elements within the spatial tree.
+    ///
+    /// If this spatial tree has no elements, the root subdivision is reset back
+    /// to `AABB.zero`, instead.
+    public mutating func compact() {
+        let minimalBounds = AABB(aabbs: elements().map(\.bounds))
+
+        reconstruct(minimalBounds)
+    }
+
+    /// Ensures that this spatial tree can contain a given boundary.
+    ///
+    /// If this spatial tree is smaller than `bounds`, or does not intersect it,
+    /// it is re-constructed such that it contains `bounds` and all elements
+    /// re-added.
+    ///
+    /// If this spatial tree is empty, the root subdivision's bounds is set to
+    /// `bounds` instead of the union of the two.
+    @inlinable
+    public mutating func ensureContains(bounds: Bounds) {
+        ensureUnique()
+
+        guard !root.bounds.contains(bounds) else {
+            return
+        }
+
+        let newBounds: Bounds
+        if root.isEmpty() {
+            newBounds = bounds
+        } else {
+            newBounds = root.bounds.union(bounds)
+        }
+
+        reconstruct(newBounds)
+    }
+
+    /// Inserts a new element into this spatial tree.
+    ///
+    /// If the given element is outside the boundaries of this spatial tree, it
+    /// is reconstructed to fit all current elements, plus the incoming element.
+    @inlinable
+    public mutating func insert(_ element: Element) {
+        ensureContains(bounds: root.bounds.union(element.bounds))
+
+        root.insert(
+            element: element,
+            .init(
+                maxSubdivisions: maxSubdivisions,
+                maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
+            )
+        )
     }
 
     /// Removes an element at a given index in this spatial tree.
     ///
     /// In case removal results in an empty set of subdivisions for a subdivision,
     /// the subdivisions are collapsed and removed.
+    @inlinable
     public mutating func remove(at index: Index) {
         ensureUnique()
         if !root.remove(at: index.path) {
@@ -168,6 +201,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     /// root element back to an empty state.
     ///
     /// The bounds of the root element are kept as-is.
+    @inlinable
     public mutating func removeAll() {
         ensureUnique()
         root = .init(
@@ -179,19 +213,25 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     }
 
     /// A subdivision of a spatial tree.
+    @usableFromInline
     internal class Subdivision {
         /// The bounds that this subdivision represents.
+        @usableFromInline
         var bounds: Bounds
 
         /// Elements contained within this subdivision.
+        @usableFromInline
         var elements: [Element]
 
         /// If non-nil, indicates child sub-divisions within this subdivision.
+        @usableFromInline
         var subdivisions: [Subdivision]?
 
         /// The depth of this subdivision structure.
+        @usableFromInline
         var depth: Int
 
+        @usableFromInline
         init(
             bounds: Bounds,
             elements: [Element],
@@ -205,6 +245,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         }
 
         /// Performs a deep copy of this subdivision structure.
+        @inlinable
         func deepCopy() -> Subdivision {
             return Subdivision(
                 bounds: bounds,
@@ -216,6 +257,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             )
         }
 
+        @inlinable
         func queryPoint(_ point: Vector, to result: inout [Element]) {
             for element in elements {
                 if element.bounds.contains(point) {
@@ -232,6 +274,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             }
         }
 
+        @inlinable
         func queryLine<Line: LineFloatingPoint>(
             _ line: Line, to result: inout [Element]
         ) where Line.Vector == Vector {
@@ -250,6 +293,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             }
         }
 
+        @inlinable
         func query<Bounds: BoundableType>(
             _ area: Bounds, to result: inout [Element]
         ) where Bounds.Vector == Vector {
@@ -270,6 +314,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Returns `true` if no elements are contained within this subdivision,
         /// or any of its inner subdivisions.
+        @inlinable
         func isEmpty() -> Bool {
             guard elements.isEmpty else {
                 return false
@@ -280,6 +325,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Returns `true` if no subdivisions are available, or if they are all
         /// empty.
+        @inlinable
         func areSubdivisionsEmpty() -> Bool {
             guard let subdivisions else {
                 return true
@@ -290,6 +336,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Recursively traverses this subdivision, collecting all elements into
         /// a given array.
+        @inlinable
         func collectElements(to result: inout [Element]) {
             result.append(contentsOf: elements)
 
@@ -304,6 +351,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         /// `maxElementsPerLevelBeforeSplit`, and `maxSubdivisions` has not been
         /// reached yet, this subdivision is split, and all elements contained
         /// within are distributed along the subdivisions.
+        @inlinable
         func insert(
             element: Element,
             _ context: InsertionContext
@@ -333,6 +381,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         /// Forces a subdivision on this spatial tree subdivision, if no subdivisions
         /// are present yet, and attempts to move all elements deeper into the
         /// subdivisions.
+        @inlinable
         func subdivideAndDistribute() {
             for subdivision in subdivide() {
                 for (i, element) in elements.enumerated().reversed() {
@@ -349,6 +398,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         ///
         /// New subdivisions are left empty.
         @discardableResult
+        @inlinable
         func subdivide() -> [Subdivision] {
             if let subdivisions {
                 return subdivisions
@@ -370,6 +420,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Applies a given closure to each subdivision within this spatial tree,
         /// if there are any.
+        @inlinable
         func forEachSubdivision(_ block: (Subdivision) -> Void) {
             if let subdivisions {
                 subdivisions.forEach(block)
@@ -380,6 +431,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         ///
         /// If no elements are available in any subdivision within this tree, the
         /// result is an empty array.
+        @inlinable
         func availableElementPaths() -> [ElementPath] {
             var result: [ElementPath] = []
             for i in 0..<elements.count {
@@ -397,6 +449,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             return result
         }
 
+        @inlinable
         func index(after index: Index) -> Index? {
             let nextSubdivision: Int
             switch index.path {
@@ -438,6 +491,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             return nil
         }
 
+        @inlinable
         func subdivision(for path: ElementPath) -> Subdivision? {
             switch path {
             case .element:
@@ -454,6 +508,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Returns `true` if the element index existed within this subdivision
         /// tree and was successfully removed.
+        @inlinable
         func remove(at path: ElementPath) -> Bool {
             switch path {
             case .element(let index):
@@ -478,6 +533,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             }
         }
 
+        @inlinable
         func element(at path: ElementPath) -> Element? {
             switch path {
             case .element(let index):
@@ -492,6 +548,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             }
         }
 
+        @inlinable
         func firstIndex() -> Index? {
             if !elements.isEmpty {
                 return Index(path: .element(0))
@@ -509,6 +566,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             return nil
         }
 
+        @inlinable
         func indexExists(_ index: Index) -> Bool {
             switch index.path {
             case .element(let index):
@@ -525,18 +583,33 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             }
         }
 
+        @usableFromInline
         struct InsertionContext {
+            @usableFromInline
             let maxSubdivisions: Int
+
+            @usableFromInline
             let maxElementsPerLevelBeforeSplit: Int
+
+            @usableFromInline
+            internal init(
+                maxSubdivisions: Int,
+                maxElementsPerLevelBeforeSplit: Int
+            ) {
+                self.maxSubdivisions = maxSubdivisions
+                self.maxElementsPerLevelBeforeSplit = maxElementsPerLevelBeforeSplit
+            }
         }
     }
 }
 
 extension SpatialTree {
+    @usableFromInline
     enum ElementPath: Comparable, CustomStringConvertible {
         case element(Int)
         indirect case subdivision(Int, Self)
 
+        @usableFromInline
         var description: String {
             switch self {
             case .element(let index):
@@ -547,6 +620,7 @@ extension SpatialTree {
             }
         }
 
+        @usableFromInline
         var elementIndex: Int {
             switch self {
             case .element(let index):
@@ -557,6 +631,7 @@ extension SpatialTree {
             }
         }
 
+        @usableFromInline
         static func < (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.element(let lhs), .element(let rhs)):
@@ -585,14 +660,22 @@ extension SpatialTree {
 extension SpatialTree: Collection {
     /// An index into a spatial tree, down to an element within the spatial tree.
     public struct Index: Comparable {
+        @usableFromInline
         var path: ElementPath
 
-        fileprivate func withPath(_ path: ElementPath) -> Self {
+        @inlinable
+        internal init(path: SpatialTree<Element>.ElementPath) {
+            self.path = path
+        }
+
+        @inlinable
+        internal func withPath(_ path: ElementPath) -> Self {
             var copy = self
             copy.path = path
             return copy
         }
 
+        @inlinable
         public static func < (lhs: Self, rhs: Self) -> Bool {
             return lhs.path < rhs.path
         }
