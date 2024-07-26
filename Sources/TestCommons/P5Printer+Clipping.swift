@@ -134,6 +134,10 @@ extension P5Printer {
         
             line(this.start.x, this.start.y, lineEnd.x, lineEnd.y)
             
+            drawAnchor(this.start, 3)
+            if (ratio > this.endPeriod) {
+              drawAnchor(this.end, 3)
+            }
             if (shouldDrawAnchor) {
               drawAnchor(lineEnd)
             }
@@ -156,7 +160,7 @@ extension P5Printer {
             if (ratio < this.startPeriod) { return }
 
             this.setupColors()
-            
+
             let periodLength = this.endPeriod - this.startPeriod
             let periodPoint = ratio - this.startPeriod
             let periodRatio = periodPoint / periodLength
@@ -166,24 +170,30 @@ extension P5Printer {
             } else {
               shouldDrawAnchor = true
             }
-            
+
             let arcEndSweep = this.sweep * periodRatio
             let arcEnd = this.startAngle + arcEndSweep
-            
+
             noFill()
             const segments = 50;
             for (let i = 0; i < segments; i++) {
               let angle = this.startAngle + arcEndSweep * (i / segments)
               let angleNext = this.startAngle + (arcEndSweep * ((i + 1) / segments))
-              
+
               let ca = cos(angle) * this.radius
               let sa = sin(angle) * this.radius
               let cn = cos(angleNext) * this.radius
               let sn = sin(angleNext) * this.radius
-              
+
               line(this.center.x + ca, this.center.y + sa, this.center.x + cn, this.center.y + sn)
+              if (i == 0) {
+                drawAnchor(createVector(this.center.x + ca, this.center.y + sa), 3)
+              }
+              if (ratio > this.endPeriod && i == segments - 1) {
+                drawAnchor(createVector(this.center.x + ca, this.center.y + sa), 3)
+              }
             }
-            
+
             if (shouldDrawAnchor) {
               let anchorX = cos(arcEnd) * this.radius
               let anchorY = sin(arcEnd) * this.radius
@@ -199,9 +209,10 @@ extension P5Printer {
 
     func printDrawAnchor() {
         printMultiline(#"""
-        function drawAnchor(position) {
+        function drawAnchor(position, radius) {
+            radius = radius || 5
             fill(255)
-            circle(position.x, position.y, 5)
+            circle(position.x, position.y, radius)
 
             noFill()
         }

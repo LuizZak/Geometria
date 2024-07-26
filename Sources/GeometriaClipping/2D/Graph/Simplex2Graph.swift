@@ -254,9 +254,12 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         /// The check ignores other edges that belong to the same shape.
         @usableFromInline
         func isCoincident(with other: Edge, tolerance: Scalar) -> Bool {
+            // Edges cannot be collinear with themselves
             if other === self {
                 return false
             }
+            // TODO: Relax this step to a parameter to allow joining collinear edges later on
+            // Edges cannot be collinear with other edges from the same shape
             if shapeIndex == other.shapeIndex {
                 return false
             }
@@ -267,23 +270,30 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                 let rhsLine = LineSegment2(start: other.start.location, end: other.end.location)
 
                 if lhsLine.isCollinear(with: rhsLine, tolerance: tolerance) {
+                    func lhsContains(_ scalar: Scalar) -> Bool {
+                        return lhsLine.containsProjectedNormalizedMagnitude(scalar)
+                    }
+                    func rhsContains(_ scalar: Scalar) -> Bool {
+                        return rhsLine.containsProjectedNormalizedMagnitude(scalar)
+                    }
+
                     let lhsStart = rhsLine.projectAsScalar(lhsLine.start)
-                    if lhsStart >= 0 && lhsStart <= 1 {
+                    if rhsContains(lhsStart) {
                         return true
                     }
 
                     let lhsEnd = rhsLine.projectAsScalar(lhsLine.end)
-                    if lhsEnd >= 0 && lhsEnd <= 1 {
+                    if rhsContains(lhsEnd) {
                         return true
                     }
 
                     let rhsStart = lhsLine.projectAsScalar(rhsLine.start)
-                    if rhsStart >= 0 && rhsStart <= 1 {
+                    if lhsContains(rhsStart) {
                         return true
                     }
 
                     let rhsEnd = lhsLine.projectAsScalar(rhsLine.end)
-                    if rhsEnd >= 0 && rhsEnd <= 1 {
+                    if lhsContains(rhsEnd) {
                         return true
                     }
                 }
@@ -337,6 +347,220 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             default:
                 return false
             }
+        }
+
+        /// Performs a coincidence check against another edge.
+        @usableFromInline
+        func coincidenceRelationship(
+            with other: Edge,
+            tolerance: Scalar
+        ) -> CoincidenceRelationship {
+            if other === self {
+                // An edge cannot be coincident with itself.
+                return .notCoincident
+            }
+            if shapeIndex == other.shapeIndex {
+                // Edges belonging to the same shape are never coincident.
+                return .notCoincident
+            }
+
+            func areClose(_ v1: Vector, _ v2: Vector) -> Bool {
+                let diff = (v1 - v2)
+
+                return diff.absolute.maximalComponent.magnitude < tolerance
+            }
+
+            let lhsStartCoincident: Bool
+            let lhsEndCoincident: Bool
+
+            var lhsStart: Scalar
+            var lhsEnd: Scalar
+            var rhsStart: Scalar
+            var rhsEnd: Scalar
+
+            let lhsContains: (_ scalar: Scalar) -> Bool
+            let rhsContains: (_ scalar: Scalar) -> Bool
+            let lhsPeriod: (_ scalar: Scalar) -> Period
+            let rhsPeriod: (_ scalar: Scalar) -> Period
+
+            switch (self.kind, other.kind) {
+            case (.line, .line):
+                let lhsLine = LineSegment2(start: self.start.location, end: self.end.location)
+                let rhsLine = LineSegment2(start: other.start.location, end: other.end.location)
+
+                // lhs:  •----•
+                // rhs:  •----•
+                lhsStartCoincident = areClose(lhsLine.start, rhsLine.start) || areClose(lhsLine.start, rhsLine.end)
+                lhsEndCoincident = areClose(lhsLine.end, rhsLine.start) || areClose(lhsLine.end, rhsLine.end)
+
+                if
+                    lhsStartCoincident && lhsEndCoincident
+                {
+                    return .sameSpan
+                }
+
+                if lhsLine.isCollinear(with: rhsLine, tolerance: tolerance) {
+                    lhsStart = rhsLine.projectAsScalar(lhsLine.start)
+                    lhsEnd = rhsLine.projectAsScalar(lhsLine.end)
+                    rhsStart = lhsLine.projectAsScalar(rhsLine.start)
+                    rhsEnd = lhsLine.projectAsScalar(rhsLine.end)
+
+                    lhsContains = { scalar in
+                        lhsLine.containsProjectedNormalizedMagnitude(scalar)
+                    }
+                    rhsContains = { scalar in
+                        rhsLine.containsProjectedNormalizedMagnitude(scalar)
+                    }
+
+                    // Ensure start < end so checks are easier to make
+                    if lhsStart > lhsEnd {
+                        swap(&lhsStart, &lhsEnd)
+                    }
+                    if rhsStart > rhsEnd {
+                        swap(&rhsStart, &rhsEnd)
+                    }
+                } else {
+                    return .notCoincident
+                }
+
+            case (
+                .circleArc(let lhsCenter, let lhsRadius, let lhsStartAngle, let lhsSweepAngle),
+                .circleArc(let rhsCenter, let rhsRadius, let rhsStartAngle, let rhsSweepAngle)
+                ) where lhsCenter == rhsCenter && lhsRadius == rhsRadius:
+                let lhsSweep = AngleSweep(start: lhsStartAngle, sweep: lhsSweepAngle)
+                let rhsSweep = AngleSweep(start: rhsStartAngle, sweep: rhsSweepAngle)
+
+                guard lhsSweep.intersects(rhsSweep) else {
+                    return .notCoincident
+                }
+
+                lhsStart = lhsSweep.start.radians
+                lhsEnd = lhsSweep.stop.radians
+                rhsStart = lhsSweep.start.radians
+                rhsEnd = lhsSweep.stop.radians
+
+                lhsContains = { value in
+                    lhsSweep.contains(.init(radians: value))
+                }
+                rhsContains = { value in
+                    rhsSweep.contains(.init(radians: value))
+                }
+
+                let lhs = CircleArc2(
+                    center: lhsCenter,
+                    radius: lhsRadius,
+                    startAngle: lhsStartAngle,
+                    sweepAngle: lhsSweepAngle
+                )
+                let rhs = CircleArc2(
+                    center: rhsCenter,
+                    radius: rhsRadius,
+                    startAngle: rhsStartAngle,
+                    sweepAngle: rhsSweepAngle
+                )
+
+                lhsStartCoincident =
+                    areClose(lhs.startPoint, rhs.startPoint) ||
+                    areClose(lhs.startPoint, rhs.endPoint)
+
+                lhsEndCoincident =
+                    areClose(lhs.endPoint, rhs.startPoint) ||
+                    areClose(lhs.endPoint, rhs.endPoint)
+
+                if
+                    lhsStartCoincident && lhsEndCoincident
+                {
+                    return .sameSpan
+                }
+
+                // Ignore angles that are joined end-to-end
+                func withinTolerance(_ v1: Scalar, _ v2: Scalar) -> Bool {
+                    (v1 - v2).magnitude <= tolerance
+                }
+
+                if
+                    withinTolerance(lhsSweep.start.normalized(from: .zero), rhsSweep.stop.normalized(from: .zero)) ||
+                    withinTolerance(lhsSweep.stop.normalized(from: .zero), rhsSweep.start.normalized(from: .zero))
+                {
+                    return .notCoincident
+                }
+
+            default:
+                return .notCoincident
+            }
+
+            lhsPeriod = { scalar in
+                self.startPeriod + (self.endPeriod - self.startPeriod) * scalar
+            }
+            rhsPeriod = { scalar in
+                other.startPeriod + (other.endPeriod - other.startPeriod) * scalar
+            }
+
+            // lhs:  •------•
+            // rhs:   •----•
+            if lhsContains(rhsStart) && lhsContains(rhsEnd) {
+                return .lhsContainsRhs(
+                    lhsStart: lhsPeriod(rhsStart), lhsEnd: lhsPeriod(rhsEnd)
+                )
+            }
+
+            // lhs:   •----•
+            // rhs:  •------•
+            if rhsContains(lhsStart) && rhsContains(lhsEnd) {
+                return .rhsContainsLhs(
+                    rhsStart: rhsPeriod(lhsStart), rhsEnd: rhsPeriod(lhsEnd)
+                )
+            }
+
+            // lhs:  •----•
+            // rhs:    •----•
+            if lhsContains(rhsStart) && rhsContains(lhsEnd) {
+                return .rhsContainsLhsEnd(
+                    lhsEnd: lhsPeriod(rhsStart), rhsStart: rhsPeriod(lhsEnd)
+                )
+            }
+
+            // lhs:    •----•
+            // rhs:  •----•
+            if rhsContains(lhsStart) && lhsContains(rhsEnd) {
+                return .rhsContainsLhsStart(
+                    rhsStart: rhsPeriod(lhsStart), lhsEnd: lhsPeriod(rhsEnd)
+                )
+            }
+
+            // lhs:  •------•
+            // rhs:  •----•
+            if lhsStartCoincident && lhsContains(rhsEnd) {
+                return .rhsPrefixesLhs(
+                    lhsEnd: lhsPeriod(rhsEnd)
+                )
+            }
+
+            // lhs:  •----•
+            // rhs:  •------•
+            if lhsStartCoincident && rhsContains(lhsEnd) {
+                return .lhsPrefixesRhs(
+                    rhsEnd: rhsPeriod(lhsEnd)
+                )
+            }
+
+            // lhs:  •------•
+            // rhs:    •----•
+            if lhsEndCoincident && lhsContains(rhsStart) {
+                return .rhsSuffixesLhs(
+                    lhsStart: lhsPeriod(rhsStart)
+                )
+            }
+
+            // lhs:    •----•
+            // rhs:  •------•
+            if lhsEndCoincident && rhsContains(lhsEnd) {
+                return .lhsSuffixesRhs(
+                    rhsStart: rhsPeriod(lhsEnd)
+                )
+            }
+
+            return .notCoincident
         }
 
         public func materialize() -> Parametric2GeometrySimplex<Vector> {
@@ -401,6 +625,106 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                     return ".circleArc(center: \(center), radius: \(radius), startAngle: \(startAngle), sweepAngle: \(sweepAngle))"
                 }
             }
+        }
+
+        /// A coincidence relationship between two edges that are coincident.
+        ///
+        /// The relationship between start/end nodes is relative to the receiver
+        /// of the coincidence check call, e.g. 'lhs prefixing rhs' means that
+        /// the incoming edge coincides with the receiver's start point, and its
+        /// other point is contained within the receiver's span in space.
+        public enum CoincidenceRelationship: Hashable {
+            /// Edges are not coincident.
+            case notCoincident
+
+            /// Both edges span the same points in space.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:   •----•
+            /// rhs:   •----•
+            /// ```
+            case sameSpan
+
+            /// The receiver of the coincidence call contains the incoming edge
+            /// parameter within its two points.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:  •------•
+            /// rhs:   •----•
+            /// ```
+            case lhsContainsRhs(lhsStart: Period, lhsEnd: Period)
+
+            /// The incoming edge parameter contains the receiver of the coincidence
+            /// call within its two points.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:   •----•
+            /// rhs:  •------•
+            /// ```
+            case rhsContainsLhs(rhsStart: Period, rhsEnd: Period)
+
+            /// The receiver of the coincidence call overlaps the incoming edge
+            /// parameter, prefixing it exactly at one point in space.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:  •----•
+            /// rhs:  •------•
+            /// ```
+            case lhsPrefixesRhs(rhsEnd: Period)
+
+            /// The incoming edge parameter overlaps the receiver of the coincidence
+            /// call, prefixing it exactly at one point in space.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:  •------•
+            /// rhs:  •----•
+            /// ```
+            case rhsPrefixesLhs(lhsEnd: Period)
+
+            /// The receiver of the coincidence call overlaps the incoming edge
+            /// parameter, suffixing it exactly at one point in space.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:    •----•
+            /// rhs:  •------•
+            /// ```
+            case lhsSuffixesRhs(rhsStart: Period)
+
+            /// The incoming edge parameter overlaps the receiver of the coincidence
+            /// call, suffixing it exactly at one point in space.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:  •------•
+            /// rhs:    •----•
+            /// ```
+            case rhsSuffixesLhs(lhsStart: Period)
+
+            /// The incoming edge parameter overlaps the start point of the receiver
+            /// of the coincidence call.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:    •----•
+            /// rhs:  •----•
+            /// ```
+            case rhsContainsLhsStart(rhsStart: Period, lhsEnd: Period)
+
+            /// The incoming edge parameter overlaps the end point of the receiver
+            /// of the coincidence call.
+            ///
+            /// Represented by the visualization:
+            /// ```
+            /// lhs:  •----•
+            /// rhs:    •----•
+            /// ```
+            case rhsContainsLhsEnd(lhsEnd: Period, rhsStart: Period)
         }
     }
 }
@@ -482,7 +806,7 @@ extension Simplex2Graph: MutableDirectedGraphType {
             edgeTree.remove(edge)
         }
 
-        graph.removeEdges(edges)
+        graph.removeEdges(edgesToRemove)
     }
 }
 

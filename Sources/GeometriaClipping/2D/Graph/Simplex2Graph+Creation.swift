@@ -201,23 +201,106 @@ extension Simplex2Graph {
     internal mutating func computeInterferences(tolerance: Scalar) -> Bool {
         var hasMerged = false
 
+        // MARK: Merge edges - part 1
+        var edgesToCheck: Set<Set<Edge>> = []
+        for edge in edges {
+            let coincident =
+                edgeTree
+                .query(edge)
+                .filter({ $0.isCoincident(with: edge, tolerance: tolerance) })
+
+            guard !coincident.isEmpty else {
+                continue
+            }
+
+            edgesToCheck.insert(Set(coincident).union([edge]))
+        }
+
+        // Merge edge groups that appear multiple times
+        var minimal: [Set<Edge>] = []
+        for edgesToCheck in edgesToCheck {
+            var merged = false
+            for i in 0..<minimal.count {
+                if !minimal[i].isDisjoint(with: edgesToCheck) {
+                    minimal[i].formUnion(edgesToCheck)
+                    merged = true
+                    break
+                }
+            }
+
+            if !merged {
+                minimal.append(edgesToCheck)
+            }
+        }
+
+        // Start by first splitting all edges that coincide such that the result
+        // are edges that either coincide as the same span, or not at all.
+        //
+        // The next step of merging nodes works to combine the edge endpoints,
+        // allowing a last pass across the edges to compute the result of the
+        // coinciding edges.
+        for edgesToCheck in minimal {
+            let edgesToCheck = Array(edgesToCheck)
+
+            for (i, edge) in edgesToCheck.enumerated() {
+                for (_, next) in edgesToCheck.enumerated().dropFirst(i + 1) {
+                    let relationship = edge.coincidenceRelationship(
+                        with: next,
+                        tolerance: tolerance
+                    )
+
+                    switch relationship {
+                    case .sameSpan, .notCoincident:
+                        break
+
+                    case .lhsContainsRhs(let lhsStart, let lhsEnd):
+                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsStart)
+                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
+
+                    case .rhsContainsLhs(let rhsStart, let rhsEnd):
+                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+                        splitEdge(shapeIndex: next.shapeIndex, period: rhsEnd)
+
+                    case .lhsPrefixesRhs(let rhsEnd):
+                        splitEdge(shapeIndex: next.shapeIndex, period: rhsEnd)
+
+                    case .lhsSuffixesRhs(let rhsStart):
+                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+
+                    case .rhsPrefixesLhs(let lhsEnd):
+                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
+
+                    case .rhsSuffixesLhs(let lhsStart):
+                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsStart)
+
+                    case .rhsContainsLhsStart(let rhsStart, let lhsEnd):
+                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
+                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+
+                    case .rhsContainsLhsEnd(let lhsEnd, let rhsStart):
+                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
+                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+                    }
+                }
+            }
+        }
+
+        // MARK: Merge nodes
         func areClose(_ v1: Vector, _ v2: Vector) -> Bool {
             let diff = (v1 - v2)
 
-            return diff.maximalComponent.magnitude < tolerance
+            return diff.absolute.maximalComponent.magnitude < tolerance
         }
         func areClose(_ n1: Node, _ n2: Node) -> Bool {
             areClose(n1.location, n2.location)
         }
-
-        let distanceSquared = tolerance * tolerance
 
         var nodesToMerge: Set<Set<Node>> = []
 
         for node in nodes {
             let neighbors = nodeTree.nearestNeighbors(
                 to: node.location,
-                distanceSquared: distanceSquared
+                distanceSquared: tolerance
             )
 
             nodesToMerge.insert(
@@ -274,66 +357,44 @@ extension Simplex2Graph {
             hasMerged = true
         }
 
-        var edgesToCheck: Set<Set<Edge>> = []
+        // MARK: Merge edges - part 2
+        edgesToCheck = []
         for edge in edges {
             let coincident =
                 edgeTree
                 .query(edge)
-                .filter({ $0.isCoincident(with: edge, tolerance: tolerance) })
+                .filter({ next in
+                    next.coincidenceRelationship(with: edge, tolerance: tolerance) == .sameSpan
+                })
+
+            guard !coincident.isEmpty else {
+                continue
+            }
 
             edgesToCheck.insert(Set(coincident).union([edge]))
         }
 
         for edgesToCheck in edgesToCheck {
-            guard edgesToCheck.count > 1 else {
+            let edges = Array(edgesToCheck)
+            guard let first = edges.first else {
                 continue
             }
-            let edgesToCheck = Array(edgesToCheck).sorted(by: { $0.shapeIndex > $1.shapeIndex })
-            var currentEdge: Edge? = nil
 
-            // Check two at a time
-            for next in edgesToCheck {
-                guard let current = currentEdge else {
-                    currentEdge = next
-                    continue
+            var totalWinding = 0
+            for next in edges.dropFirst() {
+                if first.isOpposingCoincident(next) {
+                    totalWinding -= 1
+                } else {
+                    totalWinding += 1
                 }
+            }
 
-                // •------•
-                // •------•
-                // =
-                // •------•
-                if
-                    areClose(current.start, next.start) && areClose(current.end, next.end) ||
-                    areClose(current.start, next.end) && areClose(current.end, next.start)
-                {
-                    removeEdge(current)
-
-                    if current.isOpposingCoincident(next) {
-                        // Remove both edges
-                        removeEdge(next)
-
-                        currentEdge = nil
-                    } else {
-                        currentEdge = next
-
-                        // Reduce the winding count for the remaining edge
-                        next.totalWinding = contours[next.shapeIndex].winding.value - 1
-                    }
-
-                    hasMerged = true
-                }
-
-                // TODO: Handle different cases of coincidence
-
-                // •----•    or    •----•
-                //    •----•    •----•
-                // =
-                // •--•-•--•    •--•-•--•
-
-                //  •----•   or  •------•
-                // •------•       •----•
-                // =
-                // ••----••      ••----••
+            if totalWinding <= 0 {
+                // Remove all edges
+                removeEdges(edges)
+            } else {
+                // Keep first edge only
+                removeEdges(edges.dropFirst())
             }
         }
 
@@ -397,6 +458,52 @@ extension Simplex2Graph {
         }
 
         #endif
+    }
+
+    /// Splits an edge of a given shape index into two sub-edges, covering the
+    /// same period range, but with a new intermediary geometry node in between
+    /// the end nodes at `period`.
+    ///
+    /// If `period` matches the edge's `startPeriod` or `endPeriod`, then the edge
+    /// is not split and nothing is done.
+    @inlinable
+    mutating func splitEdge(
+        shapeIndex: Int,
+        period: Period
+    ) {
+        guard let edge = edgeForPeriod(period, shapeIndex: shapeIndex) else {
+            return
+        }
+
+        splitEdge(edge, period: period)
+    }
+
+    /// Splits an edge into two sub-edges, covering the same period range, but
+    /// with a new intermediary geometry node in between the end nodes at `period`.
+    ///
+    /// If `period` matches the edge's `startPeriod` or `endPeriod`, then the edge
+    /// is not split and nothing is done.
+    @inlinable
+    mutating func splitEdge(
+        _ edge: Edge,
+        period: Period
+    ) {
+        assert(edge.periodRange.contains(period))
+
+        guard period > edge.startPeriod && period < edge.endPeriod else {
+            return
+        }
+
+        let midNode = Node(
+            location: edge.materialize().compute(at: period),
+            kind: .geometry(
+                shapeIndex: edge.shapeIndex,
+                period: period
+            )
+        )
+
+        addNode(midNode)
+        splitEdge(edge, period: period, midNode: midNode)
     }
 
     /// Splits an edge into two sub-edges, covering the same period range, but with

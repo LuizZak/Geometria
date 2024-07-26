@@ -707,7 +707,74 @@ class Union2ParametricTests: XCTestCase {
                     accuracy: 1e-14,
                     [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.25)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.25, endPeriod: 0.5)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.5, endPeriod: 0.75)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.75, endPeriod: 1.0))]]
                 )
+        }
+    }
 
+    func testUnion_interference_containment_edge_sameDirection() {
+        // •>-----•
+        // |      •---•
+        // |  1   v 2 |
+        // |      •---•
+        // •------•
+        let lhs = LinePolygon2Parametric.makeRectangle(width: 200, height: 200, center: .zero)
+        let rhs = LinePolygon2Parametric
+            .makeRectangle(width: 100, height: 100, center: .init(x: 150, y: 0))
+            .reversed()
+        let sut = Union2Parametric(lhs, rhs, tolerance: 1e-14)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -100.0, y: -100.0), end: Vector2<Double>(x: 100.0, y: -100.0)), startPeriod: 0.0, endPeriod: 0.25)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -100.0), end: Vector2<Double>(x: 100.0, y: -50.0)), startPeriod: 0.25, endPeriod: 0.3125)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -50.0), end: Vector2<Double>(x: 100.0, y: 49.99999999999999)), startPeriod: 0.3125, endPeriod: 0.4375)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 49.99999999999999), end: Vector2<Double>(x: 100.0, y: 100.0)), startPeriod: 0.4375, endPeriod: 0.5)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 100.0), end: Vector2<Double>(x: -100.0, y: 100.0)), startPeriod: 0.5, endPeriod: 0.75)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -100.0, y: 100.0), end: Vector2<Double>(x: -100.0, y: -100.0)), startPeriod: 0.75, endPeriod: 1.0))]]
+                )
+        }
+    }
+
+    func testUnion_interference_containment_edge_opposing() {
+        // •>-----•
+        // |      •>--•
+        // |  1   | 2 |
+        // |      •---•
+        // •------•
+        let lhs = LinePolygon2Parametric.makeRectangle(width: 200, height: 200, center: .zero)
+        let rhs = LinePolygon2Parametric.makeRectangle(width: 100, height: 100, center: .init(x: 150, y: 0))
+        let sut = Union2Parametric(lhs, rhs, tolerance: 1e-14)
+
+        TestFixture.beginFixture { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -100.0, y: -100.0), end: Vector2<Double>(x: 100.0, y: -100.0)), startPeriod: 0.0, endPeriod: 0.2)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -100.0), end: Vector2<Double>(x: 100.0, y: -50.0)), startPeriod: 0.2, endPeriod: 0.25)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -50.0), end: Vector2<Double>(x: 200.0, y: -50.0)), startPeriod: 0.25, endPeriod: 0.35)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 200.0, y: -50.0), end: Vector2<Double>(x: 200.0, y: 50.0)), startPeriod: 0.35, endPeriod: 0.45)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 200.0, y: 50.0), end: Vector2<Double>(x: 100.0, y: 50.0)), startPeriod: 0.45, endPeriod: 0.55)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 50.0), end: Vector2<Double>(x: 100.0, y: 100.0)), startPeriod: 0.55, endPeriod: 0.6)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 100.0), end: Vector2<Double>(x: -100.0, y: 100.0)), startPeriod: 0.6, endPeriod: 0.8)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -100.0, y: 100.0), end: Vector2<Double>(x: -100.0, y: -100.0)), startPeriod: 0.8, endPeriod: 1.0))]]
+                )
+        }
+    }
+
+    func testUnion_interference_containment_edge_opposing_multiple() {
+        // •>-----•
+        // |      •>--•
+        // |  1   | 2 |
+        // |      •---•
+        // |      |
+        // |      •>--•
+        // |      | 2 |
+        // |      •---•
+        // •------•
+        let lhs = LinePolygon2Parametric.makeRectangle(width: 200, height: 500, center: .zero)
+        let rhs1 = LinePolygon2Parametric.makeRectangle(width: 100, height: 100, center: .init(x: 150, y: -150))
+        let rhs2 = LinePolygon2Parametric.makeRectangle(width: 100, height: 100, center: .init(x: 150, y: 150))
+        let rhs = Union2Parametric.union(rhs1, rhs2)
+        let sut = Union2Parametric(lhs, rhs, tolerance: 1e-14)
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(lhs, category: "input")
+            fixture.add(rhs1, category: "input")
+            fixture.add(rhs2, category: "input")
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: 1e-14,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -100.0, y: -250.0), end: Vector2<Double>(x: 100.0, y: -250.0)), startPeriod: 0.0, endPeriod: 0.1111111111111111)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -250.0), end: Vector2<Double>(x: 100.0, y: -200.0)), startPeriod: 0.1111111111111111, endPeriod: 0.1388888888888889)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -200.0), end: Vector2<Double>(x: 200.0, y: -200.0)), startPeriod: 0.1388888888888889, endPeriod: 0.19444444444444445)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 200.0, y: -200.0), end: Vector2<Double>(x: 200.0, y: -100.0)), startPeriod: 0.19444444444444445, endPeriod: 0.25)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 200.0, y: -100.0), end: Vector2<Double>(x: 100.0, y: -100.0)), startPeriod: 0.25, endPeriod: 0.3055555555555556)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: -100.0), end: Vector2<Double>(x: 100.0, y: 100.00000000000001)), startPeriod: 0.3055555555555556, endPeriod: 0.4166666666666667)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 100.00000000000001), end: Vector2<Double>(x: 200.0, y: 100.0)), startPeriod: 0.4166666666666667, endPeriod: 0.4722222222222222)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 200.0, y: 100.0), end: Vector2<Double>(x: 200.0, y: 200.0)), startPeriod: 0.4722222222222222, endPeriod: 0.5277777777777778)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 200.0, y: 200.0), end: Vector2<Double>(x: 100.0, y: 200.0)), startPeriod: 0.5277777777777778, endPeriod: 0.5833333333333334)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 200.0), end: Vector2<Double>(x: 100.0, y: 250.0)), startPeriod: 0.5833333333333334, endPeriod: 0.6111111111111112)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 250.0), end: Vector2<Double>(x: -100.0, y: 250.0)), startPeriod: 0.6111111111111112, endPeriod: 0.7222222222222222)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -100.0, y: 250.0), end: Vector2<Double>(x: -100.0, y: -250.0)), startPeriod: 0.7222222222222222, endPeriod: 1.0))]]
+                )
         }
     }
 
