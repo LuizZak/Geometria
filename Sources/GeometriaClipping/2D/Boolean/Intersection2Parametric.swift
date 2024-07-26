@@ -46,7 +46,7 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
                 shouldRemove = edge.totalWinding != 2
 
             case .counterClockwise:
-                shouldRemove = true
+                shouldRemove = edge.totalWinding != 1
             }
 
             if shouldRemove {

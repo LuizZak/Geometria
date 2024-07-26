@@ -311,7 +311,24 @@ extension Simplex2Graph {
             )
         }
 
+        // Merge node groups that appear multiple times
+        var minimalNodes: [Set<Node>] = []
         for nodesToMerge in nodesToMerge {
+            var merged = false
+            for i in 0..<minimalNodes.count {
+                if !minimalNodes[i].isDisjoint(with: nodesToMerge) {
+                    minimalNodes[i].formUnion(nodesToMerge)
+                    merged = true
+                    break
+                }
+            }
+
+            if !merged {
+                minimalNodes.append(nodesToMerge)
+            }
+        }
+
+        for nodesToMerge in minimalNodes {
             guard nodesToMerge.count > 1, let first = nodesToMerge.first else {
                 continue
             }
@@ -331,8 +348,12 @@ extension Simplex2Graph {
                 }
             }.flatMap({ $0 })
 
-            let entries = nodesToMerge.flatMap(edges(towards:))
-            let exits = nodesToMerge.flatMap(edges(from:))
+            let entries = nodesToMerge
+                .flatMap(edges(towards:))
+                .filter { edge in !nodesToMerge.contains(edge.start) || !nodesToMerge.contains(edge.end) }
+            let exits = nodesToMerge
+                .flatMap(edges(from:))
+                .filter { edge in !nodesToMerge.contains(edge.start) || !nodesToMerge.contains(edge.end) }
             let newNode = Node(
                 location: first.location,
                 kind: .sharedGeometry(geometries)
