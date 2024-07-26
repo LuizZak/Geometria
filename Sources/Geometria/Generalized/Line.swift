@@ -6,18 +6,18 @@ import RealModule
 /// [geometric line]: https://en.wikipedia.org/wiki/Line_(geometry)
 public struct Line<Vector: VectorType>: LineType {
     public typealias Scalar = Vector.Scalar
-    
+
     /// An initial point a line tracing from infinity passes through before
     /// being projected through `b` and extending to infinity in a straight line.
     public var a: Vector
-    
+
     /// A secondary point a line tracing from `a` passes through before
     /// being projected to infinity in a straight line.
     public var b: Vector
 
     @inlinable
     public var category: LineCategory { .line }
-    
+
     @_transparent
     public init(a: Vector, b: Vector) {
         self.a = a
@@ -42,19 +42,18 @@ extension Line: LineMultiplicative where Vector: VectorMultiplicative {
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(a: a * factor, b: b * factor)
     }
-    
+
     @_transparent
     public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
         let newA: Vector = (a - center) * factor + center
         let newB: Vector = (b - center) * factor + center
-        
+
         return Self(a: newA, b: newB)
     }
 }
 
-extension Line: LineDivisible where Vector: VectorDivisible {
-    
-}
+extension Line: LineDivisible where Vector: VectorDivisible { }
+extension Line: LineSigned where Vector: VectorSigned { }
 
 extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     /// Returns `true` for all non-NaN scalar values, which describes a
@@ -71,7 +70,7 @@ extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasura
 
         !scalar.isNaN
     }
-    
+
     /// Returns a projected normalized magnitude that is guaranteed to be
     /// contained in this line.
     ///
@@ -81,11 +80,9 @@ extension Line: LineFloatingPoint & PointProjectableType & SignedDistanceMeasura
     public func clampProjectedNormalizedMagnitude(
         _ scalar: Vector.Scalar
     ) -> Vector.Scalar {
-        
+
         scalar
     }
 }
 
-extension Line: LineReal where Vector: VectorReal {
-    
-}
+extension Line: LineReal where Vector: VectorReal { }

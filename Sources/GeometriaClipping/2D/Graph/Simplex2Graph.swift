@@ -845,3 +845,6 @@ extension DirectedGraphType {
         }
     }
 }
+
+extension Simplex2Graph.Node: KDTreeLocatable { }
+extension Simplex2Graph.Edge: BoundableType { }

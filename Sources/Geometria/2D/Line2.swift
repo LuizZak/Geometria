@@ -22,6 +22,6 @@ extension Line2: Line2Type {
 }
 
 extension Line2: Line2Multiplicative where Vector: Vector2Multiplicative { }
-extension Line2: LineSigned & Line2Signed where Vector: Vector2Signed { }
+extension Line2: Line2Signed where Vector: Vector2Signed { }
 extension Line2: Line2FloatingPoint where Vector: Vector2FloatingPoint { }
 extension Line2: Line2Real where Vector: Vector2Real { }

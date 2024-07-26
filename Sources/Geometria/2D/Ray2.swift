@@ -20,7 +20,7 @@ extension Ray2: Line2Type {
 }
 
 extension Ray2: Line2Multiplicative where Vector: Vector2Multiplicative { }
-extension Ray2: LineSigned & Line2Signed where Vector: Vector2Signed { }
+extension Ray2: Line2Signed where Vector: Vector2Signed { }
 extension Ray2: Line2FloatingPoint where Vector: Vector2FloatingPoint { }
 extension Ray2: Line2Real where Vector: Vector2Real { }
 

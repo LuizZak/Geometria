@@ -5,17 +5,17 @@
 public struct Ray<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     /// The starting position of this ray
     public var start: Vector
-    
+
     /// A secondary point a line tracing from `start` passes through before
     /// being projected to infinity in a straight line.
     public var b: Vector
 
     @inlinable
     public var category: LineCategory { .ray }
-    
+
     @_transparent
     public init(start: Vector, b: Vector) {
         self.start = start
@@ -56,19 +56,18 @@ extension Ray: LineMultiplicative where Vector: VectorMultiplicative {
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(start: start * factor, b: b * factor)
     }
-    
+
     @_transparent
     public func withPointsScaledBy(_ factor: Vector, around center: Vector) -> Self {
         let newStart: Vector = (start - center) * factor + center
         let newB: Vector = (b - center) * factor + center
-        
+
         return Self(start: newStart, b: newB)
     }
 }
 
-extension Ray: LineDivisible where Vector: VectorDivisible {
-    
-}
+extension Ray: LineDivisible where Vector: VectorDivisible { }
+extension Ray: LineSigned where Vector: VectorSigned { }
 
 extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     /// Returns a `DirectionalRay` representation of this ray, where `ray.start`
@@ -80,7 +79,7 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
     public var asDirectionalRay: DirectionalRay<Vector> {
         DirectionalRay(start: start, direction: b - start)
     }
-    
+
     /// Returns `true` for all positive projected scalars (ray)
     @_transparent
     public func containsProjectedNormalizedMagnitude(
@@ -89,7 +88,7 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
 
         scalar >= 0
     }
-    
+
     /// Returns a projected normalized magnitude that is guaranteed to be
     /// contained in this line.
     ///
@@ -98,21 +97,19 @@ extension Ray: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurab
     public func clampProjectedNormalizedMagnitude(
         _ scalar: Vector.Scalar
     ) -> Vector.Scalar {
-        
+
         max(0, scalar)
     }
-    
+
     /// Returns the squared distance between this line and a given vector.
     @inlinable
     public func distanceSquared(to vector: Vector) -> Scalar {
         let proj = max(0, projectAsScalar(vector))
-        
+
         let point = start.addingProduct(b - start, proj)
-        
+
         return vector.distanceSquared(to: point)
     }
 }
 
-extension Ray: LineReal where Vector: VectorReal {
-    
-}
+extension Ray: LineReal where Vector: VectorReal { }

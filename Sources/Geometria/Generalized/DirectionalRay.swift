@@ -4,16 +4,16 @@
 /// [geometric ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
 public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     public typealias Scalar = Vector.Scalar
-    
+
     /// The starting position of this ray
     public var start: Vector
-    
+
     /// A unit vector relative to `start` which indicates the direction of this
     /// ray.
     ///
     /// Must have `length > 0`.
     @UnitVector public var direction: Vector
-    
+
     /// Initializes a directional ray with a given start position and direction
     /// vectors.
     ///
@@ -25,7 +25,7 @@ public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
         self.start = start
         self.direction = direction
     }
-    
+
     /// Initializes a directional ray with a given line's endpoints.
     ///
     /// The direction will be normalized before initializing.
@@ -35,7 +35,7 @@ public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     public init<Line: LineType>(_ line: Line) where Line.Vector == Vector {
         self.init(a: line.a, b: line.b)
     }
-    
+
     /// Initializes a directional ray with a line passing through `a` and `b`.
     ///
     /// The ray's ``start`` point matches `a`.
@@ -60,7 +60,7 @@ extension DirectionalRay: LineType {
     public var a: Vector {
         start
     }
-    
+
     /// Equivalent to ``start`` + ``direction``.
     @_transparent
     public var b: Vector {
@@ -78,7 +78,7 @@ public extension DirectionalRay where Vector: VectorAdditive {
     var asLine: Line<Vector> {
         Line(a: start, b: b)
     }
-    
+
     /// Returns a `Ray` representation of this directional ray, where `ray.start`
     /// matches ``start`` and `ray.b` matches ``start`` + ``direction``.
     @_transparent
@@ -95,7 +95,7 @@ extension DirectionalRay: LineAdditive where Vector: VectorAdditive {
     public var lineSlope: Vector {
         direction
     }
-    
+
     @_transparent
     public func offsetBy(_ vector: Vector) -> Self {
         Self(start: start + vector, direction: direction)
@@ -108,18 +108,20 @@ extension DirectionalRay: LineMultiplicative where Vector: VectorMultiplicative 
     public func withPointsScaledBy(_ factor: Vector) -> Self {
         Self(start: start * factor, direction: direction * factor)
     }
-    
+
     @_transparent
     public func withPointsScaledBy(
         _ factor: Vector,
         around center: Vector
     ) -> Self {
-        
+
         let newStart: Vector = (start - center) * factor + center
-        
+
         return Self(start: newStart, direction: direction * factor)
     }
 }
+
+extension DirectionalRay: LineSigned where Vector: VectorSigned { }
 
 extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
     /// Performs a vector projection of a given vector with respect to this
@@ -142,9 +144,9 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDista
     @inlinable
     public func projectAsScalar(_ vector: Vector) -> Vector.Scalar {
         let relVec = vector - start
-        
+
         let proj = relVec.dot(direction)
-        
+
         return proj
     }
 
@@ -163,7 +165,7 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDista
     public func projectedMagnitude(_ scalar: Vector.Scalar) -> Vector {
         start.addingProduct(direction, scalar)
     }
-    
+
     /// Returns `true` for all positive scalar values, which describes a [ray].
     ///
     /// [ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
@@ -171,7 +173,7 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDista
     public func containsProjectedNormalizedMagnitude(_ scalar: Vector.Scalar) -> Bool {
         scalar >= 0
     }
-    
+
     /// Returns a projected normalized magnitude that is guaranteed to be
     /// contained in this line.
     ///
@@ -181,3 +183,5 @@ extension DirectionalRay: LineFloatingPoint & PointProjectableType & SignedDista
         max(0, scalar)
     }
 }
+
+extension DirectionalRay: LineReal where Vector: VectorReal { }

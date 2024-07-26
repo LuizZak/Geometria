@@ -113,6 +113,8 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     }
 }
 
+extension LineSegment: LineSigned where Vector: VectorSigned { }
+
 extension LineSegment: LineDivisible where Vector: VectorDivisible {
     /// Gets the center point of this line segment.
     @_transparent
@@ -160,7 +162,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     public func clampProjectedNormalizedMagnitude(
         _ scalar: Vector.Scalar
     ) -> Vector.Scalar {
-        
+
         min(1, max(0, scalar))
     }
 
@@ -189,6 +191,4 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     }
 }
 
-extension LineSegment: LineReal where Vector: VectorReal {
-
-}
+extension LineSegment: LineReal where Vector: VectorReal { }

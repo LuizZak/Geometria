@@ -44,7 +44,7 @@ extension DirectionalRay2: Line2Type {
 }
 
 extension DirectionalRay2: Line2Multiplicative where Vector: Vector2Multiplicative { }
-extension DirectionalRay2: LineSigned & Line2Signed where Vector: Vector2Signed { }
+extension DirectionalRay2: Line2Signed where Vector: Vector2Signed { }
 extension DirectionalRay2: Line2FloatingPoint where Vector: Vector2FloatingPoint { }
 
 extension DirectionalRay2: Line2Real where Vector: Vector2Real {

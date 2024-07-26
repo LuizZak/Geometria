@@ -41,6 +41,8 @@ extension Simplex2Graph {
             result.appendContour(contour)
         }
 
+        // TODO: Reuse check of edges in computeInterferences to generate intersections
+
         // Compute interferences
         if result.computeInterferences(tolerance: tolerance) {
             // If interferences where found, we need to recompute the contours
@@ -126,18 +128,19 @@ extension Simplex2Graph {
 
     @inlinable
     internal mutating func computeIntersections(tolerance: Scalar) {
-        // TODO: Use quad tree for this step?
         let edges = Array(edges)
 
         var allIntersections: [(lhs: Int, lhsPeriod: Vector.Scalar, rhs: Int, rhsPeriod: Vector.Scalar)] = []
-        var visited: Set<Edge> = []
+        var visited: Set<OrderedEdgePair> = []
 
-        for lhs in edges.sorted(by: { $0.id < $1.id }) where visited.insert(lhs).inserted {
+        for lhs in edges.sorted(by: { $0.id < $1.id }) {
             let lhsSimplex = lhs.materialize()
             let coincident = edgeTree.query(lhs)
 
             for rhs in coincident where lhs.shapeIndex != rhs.shapeIndex {
-                visited.insert(rhs)
+                guard visited.insert(.init(lhs: lhs, rhs: rhs)).inserted else {
+                    continue
+                }
 
                 let intersections =
                     lhsSimplex
@@ -609,6 +612,25 @@ extension Simplex2Graph {
         addEdge(newStart)
         addEdge(newEnd)
     }
+
+    @usableFromInline
+    internal struct OrderedEdgePair: Hashable {
+        @usableFromInline
+        var lhs: Edge
+        @usableFromInline
+        var rhs: Edge
+
+        @inlinable
+        init(lhs: Edge, rhs: Edge) {
+            if lhs.id < rhs.id {
+                self.lhs = lhs
+                self.rhs = rhs
+            } else {
+                self.rhs = lhs
+                self.lhs = rhs
+            }
+        }
+    }
 }
 
 extension Parametric2Contour {
@@ -657,6 +679,3 @@ extension Parametric2Contour {
         return atoms
     }
 }
-
-extension Simplex2Graph.Node: KDTreeLocatable { }
-extension Simplex2Graph.Edge: BoundableType { }
