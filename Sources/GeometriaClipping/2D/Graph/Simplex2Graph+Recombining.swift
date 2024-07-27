@@ -8,31 +8,27 @@ extension Simplex2Graph {
     public mutating func recombine() -> [Contour] {
         let resultOverall = ContourManager<Vector>()
 
-        var currentShapeIndex: Int?
-
-        func candidateIsAscending(_ lhs: Edge, _ rhs: Edge) -> Bool {
-            if let currentShapeIndex {
-                switch (lhs.shapeIndex == currentShapeIndex, rhs.shapeIndex == currentShapeIndex) {
-                case (true, false):
-                    return true
-                case (false, true):
-                    return false
-
-                default: break
-                }
-            }
-
-            return lhs.id < rhs.id
-        }
-
         var visitedOverall: Set<Node> = []
 
-        guard let firstEdge = edges.min(by: candidateIsAscending) else {
+        guard let firstEdge = edges.min(by: { $0.id < $1.id }) else {
             return resultOverall.allContours(applyWindingFiltering: false)
         }
 
-        currentShapeIndex = firstEdge.shapeIndex
+        var currentShapeIndex = firstEdge.shapeIndices[0]
         var current = firstEdge.start
+
+        func candidateIsAscending(_ lhs: Edge, _ rhs: Edge) -> Bool {
+            switch (lhs.references(shapeIndex: currentShapeIndex), rhs.references(shapeIndex: currentShapeIndex)) {
+            case (true, false):
+                return true
+
+            case (false, true):
+                return false
+
+            default:
+                return lhs.id < rhs.id
+            }
+        }
 
         // Keep visiting nodes on the graph, removing them after each complete visit
         while visitedOverall.insert(current).inserted {
@@ -43,14 +39,21 @@ extension Simplex2Graph {
             // The existing edges shouldn't matter as long as we pick any
             // suitable edge in a stable fashion for unit testing
             while visited.insert(current).inserted {
-                guard let nextEdge = edges(from: current).min(by: candidateIsAscending) else {
+                let edges = edges(from: current)
+                guard let nextEdge = edges.min(by: candidateIsAscending) else {
                     break
                 }
 
-                removeEdge(nextEdge)
+                let simplex = nextEdge.materialize(startPeriod: .zero, endPeriod: .zero)
+                result.append(simplex)
 
-                result.append(nextEdge.materialize())
                 current = nextEdge.end
+
+                if nextEdge.subtracting(shapeIndex: nextEdge.shapeIndices[0]) == nil {
+                    removeEdge(nextEdge)
+                } else {
+                    assertionFailure()
+                }
             }
 
             result.endContour(startPeriod: .zero, endPeriod: 1)
@@ -59,11 +62,11 @@ extension Simplex2Graph {
             // start traversing on any remaining nodes
             prune()
 
-            guard let next = edges.min(by: candidateIsAscending) else {
+            guard let next = edges.min(by: { $0.id < $1.id }) else {
                 break
             }
 
-            currentShapeIndex = next.shapeIndex
+            currentShapeIndex = next.shapeIndices[0]
             current = next.start
         }
 

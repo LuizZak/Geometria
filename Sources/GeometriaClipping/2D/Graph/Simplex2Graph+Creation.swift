@@ -36,12 +36,13 @@ extension Simplex2Graph {
 
         var result = Self()
 
+        let bounds = AABB(aabbs: contours.map(\.bounds))
+        result.edgeTree.ensureContains(bounds: bounds)
+
         // Populate with contours
         for contour in contours {
             result.appendContour(contour)
         }
-
-        // TODO: Reuse check of edges in computeInterferences to generate intersections
 
         // Compute interferences
         if result.computeInterferences(tolerance: tolerance) {
@@ -112,10 +113,10 @@ extension Simplex2Graph {
                 id: nextEdgeId(),
                 start: current.1,
                 end: next.1,
+                kind: kind,
                 shapeIndex: shapeIndex,
                 startPeriod: current.0.startPeriod,
-                endPeriod: current.0.endPeriod,
-                kind: kind
+                endPeriod: current.0.endPeriod
             )
             edges.append(edge)
         }
@@ -128,51 +129,87 @@ extension Simplex2Graph {
 
     @inlinable
     internal mutating func computeIntersections(tolerance: Scalar) {
-        let edges = Array(edges)
+        let edges = edges.sorted(by: { $0.id < $1.id })
 
         var allIntersections: [(lhs: Int, lhsPeriod: Vector.Scalar, rhs: Int, rhsPeriod: Vector.Scalar)] = []
         var visited: Set<OrderedEdgePair> = []
 
-        for lhs in edges.sorted(by: { $0.id < $1.id }) {
-            let lhsSimplex = lhs.materialize()
-            let coincident = edgeTree.query(lhs)
-
-            for rhs in coincident where lhs.shapeIndex != rhs.shapeIndex {
-                guard visited.insert(.init(lhs: lhs, rhs: rhs)).inserted else {
-                    continue
-                }
-
-                let intersections =
-                    lhsSimplex
-                    .intersectionPeriods(with: rhs.materialize())
-
-                for intersection in intersections {
-                    allIntersections.append(
-                        (lhs.shapeIndex, intersection.`self`, rhs.shapeIndex, intersection.other)
+        for lhs in edges {
+            for lhsGeometry in lhs.geometry {
+                let lhsSimplex =
+                    lhs.materialize(
+                        startPeriod: lhsGeometry.startPeriod,
+                        endPeriod: lhsGeometry.endPeriod
                     )
+
+                let coincident = edgeTree.query(lhs)
+
+                for rhs in coincident where !lhs.referencesSameShape(as: rhs) {
+                    for rhsGeometry in rhs.geometry {
+                        guard visited.insert(.init(lhs: lhs, rhs: rhs)).inserted else {
+                            continue
+                        }
+                        let rhsSimplex =
+                            rhs.materialize(
+                                startPeriod: rhsGeometry.startPeriod,
+                                endPeriod: rhsGeometry.endPeriod
+                            )
+
+                        let intersections = lhsSimplex.intersectionPeriods(with: rhsSimplex)
+
+                        for intersection in intersections {
+                            allIntersections.append(
+                                (lhsGeometry.shapeIndex, intersection.`self`, rhsGeometry.shapeIndex, intersection.other)
+                            )
+                        }
+                    }
                 }
             }
         }
 
         for intersection in allIntersections {
             guard
-                let lhs = edgeForPeriod(intersection.lhsPeriod, shapeIndex: intersection.lhs),
-                let rhs = edgeForPeriod(intersection.rhsPeriod, shapeIndex: intersection.rhs)
+                let lhs = edgeForPeriod(
+                    intersection.lhsPeriod,
+                    shapeIndex: intersection.lhs
+                ),
+                let lhsRatio = lhs.ratio(
+                    forPeriod: intersection.lhsPeriod,
+                    shapeIndex: intersection.lhs
+                ),
+                let rhs = edgeForPeriod(
+                    intersection.rhsPeriod,
+                    shapeIndex: intersection.rhs
+                ),
+                let rhsRatio = rhs.ratio(
+                    forPeriod: intersection.rhsPeriod,
+                    shapeIndex: intersection.rhs
+                )
             else {
                 continue
             }
 
             assert(lhs != rhs, "lhs != rhs")
-            assert(lhs.shapeIndex != rhs.shapeIndex, "lhs != rhs")
 
-            let point = lhs.materialize().compute(at: intersection.lhsPeriod)
+            let point =
+                lhs.materializePrimitive()
+                .ratioPoint(lhsRatio)
+
             let node = Node(
                 location: point,
-                kind: .intersection(
-                    lhs: intersection.lhs,
-                    lhsPeriod: intersection.lhsPeriod,
-                    rhs: intersection.rhs,
-                    rhsPeriod: intersection.rhsPeriod
+                kind: Node.Kind.sharedGeometry(
+                    lhs.geometry.map { geometry in
+                        return Node.Kind.SharedGeometryEntry(
+                            shapeIndex: geometry.shapeIndex,
+                            period: geometry.startPeriod + (geometry.endPeriod - geometry.startPeriod) * lhsRatio
+                        )
+                    } +
+                    rhs.geometry.map { geometry in
+                        return Node.Kind.SharedGeometryEntry(
+                            shapeIndex: geometry.shapeIndex,
+                            period: geometry.startPeriod + (geometry.endPeriod - geometry.startPeriod) * rhsRatio
+                        )
+                    }
                 )
             )
 
@@ -180,13 +217,13 @@ extension Simplex2Graph {
 
             splitEdge(
                 lhs,
-                period: intersection.lhsPeriod,
+                ratio: lhsRatio,
                 midNode: node
             )
 
             splitEdge(
                 rhs,
-                period: intersection.rhsPeriod,
+                ratio: rhsRatio,
                 midNode: node
             )
 
@@ -257,32 +294,32 @@ extension Simplex2Graph {
                         break
 
                     case .lhsContainsRhs(let lhsStart, let lhsEnd):
-                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsStart)
-                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
+                        splitEdge(shapeIndex: lhsStart[0].shapeIndex, period: lhsStart[0].period)
+                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
 
                     case .rhsContainsLhs(let rhsStart, let rhsEnd):
-                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
-                        splitEdge(shapeIndex: next.shapeIndex, period: rhsEnd)
+                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
+                        splitEdge(shapeIndex: rhsEnd[0].shapeIndex, period: rhsEnd[0].period)
 
                     case .lhsPrefixesRhs(let rhsEnd):
-                        splitEdge(shapeIndex: next.shapeIndex, period: rhsEnd)
+                        splitEdge(shapeIndex: rhsEnd[0].shapeIndex, period: rhsEnd[0].period)
 
                     case .lhsSuffixesRhs(let rhsStart):
-                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
 
                     case .rhsPrefixesLhs(let lhsEnd):
-                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
+                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
 
                     case .rhsSuffixesLhs(let lhsStart):
-                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsStart)
+                        splitEdge(shapeIndex: lhsStart[0].shapeIndex, period: lhsStart[0].period)
 
                     case .rhsContainsLhsStart(let rhsStart, let lhsEnd):
-                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
-                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
+                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
 
                     case .rhsContainsLhsEnd(let lhsEnd, let rhsStart):
-                        splitEdge(shapeIndex: edge.shapeIndex, period: lhsEnd)
-                        splitEdge(shapeIndex: next.shapeIndex, period: rhsStart)
+                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
+                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
                     }
                 }
             }
@@ -328,12 +365,12 @@ extension Simplex2Graph {
             }
         }
 
-        for nodesToMerge in minimalNodes {
+        for nodesToMerge in nodesToMerge {
             guard nodesToMerge.count > 1, let first = nodesToMerge.first else {
                 continue
             }
 
-            let geometries: [Node.Kind.SharedGeometryEntry] = nodesToMerge.compactMap { node in
+            let geometries: [Node.Kind.SharedGeometryEntry] = nodesToMerge.flatMap { node in
                 switch node.kind {
                 case .geometry(let shapeIndex, let period):
                     return [Node.Kind.SharedGeometryEntry(
@@ -342,11 +379,8 @@ extension Simplex2Graph {
 
                 case .sharedGeometry(let geometries):
                     return geometries
-
-                case .intersection:
-                    return nil
                 }
-            }.flatMap({ $0 })
+            }
 
             let entries = nodesToMerge
                 .flatMap(edges(towards:))
@@ -420,6 +454,8 @@ extension Simplex2Graph {
                 // Keep first edge only
                 removeEdges(edges.dropFirst())
             }
+
+            hasMerged = true
         }
 
         prune()
@@ -431,14 +467,18 @@ extension Simplex2Graph {
     @inlinable
     internal mutating func computeWinding() {
         for edge in edges {
-            let contour = contours[edge.shapeIndex]
+            guard let geometry = edge.geometry.first else {
+                continue
+            }
+
+            let contour = contours[geometry.shapeIndex]
             edge.winding = contour.winding
 
             let center = edge.queryPoint(contour.normalizedCenter(_:_:))
 
             edge.totalWinding =
                 contours.enumerated()
-                .filter({ $0.offset != edge.shapeIndex })
+                .filter({ $0.offset != geometry.shapeIndex })
                 .filter({ $0.element.contains(center) })
                 .reduce(edge.winding.value, { $0 + $1.element.winding.value })
         }
@@ -458,6 +498,7 @@ extension Simplex2Graph {
 
     @inlinable
     internal func assertIsValid(file: StaticString = #file, line: UInt = #line) {
+        /*
         #if DEBUG
 
         for edge in self.edges {
@@ -482,6 +523,7 @@ extension Simplex2Graph {
         }
 
         #endif
+        */
     }
 
     /// Splits an edge of a given shape index into two sub-edges, covering the
@@ -499,7 +541,13 @@ extension Simplex2Graph {
             return
         }
 
-        splitEdge(edge, period: period)
+        guard let geometry = edge.geometry.first(where: { $0.shapeIndex == shapeIndex }) else {
+            return
+        }
+
+        let ratio = (period - geometry.startPeriod) / (geometry.endPeriod - geometry.startPeriod)
+
+        splitEdge(edge, ratio: ratio)
     }
 
     /// Splits an edge into two sub-edges, covering the same period range, but
@@ -510,24 +558,37 @@ extension Simplex2Graph {
     @inlinable
     mutating func splitEdge(
         _ edge: Edge,
-        period: Period
+        ratio: Scalar
     ) {
-        assert(edge.periodRange.contains(period))
-
-        guard period > edge.startPeriod && period < edge.endPeriod else {
+        guard ratio > 0 && ratio < 1 else {
             return
         }
 
-        let midNode = Node(
-            location: edge.materialize().compute(at: period),
-            kind: .geometry(
-                shapeIndex: edge.shapeIndex,
-                period: period
+        let kind: Node.Kind
+        if edge.geometry.count == 1 {
+            let geometry = edge.geometry[0]
+            kind = .geometry(
+                shapeIndex: geometry.shapeIndex,
+                period: geometry.startPeriod + (geometry.endPeriod - geometry.startPeriod) * ratio
             )
+        } else {
+            kind = .sharedGeometry(
+                edge.geometry.map { geometry in
+                    .init(
+                        shapeIndex: geometry.shapeIndex,
+                        period: geometry.startPeriod + (geometry.endPeriod - geometry.startPeriod) * ratio
+                    )
+                }
+            )
+        }
+
+        let midNode = Node(
+            location: edge.materializePrimitive().ratioPoint(ratio),
+            kind: kind
         )
 
         addNode(midNode)
-        splitEdge(edge, period: period, midNode: midNode)
+        splitEdge(edge, ratio: ratio, midNode: midNode)
     }
 
     /// Splits an edge into two sub-edges, covering the same period range, but with
@@ -540,12 +601,10 @@ extension Simplex2Graph {
     @inlinable
     mutating func splitEdge(
         _ edge: Edge,
-        period: Period,
+        ratio: Scalar,
         midNode: Node
     ) {
-        assert(edge.periodRange.contains(period))
-
-        if period == edge.startPeriod {
+        if ratio == 0 {
             let incoming = edges(towards: edge.start)
             let outgoing = edges(from: edge.start)
 
@@ -561,7 +620,7 @@ extension Simplex2Graph {
             }
 
             return
-        } else if period == edge.endPeriod {
+        } else if ratio == 1 {
             let incoming = edges(towards: edge.end)
             let outgoing = edges(from: edge.end)
 
@@ -585,12 +644,6 @@ extension Simplex2Graph {
             kindEnd = .line
 
         case .circleArc(let center, let radius, let startAngle, let sweepAngle):
-            func ratioForPeriod(_ period: Period) -> Period {
-                (period - edge.startPeriod) / (edge.endPeriod - edge.startPeriod)
-            }
-
-            let ratio = ratioForPeriod(period)
-
             kindStart = .circleArc(
                 center: center,
                 radius: radius,
@@ -606,14 +659,27 @@ extension Simplex2Graph {
             )
         }
 
+        let startGeometry: [Edge.SharedGeometryEntry] = edge.geometry.map { entry in
+            return .init(
+                shapeIndex: entry.shapeIndex,
+                startPeriod: entry.startPeriod,
+                endPeriod: entry.startPeriod + (entry.endPeriod - entry.startPeriod) * ratio
+            )
+        }
+        let endGeometry: [Edge.SharedGeometryEntry] = edge.geometry.map { entry in
+            return .init(
+                shapeIndex: entry.shapeIndex,
+                startPeriod: entry.startPeriod + (entry.endPeriod - entry.startPeriod) * ratio,
+                endPeriod: entry.endPeriod
+            )
+        }
+
         let newStart = Edge(
             id: nextEdgeId(),
             start: edge.start,
             end: midNode,
-            shapeIndex: edge.shapeIndex,
-            startPeriod: edge.startPeriod,
-            endPeriod: period,
             kind: kindStart,
+            geometry: startGeometry,
             totalWinding: edge.totalWinding,
             winding: edge.winding
         )
@@ -621,10 +687,8 @@ extension Simplex2Graph {
             id: nextEdgeId(),
             start: midNode,
             end: edge.end,
-            shapeIndex: edge.shapeIndex,
-            startPeriod: period,
-            endPeriod: edge.endPeriod,
             kind: kindEnd,
+            geometry: endGeometry,
             totalWinding: edge.totalWinding,
             winding: edge.winding
         )

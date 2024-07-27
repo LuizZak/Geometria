@@ -344,6 +344,20 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
 
         return angleSweep.ratioOfAngle(intersectionAngle)
     }
+
+    @inlinable
+    static func circleArcIntersectionRatio(
+        _ circleArc: CircleArc2<Vector>,
+        angle: Vector.Scalar
+    ) -> Period? {
+        let angleSweep = circleArc.asAngleSweep
+
+        guard angleSweep.contains(.init(radians: angle)) else {
+            return nil
+        }
+
+        return angleSweep.ratioOfAngle(.init(radians: angle))
+    }
 }
 
 extension Sequence {

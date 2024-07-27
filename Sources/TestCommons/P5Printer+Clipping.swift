@@ -190,7 +190,7 @@ extension P5Printer {
                 drawAnchor(createVector(this.center.x + ca, this.center.y + sa), 3)
               }
               if (ratio > this.endPeriod && i == segments - 1) {
-                drawAnchor(createVector(this.center.x + ca, this.center.y + sa), 3)
+                drawAnchor(createVector(this.center.x + cn, this.center.y + sn), 3)
               }
             }
 
@@ -221,7 +221,10 @@ extension P5Printer {
 
     func add<Vector: Vector2Real>(_ simplexGraph: Simplex2Graph<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
         for edge in simplexGraph.edges {
-            add(edge.materialize(), category: category, style: style, file: file, line: line)
+            for geometry in edge.geometry {
+                let simplex = edge.materialize(startPeriod: geometry.startPeriod, endPeriod: geometry.endPeriod)
+                add(simplex, category: category, style: style, file: file, line: line)
+            }
         }
     }
 
@@ -348,11 +351,16 @@ extension P5Printer {
 
         for node in simplexGraph.nodes {
             switch node.kind {
-            case .intersection(_, let lhsPeriod, _, let rhsPeriod):
-                printer.add(intersection: node.location, at: lhsPeriod, category: "lhs intersections")
-                printer.add(intersection: node.location, at: rhsPeriod, category: "rhs intersections")
+            case .sharedGeometry(let geometry):
+                for (i, geometry) in geometry.enumerated() {
+                    printer.add(
+                        intersection: node.location,
+                        at: geometry.period,
+                        category: "geometry \(i)"
+                    )
+                }
 
-            case .geometry, .sharedGeometry:
+            case .geometry:
                 break
             }
         }
