@@ -41,25 +41,12 @@ extension Simplex2Graph {
 
         // Populate with contours
         for contour in contours {
-            result.appendContour(contour)
+            result.appendContour(
+                contour,
+                interferenceTolerance: tolerance,
+                intersectionTolerance: tolerance
+            )
         }
-
-        // Compute interferences
-        if result.computeInterferences(tolerance: tolerance) {
-            // If interferences where found, we need to recompute the contours
-            // based on the existing edges
-            let recombined = result.recombine()
-
-            result = Self()
-            for contour in recombined {
-                result.appendContour(contour)
-            }
-
-            result.assertIsValid()
-        }
-
-        // Populate with intersections
-        result.computeIntersections(tolerance: tolerance)
 
         // Compute edge windings
         result.computeWinding()
@@ -71,7 +58,11 @@ extension Simplex2Graph {
 
     /// Appends a new contour into this graph.
     @inlinable
-    internal mutating func appendContour(_ contour: Contour) {
+    internal mutating func appendContour(
+        _ contour: Contour,
+        interferenceTolerance: Scalar,
+        intersectionTolerance: Scalar
+    ) {
         let simplexes = contour.allSimplexes()
         let shapeIndex = contours.count
 
@@ -87,10 +78,6 @@ extension Simplex2Graph {
                 )
             )
             nodes.append((simplex, node))
-        }
-
-        guard nodes.count > 1 else {
-            return
         }
 
         // Create edges
@@ -122,18 +109,54 @@ extension Simplex2Graph {
             edges.append(edge)
         }
 
-        addNodes(nodes.map(\.1))
-        addEdges(edges)
+        let newNodes = nodes.map(\.1)
+        let newEdges = edges
+
+        addNodes(newNodes)
+        addEdges(newEdges)
 
         contours.append(contour)
+
+        // Compute interferences
+        if computeInterferences(inputNodes: newNodes, inputEdges: newEdges, tolerance: interferenceTolerance) {
+            // If interferences where found, we need to recompute the contours
+            // based on the existing edges
+            let recombined = recombine()
+
+            var newGraph = Self()
+            for contour in recombined {
+                newGraph.appendContour(
+                    contour,
+                    interferenceTolerance: interferenceTolerance,
+                    intersectionTolerance: intersectionTolerance
+                )
+            }
+
+            newGraph.assertIsValid()
+            self = newGraph
+
+            // Populate with intersections
+            computeIntersections(
+                inputEdges: self.sortedEdges,
+                tolerance: intersectionTolerance
+            )
+        } else {
+            computeIntersections(
+                inputEdges: newEdges,
+                tolerance: intersectionTolerance
+            )
+        }
     }
 
     @inlinable
-    internal mutating func computeIntersections(tolerance: Scalar) {
+    internal mutating func computeIntersections(
+        inputEdges: some Collection<Edge>,
+        tolerance: Scalar
+    ) {
         var allIntersections: [(lhs: Int, lhsPeriod: Vector.Scalar, rhs: Int, rhsPeriod: Vector.Scalar)] = []
         var visited: Set<OrderedEdgePair> = []
 
-        for lhs in sortedEdges {
+        for lhs in inputEdges {
             for lhsGeometry in lhs.geometry {
                 let lhsSimplex =
                     lhs.materialize(
@@ -238,12 +261,16 @@ extension Simplex2Graph {
     ///
     /// Returns `true` if interferences where found and merged.
     @inlinable
-    internal mutating func computeInterferences(tolerance: Scalar) -> Bool {
+    internal mutating func computeInterferences(
+        inputNodes: some Collection<Node>,
+        inputEdges: some Collection<Edge>,
+        tolerance: Scalar
+    ) -> Bool {
         var hasMerged = false
 
         // MARK: Merge edges - part 1
         var edgesToCheck: Set<Set<Edge>> = []
-        for edge in sortedEdges {
+        for edge in inputEdges {
             let coincident =
                 edgeTree
                 .query(edge)
@@ -337,7 +364,7 @@ extension Simplex2Graph {
 
         var nodesToMerge: Set<Set<Node>> = []
 
-        for node in sortedNodes {
+        for node in inputNodes {
             let neighbors = nodeTree.nearestNeighbors(
                 to: node.location,
                 distanceSquared: tolerance
@@ -424,7 +451,7 @@ extension Simplex2Graph {
 
         // MARK: Merge edges - part 2
         edgesToCheck = []
-        for edge in sortedEdges {
+        for edge in inputEdges {
             let coincident =
                 edgeTree
                 .query(edge)

@@ -493,7 +493,7 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
         }
 
         for (lhs, rhs) in zip(actual, expected) {
-            if !fixture.assertEquals(lhs, rhs, file: file, line: line) {
+            if !fixture.assertEquals(lhs, rhs, accuracy: accuracy, file: file, line: line) {
                 return reportFailure()
             }
         }
@@ -524,7 +524,7 @@ public extension TestFixture.AssertionWrapperBase where T: Boolean2Parametric, T
         }
 
         for (lhs, rhs) in zip(actual, expected) {
-            if !fixture.assertEquals(lhs, rhs, file: file, line: line) {
+            if !fixture.assertEquals(lhs, accuracy: accuracy, rhs, file: file, line: line) {
                 return reportFailure()
             }
         }
