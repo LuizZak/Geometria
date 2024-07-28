@@ -12,6 +12,16 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     /// Internal cached graph implementation.
     var graph: CachingDirectedGraph<Node, Edge>
 
+    /// Nodes sorted by `Node.id`.
+    @inlinable
+    var sortedNodes: [Node] {
+        nodes.sorted(by: { $0.id < $1.id })
+    }
+
+    /// Edges sorted by `Edge.id`.
+    @usableFromInline
+    var sortedEdges: [Edge]
+
     /// kd-tree of nodes.
     @usableFromInline
     var nodeTree: KDTree<Node> = .init(dimensionCount: 2, elements: [])
@@ -19,6 +29,9 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     /// Quad-tree of edges.
     @usableFromInline
     var edgeTree: QuadTree<Edge> = .init(maxSubdivisions: 4, maxElementsPerLevelBeforeSplit: 10)
+
+    /// The next available node ID to be used when adding contours.
+    var nodeId: Int = 0
 
     /// The next available edge ID to be used when adding contours.
     var edgeId: Int = 0
@@ -30,6 +43,18 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     }
     public var edges: Set<Edge> {
         graph.edges
+    }
+
+    public init() {
+        self.graph = .init()
+        self.contours = []
+        self.sortedEdges = []
+    }
+
+    @usableFromInline
+    mutating func nextNodeId() -> Int {
+        defer { nodeId += 1 }
+        return nodeId
     }
 
     @usableFromInline
@@ -55,6 +80,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     public class Node: Hashable, CustomStringConvertible {
         public typealias ShapeIndex = Int
 
+        public var id: Int
         public var location: Vector
         public var kind: Kind
 
@@ -71,7 +97,12 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
 
         @usableFromInline
-        init(location: Vector, kind: Kind) {
+        init(
+            id: Int,
+            location: Vector,
+            kind: Kind
+        ) {
+            self.id = id
             self.location = location
             self.kind = kind
         }
@@ -270,7 +301,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
 
         @inlinable
-        func queryPoint(_ center: (Period, Period) -> Period) -> Vector {
+        func queryPoint() -> Vector {
             let primitive = materializePrimitive()
             return primitive.centerPoint
         }
@@ -664,6 +695,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             return .notCoincident
         }
 
+        @inlinable
         public func materialize(
             startPeriod: Period,
             endPeriod: Period
@@ -971,11 +1003,6 @@ extension Simplex2Graph: DirectedGraphType {
 }
 
 extension Simplex2Graph: MutableDirectedGraphType {
-    public init() {
-        self.graph = .init()
-        self.contours = []
-    }
-
     public mutating func addNode(_ node: Node) {
         nodeTree.insert(node)
 
@@ -983,13 +1010,25 @@ extension Simplex2Graph: MutableDirectedGraphType {
     }
 
     public mutating func removeNode(_ node: Node) {
+        let relatedEdges = allEdges(for: node)
+
+        sortedEdges.removeAll(where: relatedEdges.contains)
+
+        for edge in relatedEdges {
+            edgeTree.remove(edge)
+        }
+
         nodeTree.remove(node)
 
         graph.removeNode(node)
     }
 
     public mutating func removeNodes(_ nodes: some Sequence<Node>) {
-        for edge in nodes.flatMap({ allEdges(for: $0) }) {
+        let relatedEdges = nodes.flatMap({ allEdges(for: $0) })
+
+        sortedEdges.removeAll(where: relatedEdges.contains)
+
+        for edge in relatedEdges {
             edgeTree.remove(edge)
         }
         for node in nodes {
@@ -1002,17 +1041,23 @@ extension Simplex2Graph: MutableDirectedGraphType {
     @discardableResult
     public mutating func addEdge(_ edge: Edge) -> Edge {
         edgeTree.insert(edge)
+        sortedEdges.append(edge)
+        sortedEdges.sort(by: { $0.id < $1.id })
 
         return graph.addEdge(edge)
     }
 
     public mutating func removeEdge(_ edge: Edge) {
         graph.removeEdge(edge)
+        sortedEdges.removeAll(where: { $0 == edge })
 
         edgeTree.remove(edge)
     }
 
     public mutating func removeEdges(_ edgesToRemove: some Sequence<Edge>) {
+        let edgesToRemove = Array(edgesToRemove)
+
+        sortedEdges.removeAll(where: edgesToRemove.contains)
         for edge in edgesToRemove {
             edgeTree.remove(edge)
         }

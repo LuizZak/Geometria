@@ -79,6 +79,7 @@ extension Simplex2Graph {
         var nodes: [(Parametric2GeometrySimplex<Vector>, Node)] = []
         for simplex in simplexes {
             let node = Node(
+                id: nextNodeId(),
                 location: simplex.start,
                 kind: .geometry(
                     shapeIndex: shapeIndex,
@@ -129,12 +130,10 @@ extension Simplex2Graph {
 
     @inlinable
     internal mutating func computeIntersections(tolerance: Scalar) {
-        let edges = edges.sorted(by: { $0.id < $1.id })
-
         var allIntersections: [(lhs: Int, lhsPeriod: Vector.Scalar, rhs: Int, rhsPeriod: Vector.Scalar)] = []
         var visited: Set<OrderedEdgePair> = []
 
-        for lhs in edges {
+        for lhs in sortedEdges {
             for lhsGeometry in lhs.geometry {
                 let lhsSimplex =
                     lhs.materialize(
@@ -196,6 +195,7 @@ extension Simplex2Graph {
                 .ratioPoint(lhsRatio)
 
             let node = Node(
+                id: nextNodeId(),
                 location: point,
                 kind: Node.Kind.sharedGeometry(
                     lhs.geometry.map { geometry in
@@ -243,7 +243,7 @@ extension Simplex2Graph {
 
         // MARK: Merge edges - part 1
         var edgesToCheck: Set<Set<Edge>> = []
-        for edge in edges {
+        for edge in sortedEdges {
             let coincident =
                 edgeTree
                 .query(edge)
@@ -280,7 +280,7 @@ extension Simplex2Graph {
         // allowing a last pass across the edges to compute the result of the
         // coinciding edges.
         for edgesToCheck in minimal {
-            let edgesToCheck = Array(edgesToCheck)
+            let edgesToCheck = edgesToCheck.sorted(by: { $0.id < $1.id })
 
             for (i, edge) in edgesToCheck.enumerated() {
                 for (_, next) in edgesToCheck.enumerated().dropFirst(i + 1) {
@@ -337,7 +337,7 @@ extension Simplex2Graph {
 
         var nodesToMerge: Set<Set<Node>> = []
 
-        for node in nodes {
+        for node in sortedNodes {
             let neighbors = nodeTree.nearestNeighbors(
                 to: node.location,
                 distanceSquared: tolerance
@@ -366,6 +366,8 @@ extension Simplex2Graph {
         }
 
         for nodesToMerge in nodesToMerge {
+            let nodesToMerge = nodesToMerge.sorted(by: { $0.id < $1.id })
+
             guard nodesToMerge.count > 1, let first = nodesToMerge.first else {
                 continue
             }
@@ -384,11 +386,16 @@ extension Simplex2Graph {
 
             let entries = nodesToMerge
                 .flatMap(edges(towards:))
+                .sorted(by: { $0.id < $1.id })
                 .filter { edge in !nodesToMerge.contains(edge.start) || !nodesToMerge.contains(edge.end) }
+
             let exits = nodesToMerge
                 .flatMap(edges(from:))
+                .sorted(by: { $0.id < $1.id })
                 .filter { edge in !nodesToMerge.contains(edge.start) || !nodesToMerge.contains(edge.end) }
+
             let newNode = Node(
+                id: nextNodeId(),
                 location: first.location,
                 kind: .sharedGeometry(geometries)
             )
@@ -417,7 +424,7 @@ extension Simplex2Graph {
 
         // MARK: Merge edges - part 2
         edgesToCheck = []
-        for edge in edges {
+        for edge in sortedEdges {
             let coincident =
                 edgeTree
                 .query(edge)
@@ -433,7 +440,7 @@ extension Simplex2Graph {
         }
 
         for edgesToCheck in edgesToCheck {
-            let edges = Array(edgesToCheck)
+            let edges = edgesToCheck.sorted(by: { $0.id < $1.id })
             guard let first = edges.first else {
                 continue
             }
@@ -474,7 +481,7 @@ extension Simplex2Graph {
             let contour = contours[geometry.shapeIndex]
             edge.winding = contour.winding
 
-            let center = edge.queryPoint(contour.normalizedCenter(_:_:))
+            let center = edge.queryPoint()
 
             edge.totalWinding =
                 contours.enumerated()
@@ -583,6 +590,7 @@ extension Simplex2Graph {
         }
 
         let midNode = Node(
+            id: nextNodeId(),
             location: edge.materializePrimitive().ratioPoint(ratio),
             kind: kind
         )
