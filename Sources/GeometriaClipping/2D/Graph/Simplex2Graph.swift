@@ -120,6 +120,16 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
 
         @inlinable
+        func append(shapeIndex: Int, period: Period) {
+            let entry = Kind.SharedGeometryEntry(
+                shapeIndex: shapeIndex,
+                period: period
+            )
+
+            kind = .sharedGeometry([entry] + geometries)
+        }
+
+        @inlinable
         func references(shapeIndex: Int, period: Period) -> Bool {
             let query = Kind.SharedGeometryEntry(
                 shapeIndex: shapeIndex,
@@ -1112,42 +1122,6 @@ extension Simplex2Graph: MutableDirectedGraphType {
         }
 
         graph.removeEdges(edgesToRemove)
-    }
-}
-
-extension DirectedGraphType {
-    func customBreadthFirstSearch(
-        start: Node,
-        reversed: Bool = false,
-        visitor: (DirectedGraphRecordingVisitElement<Edge, Node>) -> Set<Edge>?
-    ) {
-        var visited: Set<Node> = []
-        var queue: [VisitElement] = []
-
-        queue.append(.start(start))
-
-        while !queue.isEmpty {
-            let next = queue.removeFirst()
-            visited.insert(next.node)
-
-            guard let nextEdges = visitor(next) else {
-                return
-            }
-
-            for nextEdge in nextEdges {
-                var node: Node
-                if reversed {
-                    node = startNode(for: nextEdge)
-                } else {
-                    node = endNode(for: nextEdge)
-                }
-                if visited.contains(node) {
-                    continue
-                }
-
-                queue.append(next.appendingVisit(nextEdge, towards: node))
-            }
-        }
     }
 }
 

@@ -47,7 +47,7 @@ extension Simplex2Graph {
 
         // Populate with contours
         for contour in contours {
-            result.appendContour(contour)
+            result.appendContour(contour, tolerance: tolerance)
         }
 
         // Compute interferences
@@ -58,7 +58,7 @@ extension Simplex2Graph {
 
             var newGraph = Self()
             for contour in recombined {
-                newGraph.appendContour(contour)
+                newGraph.appendContour(contour, tolerance: tolerance)
             }
 
             newGraph.assertIsValid()
@@ -111,13 +111,21 @@ extension Simplex2Graph {
 
     /// Appends a new contour into this graph.
     @inlinable
-    internal mutating func appendContour(_ contour: Contour) {
+    internal mutating func appendContour(_ contour: Contour, tolerance: Scalar) {
         let simplexes = contour.allSimplexes()
         let shapeIndex = contours.count
 
         // Create nodes
         var nodes: [(Parametric2GeometrySimplex<Vector>, Node)] = []
         for simplex in simplexes {
+            if let neighbor = nodeTree.nearestNeighbor(to: simplex.start) {
+                if neighbor.location.distanceSquared(to: simplex.start) < tolerance * 2 {
+                    neighbor.append(shapeIndex: shapeIndex, period: simplex.startPeriod)
+                    nodes.append((simplex, neighbor))
+                    continue
+                }
+            }
+
             let node = Node(
                 id: nextNodeId(),
                 location: simplex.start,
