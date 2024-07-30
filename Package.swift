@@ -40,24 +40,37 @@ let geometriaTestsTarget: Target = .testTarget(
 // GeometriaAlgorithms
 let geometriaAlgorithmsTarget: Target = .target(
     name: "GeometriaAlgorithms",
-    dependencies: geometriaDependencies + ["Geometria"],
+    dependencies: geometriaDependencies + [
+        "Geometria",
+    ],
     swiftSettings: []
 )
 let geometriaAlgorithmsTestTarget: Target = .testTarget(
     name: "GeometriaAlgorithmsTests",
-    dependencies: geometriaDependencies + ["GeometriaAlgorithms", "TestCommons"],
+    dependencies: geometriaDependencies + [
+        "GeometriaAlgorithms",
+        "TestCommons",
+    ],
     swiftSettings: []
 )
 
 // GeometriaClipping
 let geometriaClippingTarget: Target = .target(
     name: "GeometriaClipping",
-    dependencies: geometriaDependencies + ["Geometria", "GeometriaAlgorithms", .product(name: "MiniDigraph", package: "MiniDigraph")],
+    dependencies: geometriaDependencies + [
+        "Geometria",
+        "GeometriaAlgorithms",
+        .product(name: "MiniDigraph", package: "MiniDigraph"),
+        .product(name: "OrderedCollections", package: "swift-collections"),
+    ],
     swiftSettings: []
 )
 let geometriaClippingTestTarget: Target = .testTarget(
     name: "GeometriaClippingTests",
-    dependencies: geometriaDependencies + ["GeometriaClipping", "TestCommons"],
+    dependencies: geometriaDependencies + [
+        "GeometriaClipping",
+        "TestCommons",
+    ],
     swiftSettings: []
 )
 
@@ -79,8 +92,9 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
         .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
-        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.6.0")),
+        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.8.0")),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),

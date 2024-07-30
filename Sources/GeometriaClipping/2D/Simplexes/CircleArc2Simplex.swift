@@ -68,6 +68,28 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
     }
 
     /// Initializes a new circular arc segment simplex value with a given circular
+    /// arc segment's parameters.
+    public init(
+        center: Vector,
+        radius: Scalar,
+        startAngle: Angle<Scalar>,
+        sweepAngle: Angle<Scalar>,
+        startPeriod: Period,
+        endPeriod: Period
+    ) {
+        self.init(
+            circleArc: .init(
+                center: center,
+                radius: radius,
+                startAngle: startAngle,
+                sweepAngle: sweepAngle
+            ),
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
+
+    /// Initializes a new circular arc segment simplex value with a given circular
     /// arc segment.
     public init(
         circleArc: CircleArc2<Vector>,
@@ -159,6 +181,37 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
             ),
             startPeriod: startPeriod,
             endPeriod: endPeriod
+        )
+    }
+
+    /// Splits this simplex at a given period, returning two simplexes that join
+    /// to form the same range of periods/strokes that this simplex spans.
+    ///
+    /// - precondition: `period` is a valid period contained within `startPeriod..<endPeriod`.
+    @inlinable
+    public func split(at period: Period) -> (Self, Self) {
+        precondition(periodRange.contains(period))
+        let ratio = ratioForPeriod(period)
+
+        let midAngle = startAngle + sweepAngle * ratio
+
+        return (
+            .init(
+                center: center,
+                radius: radius,
+                startAngle: startAngle,
+                sweepAngle: sweepAngle * ratio,
+                startPeriod: startPeriod,
+                endPeriod: period
+            ),
+            .init(
+                center: center,
+                radius: radius,
+                startAngle: midAngle,
+                sweepAngle: sweepAngle * (1 - ratio),
+                startPeriod: period,
+                endPeriod: endPeriod
+            )
         )
     }
 }

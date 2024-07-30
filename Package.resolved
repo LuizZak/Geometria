@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/LuizZak/MiniDigraph.git",
         "state": {
           "branch": null,
-          "revision": "1832c37618b0263fe8850ab8b3dfef28cd183fc7",
-          "version": "0.6.0"
+          "revision": "188262a9aaafa42d4d51b369f804edbd57901130",
+          "version": "0.8.0"
         }
       },
       {
@@ -17,6 +17,15 @@
           "branch": null,
           "revision": "5be1800c72cc4129496abb4d53b316cadfe8431e",
           "version": "0.0.2"
+        }
+      },
+      {
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections.git",
+        "state": {
+          "branch": null,
+          "revision": "3d2dc41a01f9e49d84f0a3925fb858bed64f702d",
+          "version": "1.1.2"
         }
       },
       {

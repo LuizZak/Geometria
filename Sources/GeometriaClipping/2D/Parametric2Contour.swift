@@ -165,6 +165,22 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         return Vector.zero
     }
 
+    /// Performs a point-point check against this parametric geometry, up to a
+    /// given squared tolerance value.
+    @inlinable
+    public func isOnVertex(_ point: Vector, toleranceSquared: Scalar) -> Bool {
+        for simplex in simplexes {
+            if simplex.start.distanceSquared(to: point) <= toleranceSquared {
+                return true
+            }
+            if simplex.end.distanceSquared(to: point) <= toleranceSquared {
+                return true
+            }
+        }
+
+        return false
+    }
+
     /// Performs a point-surface check against this parametric geometry, up to a
     /// given squared tolerance value.
     @inlinable
@@ -224,6 +240,28 @@ public struct Parametric2Contour<Vector: Vector2Real> {
             startPeriod: startPeriod,
             endPeriod: endPeriod
         )
+    }
+
+    /// Splits this contour at a period, ensuring that a simplex split happens
+    /// at that period.
+    ///
+    /// If the given period is the start of a period, no change is made.
+    @inlinable
+    public mutating func split(at period: Period) {
+        let period = normalizedPeriod(period)
+
+        guard let simplexIndex = simplexes.firstIndex(where: { $0.periodRange.contains(period) }) else {
+            return
+        }
+
+        let simplex = simplexes[simplexIndex]
+        if period == simplex.startPeriod {
+            return
+        }
+
+        let (left, right) = simplex.split(at: period)
+
+        simplexes[simplexIndex...simplexIndex] = [left, right]
     }
 
     public enum Winding {

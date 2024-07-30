@@ -99,6 +99,35 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         startPeriod + (endPeriod - startPeriod) * ratio
     }
 
+    /// Returns `(period - startPeriod) / (endPeriod - startPeriod)`.
+    ///
+    /// - note: The result is unclamped.
+    @inlinable
+    func ratio(forPeriod period: Period) -> Scalar {
+        (period - startPeriod) / (endPeriod - startPeriod)
+    }
+
+    /// Splits this simplex at a given period, returning two simplexes that join
+    /// to form the same range of periods/strokes that this simplex spans.
+    ///
+    /// - precondition: `period` is a valid period contained within `startPeriod..<endPeriod`.
+    @inlinable
+    public func split(at period: Period) -> (Self, Self) {
+        precondition(periodRange.contains(period))
+
+        switch self {
+        case .lineSegment2(let lineSegment2):
+            let (left, right) = lineSegment2.split(at: period)
+
+            return (.lineSegment2(left), .lineSegment2(right))
+
+        case .circleArc2(let circleArc2):
+            let (left, right) = circleArc2.split(at: period)
+
+            return (.circleArc2(left), .circleArc2(right))
+        }
+    }
+
     /// Clamps this simplex so its contained geometry is only present within a
     /// given period range.
     ///

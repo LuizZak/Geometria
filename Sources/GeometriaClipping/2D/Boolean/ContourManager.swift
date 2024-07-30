@@ -4,7 +4,7 @@ import MiniDigraph
 /// Manages inclusions/merging of contour objects.
 @usableFromInline
 class ContourManager<Vector: Vector2Real> {
-    private typealias ContourContainmentGraph = CachingDirectedGraph<Int, DirectedGraph<Int>.Edge>
+    private typealias ContourContainmentGraph = CachingDirectedGraph<AbstractDirectedGraph<Int, DirectedGraph<Int>.Edge>>
 
     @usableFromInline
     typealias Contour = Parametric2Contour<Vector>
@@ -230,6 +230,10 @@ class ContourManager<Vector: Vector2Real> {
 
             hasEnded = true
 
+            guard simplexes.count > 1 else {
+                return
+            }
+
             let contour = self.contour(startPeriod: startPeriod, endPeriod: endPeriod)
             manager.append(contour)
         }
@@ -245,12 +249,12 @@ class ContourManager<Vector: Vector2Real> {
 }
 
 private extension DirectedGraphType {
-    func entryNodes() -> Set<Node> {
+    func entryNodes() -> [Node] {
         nodes.filter { indegree(of: $0) == 0 }
     }
 }
 
-private extension CachingDirectedGraph where Node == Int, Edge: SimpleDirectedGraphEdge {
+private extension CachingDirectedGraph where Graph: MutableSimpleEdgeDirectedGraphType, Graph.Node == Int {
     /// Traverses the graph, ensuring that the nested winding number of each
     /// contour matches the contour's winding.
     mutating func pruneByWinding<Vector>(

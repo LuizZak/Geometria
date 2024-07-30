@@ -43,6 +43,13 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
     ///
     /// The start and end periods remain the same.
     func reversed() -> Self
+
+    /// Splits this simplex at a given period, returning two simplexes that join
+    /// to form the same range of periods/strokes that this simplex spans.
+    ///
+    /// - precondition: `period` is a valid period contained within `startPeriod..<endPeriod`.
+    @inlinable
+    func split(at period: Period) -> (Self, Self)
 }
 
 extension Parametric2Simplex {
