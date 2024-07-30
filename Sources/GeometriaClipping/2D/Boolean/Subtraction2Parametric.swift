@@ -58,10 +58,10 @@ public struct Subtraction2Parametric<Vector: Vector2Real & Hashable>: Boolean2Pa
 /// from `shape1`.
 @inlinable
 public func subtraction<Vector: Hashable>(
-    tolerance: Double = .leastNonzeroMagnitude,
+    tolerance: Vector.Scalar = .leastNonzeroMagnitude,
     _ shape1: some ParametricClip2Geometry<Vector>,
     _ shapes: [some ParametricClip2Geometry<Vector>]
 ) -> Compound2Parametric<Vector> {
     let shapes = shapes.map({ Compound2Parametric($0.reversed()) })
-    return union([Compound2Parametric(shape1)] + shapes)
+    return union(tolerance: tolerance, [Compound2Parametric(shape1)] + shapes)
 }
