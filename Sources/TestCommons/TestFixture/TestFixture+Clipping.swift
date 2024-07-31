@@ -200,11 +200,11 @@ public extension TestFixture {
         line: UInt = #line
     ) -> Bool {
 
-        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy, message()) {
+        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy, message(), file: file, line: line) {
             return false
         }
 
-        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy, message()) {
+        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy, message(), file: file, line: line) {
             return false
         }
 
@@ -237,7 +237,7 @@ public extension TestFixture {
         }
 
         for (i, (actual, expected)) in zip(actual, expected).enumerated() {
-            if !assertEquals(actual, expected, "[\(i)] \(message())", file: file, line: line) {
+            if !assertEquals(actual, expected, accuracy: accuracy, "[\(i)] \(message())", file: file, line: line) {
                 return false
             }
         }
@@ -255,11 +255,11 @@ public extension TestFixture {
         line: UInt = #line
     ) -> Bool {
 
-        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy, message()) {
+        if !assertEquals(actual.startPeriod, expected.startPeriod, accuracy: accuracy, message(), file: file, line: line) {
             return false
         }
 
-        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy, message()) {
+        if !assertEquals(actual.endPeriod, expected.endPeriod, accuracy: accuracy, message(), file: file, line: line) {
             return false
         }
 

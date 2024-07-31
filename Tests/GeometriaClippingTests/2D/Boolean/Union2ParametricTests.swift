@@ -47,210 +47,7 @@ class Union2ParametricTests: XCTestCase {
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [
-                        [
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 74.97851895895208, y: -8.697460292338846),
-                                        end: .init(x: 100.0, y: 0.0)
-                                    ),
-                                    startPeriod: 0.0,
-                                    endPeriod: 0.039225505630241526
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 100.0, y: 0.0),
-                                        end: .init(x: 74.9785189589521, y: 8.697460292338837)
-                                    ),
-                                    startPeriod: 0.039225505630241526,
-                                    endPeriod: 0.07845101126048304
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 74.9785189589521, y: 8.697460292338839),
-                                        end: .init(x: 40.00000000000001, y: 69.28203230275508)
-                                    ),
-                                    startPeriod: 0.07845101126048304,
-                                    endPeriod: 0.18204103530428004
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 40.00000000000001, y: 69.28203230275508),
-                                        end: .init(x: 31.427945012999707, y: 69.28203230275508)
-                                    ),
-                                    startPeriod: 0.18204103530428004,
-                                    endPeriod: 0.19473424543204687
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 31.42794501299971, y: 69.28203230275507),
-                                        end: .init(x: 30.901699437494745, y: 95.10565162951536)
-                                    ),
-                                    startPeriod: 0.19473424543204687,
-                                    endPeriod: 0.23298092971827175
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 30.901699437494745, y: 95.10565162951535),
-                                        end: .init(x: 11.323626827162714, y: 69.28203230275508)
-                                    ),
-                                    startPeriod: 0.23298092971827175,
-                                    endPeriod: 0.2809669029647308
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 11.323626827162727, y: 69.28203230275508),
-                                        end: .init(x: -39.99999999999999, y: 69.2820323027551)
-                                    ),
-                                    startPeriod: 0.2809669029647308,
-                                    endPeriod: 0.356965199852026
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -39.999999999999986, y: 69.2820323027551),
-                                        end: .init(x: -51.24444704133373, y: 49.806078724147525)
-                                    ),
-                                    startPeriod: 0.356965199852026,
-                                    endPeriod: 0.3902659962847707
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -51.244447041333736, y: 49.80607872414753),
-                                        end: .init(x: -80.90169943749473, y: 58.77852522924732)
-                                    ),
-                                    startPeriod: 0.3902659962847707,
-                                    endPeriod: 0.43614723395134614
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -80.90169943749473, y: 58.77852522924732),
-                                        end: .init(x: -61.86160744855665, y: 31.41661746672879)
-                                    ),
-                                    startPeriod: 0.43614723395134614,
-                                    endPeriod: 0.4855080648568105
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -61.86160744855664, y: 31.416617466728784),
-                                        end: .init(x: -80.0, y: 1.4210854715202004e-14)
-                                    ),
-                                    startPeriod: 0.4855080648568105,
-                                    endPeriod: 0.5392255056302416
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -80.0, y: 9.797174393178826e-15),
-                                        end: .init(x: -61.86160744855667, y: -31.41661746672875)
-                                    ),
-                                    startPeriod: 0.5392255056302416,
-                                    endPeriod: 0.5929429464036726
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -61.86160744855664, y: -31.416617466728745),
-                                        end: .init(x: -80.90169943749476, y: -58.7785252292473)
-                                    ),
-                                    startPeriod: 0.5929429464036726,
-                                    endPeriod: 0.642303777309137
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -80.90169943749476, y: -58.7785252292473),
-                                        end: .init(x: -51.24444704133376, y: -49.80607872414752)
-                                    ),
-                                    startPeriod: 0.642303777309137,
-                                    endPeriod: 0.6881850149757125
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -51.24444704133375, y: -49.806078724147525),
-                                        end: .init(x: -40.000000000000036, y: -69.28203230275507)
-                                    ),
-                                    startPeriod: 0.6881850149757125,
-                                    endPeriod: 0.7214858114084571
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -40.000000000000036, y: -69.28203230275507),
-                                        end: .init(x: 11.323626827162663, y: -69.28203230275508)
-                                    ),
-                                    startPeriod: 0.7214858114084571,
-                                    endPeriod: 0.7974841082957523
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 11.323626827162698, y: -69.28203230275508),
-                                        end: .init(x: 30.90169943749472, y: -95.10565162951536)
-                                    ),
-                                    startPeriod: 0.7974841082957523,
-                                    endPeriod: 0.8454700815422114
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 30.901699437494724, y: -95.10565162951536),
-                                        end: .init(x: 31.427945012999693, y: -69.28203230275513)
-                                    ),
-                                    startPeriod: 0.8454700815422114,
-                                    endPeriod: 0.8837167658284362
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 31.427945012999675, y: -69.28203230275508),
-                                        end: .init(x: 40.00000000000001, y: -69.28203230275508)
-                                    ),
-                                    startPeriod: 0.8837167658284362,
-                                    endPeriod: 0.8964099759562031
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 40.00000000000001, y: -69.28203230275508),
-                                        end: .init(x: 74.97851895895208, y: -8.697460292338846)
-                                    ),
-                                    startPeriod: 0.8964099759562031,
-                                    endPeriod: 1.0
-                                )
-                            ),
-                        ]
-                    ]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 100.0, y: 0.0), end: Vector2<Double>(x: 74.9785189589521, y: 8.697460292338837)), startPeriod: 0.0, endPeriod: 0.0392255056302415)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 74.9785189589521, y: 8.697460292338837), end: Vector2<Double>(x: 40.00000000000001, y: 69.28203230275508)), startPeriod: 0.0392255056302415, endPeriod: 0.14281552967403852)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 40.00000000000001, y: 69.28203230275508), end: Vector2<Double>(x: 31.42794501299971, y: 69.28203230275507)), startPeriod: 0.14281552967403852, endPeriod: 0.15550873980180535)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 31.42794501299971, y: 69.28203230275507), end: Vector2<Double>(x: 30.901699437494745, y: 95.10565162951535)), startPeriod: 0.15550873980180535, endPeriod: 0.1937554240880302)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 30.901699437494745, y: 95.10565162951535), end: Vector2<Double>(x: 11.323626827162714, y: 69.28203230275508)), startPeriod: 0.1937554240880302, endPeriod: 0.24174139733448927)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 11.323626827162714, y: 69.28203230275508), end: Vector2<Double>(x: -39.999999999999986, y: 69.2820323027551)), startPeriod: 0.24174139733448927, endPeriod: 0.3177396942217845)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -39.999999999999986, y: 69.2820323027551), end: Vector2<Double>(x: -51.244447041333736, y: 49.80607872414753)), startPeriod: 0.3177396942217845, endPeriod: 0.3510404906545292)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -51.244447041333736, y: 49.80607872414753), end: Vector2<Double>(x: -80.90169943749473, y: 58.77852522924732)), startPeriod: 0.3510404906545292, endPeriod: 0.39692172832110456)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -80.90169943749473, y: 58.77852522924732), end: Vector2<Double>(x: -61.86160744855665, y: 31.41661746672879)), startPeriod: 0.39692172832110456, endPeriod: 0.4462825592265689)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -61.86160744855665, y: 31.41661746672879), end: Vector2<Double>(x: -80.0, y: 9.797174393178826e-15)), startPeriod: 0.4462825592265689, endPeriod: 0.5)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -80.0, y: 9.797174393178826e-15), end: Vector2<Double>(x: -61.86160744855664, y: -31.416617466728745)), startPeriod: 0.5, endPeriod: 0.5537174407734311)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -61.86160744855664, y: -31.416617466728745), end: Vector2<Double>(x: -80.90169943749476, y: -58.7785252292473)), startPeriod: 0.5537174407734311, endPeriod: 0.6030782716788955)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -80.90169943749476, y: -58.7785252292473), end: Vector2<Double>(x: -51.24444704133376, y: -49.80607872414752)), startPeriod: 0.6030782716788955, endPeriod: 0.648959509345471)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -51.24444704133376, y: -49.80607872414752), end: Vector2<Double>(x: -40.000000000000036, y: -69.28203230275507)), startPeriod: 0.648959509345471, endPeriod: 0.6822603057782156)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -40.000000000000036, y: -69.28203230275507), end: Vector2<Double>(x: 11.323626827162698, y: -69.28203230275508)), startPeriod: 0.6822603057782156, endPeriod: 0.7582586026655108)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 11.323626827162698, y: -69.28203230275508), end: Vector2<Double>(x: 30.901699437494724, y: -95.10565162951536)), startPeriod: 0.7582586026655108, endPeriod: 0.8062445759119699)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 30.901699437494724, y: -95.10565162951536), end: Vector2<Double>(x: 31.427945012999693, y: -69.28203230275513)), startPeriod: 0.8062445759119699, endPeriod: 0.8444912601981946)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 31.427945012999693, y: -69.28203230275513), end: Vector2<Double>(x: 40.00000000000001, y: -69.28203230275508)), startPeriod: 0.8444912601981946, endPeriod: 0.8571844703259616)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 40.00000000000001, y: -69.28203230275508), end: Vector2<Double>(x: 74.97851895895208, y: -8.697460292338846)), startPeriod: 0.8571844703259616, endPeriod: 0.9607744943697585)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 74.97851895895208, y: -8.697460292338846), end: Vector2<Double>(x: 100.0, y: 0.0)), startPeriod: 0.9607744943697585, endPeriod: 1.0))]]
                 )
         }
     }
@@ -280,82 +77,7 @@ class Union2ParametricTests: XCTestCase {
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [
-                        [
-                            .circleArc2(
-                                .init(
-                                    circleArc: .init(
-                                        center: .init(x: -25.0, y: 5.0),
-                                        radius: 115.0,
-                                        startAngle: Angle(radians: 1.5707963267948966),
-                                        sweepAngle: Angle(radians: 1.5707963267948966)
-                                    ),
-                                    startPeriod: 0.0,
-                                    endPeriod: 0.24166701155392442
-                                )
-                            ),
-                            .circleArc2(
-                                .init(
-                                    circleArc: .init(
-                                        center: .init(x: -25.0, y: 5.0),
-                                        radius: 115.0,
-                                        startAngle: Angle(radians: 3.141592653589793),
-                                        sweepAngle: Angle(radians: 1.5707963267948966)
-                                    ),
-                                    startPeriod: 0.24166701155392442,
-                                    endPeriod: 0.48333402310784884
-                                )
-                            ),
-                            .circleArc2(
-                                .init(
-                                    circleArc: .init(
-                                        center: .init(x: -25.0, y: 5.0),
-                                        radius: 114.99999999999997,
-                                        startAngle: Angle(radians: -1.570796326794897),
-                                        sweepAngle: Angle(radians: 0.8317784477809788)
-                                    ),
-                                    startPeriod: 0.48333402310784884,
-                                    endPeriod: 0.6113031355390863
-                                )
-                            ),
-                            .circleArc2(
-                                .init(
-                                    circleArc: .init(
-                                        center: .init(x: 25.0, y: -5.0),
-                                        radius: 85.00000000000009,
-                                        startAngle: Angle(radians: -1.14640661820171),
-                                        sweepAngle: Angle(radians: 1.1464066182017099)
-                                    ),
-                                    startPeriod: 0.6113031355390863,
-                                    endPeriod: 0.7416670115539244
-                                )
-                            ),
-                            .circleArc2(
-                                .init(
-                                    circleArc: .init(
-                                        center: .init(x: 25.0, y: -5.0),
-                                        radius: 85.00000000000001,
-                                        startAngle: Angle(radians: -8.359326303060001e-17),
-                                        sweepAngle: Angle(radians: 1.14640661820171)
-                                    ),
-                                    startPeriod: 0.7416670115539244,
-                                    endPeriod: 0.8720308875687625
-                                )
-                            ),
-                            .circleArc2(
-                                .init(
-                                    circleArc: .init(
-                                        center: .init(x: -25.0, y: -5.0),
-                                        radius: 115.00000000000003,
-                                        startAngle: Angle(radians: 0.7390178790139179),
-                                        sweepAngle: Angle(radians: 0.8317784477809788)
-                                    ),
-                                    startPeriod: 0.8720308875687625,
-                                    endPeriod: 1.0
-                                )
-                            ),
-                        ]
-                    ]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 5.0), radius: 115.0, startAngle: Angle<Double>(radians: 0.5502322143364249), sweepAngle: Angle<Double>(radians: 1.0205641124584717)), startPeriod: 0.0, endPeriod: 0.1566687353278738)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 5.0), radius: 115.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.1566687353278738, endPeriod: 0.39780466297067535)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 5.0), radius: 115.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.39780466297067535, endPeriod: 0.6389405906134769)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 5.0), radius: 115.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 0.6257729927587105)), startPeriod: 0.6389405906134769, endPeriod: 0.7350041913035661)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 25.0, y: -5.0), radius: 85.0, startAngle: Angle<Double>(radians: 4.918050495000922), sweepAngle: Angle<Double>(radians: 1.3651348121786642)), startPeriod: 0.7350041913035661, endPeriod: 0.8898996454092252)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 25.0, y: -5.0), radius: 85.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 0.9703436924789027)), startPeriod: 0.8898996454092252, endPeriod: 1.0))]]
                 )
         }
     }
@@ -369,212 +91,7 @@ class Union2ParametricTests: XCTestCase {
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [
-                        [
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -4.999999999999972, y: 50.0),
-                                        end: .init(x: -50.0, y: 50.0)
-                                    ),
-                                    startPeriod: 0.0,
-                                    endPeriod: 0.08883299341559678
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -50.0, y: 50.0),
-                                        end: .init(x: -50.0, y: -50.0)
-                                    ),
-                                    startPeriod: 0.08883299341559678,
-                                    endPeriod: 0.28623964545025615
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -50.0, y: -50.0),
-                                        end: .init(x: -4.999999999999999, y: -50.0)
-                                    ),
-                                    startPeriod: 0.28623964545025615,
-                                    endPeriod: 0.3750726388658529
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -5.0, y: -49.999999999999986),
-                                        end: .init(x: -5.0, y: -60.0)
-                                    ),
-                                    startPeriod: 0.3750726388658529,
-                                    endPeriod: 0.39481330406931886
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -5.0, y: -60.0),
-                                        end: .init(x: 5.0, y: -60.0)
-                                    ),
-                                    startPeriod: 0.39481330406931886,
-                                    endPeriod: 0.4145539692727848
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 5.0, y: -60.0),
-                                        end: .init(x: 5.0, y: -50.0)
-                                    ),
-                                    startPeriod: 0.4145539692727848,
-                                    endPeriod: 0.4342946344762508
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 5.000000000000004, y: -50.0),
-                                        end: .init(x: 50.0, y: -50.0)
-                                    ),
-                                    startPeriod: 0.4342946344762508,
-                                    endPeriod: 0.5231276278918475
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 50.0, y: -50.0),
-                                        end: .init(x: 30.0, y: -30.0)
-                                    ),
-                                    startPeriod: 0.5231276278918475,
-                                    endPeriod: 0.5789626608138638
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 30.0, y: -30.0),
-                                        end: .init(x: 4.999999999999982, y: -30.0)
-                                    ),
-                                    startPeriod: 0.5789626608138638,
-                                    endPeriod: 0.6283143238225286
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 5.0, y: -30.0),
-                                        end: .init(x: 5.0, y: 29.999999999999986)
-                                    ),
-                                    startPeriod: 0.6283143238225286,
-                                    endPeriod: 0.7467583150433242
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 4.999999999999996, y: 30.0),
-                                        end: .init(x: 30.0, y: 30.0)
-                                    ),
-                                    startPeriod: 0.7467583150433242,
-                                    endPeriod: 0.7961099780519891
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 30.0, y: 30.0),
-                                        end: .init(x: 50.0, y: 50.0)
-                                    ),
-                                    startPeriod: 0.7961099780519891,
-                                    endPeriod: 0.8519450109740054
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 50.0, y: 50.0),
-                                        end: .init(x: 4.999999999999977, y: 50.0)
-                                    ),
-                                    startPeriod: 0.8519450109740054,
-                                    endPeriod: 0.9407780043896021
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 5.0, y: 50.00000000000001),
-                                        end: .init(x: 5.0, y: 60.0)
-                                    ),
-                                    startPeriod: 0.9407780043896021,
-                                    endPeriod: 0.9605186695930681
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: 5.0, y: 60.0),
-                                        end: .init(x: -5.0, y: 60.0)
-                                    ),
-                                    startPeriod: 0.9605186695930681,
-                                    endPeriod: 0.980259334796534
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -5.0, y: 60.0),
-                                        end: .init(x: -5.0, y: 50.00000000000001)
-                                    ),
-                                    startPeriod: 0.980259334796534,
-                                    endPeriod: 1.0
-                                )
-                            ),
-                        ],
-                        [
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -4.999999999999996, y: -30.0),
-                                        end: .init(x: -30.0, y: -30.0)
-                                    ),
-                                    startPeriod: 0.0,
-                                    endPeriod: 0.14705882352941183
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -30.0, y: -30.0),
-                                        end: .init(x: -30.0, y: 30.0)
-                                    ),
-                                    startPeriod: 0.14705882352941183,
-                                    endPeriod: 0.5000000000000002
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -30.0, y: 30.0),
-                                        end: .init(x: -5.000000000000022, y: 30.0)
-                                    ),
-                                    startPeriod: 0.5000000000000002,
-                                    endPeriod: 0.6470588235294118
-                                )
-                            ),
-                            .lineSegment2(
-                                .init(
-                                    lineSegment: .init(
-                                        start: .init(x: -5.0, y: 29.999999999999993),
-                                        end: .init(x: -5.0, y: -29.999999999999986)
-                                    ),
-                                    startPeriod: 0.6470588235294118,
-                                    endPeriod: 1.0
-                                )
-                            ),
-                        ],
-                    ]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -50.0, y: -50.0), end: Vector2<Double>(x: -4.999999999999999, y: -50.0)), startPeriod: 0.0, endPeriod: 0.08883299341559671)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -4.999999999999999, y: -50.0), end: Vector2<Double>(x: -5.0, y: -60.0)), startPeriod: 0.08883299341559671, endPeriod: 0.10857365861906265)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -5.0, y: -60.0), end: Vector2<Double>(x: 5.0, y: -60.0)), startPeriod: 0.10857365861906265, endPeriod: 0.12831432382252858)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 5.0, y: -60.0), end: Vector2<Double>(x: 5.000000000000005, y: -50.0)), startPeriod: 0.12831432382252858, endPeriod: 0.1480549890259945)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 5.000000000000005, y: -50.0), end: Vector2<Double>(x: 50.0, y: -50.0)), startPeriod: 0.1480549890259945, endPeriod: 0.23688798244159123)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 50.0, y: -50.0), end: Vector2<Double>(x: 30.0, y: -30.0)), startPeriod: 0.23688798244159123, endPeriod: 0.29272301536360756)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 30.0, y: -30.0), end: Vector2<Double>(x: 4.999999999999982, y: -30.0)), startPeriod: 0.29272301536360756, endPeriod: 0.34207467837227246)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 4.999999999999982, y: -30.0), end: Vector2<Double>(x: 4.999999999999993, y: 30.0)), startPeriod: 0.34207467837227246, endPeriod: 0.4605186695930681)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 4.999999999999993, y: 30.0), end: Vector2<Double>(x: 30.0, y: 30.0)), startPeriod: 0.4605186695930681, endPeriod: 0.509870332601733)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 30.0, y: 30.0), end: Vector2<Double>(x: 50.0, y: 50.0)), startPeriod: 0.509870332601733, endPeriod: 0.5657053655237493)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 50.0, y: 50.0), end: Vector2<Double>(x: 4.999999999999977,y: 50.0)), startPeriod: 0.5657053655237493, endPeriod: 0.654538358939346)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 4.999999999999977, y: 50.0), end: Vector2<Double>(x: 5.0, y: 60.0)), startPeriod: 0.654538358939346, endPeriod: 0.6742790241428119)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 5.0, y: 60.0), end: Vector2<Double>(x: -5.0, y: 60.0)), startPeriod: 0.6742790241428119, endPeriod: 0.6940196893462779)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -5.0, y: 60.0), end: Vector2<Double>(x: -4.999999999999975, y: 50.0)), startPeriod: 0.6940196893462779, endPeriod: 0.7137603545497438)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -4.999999999999975, y: 50.0), end: Vector2<Double>(x: -50.0, y: 50.0)), startPeriod: 0.7137603545497438, endPeriod: 0.8025933479653407)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -50.0, y: 50.0), end: Vector2<Double>(x: -50.0, y: -50.0)), startPeriod: 0.8025933479653407, endPeriod: 1.0))], [GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -5.000000000000002, y: -30.0), end: Vector2<Double>(x: -30.0, y: -30.0)), startPeriod: 0.0, endPeriod: 0.1470588235294118)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -30.0, y: -30.0), end: Vector2<Double>(x: -30.0, y: 30.0)), startPeriod: 0.1470588235294118, endPeriod: 0.5000000000000001)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -30.0, y: 30.0), end: Vector2<Double>(x: -5.000000000000022, y: 30.0)), startPeriod: 0.5000000000000001, endPeriod: 0.6470588235294117)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: -5.000000000000022, y: 30.0), end: Vector2<Double>(x: -5.000000000000002, y: -30.0)), startPeriod: 0.6470588235294117, endPeriod: 1.0))]]
                 )
         }
     }
@@ -600,19 +117,24 @@ class Union2ParametricTests: XCTestCase {
     func testUnion_rhsOccludesLhsHole() {
         let radius: Double = 50.0
         let circles = [
-            Circle2Parametric.makeTestCircle(center: .init(x: 110, y: 95), radius: radius),
-            Circle2Parametric.makeTestCircle(center: .init(x: 63, y: 11), radius: radius),
-            Circle2Parametric.makeTestCircle(center: .init(x: 158, y: 13), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: 0, y: 55), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: -47, y: -29), radius: radius),
+            Circle2Parametric.makeTestCircle(center: .init(x: 48, y: -27), radius: radius),
         ]
         let lhs = union(circles)
-        let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 110, y: 40), radius: radius)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 0, y: 0), radius: radius)
         let sut: Union2Parametric = Union2Parametric(lhs, rhs)
 
         TestFixture.beginFixture { fixture in
+            fixture.add(circles[0], category: "input 1")
+            fixture.add(circles[1], category: "input 1")
+            fixture.add(circles[2], category: "input 1")
+            fixture.add(rhs, category: "input 2")
+
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 95.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.11823023429846431)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 95.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.11823023429846431, endPeriod: 0.23646046859692862)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 95.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 0.5823642378687436)), startPeriod: 0.23646046859692862, endPeriod: 0.28029368816573047)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 40.0), radius: 50.0, startAngle: Angle<Double>(radians: 2.5592284157210496), sweepAngle: Angle<Double>(radians: 0.1494914997131486)), startPeriod: 0.28029368816573047, endPeriod: 0.2915455702431337)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 63.0, y: 11.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5385551813406735), sweepAngle: Angle<Double>(radians: 0.03224114545422309)), startPeriod: 0.2915455702431337, endPeriod: 0.2939722872630809)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 63.0, y: 11.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.2939722872630809, endPeriod: 0.41220252156154524)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 63.0, y: 11.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.41220252156154524, endPeriod: 0.5304327558600096)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 63.0, y: 11.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.1379235886393009)), startPeriod: 0.5304327558600096, endPeriod: 0.6160816526670752)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 40.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.680147834930466), sweepAngle: Angle<Double>(radians: 0.1030864112323703)), startPeriod: 0.6160816526670752, endPeriod: 0.6238407302413522)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 158.0, y: 13.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.616764793985068), sweepAngle: Angle<Double>(radians: 1.095624186399622)), startPeriod: 0.6238407302413522, endPeriod: 0.7063058481254771)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 158.0, y: 13.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.7063058481254771, endPeriod: 0.8245360824239414)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 158.0, y: 13.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.8245360824239414, endPeriod: 0.9427663167224056)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 158.0, y: 13.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 0.07084526577814707)), startPeriod: 0.9427663167224056, endPeriod: 0.9480986772767356)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 40.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.4751721403952749), sweepAngle: Angle<Double>(radians: 0.10719209747346853)), startPeriod: 0.9480986772767356, endPeriod: 0.9561667804311981)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 110.0, y: 95.0), radius: 50.0, startAngle: Angle<Double>(radians: 5.700821069310844), sweepAngle: Angle<Double>(radians: 0.5823642378687433)), startPeriod: 0.9561667804311981, endPeriod: 1.0))]]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 55.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.11823023429846431)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 55.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.11823023429846431, endPeriod: 0.23646046859692862)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 55.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 0.5823642378687436)), startPeriod: 0.23646046859692862, endPeriod: 0.28029368816573047)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 50.0, startAngle: Angle<Double>(radians: 2.5592284157210496), sweepAngle: Angle<Double>(radians: 0.1494914997131486)), startPeriod: 0.28029368816573047, endPeriod: 0.2915455702431337)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -47.0, y: -29.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5385551813406735), sweepAngle: Angle<Double>(radians: 0.03224114545422309)), startPeriod: 0.2915455702431337, endPeriod: 0.2939722872630809)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -47.0, y: -29.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.2939722872630809, endPeriod: 0.41220252156154524)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -47.0, y: -29.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.41220252156154524, endPeriod: 0.5304327558600096)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -47.0, y: -29.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.1379235886393009)), startPeriod: 0.5304327558600096, endPeriod: 0.6160816526670752)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.680147834930466), sweepAngle: Angle<Double>(radians: 0.1030864112323703)), startPeriod: 0.6160816526670752, endPeriod: 0.6238407302413522)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 48.0, y: -27.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.616764793985068), sweepAngle: Angle<Double>(radians: 1.095624186399622)), startPeriod: 0.6238407302413522, endPeriod: 0.7063058481254771)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 48.0, y: -27.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.7063058481254771, endPeriod: 0.8245360824239414)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 48.0, y: -27.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.8245360824239414, endPeriod: 0.9427663167224056)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 48.0, y: -27.0), radius: 50.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 0.07084526577814718)), startPeriod: 0.9427663167224056, endPeriod: 0.9480986772767356)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.4751721403952749), sweepAngle: Angle<Double>(radians: 0.10719209747346861)), startPeriod: 0.9480986772767356, endPeriod: 0.9561667804311981)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 55.0), radius: 50.0, startAngle: Angle<Double>(radians: 5.700821069310844), sweepAngle: Angle<Double>(radians: 0.5823642378687433)), startPeriod: 0.9561667804311981, endPeriod: 1.0))]]
                 )
         }
     }
@@ -644,7 +166,7 @@ class Union2ParametricTests: XCTestCase {
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.20848605634817988)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 0.6413642379478535)), startPeriod: 0.20848605634817988, endPeriod: 0.2936119879355939)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 3.3823726779139887), sweepAngle: Angle<Double>(radians: 1.330016302470701)), startPeriod: 0.2936119879355939, endPeriod: 0.4897544363731931)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.4897544363731931, endPeriod: 0.721405610093393)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.1486965280692114)), startPeriod: 0.721405610093393, endPeriod: 0.8908081573469279)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.7481123144455527), sweepAngle: Angle<Double>(radians: 0.822684012349344)), startPeriod: 0.8908081573469279, endPeriod: 1.0))], [GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.31855306208083944)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 0.21809540834932092)), startPeriod: 0.31855306208083944, endPeriod: 0.36278219540024703)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 0.6667265455881081), sweepAngle: Angle<Double>(radians: -0.6667265455881081)), startPeriod: 0.36278219540024703, endPeriod: 0.4829690948274016)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 6.283185307179586), sweepAngle: Angle<Double>(radians: -1.5707963267948966)), startPeriod: 0.4829690948274016, endPeriod: 0.7661273722325921)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: -0.8480463199895979)), startPeriod: 0.7661273722325921, endPeriod: 0.9189997281401446)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.312973797633879), sweepAngle: Angle<Double>(radians: 0.3994151827508109)), startPeriod: 0.9189997281401446, endPeriod: 1.0))]]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 0.21809540834932092)), startPeriod: 0.0, endPeriod: 0.044229133319407615)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 0.6667265455881081), sweepAngle: Angle<Double>(radians: -0.6667265455881081)), startPeriod: 0.044229133319407615, endPeriod: 0.1644160327465621)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 6.283185307179586), sweepAngle: Angle<Double>(radians: -1.5707963267948966)), startPeriod: 0.1644160327465621, endPeriod: 0.4475743101517527)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: -0.8480463199895979)), startPeriod: 0.4475743101517527, endPeriod: 0.6004466660593052)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.312973797633879), sweepAngle: Angle<Double>(radians: 0.3994151827508109)), startPeriod: 0.6004466660593052, endPeriod: 0.6814469379191606)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.6814469379191606, endPeriod: 1.0))], [GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.7481123144455527), sweepAngle: Angle<Double>(radians: 0.822684012349344)), startPeriod: 0.0, endPeriod: 0.10919184265307214)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.10919184265307214, endPeriod: 0.317677899001252)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 0.6413642379478535)), startPeriod: 0.317677899001252, endPeriod: 0.40280383058866603)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 3.3823726779139887), sweepAngle: Angle<Double>(radians: 1.330016302470701)), startPeriod: 0.40280383058866603, endPeriod: 0.5989462790262653)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.5989462790262653, endPeriod: 0.8305974527464651)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.1486965280692114)), startPeriod: 0.8305974527464651, endPeriod: 1.0))]]
                 )
         }
     }
@@ -660,7 +182,7 @@ class Union2ParametricTests: XCTestCase {
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.23165117372019986)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.1486965280692114)), startPeriod: 0.23165117372019986, endPeriod: 0.40105372097373465)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.7481123144455527), sweepAngle: Angle<Double>(radians: 0.822684012349344)), startPeriod: 0.40105372097373465, endPeriod: 0.5102455636268068)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.5102455636268068, endPeriod: 0.7187316199749867)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 0.6413642379478535)), startPeriod: 0.7187316199749867, endPeriod: 0.8038575515624008)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 3.3823726779139887), sweepAngle: Angle<Double>(radians: 1.330016302470701)), startPeriod: 0.8038575515624008, endPeriod: 1.0))], [GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 6.283185307179586), sweepAngle: Angle<Double>(radians: -1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.28315827740519056)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: -0.8480463199895979)), startPeriod: 0.28315827740519056, endPeriod: 0.43603063331274305)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.312973797633879), sweepAngle: Angle<Double>(radians: 0.3994151827508109)), startPeriod: 0.43603063331274305, endPeriod: 0.5170309051725984)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.5170309051725984, endPeriod: 0.8355839672534379)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 0.21809540834932087)), startPeriod: 0.8355839672534379, endPeriod: 0.8798131005728456)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 0.6667265455881081), sweepAngle: Angle<Double>(radians: -0.6667265455881081)), startPeriod: 0.8798131005728456, endPeriod: 1.0))]]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.1486965280692114)), startPeriod: 0.0, endPeriod: 0.16940254725353476)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.7481123144455527), sweepAngle: Angle<Double>(radians: 0.822684012349344)), startPeriod: 0.16940254725353476, endPeriod: 0.2785943899066069)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.2785943899066069, endPeriod: 0.4870804462547868)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 0.6413642379478535)), startPeriod: 0.4870804462547868, endPeriod: 0.5722063778422009)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 3.3823726779139887), sweepAngle: Angle<Double>(radians: 1.330016302470701)), startPeriod: 0.5722063778422009, endPeriod: 0.7683488262798001)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.7683488262798001, endPeriod: 1.0))], [GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 6.283185307179586), sweepAngle: Angle<Double>(radians: -1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.28315827740519056)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: -0.8480463199895979)), startPeriod: 0.28315827740519056, endPeriod: 0.43603063331274305)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.3129737976338784), sweepAngle: Angle<Double>(radians: 0.3994151827508115)), startPeriod: 0.43603063331274305, endPeriod: 0.5170309051725986)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.5170309051725986, endPeriod: 0.8355839672534379)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -25.0, y: 30.0), radius: 90.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 0.21809540834932087)), startPeriod: 0.8355839672534379, endPeriod: 0.8798131005728456)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 80.0, startAngle: Angle<Double>(radians: 0.6667265455881081), sweepAngle: Angle<Double>(radians: -0.6667265455881081)), startPeriod: 0.8798131005728456, endPeriod: 1.0))]]
                 )
         }
     }
@@ -742,7 +264,7 @@ class Union2ParametricTests: XCTestCase {
             fixture.assertions(on: sut)
                 .assertAllSimplexes(
                     accuracy: 1e-14,
-                    [lhs.allSimplexes()]
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.0, endPeriod: 0.25)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.25, endPeriod: 0.5)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.5, endPeriod: 0.75)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 0.0, y: 0.0), radius: 100.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.75, endPeriod: 1.0))]]
                 )
         }
     }
