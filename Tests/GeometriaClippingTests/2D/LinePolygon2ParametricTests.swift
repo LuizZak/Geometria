@@ -6,6 +6,7 @@ import XCTest
 
 class LinePolygon2ParametricTests: XCTestCase {
     typealias Sut = LinePolygon2Parametric<Vector2D>
+    let accuracy: Double = 1e-14
 
     func testEphemeral() {
         let sut = Sut.makeStar()
@@ -14,7 +15,7 @@ class LinePolygon2ParametricTests: XCTestCase {
             fixture.add(sut, category: "input")
 
             fixture.assertions(on: sut)
-                .assertSimplexes(accuracy: 1e-14, [
+                .assertSimplexes(accuracy: accuracy, [
                     .lineSegment2(
                         .init(
                             lineSegment: .init(

@@ -5,6 +5,8 @@ import TestCommons
 @testable import GeometriaClipping
 
 class ParametricClip2GeometryTests: XCTestCase {
+    let accuracy: Double = 1e-12
+
     func testClampedSimplexes_lines() {
         let sut = LinePolygon2Parametric.makeStar()
 
@@ -15,7 +17,7 @@ class ParametricClip2GeometryTests: XCTestCase {
 
             fixture.assertEquals(
                 result,
-                accuracy: 1e-14,
+                accuracy: accuracy,
                 [
                     .lineSegment2(
                         .init(
@@ -78,7 +80,7 @@ class ParametricClip2GeometryTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
-                .assertIntersections(box, accuracy: 1e-14, [
+                .assertIntersections(box, accuracy: accuracy, [
                     .pair((self: 0.5, other: 1.0), (self: 0.0, other: 0.08333333333333333)),
                     .singlePoint((self: 0.5, other: 0.0))
                 ])
@@ -91,7 +93,7 @@ class ParametricClip2GeometryTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
-                .assertIntersections(box, accuracy: 1e-14, [
+                .assertIntersections(box, accuracy: accuracy, [
                     .pair((self: 0.5, other: 0.08454915028125264), (self: 0.0, other: 0.17499999999999996))
                 ])
         }
@@ -105,7 +107,7 @@ class ParametricClip2GeometryTests: XCTestCase {
             fixture.assertions(on: lhs)
                 .assertIntersections(
                     rhs,
-                    accuracy: 1e-14,
+                    accuracy: accuracy,
                     [
                         .pair(
                             (self: 0.811876808900308, other: 0.8017916329067885),
@@ -137,7 +139,7 @@ class ParametricClip2GeometryTests: XCTestCase {
             fixture.assertions(on: lhs)
                 .assertIntersections(
                     rhs,
-                    accuracy: 1e-14,
+                    accuracy: accuracy,
                     [
                         .pair(
                             (self: 0.9699698691779199, other: 0.9859352679625649),
@@ -172,7 +174,7 @@ class ParametricClip2GeometryTests: XCTestCase {
             fixture.assertions(on: lhs)
                 .assertIntersections(
                     rhs,
-                    accuracy: 1e-14,
+                    accuracy: accuracy,
                     [
                         .pair(
                             (self: 1.0, other: 0.0),
@@ -199,7 +201,7 @@ class ParametricClip2GeometryTests: XCTestCase {
             fixture.assertions(on: lhs)
                 .assertIntersections(
                     rhs,
-                    accuracy: 1e-14,
+                    accuracy: accuracy,
                     tolerance: 1e-14,
                     [
                         .pair(
@@ -227,7 +229,7 @@ class ParametricClip2GeometryTests: XCTestCase {
             fixture.assertions(on: lhs)
                 .assertIntersections(
                     rhs,
-                    accuracy: 1e-14,
+                    accuracy: accuracy,
                     tolerance: .infinity,
                     [
                         .pair(

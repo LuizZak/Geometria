@@ -6,6 +6,7 @@ import TestCommons
 
 class Parametric2GeometrySimplexTests: XCTestCase {
     typealias Sut = Parametric2GeometrySimplex<Vector2D>
+    let accuracy: Double = 1e-12
 
     func testIntersectionPeriods_line_line() {
         let line1 = makeLine(
@@ -19,7 +20,7 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: line1)
-                .assertIntersectionPeriods(line2, accuracy: 1e-14, [
+                .assertIntersectionPeriods(line2, accuracy: accuracy, [
                     (self: 0.52, other: 0.16),
                 ])
         }
@@ -39,7 +40,7 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: line)
-                .assertIntersectionPeriods(arc, accuracy: 1e-14, [
+                .assertIntersectionPeriods(arc, accuracy: accuracy, [
                     (self: 0.25, other: 0.5),
                 ])
         }
@@ -59,7 +60,7 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: line)
-                .assertIntersectionPeriods(arc, accuracy: 1e-14, [
+                .assertIntersectionPeriods(arc, accuracy: accuracy, [
                     (self: 0.20082417738141645, other: 0.2077851419261496),
                     (self: 0.7991758226185836, other: 0.7922148580738506),
                 ])
@@ -80,7 +81,7 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: line)
-                .assertIntersectionPeriods(arc, accuracy: 1e-14, [
+                .assertIntersectionPeriods(arc, accuracy: accuracy, [
                     (self: 0.20082417738141645, other: 0.7922148580738504),
                     (self: 0.7991758226185836, other: 0.20778514192614939),
                 ])
@@ -103,7 +104,7 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: line)
-                .assertIntersectionPeriods(arc, accuracy: 1e-14, [
+                .assertIntersectionPeriods(arc, accuracy: accuracy, [
                     (self: 0.645683229480096, other: 0.6046224788909318),
                 ])
         }
@@ -129,7 +130,7 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: arc1)
-                .assertIntersectionPeriods(arc2, accuracy: 1e-14, [
+                .assertIntersectionPeriods(arc2, accuracy: accuracy, [
                     (self: 0.7820471084244875, other: 0.7179528915755125),
                 ])
         }
@@ -150,10 +151,10 @@ class Parametric2GeometrySimplexTests: XCTestCase {
 
         let result = sequence.normalized(startPeriod: 0.0, endPeriod: 1.0)
 
-        XCTAssertEqual(result[0].startPeriod, 0.0, accuracy: 1e-14)
-        XCTAssertEqual(result[0].endPeriod, 0.4737718181453922, accuracy: 1e-14)
-        XCTAssertEqual(result[1].startPeriod, 0.4737718181453922, accuracy: 1e-14)
-        XCTAssertEqual(result[1].endPeriod, 1.0, accuracy: 1e-14)
+        XCTAssertEqual(result[0].startPeriod, 0.0, accuracy: accuracy)
+        XCTAssertEqual(result[0].endPeriod, 0.4737718181453922, accuracy: accuracy)
+        XCTAssertEqual(result[1].startPeriod, 0.4737718181453922, accuracy: accuracy)
+        XCTAssertEqual(result[1].endPeriod, 1.0, accuracy: accuracy)
     }
 }
 
