@@ -6,6 +6,7 @@ import XCTest
 
 class Circle2ParametricTests: XCTestCase {
     typealias Sut = Circle2Parametric<Vector2D>
+    let accuracy: Double = 1e-12
 
     func testEphemeral() {
         let sut = Sut(
@@ -20,7 +21,7 @@ class Circle2ParametricTests: XCTestCase {
 
             fixture.assertions(on: sut)
                 .assertSimplexes(
-                    accuracy: 1e-12,
+                    accuracy: accuracy,
                     [
                         .circleArc2(
                             .init(
@@ -88,7 +89,7 @@ class Circle2ParametricTests: XCTestCase {
         TestFixture.beginFixture { fixture in
             fixture.assertEquals(
                 result,
-                accuracy: 1e-12,
+                accuracy: accuracy,
                 [
                     .circleArc2(
                         .init(

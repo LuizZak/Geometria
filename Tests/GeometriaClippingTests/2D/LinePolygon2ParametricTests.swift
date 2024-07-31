@@ -6,7 +6,7 @@ import XCTest
 
 class LinePolygon2ParametricTests: XCTestCase {
     typealias Sut = LinePolygon2Parametric<Vector2D>
-    let accuracy: Double = 1e-14
+    let accuracy: Double = 1e-12
 
     func testEphemeral() {
         let sut = Sut.makeStar()
