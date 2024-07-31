@@ -79,16 +79,19 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
         startPeriod + (endPeriod - startPeriod) * ratio
     }
 
+    @inlinable
     public func compute(at period: Period) -> Vector {
         let ratio = ratioForPeriod(period)
 
         return lineSegment.projectedNormalizedMagnitude(ratio)
     }
 
+    @inlinable
     public func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool {
         lineSegment.distanceSquared(to: vector) < toleranceSquared
     }
 
+    @inlinable
     public func closestPeriod(to vector: Vector) -> Period {
         let scalar = lineSegment.projectAsScalar(vector)
         let clamped = lineSegment.clampProjectedNormalizedMagnitude(scalar)

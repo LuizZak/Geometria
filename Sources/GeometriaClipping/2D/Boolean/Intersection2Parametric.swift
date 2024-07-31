@@ -31,32 +31,20 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
     public func allContours() -> [Contour] {
         typealias Graph = Simplex2Graph<Vector>
 
-        var graph = Graph.fromParametricIntersections(
+        let graph = Graph.fromParametricIntersections(
             contours: contours,
             tolerance: tolerance
         )
 
-        // Remove all edges that have incompatible total windings according to
-        // their contour windings
-        for edge in graph.edges {
-            let shouldRemove: Bool
-
+        return graph.recombine { edge in
             switch edge.winding {
             case .clockwise:
-                shouldRemove = edge.totalWinding != 2
+                return edge.totalWinding == 2
 
             case .counterClockwise:
-                shouldRemove = edge.totalWinding != 1
-            }
-
-            if shouldRemove {
-                graph.removeEdge(edge)
+                return edge.totalWinding == 1
             }
         }
-
-        graph.prune()
-
-        return graph.recombine()
     }
 
     @inlinable

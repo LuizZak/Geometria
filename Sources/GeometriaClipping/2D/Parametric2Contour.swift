@@ -196,6 +196,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
 
     /// Fetches all simplexes that form this 2-dimensional parametric geometry,
     /// ordered by their relative period within the geometry.
+    @inlinable
     public func allSimplexes() -> [Simplex] {
         simplexes
     }
@@ -203,6 +204,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     /// Fetches all simplexes that overlap a given half-open range within this
     /// 2-dimensional parametric geometry, ordered by their relative period within
     /// the geometry.
+    @inlinable
     public func allSimplexes(overlapping range: Range<Period>) -> [Simplex] {
         allSimplexes().filter { simplex in
             range.overlaps(simplex.periodRange)
@@ -220,6 +222,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     ///
     /// If no simplex is contained within the given range, an empty array is
     /// returned, instead.
+    @inlinable
     public func clampedSimplexes(in range: Range<Period>) -> [Simplex] {
         allSimplexes().compactMap { simplex in
             simplex.clamped(in: range)
@@ -229,6 +232,7 @@ public struct Parametric2Contour<Vector: Vector2Real> {
     /// Returns the reverse of this parametric geometry by inverting the order
     /// and direction of each of its simplexes, while maintaining `self.startPeriod`
     /// and `self.endPeriod`.
+    @inlinable
     public func reversed() -> Self {
         let simplexes = self.simplexes
             .map({ $0.reversed(globalStartPeriod: startPeriod, globalEndPeriod: endPeriod) })

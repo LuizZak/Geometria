@@ -133,6 +133,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     ///
     /// If the geometry is not available on the given range, `nil` is returned,
     /// instead.
+    @inlinable
     public func clamped(in range: Range<Period>) -> Self? {
         if startPeriod >= range.upperBound || endPeriod <= range.lowerBound {
             return nil
@@ -259,6 +260,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
 
     // MARK: -
 
+    @inlinable
     public func reversed() -> Self {
         switch self {
         case .lineSegment2(let simplex):
@@ -271,6 +273,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
 
     /// Reverses this simplex, also reversing its start/end period according to
     /// the given global start/end periods.
+    @inlinable
     public func reversed(globalStartPeriod: Period, globalEndPeriod: Period) -> Self {
         switch self {
         case .lineSegment2(let simplex):

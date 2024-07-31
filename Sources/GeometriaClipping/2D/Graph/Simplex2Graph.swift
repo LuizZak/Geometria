@@ -33,6 +33,10 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     @usableFromInline
     var edgeTree: QuadTree<Edge> = .init(maxSubdivisions: 4, maxElementsPerLevelBeforeSplit: 10)
 
+    /// Quad-tree of contours.
+    @usableFromInline
+    var contourTree: QuadTree<ContourEntry> = .init(maxSubdivisions: 4, maxElementsPerLevelBeforeSplit: 10)
+
     /// The next available node ID to be used when adding contours.
     var nodeId: Int = 0
 
@@ -76,6 +80,25 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
     func edgeForPeriod(_ period: Period, shapeIndex: Int) -> Edge? {
         edges.first { edge in
             edge.references(shapeIndex: shapeIndex, at: period)
+        }
+    }
+
+    @usableFromInline
+    struct ContourEntry: BoundableType {
+        @usableFromInline
+        var contour: Contour
+
+        @usableFromInline
+        var bounds: AABB<Vector>
+
+        @usableFromInline
+        var index: Int
+
+        @usableFromInline
+        internal init(contour: Contour, bounds: AABB<Vector>, index: Int) {
+            self.contour = contour
+            self.bounds = bounds
+            self.index = index
         }
     }
 
