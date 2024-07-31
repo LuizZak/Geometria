@@ -596,7 +596,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return false
                 }
 
-                guard subdivisions[index].remove(at: inner) else {
+                guard subdivisions[index].remove(at: inner, collapseEmpty: collapseEmpty) else {
                     return false
                 }
 

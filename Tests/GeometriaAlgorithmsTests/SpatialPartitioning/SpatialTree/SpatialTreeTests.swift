@@ -145,7 +145,7 @@ class SpatialTreeTests: XCTestCase {
         ]
 
         for path in pathsToRemove.reversed() {
-            sut.remove(at: .init(path: path))
+            sut.remove(at: .init(path: path), collapseEmpty: true)
         }
 
         XCTAssertEqual(sut.count, 41)
