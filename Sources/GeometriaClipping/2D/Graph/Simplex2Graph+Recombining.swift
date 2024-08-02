@@ -23,7 +23,7 @@ extension Simplex2Graph {
                 edge.totalWinding =
                     contourTree
                     .queryPoint(center)
-                    .filter({ $0.contour.contains(center) && $0.index != geometry.shapeIndex })
+                    .filter({ $0.index != geometry.shapeIndex && $0.contour.contains(center) })
                     .reduce(edge.winding.value, { $0 + $1.contour.winding.value })
             }
 

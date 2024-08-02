@@ -61,6 +61,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    @inlinable
     public func compute(at period: Period) -> Vector {
         switch self {
         case .lineSegment2(let lineSegment):
@@ -71,6 +72,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    @inlinable
     public func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool {
         switch self {
         case .lineSegment2(let lineSegment):
@@ -81,6 +83,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    @inlinable
     public func intersectsHorizontalLine(start: Vector, tolerance: Scalar) -> Bool {
         switch self {
         case .lineSegment2(let lineSegment):
@@ -97,6 +100,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    @inlinable
     public func closestPeriod(to vector: Vector) -> Period {
         switch self {
         case .lineSegment2(let lineSegment):

@@ -61,8 +61,8 @@ public enum ParametricClip2Intersection<Period: Hashable & FloatingPoint> {
 
     @inlinable
     static func areApproximatelyEqual(_ lhs: Atom, _ rhs: Atom, tolerance: Period) -> Bool {
-        let lead = lhs.`self`.isApproximatelyEqual(to: rhs.`self`, absoluteTolerance: tolerance)
-        let trail = lhs.`other`.isApproximatelyEqual(to: rhs.`other`, absoluteTolerance: tolerance)
+        let lead = lhs.`self`.isApproximatelyEqualFast(to: rhs.`self`, tolerance: tolerance)
+        let trail = lhs.`other`.isApproximatelyEqualFast(to: rhs.`other`, tolerance: tolerance)
 
         return lead && trail
     }

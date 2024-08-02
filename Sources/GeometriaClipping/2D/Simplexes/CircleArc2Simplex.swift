@@ -135,33 +135,33 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
             //  •-s-->
             //     (
             //      e
-            if self.start.x > point.x && self.start.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+            if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return true
             }
 
             //   s
             //    (
             //  •--e->
-            if self.end.x > point.x && self.end.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+            if self.end.x > point.x && self.end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
             }
         } else if self.start.y > end.y {
             //  •--e->
             //    (
             //   s
-            if self.end.x > point.x && self.end.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+            if self.end.x > point.x && self.end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return true
             }
 
             //      e
             //     (
             //  •-s--->
-            if self.start.x > point.x && self.start.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+            if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
             }
         } else if
-            self.start.y.isApproximatelyEqual(to: self.end.y, absoluteTolerance: tolerance)
-            && self.start.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance)
+            self.start.y.isApproximatelyEqualFast(to: self.end.y, tolerance: tolerance)
+            && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance)
         {
             // s--•--e->
             if self.start.x < point.x && self.end.x > point.x {
