@@ -3,7 +3,7 @@
 public protocol LineDivisible: LineMultiplicative where Vector: VectorDivisible {
     /// Alias for `Vector.Scalar`.
     typealias Magnitude = Vector.Scalar
-    
+
     /// Performs a vector projection of a given vector with respect to this line,
     /// returning a scalar value representing the normalized magnitude of the
     /// projected point between `a <-> b`.
@@ -12,6 +12,7 @@ public protocol LineDivisible: LineMultiplicative where Vector: VectorDivisible 
     /// the projected point as it lays on this line can be obtained.
     ///
     /// - seealso: ``projectedNormalizedMagnitude(_:)-vyrp``
+    // TODO: Rename to include `normalized` within the definition to avoid confusions between normalized and non-normalized magnitudes
     func projectAsScalar(_ vector: Vector) -> Magnitude
 }
 
@@ -20,9 +21,9 @@ public extension LineDivisible {
     func projectAsScalar(_ vector: Vector) -> Magnitude {
         let relEnd = lineSlope
         let relVec = vector - a
-        
+
         let proj = relVec.dot(relEnd) / relEnd.lengthSquared
-        
+
         return proj
     }
 }

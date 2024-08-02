@@ -54,6 +54,18 @@ extension LinePolygon2 where Vector: Vector2Multiplicative, Vector.Scalar: Divis
     public func area() -> Vector.Scalar {
         return winding() / 2
     }
+
+    /// Returns the squared perimeter of this 2D polygon.
+    @inlinable
+    public func perimeterSquared() -> Vector.Scalar {
+        var total: Scalar = .zero
+
+        for segment in lineSegments() {
+            total += segment.lengthSquared
+        }
+
+        return total
+    }
 }
 
 extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
@@ -224,13 +236,13 @@ extension LinePolygon2: VolumetricType where Vector: VectorDivisible & VectorCom
 
 extension LinePolygon2 where Vector: VectorFloatingPoint {
     /// Returns `true` if the given point lies within an edge of the polygon
-    /// represented by `self`, up to a given `tolerance` value.
+    /// represented by `self`, up to a given `toleranceSquared` value.
     ///
     /// Points lie within the edges of the polygon if the distance between the
     /// point and any two adjacent vertices is equal to the distance of the
-    /// adjacent vertices, up to `sqrt(tolerance)`.
+    /// adjacent vertices, up to `√(toleranceSquared)`.
     @inlinable
-    public func isPointOnEdge(_ point: Vector, tolerance: Scalar) -> Bool {
+    public func isPointOnEdge(_ point: Vector, toleranceSquared: Scalar) -> Bool {
         for (i, vertex) in vertices.enumerated() {
             let next = vertices[(i + 1) % vertices.count]
 
@@ -240,11 +252,18 @@ extension LinePolygon2 where Vector: VectorFloatingPoint {
 
             let diff = (edgeSquared - (d1 + d2)).magnitude
 
-            if diff < tolerance {
+            if diff < toleranceSquared {
                 return true
             }
         }
 
         return false
+    }
+}
+
+extension LinePolygon2 where Vector: Vector2FloatingPoint {
+    /// Returns the perimeter of this 2D polygon.
+    public func perimeter() -> Vector.Scalar {
+        perimeterSquared().squareRoot()
     }
 }

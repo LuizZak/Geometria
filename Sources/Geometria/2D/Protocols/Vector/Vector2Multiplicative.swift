@@ -1,4 +1,4 @@
-/// Protocol for 2D vector types with multiplicable scalars.
+/// Protocol for 2D vector types with multiplicative scalars.
 public protocol Vector2Multiplicative: Vector2Additive, VectorMultiplicative where SubVector3: Vector3Multiplicative {
     /// Gets the (x: 1, y: 0) vector of this type.
     static var unitX: Self { get }

@@ -267,19 +267,19 @@ extension LinePolygon2Tests {
             fixture.add(sut)
 
             fixture.assertions(on: test1)
-                .assertTrue(sut.isPointOnEdge(test1, tolerance: 1e-5))
+                .assertTrue(sut.isPointOnEdge(test1, toleranceSquared: 1e-5))
 
             fixture.assertions(on: test2)
-                .assertTrue(sut.isPointOnEdge(test2, tolerance: 1e-5))
+                .assertTrue(sut.isPointOnEdge(test2, toleranceSquared: 1e-5))
 
             fixture.assertions(on: test3)
-                .assertTrue(sut.isPointOnEdge(test3, tolerance: 1e-5))
+                .assertTrue(sut.isPointOnEdge(test3, toleranceSquared: 1e-5))
 
             fixture.assertions(on: test4)
-                .assertFalse(sut.isPointOnEdge(test4, tolerance: 1e-5))
+                .assertFalse(sut.isPointOnEdge(test4, toleranceSquared: 1e-5))
 
             fixture.assertions(on: test4)
-                .assertTrue(sut.isPointOnEdge(test4, tolerance: 0.51))
+                .assertTrue(sut.isPointOnEdge(test4, toleranceSquared: 0.51))
         }
     }
 }

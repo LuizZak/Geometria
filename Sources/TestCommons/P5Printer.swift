@@ -3,6 +3,34 @@ import MiniP5Printer
 import Geometria
 
 public class P5Printer: BaseP5Printer {
+    var requiresPeriodSlider: Bool = false
+    var requiresParametricTypes: Bool = false
+    var parametricsToDraw: [String] = []
+
+    public override func printCustomHeader() {
+        if requiresPeriodSlider {
+            printLine("let periodSlider")
+            printLine("let parametrics")
+            printLine("let parametricCheckboxes = {}")
+        }
+        if requiresParametricTypes {
+            printParametricTypes()
+            printDrawAnchor()
+        }
+    }
+
+    public override func printCustomPostSetup() {
+        if requiresPeriodSlider {
+            printPeriodSlider()
+        }
+    }
+
+    public override func printCustomPostDraw() {
+        if requiresParametricTypes {
+            printParametricsDraw()
+        }
+    }
+
     func add<Vector: Vector2Type>(_ point: Vector, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: Numeric & CustomStringConvertible {
         let circle = Circle2(center: point, radius: vertexRadius())
 
@@ -123,6 +151,10 @@ public class P5Printer: BaseP5Printer {
         }
     }
 
+    func add<V: Vector2Type>(_ pointNormal: LineIntersectionPointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        add(pointNormal.pointNormal, style: style, file: file, line: line)
+    }
+
     func add<V: Vector2Type>(_ pointNormal: PointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
         shouldPrintDrawNormal = true
         shouldPrintDrawTangent = true
@@ -137,6 +169,10 @@ public class P5Printer: BaseP5Printer {
         addDrawLine("drawTangent(\(vec2String(pointNormal.point)), \(vec2String(pointNormal.normal)))")
 
         addDrawLine("")
+    }
+
+    func add<V: Vector3Type>(_ pointNormal: LineIntersectionPointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
+        add(pointNormal.pointNormal, style: style, file: file, line: line)
     }
 
     func add<V: Vector3Type>(_ pointNormal: PointNormal<V>, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where V.Scalar: CustomStringConvertible {
@@ -271,6 +307,10 @@ public class P5Printer: BaseP5Printer {
 
     // MARK: String printing
 
+    func vec2PVectorString<Vector: Vector2Type>(_ vec: Vector) -> String where Vector.Scalar: CustomStringConvertible {
+        return "createVector(\(vec2String(vec)))"
+    }
+
     func vec3PVectorString<Vector: Vector3Type>(_ vec: Vector) -> String where Vector.Scalar: SignedNumeric & CustomStringConvertible {
         return "createVector(\(vec3String(vec)))"
     }
@@ -298,5 +338,21 @@ public class P5Printer: BaseP5Printer {
 
     func sphere3String_customRadius<Vector: Vector3Type>(_ sphere: Sphere3<Vector>, radius: String) -> String where Vector.Scalar: CustomStringConvertible {
         "drawSphere(\(vec3String(sphere.center)), \(radius))"
+    }
+}
+
+extension BaseP5Printer.Style {
+    func with<Value>(_ keyPath: WritableKeyPath<Self, Value>, _ value: Value) -> Self {
+        var copy = self
+        copy[keyPath: keyPath] = value
+        return copy
+    }
+}
+
+extension BaseP5Printer.Color {
+    func with<Value>(_ keyPath: WritableKeyPath<Self, Value>, _ value: Value) -> Self {
+        var copy = self
+        copy[keyPath: keyPath] = value
+        return copy
     }
 }

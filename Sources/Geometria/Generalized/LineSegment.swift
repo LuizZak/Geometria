@@ -4,7 +4,7 @@ import RealModule
 /// which describe a closed interval.
 ///
 /// [line segment]: https://en.wikipedia.org/wiki/Line_segment
-public struct LineSegment<Vector: VectorType>: LineType {
+public struct LineSegment<Vector: VectorType>: LineType, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
 
     /// The bounded start of this line segment, inclusive.
@@ -27,6 +27,10 @@ public struct LineSegment<Vector: VectorType>: LineType {
 
     @inlinable
     public var category: LineCategory { .lineSegment }
+
+    public var description: String {
+        "\(type(of: self))(start: \(start), end: \(end))"
+    }
 
     @_transparent
     public init(start: Vector, end: Vector) {
@@ -109,6 +113,8 @@ extension LineSegment: LineMultiplicative where Vector: VectorMultiplicative {
     }
 }
 
+extension LineSegment: LineSigned where Vector: VectorSigned { }
+
 extension LineSegment: LineDivisible where Vector: VectorDivisible {
     /// Gets the center point of this line segment.
     @_transparent
@@ -156,7 +162,7 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     public func clampProjectedNormalizedMagnitude(
         _ scalar: Vector.Scalar
     ) -> Vector.Scalar {
-        
+
         min(1, max(0, scalar))
     }
 
@@ -185,6 +191,4 @@ extension LineSegment: LineFloatingPoint & PointProjectableType & SignedDistance
     }
 }
 
-extension LineSegment: LineReal where Vector: VectorReal {
-
-}
+extension LineSegment: LineReal where Vector: VectorReal { }

@@ -11,23 +11,23 @@
 public struct Hyperplane<Vector: VectorFloatingPoint>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     public var description: String {
         "Hyperplane(point: \(point), normal: \(normal))"
     }
-    
+
     /// A point on this plane.
     public var point: Vector
-    
+
     /// The normal of the plane's surface.
     @UnitVector public var normal: Vector
-    
+
     @_transparent
     public init(point: Vector, normal: Vector) {
         self.point = point
         self.normal = normal
     }
-    
+
     /// Creates a ``PointNormalPlane`` that wraps the given plane object.
     @_transparent
     public init<Plane: PlaneType>(_ plane: Plane) where Plane.Vector == Vector {
@@ -52,11 +52,11 @@ extension Hyperplane: PlaneType {
 }
 
 extension Hyperplane: PointProjectablePlaneType {
-    
+
 }
 
 extension Hyperplane: LineIntersectablePlaneType {
-    
+
 }
 
 extension Hyperplane: ConvexType {
@@ -81,9 +81,9 @@ extension Hyperplane: ConvexType {
 
         let denom = normal.dot(line.lineSlope)
         if denom < .zero {
-            return .enter(.init(point: point, normal: normal))
+            return .enter(.init(normalizedMagnitude: magnitude, point: point, normal: normal))
         } else {
-            return .exit(.init(point: point, normal: -normal))
+            return .exit(.init(normalizedMagnitude: magnitude, point: point, normal: -normal))
         }
     }
 }

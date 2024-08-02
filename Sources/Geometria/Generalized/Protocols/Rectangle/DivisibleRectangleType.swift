@@ -9,7 +9,7 @@ public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: Vect
     /// Initializes a new rectangle centered around a given point encompassing
     /// a given size.
     init(center: Vector, size: Vector)
-    
+
     /// Returns a new rectangle which is an inflated version of this rectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
     ///
@@ -17,7 +17,7 @@ public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: Vect
     ///
     /// - seealso: ``insetBy(_:)``
     func inflatedBy(_ size: Vector) -> Self
-    
+
     /// Returns a new rectangle which is an inset version of this rectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
     ///
@@ -25,7 +25,7 @@ public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: Vect
     ///
     /// - seealso: ``inflatedBy(_:)``
     func insetBy(_ size: Vector) -> Self
-    
+
     /// Returns a new rectangle with the same size as the current instance,
     /// where the center of the boundaries lay on `center`.
     func movingCenter(to center: Vector) -> Self
@@ -37,7 +37,7 @@ public protocol DivisibleRectangleType: AdditiveRectangleType where Vector: Vect
     /// Returns a new rectangle with the same center point as the current instance,
     /// where the size of the rectangle is multiplied by a given numerical factor.
     func scaledAroundCenterBy(_ factor: Vector.Scalar) -> Self
-    
+
     /// Subdivides this rectangle into `2 ^ D` (where `D` is the dimensional size
     /// of `Self.Vector`) rectangles that occupy the same area as this rectangle
     /// but subdivide it into equally-sized rectangles.
@@ -66,7 +66,7 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     init(center: Vector, size: Vector) {
         self.init(location: center - size / 2, size: size)
     }
-    
+
     /// Returns a rectangle which is an inflated version of this rectangle
     /// (i.e. bounds are larger by `size`, but center remains the same).
     ///
@@ -77,7 +77,7 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     func inflatedBy(_ size: Vector) -> Self {
         Self(location: location - size / 2, size: self.size + size)
     }
-    
+
     /// Returns a rectangle which is an inset version of this rectangle
     /// (i.e. bounds are smaller by `size`, but center remains the same).
     ///
@@ -88,7 +88,7 @@ public extension DivisibleRectangleType where Self: ConstructableRectangleType {
     func insetBy(_ size: Vector) -> Self {
         Self(location: location + size / 2, size: self.size - size)
     }
-    
+
     /// Returns a new rectangle with the same size as the current instance,
     /// where the center of the boundaries lay on `center`.
     @_transparent
@@ -121,7 +121,7 @@ extension DivisibleRectangleType where Self: ConstructableRectangleType, Vector:
     ///
     /// The ordering of the subdivisions is not defined.
     @inlinable
-    func subdivided() -> [Self] {
+    public func subdivided() -> [Self] {
         let center = self.center
         let vertices = self.vertices
 

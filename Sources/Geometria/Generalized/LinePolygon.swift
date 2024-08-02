@@ -45,6 +45,7 @@ public struct LinePolygon<Vector: VectorType>: GeometricType {
     /// Returns a list of line segments that represent the outlines of this line
     /// polygon. If this polygon contains < 2 vertices, the result is an empty
     /// array.
+    @inlinable
     public func lineSegments() -> [LineSegment<Vector>] {
         var result: [LineSegment<Vector>] = []
 
