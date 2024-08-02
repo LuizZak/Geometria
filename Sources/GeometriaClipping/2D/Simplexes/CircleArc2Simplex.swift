@@ -1,4 +1,5 @@
 import Geometria
+import Numerics
 
 /// A 2-dimensional simplex composed of a circular arc segment.
 public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equatable {
@@ -126,6 +127,51 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
         return circleArc.pointOnAngle(
             circleArc.startAngle + magnitude
         )
+    }
+
+    @inlinable
+    public func intersectsHorizontalLine(start point: Vector, tolerance: Scalar) -> Bool {
+        if self.start.y < self.end.y {
+            //  •-s-->
+            //     (
+            //      e
+            if self.start.x > point.x && self.start.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+                return true
+            }
+
+            //   s
+            //    (
+            //  •--e->
+            if self.end.x > point.x && self.end.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+                return false
+            }
+        } else if self.start.y > end.y {
+            //  •--e->
+            //    (
+            //   s
+            if self.end.x > point.x && self.end.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+                return true
+            }
+
+            //      e
+            //     (
+            //  •-s--->
+            if self.start.x > point.x && self.start.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance) {
+                return false
+            }
+        } else if
+            self.start.y.isApproximatelyEqual(to: self.end.y, absoluteTolerance: tolerance)
+            && self.start.y.isApproximatelyEqual(to: point.y, absoluteTolerance: tolerance)
+        {
+            // s--•--e->
+            if self.start.x < point.x && self.end.x > point.x {
+                return true
+            }
+        }
+
+        let ray = Ray2(start: point, b: point + .init(x: 1, y: 0))
+        let hasIntersections = circleArc.intersections(with: ray).intersections.count % 2 == 1
+        return hasIntersections
     }
 
     @inlinable

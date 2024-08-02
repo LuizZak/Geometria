@@ -87,6 +87,47 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
     }
 
     @inlinable
+    public func intersectsHorizontalLine(start: Vector, tolerance: Scalar) -> Bool {
+        if self.start.y < self.end.y {
+            //  •-s-->
+            //     \
+            //      e
+            if self.start.x > start.x && self.start.y == start.y {
+                return true
+            }
+
+            //   s
+            //    \
+            //  •--e->
+            if self.end.x > start.x && self.end.y == start.y {
+                return false
+            }
+        } else if self.start.y > end.y {
+            //  •--e->
+            //    /
+            //   s
+            if self.end.x > start.x && self.end.y == start.y {
+                return true
+            }
+
+            //      e
+            //     /
+            //  •-s--->
+            if self.start.x > start.x && self.start.y == start.y {
+                return false
+            }
+        } else if self.start.y == self.end.y && start.y == self.start.y {
+            // s--•--e->
+            if self.start.x < start.x && self.end.x > start.x {
+                return true
+            }
+        }
+
+        let ray = Ray2(start: start, b: start + .init(x: 1, y: 0))
+        return lineSegment.intersection(with: ray) != nil
+    }
+
+    @inlinable
     public func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool {
         lineSegment.distanceSquared(to: vector) < toleranceSquared
     }

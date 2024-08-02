@@ -102,6 +102,21 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     public func ratioOfAngle(_ angle: Angle<Scalar>) -> Scalar {
         // TODO: Examine replacing the complex wrapping logic with 'angle.normalized(from: start.radians)'
 
+        /// Inverts a scalar value by `1 - scalar`, ensuring that if the scalar
+        /// is non-zero, the result is not equal to or greater than 1.
+        func invert(_ value: Scalar) -> Scalar {
+            if value > .zero {
+                let result: Scalar = 1 - value
+                if result == 1 {
+                    return result.nextDown
+                }
+
+                return result
+            }
+
+            return 1 - value
+        }
+
         guard sweep.radians.magnitude < Scalar.pi * 2 else {
             let normalAngle = angle.normalized(from: start.radians)
 
@@ -136,7 +151,7 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
             }
 
             if sweep.radians < .zero {
-                return (1 - result)
+                return invert(result)
             }
             return result
         }
@@ -144,7 +159,7 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         let result = (normalAngle - normalStart) / (normalStop - normalStart)
 
         if sweep.radians < .zero {
-            return 1 - result
+            return invert(result)
         }
         return result
     }

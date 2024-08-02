@@ -105,4 +105,60 @@ class Parametric2ContourTests: XCTestCase {
             fixture.assertEquals(sut.winding, .counterClockwise)
         }
     }
+
+    func testContains_lineSegment() {
+        let polygon = LinePolygon2Parametric.makeHexagon()
+        let sut = polygon.allContours()[0]
+        let point = Vector2D(x: 0, y: 10)
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(point)
+
+            fixture.add(polygon, category: "input")
+
+            fixture.assertTrue(sut.contains(point))
+        }
+    }
+
+    func testContains_circleArc() {
+        let circle = Circle2Parametric.makeTestCircle()
+        let sut = circle.allContours()[0]
+        let point = Vector2D(x: 0, y: 10)
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(point)
+
+            fixture.add(circle, category: "input")
+
+            fixture.assertTrue(sut.contains(point))
+        }
+    }
+
+    func testContains_lineSegment_onVertex() {
+        let polygon = LinePolygon2Parametric.makeHexagon()
+        let sut = polygon.allContours()[0]
+        let point = Vector2D.zero
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(point)
+
+            fixture.add(polygon, category: "input")
+
+            fixture.assertTrue(sut.contains(point))
+        }
+    }
+
+    func testContains_circleArc_onVertex() {
+        let circle = Circle2Parametric.makeTestCircle()
+        let sut = circle.allContours()[0]
+        let point = Vector2D.zero
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(point)
+
+            fixture.add(circle, category: "input")
+
+            fixture.assertTrue(sut.contains(point))
+        }
+    }
 }

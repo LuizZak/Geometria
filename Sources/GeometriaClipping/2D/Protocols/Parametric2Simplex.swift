@@ -3,6 +3,8 @@ import Geometria
 /// Protocol for types that describe 2-dimensional simplexes produced by 2-dimensional
 /// parametric geometry.
 public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type {
+    typealias Scalar = Vector.Scalar
+
     /// The type of period that is used to represent this parametric simplex's
     /// period range in its parent parametric geometry.
     typealias Period = Vector.Scalar
@@ -33,7 +35,16 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
 
     /// Returns `true` if a given vector is at most `√(toleranceSquared)`-distance
     /// away from this simplex's surface.
-    func isOnSurface(_ vector: Vector, toleranceSquared: Vector.Scalar) -> Bool
+    func isOnSurface(_ vector: Vector, toleranceSquared: Scalar) -> Bool
+
+    /// Returns `true` if this simplex intersects a horizontal line going right
+    /// (positive X axis), starting at a given point.
+    ///
+    /// If this simplex intersects the given ray a multiple of two times, including
+    /// zero times, the result is `false`.
+    ///
+    /// Used for point-containment checks of contours.
+    func intersectsHorizontalLine(start: Vector, tolerance: Scalar) -> Bool
 
     /// Returns the closest period to an input vector.
     func closestPeriod(to vector: Vector) -> Period

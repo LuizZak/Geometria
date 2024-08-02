@@ -1,4 +1,5 @@
 import Geometria
+import Numerics
 
 /// Represents a contour, or a non-intersecting segment of a parametric geometry,
 /// which has its own set of simplexes, and has a winding value specifying how
@@ -125,28 +126,14 @@ public struct Parametric2Contour<Vector: Vector2Real> {
             return false
         }
 
-        let lineSegment = LineSegment2<Vector>(
-            start: point,
-            end: .init(x: bounds.right + 10, y: point.y)
-        )
-        let lineSimplex = Parametric2GeometrySimplex.lineSegment2(
-            .init(lineSegment: lineSegment, startPeriod: .zero, endPeriod: 1)
-        )
-
-        var points: [Vector] = []
+        var intersections = 0
         for simplex in simplexes {
-            let intersections = simplex.intersectionPeriods(with: lineSimplex)
-
-            for intersection in intersections {
-                let point = simplex.compute(at: intersection.`self`)
-
-                if !points.contains(point) {
-                    points.append(point)
-                }
+            if simplex.intersectsHorizontalLine(start: point, tolerance: .exp10(-13)) {
+                intersections += 1
             }
         }
 
-        return points.count % 2 == 1
+        return intersections % 2 == 1
     }
 
     /// Computes the point on this parametric geometry matching a given period.

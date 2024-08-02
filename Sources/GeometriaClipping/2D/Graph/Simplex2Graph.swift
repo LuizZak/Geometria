@@ -357,8 +357,22 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
 
         @inlinable
         func queryPoint() -> Vector {
-            let primitive = materializePrimitive()
-            return primitive.centerPoint
+            switch kind {
+            case .line:
+                return (start.location + end.location) / 2
+
+            case .circleArc(let center, let radius, let startAngle, let sweepAngle):
+                let arc = CircleArc2(
+                    center: center,
+                    radius: radius,
+                    startAngle: startAngle,
+                    sweepAngle: sweepAngle
+                )
+
+                return arc.pointOnAngle(
+                    startAngle + sweepAngle / 2
+                )
+            }
         }
 
         /// Returns `true` if `self` references a given shape index.
@@ -393,6 +407,19 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         func subtracting(shapeIndex: Int) -> Edge? {
             geometry.removeAll { $0.shapeIndex == shapeIndex }
             return geometry.isEmpty ? nil : self
+        }
+
+        /// Subtracts a given shape index from the list of referenced shape indices
+        /// of this edge, returning `nil` if the operation results in no shape
+        /// indices left referenced by this edge.
+        @inlinable
+        func subtractingFirstNonEqual(shapeIndex: Int) -> Bool? {
+            if let index = geometry.firstIndex(where: { $0.shapeIndex != shapeIndex }) {
+                geometry.remove(at: index)
+                return geometry.isEmpty ? nil : true
+            }
+
+            return false
         }
 
         /// Returns `true` if `self` and `other` have an overlapping shape index

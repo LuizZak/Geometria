@@ -81,6 +81,22 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    public func intersectsHorizontalLine(start: Vector, tolerance: Scalar) -> Bool {
+        switch self {
+        case .lineSegment2(let lineSegment):
+            return lineSegment.intersectsHorizontalLine(
+                start: start,
+                tolerance: tolerance
+            )
+
+        case .circleArc2(let circleArc):
+            return circleArc.intersectsHorizontalLine(
+                start: start,
+                tolerance: tolerance
+            )
+        }
+    }
+
     public func closestPeriod(to vector: Vector) -> Period {
         switch self {
         case .lineSegment2(let lineSegment):
@@ -368,27 +384,24 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         let point = intersection
         let intersectionAngle = circleArc.center.angle(to: point)
 
-        let angleSweep = circleArc.asAngleSweep
-
-        guard angleSweep.contains(intersectionAngle) else {
-            return nil
-        }
-
-        return angleSweep.ratioOfAngle(intersectionAngle)
+        return circleArcIntersectionRatio(
+            circleArc,
+            angle: intersectionAngle
+        )
     }
 
     @inlinable
     static func circleArcIntersectionRatio(
         _ circleArc: CircleArc2<Vector>,
-        angle: Vector.Scalar
+        angle: Angle<Vector.Scalar>
     ) -> Period? {
         let angleSweep = circleArc.asAngleSweep
 
-        guard angleSweep.contains(.init(radians: angle)) else {
+        guard angleSweep.contains(angle) else {
             return nil
         }
 
-        return angleSweep.ratioOfAngle(.init(radians: angle))
+        return angleSweep.ratioOfAngle(angle)
     }
 }
 

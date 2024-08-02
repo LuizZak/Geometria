@@ -105,4 +105,34 @@ class Subtraction2ParametricTests: XCTestCase {
                 )
         }
     }
+
+    func testSubtraction_testCase1() {
+        // Shape is not appropriately considering intersections between lines and
+        // arcs across some angles
+        let lhs = LinePolygon2Parametric<Vector2D>(
+            linePolygon2: .init(
+                vertices: AABB2D(
+                    left: 20,
+                    top: 200,
+                    right: 800,
+                    bottom: 280
+                ).corners
+            ),
+            startPeriod: 0,
+            endPeriod: 1
+        )
+        let rhs = Circle2Parametric.makeTestCircle(
+            center: .init(x: 384, y: 259),
+            radius: 50
+        )
+        let sut: Subtraction2Parametric = Subtraction2Parametric(lhs, rhs, tolerance: 1e-14)
+
+        TestFixture.beginFixture(lineScale: 1.0, renderScale: 0.5) { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 20.0, y: 200.0), end: Vector2<Double>(x: 800.0, y: 200.0)), startPeriod: 0.0, endPeriod: 0.4263059743848189)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 800.0, y: 200.0), end: Vector2<Double>(x: 800.0, y: 280.0)), startPeriod: 0.4263059743848189, endPeriod: 0.4700296640653131)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 800.0, y: 280.0), end: Vector2<Double>(x: 429.37620521815376, y: 280.0)), startPeriod: 0.4700296640653131, endPeriod: 0.672592661455921)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 384.0, y: 259.0), radius: 50.0, startAngle: Angle<Double>(radians: 0.433445320069886), sweepAngle: Angle<Double>(radians: -0.43344532006988606)), startPeriod: 0.672592661455921, endPeriod: 0.6844375543735448)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 384.0, y: 259.0), radius: 50.0, startAngle: Angle<Double>(radians: 6.283185307179586), sweepAngle: Angle<Double>(radians: -1.5707963267948966)), startPeriod: 0.6844375543735448, endPeriod: 0.7273631863385701)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 384.0, y: 259.0), radius: 50.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: -1.5707963267948966)), startPeriod: 0.7273631863385701, endPeriod: 0.7702888183035953)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 384.0, y: 259.0), radius: 50.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: -0.43344532006988606)), startPeriod: 0.7702888183035953, endPeriod: 0.7821337112212191)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 338.6237947818463, y: 280.0), end: Vector2<Double>(x: 20.0, y: 280.0)), startPeriod: 0.7821337112212191, endPeriod: 0.9562763103195058)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.lineSegment2(GeometriaClipping.LineSegment2Simplex<Geometria.Vector2<Swift.Double>>(lineSegment: LineSegment<Vector2<Double>>(start: Vector2<Double>(x: 20.0, y: 280.0), end: Vector2<Double>(x: 20.0, y: 200.0)), startPeriod: 0.9562763103195058, endPeriod: 1.0))]]
+                )
+        }
+    }
 }
