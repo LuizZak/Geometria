@@ -1,6 +1,11 @@
 /// Protocol for objects that form geometric lines with two floating-point
 /// vectors representing two points on the line.
 public protocol LineFloatingPoint: LineDivisible, PointProjectableType, SignedDistanceMeasurableType where Vector: VectorFloatingPoint {
+    /// Mirrors a vector along this line such that the point is the same distance
+    /// to the line, with a relative angle to its starting point that is the
+    /// negative of the current point's angle to the its starting point.
+    func mirror(point: Vector) -> Vector
+
     /// Performs a vector projection of a given vector with respect to this line.
     /// The resulting vector lies within the infinite line formed by extending
     /// `a <-> b`.
@@ -58,6 +63,14 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType, SignedDi
 }
 
 public extension LineFloatingPoint {
+    @inlinable
+    func mirror(point: Vector) -> Vector {
+        let projected = projectUnclamped(point)
+        let result = point + (projected - point) * 2
+
+        return result
+    }
+
     /// Returns the closest point on this line to a given point.
     ///
     /// The point is limited to the line's bounds using
