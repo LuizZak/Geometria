@@ -40,6 +40,20 @@ public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geomet
     }
 
     public init(
+        vertices: [Vector],
+        startPeriod: Period,
+        endPeriod: Period
+    ) {
+        let polygon = LinePolygon2(vertices: vertices)
+
+        self.init(
+            linePolygon2: polygon,
+            startPeriod: startPeriod,
+            endPeriod: endPeriod
+        )
+    }
+
+    public init(
         linePolygon2: LinePolygon2<Vector>,
         startPeriod: Period,
         endPeriod: Period
