@@ -1,8 +1,8 @@
 import Geometria
 
-/// An Intersection boolean parametric that joins two shapes into a single shape,
-/// if they intersect in space.
-public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametric {
+/// An exclusive-disjunction boolean parametric that outputs the non-shared area
+/// between two or more geometries.
+public struct ExclusiveDisjunction2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametric {
     public typealias Contour = Parametric2Contour<Vector>
 
     public let contours: [Contour]
@@ -29,26 +29,16 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
 
     @inlinable
     public func allContours() -> [Contour] {
-        typealias Graph = Simplex2Graph<Vector>
+        // An exclusive disjunction can be expressed as a union followed by a
+        // subtraction of the intersection
+        let union = union(tolerance: tolerance, contours: self.contours)
+        let intersection = intersection(tolerance: tolerance, contours: self.contours)
 
-        let graph = Graph.fromParametricIntersections(
-            contours: contours,
-            tolerance: tolerance
-        )
-
-        return graph.recombine { edge in
-            switch edge.winding {
-            case .clockwise:
-                return edge.totalWinding == 2
-
-            case .counterClockwise:
-                return edge.totalWinding == 1
-            }
-        }
+        return subtraction(tolerance: tolerance, union, [intersection]).allContours()
     }
 
     @inlinable
-    public static func intersection<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
+    public static func exclusiveDisjunction<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         tolerance: Vector.Scalar = .leastNonzeroMagnitude,
         _ lhs: T1,
         _ rhs: T2
@@ -58,24 +48,28 @@ public struct Intersection2Parametric<Vector: Vector2Real & Hashable>: Boolean2P
     }
 }
 
-/// Performs an intersection operation across all given parametric geometries.
+/// Performs an exclusive disjunction operation across all given parametric
+/// geometries.
+///
+/// - precondition: `shapes` is not empty.
 @inlinable
-public func intersection<Vector: Hashable>(
+public func exclusiveDisjunction<Vector: Hashable>(
     tolerance: Vector.Scalar = .leastNonzeroMagnitude,
     _ shapes: [some ParametricClip2Geometry<Vector>]
 ) -> Compound2Parametric<Vector> {
-    return intersection(
+    return exclusiveDisjunction(
         tolerance: tolerance,
         contours: shapes.flatMap({ $0.allContours() })
     )
 }
 
-/// Performs an intersection operation across all given parametric geometries.
+/// Performs an exclusive disjunction operation across all given parametric
+/// geometries.
 @inlinable
-public func intersection<Vector: Hashable>(
+public func exclusiveDisjunction<Vector: Hashable>(
     tolerance: Vector.Scalar = .leastNonzeroMagnitude,
     contours: [Parametric2Contour<Vector>]
 ) -> Compound2Parametric<Vector> {
-    let op = Intersection2Parametric(contours: contours, tolerance: tolerance)
+    let op = ExclusiveDisjunction2Parametric(contours: contours, tolerance: tolerance)
     return Compound2Parametric(contours: op.allContours())
 }

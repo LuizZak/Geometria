@@ -65,3 +65,15 @@ public func subtraction<Vector: Hashable>(
     let shapes = shapes.map({ Compound2Parametric($0.reversed()) })
     return union(tolerance: tolerance, [Compound2Parametric(shape1)] + shapes)
 }
+
+/// Performs a subtraction operation by removing all given parametric geometries
+/// from `contour`.
+@inlinable
+public func subtraction<Vector: Hashable>(
+    tolerance: Vector.Scalar = .leastNonzeroMagnitude,
+    contour1: Parametric2Contour<Vector>,
+    contours: [Parametric2Contour<Vector>]
+) -> Compound2Parametric<Vector> {
+    let contours = contours.map({ $0.reversed() })
+    return union(tolerance: tolerance, contours: [contour1] + contours)
+}

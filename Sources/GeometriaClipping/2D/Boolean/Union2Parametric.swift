@@ -59,25 +59,23 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
 }
 
 /// Performs a union operation across all given parametric geometries.
-///
-/// - precondition: `shapes` is not empty.
 @inlinable
 public func union<Vector: Hashable>(
     tolerance: Vector.Scalar = .leastNonzeroMagnitude,
     _ shapes: [some ParametricClip2Geometry<Vector>]
 ) -> Compound2Parametric<Vector> {
-    guard let first = shapes.first else {
-        preconditionFailure("!shapes.isEmpty")
-    }
+    return union(
+        tolerance: tolerance,
+        contours: shapes.flatMap({ $0.allContours() })
+    )
+}
 
-    var result = Compound2Parametric<Vector>(first)
-    for next in shapes.dropFirst() {
-        result = Union2Parametric<Vector>
-            .union(
-                tolerance: tolerance,
-                result,
-                Compound2Parametric<Vector>(next)
-            )
-    }
-    return result
+/// Performs a union operation across all given parametric geometries.
+@inlinable
+public func union<Vector: Hashable>(
+    tolerance: Vector.Scalar = .leastNonzeroMagnitude,
+    contours: [Parametric2Contour<Vector>]
+) -> Compound2Parametric<Vector> {
+    let op = Union2Parametric(contours: contours, tolerance: tolerance)
+    return Compound2Parametric(contours: op.allContours())
 }
