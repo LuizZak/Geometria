@@ -447,7 +447,23 @@ extension Simplex2Graph {
             edgesToCheck.append(OrderedSet(coincident).union([edge]))
         }
 
+        minimal = []
         for edgesToCheck in edgesToCheck {
+            var merged = false
+            for i in 0..<minimal.count {
+                if !minimal[i].isDisjoint(with: edgesToCheck) {
+                    minimal[i].formUnion(edgesToCheck)
+                    merged = true
+                    break
+                }
+            }
+
+            if !merged {
+                minimal.append(edgesToCheck)
+            }
+        }
+
+        for edgesToCheck in minimal {
             let edges = edgesToCheck.sorted(by: { $0.id < $1.id })
             guard let first = edges.first else {
                 continue
