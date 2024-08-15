@@ -92,8 +92,7 @@ class ExclusiveDisjunction2ParametricTests: XCTestCase {
         }
     }
 
-    // TODO: Fix instability of this test case; possibly in graph traversal
-    func xtestExclusiveDisjunction_rhsOccludesLhsHole() {
+    func testExclusiveDisjunction_rhsOccludesLhsHole() {
         let radius: Double = 50.0
         let circles = [
             Circle2Parametric.makeTestCircle(center: .init(x: 110, y: 95), radius: radius),

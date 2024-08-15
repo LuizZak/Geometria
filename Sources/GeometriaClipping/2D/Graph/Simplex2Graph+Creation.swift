@@ -211,7 +211,7 @@ extension Simplex2Graph {
         }
 
         // MARK: Merge edges - part 1
-        var edgesToCheck: Set<Set<Edge>> = []
+        var edgesToCheck: OrderedSet<OrderedSet<Edge>> = []
         for edge in edges {
             let coincident =
                 edgeTree
@@ -222,11 +222,11 @@ extension Simplex2Graph {
                 continue
             }
 
-            edgesToCheck.insert(Set(coincident).union([edge]))
+            edgesToCheck.append(OrderedSet(coincident).union([edge]))
         }
 
         // Merge edge groups that appear multiple times
-        var minimal: [Set<Edge>] = []
+        var minimal: [OrderedSet<Edge>] = []
         for edgesToCheck in edgesToCheck {
             var merged = false
             for i in 0..<minimal.count {
@@ -444,7 +444,7 @@ extension Simplex2Graph {
                 continue
             }
 
-            edgesToCheck.insert(Set(coincident).union([edge]))
+            edgesToCheck.append(OrderedSet(coincident).union([edge]))
         }
 
         for edgesToCheck in edgesToCheck {
