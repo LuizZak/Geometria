@@ -96,7 +96,8 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
             if self.start.x < point.x && self.end.x > point.x {
                 return true
             }
-            if self.start.x > point.x {
+            // •--s---e-> or •--e---s->
+            if self.start.x > point.x && self.end.x > point.x {
                 return false
             }
         } else if self.start.y < self.end.y {
