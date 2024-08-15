@@ -87,43 +87,49 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
     }
 
     @inlinable
-    public func intersectsHorizontalLine(start: Vector, tolerance: Scalar) -> Bool {
-        if self.start.y < self.end.y {
+    public func intersectsHorizontalLine(start point: Vector, tolerance: Scalar) -> Bool {
+        if
+            self.start.y.isApproximatelyEqualFast(to: self.end.y, tolerance: tolerance)
+            && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance)
+        {
+            // s--•--e->
+            if self.start.x < point.x && self.end.x > point.x {
+                return true
+            }
+            if self.start.x > point.x {
+                return false
+            }
+        } else if self.start.y < self.end.y {
             //  •-s-->
             //     \
             //      e
-            if self.start.x > start.x && self.start.y == start.y {
+            if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return true
             }
 
             //   s
             //    \
             //  •--e->
-            if self.end.x > start.x && self.end.y == start.y {
+            if self.end.x > point.x && self.end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
             }
         } else if self.start.y > end.y {
             //  •--e->
             //    /
             //   s
-            if self.end.x > start.x && self.end.y == start.y {
+            if self.end.x > point.x && self.end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return true
             }
 
             //      e
             //     /
             //  •-s--->
-            if self.start.x > start.x && self.start.y == start.y {
+            if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
-            }
-        } else if self.start.y == self.end.y && start.y == self.start.y {
-            // s--•--e->
-            if self.start.x < start.x && self.end.x > start.x {
-                return true
             }
         }
 
-        let ray = Ray2(start: start, b: start + .init(x: 1, y: 0))
+        let ray = Ray2(start: point, b: point + .init(x: 1, y: 0))
         return lineSegment.intersection(with: ray) != nil
     }
 

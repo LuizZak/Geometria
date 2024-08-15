@@ -161,4 +161,25 @@ class Parametric2ContourTests: XCTestCase {
             fixture.assertTrue(sut.contains(point))
         }
     }
+
+    func testContains_circleArc_halfCircles() {
+        let simplexes: [Parametric2GeometrySimplex<Vector2D>] = [
+            .circleArc2(
+                .init(center: .zero, radius: 10, startAngle: .pi, sweepAngle: .pi, startPeriod: 0.0, endPeriod: 0.5)
+            ),
+            .circleArc2(
+                .init(center: .zero, radius: 10, startAngle: .pi * 2.0, sweepAngle: .pi, startPeriod: 0.5, endPeriod: 1.0)
+            ),
+        ]
+        let sut = Parametric2Contour(simplexes: simplexes)
+        let point = Vector2D.zero
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(point)
+
+            fixture.add(sut, category: "input")
+
+            fixture.assertTrue(sut.contains(point))
+        }
+    }
 }

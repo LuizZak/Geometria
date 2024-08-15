@@ -131,7 +131,43 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
 
     @inlinable
     public func intersectsHorizontalLine(start point: Vector, tolerance: Scalar) -> Bool {
-        if self.start.y < self.end.y {
+        if
+            self.start.y.isApproximatelyEqualFast(to: self.end.y, tolerance: tolerance)
+            && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance)
+        {
+            // s  •--e->
+            if self.start.x < point.x && self.end.x > point.x {
+                let center = self.compute(at: (self.startPeriod + self.endPeriod) / 2)
+
+                // s  •--e->  and  s----c-•--e->
+                //  \_c_/
+                if center.y >= self.start.y {
+                    return true
+                }
+                //   _c_
+                //  /   \
+                // s  •--e->
+                if center.y < self.start.y {
+                    return false
+                }
+            }
+            // e  •--s->
+            if self.start.x > point.x {
+                let center = self.compute(at: (self.startPeriod + self.endPeriod) / 2)
+
+                // e  •--s->  and  e----c-•--s->
+                //  \_c_/
+                if center.y >= self.start.y {
+                    return true
+                }
+                //   _c_
+                //  /   \
+                // e  •--s->
+                if center.y < self.start.y {
+                    return false
+                }
+            }
+        } else if self.start.y < self.end.y {
             //  •-s-->
             //     (
             //      e
@@ -158,14 +194,6 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
             //  •-s--->
             if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
-            }
-        } else if
-            self.start.y.isApproximatelyEqualFast(to: self.end.y, tolerance: tolerance)
-            && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance)
-        {
-            // s--•--e->
-            if self.start.x < point.x && self.end.x > point.x {
-                return true
             }
         }
 
