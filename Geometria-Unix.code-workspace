@@ -222,6 +222,7 @@
             "Hyperrectangle",
             "Intersectable",
             "Möller",
+            "periodics",
             "octree",
             "Octree",
             "Periodics",

@@ -6,25 +6,26 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
 
     /// Represents the case where the line crosses the bounds of the convex
     /// shape on a single vertex, or tangentially, in case of spheroids.
-    case singlePoint(PointNormal<Vector>)
+    case singlePoint(LineIntersectionPointNormal<Vector>)
 
     /// Represents cases where the line starts outside the shape and crosses in
     /// before ending within the shape's bounds.
-    case enter(PointNormal<Vector>)
+    case enter(LineIntersectionPointNormal<Vector>)
 
     /// Represents cases where the line starts within the convex shape and
     /// intersects the boundaries on the way out.
-    case exit(PointNormal<Vector>)
+    case exit(LineIntersectionPointNormal<Vector>)
 
     /// Represents cases where the line crosses the convex shape twice: Once on
     /// the way in, and once again on the way out.
-    case enterExit(PointNormal<Vector>, PointNormal<Vector>)
+    case enterExit(LineIntersectionPointNormal<Vector>, LineIntersectionPointNormal<Vector>)
 
     /// Represents the case where no intersection occurs at any point.
     case noIntersection
 
-    /// Returns the list of point normals referenced by this intersection instance.
-    public var pointNormals: [PointNormal<Vector>] {
+    /// Returns the list of line intersection point normals referenced by this
+    /// intersection instance.
+    public var lineIntersectionPointNormals: [LineIntersectionPointNormal<Vector>] {
         switch self {
         case .contained, .noIntersection:
             return []
@@ -37,11 +38,16 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
         }
     }
 
-    /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
-    /// is mapped by a provided closure before being stored back into the same
-    /// enum case and returned.
+    /// Returns the list of point normals referenced by this intersection instance.
+    public var pointNormals: [PointNormal<Vector>] {
+        lineIntersectionPointNormals.map(\.pointNormal)
+    }
+
+    /// Returns a new ``ConvexLineIntersection`` where any ``LineIntersectionPointNormal``
+    /// value is mapped by a provided closure before being stored back into the
+    /// same enum case and returned.
     public func mappingPointNormals(
-        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>
+        _ mapper: (LineIntersectionPointNormal<Vector>, LineIntersectionPointNormalKind) -> LineIntersectionPointNormal<Vector>
     ) -> ConvexLineIntersection<Vector> {
         switch self {
         case .contained:
@@ -64,11 +70,11 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
         }
     }
 
-    /// Returns a new ``ConvexLineIntersection`` where any ``PointNormal`` value
-    /// is replaced by a provided closure before being stored back into the same
-    /// enum case and returned.
+    /// Returns a new ``ConvexLineIntersection`` where any ``LineIntersectionPointNormal``
+    /// value is replaced by a provided closure before being stored back into
+    /// the same enum case and returned.
     public func replacingPointNormals<NewVector: VectorType>(
-        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>
+        _ mapper: (LineIntersectionPointNormal<Vector>, LineIntersectionPointNormalKind) -> LineIntersectionPointNormal<NewVector>
     ) -> ConvexLineIntersection<NewVector> {
         switch self {
         case .contained:
@@ -94,7 +100,7 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
     /// Parameter passed along point normals in ``mappingPointNormals(_:)`` and
     /// ``replacingPointNormals(_:)`` to specify to the closure which kind of point
     /// normal was provided.
-    public enum PointNormalKind {
+    public enum LineIntersectionPointNormalKind {
         case singlePoint
         case enter
         case exit

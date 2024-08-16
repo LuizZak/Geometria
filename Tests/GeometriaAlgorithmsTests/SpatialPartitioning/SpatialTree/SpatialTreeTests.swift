@@ -145,7 +145,7 @@ class SpatialTreeTests: XCTestCase {
         ]
 
         for path in pathsToRemove.reversed() {
-            sut.remove(at: .init(path: path))
+            sut.remove(at: .init(path: path), collapseEmpty: true)
         }
 
         XCTAssertEqual(sut.count, 41)
@@ -288,6 +288,38 @@ class SpatialTreeTests: XCTestCase {
 
         measure {
             _=sut.query(bounds)
+        }
+    }
+
+    func testPerformance_copyOnWrite_aabbs_100_000_maxSubdivisions_6_maxElementsPerLevelBeforeSplit_10() {
+        let aabbCloud = makeAABBCloud(count: 100_000)
+        let sut = makeSut(aabbCloud, maxSubdivisions: 3, maxElementsPerLevelBeforeSplit: 10)
+
+        measure {
+            var copy = sut
+            copy.insert(aabbCloud[0])
+        }
+    }
+
+    func testPerformance_remove_aabbs_100_000_maxSubdivisions_6_maxElementsPerLevelBeforeSplit_10() {
+        let aabbCloud = makeAABBCloud(count: 100_000)
+        let sut = makeSut(aabbCloud, maxSubdivisions: 3, maxElementsPerLevelBeforeSplit: 10)
+
+        measure {
+            var copy = sut
+            copy.remove(aabbCloud[0])
+        }
+    }
+
+    func testPerformance_remove_range_aabbs_100_000_maxSubdivisions_6_maxElementsPerLevelBeforeSplit_10() {
+        let aabbCloud = makeAABBCloud(count: 100_000)
+        let sut = makeSut(aabbCloud, maxSubdivisions: 3, maxElementsPerLevelBeforeSplit: 10)
+
+        measure {
+            var copy = sut
+            for aabb in aabbCloud[0..<50] {
+                copy.remove(aabb)
+            }
         }
     }
 

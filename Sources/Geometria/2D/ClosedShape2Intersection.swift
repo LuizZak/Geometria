@@ -1,26 +1,41 @@
 /// The result of a intersection test against two 2-dimensional closed shapes.
 public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
-    /// Represents the case where the convex's boundaries are completely contained
-    /// within the bounds of the other convex shape.
+    /// Represents the case where the shape's boundaries are completely contained
+    /// within the bounds of the other shape.
     case contained
 
-    /// Represents the case where the other convex's boundaries are completely
-    /// contained within the bounds of the first convex shape.
+    /// Represents the case where the other shape's boundaries are completely
+    /// contained within the bounds of the first shape.
     ///
     /// Is the diametrical opposite of `.contained`.
     case contains
 
-    /// Represents the case where the convex crosses the bounds of the convex
-    /// shape on a single vertex, or tangentially, in case of spheroids.
+    /// Represents the case where the shape crosses the bounds of the shape on a
+    /// single vertex, or tangentially, in case of spheroids.
     case singlePoint(PointNormal<Vector>)
 
     /// A sequence of one or more intersection pairs of points that represent
     /// the entrance and exit points of the intersection in relation to one of
-    /// the convexes.
+    /// the shapes.
     case pairs([Pair])
 
     /// Represents the case where no intersection occurs at any point.
     case noIntersection
+
+    /// Returns all the point normals associated with this closed shape intersection
+    /// object.
+    public var pointNormals: [PointNormal<Vector>] {
+        switch self {
+        case .contained, .contains, .noIntersection:
+            return []
+
+        case .singlePoint(let point):
+            return [point]
+
+        case .pairs(let pairs):
+            return pairs.flatMap({ [$0.enter, $0.exit] })
+        }
+    }
 
     /// Convenience for `.pairs([.init(enter: p1, exit: p2)])`.
     @inlinable
@@ -37,7 +52,7 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     /// is mapped by a provided closure before being stored back into the same
     /// enum case and returned.
     public func mappingPointNormals(
-        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<Vector>
+        _ mapper: (PointNormal<Vector>, LineIntersectionPointNormalKind) -> PointNormal<Vector>
     ) -> Self {
 
         switch self {
@@ -67,7 +82,7 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     /// is replaced by a provided closure before being stored back into the same
     /// enum case and returned.
     public func replacingPointNormals<NewVector: VectorType>(
-        _ mapper: (PointNormal<Vector>, PointNormalKind) -> PointNormal<NewVector>
+        _ mapper: (PointNormal<Vector>, LineIntersectionPointNormalKind) -> PointNormal<NewVector>
     ) -> ClosedShape2Intersection<NewVector> {
 
         switch self {
@@ -115,7 +130,7 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     /// Parameter passed along point normals in ``mappingPointNormals(_:)`` and
     /// ``replacingPointNormals(_:)`` to specify to the closure which kind of point
     /// normal was provided.
-    public enum PointNormalKind {
+    public enum LineIntersectionPointNormalKind {
         case singlePoint
         case twoPointsFirst
         case twoPointsSecond

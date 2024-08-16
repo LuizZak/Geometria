@@ -1,5 +1,7 @@
 /// The result of a ``LineIntersectableType``-line intersection test.
 public struct LineIntersection<Vector: VectorFloatingPoint> {
+    public typealias Scalar = Vector.Scalar
+
     /// A flag that is set to `true` if the line the shape was tested against is
     /// fully contained within the shape.
     public var isContained: Bool
@@ -17,21 +19,27 @@ public struct LineIntersection<Vector: VectorFloatingPoint> {
     public enum Intersection {
         /// Represents an intersection that crosses to within the boundaries
         /// of the shape.
-        case enter(PointNormal<Vector>)
+        case enter(LineIntersectionPointNormal<Vector>)
 
         /// Represents an intersection that crosses to the outside of the
         /// boundaries of the shape.
-        case exit(PointNormal<Vector>)
+        case exit(LineIntersectionPointNormal<Vector>)
 
         /// Represents an intersection that is non-directional.
-        case point(PointNormal<Vector>)
+        case point(LineIntersectionPointNormal<Vector>)
 
-        /// Gets the point normal associated with this intersection
-        public var pointNormal: PointNormal<Vector> {
+        /// Gets the line intersection point normal associated with this
+        /// intersection.
+        public var lineIntersectionPointNormal: LineIntersectionPointNormal<Vector> {
             switch self {
             case .enter(let pn), .exit(let pn), .point(let pn):
                 return pn
             }
+        }
+
+        /// Gets the point normal associated with this intersection.
+        public var pointNormal: PointNormal<Vector> {
+            lineIntersectionPointNormal.pointNormal
         }
     }
 }

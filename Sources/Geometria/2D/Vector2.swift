@@ -433,6 +433,7 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
     ///
     /// The order of operations are: scaling -> rotation -> translation
     @inlinable
+    @available(*, deprecated, message: "Use matrix(scale: Self, rotate angle: Angle<Scalar>, translate: Self) instead.")
     public static func matrix(
         scale: Self = .one,
         rotate angle: Scalar = 0,

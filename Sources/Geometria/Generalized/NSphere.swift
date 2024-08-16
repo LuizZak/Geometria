@@ -3,18 +3,18 @@
 public struct NSphere<Vector: VectorType>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     @_transparent
     public var description: String {
         "\(type(of: self))(center: \(center), radius: \(radius))"
     }
-    
+
     /// The center point of this N-sphere.
     public var center: Vector
-    
+
     /// The radius of this N-sphere.
     public var radius: Scalar
-    
+
     @_transparent
     public init(center: Vector, radius: Scalar) {
         self.center = center
@@ -74,7 +74,7 @@ public extension NSphere where Vector: VectorMultiplicative, Scalar: Comparable 
     @inlinable
     func contains(_ point: Vector) -> Bool {
         let d = point - center
-        
+
         return d.lengthSquared <= radius * radius
     }
 }
@@ -94,10 +94,10 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         if vector == center {
             return center + Vector.one.normalized() * radius
         }
-        
+
         return center + (vector - center).normalized() * radius
     }
-    
+
     /// Returns `true` if this N-sphere's area intersects the given line type.
     @inlinable
     public func intersects<Line: LineFloatingPoint>(
@@ -106,7 +106,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
 
         line.distanceSquared(to: center) <= radius * radius
     }
-    
+
     /// Performs an intersection test against the given line, returning up to
     /// two points representing the entrance and exit intersections against this
     /// N-sphere's outer perimeter.
@@ -118,50 +118,50 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         func normal(at point: Vector, inverted: Bool) -> Vector {
             (inverted ? center - point : point - center).normalized()
         }
-
         func makePointNormal(
             at point: Vector,
+            normalizedMagnitude: Scalar,
             inverted: Bool = false
-        ) -> PointNormal<Vector> {
-            
+        ) -> LineIntersectionPointNormal<Vector> {
             .init(
+                normalizedMagnitude: normalizedMagnitude,
                 point: point,
                 normal: normal(at: point, inverted: inverted)
             )
         }
-        
+
         #if USE_QUADRATIC_FORMULA
-        
+
         let oc = line.a - center
         let direction = line.lineSlope
-        
+
         let a = direction.lengthSquared
         let b = 2 * oc.dot(direction)
         let c = oc.lengthSquared - radius * radius
 
         let disc: Scalar = (b * b) as Scalar - (4 * a * c) as Scalar
-        
+
         if disc < .zero {
             return .noIntersection
         }
-        
+
         let a2 = 2 * a
         let discSq = disc.squareRoot()
-        
+
         let t0 = (-b - discSq) / a2
         let t0p = line.projectedNormalizedMagnitude(t0)
-        
+
         if disc == .zero {
             if line.containsProjectedNormalizedMagnitude(t0) {
                 return .singlePoint(makePointNormal(at: t0p))
             }
-            
+
             return .noIntersection
         }
-        
+
         let t1 = (-b + discSq) / a2
         let t1p = line.projectedNormalizedMagnitude(t1)
-        
+
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
             return .enterExit(makePointNormal(at: t0p), makePointNormal(at: t1p, inverted: true))
@@ -172,48 +172,48 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
-        
+
         #else
-        
+
         let lineSlope = line.lineSlope
         let relVec = center - line.a
         let lineSlopeLengthSquared = lineSlope.lengthSquared
-        
+
         let projection = relVec.dot(lineSlope) / lineSlopeLengthSquared
         let projected = line.projectedNormalizedMagnitude(projection)
         let d = projected.distanceSquared(to: center)
         let radiusSquared = radius * radius
-        
+
         guard d != radiusSquared else {
             if line.containsProjectedNormalizedMagnitude(projection) {
-                return .singlePoint(makePointNormal(at: projected))
+                return .singlePoint(makePointNormal(at: projected, normalizedMagnitude: projection))
             }
-            
+
             return .noIntersection
         }
-        
+
         guard d <= radiusSquared else {
             return .noIntersection
         }
-        
+
         let th = ((radiusSquared - d) / lineSlopeLengthSquared).squareRoot()
         let t0 = projection - th
         let t1 = projection + th
-        
+
         let t0p = line.projectedNormalizedMagnitude(t0)
         let t1p = line.projectedNormalizedMagnitude(t1)
-        
+
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
-            return .enterExit(makePointNormal(at: t0p), makePointNormal(at: t1p, inverted: true))
+            return .enterExit(makePointNormal(at: t0p, normalizedMagnitude: t0), makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
         case (true, false):
-            return .enter(makePointNormal(at: t0p))
+            return .enter(makePointNormal(at: t0p, normalizedMagnitude: t0))
         case (false, true):
-            return .exit(makePointNormal(at: t1p, inverted: true))
+            return .exit(makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
-        
+
         #endif
     }
 }

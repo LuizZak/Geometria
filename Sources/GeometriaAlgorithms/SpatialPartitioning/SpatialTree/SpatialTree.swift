@@ -86,7 +86,9 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     @inlinable
     public func queryPoint(_ point: Vector) -> [Element] {
         var result: [Element] = []
-        root.queryPoint(point, to: &result)
+        root.queryPoint(point) { (_, element) in
+            result.append(element)
+        }
         return result
     }
 
@@ -95,7 +97,9 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         _ line: Line
     ) -> [Element] where Line.Vector == Vector {
         var result: [Element] = []
-        root.queryLine(line, to: &result)
+        root.queryLine(line) { (_, element) in
+            result.append(element)
+        }
         return result
     }
 
@@ -104,7 +108,9 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         _ area: Bounds
     ) -> [Element] where Bounds.Vector == Vector {
         var result: [Element] = []
-        root.query(area, to: &result)
+        root.query(area) { (_, element) in
+            result.append(element)
+        }
         return result
     }
 
@@ -186,14 +192,28 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     }
 
     /// Removes an element at a given index in this spatial tree.
-    ///
-    /// In case removal results in an empty set of subdivisions for a subdivision,
-    /// the subdivisions are collapsed and removed.
     @inlinable
-    public mutating func remove(at index: Index) {
+    public mutating func remove(at index: Index, collapseEmpty: Bool = false) {
         ensureUnique()
-        if !root.remove(at: index.path) {
+        if !root.remove(at: index.path, collapseEmpty: collapseEmpty) {
             fatalError("Index \(index) is not part of this spatial tree.")
+        }
+    }
+
+    /// Removes a given element from this spatial tree.
+    public mutating func remove(_ element: Element, collapseEmpty: Bool = false) where Element: Equatable {
+        let bounds = element.bounds
+        root.visitBounds(bounds) { subdivision in
+            for i in (0..<subdivision.elements.count).reversed() {
+                if subdivision.elements[i] == element {
+                    subdivision.elements.remove(at: i)
+                }
+            }
+
+            return .visitSubdivisions
+        }
+        if collapseEmpty {
+            root.collapseEmpty()
         }
     }
 
@@ -257,11 +277,29 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             )
         }
 
+        /// Recursively collapses empty subdivisions within this spatial tree
+        /// subdivision.
         @inlinable
-        func queryPoint(_ point: Vector, to result: inout [Element]) {
+        func collapseEmpty() {
+            guard let subdivisions else { return }
+
+            for subdivision in subdivisions {
+                subdivision.collapseEmpty()
+            }
+
+            if subdivisions.allSatisfy({ $0.elements.isEmpty }) {
+                self.subdivisions = nil
+            }
+        }
+
+        @inlinable
+        func queryPoint(
+            _ point: Vector,
+            onMatch: (Subdivision, Element) -> Void
+        ) {
             for element in elements {
                 if element.bounds.contains(point) {
-                    result.append(element)
+                    onMatch(self, element)
                 }
             }
 
@@ -270,17 +308,18 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return
                 }
 
-                subdivision.queryPoint(point, to: &result)
+                subdivision.queryPoint(point, onMatch: onMatch)
             }
         }
 
         @inlinable
         func queryLine<Line: LineFloatingPoint>(
-            _ line: Line, to result: inout [Element]
+            _ line: Line,
+            onMatch: (Subdivision, Element) -> Void
         ) where Line.Vector == Vector {
             for element in elements {
                 if element.bounds.intersects(line: line) {
-                    result.append(element)
+                    onMatch(self, element)
                 }
             }
 
@@ -289,17 +328,18 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return
                 }
 
-                subdivision.queryLine(line, to: &result)
+                subdivision.queryLine(line, onMatch: onMatch)
             }
         }
 
         @inlinable
         func query<Bounds: BoundableType>(
-            _ area: Bounds, to result: inout [Element]
+            _ area: Bounds,
+            onMatch: (Subdivision, Element) -> Void
         ) where Bounds.Vector == Vector {
             for element in elements {
                 if element.bounds.intersects(area.bounds) {
-                    result.append(element)
+                    onMatch(self, element)
                 }
             }
 
@@ -308,7 +348,41 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return
                 }
 
-                subdivision.query(area, to: &result)
+                subdivision.query(area, onMatch: onMatch)
+            }
+        }
+
+        @inlinable
+        func visitBounds<Bounds: BoundableType>(
+            _ area: Bounds,
+            visit: (Subdivision) -> VisitResult
+        ) where Bounds.Vector == Vector {
+            let bounds = area.bounds
+            var queue = [self]
+
+            while !queue.isEmpty {
+                let next = queue.removeFirst()
+
+                guard next.bounds.intersects(bounds) else {
+                    continue
+                }
+
+                switch visit(next) {
+                case .skipSubdivisions:
+                    continue
+
+                case .stop:
+                    return
+
+                case .visitSubdivisions:
+                    break
+                }
+
+                for subdivision in (next.subdivisions ?? []) {
+                    if subdivision.bounds.contains(bounds) {
+                        queue.append(subdivision)
+                    }
+                }
             }
         }
 
@@ -325,6 +399,8 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
 
         /// Returns `true` if no subdivisions are available, or if they are all
         /// empty.
+        ///
+        /// The check is performed recursively across all subdivisions.
         @inlinable
         func areSubdivisionsEmpty() -> Bool {
             guard let subdivisions else {
@@ -509,7 +585,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         /// Returns `true` if the element index existed within this subdivision
         /// tree and was successfully removed.
         @inlinable
-        func remove(at path: ElementPath) -> Bool {
+        func remove(at path: ElementPath, collapseEmpty: Bool = false) -> Bool {
             switch path {
             case .element(let index):
                 elements.remove(at: index)
@@ -520,13 +596,15 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     return false
                 }
 
-                guard subdivisions[index].remove(at: inner) else {
+                guard subdivisions[index].remove(at: inner, collapseEmpty: collapseEmpty) else {
                     return false
                 }
 
                 // Collapse subdivision
-                if areSubdivisionsEmpty() {
-                    self.subdivisions = nil
+                if collapseEmpty {
+                    if areSubdivisionsEmpty() {
+                        self.subdivisions = nil
+                    }
                 }
 
                 return true
@@ -581,6 +659,18 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                     index.withPath(path)
                 )
             }
+        }
+
+        @usableFromInline
+        enum VisitResult {
+            /// Visits subdivisions of the current subdivision.
+            case visitSubdivisions
+
+            /// Skips subdivisions of the current subdivision.
+            case skipSubdivisions
+
+            /// Ends visiting of all subdivisions queued up.
+            case stop
         }
 
         @usableFromInline

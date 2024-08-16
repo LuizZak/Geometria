@@ -37,9 +37,29 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         return false
     }
 
+    /// Returns `true` if this angle sweep intersects with another angle sweep.
+    ///
+    /// The result is `true` also for angle sweeps that overlap only on their
+    /// end-points, i.e. the check is inclusive.
+    public func intersects(_ other: Self) -> Bool {
+        if contains(other.start) || contains(other.stop) {
+            return true
+        }
+        if other.contains(start) || other.contains(stop) {
+            return true
+        }
+
+        return false
+    }
+
     /// Returns `true` if this circular arc contains a given angle value within
     /// its start + sweep region.
     public func contains(_ angle: Angle<Scalar>) -> Bool {
+        // If the sweep is of a full circle or more, the it contains all angles.
+        guard sweep.radians.magnitude < Scalar.pi * 2 else {
+            return true
+        }
+
         let (normalStart, normalStop) = normalizedStartStop(from: .zero)
 
         let normalAngle = angle.normalized(from: .zero)
@@ -53,6 +73,11 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     /// Returns the result of clamping a given angle so it is contained within
     /// this angle sweep.
     public func clamped(_ angle: Angle<Scalar>) -> Angle<Scalar> {
+        // Sweeps of full circles don't clamp any angle
+        guard sweep.radians.magnitude < Scalar.pi * 2 else {
+            return angle
+        }
+
         let (normalStart, normalStop) = normalizedStartStop(from: .zero)
 
         let nMin = (Angle(radians: normalStart) - angle).normalized(from: -.pi)
@@ -66,6 +91,77 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         }
 
         return .init(radians: normalStop)
+    }
+
+    /// Returns a value from 0.0 to 1.0, inclusive, indicating how far along a
+    /// given angle is to `self.start` and `self.stop`, where `0.0` is exactly
+    /// on `start`, and `1.0` is exactly on `stop`.
+    ///
+    /// - note: Angle sweeps that are greater than `2π` will not properly map
+    /// into a ratio due to the overlapping angle ranges.
+    public func ratioOfAngle(_ angle: Angle<Scalar>) -> Scalar {
+        // TODO: Examine replacing the complex wrapping logic with 'angle.normalized(from: start.radians)'
+
+        /// Inverts a scalar value by `1 - scalar`, ensuring that if the scalar
+        /// is non-zero, the result is not equal to or greater than 1.
+        func invert(_ value: Scalar) -> Scalar {
+            if value > .zero {
+                let result: Scalar = 1 - value
+                if result == 1 {
+                    return result.nextDown
+                }
+
+                return result
+            }
+
+            return 1 - value
+        }
+
+        guard sweep.radians.magnitude < Scalar.pi * 2 else {
+            let normalAngle = angle.normalized(from: start.radians)
+
+            return normalAngle / sweep.radians
+        }
+
+        let normalAngle = angle.normalized(from: .zero)
+        let (normalStart, normalStop) = normalizedStartStop(from: .zero)
+
+        var total: Scalar
+        if normalStart > normalStop {
+            total = (.pi * 2 - normalStart)
+            total += normalStop
+        } else {
+            total = normalStop - normalStart
+        }
+        if total == .zero {
+            total = .leastNonzeroMagnitude
+        }
+
+        if normalStart > normalStop {
+            let result: Scalar
+            let startToOrigin: Scalar = (.pi * 2) - normalStart
+            let originToEnd = normalStop
+
+            // Split the ratio into two sub-ranges: one from start - 2π, and one
+            // from 0 - stop
+            if normalAngle <= normalStop {
+                result = (startToOrigin + normalAngle) / (startToOrigin + originToEnd)
+            } else {
+                result = (normalAngle - normalStart) / (startToOrigin + originToEnd)
+            }
+
+            if sweep.radians < .zero {
+                return invert(result)
+            }
+            return result
+        }
+
+        let result = (normalAngle - normalStart) / (normalStop - normalStart)
+
+        if sweep.radians < .zero {
+            return invert(result)
+        }
+        return result
     }
 
     func normalizedStartStop(from lowerBound: Scalar) -> (normalStart: Scalar, normalStop: Scalar) {

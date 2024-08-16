@@ -13,7 +13,7 @@ public typealias CircleArc2F = CircleArc2<Vector2F>
 /// Represents a 2D [arc of a circle] as a center, radius, and start+sweep angles.
 ///
 /// [arc of a circle]: https://en.wikipedia.org/wiki/Circular_arc
-public struct CircleArc2<Vector: Vector2Real>: GeometricType {
+public struct CircleArc2<Vector: Vector2Real>: GeometricType, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
 
     /// The center of the arc's circle.
@@ -27,6 +27,10 @@ public struct CircleArc2<Vector: Vector2Real>: GeometricType {
 
     /// The sweep angle of this arc, in radians.
     public var sweepAngle: Angle<Scalar>
+
+    public var description: String {
+        "\(type(of: self))(center: \(center), radius: \(radius), startAngle: \(startAngle), sweepAngle: \(sweepAngle))"
+    }
 
     /// Initializes a new circular arc with the given input parameters.
     public init(
@@ -197,7 +201,7 @@ extension CircleArc2: LineIntersectableType {
         with line: Line
     ) -> LineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
         let circle = self.asCircle2
-        let intersections = circle.intersection(with: line).pointNormals
+        let intersections = circle.intersection(with: line).lineIntersectionPointNormals
 
         var result = LineIntersection<Vector>(
             isContained: false,

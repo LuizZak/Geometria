@@ -7,7 +7,7 @@ import MiniP5Printer
 ///
 /// [p5.js]: https://editor.p5js.org/
 public class TestFixture {
-    private let p5Printer: P5Printer
+    internal let p5Printer: P5Printer
     private var didFail: Bool = false
 
     public init(lineScale: Double, renderScale: Double) {
@@ -26,8 +26,20 @@ public class TestFixture {
         geometry?.addVisualization2D(to: p5Printer, style: style, file: file, line: line)
     }
 
+    public func add<T: VisualizableGeometricType2>(_ geometries: [T], style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
+        for geometry in geometries {
+            geometry.addVisualization2D(to: p5Printer, style: style, file: file, line: line)
+        }
+    }
+
     public func add<T: VisualizableGeometricType3>(_ geometry: T?, style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
         geometry?.addVisualization3D(to: p5Printer, style: style, file: file, line: line)
+    }
+
+    public func add<T: VisualizableGeometricType3>(_ geometries: [T], style: BaseP5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) {
+        for geometry in geometries {
+            geometry.addVisualization3D(to: p5Printer, style: style, file: file, line: line)
+        }
     }
 
     // MARK: Wrapped assertions
@@ -48,7 +60,25 @@ public class TestFixture {
         .init(fixture: self, value: visualizable, file: file, line: line)
     }
 
+    public func assertions<T>(
+        on value: T,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> AssertionWrapperBase<T> {
+        .init(fixture: self, value: value, file: file, line: line)
+    }
+
     // MARK: General assertions
+
+    public func failure(
+        _ message: String,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        XCTFail(message, file: file, line: line)
+
+        didFail = true
+    }
 
     public func assertEquals<T: Equatable>(
         _ actual: T,
@@ -67,14 +97,58 @@ public class TestFixture {
         _ actual: T,
         _ expected: T,
         accuracy: T,
+        _ message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) -> Bool {
 
-        if !actual.isApproximatelyEqual(to: expected, absoluteTolerance: accuracy) {
-            XCTAssertEqual(actual, expected, file: file, line: line)
+        if (actual - expected).magnitude > accuracy {
+            XCTAssertEqual(actual, expected, message(), file: file, line: line)
             didFail = true
             return false
+        }
+
+        return true
+    }
+
+    @discardableResult
+    public func assertEquals<T: FloatingPoint>(
+        _ actual: Angle<T>,
+        _ expected: Angle<T>,
+        accuracy: T,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if (actual.radians - expected.radians).magnitude > accuracy {
+            XCTAssertEqual(actual, expected, message(), file: file, line: line)
+            didFail = true
+            return false
+        }
+
+        return true
+    }
+
+    @discardableResult
+    public func assertEquals<Vector: VectorFloatingPoint>(
+        _ actual: Vector,
+        _ expected: Vector,
+        accuracy: Vector.Scalar,
+        _ message: @autoclosure () -> String = "",
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> Bool {
+
+        if actual.scalarCount != expected.scalarCount {
+            failure("\(message()) \(actual) != \(expected)".trimmingCharacters(in: .whitespaces), file: file, line: line)
+            return false
+        }
+
+        for index in 0..<actual.scalarCount {
+            if !assertEquals(actual[index], expected[index], accuracy: accuracy, message(), file: file, line: line) {
+                return false
+            }
         }
 
         return true
@@ -109,6 +183,7 @@ public class TestFixture {
     public func assertEquals<T: VisualizableGeometricType2 & Equatable>(
         _ actual: T,
         _ expected: T,
+        message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) {
@@ -129,13 +204,14 @@ public class TestFixture {
             )
         }
 
-        XCTAssertEqual(actual, expected, file: file, line: line)
+        XCTAssertEqual(actual, expected, message(), file: file, line: line)
         didFail = actual != expected || didFail
     }
 
     public func assertEquals<T: VisualizableGeometricType3 & Equatable>(
         _ actual: T,
         _ expected: T,
+        message: @autoclosure () -> String = "",
         file: StaticString = #file,
         line: UInt = #line
     ) {
@@ -156,7 +232,7 @@ public class TestFixture {
             )
         }
 
-        XCTAssertEqual(actual, expected, file: file, line: line)
+        XCTAssertEqual(actual, expected, message(), file: file, line: line)
         didFail = actual != expected || didFail
     }
 
@@ -225,8 +301,8 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        for (act, exp) in zip(actual, expected) {
-            assertEquals(act, exp, file: file, line: line)
+        for (i, (act, exp)) in zip(actual, expected).enumerated() {
+            assertEquals(act, exp, message: "@ \(i)", file: file, line: line)
         }
 
         XCTAssertEqual(
@@ -256,8 +332,8 @@ public class TestFixture {
         line: UInt = #line
     ) {
 
-        for (act, exp) in zip(actual, expected) {
-            assertEquals(act, exp, file: file, line: line)
+        for (i, (act, exp)) in zip(actual, expected).enumerated() {
+            assertEquals(act, exp, message: "@ \(i)", file: file, line: line)
         }
 
         XCTAssertEqual(
@@ -300,7 +376,7 @@ public class TestFixture {
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
-            expected.addVisualization2D(to: p5Printer, style: expectedStyle())
+            expected.addVisualization2D(to: p5Printer, style: expectedStyle(), file: file, line: line)
 
             return false
         }
@@ -326,7 +402,7 @@ public class TestFixture {
 
         if !assertEqual(actual, expected, accuracy: accuracy, file: file, line: line) {
             didFail = true
-            expected.addVisualization3D(to: p5Printer, style: expectedStyle())
+            expected.addVisualization3D(to: p5Printer, style: expectedStyle(), file: file, line: line)
 
             return false
         }
@@ -427,7 +503,7 @@ public class TestFixture {
 
     /// Style to use for actual test result values.
     public func resultStyle() -> P5Printer.Style {
-        .init(strokeColor: .green, fillColor: nil, strokeWeight: 2)
+        .init(strokeColor: .init(red: 0, green: 200, blue: 0), fillColor: nil, strokeWeight: 2)
     }
 
     /// Style to use for expected test result values.
@@ -476,7 +552,6 @@ public class TestFixture {
         }
 
         public func addVisualization() {
-            fatalError("Must be overridden by subclasses")
         }
     }
 

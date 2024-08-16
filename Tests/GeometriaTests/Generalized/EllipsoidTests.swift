@@ -113,7 +113,8 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .singlePoint(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.55,
                     point: .init(x: 2.0000000000000018, y: -4.0),
                     normal: .init(x: 4.973799150320702e-16, y: -1.0)
                 )
@@ -128,7 +129,8 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .singlePoint(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.55,
                     point: .init(x: 2.0000000000000018, y: 10.0),
                     normal: .init(x: 4.973799150320702e-16, y: 1.0)
                 )
@@ -143,7 +145,8 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .singlePoint(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.5750000000000001,
                     point: .init(x: -3.0, y: 3.000000000000003),
                     normal: .init(x: -1.0, y: 3.1720657846433045e-16)
                 )
@@ -158,11 +161,13 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.42500000000000004,
                     point: .init(x: -2.9999999999999982, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 ),
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.675,
                     point: .init(x: 7.000000000000002, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -177,11 +182,13 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.325,
                     point: .init(x: 7.0, y: 3.0),
                     normal: .init(x: 1.0, y: 0.0)
                 ),
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.575,
                     point: .init(x: -2.9999999999999982, y: 3.0),
                     normal: .init(x: 1.0, y: 0.0)
                 )
@@ -196,11 +203,13 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.4000000000000001,
                     point: .init(x: 2.0, y: -3.999999999999997),
                     normal: .init(x: 0.0, y: -1.0)
                 ),
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.75,
                     point: .init(x: 2.0, y: 10.0),
                     normal: .init(x: 0.0, y: -1.0)
                 )
@@ -215,11 +224,13 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.25000000000000006,
                     point: .init(x: 2.0, y: 9.999999999999998),
                     normal: .init(x: 0.0, y: 1.0)
                 ),
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.6000000000000001,
                     point: .init(x: 2.0, y: -4.0000000000000036),
                     normal: .init(x: 0.0, y: 1.0)
                 )
@@ -234,11 +245,13 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enterExit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.2161709939963884,
                     point: .init(x: 0.16170993996388394, y: 0.242564909945826),
                     normal: .init(x: -0.9925863886954069, y: -0.12154119045249878)
                 ),
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.5838290060036115,
                     point: .init(x: 3.8382900600361154, y: 5.757435090054173),
                     normal: .init(x: -0.9925863886954069, y: -0.1215411904524988)
                 )
@@ -260,7 +273,8 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enter(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.08625792997981502,
                     point: .init(x: -1.3961944901412948, y: -2.13742070020185),
                     normal: .init(x: -0.7916456562399941, y: -0.6109804865593902)
                 )
@@ -275,7 +289,8 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .enter(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.5833333333333333,
                     point: .init(x: -3.000000000000001, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -290,7 +305,8 @@ extension EllipsoidTests {
         assertEqual(
             sut.intersection(with: line),
             .exit(
-                PointNormal(
+                .init(
+                    normalizedMagnitude: 0.625,
                     point: .init(x: 7.0, y: 3.0),
                     normal: .init(x: -1.0, y: 0.0)
                 )
@@ -308,10 +324,12 @@ extension EllipsoidTests {
             sut.intersection(with: line),
             .enterExit(
                 .init(
+                    normalizedMagnitude: 0.2245658201805869,
                     point: .init(x: -0.4280392587358917, y: -0.7543417981941309, z: -1.1823810569300226),
                     normal: .init(x: -0.29816906779895935, y: -0.9036427383419159, z: -0.3074491965346851)
                 ),
                 .init(
+                    normalizedMagnitude: 0.9600938154857603,
                     point: .init(x: 4.7206567084003215, y: 6.600938154857603, z: 11.321594863257925),
                     normal: .init(x: -0.3406986111872821, y: -0.8838292108316562, z: -0.32057820015676225)
                 )

@@ -24,10 +24,10 @@ extension DirectionalRay2: Line2Type {
         // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
         let start = Vector(x: x1, y: y1)
         let end = Vector(x: x2, y: y2)
-        
+
         self.init(start: start, direction: end - start)
     }
-    
+
     /// Initializes a new Directional Ray with a 2D vector for its position and
     /// another describing the direction of the ray relative to the position.
     ///
@@ -43,9 +43,9 @@ extension DirectionalRay2: Line2Type {
     }
 }
 
-extension DirectionalRay2: Line2FloatingPoint where Vector: Vector2FloatingPoint {
-    
-}
+extension DirectionalRay2: Line2Multiplicative where Vector: Vector2Multiplicative { }
+extension DirectionalRay2: Line2Signed where Vector: Vector2Signed { }
+extension DirectionalRay2: Line2FloatingPoint where Vector: Vector2FloatingPoint { }
 
 extension DirectionalRay2: Line2Real where Vector: Vector2Real {
     /// Returns the angle of this directional ray, in radians
