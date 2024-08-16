@@ -1,7 +1,7 @@
 import Geometria
 
-/// An exclusive-disjunction boolean parametric that outputs the non-shared area
-/// between two or more geometries.
+/// An exclusive-disjunction, symmetric difference, or disjunctive union boolean
+/// parametric that outputs the non-shared area between two or more geometries.
 public struct ExclusiveDisjunction2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametric {
     public typealias Contour = Parametric2Contour<Vector>
 
