@@ -53,6 +53,9 @@
                 <a class="nav-group-task-link" href="../changelog.html">CHANGELOG</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../geometriaclipping.html">GeometriaClipping</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../license.html">LICENSE</a>
               </li>
               <li class="nav-group-task">
@@ -70,13 +73,13 @@
                 <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/Pair.html">– Pair</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
@@ -304,7 +307,13 @@
                 <a class="nav-group-task-link" href="../Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria19Line2MultiplicativeP">Line2Multiplicative</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Line2Real.html">Line2Real</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Line2Signed.html">Line2Signed</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a>
@@ -338,6 +347,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria10LineSignedP">LineSigned</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
@@ -505,6 +517,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersection/Intersection.html">– Intersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersectionResult.html">LineIntersectionResult</a>
@@ -1665,13 +1680,65 @@ where the size of the rectangle is multiplied by a given numerical factor.</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Self%60%3A%20%60ConstructableRectangleType%60%2C%20%60Vector%60%3A%20%60VectorComparable%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Self`: `ConstructableRectangleType`, `Vector`: `VectorComparable`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Self%60%3A%20%60ConstructableRectangleType%60%2C%20%60Vector%60%3A%20%60VectorComparable%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Self</code>: <code><a href="../Protocols/ConstructableRectangleType.html">ConstructableRectangleType</a></code>, <code>Vector</code>: <code><a href="../Protocols/VectorComparable.html">VectorComparable</a></code></span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA16VectorComparable0F0AA0cD0PRpzrlE10subdividedSayxGyF"></a>
+                    <a name="//apple_ref/swift/Method/subdivided()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22DivisibleRectangleTypePA2A013ConstructablecD0RzAA16VectorComparable0F0AA0cD0PRpzrlE10subdividedSayxGyF">subdivided()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Subdivides this rectangle into <code>2 ^ D</code> (where <code>D</code> is the dimensional size
+of <code>Self.Vector</code>) rectangles that occupy the same area as this rectangle
+but subdivide it into equally-sized rectangles.</p>
+
+<p>The ordering of the subdivisions is not defined.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">subdivided</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="k">Self</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-26)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-08-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

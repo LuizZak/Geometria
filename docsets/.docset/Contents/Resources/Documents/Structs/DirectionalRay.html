@@ -53,6 +53,9 @@
                 <a class="nav-group-task-link" href="../changelog.html">CHANGELOG</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../geometriaclipping.html">GeometriaClipping</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../license.html">LICENSE</a>
               </li>
               <li class="nav-group-task">
@@ -70,13 +73,13 @@
                 <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/Pair.html">– Pair</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
@@ -304,7 +307,13 @@
                 <a class="nav-group-task-link" href="../Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria19Line2MultiplicativeP">Line2Multiplicative</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Line2Real.html">Line2Real</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Line2Signed.html">Line2Signed</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a>
@@ -338,6 +347,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria10LineSignedP">LineSigned</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
@@ -505,6 +517,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersection/Intersection.html">– Intersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersectionResult.html">LineIntersectionResult</a>
@@ -1008,7 +1023,9 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineAdditive.html">LineAdditive</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorAdditive.html">VectorAdditive</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineMultiplicative.html">LineMultiplicative</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorMultiplicative.html">VectorMultiplicative</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria10LineSignedP">LineSigned</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorSigned.html">VectorSigned</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/PointProjectableType.html">PointProjectableType</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/SignedDistanceMeasurableType.html">SignedDistanceMeasurableType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DirectionalRay</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorReal.html">VectorReal</a></span></code></pre>
 
                 </div>
               </div>
@@ -1651,7 +1668,7 @@ contained in this line.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-26)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-08-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

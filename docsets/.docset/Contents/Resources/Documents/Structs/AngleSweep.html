@@ -53,6 +53,9 @@
                 <a class="nav-group-task-link" href="../changelog.html">CHANGELOG</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../geometriaclipping.html">GeometriaClipping</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../license.html">LICENSE</a>
               </li>
               <li class="nav-group-task">
@@ -70,13 +73,13 @@
                 <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/Pair.html">– Pair</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
@@ -304,7 +307,13 @@
                 <a class="nav-group-task-link" href="../Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria19Line2MultiplicativeP">Line2Multiplicative</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Line2Real.html">Line2Real</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Line2Signed.html">Line2Signed</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a>
@@ -338,6 +347,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria10LineSignedP">LineSigned</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
@@ -505,6 +517,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersection/Intersection.html">– Intersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersectionResult.html">LineIntersectionResult</a>
@@ -1179,6 +1194,36 @@ circular arc of both angle sweeps.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria10AngleSweepV10intersectsySbACyxGF"></a>
+                    <a name="//apple_ref/swift/Method/intersects(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10AngleSweepV10intersectsySbACyxGF">intersects(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code>true</code> if this angle sweep intersects with another angle sweep.</p>
+
+<p>The result is <code>true</code> also for angle sweeps that overlap only on their
+end-points, i.e. the check is inclusive.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersects</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria10AngleSweepV8containsySbAA0B0VyxGF"></a>
                     <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria10AngleSweepV8containsySbAA0B0VyxGF">contains(_:<wbr>)</a>
@@ -1232,6 +1277,41 @@ this angle sweep.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria10AngleSweepV07ratioOfB0yxAA0B0VyxGF"></a>
+                    <a name="//apple_ref/swift/Method/ratioOfAngle(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10AngleSweepV07ratioOfB0yxAA0B0VyxGF">ratioOfAngle(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a value from 0.0 to 1.0, inclusive, indicating how far along a
+given angle is to <code>self.start</code> and <code>self.stop</code>, where <code>0.0</code> is exactly
+on <code><a href="../Structs/AngleSweep.html#/s:9Geometria10AngleSweepV5startAA0B0VyxGvp">start</a></code>, and <code>1.0</code> is exactly on <code><a href="../Structs/AngleSweep.html#/s:9Geometria10AngleSweepV4stopAA0B0VyxGvp">stop</a></code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Angle sweeps that are greater than <code>2π</code> will not properly map
+into a ratio due to the overlapping angle ranges.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">ratioOfAngle</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -1240,7 +1320,7 @@ this angle sweep.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-26)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-08-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

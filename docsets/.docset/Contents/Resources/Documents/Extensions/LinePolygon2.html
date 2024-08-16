@@ -53,6 +53,9 @@
                 <a class="nav-group-task-link" href="../changelog.html">CHANGELOG</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../geometriaclipping.html">GeometriaClipping</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../license.html">LICENSE</a>
               </li>
               <li class="nav-group-task">
@@ -70,13 +73,13 @@
                 <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/Pair.html">– Pair</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
@@ -304,7 +307,13 @@
                 <a class="nav-group-task-link" href="../Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria19Line2MultiplicativeP">Line2Multiplicative</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Line2Real.html">Line2Real</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Line2Signed.html">Line2Signed</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a>
@@ -338,6 +347,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria10LineSignedP">LineSigned</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
@@ -505,6 +517,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersection/Intersection.html">– Intersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersectionResult.html">LineIntersectionResult</a>
@@ -1006,6 +1021,7 @@
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2Multiplicative.html">Vector2Multiplicative</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/VolumetricType.html">VolumetricType</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorDivisible.html">VectorDivisible</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/VectorComparable.html">VectorComparable</a></span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria12LinePolygon2a">LinePolygon2</a></span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
 
                 </div>
               </div>
@@ -1135,6 +1151,34 @@ space, while negative indicate counter-clockwise.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11LinePolygonVA2A21Vector2MultiplicativeRzAA19DivisibleArithmetic6ScalarRpzrlE16perimeterSquaredAGyF"></a>
+                    <a name="//apple_ref/swift/Method/perimeterSquared()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11LinePolygonVA2A21Vector2MultiplicativeRzAA19DivisibleArithmetic6ScalarRpzrlE16perimeterSquaredAGyF">perimeterSquared()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the squared perimeter of this 2D polygon.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">perimeterSquared</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -1238,9 +1282,9 @@ polygon&rsquo;s vertices.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria11LinePolygonVA2A11Vector2TypeRzAA19VectorFloatingPointRzrlE02isH6OnEdge_9toleranceSbx_6ScalarAA0fE0PQztF"></a>
-                    <a name="//apple_ref/swift/Method/isPointOnEdge(_:tolerance:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria11LinePolygonVA2A11Vector2TypeRzAA19VectorFloatingPointRzrlE02isH6OnEdge_9toleranceSbx_6ScalarAA0fE0PQztF">isPointOnEdge(_:<wbr>tolerance:<wbr>)</a>
+                    <a name="/s:9Geometria11LinePolygonVA2A11Vector2TypeRzAA19VectorFloatingPointRzrlE02isH6OnEdge_16toleranceSquaredSbx_6ScalarAA0fE0PQztF"></a>
+                    <a name="//apple_ref/swift/Method/isPointOnEdge(_:toleranceSquared:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11LinePolygonVA2A11Vector2TypeRzAA19VectorFloatingPointRzrlE02isH6OnEdge_16toleranceSquaredSbx_6ScalarAA0fE0PQztF">isPointOnEdge(_:<wbr>toleranceSquared:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1249,11 +1293,11 @@ polygon&rsquo;s vertices.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Returns <code>true</code> if the given point lies within an edge of the polygon
-represented by <code>self</code>, up to a given <code>tolerance</code> value.</p>
+represented by <code>self</code>, up to a given <code>toleranceSquared</code> value.</p>
 
 <p>Points lie within the edges of the polygon if the distance between the
 point and any two adjacent vertices is equal to the distance of the
-adjacent vertices, up to <code>sqrt(tolerance)</code>.</p>
+adjacent vertices, up to <code>√(toleranceSquared)</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -1261,7 +1305,47 @@ adjacent vertices, up to <code>sqrt(tolerance)</code>.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">isPointOnEdge</span><span class="p">(</span><span class="n">_</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">tolerance</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">isPointOnEdge</span><span class="p">(</span><span class="n">_</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">Vector</span><span class="p">,</span> <span class="nv">toleranceSquared</span><span class="p">:</span> <span class="kt">Scalar</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60Vector%60%3A%20%60Vector2FloatingPoint%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `Vector`: `Vector2FloatingPoint`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60Vector%60%3A%20%60Vector2FloatingPoint%60"></a>
+                  <h3 class="section-name"><span>Available where <code>Vector</code>: <code><a href="../Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></code></span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Geometria11LinePolygonVA2A20Vector2FloatingPointRzrlE9perimeter6ScalarQzyF"></a>
+                    <a name="//apple_ref/swift/Method/perimeter()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria11LinePolygonVA2A20Vector2FloatingPointRzrlE9perimeter6ScalarQzyF">perimeter()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the perimeter of this 2D polygon.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">perimeter</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>
@@ -1276,7 +1360,7 @@ adjacent vertices, up to <code>sqrt(tolerance)</code>.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-26)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-08-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

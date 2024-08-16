@@ -53,6 +53,9 @@
                 <a class="nav-group-task-link" href="../changelog.html">CHANGELOG</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../geometriaclipping.html">GeometriaClipping</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../license.html">LICENSE</a>
               </li>
               <li class="nav-group-task">
@@ -70,13 +73,13 @@
                 <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/Pair.html">– Pair</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ClosedShape2Intersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection.html">ConvexLineIntersection</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/PointNormalKind.html">– PointNormalKind</a>
+                <a class="nav-group-task-link" href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
@@ -304,7 +307,13 @@
                 <a class="nav-group-task-link" href="../Protocols/Line2FloatingPoint.html">Line2FloatingPoint</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria19Line2MultiplicativeP">Line2Multiplicative</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Line2Real.html">Line2Real</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Line2Signed.html">Line2Signed</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria9Line2TypeP">Line2Type</a>
@@ -338,6 +347,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria8LineRealP">LineReal</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols.html#/s:9Geometria10LineSignedP">LineSigned</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/LineType.html">LineType</a>
@@ -505,6 +517,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersection/Intersection.html">– Intersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/LineIntersectionResult.html">LineIntersectionResult</a>
@@ -1046,9 +1061,9 @@ within the bounds of the convex shape.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO11singlePointyACyxGAA0F6NormalVyxGcAEmAA014VectorFloatingF0RzlF"></a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO11singlePointyACyxGAA0cdF6NormalVyxGcAEmAA014VectorFloatingF0RzlF"></a>
                     <a name="//apple_ref/swift/Element/singlePoint(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO11singlePointyACyxGAA0F6NormalVyxGcAEmAA014VectorFloatingF0RzlF">singlePoint(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO11singlePointyACyxGAA0cdF6NormalVyxGcAEmAA014VectorFloatingF0RzlF">singlePoint(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1064,7 +1079,7 @@ shape on a single vertex, or tangentially, in case of spheroids.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">singlePoint</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">singlePoint</span><span class="p">(</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1074,9 +1089,9 @@ shape on a single vertex, or tangentially, in case of spheroids.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO5enteryACyxGAA11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF"></a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO5enteryACyxGAA0cD11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF"></a>
                     <a name="//apple_ref/swift/Element/enter(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO5enteryACyxGAA11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF">enter(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO5enteryACyxGAA0cD11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF">enter(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1092,7 +1107,7 @@ before ending within the shape&rsquo;s bounds.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">enter</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">enter</span><span class="p">(</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1102,9 +1117,9 @@ before ending within the shape&rsquo;s bounds.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO4exityACyxGAA11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF"></a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO4exityACyxGAA0cD11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF"></a>
                     <a name="//apple_ref/swift/Element/exit(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO4exityACyxGAA11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF">exit(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO4exityACyxGAA0cD11PointNormalVyxGcAEmAA014VectorFloatingF0RzlF">exit(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1120,7 +1135,7 @@ intersects the boundaries on the way out.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">exit</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">exit</span><span class="p">(</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1130,9 +1145,9 @@ intersects the boundaries on the way out.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO9enterExityACyxGAA11PointNormalVyxG_AHtcAEmAA014VectorFloatingG0RzlF"></a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO9enterExityACyxGAA0cD11PointNormalVyxG_AHtcAEmAA014VectorFloatingG0RzlF"></a>
                     <a name="//apple_ref/swift/Element/enterExit(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO9enterExityACyxGAA11PointNormalVyxG_AHtcAEmAA014VectorFloatingG0RzlF">enterExit(_:<wbr>_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO9enterExityACyxGAA0cD11PointNormalVyxG_AHtcAEmAA014VectorFloatingG0RzlF">enterExit(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1148,7 +1163,7 @@ the way in, and once again on the way out.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">enterExit</span><span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">enterExit</span><span class="p">(</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1185,6 +1200,34 @@ the way in, and once again on the way out.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO04lineD12PointNormalsSayAA0cdF6NormalVyxGGvp"></a>
+                    <a name="//apple_ref/swift/Property/lineIntersectionPointNormals" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO04lineD12PointNormalsSayAA0cdF6NormalVyxGGvp">lineIntersectionPointNormals</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the list of line intersection point normals referenced by this
+intersection instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">lineIntersectionPointNormals</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria22ConvexLineIntersectionO12pointNormalsSayAA11PointNormalVyxGGvp"></a>
                     <a name="//apple_ref/swift/Property/pointNormals" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO12pointNormalsSayAA11PointNormalVyxGGvp">pointNormals</a>
@@ -1212,9 +1255,9 @@ the way in, and once again on the way out.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO19mappingPointNormalsyACyxGAA0F6NormalVyxGAH_AC0fH4KindOyx_GtXEF"></a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO19mappingPointNormalsyACyxGAA0cdF6NormalVyxGAH_AC0cdfH4KindOyx_GtXEF"></a>
                     <a name="//apple_ref/swift/Method/mappingPointNormals(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO19mappingPointNormalsyACyxGAA0F6NormalVyxGAH_AC0fH4KindOyx_GtXEF">mappingPointNormals(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO19mappingPointNormalsyACyxGAA0cdF6NormalVyxGAH_AC0cdfH4KindOyx_GtXEF">mappingPointNormals(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1222,9 +1265,9 @@ the way in, and once again on the way out.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new <code>ConvexLineIntersection</code> where any <code><a href="../Structs/PointNormal.html">PointNormal</a></code> value
-is mapped by a provided closure before being stored back into the same
-enum case and returned.</p>
+                        <p>Returns a new <code>ConvexLineIntersection</code> where any <code><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></code>
+value is mapped by a provided closure before being stored back into the
+same enum case and returned.</p>
 
                       </div>
                       <div class="declaration">
@@ -1232,7 +1275,7 @@ enum case and returned.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mappingPointNormals</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/ConvexLineIntersection/PointNormalKind.html">PointNormalKind</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span>
+    <span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="p">(</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">LineIntersectionPointNormalKind</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ConvexLineIntersection</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1243,9 +1286,9 @@ enum case and returned.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO21replacingPointNormalsyACyqd__GAA0F6NormalVyqd__GAGyxG_AC0fH4KindOyx_GtXEAA014VectorFloatingF0Rd__lF"></a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO21replacingPointNormalsyACyqd__GAA0cdF6NormalVyqd__GAGyxG_AC0cdfH4KindOyx_GtXEAA014VectorFloatingF0Rd__lF"></a>
                     <a name="//apple_ref/swift/Method/replacingPointNormals(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO21replacingPointNormalsyACyqd__GAA0F6NormalVyqd__GAGyxG_AC0fH4KindOyx_GtXEAA014VectorFloatingF0Rd__lF">replacingPointNormals(_:<wbr>)</a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO21replacingPointNormalsyACyqd__GAA0cdF6NormalVyqd__GAGyxG_AC0cdfH4KindOyx_GtXEAA014VectorFloatingF0Rd__lF">replacingPointNormals(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1253,9 +1296,9 @@ enum case and returned.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a new <code>ConvexLineIntersection</code> where any <code><a href="../Structs/PointNormal.html">PointNormal</a></code> value
-is replaced by a provided closure before being stored back into the same
-enum case and returned.</p>
+                        <p>Returns a new <code>ConvexLineIntersection</code> where any <code><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></code>
+value is replaced by a provided closure before being stored back into
+the same enum case and returned.</p>
 
                       </div>
                       <div class="declaration">
@@ -1263,7 +1306,7 @@ enum case and returned.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">replacingPointNormals</span><span class="o">&lt;</span><span class="kt">NewVector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/VectorType.html">VectorType</a></span><span class="o">&gt;</span><span class="p">(</span>
-    <span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="p">(</span><span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/ConvexLineIntersection/PointNormalKind.html">PointNormalKind</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/PointNormal.html">PointNormal</a></span><span class="o">&lt;</span><span class="kt">NewVector</span><span class="o">&gt;</span>
+    <span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="p">(</span><span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html">LineIntersectionPointNormalKind</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/LineIntersectionPointNormal.html">LineIntersectionPointNormal</a></span><span class="o">&lt;</span><span class="kt">NewVector</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ConvexLineIntersection</span><span class="o">&lt;</span><span class="kt">NewVector</span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1274,9 +1317,9 @@ enum case and returned.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Geometria22ConvexLineIntersectionO15PointNormalKindO"></a>
-                    <a name="//apple_ref/swift/Enum/PointNormalKind" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO15PointNormalKindO">PointNormalKind</a>
+                    <a name="/s:9Geometria22ConvexLineIntersectionO0cD15PointNormalKindO"></a>
+                    <a name="//apple_ref/swift/Enum/LineIntersectionPointNormalKind" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria22ConvexLineIntersectionO0cD15PointNormalKindO">LineIntersectionPointNormalKind</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1284,17 +1327,17 @@ enum case and returned.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Parameter passed along point normals in <code><a href="../Enums/ConvexLineIntersection.html#/s:9Geometria22ConvexLineIntersectionO19mappingPointNormalsyACyxGAA0F6NormalVyxGAH_AC0fH4KindOyx_GtXEF">mappingPointNormals(_:)</a></code> and
-<code><a href="../Enums/ConvexLineIntersection.html#/s:9Geometria22ConvexLineIntersectionO21replacingPointNormalsyACyqd__GAA0F6NormalVyqd__GAGyxG_AC0fH4KindOyx_GtXEAA014VectorFloatingF0Rd__lF">replacingPointNormals(_:)</a></code> to specify to the closure which kind of point
+                        <p>Parameter passed along point normals in <code><a href="../Enums/ConvexLineIntersection.html#/s:9Geometria22ConvexLineIntersectionO19mappingPointNormalsyACyxGAA0cdF6NormalVyxGAH_AC0cdfH4KindOyx_GtXEF">mappingPointNormals(_:)</a></code> and
+<code><a href="../Enums/ConvexLineIntersection.html#/s:9Geometria22ConvexLineIntersectionO21replacingPointNormalsyACyqd__GAA0cdF6NormalVyqd__GAGyxG_AC0cdfH4KindOyx_GtXEAA014VectorFloatingF0Rd__lF">replacingPointNormals(_:)</a></code> to specify to the closure which kind of point
 normal was provided.</p>
 
-                        <a href="../Enums/ConvexLineIntersection/PointNormalKind.html" class="slightly-smaller">See more</a>
+                        <a href="../Enums/ConvexLineIntersection/LineIntersectionPointNormalKind.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PointNormalKind</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LineIntersectionPointNormalKind</span></code></pre>
 
                         </div>
                       </div>
@@ -1309,7 +1352,7 @@ normal was provided.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-07-26)</p>
+      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-08-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
