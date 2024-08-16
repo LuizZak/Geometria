@@ -190,7 +190,8 @@ extension Simplex2Graph {
         contours.append(contour)
     }
 
-    /// Computes interferences between edges and vertices.
+    /// Computes interferences between edges and vertices, merging interfering
+    /// edges and vertices.
     ///
     /// Interferences occur under a specified tolerance, where geometry is
     /// coincidental under that tolerance in space.
