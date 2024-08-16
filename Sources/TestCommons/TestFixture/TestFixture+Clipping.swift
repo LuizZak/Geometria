@@ -70,6 +70,18 @@ public extension TestFixture {
         self.p5Printer.add(value, category: category, style: style, file: file, line: line)
     }
 
+    /// - note: Adds the result of the operation only, and not the input geometries.
+    func add<Vector: Vector2Real>(
+        _ value: some Boolean2Parametric<Vector>,
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        self.p5Printer.add(value, category: category, style: style, file: file, line: line)
+    }
+
     /// - note: Adds only the intersections, and not the geometries themselves.
     func add<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         _ t1: T1,

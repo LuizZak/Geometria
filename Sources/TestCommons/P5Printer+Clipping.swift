@@ -307,6 +307,11 @@ extension P5Printer {
         """#)
     }
 
+    func add<Vector: Vector2Real>(_ value: some Boolean2Parametric<Vector>, category: String, style: P5Printer.Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        for contour in value.allContours() {
+            add(contour, category: category, style: style, file: file, line: line)
+        }
+    }
 
     func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, intersectionAt period: Parametric.Period, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
         for contour in parametric.allContours() {

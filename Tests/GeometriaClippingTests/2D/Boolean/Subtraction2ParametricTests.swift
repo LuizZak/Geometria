@@ -7,6 +7,23 @@ import XCTest
 class Subtraction2ParametricTests: XCTestCase {
     let accuracy: Double = 1e-12
 
+    func testSubtraction_vennDiagram() {
+        let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -90, y: 0), radius: 200)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x:  90, y: 0), radius: 200)
+        let sut = Subtraction2Parametric(lhs, rhs, tolerance: accuracy)
+
+        TestFixture.beginFixture(lineScale: 1.0) { fixture in
+            fixture.add(lhs, category: "input 1")
+            fixture.add(rhs, category: "input 2")
+
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 1.1040309877476002), sweepAngle: Angle<Double>(radians: 0.4667653390472963)), startPeriod: 0.0, endPeriod: 0.07428801097334167)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.07428801097334167, endPeriod: 0.3242880109733417)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.3242880109733417, endPeriod: 0.5742880109733417)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 0.46676533904729645)), startPeriod: 0.5742880109733417, endPeriod: 0.6485760219466834)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 4.245623641337393), sweepAngle: Angle<Double>(radians: -1.1040309877476002)), startPeriod: 0.6485760219466834, endPeriod: 0.8242880109733417)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: -1.1040309877476002)), startPeriod: 0.8242880109733417, endPeriod: 1.0))]]
+                )
+        }
+    }
+
     func testSubtraction_lhsContainsRhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)

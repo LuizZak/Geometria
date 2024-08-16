@@ -7,43 +7,69 @@ import XCTest
 class Union2ParametricTests: XCTestCase {
     let accuracy: Double = 1e-12
 
+    func testUnion_vennDiagram() {
+        let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -90, y: 0), radius: 200)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x:  90, y: 0), radius: 200)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
+
+        TestFixture.beginFixture(lineScale: 1.0) { fixture in
+            fixture.add(lhs, category: "input 1")
+            fixture.add(rhs, category: "input 2")
+
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 1.1040309877476002), sweepAngle: Angle<Double>(radians: 0.4667653390472963)), startPeriod: 0.0, endPeriod: 0.05727008743737412)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.05727008743737412, endPeriod: 0.24999999999999997)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.24999999999999997, endPeriod: 0.4427299125626258)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 0.46676533904729645)), startPeriod: 0.4427299125626258, endPeriod: 0.49999999999999994)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 4.245623641337393), sweepAngle: Angle<Double>(radians: 0.46676533904729645)), startPeriod: 0.49999999999999994, endPeriod: 0.557270087437374)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 4.71238898038469), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.557270087437374, endPeriod: 0.7499999999999999)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.5707963267948966)), startPeriod: 0.7499999999999999, endPeriod: 0.9427299125626258)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 1.5707963267948966), sweepAngle: Angle<Double>(radians: 0.46676533904729645)), startPeriod: 0.9427299125626258, endPeriod: 1.0))]]
+                )
+        }
+    }
+
     func testUnion_lhsContainsRhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([lhs.allSimplexes()])
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [lhs.allSimplexes()]
+                )
         }
     }
 
     func testUnion_rhsContainsLhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 80.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 100.0)
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([rhs.allSimplexes()])
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [rhs.allSimplexes()]
+                )
         }
     }
 
     func testUnion_noIntersectionOrContainment() {
         let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -100, y: 0), radius: 50.0)
         let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 100, y: 0), radius: 50.0)
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
-                .assertAllSimplexes([lhs.allSimplexes(), rhs.allSimplexes()])
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [lhs.allSimplexes(), rhs.allSimplexes()]
+                )
         }
     }
 
     func testUnion_lines_lines() {
         let lhs = LinePolygon2Parametric.makeStar()
         let rhs = LinePolygon2Parametric.makeHexagon(radius: 80.0)
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
@@ -58,7 +84,7 @@ class Union2ParametricTests: XCTestCase {
         let lhs = LinePolygon2Parametric.makeHexagon()
         let rhs = Circle2Parametric.makeTestCircle(radius: 95)
 
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
@@ -87,7 +113,7 @@ class Union2ParametricTests: XCTestCase {
     func testUnion_concaveShape() {
         let lhs = LinePolygon2Parametric.makeCShape()
         let rhs = LinePolygon2Parametric.makeRectangle(width: 10, height: 120)
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: sut)
@@ -105,7 +131,7 @@ class Union2ParametricTests: XCTestCase {
             height: 220,
             center: .init(x: 0.0, y: -110.0)
         )
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: sut)
@@ -123,9 +149,9 @@ class Union2ParametricTests: XCTestCase {
             Circle2Parametric.makeTestCircle(center: .init(x: -47, y: -29), radius: radius),
             Circle2Parametric.makeTestCircle(center: .init(x: 48, y: -27), radius: radius),
         ]
-        let lhs = union(circles)
+        let lhs = union(tolerance: accuracy, circles)
         let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 0, y: 0), radius: radius)
-        let sut: Union2Parametric = Union2Parametric(lhs, rhs)
+        let sut: Union2Parametric = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.add(circles[0], category: "input 1")
@@ -146,7 +172,7 @@ class Union2ParametricTests: XCTestCase {
         let rhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
         let rhs = Compound2Parametric(contours: Subtraction2Parametric(rhs1, rhs2).allContours())
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -162,7 +188,7 @@ class Union2ParametricTests: XCTestCase {
         let rhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
         let rhs = Compound2Parametric(contours: Subtraction2Parametric(rhs1, rhs2).allContours())
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -178,7 +204,7 @@ class Union2ParametricTests: XCTestCase {
         let lhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
         let lhs = Compound2Parametric(contours: Subtraction2Parametric(lhs1, lhs2).allContours())
         let rhs = Circle2Parametric.makeTestCircle(center: .init(x: -25, y: 30), radius: 90.0)
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -199,7 +225,7 @@ class Union2ParametricTests: XCTestCase {
         let rhs = LinePolygon2Parametric
             .makeRectangle(width: 100, height: 100, center: .init(x: 150, y: 0))
             .reversed()
-        let sut = Union2Parametric(lhs, rhs, tolerance: 1e-14)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -218,7 +244,7 @@ class Union2ParametricTests: XCTestCase {
         // •------•
         let lhs = LinePolygon2Parametric.makeRectangle(width: 200, height: 200, center: .zero)
         let rhs = LinePolygon2Parametric.makeRectangle(width: 100, height: 100, center: .init(x: 150, y: 0))
-        let sut = Union2Parametric(lhs, rhs, tolerance: 1e-14)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -243,7 +269,7 @@ class Union2ParametricTests: XCTestCase {
         let rhs1 = LinePolygon2Parametric.makeRectangle(width: 100, height: 100, center: .init(x: 150, y: -150))
         let rhs2 = LinePolygon2Parametric.makeRectangle(width: 100, height: 100, center: .init(x: 150, y: 150))
         let rhs = Union2Parametric.union(rhs1, rhs2)
-        let sut = Union2Parametric(lhs, rhs, tolerance: 1e-12)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.add(lhs, category: "input")
@@ -260,7 +286,7 @@ class Union2ParametricTests: XCTestCase {
     func testUnion_interference_total() {
         let lhs = Circle2Parametric.makeTestCircle()
         let rhs = Circle2Parametric.makeTestCircle()
-        let sut = Union2Parametric(lhs, rhs)
+        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)

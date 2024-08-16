@@ -482,3 +482,64 @@ A collection of definitions and algorithms for working with 2- and 3- dimensiona
         </td>
     </tr>
 </table>
+
+## GeometriaClipping
+
+An extra library dependency exported called `GeometriaClipping` can be used to generate boolean geometry from input geometries composed of line and circular arc simplexes.
+
+The operations supported are the following:
+
+<table>
+    <tr>
+        <th>2-dimensional</th>
+    </tr>
+    <tr>
+        <th>Operation</th>
+        <th>Illustration</th>
+        <th>GeometriaClipping type</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://en.wikipedia.org/wiki/Union_(set_theory)">Union</a>
+        </td>
+        <td>
+            <img src="img/venn_union.png"/>
+        </td>
+        <td>
+            <a href="Sources/GeometriaClipping/2D/Boolean/Union2Parametric.swift">Union2Parametric.swift</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://en.wikipedia.org/wiki/Intersection_(set_theory)">Intersection</a>
+        </td>
+        <td>
+            <img src="img/venn_intersection.png"/>
+        </td>
+        <td>
+            <a href="Sources/GeometriaClipping/2D/Boolean/Intersection2Parametric.swift">Intersection2Parametric.swift</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://en.wikipedia.org/wiki/Complement_(set_theory)#Relative_complement">Subtraction</a>
+        </td>
+        <td>
+            <img src="img/venn_subtraction.png"/>
+        </td>
+        <td>
+            <a href="Sources/GeometriaClipping/2D/Boolean/Subtraction2Parametric.swift">Subtraction2Parametric.swift</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="https://en.wikipedia.org/wiki/Symmetric_difference">Exclusive disjunction or Symmetric Difference</a>
+        </td>
+        <td>
+            <img src="img/venn_xor.png"/>
+        </td>
+        <td>
+            <a href="Sources/GeometriaClipping/2D/Boolean/ExclusiveDisjunction2Parametric.swift">ExclusiveDisjunction2Parametric.swift</a>
+        </td>
+    </tr>
+</table>

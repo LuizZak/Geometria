@@ -7,6 +7,23 @@ import XCTest
 class Intersection2ParametricTests: XCTestCase {
     let accuracy: Double = 1e-12
 
+    func testIntersection_vennDiagram() {
+        let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -90, y: 0), radius: 200)
+        let rhs = Circle2Parametric.makeTestCircle(center: .init(x:  90, y: 0), radius: 200)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
+
+        TestFixture.beginFixture(lineScale: 1.0) { fixture in
+            fixture.add(lhs, category: "input 1")
+            fixture.add(rhs, category: "input 2")
+
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [[GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 0.0), sweepAngle: Angle<Double>(radians: 1.1040309877476002)), startPeriod: 0.0, endPeriod: 0.25)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 2.037561665842193), sweepAngle: Angle<Double>(radians: 1.1040309877476002)), startPeriod: 0.25, endPeriod: 0.5)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: 90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 3.141592653589793), sweepAngle: Angle<Double>(radians: 1.1040309877476002)), startPeriod: 0.5, endPeriod: 0.7500000000000001)), GeometriaClipping.Parametric2GeometrySimplex<Geometria.Vector2<Swift.Double>>.circleArc2(GeometriaClipping.CircleArc2Simplex<Geometria.Vector2<Swift.Double>>(circleArc: CircleArc2<Vector2<Double>>(center: Vector2<Double>(x: -90.0, y: 0.0), radius: 200.0, startAngle: Angle<Double>(radians: 5.179154319431986), sweepAngle: Angle<Double>(radians: 1.1040309877476002)), startPeriod: 0.7500000000000001, endPeriod: 1.0))]]
+                )
+        }
+    }
+
     func testIntersection_lhsContainsRhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)
