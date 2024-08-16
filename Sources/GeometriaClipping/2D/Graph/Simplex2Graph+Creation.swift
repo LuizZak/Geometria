@@ -42,6 +42,7 @@ extension Simplex2Graph {
 
         let contourBounds = AABB(aabbs: contours.map(\.bounds))
         result.edgeTree.ensureContains(bounds: contourBounds)
+        result.contourTree.ensureContains(bounds: contourBounds)
 
         let (contours, intersections) = Self.splitContours(contours: contours, tolerance: tolerance)
 
