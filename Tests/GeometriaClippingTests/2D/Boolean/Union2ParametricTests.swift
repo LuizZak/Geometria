@@ -131,7 +131,7 @@ class Union2ParametricTests: XCTestCase {
             height: 220,
             center: .init(x: 0.0, y: -110.0)
         )
-        let sut = Union2Parametric(lhs, rhs, tolerance: accuracy)
+        let sut = Union2Parametric(lhs, rhs)
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: sut)
