@@ -163,4 +163,18 @@ class ExclusiveDisjunction2ParametricTests: XCTestCase {
                 )
         }
     }
+
+    #if GEOMETRIA_PERFORMANCE_TESTS
+
+    func testPerformance_overlapping_circles() {
+        let inputs = (0...10).map { offset in
+            return Circle2Parametric.makeTestCircle(center: .init(x: Double(offset), y: 0.0), radius: 10.0)
+        }
+
+        measure {
+            _ = exclusiveDisjunction(inputs)
+        }
+    }
+
+    #endif // #if GEOMETRIA_PERFORMANCE_TESTS
 }
