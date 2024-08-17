@@ -214,6 +214,8 @@ extension Simplex2Graph {
 
         // MARK: Merge edges - part 1
         var edgesToCheck: OrderedSet<OrderedSet<Edge>> = []
+        var minimal: [OrderedSet<Edge>] = []
+
         for edge in edges {
             let coincident =
                 edgeTree
@@ -228,7 +230,6 @@ extension Simplex2Graph {
         }
 
         // Merge edge groups that appear multiple times
-        var minimal: [OrderedSet<Edge>] = []
         for edgesToCheck in edgesToCheck {
             var merged = false
             for i in 0..<minimal.count {
