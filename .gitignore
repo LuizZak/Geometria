@@ -10,3 +10,4 @@ lint-results.html
 docs/
 .swiftpm/
 *.profraw
+perf/

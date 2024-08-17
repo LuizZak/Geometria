@@ -102,7 +102,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
     }
 
-    public class Node: Hashable, CustomStringConvertible {
+    public final class Node: Hashable, CustomStringConvertible {
         public typealias ShapeIndex = Int
 
         public var id: Int
@@ -154,12 +154,16 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
 
         @inlinable
         func references(shapeIndex: Int, period: Period) -> Bool {
-            let query = Kind.SharedGeometryEntry(
-                shapeIndex: shapeIndex,
-                period: period
-            )
+            switch kind {
+            case .geometry(shapeIndex, period):
+                return true
 
-            return geometries.contains(query)
+            case .sharedGeometry(let entries):
+                return entries.contains(where: { $0.shapeIndex == shapeIndex && $0.period == period })
+
+            default:
+                return false
+            }
         }
 
         public func hash(into hasher: inout Hasher) {
@@ -270,7 +274,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
         }
     }
 
-    public class Edge: AbstractDirectedGraphEdge, Hashable, CustomStringConvertible {
+    public final class Edge: AbstractDirectedGraphEdge, Hashable, CustomStringConvertible {
         /// A unique identifier assigned during graph generation, used to sort
         /// edges by earliest generation.
         public var id: Int

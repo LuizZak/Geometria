@@ -161,7 +161,7 @@ class Subtraction2ParametricTests: XCTestCase {
         }
 
         measure {
-            _ = subtraction(inputs[0], inputs[1...])
+            _ = subtraction(inputs[0], Array(inputs[1...]))
         }
     }
 

@@ -119,15 +119,13 @@ public struct Parametric2Contour<Vector: Vector2Real> {
         // is divisible by two, then the point is not contained within the
         // contour.
 
-        let simplexes = allSimplexes()
-
         let bounds = self.bounds
         if !bounds.contains(point) {
             return false
         }
 
         var intersections = 0
-        for simplex in simplexes {
+        for simplex in allSimplexes() {
             if simplex.intersectsHorizontalLine(start: point, tolerance: .exp10(-13)) {
                 intersections += 1
             }

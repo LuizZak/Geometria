@@ -3,6 +3,7 @@ import Geometria
 import GeometriaAlgorithms
 import OrderedCollections
 
+@_specializeExtension
 extension Simplex2Graph {
     @usableFromInline
     internal typealias GlobalIntersection = (lhs: Int, lhsPeriod: Vector.Scalar, rhs: Int, rhsPeriod: Vector.Scalar)
@@ -33,6 +34,8 @@ extension Simplex2Graph {
     }
 
     @inlinable
+    @_specialize(exported: true, kind: full, where Vector == Vector2D)
+    @_specialize(exported: true, kind: full, where Vector == Vector2F)
     public static func fromParametricIntersections(
         contours: [Contour],
         tolerance: Scalar
@@ -349,6 +352,10 @@ extension Simplex2Graph {
 
             var finalSet: Set<Node> = []
             for neighbor in neighbors {
+                guard neighbor !== node else {
+                    finalSet.insert(neighbor)
+                    continue
+                }
                 if areClose(neighbor.location, node.location) || areIntersection(node, neighbor) {
                     finalSet.insert(neighbor)
                 }
