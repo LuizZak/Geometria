@@ -85,6 +85,12 @@
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PairLineIntersection.html">PairLineIntersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PairLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/RotationOrder3.html">RotationOrder3</a>
               </li>
               <li class="nav-group-task">
@@ -1184,7 +1190,10 @@ circular arc of both angle sweeps.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isEquivalent</span><span class="p">(</span><span class="n">to</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Float</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">isEquivalent</span><span class="p">(</span><span class="n">to</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1214,7 +1223,10 @@ end-points, i.e. the check is inclusive.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersects</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Float</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">intersects</span><span class="p">(</span><span class="n">_</span> <span class="nv">other</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1242,7 +1254,10 @@ its start + sweep region.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Float</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -1270,7 +1285,10 @@ this angle sweep.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">clamped</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Float</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">clamped</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1305,7 +1323,10 @@ into a ratio due to the overlapping angle ranges.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">ratioOfAngle</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Scalar</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Double</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Scalar</span> <span class="o">==</span> <span class="kt">Float</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">ratioOfAngle</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt">Scalar</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Scalar</span></code></pre>
 
                         </div>
                       </div>

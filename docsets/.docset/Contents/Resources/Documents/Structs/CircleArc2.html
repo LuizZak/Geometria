@@ -85,6 +85,12 @@
                 <a class="nav-group-task-link" href="../Enums/Orientation3.html">Orientation3</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PairLineIntersection.html">PairLineIntersection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PairLineIntersection/LineIntersectionPointNormalKind.html">– LineIntersectionPointNormalKind</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/RotationOrder3.html">RotationOrder3</a>
               </li>
               <li class="nav-group-task">
@@ -1389,7 +1395,8 @@ startAngle to endAngle.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asCircle2</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria7Circle2a">Circle2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">asCircle2</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:9Geometria7Circle2a">Circle2</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1416,7 +1423,8 @@ startAngle to endAngle.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">asAngleSweep</span><span class="p">:</span> <span class="kt"><a href="../Structs/AngleSweep.html">AngleSweep</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CircleArc2.html#/s:9Geometria10CircleArc2V6Scalara">Scalar</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">asAngleSweep</span><span class="p">:</span> <span class="kt"><a href="../Structs/AngleSweep.html">AngleSweep</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CircleArc2.html#/s:9Geometria10CircleArc2V6Scalara">Scalar</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1443,7 +1451,8 @@ startAngle to endAngle.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">stopAngle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CircleArc2.html#/s:9Geometria10CircleArc2V6Scalara">Scalar</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="k">var</span> <span class="nv">stopAngle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CircleArc2.html#/s:9Geometria10CircleArc2V6Scalara">Scalar</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -1612,7 +1621,9 @@ within its start + sweep region.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Vector2.html">Vector2</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Vector2.html">Vector2</a></span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
 <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">angleInRadians</span><span class="p">:</span> <span class="kt"><a href="../Structs/CircleArc2.html#/s:9Geometria10CircleArc2V6Scalara">Scalar</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
@@ -1641,7 +1652,9 @@ its start + sweep region.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+                          <pre class="highlight swift"><code><span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Vector2.html">Vector2</a></span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">@_specialize</span><span class="p">(</span><span class="nv">exported</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="n">full</span><span class="p">,</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Vector2.html">Vector2</a></span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kd">@inlinable</span>
 <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">angle</span><span class="p">:</span> <span class="kt"><a href="../Structs/Angle.html">Angle</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CircleArc2.html#/s:9Geometria10CircleArc2V6Scalara">Scalar</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
@@ -1708,6 +1721,36 @@ its start + sweep region.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Geometria10CircleArc2V12intersection4withAA20PairLineIntersectionOyxGqd___t6VectorQyd__RszAA0G13FloatingPointRd__lF"></a>
+                    <a name="//apple_ref/swift/Method/intersection(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Geometria10CircleArc2V12intersection4withAA20PairLineIntersectionOyxGqd___t6VectorQyd__RszAA0G13FloatingPointRd__lF">intersection(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the result of an intersection test between this circular arc and
+a given line.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">intersection</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/PairLineIntersection.html">PairLineIntersection</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span><span class="p">,</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Geometria21LineIntersectableTypeP13intersections4withAA0B12IntersectionVy6VectorQzGqd___tAA0B13FloatingPointRd__AHQyd__AIRSlF"></a>
                     <a name="//apple_ref/swift/Method/intersections(with:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Geometria21LineIntersectableTypeP13intersections4withAA0B12IntersectionVy6VectorQzGqd___tAA0B13FloatingPointRd__AHQyd__AIRSlF">intersections(with:<wbr>)</a>
@@ -1726,7 +1769,7 @@ its start + sweep region.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">intersections</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">&gt;</span><span class="p">(</span>
     <span class="n">with</span> <span class="nv">line</span><span class="p">:</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/LineIntersection.html">LineIntersection</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span> <span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span><span class="p">,</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span></code></pre>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/LineIntersection.html">LineIntersection</a></span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="p">:</span> <span class="kt"><a href="../Protocols/LineFloatingPoint.html">LineFloatingPoint</a></span><span class="p">,</span> <span class="kt">Vector</span> <span class="o">==</span> <span class="kt"><a href="../Structs/Line.html">Line</a></span><span class="o">.</span><span class="kt">Vector</span></code></pre>
 
                         </div>
                       </div>
