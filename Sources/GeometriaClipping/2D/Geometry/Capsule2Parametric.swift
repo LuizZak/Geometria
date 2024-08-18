@@ -17,7 +17,7 @@ public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, 
 
     public var isReversed: Bool
 
-    internal init(
+    public init(
         start: Vector,
         end: Vector,
         radius: Scalar,
@@ -34,7 +34,7 @@ public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, 
         )
     }
 
-    internal init(
+    public init(
         start: Vector,
         startRadius: Scalar,
         end: Vector,
@@ -60,10 +60,29 @@ public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, 
         let startArc = CircleArc2(clockwiseAngleToCenter: start, startPoint: tangents.1.start, endPoint: tangents.0.start)
         let endArc = CircleArc2(clockwiseAngleToCenter: end, startPoint: tangents.0.end, endPoint: tangents.1.end)
 
-        let simplexes: [Simplex] = [
-            .circleArc2(.init(circleArc: startArc, startPeriod: 0, endPeriod: 0)),
+        var simplexes: [Simplex] = []
+
+        simplexes +=
+            CircleArc2Simplex.splittingArcSegments(
+                startArc,
+                startPeriod: 0,
+                endPeriod: 0,
+                maxAbsoluteSweepAngle: .pi / 2
+            ).map(Parametric2GeometrySimplex.circleArc2)
+
+        simplexes += [
             .lineSegment2(.init(lineSegment: tangents.0, startPeriod: 0, endPeriod: 0)),
-            .circleArc2(.init(circleArc: endArc, startPeriod: 0, endPeriod: 0)),
+        ]
+
+        simplexes +=
+            CircleArc2Simplex.splittingArcSegments(
+                endArc,
+                startPeriod: 0,
+                endPeriod: 0,
+                maxAbsoluteSweepAngle: .pi / 2
+            ).map(Parametric2GeometrySimplex.circleArc2)
+
+        simplexes += [
             .lineSegment2(.init(lineSegment: tangents.1.reversed, startPeriod: 0, endPeriod: 0)),
         ]
 

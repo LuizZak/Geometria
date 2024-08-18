@@ -114,6 +114,34 @@ extension Simplex2Graph {
                         rhsIndex, intersection.other
                     ))
                 }
+
+                // TODO: Figure out why moving the interference splitting to here breaks exclusive disjunctions
+                #if false
+
+                // Compute vertex/edge interference intersections
+                for lhsSimplex in lhs.allSimplexes() {
+                    for rhsSimplex in rhs.allSimplexes() {
+                        if lhsSimplex.isOnSurface(rhsSimplex.start, toleranceSquared: toleranceSquared) {
+                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.start)
+                            contours[lhsIndex].split(at: period)
+                        }
+                        if lhsSimplex.isOnSurface(rhsSimplex.end, toleranceSquared: toleranceSquared) {
+                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.end)
+                            contours[lhsIndex].split(at: period)
+                        }
+
+                        if rhsSimplex.isOnSurface(lhsSimplex.start, toleranceSquared: toleranceSquared) {
+                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.start)
+                            contours[rhsIndex].split(at: period)
+                        }
+                        if rhsSimplex.isOnSurface(lhsSimplex.end, toleranceSquared: toleranceSquared) {
+                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.end)
+                            contours[rhsIndex].split(at: period)
+                        }
+                    }
+                }
+
+                #endif // #if false
             }
         }
 

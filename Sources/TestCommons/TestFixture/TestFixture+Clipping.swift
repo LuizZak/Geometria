@@ -4,6 +4,19 @@ import GeometriaClipping
 import XCTest
 
 public extension TestFixture {
+    func add<Vector>(
+        _ value: [some ParametricClip2Geometry<Vector>],
+        category: String,
+        style: P5Printer.Style? = nil,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) where Vector.Scalar: CustomStringConvertible {
+
+        for geometry in value {
+            add(geometry, category: category, style: style, file: file, line: line)
+        }
+    }
+
     func add<T: ParametricClip2Geometry>(
         _ value: T,
         category: String,

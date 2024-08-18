@@ -289,3 +289,56 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
         )
     }
 }
+
+extension CircleArc2Simplex {
+    /// Returns an array of `CircleArc2Simplex` instances that span the given arc
+    /// with a given period, with the least number of arcs that are have a sweep
+    /// angle of at most `maxAbsoluteSweepAngle`.
+    public static func splittingArcSegments(
+        _ arc: CircleArc2<Vector>,
+        startPeriod: Period,
+        endPeriod: Period,
+        maxAbsoluteSweepAngle: Scalar
+    ) -> [Self] {
+        var result: [Self] = []
+
+        let startAngle = arc.sweepAngle.radians
+        var totalAngle: Scalar = .zero
+
+        let sign: Scalar = startAngle > .zero ? 1 : -1
+
+        var remaining = startAngle.magnitude
+        let step = maxAbsoluteSweepAngle.magnitude
+
+        let periodRange = endPeriod - startPeriod
+
+        while remaining > .zero {
+            defer { remaining -= step }
+
+            let sweep: Scalar
+            if remaining < step {
+                sweep = remaining * sign
+            } else {
+                sweep = step * sign
+            }
+
+            defer { totalAngle += sweep }
+
+            let sPeriod: Period = startPeriod + periodRange * (totalAngle / startAngle)
+            let ePeriod: Period = startPeriod + periodRange * ((totalAngle + sweep) / startAngle)
+
+            let simplex = Self(
+                center: arc.center,
+                radius: arc.radius,
+                startAngle: .init(radians: arc.startAngle.radians + totalAngle),
+                sweepAngle: .init(radians: sweep),
+                startPeriod: sPeriod,
+                endPeriod: ePeriod
+            )
+
+            result.append(simplex)
+        }
+
+        return result
+    }
+}
