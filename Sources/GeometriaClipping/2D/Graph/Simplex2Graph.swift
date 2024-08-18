@@ -511,7 +511,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             case (
                 .circleArc(let lhsCenter, let lhsRadius, let lhsStart, let lhsSweep),
                 .circleArc(let rhsCenter, let rhsRadius, let rhsStart, let rhsSweep)
-                ) where lhsCenter == rhsCenter && lhsRadius.isApproximatelyEqualFast(to: rhsRadius, tolerance: tolerance):
+                ) where lhsCenter.isApproximatelyEqualFast(to: rhsCenter, tolerance: tolerance) && lhsRadius.isApproximatelyEqualFast(to: rhsRadius, tolerance: tolerance):
                 let lhsSweep = AngleSweep(start: lhsStart, sweep: lhsSweep)
                 let rhsSweep = AngleSweep(start: rhsStart, sweep: rhsSweep)
 
@@ -651,7 +651,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             case (
                 .circleArc(let lhsCenter, let lhsRadius, let lhsStartAngle, let lhsSweepAngle),
                 .circleArc(let rhsCenter, let rhsRadius, let rhsStartAngle, let rhsSweepAngle)
-                ) where lhsCenter == rhsCenter && lhsRadius.isApproximatelyEqualFast(to: rhsRadius, tolerance: tolerance):
+                ) where lhsCenter.isApproximatelyEqualFast(to: rhsCenter, tolerance: tolerance) && lhsRadius.isApproximatelyEqualFast(to: rhsRadius, tolerance: tolerance):
                 let lhsSweep = AngleSweep(start: lhsStartAngle, sweep: lhsSweepAngle)
                 let rhsSweep = AngleSweep(start: rhsStartAngle, sweep: rhsSweepAngle)
 
