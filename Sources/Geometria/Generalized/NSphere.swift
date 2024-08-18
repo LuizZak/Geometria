@@ -130,7 +130,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
             )
         }
 
-        #if USE_QUADRATIC_FORMULA
+        #if GEOMETRIA_USE_QUADRATIC_FORMULA
 
         let oc = line.a - center
         let direction = line.lineSlope
@@ -153,7 +153,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
 
         if disc == .zero {
             if line.containsProjectedNormalizedMagnitude(t0) {
-                return .singlePoint(makePointNormal(at: t0p))
+                return .singlePoint(makePointNormal(at: t0p, normalizedMagnitude: t0))
             }
 
             return .noIntersection
@@ -164,16 +164,16 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
 
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
-            return .enterExit(makePointNormal(at: t0p), makePointNormal(at: t1p, inverted: true))
+            return .enterExit(makePointNormal(at: t0p, normalizedMagnitude: t0), makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
         case (true, false):
-            return .enter(makePointNormal(at: t0p))
+            return .enter(makePointNormal(at: t0p, normalizedMagnitude: t0))
         case (false, true):
-            return .exit(makePointNormal(at: t1p, inverted: true))
+            return .exit(makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
 
-        #else
+        #else // #if GEOMETRIA_USE_QUADRATIC_FORMULA
 
         let lineSlope = line.lineSlope
         let relVec = center - line.a
@@ -214,6 +214,6 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
 
-        #endif
+        #endif // #if GEOMETRIA_USE_QUADRATIC_FORMULA
     }
 }

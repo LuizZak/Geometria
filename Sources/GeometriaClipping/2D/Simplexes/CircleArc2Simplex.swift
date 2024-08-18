@@ -131,75 +131,83 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
 
     @inlinable
     public func intersectsHorizontalLine(start point: Vector, tolerance: Scalar) -> Bool {
+        let start = self.start
+        let end = self.end
+
         if
-            self.start.y.isApproximatelyEqualFast(to: self.end.y, tolerance: tolerance)
-            && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance)
+            start.y.isApproximatelyEqualFast(to: end.y, tolerance: tolerance)
+            && start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance)
         {
             // s  •--e->
-            if self.start.x < point.x && self.end.x > point.x {
+            if start.x < point.x && end.x > point.x {
                 let center = self.compute(at: (self.startPeriod + self.endPeriod) / 2)
 
                 // s  •--e->  and  s----c-•--e->
                 //  \_c_/
-                if center.y >= self.start.y {
+                if center.y >= start.y {
                     return true
                 }
                 //   _c_
                 //  /   \
                 // s  •--e->
-                if center.y < self.start.y {
+                if center.y < start.y {
                     return false
                 }
             }
             // e  •--s->
-            if self.start.x > point.x {
+            if start.x > point.x {
                 let center = self.compute(at: (self.startPeriod + self.endPeriod) / 2)
 
                 // e  •--s->  and  e----c-•--s->
                 //  \_c_/
-                if center.y >= self.start.y {
+                if center.y >= start.y {
                     return true
                 }
                 //   _c_
                 //  /   \
                 // e  •--s->
-                if center.y < self.start.y {
+                if center.y < start.y {
                     return false
                 }
             }
-        } else if self.start.y < self.end.y {
+        } else if start.y < end.y {
             //  •-s-->
             //     (
             //      e
-            if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
+            if start.x > point.x && start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return true
             }
 
             //   s
             //    (
             //  •--e->
-            if self.end.x > point.x && self.end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
+            if end.x > point.x && end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
             }
-        } else if self.start.y > end.y {
+        } else if start.y > end.y {
             //  •--e->
             //    (
             //   s
-            if self.end.x > point.x && self.end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
+            if end.x > point.x && end.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return true
             }
 
             //      e
             //     (
             //  •-s--->
-            if self.start.x > point.x && self.start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
+            if start.x > point.x && start.y.isApproximatelyEqualFast(to: point.y, tolerance: tolerance) {
                 return false
             }
         }
 
         let ray = Ray2(start: point, b: point + .init(x: 1, y: 0))
-        let hasIntersections = circleArc.intersections(with: ray).intersections.count % 2 == 1
-        return hasIntersections
+
+        switch circleArc.intersection(with: ray) {
+        case .singlePoint:
+            return true
+        case .twoPoint, .noIntersection:
+            return false
+        }
     }
 
     @inlinable

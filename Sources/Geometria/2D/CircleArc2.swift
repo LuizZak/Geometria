@@ -155,16 +155,19 @@ extension CircleArc2: Hashable where Vector: Hashable { }
 
 public extension CircleArc2 {
     /// Constructs a circle with the same center + radius as this circle arc.
+    @inlinable
     var asCircle2: Circle2<Vector> {
         .init(center: center, radius: radius)
     }
 
     /// Constructs an angle sweep from this arc's start and sweep angles.
+    @inlinable
     var asAngleSweep: AngleSweep<Scalar> {
         .init(start: startAngle, sweep: sweepAngle)
     }
 
     /// Returns the stop angle of this sweep, as the sum of `startAngle` + `sweepAngle`.
+    @inlinable
     var stopAngle: Angle<Scalar> {
         startAngle + sweepAngle
     }
@@ -211,6 +214,8 @@ public extension CircleArc2 {
     /// Returns `true` if this circular arc contains a given angle in radians
     /// within its start + sweep region.
     @inlinable
+    @_specialize(exported: true, kind: full, where Vector == Vector2D)
+    @_specialize(exported: true, kind: full, where Vector == Vector2F)
     func contains(_ angleInRadians: Scalar) -> Bool {
         return contains(.init(radians: angleInRadians))
     }
@@ -218,6 +223,8 @@ public extension CircleArc2 {
     /// Returns `true` if this circular arc contains a given angle value within
     /// its start + sweep region.
     @inlinable
+    @_specialize(exported: true, kind: full, where Vector == Vector2D)
+    @_specialize(exported: true, kind: full, where Vector == Vector2F)
     func contains(_ angle: Angle<Scalar>) -> Bool {
         return asAngleSweep.contains(angle)
     }
@@ -233,21 +240,62 @@ public extension CircleArc2 {
     func pointOnAngle(_ angle: Angle<Scalar>) -> Vector {
         return asCircle2.pointOnAngle(angle)
     }
+
+    /// Returns the result of an intersection test between this circular arc and
+    /// a given line.
+    func intersection<Line>(
+        with line: Line
+    ) -> PairLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
+        let circle = self.asCircle2
+        let intersections = circle.intersection(with: line)
+
+        func filter(_ pointNormal: LineIntersectionPointNormal<Vector>) -> Bool {
+            let angle = Angle(radians: (pointNormal.point - center).angle)
+            return contains(angle)
+        }
+
+        switch intersections {
+        case .noIntersection, .contained:
+            return .noIntersection
+
+        case .singlePoint(let pointNormal), .enter(let pointNormal), .exit(let pointNormal):
+            if filter(pointNormal) {
+                return .singlePoint(pointNormal)
+            } else {
+                return .noIntersection
+            }
+
+        case .enterExit(let enter, let exit):
+            switch (filter(enter), filter(exit)) {
+            case (true, true):
+                return .twoPoint(enter, exit)
+
+            case (true, false):
+                return .singlePoint(enter)
+
+            case (false, true):
+                return .singlePoint(exit)
+
+            case (false, false):
+                return .noIntersection
+            }
+        }
+    }
 }
 
 extension CircleArc2: LineIntersectableType {
     public func intersections<Line>(
         with line: Line
-    ) -> LineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
+    ) -> LineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
         let circle = self.asCircle2
-        let intersections = circle.intersection(with: line).lineIntersectionPointNormals
+        let intersections = circle.intersection(with: line)
 
         var result = LineIntersection<Vector>(
             isContained: false,
             intersections: []
         )
 
-        for pointNormal in intersections {
+        func inspect(_ pointNormal: LineIntersectionPointNormal<Vector>) {
             let angle = Angle(radians: (pointNormal.point - center).angle)
 
             if contains(angle) {
@@ -255,6 +303,21 @@ extension CircleArc2: LineIntersectableType {
                     .point(pointNormal)
                 )
             }
+        }
+
+        switch intersections {
+        case .noIntersection:
+            break
+
+        case .contained:
+            result.isContained = true
+
+        case .singlePoint(let pointNormal), .enter(let pointNormal), .exit(let pointNormal):
+            inspect(pointNormal)
+
+        case .enterExit(let enter, let exit):
+            inspect(enter)
+            inspect(exit)
         }
 
         return result

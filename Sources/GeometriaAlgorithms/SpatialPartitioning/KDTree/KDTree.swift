@@ -575,6 +575,7 @@ extension KDTree.Subdivision {
     }
 
     /// Returns the nearest subdivision in this subdivision to a given point vector.
+    @inlinable
     func nearestSubdivision(to point: Vector) -> (KDTree.Subdivision, distanceSquared: Vector.Scalar) {
         switch (left, right) {
         case (nil, nil):
@@ -644,6 +645,7 @@ extension KDTree.Subdivision {
 
     /// Collects all nearest subdivisions that have a distance of `distanceSquared`
     /// or less to `point` into `results`.
+    @inlinable
     func nearestSubdivisions(
         to point: Vector,
         distanceSquared: Vector.Scalar,
@@ -715,12 +717,14 @@ extension KDTree.Subdivision {
     /// Returns `true` if the current subdivision level point's scalar at
     /// the current subdivision dimension is less than or equal to the
     /// same scalar of the given point.
+    @inlinable
     func isOnLeft(_ point: Vector) -> Bool {
         point[state.dimension] < state.element.location[state.dimension]
     }
 
     /// Returns the distance squared from a given point to the subdivision
     /// line of this subdivision.
+    @inlinable
     func distanceSquared(to point: Vector) -> Vector.Scalar {
         let dist = point[state.dimension] - state.element.location[state.dimension]
 
@@ -873,6 +877,7 @@ extension KDTree.Subdivision {
 
     /// Returns the relative path between `self` and `target`, in case `target`
     /// is a subdivision of `self`, otherwise returns `nil`
+    @inlinable
     func findPath(to target: KDTree.Subdivision) -> KDTree.Path? {
         if self === target { return .self }
 
@@ -888,6 +893,7 @@ extension KDTree.Subdivision {
 
     /// Returns the minimal element within the subtree represented by `self`
     /// that minimizes the given function.
+    @inlinable
     func min<T: Comparable>(by production: (KDTree.Subdivision) -> T) -> KDTree.Subdivision {
         var result: (KDTree.Subdivision, T) = (
             self, production(self)
@@ -904,6 +910,7 @@ extension KDTree.Subdivision {
 
     /// Returns the minimal element within the subtree represented by `self`
     /// that maximizes the given function.
+    @inlinable
     func max<T: Comparable>(by production: (KDTree.Subdivision) -> T) -> KDTree.Subdivision {
         var result: (KDTree.Subdivision, T) = (
             self, production(self)
@@ -920,6 +927,7 @@ extension KDTree.Subdivision {
 
     /// Applies a given closure to all subdivisions in depth-first order,
     /// including this instance.
+    @inlinable
     func applyToTreeDepthFirst(_ closure: (KDTree.Subdivision) -> Void) {
         var stack: [KDTree.Subdivision] = [self]
 
@@ -933,6 +941,7 @@ extension KDTree.Subdivision {
 
     /// Applies a given closure to all subdivisions in breadth-first order,
     /// including this instance.
+    @inlinable
     func applyToTreeBreadthFirst(_ closure: (KDTree.Subdivision) -> Void) {
         var queue: [KDTree.Subdivision] = [self]
 
@@ -950,6 +959,7 @@ extension KDTree.Subdivision {
     /// this subdivision object, non-recursively.
     ///
     /// In case this object is a `.leaf`, nothing is done.
+    @inlinable
     func applyToSubdivisions(_ closure: (KDTree.Subdivision) -> Void) {
         left.map(closure)
         right.map(closure)
