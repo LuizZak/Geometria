@@ -109,6 +109,45 @@ public struct CircleArc2<Vector: Vector2Real>: GeometricType, CustomStringConver
             sweepAngle: sweepAngle1
         )
     }
+
+    /// Creates a new circular arc that fits the given start/end points on the
+    /// circumference of the arc, and a center point.
+    ///
+    /// The sweep angle is chosen to be the clockwise sweep angle that connects
+    /// startAngle to endAngle.
+    ///
+    /// - note: The initializer assumes that `center` is equally distant to both
+    /// `startPoint` and `endPoint`.
+    public init(
+        clockwiseAngleToCenter center: Vector,
+        startPoint: Vector,
+        endPoint: Vector
+    ) {
+        let radius = center.distance(to: startPoint)
+        let startAngle = center.angle(to: startPoint)
+        let endAngle = center.angle(to: endPoint)
+
+        let (sweepAngle1, sweepAngle2) = startAngle.relativeAngles(to: endAngle)
+
+        let sweepAngle: Angle<Scalar>
+        switch (sweepAngle1.radians > 0, sweepAngle2.radians > 0) {
+        case (false, true):
+            sweepAngle = sweepAngle2
+
+        case (true, false):
+            sweepAngle = sweepAngle1
+
+        case (true, true), (false, false):
+            sweepAngle = sweepAngle1
+        }
+
+        self.init(
+            center: center,
+            radius: radius,
+            startAngle: startAngle,
+            sweepAngle: sweepAngle
+        )
+    }
 }
 
 extension CircleArc2: Equatable where Vector: Equatable { }

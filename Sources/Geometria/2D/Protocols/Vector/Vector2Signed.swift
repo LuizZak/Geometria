@@ -17,7 +17,7 @@ public protocol Vector2Signed: Vector2Multiplicative & VectorSigned where SubVec
     mutating func formLeftRotated()
 
     /// Returns a vector that represents this vector's point, rotated 90º
-    /// clockwise clockwise relative to the origin.
+    /// clockwise relative to the origin.
     func rightRotated() -> Self
 
     /// Rotates this vector 90º clockwise relative to the origin.
