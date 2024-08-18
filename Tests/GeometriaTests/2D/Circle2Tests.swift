@@ -85,6 +85,68 @@ extension Circle2Tests {
     }
 }
 
+// MARK: Vector: Vector2Real Conformance
+
+extension Circle2Tests {
+    func testTangentsTo() {
+        let circle = makeSut(x: 0, y: 0, radius: 200)
+        let point = Vector2D(x: 300, y: 100)
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(circle)
+            let (t1, t2) = circle.tangents(to: point)
+
+            fixture.add(point)
+
+            fixture.add(t1)
+            fixture.add(t2)
+
+            fixture.add(LineSegment2D(start: point, end: t1))
+            fixture.add(LineSegment2D(start: point, end: t2))
+
+            fixture.assertEquals(t1, .init(x: 71.01020514433644, y: 186.96938456699067), accuracy: 1e-14)
+            fixture.assertEquals(t2, .init(x: 168.98979485566355, y: -106.96938456699068), accuracy: 1e-14)
+        }
+    }
+
+    func testOuterTangentsTo() {
+        let c1 = makeSut(x: -100, y: 0, radius: 100)
+        let c2 = makeSut(x: 100, y: 25, radius: 75)
+
+        TestFixture.beginFixture { fixture in
+            fixture.add(c1)
+            fixture.add(c2)
+
+            let (t1, t2) = c1.outerTangents(to: c2)
+
+            fixture.add(t1)
+            fixture.add(t2)
+
+            fixture.assertEquals(
+                t1.start,
+                .init(x: -75.38461538461537, y: -96.92307692307692),
+                accuracy: 1e-14
+            )
+            fixture.assertEquals(
+                t1.end,
+                .init(x: 118.46153846153847, y: -47.69230769230769),
+                accuracy: 1e-14
+            )
+
+            fixture.assertEquals(
+                t2.start,
+                .init(x: -100.0, y: 100.0),
+                accuracy: 1e-14
+            )
+            fixture.assertEquals(
+                t2.end,
+                .init(x: 100.0, y: 100.0),
+                accuracy: 1e-14
+            )
+        }
+    }
+}
+
 // MARK: - Test internals
 
 private func makeSut(center: Vector2D, radius: Double) -> Circle2D {
