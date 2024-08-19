@@ -94,7 +94,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
         .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
-        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.8.0")),
+        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.8.1")),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),

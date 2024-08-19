@@ -122,20 +122,20 @@ extension Simplex2Graph {
                 for lhsSimplex in lhs.allSimplexes() {
                     for rhsSimplex in rhs.allSimplexes() {
                         if lhsSimplex.isOnSurface(rhsSimplex.start, toleranceSquared: toleranceSquared) {
-                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.start)
+                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.start).0
                             contours[lhsIndex].split(at: period)
                         }
                         if lhsSimplex.isOnSurface(rhsSimplex.end, toleranceSquared: toleranceSquared) {
-                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.end)
+                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.end).0
                             contours[lhsIndex].split(at: period)
                         }
 
                         if rhsSimplex.isOnSurface(lhsSimplex.start, toleranceSquared: toleranceSquared) {
-                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.start)
+                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.start).0
                             contours[rhsIndex].split(at: period)
                         }
                         if rhsSimplex.isOnSurface(lhsSimplex.end, toleranceSquared: toleranceSquared) {
-                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.end)
+                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.end).0
                             contours[rhsIndex].split(at: period)
                         }
                     }
