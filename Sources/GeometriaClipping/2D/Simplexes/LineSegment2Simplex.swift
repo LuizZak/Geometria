@@ -140,11 +140,14 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
     }
 
     @inlinable
-    public func closestPeriod(to vector: Vector) -> Period {
+    public func closestPeriod(to vector: Vector) -> (Period, distanceSquared: Scalar) {
         let scalar = lineSegment.projectAsScalar(vector)
         let clamped = lineSegment.clampProjectedNormalizedMagnitude(scalar)
+        let projected = lineSegment.projectedNormalizedMagnitude(clamped)
 
-        return startPeriod + clamped * (endPeriod - startPeriod)
+        let period = startPeriod + clamped * (endPeriod - startPeriod)
+
+        return (period, projected.distanceSquared(to: vector))
     }
 
     /// Clamps this simplex so its contained geometry is only present within a

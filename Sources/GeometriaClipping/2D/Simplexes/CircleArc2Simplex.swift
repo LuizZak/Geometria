@@ -216,14 +216,16 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
     }
 
     @inlinable
-    public func closestPeriod(to vector: Vector) -> Period {
-        let angle = center.angle(to: vector)
+    public func closestPeriod(to vector: Vector) -> (Period, distanceSquared: Scalar) {
+        let projected = circleArc.project(vector)
+        let angle = center.angle(to: projected)
         let angleSweep = circleArc.asAngleSweep
-        let clampedAngle = angleSweep.clamped(angle)
 
-        let ratio = angleSweep.ratioOfAngle(clampedAngle)
+        let ratio = angleSweep.ratioOfAngle(angle)
 
-        return startPeriod + ratio * (endPeriod - startPeriod)
+        let period = startPeriod + ratio * (endPeriod - startPeriod)
+
+        return (period, projected.distanceSquared(to: vector))
     }
 
     /// Clamps this simplex so its contained geometry is only present within a

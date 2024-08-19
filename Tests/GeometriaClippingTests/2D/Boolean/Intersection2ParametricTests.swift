@@ -27,7 +27,7 @@ class Intersection2ParametricTests: XCTestCase {
     func testIntersection_lhsContainsRhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -38,7 +38,7 @@ class Intersection2ParametricTests: XCTestCase {
     func testIntersection_rhsContainsLhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 80.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 100.0)
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -49,7 +49,7 @@ class Intersection2ParametricTests: XCTestCase {
     func testIntersection_noIntersectionOrContainment() {
         let lhs = Circle2Parametric.makeTestCircle(center: .init(x: -100, y: 0), radius: 50.0)
         let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 100, y: 0), radius: 50.0)
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -60,7 +60,7 @@ class Intersection2ParametricTests: XCTestCase {
     func testIntersection_lines_lines() {
         let lhs = LinePolygon2Parametric.makeStar()
         let rhs = LinePolygon2Parametric.makeHexagon(radius: 80.0)
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
@@ -74,8 +74,7 @@ class Intersection2ParametricTests: XCTestCase {
     func testIntersection_lines_arcs() {
         let lhs = LinePolygon2Parametric.makeHexagon()
         let rhs = Circle2Parametric.makeTestCircle(radius: 95)
-
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2.0) { fixture in
             fixture.assertions(on: sut)
@@ -89,7 +88,7 @@ class Intersection2ParametricTests: XCTestCase {
     func testIntersection_concaveShape() {
         let lhs = LinePolygon2Parametric.makeCShape()
         let rhs = LinePolygon2Parametric.makeRectangle(width: 10, height: 120)
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture(renderScale: 2) { fixture in
             fixture.assertions(on: sut)
@@ -109,7 +108,7 @@ class Intersection2ParametricTests: XCTestCase {
         ]
         let lhs = union(circles)
         let rhs = Circle2Parametric.makeTestCircle(center: .init(x: 110, y: 40), radius: radius)
-        let sut: Intersection2Parametric = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.add(lhs, category: "input 1")
@@ -128,7 +127,7 @@ class Intersection2ParametricTests: XCTestCase {
         let rhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
         let rhs = Compound2Parametric(contours: Subtraction2Parametric(rhs1, rhs2).allContours())
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)
@@ -144,7 +143,7 @@ class Intersection2ParametricTests: XCTestCase {
         let rhs1 = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs2 = Circle2Parametric.makeTestCircle(radius: 80.0)
         let rhs = Compound2Parametric(contours: Subtraction2Parametric(rhs1, rhs2).allContours())
-        let sut = Intersection2Parametric(lhs, rhs)
+        let sut = Intersection2Parametric(lhs, rhs, tolerance: accuracy)
 
         TestFixture.beginFixture { fixture in
             fixture.assertions(on: sut)

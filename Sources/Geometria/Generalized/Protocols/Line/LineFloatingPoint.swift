@@ -28,7 +28,7 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType, SignedDi
     /// projected towards this line's end point, with a normalized magnitude of
     /// `scalar`.
     ///
-    /// For `scalar == 0`, returns `self.a`, for `scalar == 1`, returns `self.b`
+    /// For `scalar == 0`, returns `self.a`, for `scalar == 1`, returns `self.b`.
     ///
     /// - parameter scalar: A normalized magnitude that describes the length
     /// along the slope of this line to generate the point out of. Values

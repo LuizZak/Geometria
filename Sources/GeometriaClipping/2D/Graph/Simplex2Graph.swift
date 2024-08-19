@@ -798,6 +798,13 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             return .notCoincident
         }
 
+        /// Returns the closest ratio, between (0, 1), from this edge's primitive
+        /// to a given point, as well as the squared distance to the point.
+        @inlinable
+        public func closestRatio(to location: Vector) -> (Scalar, distanceSquared: Scalar) {
+            materializePrimitive().closestRatio(to: location)
+        }
+
         @inlinable
         public func materialize(
             startPeriod: Period,
@@ -933,6 +940,25 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                     return primitive.pointOnAngle(
                         primitive.startAngle + primitive.sweepAngle * ratio
                     )
+                }
+            }
+
+            @inlinable
+            func closestRatio(to point: Vector) -> (Scalar, distanceSquared: Scalar) {
+                switch self {
+                case .lineSegment2(let primitive):
+                    let scalar = primitive.projectAsScalar(point)
+                    let clamped = primitive.clampProjectedNormalizedMagnitude(scalar)
+                    let projected = primitive.projectedNormalizedMagnitude(clamped)
+
+                    return (clamped, projected.distanceSquared(to: point))
+
+                case .circleArc2(let primitive):
+                    let projected = primitive.project(point)
+                    let angle = primitive.center.angle(to: projected)
+                    let ratio = primitive.asAngleSweep.ratioOfAngle(angle)
+
+                    return (ratio, projected.distanceSquared(to: point))
                 }
             }
         }

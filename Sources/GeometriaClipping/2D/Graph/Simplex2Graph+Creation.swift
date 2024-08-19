@@ -245,8 +245,6 @@ extension Simplex2Graph {
 
         // MARK: Merge edges - part 1
         var edgesToCheck: OrderedSet<OrderedSet<Edge>> = []
-        var minimal: [OrderedSet<Edge>] = []
-
         for edge in edges {
             let coincident =
                 edgeTree
@@ -260,29 +258,13 @@ extension Simplex2Graph {
             edgesToCheck.append(OrderedSet(coincident).union([edge]))
         }
 
-        // Merge edge groups that appear multiple times
-        for edgesToCheck in edgesToCheck {
-            var merged = false
-            for i in 0..<minimal.count {
-                if !minimal[i].isDisjoint(with: edgesToCheck) {
-                    minimal[i].formUnion(edgesToCheck)
-                    merged = true
-                    break
-                }
-            }
-
-            if !merged {
-                minimal.append(edgesToCheck)
-            }
-        }
-
         // Start by first splitting all edges that coincide such that the result
         // are edges that either coincide as the same span, or not at all.
         //
         // The next step of merging nodes works to combine the edge endpoints,
         // allowing a last pass across the edges to compute the result of the
         // coinciding edges.
-        for edgesToCheck in minimal {
+        for edgesToCheck in edgesToCheck.minimized() {
             let edgesToCheck = edgesToCheck.sorted(by: { $0.id < $1.id })
 
             for (i, edge) in edgesToCheck.enumerated() {
@@ -324,6 +306,25 @@ extension Simplex2Graph {
                         splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
                         splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
                     }
+                }
+            }
+        }
+
+        // MARK: Edge-vertex interferences
+        for node in nodes {
+            let nodeAABB = AABB2(center: node.location, size: .init(repeating: tolerance * 2))
+            let edgesNearNode = edgeTree.query(nodeAABB)
+
+            for edge in edgesNearNode where edge.start != node && edge.end != node {
+                let (ratio, distanceSquared) = edge.closestRatio(to: node.location)
+
+                // Avoid attempts to split an edge at its end points.
+                guard ratio > 0 && ratio < 1 else {
+                    continue
+                }
+
+                if distanceSquared.squareRoot() < tolerance {
+                    splitEdge(edge, ratio: ratio)
                 }
             }
         }
@@ -370,7 +371,7 @@ extension Simplex2Graph {
             return false
         }
 
-        var nodesToMerge: Set<Set<Node>> = []
+        var nodesToMerge: OrderedSet<OrderedSet<Node>> = []
 
         for node in nodes {
             let neighbors = nodeTree.nearestNeighbors(
@@ -378,45 +379,42 @@ extension Simplex2Graph {
                 distanceSquared: 10
             )
 
-            var finalSet: Set<Node> = []
+            var finalSet: OrderedSet<Node> = []
             for neighbor in neighbors {
                 guard neighbor !== node else {
-                    finalSet.insert(neighbor)
+                    finalSet.append(neighbor)
                     continue
                 }
                 if areClose(neighbor.location, node.location) || areIntersection(node, neighbor) {
-                    finalSet.insert(neighbor)
+                    finalSet.append(neighbor)
                 }
             }
 
             if finalSet.count > 1 {
-                nodesToMerge.insert(finalSet)
+                nodesToMerge.append(finalSet)
             }
         }
 
-        // Merge node groups that appear multiple times
-        var minimalNodes: [Set<Node>] = []
-        for nodesToMerge in nodesToMerge {
-            var merged = false
-            for i in 0..<minimalNodes.count {
-                if !minimalNodes[i].isDisjoint(with: nodesToMerge) {
-                    minimalNodes[i].formUnion(nodesToMerge)
-                    merged = true
-                    break
-                }
-            }
+        #if DEBUG
 
-            if !merged {
-                minimalNodes.append(nodesToMerge)
-            }
-        }
+        var _nodesVisited: Set<Node> = []
 
-        for nodesToMerge in nodesToMerge {
+        #endif
+
+        for nodesToMerge in nodesToMerge.minimized() {
             let nodesToMerge = nodesToMerge.sorted(by: { $0.id < $1.id })
 
             guard nodesToMerge.count > 1, let first = nodesToMerge.first else {
                 continue
             }
+
+            #if DEBUG
+
+            for node in nodesToMerge {
+                assert(_nodesVisited.insert(node).inserted, "Found two minimized node sets that contained the same node reference: \(node)")
+            }
+
+            #endif
 
             let geometries: [Node.Kind.SharedGeometryEntry] = nodesToMerge.flatMap { node in
                 switch node.kind {
@@ -485,23 +483,7 @@ extension Simplex2Graph {
             edgesToCheck.append(OrderedSet(coincident).union([edge]))
         }
 
-        minimal = []
-        for edgesToCheck in edgesToCheck {
-            var merged = false
-            for i in 0..<minimal.count {
-                if !minimal[i].isDisjoint(with: edgesToCheck) {
-                    minimal[i].formUnion(edgesToCheck)
-                    merged = true
-                    break
-                }
-            }
-
-            if !merged {
-                minimal.append(edgesToCheck)
-            }
-        }
-
-        for edgesToCheck in minimal {
+        for edgesToCheck in edgesToCheck.minimized() {
             let edges = edgesToCheck.sorted(by: { $0.id < $1.id })
             guard let first = edges.first else {
                 continue

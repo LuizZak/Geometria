@@ -47,7 +47,7 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
     func intersectsHorizontalLine(start: Vector, tolerance: Scalar) -> Bool
 
     /// Returns the closest period to an input vector.
-    func closestPeriod(to vector: Vector) -> Period
+    func closestPeriod(to vector: Vector) -> (Period, distanceSquared: Scalar)
 
     /// Reverses this simplex by swapping its start <-> end points, making it
     /// travel in the opposite direction.

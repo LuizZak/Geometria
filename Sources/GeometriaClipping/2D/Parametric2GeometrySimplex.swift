@@ -101,7 +101,7 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     }
 
     @inlinable
-    public func closestPeriod(to vector: Vector) -> Period {
+    public func closestPeriod(to vector: Vector) -> (Period, distanceSquared: Scalar) {
         switch self {
         case .lineSegment2(let lineSegment):
             return lineSegment.closestPeriod(to: vector)
