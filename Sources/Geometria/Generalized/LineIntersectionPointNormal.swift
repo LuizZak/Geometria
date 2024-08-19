@@ -30,8 +30,14 @@ extension LineIntersectionPointNormal: Equatable where Vector: Equatable { }
 extension LineIntersectionPointNormal: Hashable where Vector: Hashable { }
 
 extension LineIntersectionPointNormal: PlaneType where Vector: VectorFloatingPoint {
-    public var point: Vector { pointNormal.point }
-    public var normal: Vector { pointNormal.normal }
+    public var point: Vector {
+        get { pointNormal.point }
+        set { pointNormal.point = newValue }
+    }
+    public var normal: Vector {
+        get { pointNormal.normal }
+        set { pointNormal.normal = newValue }
+    }
 
     @_transparent
     public var pointOnPlane: Vector { pointNormal.point }
