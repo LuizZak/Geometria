@@ -24,6 +24,21 @@ class Union2ParametricTests: XCTestCase {
         }
     }
 
+    func testUnion_emptyContours() {
+        let contour1 = Parametric2Contour<Vector2D>(simplexes: [])
+        let contour2 = Parametric2Contour<Vector2D>(simplexes: [])
+        let sut = Union2Parametric(contours: [contour1, contour2], tolerance: accuracy)
+
+
+        TestFixture.beginFixture(lineScale: 1.0) { fixture in
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    []
+                )
+        }
+    }
+
     func testUnion_lhsContainsRhs() {
         let lhs = Circle2Parametric.makeTestCircle(radius: 100.0)
         let rhs = Circle2Parametric.makeTestCircle(radius: 80.0)

@@ -152,6 +152,10 @@ extension Simplex2Graph {
     @inlinable
     internal mutating func appendContour(_ contour: Contour, tolerance: Scalar) {
         let simplexes = contour.allSimplexes()
+        guard !simplexes.isEmpty else {
+            return
+        }
+
         let shapeIndex = contours.count
 
         contourTree.insert(
