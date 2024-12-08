@@ -60,6 +60,37 @@ class SpatialTreeTests: XCTestCase {
         XCTAssertEqual(Set(result), Set(expected))
     }
 
+    func testQuery_symptomaticLines() {
+        func line(_ x0: Double, _ y0: Double, _ x1: Double, _ y1: Double) -> LineSegment2D {
+            .init(x1: x0, y1: y0, x2: x1, y2: y1)
+        }
+        let lines: [LineSegment2D] = [
+            line(-100.0, -250.0, 100.0, -250.0),
+            line(100.0, -99.99999999999997, 100.0, 100.00000000000001),
+            line(100.0, 250.0, -100.0, 250.0),
+            line(-100.0, 250.0, -100.0, -250.0),
+            line(200.0, -200.0, 200.0, -100.0),
+            line(100.0, -199.99999999999997, 200.0, -200.0),
+            line(100.0, -199.99999999999997, 100.0, -99.99999999999997),
+            line(100.0, -250.0, 100.0, -199.99999999999997),
+            line(200.0, -100.0, 100.0, -99.99999999999997),
+            line(100.0, -99.99999999999997, 100.0, -199.99999999999997),
+            line(100.0, 200.00000000000003, 100.0, 250.0),
+            line(100.0, 100.00000000000001, 100.0, 200.00000000000003),
+            line(100.0, 100.00000000000001, 200.0, 100.0),
+            line(200.0, 100.0, 200.0, 200.0),
+            line(200.0, 200.0, 100.0, 200.00000000000003),
+            line(100.0, 200.00000000000003, 100.0, 100.00000000000001),
+        ]
+        let sut = makeSut(lines, maxSubdivisions: 2, maxElementsPerLevelBeforeSplit: 4)
+
+        for line in lines {
+            let results = sut.query(line)
+
+            XCTAssertTrue(results.contains(line), "Expected \(line) to be in \(results)")
+        }
+    }
+
     // MARK: - Mutation
 
     func testInsert_pointCloud() {

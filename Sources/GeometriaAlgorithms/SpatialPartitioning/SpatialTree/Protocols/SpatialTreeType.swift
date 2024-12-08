@@ -1,10 +1,10 @@
 import Geometria
 
 public protocol SpatialTreeType where Bounds.Vector == Element.Vector, Element.Vector: VectorDivisible & VectorComparable {
-    typealias Vector = Element.Vector
-
     associatedtype Element: BoundableType
     associatedtype Bounds: DivisibleRectangleType & ConstructableRectangleType
+
+    typealias Vector = Element.Vector
 
     /// Returns all of the geometry that are contained within this spatial tree
     /// whose bounds contain a given point.

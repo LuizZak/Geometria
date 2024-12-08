@@ -86,9 +86,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
     @inlinable
     public func queryPoint(_ point: Vector) -> [Element] {
         var result: [Element] = []
-        root.queryPoint(point) { (_, element) in
-            result.append(element)
-        }
+        root.queryPoint(point, results: &result)
         return result
     }
 
@@ -232,6 +230,27 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         )
     }
 
+    /// Returns a view for all subdivisions of this spatial tree.
+    public func viewsForSubdivisions() -> [SubdivisionView] {
+        var result: [SubdivisionView] = []
+
+        var queue: [Subdivision] = [root]
+
+        while !queue.isEmpty {
+            let next = queue.removeFirst()
+
+            result.append(
+                .init(bounds: next.bounds, elements: next.elements)
+            )
+
+            if let subdivisions = next.subdivisions {
+                queue.append(contentsOf: subdivisions)
+            }
+        }
+
+        return result
+    }
+
     /// A subdivision of a spatial tree.
     @usableFromInline
     internal class Subdivision {
@@ -295,6 +314,28 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         @inlinable
         func queryPoint(
             _ point: Vector,
+            results: inout [Element]
+        ) {
+            for element in elements {
+                if element.bounds.contains(point) {
+                    results.append(element)
+                }
+            }
+
+            if let subdivisions {
+                for subdivision in subdivisions {
+                    guard subdivision.bounds.contains(point) else {
+                        continue
+                    }
+
+                    subdivision.queryPoint(point, results: &results)
+                }
+            }
+        }
+
+        @inlinable
+        func queryPoint(
+            _ point: Vector,
             onMatch: (Subdivision, Element) -> Void
         ) {
             for element in elements {
@@ -303,12 +344,14 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                 }
             }
 
-            forEachSubdivision { subdivision in
-                guard subdivision.bounds.contains(point) else {
-                    return
-                }
+            if let subdivisions {
+                for subdivision in subdivisions {
+                    guard subdivision.bounds.contains(point) else {
+                        continue
+                    }
 
-                subdivision.queryPoint(point, onMatch: onMatch)
+                    subdivision.queryPoint(point, onMatch: onMatch)
+                }
             }
         }
 
@@ -323,12 +366,14 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                 }
             }
 
-            forEachSubdivision { subdivision in
-                guard subdivision.bounds.intersects(line: line) else {
-                    return
-                }
+            if let subdivisions {
+                for subdivision in subdivisions {
+                    guard subdivision.bounds.intersects(line: line) else {
+                        continue
+                    }
 
-                subdivision.queryLine(line, onMatch: onMatch)
+                    subdivision.queryLine(line, onMatch: onMatch)
+                }
             }
         }
 
@@ -343,12 +388,14 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                 }
             }
 
-            forEachSubdivision { subdivision in
-                guard subdivision.bounds.intersects(area.bounds) else {
-                    return
-                }
+            if let subdivisions {
+                for subdivision in subdivisions {
+                    guard subdivision.bounds.intersects(area.bounds) else {
+                        continue
+                    }
 
-                subdivision.query(area, onMatch: onMatch)
+                    subdivision.query(area, onMatch: onMatch)
+                }
             }
         }
 
@@ -416,8 +463,10 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         func collectElements(to result: inout [Element]) {
             result.append(contentsOf: elements)
 
-            forEachSubdivision { subdivision in
-                subdivision.collectElements(to: &result)
+            if let subdivisions {
+                for subdivision in subdivisions {
+                    subdivision.collectElements(to: &result)
+                }
             }
         }
 
@@ -497,7 +546,7 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         /// Applies a given closure to each subdivision within this spatial tree,
         /// if there are any.
         @inlinable
-        func forEachSubdivision(_ block: (Subdivision) -> Void) {
+        func _forEachSubdivision(_ block: (Subdivision) -> Void) {
             if let subdivisions {
                 subdivisions.forEach(block)
             }
@@ -689,6 +738,17 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
                 self.maxSubdivisions = maxSubdivisions
                 self.maxElementsPerLevelBeforeSplit = maxElementsPerLevelBeforeSplit
             }
+        }
+    }
+
+    public struct SubdivisionView {
+        public var bounds: Bounds
+        public var elements: [Element]
+
+        @usableFromInline
+        init(bounds: Bounds, elements: [Element]) {
+            self.bounds = bounds
+            self.elements = elements
         }
     }
 }
