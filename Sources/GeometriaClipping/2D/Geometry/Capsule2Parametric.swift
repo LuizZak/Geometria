@@ -57,8 +57,11 @@ public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, 
 
         let tangents = startCircle.outerTangents(to: endCircle)
 
-        let startArc = CircleArc2(clockwiseAngleToCenter: start, startPoint: tangents.1.start, endPoint: tangents.0.start)
-        let endArc = CircleArc2(clockwiseAngleToCenter: end, startPoint: tangents.0.end, endPoint: tangents.1.end)
+        var startArc = CircleArc2(clockwiseAngleToCenter: start, startPoint: tangents.1.start, endPoint: tangents.0.start)
+        startArc.radius = startRadius
+
+        var endArc = CircleArc2(clockwiseAngleToCenter: end, startPoint: tangents.0.end, endPoint: tangents.1.end)
+        endArc.radius = endRadius
 
         var simplexes: [Simplex] = []
 

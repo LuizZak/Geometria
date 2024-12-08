@@ -2,7 +2,7 @@ import Geometria
 
 /// Protocol for types that describe 2-dimensional simplexes produced by 2-dimensional
 /// parametric geometry.
-public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type {
+public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type, Vector.Scalar: Hashable {
     typealias Scalar = Vector.Scalar
 
     /// The type of period that is used to represent this parametric simplex's
@@ -49,6 +49,10 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
     /// Returns the closest period to an input vector.
     func closestPeriod(to vector: Vector) -> (Period, distanceSquared: Scalar)
 
+    /// Returns the period at which the x component of the coordinate system is
+    /// the smallest within this simplex.
+    func leftmostPeriod() -> Period
+
     /// Reverses this simplex by swapping its start <-> end points, making it
     /// travel in the opposite direction.
     ///
@@ -61,6 +65,11 @@ public protocol Parametric2Simplex: ParametricSimplex where Vector: Vector2Type 
     /// - precondition: `period` is a valid period contained within `startPeriod..<endPeriod`.
     @inlinable
     func split(at period: Period) -> (Self, Self)
+
+    /// Computes the coincidence relationship between `self` and `other`.
+    ///
+    /// Requires that both simplexes share the same underlying type.
+    func coincidenceRelationship(with other: Self, tolerance: Scalar) -> SimplexCoincidenceRelationship<Period>
 }
 
 extension Parametric2Simplex {
@@ -77,4 +86,98 @@ public enum SimplexWinding {
 
     /// A counter-clockwise winding.
     case counterClockwise
+}
+
+public enum SimplexCoincidenceRelationship<Period: Hashable>: Hashable {
+    /// Edges are not coincident.
+    case notCoincident
+
+    /// Both edges span the same points in space.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:   •----•
+    /// rhs:   •----•
+    /// ```
+    case sameSpan
+
+    /// The receiver of the coincidence call contains the incoming edge
+    /// parameter within its two points.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:  •------•
+    /// rhs:   •----•
+    /// ```
+    case lhsContainsRhs(lhsStart: Period, lhsEnd: Period)
+
+    /// The incoming edge parameter contains the receiver of the coincidence
+    /// call within its two points.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:   •----•
+    /// rhs:  •------•
+    /// ```
+    case rhsContainsLhs(rhsStart: Period, rhsEnd: Period)
+
+    /// The receiver of the coincidence call overlaps the incoming edge
+    /// parameter, prefixing it exactly at one point in space.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:  •----•
+    /// rhs:  •------•
+    /// ```
+    case lhsPrefixesRhs(rhsEnd: Period)
+
+    /// The incoming edge parameter overlaps the receiver of the coincidence
+    /// call, prefixing it exactly at one point in space.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:  •------•
+    /// rhs:  •----•
+    /// ```
+    case rhsPrefixesLhs(lhsEnd: Period)
+
+    /// The receiver of the coincidence call overlaps the incoming edge
+    /// parameter, suffixing it exactly at one point in space.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:    •----•
+    /// rhs:  •------•
+    /// ```
+    case lhsSuffixesRhs(rhsStart: Period)
+
+    /// The incoming edge parameter overlaps the receiver of the coincidence
+    /// call, suffixing it exactly at one point in space.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:  •------•
+    /// rhs:    •----•
+    /// ```
+    case rhsSuffixesLhs(lhsStart: Period)
+
+    /// The incoming edge parameter overlaps the start point of the receiver
+    /// of the coincidence call.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:    •----•
+    /// rhs:  •----•
+    /// ```
+    case rhsContainsLhsStart(rhsStart: Period, lhsEnd: Period)
+
+    /// The incoming edge parameter overlaps the end point of the receiver
+    /// of the coincidence call.
+    ///
+    /// Represented by the visualization:
+    /// ```
+    /// lhs:  •----•
+    /// rhs:    •----•
+    /// ```
+    case rhsContainsLhsEnd(lhsEnd: Period, rhsStart: Period)
 }

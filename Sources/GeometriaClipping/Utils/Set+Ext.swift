@@ -16,14 +16,13 @@ internal extension Set {
             for (next, nextSet) in ordered.enumerated().dropFirst(current + 1) {
                 if !currentSet.isDisjoint(with: nextSet) {
                     graph.addEdge(from: current, to: next)
-                    graph.addEdge(from: next, to: current)
                 }
             }
         }
 
         var minimalSets: [Set<T>] = []
 
-        for component in graph.stronglyConnectedComponents() {
+        for component in graph.connectedComponents() {
             var minimalSet: Set<T> = []
 
             for index in component {

@@ -228,6 +228,24 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
         return (period, projected.distanceSquared(to: vector))
     }
 
+    /// Returns the period at which the x component of the coordinate system is
+    /// the smallest within this simplex.
+    @inlinable
+    public func leftmostPeriod() -> Period {
+        let quadrants = circleArc.quadrants()
+        let leastQuadrant = quadrants.min { $0.x < $1.x }
+        let leastPoint = start.x < end.x ? start : end
+
+        if let leastQuadrant {
+            if leastQuadrant.x < leastPoint.x {
+                let leastQuadrantPeriod = closestPeriod(to: leastQuadrant)
+                return leastQuadrantPeriod.0
+            }
+        }
+
+        return start.x < end.x ? startPeriod : endPeriod
+    }
+
     /// Clamps this simplex so its contained geometry is only present within a
     /// given period range.
     ///
@@ -297,6 +315,170 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
                 endPeriod: endPeriod
             )
         )
+    }
+
+    @inlinable
+    public func coincidenceRelationship(with other: CircleArc2Simplex<Vector>, tolerance: Scalar) -> SimplexCoincidenceRelationship<Period> {
+        if other == self {
+            return .sameSpan
+        }
+
+        func areClose(_ v1: Vector, _ v2: Vector) -> Bool {
+            let diff = (v1 - v2)
+
+            return diff.absolute.maximalComponent.magnitude < tolerance
+        }
+
+        let lhsStartCoincident: Bool
+        let lhsEndCoincident: Bool
+
+        var lhsStart: Scalar
+        var lhsEnd: Scalar
+        var rhsStart: Scalar
+        var rhsEnd: Scalar
+
+        let lhsContains: (_ scalar: Scalar) -> Bool
+        let rhsContains: (_ scalar: Scalar) -> Bool
+        let lhsPeriod: (_ scalar: Scalar) -> Period
+        let rhsPeriod: (_ scalar: Scalar) -> Period
+
+        let (lhsCenter, lhsRadius, lhsStartAngle, lhsSweepAngle) = (self.center, self.radius, self.startAngle, self.sweepAngle)
+        let (rhsCenter, rhsRadius, rhsStartAngle, rhsSweepAngle) = (other.center, other.radius, other.startAngle, other.sweepAngle)
+
+        guard lhsCenter.isApproximatelyEqualFast(to: rhsCenter, tolerance: tolerance) && lhsRadius.isApproximatelyEqualFast(to: rhsRadius, tolerance: tolerance) else {
+            return .notCoincident
+        }
+
+        let lhsSweep = AngleSweep(start: lhsStartAngle, sweep: lhsSweepAngle)
+        let rhsSweep = AngleSweep(start: rhsStartAngle, sweep: rhsSweepAngle)
+
+        guard lhsSweep.intersects(rhsSweep) else {
+            return .notCoincident
+        }
+
+        lhsStart = lhsSweep.start.radians
+        lhsEnd = lhsSweep.stop.radians
+        rhsStart = rhsSweep.start.radians
+        rhsEnd = rhsSweep.stop.radians
+
+        lhsContains = { value in
+            lhsSweep.contains(.init(radians: value))
+        }
+        rhsContains = { value in
+            rhsSweep.contains(.init(radians: value))
+        }
+
+        let lhs = CircleArc2(
+            center: lhsCenter,
+            radius: lhsRadius,
+            startAngle: lhsStartAngle,
+            sweepAngle: lhsSweepAngle
+        )
+        let rhs = CircleArc2(
+            center: rhsCenter,
+            radius: rhsRadius,
+            startAngle: rhsStartAngle,
+            sweepAngle: rhsSweepAngle
+        )
+
+        lhsStartCoincident =
+            areClose(lhs.startPoint, rhs.startPoint) ||
+            areClose(lhs.startPoint, rhs.endPoint)
+
+        lhsEndCoincident =
+            areClose(lhs.endPoint, rhs.startPoint) ||
+            areClose(lhs.endPoint, rhs.endPoint)
+
+        if
+            lhsStartCoincident && lhsEndCoincident
+        {
+            return .sameSpan
+        }
+
+        // Ignore angles that are joined end-to-end
+        func withinTolerance(_ v1: Scalar, _ v2: Scalar) -> Bool {
+            (v1 - v2).magnitude <= tolerance
+        }
+
+        if
+            withinTolerance(lhsSweep.start.normalized(from: .zero), rhsSweep.stop.normalized(from: .zero)) ||
+            withinTolerance(lhsSweep.stop.normalized(from: .zero), rhsSweep.start.normalized(from: .zero))
+        {
+            return .notCoincident
+        }
+
+        lhsPeriod = { scalar in
+            return startPeriod + (endPeriod - startPeriod) * lhsSweep.ratioOfAngle(.init(radians: scalar))
+        }
+        rhsPeriod = { scalar in
+            return other.startPeriod + (other.endPeriod - other.startPeriod) * rhsSweep.ratioOfAngle(.init(radians: scalar))
+        }
+
+        // lhs:  •------•
+        // rhs:   •----•
+        if lhsContains(rhsStart) && lhsContains(rhsEnd) {
+            return .lhsContainsRhs(
+                lhsStart: lhsPeriod(rhsStart), lhsEnd: lhsPeriod(rhsEnd)
+            )
+        }
+
+        // lhs:   •----•
+        // rhs:  •------•
+        if rhsContains(lhsStart) && rhsContains(lhsEnd) {
+            return .rhsContainsLhs(
+                rhsStart: rhsPeriod(lhsStart), rhsEnd: rhsPeriod(lhsEnd)
+            )
+        }
+
+        // lhs:  •----•
+        // rhs:    •----•
+        if lhsContains(rhsStart) && rhsContains(lhsEnd) {
+            return .rhsContainsLhsEnd(
+                lhsEnd: lhsPeriod(rhsStart), rhsStart: rhsPeriod(lhsEnd)
+            )
+        }
+
+        // lhs:    •----•
+        // rhs:  •----•
+        if rhsContains(lhsStart) && lhsContains(rhsEnd) {
+            return .rhsContainsLhsStart(
+                rhsStart: rhsPeriod(lhsStart), lhsEnd: lhsPeriod(rhsEnd)
+            )
+        }
+
+        // lhs:  •------•
+        // rhs:  •----•
+        if lhsStartCoincident && lhsContains(rhsEnd) {
+            return .rhsPrefixesLhs(
+                lhsEnd: lhsPeriod(rhsEnd)
+            )
+        }
+
+        // lhs:  •----•
+        // rhs:  •------•
+        if lhsStartCoincident && rhsContains(lhsEnd) {
+            return .lhsPrefixesRhs(
+                rhsEnd: rhsPeriod(lhsEnd)
+            )
+        }
+
+        // lhs:  •------•
+        // rhs:    •----•
+        if lhsEndCoincident && lhsContains(rhsStart) {
+            return .rhsSuffixesLhs(
+                lhsStart: lhsPeriod(rhsStart)
+            )
+        }
+
+        // lhs:    •----•
+        // rhs:  •------•
+        if lhsEndCoincident && rhsContains(lhsEnd) {
+            return .lhsSuffixesRhs(
+                rhsStart: rhsPeriod(lhsEnd)
+            )
+        }
+
+        return .notCoincident
     }
 }
 

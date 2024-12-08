@@ -48,7 +48,7 @@ public struct Union2Parametric<Vector: Vector2Real & Hashable>: Boolean2Parametr
     }
 
     @inlinable
-    static func union<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
+    public static func union<T1: ParametricClip2Geometry, T2: ParametricClip2Geometry>(
         tolerance: Vector.Scalar = .leastNonzeroMagnitude,
         _ lhs: T1,
         _ rhs: T2

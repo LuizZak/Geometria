@@ -49,9 +49,11 @@ extension Simplex2Graph {
 
         let (contours, intersections) = Self.splitContours(contours: contours, tolerance: tolerance)
 
+        let intersectionCache = GlobalIntersectionCache.fromIntersections(intersections: intersections)
+
         // Populate with contours
         for contour in contours {
-            result.appendContour(contour, tolerance: tolerance)
+            result.appendContour(contour, tolerance: tolerance, intersections: intersectionCache)
         }
 
         // Compute interferences
@@ -72,7 +74,7 @@ extension Simplex2Graph {
             newGraph.edgeTree.ensureContains(bounds: contourBounds)
             newGraph.contourTree.ensureContains(bounds: contourBounds)
             for contour in recombined {
-                newGraph.appendContour(contour, tolerance: tolerance)
+                newGraph.appendContour(contour, tolerance: tolerance, intersections: .fromIntersections(intersections: []))
             }
 
             newGraph.assertIsValid()
@@ -115,33 +117,54 @@ extension Simplex2Graph {
                     ))
                 }
 
-                // TODO: Figure out why moving the interference splitting to here breaks exclusive disjunctions
-                #if false
-
                 // Compute vertex/edge interference intersections
                 for lhsSimplex in lhs.allSimplexes() {
                     for rhsSimplex in rhs.allSimplexes() {
-                        if lhsSimplex.isOnSurface(rhsSimplex.start, toleranceSquared: toleranceSquared) {
-                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.start).0
-                            contours[lhsIndex].split(at: period)
-                        }
-                        if lhsSimplex.isOnSurface(rhsSimplex.end, toleranceSquared: toleranceSquared) {
-                            let period = lhsSimplex.closestPeriod(to: rhsSimplex.end).0
-                            contours[lhsIndex].split(at: period)
-                        }
+                        let coincidence = lhsSimplex.coincidenceRelationship(with: rhsSimplex, tolerance: tolerance)
 
-                        if rhsSimplex.isOnSurface(lhsSimplex.start, toleranceSquared: toleranceSquared) {
-                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.start).0
-                            contours[rhsIndex].split(at: period)
-                        }
-                        if rhsSimplex.isOnSurface(lhsSimplex.end, toleranceSquared: toleranceSquared) {
-                            let period = rhsSimplex.closestPeriod(to: lhsSimplex.end).0
-                            contours[rhsIndex].split(at: period)
+                        switch coincidence {
+                        case .sameSpan, .notCoincident:
+                            break
+
+                        case .lhsContainsRhs(let lhsStart, let lhsEnd):
+                            contours[lhsIndex].split(at: lhsStart)
+                            contours[lhsIndex].split(at: lhsEnd)
+
+                            /* TODO: Incorporate all splits into the final intersection list:
+                            allIntersections.append(
+                                (lhsIndex, lhsStart, rhsIndex, rhsSimplex.startPeriod)
+                            )
+                            allIntersections.append(
+                                (lhsIndex, lhsEnd, rhsIndex, rhsSimplex.endPeriod)
+                            )
+                            */
+
+                        case .rhsContainsLhs(let rhsStart, let rhsEnd):
+                            contours[rhsIndex].split(at: rhsStart)
+                            contours[rhsIndex].split(at: rhsEnd)
+
+                        case .lhsPrefixesRhs(let rhsEnd):
+                            contours[rhsIndex].split(at: rhsEnd)
+
+                        case .lhsSuffixesRhs(let rhsStart):
+                            contours[rhsIndex].split(at: rhsStart)
+
+                        case .rhsPrefixesLhs(let lhsEnd):
+                            contours[lhsIndex].split(at: lhsEnd)
+
+                        case .rhsSuffixesLhs(let lhsStart):
+                            contours[lhsIndex].split(at: lhsStart)
+
+                        case .rhsContainsLhsStart(let rhsStart, let lhsEnd):
+                            contours[rhsIndex].split(at: rhsStart)
+                            contours[lhsIndex].split(at: lhsEnd)
+
+                        case .rhsContainsLhsEnd(let lhsEnd, let rhsStart):
+                            contours[lhsIndex].split(at: lhsEnd)
+                            contours[rhsIndex].split(at: rhsStart)
                         }
                     }
                 }
-
-                #endif // #if false
             }
         }
 
@@ -150,7 +173,7 @@ extension Simplex2Graph {
 
     /// Appends a new contour into this graph.
     @inlinable
-    internal mutating func appendContour(_ contour: Contour, tolerance: Scalar) {
+    internal mutating func appendContour(_ contour: Contour, tolerance: Scalar, intersections: GlobalIntersectionCache) {
         let simplexes = contour.allSimplexes()
         guard !simplexes.isEmpty else {
             return
@@ -170,7 +193,23 @@ extension Simplex2Graph {
         var nodes: [(Parametric2GeometrySimplex<Vector>, Node)] = []
         for simplex in simplexes {
             if let neighbor = nodeTree.nearestNeighbor(to: simplex.start) {
+                var shouldMerge = false
+
                 if neighbor.location.distanceSquared(to: simplex.start) < tolerance * 2 {
+                    shouldMerge = true
+                } else if neighbor.location.distanceSquared(to: simplex.start) < 1 {
+                    for geometry in neighbor.geometries {
+                        let intersections = intersections.intersections[geometry.shapeIndex, default: []]
+
+                        for intersection in intersections {
+                            if shapeIndex == intersection.1 && simplex.startPeriod == intersection.2 {
+                                shouldMerge = true
+                            }
+                        }
+                    }
+                }
+
+                if shouldMerge {
                     neighbor.append(shapeIndex: shapeIndex, period: simplex.startPeriod)
                     nodes.append((simplex, neighbor))
                     continue
@@ -247,73 +286,6 @@ extension Simplex2Graph {
             intersectionsPerShape[intersection.rhs, default: []].append(intersection)
         }
 
-        // MARK: Merge edges - part 1
-        var edgesToCheck: OrderedSet<OrderedSet<Edge>> = []
-        for edge in edges {
-            let coincident =
-                edgeTree
-                .query(edge)
-                .filter({ $0.isCoincident(with: edge, tolerance: tolerance) })
-
-            guard !coincident.isEmpty else {
-                continue
-            }
-
-            edgesToCheck.append(OrderedSet(coincident).union([edge]))
-        }
-
-        // Start by first splitting all edges that coincide such that the result
-        // are edges that either coincide as the same span, or not at all.
-        //
-        // The next step of merging nodes works to combine the edge endpoints,
-        // allowing a last pass across the edges to compute the result of the
-        // coinciding edges.
-        for edgesToCheck in edgesToCheck.minimized() {
-            let edgesToCheck = edgesToCheck.sorted(by: { $0.id < $1.id })
-
-            for (i, edge) in edgesToCheck.enumerated() {
-                for (_, next) in edgesToCheck.enumerated().dropFirst(i + 1) {
-                    let relationship = edge.coincidenceRelationship(
-                        with: next,
-                        tolerance: tolerance
-                    )
-
-                    switch relationship {
-                    case .sameSpan, .notCoincident:
-                        break
-
-                    case .lhsContainsRhs(let lhsStart, let lhsEnd):
-                        splitEdge(shapeIndex: lhsStart[0].shapeIndex, period: lhsStart[0].period)
-                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
-
-                    case .rhsContainsLhs(let rhsStart, let rhsEnd):
-                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
-                        splitEdge(shapeIndex: rhsEnd[0].shapeIndex, period: rhsEnd[0].period)
-
-                    case .lhsPrefixesRhs(let rhsEnd):
-                        splitEdge(shapeIndex: rhsEnd[0].shapeIndex, period: rhsEnd[0].period)
-
-                    case .lhsSuffixesRhs(let rhsStart):
-                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
-
-                    case .rhsPrefixesLhs(let lhsEnd):
-                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
-
-                    case .rhsSuffixesLhs(let lhsStart):
-                        splitEdge(shapeIndex: lhsStart[0].shapeIndex, period: lhsStart[0].period)
-
-                    case .rhsContainsLhsStart(let rhsStart, let lhsEnd):
-                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
-                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
-
-                    case .rhsContainsLhsEnd(let lhsEnd, let rhsStart):
-                        splitEdge(shapeIndex: lhsEnd[0].shapeIndex, period: lhsEnd[0].period)
-                        splitEdge(shapeIndex: rhsStart[0].shapeIndex, period: rhsStart[0].period)
-                    }
-                }
-            }
-        }
-
         // MARK: Edge-vertex interferences
         for node in nodes {
             let nodeAABB = AABB2(center: node.location, size: .init(repeating: tolerance * 2))
@@ -342,45 +314,13 @@ extension Simplex2Graph {
         func areClose(_ n1: Node, _ n2: Node) -> Bool {
             areClose(n1.location, n2.location)
         }
-        func areIntersection(_ n1: Node, _ n2: Node) -> Bool {
-            for geometry in n1.geometries {
-                guard let intersections = intersectionsPerShape[geometry.shapeIndex] else {
-                    continue
-                }
-
-                if
-                    intersections.contains(where: { intersection in
-                        if
-                            n1.references(shapeIndex: intersection.lhs, period: intersection.lhsPeriod)
-                            && n2.references(shapeIndex: intersection.rhs, period: intersection.rhsPeriod)
-                        {
-                            return true
-                        }
-
-                        // Invert check
-                        if
-                            n1.references(shapeIndex: intersection.rhs, period: intersection.rhsPeriod)
-                            && n2.references(shapeIndex: intersection.lhs, period: intersection.lhsPeriod)
-                        {
-                            return true
-                        }
-
-                        return false
-                    })
-                {
-                    return true
-                }
-            }
-
-            return false
-        }
 
         var nodesToMerge: OrderedSet<OrderedSet<Node>> = []
 
         for node in nodes {
             let neighbors = nodeTree.nearestNeighbors(
                 to: node.location,
-                distanceSquared: 10
+                distanceSquared: tolerance * tolerance
             )
 
             var finalSet: OrderedSet<Node> = []
@@ -389,7 +329,7 @@ extension Simplex2Graph {
                     finalSet.append(neighbor)
                     continue
                 }
-                if areClose(neighbor.location, node.location) || areIntersection(node, neighbor) {
+                if areClose(neighbor.location, node.location) {
                     finalSet.append(neighbor)
                 }
             }
@@ -470,8 +410,9 @@ extension Simplex2Graph {
             hasMergedNodes = true
         }
 
-        // MARK: Merge edges - part 2
-        edgesToCheck = []
+        // MARK: Merge edges
+        var edgesToCheck: OrderedSet<OrderedSet<Edge>> = []
+
         for edge in edges {
             let coincident =
                 edgeTree
@@ -734,6 +675,48 @@ extension Simplex2Graph {
     }
 
     @usableFromInline
+    func dbg_edgeTree() {
+        var buffer = """
+        function setup() {
+            createCanvas(800, 600)
+            rectMode(CORNER)
+        }
+
+        function draw() {
+            noFill()
+        """
+
+        let views = edgeTree.viewsForSubdivisions()
+
+        for view in views {
+            buffer += "\n    stroke(0)"
+
+            let line = "rect(\(view.bounds.x), \(view.bounds.y), \(view.bounds.width), \(view.bounds.height))"
+            buffer += "\n    \(line)"
+
+            buffer += "\n    stroke(255, 0, 0)"
+
+            for element in view.elements {
+                let line = "rect(\(element.bounds.x), \(element.bounds.y), \(element.bounds.width), \(element.bounds.height))"
+                buffer += "\n        \(line)"
+
+                switch element.materializePrimitive() {
+                case .lineSegment2(let lineSegment2):
+                    let line = "line(\(lineSegment2.start.x), \(lineSegment2.start.y), \(lineSegment2.end.x), \(lineSegment2.end.y))"
+                    buffer += "\n        \(line)"
+
+                case .circleArc2(_):
+                    break
+                }
+            }
+        }
+
+        buffer += "\n}"
+
+        print(buffer)
+    }
+
+    @usableFromInline
     internal struct OrderedEdgePair: Hashable {
         @usableFromInline
         var lhs: Edge
@@ -749,6 +732,38 @@ extension Simplex2Graph {
                 self.rhs = lhs
                 self.lhs = rhs
             }
+        }
+    }
+
+    @usableFromInline
+    internal struct GlobalIntersectionCache {
+        @usableFromInline
+        var intersections: [Int: [(Period, Int, Period)]]
+
+        @inlinable
+        init(intersections: [Int: [(Period, Int, Period)]] = [:]) {
+            self.intersections = intersections
+        }
+
+        @usableFromInline
+        mutating func register(lhsIndex: Int, lhsPeriod: Period, rhsIndex: Int, rhsPeriod: Period) {
+            self.intersections[lhsIndex, default: []].append((lhsPeriod, rhsIndex, rhsPeriod))
+        }
+
+        @usableFromInline
+        static func fromIntersections(intersections: [GlobalIntersection]) -> Self {
+            var result = Self()
+
+            for intersection in intersections {
+                result.register(
+                    lhsIndex: intersection.lhs,
+                    lhsPeriod: intersection.lhsPeriod,
+                    rhsIndex: intersection.rhs,
+                    rhsPeriod: intersection.rhsPeriod
+                )
+            }
+
+            return result
         }
     }
 }

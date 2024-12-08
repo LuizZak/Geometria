@@ -16,14 +16,13 @@ internal extension OrderedSet {
             for (next, nextSet) in self.enumerated().dropFirst(current + 1) {
                 if !currentSet.isDisjoint(with: nextSet) {
                     graph.addEdge(from: current, to: next)
-                    graph.addEdge(from: next, to: current)
                 }
             }
         }
 
         var minimalSets: [OrderedSet<T>] = []
 
-        for component in graph.stronglyConnectedComponents() {
+        for component in graph.connectedComponents() {
             var minimalSet: OrderedSet<T> = []
 
             for index in component.sorted() {

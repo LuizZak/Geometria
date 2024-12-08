@@ -150,6 +150,17 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
         return (period, projected.distanceSquared(to: vector))
     }
 
+    /// Returns the period at which the x component of the coordinate system is
+    /// the smallest within this simplex.
+    @inlinable
+    public func leftmostPeriod() -> Period {
+        if start.x == end.y {
+            return start.y < end.y ? endPeriod : startPeriod
+        }
+
+        return start.x < end.y ? startPeriod : endPeriod
+    }
+
     /// Clamps this simplex so its contained geometry is only present within a
     /// given period range.
     ///
@@ -208,5 +219,142 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
                 endPeriod: endPeriod
             )
         )
+    }
+
+    @inlinable
+    public func coincidenceRelationship(with other: Self, tolerance: Scalar) -> SimplexCoincidenceRelationship<Period> {
+        if other == self {
+            return .sameSpan
+        }
+
+        func areClose(_ v1: Vector, _ v2: Vector) -> Bool {
+            let diff = (v1 - v2)
+
+            return diff.absolute.maximalComponent.magnitude < tolerance
+        }
+
+        let lhsStartCoincident: Bool
+        let lhsEndCoincident: Bool
+
+        var lhsStart: Scalar
+        var lhsEnd: Scalar
+        var rhsStart: Scalar
+        var rhsEnd: Scalar
+
+        let lhsContains: (_ scalar: Scalar) -> Bool
+        let rhsContains: (_ scalar: Scalar) -> Bool
+        let lhsPeriod: (_ scalar: Scalar) -> Period
+        let rhsPeriod: (_ scalar: Scalar) -> Period
+
+        let lhsLine = LineSegment2(start: self.start, end: self.end)
+        let rhsLine = LineSegment2(start: other.start, end: other.end)
+
+        // lhs:  •----•
+        // rhs:  •----•
+        lhsStartCoincident = areClose(lhsLine.start, rhsLine.start) || areClose(lhsLine.start, rhsLine.end)
+        lhsEndCoincident = areClose(lhsLine.end, rhsLine.start) || areClose(lhsLine.end, rhsLine.end)
+
+        if
+            lhsStartCoincident && lhsEndCoincident
+        {
+            return .sameSpan
+        }
+
+        if lhsLine.isCollinear(with: rhsLine, tolerance: tolerance) {
+            lhsStart = rhsLine.projectAsScalar(lhsLine.start)
+            lhsEnd = rhsLine.projectAsScalar(lhsLine.end)
+            rhsStart = lhsLine.projectAsScalar(rhsLine.start)
+            rhsEnd = lhsLine.projectAsScalar(rhsLine.end)
+
+            lhsContains = { scalar in
+                lhsLine.containsProjectedNormalizedMagnitude(scalar)
+            }
+            rhsContains = { scalar in
+                rhsLine.containsProjectedNormalizedMagnitude(scalar)
+            }
+
+            // Ensure start < end so checks are easier to make
+            if lhsStart > lhsEnd {
+                swap(&lhsStart, &lhsEnd)
+            }
+            if rhsStart > rhsEnd {
+                swap(&rhsStart, &rhsEnd)
+            }
+        } else {
+            return .notCoincident
+        }
+
+        lhsPeriod = { scalar in
+            self.startPeriod + (self.endPeriod - self.startPeriod) * scalar
+        }
+        rhsPeriod = { scalar in
+            other.startPeriod + (other.endPeriod - other.startPeriod) * scalar
+        }
+
+        // lhs:  •------•
+        // rhs:   •----•
+        if lhsContains(rhsStart) && lhsContains(rhsEnd) {
+            return .lhsContainsRhs(
+                lhsStart: lhsPeriod(rhsStart), lhsEnd: lhsPeriod(rhsEnd)
+            )
+        }
+
+        // lhs:   •----•
+        // rhs:  •------•
+        if rhsContains(lhsStart) && rhsContains(lhsEnd) {
+            return .rhsContainsLhs(
+                rhsStart: rhsPeriod(lhsStart), rhsEnd: rhsPeriod(lhsEnd)
+            )
+        }
+
+        // lhs:  •----•
+        // rhs:    •----•
+        if lhsContains(rhsStart) && rhsContains(lhsEnd) {
+            return .rhsContainsLhsEnd(
+                lhsEnd: lhsPeriod(rhsStart), rhsStart: rhsPeriod(lhsEnd)
+            )
+        }
+
+        // lhs:    •----•
+        // rhs:  •----•
+        if rhsContains(lhsStart) && lhsContains(rhsEnd) {
+            return .rhsContainsLhsStart(
+                rhsStart: rhsPeriod(lhsStart), lhsEnd: lhsPeriod(rhsEnd)
+            )
+        }
+
+        // lhs:  •------•
+        // rhs:  •----•
+        if lhsStartCoincident && lhsContains(rhsEnd) {
+            return .rhsPrefixesLhs(
+                lhsEnd: lhsPeriod(rhsEnd)
+            )
+        }
+
+        // lhs:  •----•
+        // rhs:  •------•
+        if lhsStartCoincident && rhsContains(lhsEnd) {
+            return .lhsPrefixesRhs(
+                rhsEnd: rhsPeriod(lhsEnd)
+            )
+        }
+
+        // lhs:  •------•
+        // rhs:    •----•
+        if lhsEndCoincident && lhsContains(rhsStart) {
+            return .rhsSuffixesLhs(
+                lhsStart: lhsPeriod(rhsStart)
+            )
+        }
+
+        // lhs:    •----•
+        // rhs:  •------•
+        if lhsEndCoincident && rhsContains(lhsEnd) {
+            return .lhsSuffixesRhs(
+                rhsStart: rhsPeriod(lhsEnd)
+            )
+        }
+
+        return .notCoincident
     }
 }

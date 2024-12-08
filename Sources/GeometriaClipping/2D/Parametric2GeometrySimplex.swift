@@ -111,6 +111,17 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         }
     }
 
+    @inlinable
+    public func leftmostPeriod() -> Period {
+        switch self {
+        case .lineSegment2(let lineSegment):
+            return lineSegment.leftmostPeriod()
+
+        case .circleArc2(let circleArc):
+            return circleArc.leftmostPeriod()
+        }
+    }
+
     /// Returns `startPeriod + (endPeriod - startPeriod) * ratio`.
     ///
     /// - note: The result is unclamped.
@@ -275,6 +286,20 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
 
                 return (period1, period2)
             }
+        }
+    }
+
+    public func coincidenceRelationship(with other: Self, tolerance: Scalar) -> SimplexCoincidenceRelationship<Period> {
+        switch (self, other) {
+        case (.lineSegment2(let lhs), .lineSegment2(let rhs)):
+            return lhs.coincidenceRelationship(with: rhs, tolerance: tolerance)
+
+        case (.circleArc2(let lhs), .circleArc2(let rhs)):
+            return lhs.coincidenceRelationship(with: rhs, tolerance: tolerance)
+
+        default:
+            // TODO: Handle coincidence of line segments and circular edges.
+            return .notCoincident
         }
     }
 
