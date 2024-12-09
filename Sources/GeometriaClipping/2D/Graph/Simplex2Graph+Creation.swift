@@ -289,14 +289,17 @@ extension Simplex2Graph {
         // MARK: Edge-vertex interferences
         for node in nodes {
             let nodeAABB = AABB2(center: node.location, size: .init(repeating: tolerance * 2))
-            let edgesNearNode = edgeTree.query(nodeAABB)
 
-            for edge in edgesNearNode where edge.start != node && edge.end != node {
+            edgeTree.lazyQuery(nodeAABB) { edge in
+                guard edge.start != node && edge.end != node else {
+                    return
+                }
+
                 let (ratio, distanceSquared) = edge.closestRatio(to: node.location)
 
                 // Avoid attempts to split an edge at its end points.
                 guard ratio > 0 && ratio < 1 else {
-                    continue
+                    return
                 }
 
                 if distanceSquared.squareRoot() < tolerance {
@@ -414,12 +417,13 @@ extension Simplex2Graph {
         var edgesToCheck: OrderedSet<OrderedSet<Edge>> = []
 
         for edge in edges {
-            let coincident =
-                edgeTree
-                .query(edge)
-                .filter({ next in
-                    next.coincidenceRelationship(with: edge, tolerance: tolerance) == .sameSpan
-                })
+            var coincident: [Edge] = []
+
+            edgeTree.lazyQuery(edge) { next in
+                if next.coincidenceRelationship(with: edge, tolerance: tolerance) == .sameSpan {
+                    coincident.append(next)
+                }
+            }
 
             guard !coincident.isEmpty else {
                 continue

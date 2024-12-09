@@ -112,6 +112,42 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
         return result
     }
 
+    /// Performs a point query using a closure to be invoked for each element
+    /// found to intersect `point`.
+    @inlinable
+    public func lazyQueryPoint(
+        _ point: Vector,
+        _ closure: (Element) -> Void
+    ) {
+        root.queryPoint(point) { (_, element) in
+            closure(element)
+        }
+    }
+
+    /// Performs a line query using a closure to be invoked for each element
+    /// found to intersect `line`.
+    @inlinable
+    public func lazyQueryLine<Line: LineFloatingPoint>(
+        _ line: Line,
+        _ closure: (Element) -> Void
+    ) where Line.Vector == Vector {
+        root.queryLine(line) { (_, element) in
+            closure(element)
+        }
+    }
+
+    /// Performs a bound query using a closure to be invoked for each element
+    /// found to intersect `area`.
+    @inlinable
+    public func lazyQuery<Bounds: BoundableType>(
+        _ area: Bounds,
+        _ closure: (Element) -> Void
+    ) where Bounds.Vector == Vector {
+        root.query(area) { (_, element) in
+            closure(element)
+        }
+    }
+
     // MARK: - Mutation
 
     @inlinable
