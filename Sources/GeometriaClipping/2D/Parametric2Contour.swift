@@ -4,7 +4,7 @@ import Numerics
 /// Represents a contour, or a non-intersecting segment of a parametric geometry,
 /// which has its own set of simplexes, and has a winding value specifying how
 /// its simplexes wind in relation to its parent geometry.
-public struct Parametric2Contour<Vector: Vector2Real> {
+public struct Parametric2Contour<Vector: Vector2Real>: BoundableType {
     public typealias Scalar = Vector.Scalar
     public typealias Period = Vector.Scalar
 
@@ -359,9 +359,11 @@ extension Collection {
         endPeriod: Vector.Scalar
     ) -> [Element] where Element == Parametric2Contour<Vector> {
         return map {
-            .init(normalizing: $0.allSimplexes(),
-            startPeriod: startPeriod,
-            endPeriod: endPeriod)
+            .init(
+                normalizing: $0.allSimplexes(),
+                startPeriod: startPeriod,
+                endPeriod: endPeriod
+            )
         }
     }
 }

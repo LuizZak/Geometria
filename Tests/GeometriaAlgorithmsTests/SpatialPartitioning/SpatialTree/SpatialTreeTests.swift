@@ -430,7 +430,7 @@ private func makeAABBCloud(count: Int = 50) -> [AABB2D] {
     }
 }
 
-extension Vector2D: BoundableType {
+extension Vector2D: @retroactive BoundableType {
     public var bounds: AABB<Self> {
         .init(of: self, self)
     }
