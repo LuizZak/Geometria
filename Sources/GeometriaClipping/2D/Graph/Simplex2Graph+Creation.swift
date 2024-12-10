@@ -503,7 +503,7 @@ extension Simplex2Graph {
             hasMergedEdges = true
         }
 
-        //prune()
+        prune()
 
         return (hasMergedNodes, hasMergedEdges)
     }

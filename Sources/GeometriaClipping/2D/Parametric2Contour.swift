@@ -254,7 +254,7 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
         }
 
         let simplex = simplexes[simplexIndex]
-        if period.isApproximatelyEqualFast(to: simplex.startPeriod, tolerance: tolerance) {
+        if period.isApproximatelyEqualFast(to: simplex.startPeriod, tolerance: tolerance) || period.isApproximatelyEqualFast(to: simplex.endPeriod, tolerance: tolerance) {
             return
         }
 
