@@ -386,6 +386,39 @@ class Union2ParametricTests: XCTestCase {
         }
     }
 
+    func testUnion_capsuleSequence_short_3() {
+        let polys: [Capsule2Parametric<Vector2D>] = [
+            .init(
+                start: .init(x: 840.9345087440722, y: 120.0420038990834),
+                startRadius: 25.29491955052341,
+                end: .init(x: 825.7795755118234, y: 294.99630400154695),
+                endRadius: 40.07160791260946,
+                startPeriod: 0.0,
+                endPeriod: 1.0
+            ),
+            .init(
+                start: .init(x: 825.7795755118234, y: 294.99630400154695),
+                startRadius: 40.07160791260946,
+                end: .init(x: 443.8865955891325, y: 214.2706642265273),
+                endRadius: 36.77680233971253,
+                startPeriod: 0.0,
+                endPeriod: 1.0
+            ),
+        ]
+
+        let sut = Union2Parametric(contours: polys.flatMap { $0.allContours() }, tolerance: 1e-5)
+
+        TestFixture.beginFixture(lineScale: 1.0, renderScale: 0.45) { fixture in
+            fixture.add(polys, category: "inputs")
+
+            fixture.assertions(on: sut)
+                .assertAllSimplexes(
+                    accuracy: accuracy,
+                    [[Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 840.9345087440722, y: 120.0420038990834), radius: 25.29491955052341, startAngle: Angle<Double>(radians: -2.970941306184629), sweepAngle: Angle<Double>(radians: 1.5707963267948966), startPeriod: 0.0, endPeriod: 0.03033636815053754)), Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 840.9345087440722, y: 120.0420038990834), radius: 25.29491955052341, startAngle: Angle<Double>(radians: -1.4001449793897325), sweepAngle: Angle<Double>(radians: 1.4023067425093831), startPeriod: 0.03033636815053754, endPeriod: 0.05741874215095776)), Parametric2GeometrySimplex<Vector2<Double>>.lineSegment2(LineSegment2Simplex<Vector2<Double>>(start: Vector2<Double>(x: 866.2293691902594, y: 120.09668548069239), end: Vector2<Double>(x: 865.8510897927539, y: 295.0829292582077), startPeriod: 0.05741874215095776, endPeriod: 0.19102147143202303)), Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 825.7795755118234, y: 294.99630400154695), radius: 40.07160791260946, startAngle: Angle<Double>(radians: 0.002161763119650789), sweepAngle: Angle<Double>(radians: 0.19771339814696445), startPeriod: 0.19102147143202303, endPeriod: 0.19707046714015988)), Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 825.7795755118234, y: 294.99630400154695), radius: 40.07160791260946, startAngle: Angle<Double>(radians: 0.19987516126661525), sweepAngle: Angle<Double>(radians: 1.373082928647932), startPeriod: 0.19707046714015988, endPeriod: 0.2390796219073725)), Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 825.7795755118234, y: 294.99630400154695), radius: 40.07160791260946, startAngle: Angle<Double>(radians: 1.5729580899145474), sweepAngle: Angle<Double>(radians: 0.21459567676896898), startPeriod: 0.2390796219073725, endPeriod: 0.2456451270270373)), Parametric2GeometrySimplex<Vector2<Double>>.lineSegment2(LineSegment2Simplex<Vector2<Double>>(start: Vector2<Double>(x: 817.1616122130969, y: 334.1302338998297), end: Vector2<Double>(x: 435.9772266040055, y: 250.1868871987636), startPeriod: 0.2456451270270373, endPeriod: 0.5436537396120984)), Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 443.8865955891325, y: 214.2706642265273), radius: 36.77680233971253, startAngle: Angle<Double>(radians: 1.7875537666835175), sweepAngle: Angle<Double>(radians: 1.5707963267948966), startPeriod: 0.5436537396120984, endPeriod: 0.5877604074727591)), Parametric2GeometrySimplex<Vector2<Double>>.circleArc2(CircleArc2Simplex<Vector2<Double>>(center: Vector2<Double>(x: 443.8865955891325, y: 214.2706642265273), radius: 36.77680233971253, startAngle: Angle<Double>(radians: 3.358350093478414), sweepAngle: Angle<Double>(radians: 1.5539140481728904), startPeriod: 0.5877604074727591, endPeriod: 0.6313930348463052)), Parametric2GeometrySimplex<Vector2<Double>>.lineSegment2(LineSegment2Simplex<Vector2<Double>>(start: Vector2<Double>(x: 451.18851859011914, y: 178.2260375698126), end: Vector2<Double>(x: 793.297000370629, y: 247.5303978489986), startPeriod: 0.6313930348463052, endPeriod: 0.8978994590751505)), Parametric2GeometrySimplex<Vector2<Double>>.lineSegment2(LineSegment2Simplex<Vector2<Double>>(start: Vector2<Double>(x: 793.297000370629, y: 247.5303978489986), end: Vector2<Double>(x: 816.0070140542555, y: 115.74631262099889), startPeriod: 0.8978994590751505, endPeriod: 1.0))]]
+                )
+        }
+    }
+
     func testUnion_capsuleSequence_long() {
         let inputs = Capsule2Parametric.makeCapsuleSequence([
             (.init(x: -150, y: -10), 20.0),

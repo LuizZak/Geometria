@@ -243,9 +243,10 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
     /// Splits this contour at a period, ensuring that a simplex split happens
     /// at that period.
     ///
-    /// If the given period is the start of a period, no change is made.
+    /// If the given period is the start of a period, +/- tolerance, no change
+    /// is made.
     @inlinable
-    public mutating func split(at period: Period) {
+    public mutating func split(at period: Period, tolerance: Scalar) {
         let period = normalizedPeriod(period)
 
         guard let simplexIndex = simplexes.firstIndex(where: { $0.periodRange.contains(period) }) else {
@@ -253,7 +254,7 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
         }
 
         let simplex = simplexes[simplexIndex]
-        if period == simplex.startPeriod {
+        if period.isApproximatelyEqualFast(to: simplex.startPeriod, tolerance: tolerance) {
             return
         }
 

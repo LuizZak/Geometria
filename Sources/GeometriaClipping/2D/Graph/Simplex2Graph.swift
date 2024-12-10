@@ -684,6 +684,18 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                     sweepAngle: rhsSweepAngle
                 )
 
+                // Ignore angles that are joined end-to-end
+                func withinTolerance(_ v1: Scalar, _ v2: Scalar) -> Bool {
+                    (v1 - v2).magnitude <= tolerance
+                }
+
+                if
+                    withinTolerance(lhsSweep.start.normalized(from: .zero), rhsSweep.stop.normalized(from: .zero)) ||
+                    withinTolerance(lhsSweep.stop.normalized(from: .zero), rhsSweep.start.normalized(from: .zero))
+                {
+                    return .notCoincident
+                }
+
                 lhsStartCoincident =
                     areClose(lhs.startPoint, rhs.startPoint) ||
                     areClose(lhs.startPoint, rhs.endPoint)
@@ -696,18 +708,6 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
                     lhsStartCoincident && lhsEndCoincident
                 {
                     return .sameSpan
-                }
-
-                // Ignore angles that are joined end-to-end
-                func withinTolerance(_ v1: Scalar, _ v2: Scalar) -> Bool {
-                    (v1 - v2).magnitude <= tolerance
-                }
-
-                if
-                    withinTolerance(lhsSweep.start.normalized(from: .zero), rhsSweep.stop.normalized(from: .zero)) ||
-                    withinTolerance(lhsSweep.stop.normalized(from: .zero), rhsSweep.start.normalized(from: .zero))
-                {
-                    return .notCoincident
                 }
 
                 lhsPeriod = { scalar in
