@@ -4,7 +4,7 @@ import Numerics
 /// Represents a contour, or a non-intersecting segment of a parametric geometry,
 /// which has its own set of simplexes, and has a winding value specifying how
 /// its simplexes wind in relation to its parent geometry.
-public struct Parametric2Contour<Vector: Vector2Real>: BoundableType {
+public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
     public typealias Period = Vector.Scalar
 
@@ -41,6 +41,10 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType {
     @inlinable
     var periodRange: Period {
         endPeriod - startPeriod
+    }
+
+    public var description: String {
+        "\(type(of: self))(simplexes: \(simplexes), winding: \(winding), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
     }
 
     /// Initializes a new compound parametric with a given list of simplexes, using
@@ -102,7 +106,12 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType {
     ///
     /// - note: The period of the contained simplexes is not modified and is
     /// assumed to match the range `(startPeriod, endPeriod]`.
-    public init(simplexes: [Simplex], winding: Winding, startPeriod: Period, endPeriod: Period) {
+    public init(
+        simplexes: [Simplex],
+        winding: Winding,
+        startPeriod: Period,
+        endPeriod: Period
+    ) {
         self.simplexes = simplexes
         self.winding = winding
         self.startPeriod = startPeriod

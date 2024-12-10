@@ -2,7 +2,7 @@ import Geometria
 
 /// A 2-dimensional parametric shape that is composed of generic contours that
 /// are joined end-to-end in a loop.
-public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry {
+public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
     public typealias Contour = Parametric2Contour<Vector>
@@ -29,6 +29,10 @@ public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry 
         let result = AABB(aabbs: self.allContours().map(\.bounds))
         _cache.bounds = result
         return result
+    }
+
+    public var description: String {
+        "\(type(of: self))(contours: \(contours), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
     }
 
     /// Initializes a new compound parametric with the contour and start/end period
@@ -88,7 +92,11 @@ public struct Compound2Parametric<Vector: Vector2Real>: ParametricClip2Geometry 
     ///
     /// - note: The period of the contained contours is not modified and is
     /// assumed to match the range `(startPeriod, endPeriod]`.
-    public init(contours: [Contour], startPeriod: Period, endPeriod: Period) {
+    public init(
+        contours: [Contour],
+        startPeriod: Period,
+        endPeriod: Period
+    ) {
         self.contours = contours
         self.startPeriod = startPeriod
         self.endPeriod = endPeriod

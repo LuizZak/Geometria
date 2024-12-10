@@ -2,7 +2,7 @@ import Geometria
 
 /// A parametric geometry that is defined by line segments connecting two circular
 /// arcs at the end-points.
-public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
+public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
     public typealias Contour = Parametric2Contour<Vector>
@@ -16,6 +16,10 @@ public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, 
     public var endPeriod: Period
 
     public var isReversed: Bool
+
+    public var description: String {
+        "\(type(of: self))(start: \(start), startRadius: \(startRadius), end: \(end), endRadius: \(endRadius), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
+    }
 
     public init(
         start: Vector,

@@ -2,7 +2,7 @@ import Geometria
 import Numerics
 
 /// A 2-dimensional simplex composed of a circular arc segment.
-public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equatable {
+public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equatable, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
 
     /// The circular arc segment associated with this simplex.
@@ -66,6 +66,10 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
     @inlinable
     public var bounds: AABB2<Vector> {
         circleArc.bounds()
+    }
+
+    public var description: String {
+        "\(type(of: self))(center: \(center), radius: \(radius), startAngle: \(startAngle), sweepAngle: \(sweepAngle), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
     }
 
     /// Initializes a new circular arc segment simplex value with a given circular

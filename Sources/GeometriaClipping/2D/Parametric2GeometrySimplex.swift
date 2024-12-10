@@ -1,7 +1,7 @@
 import Geometria
 
 /// The parametric simplex type produced by a `ParametricClip2Geometry`.
-public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex, Equatable {
+public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex, Equatable, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
 
     /// A circular arc simplex.
@@ -58,6 +58,13 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         switch self {
         case .circleArc2(let simplex): return simplex.bounds
         case .lineSegment2(let simplex): return simplex.bounds
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .circleArc2(let arc): return "\(type(of: self)).circleArc2(\(arc))"
+        case .lineSegment2(let segment): return "\(type(of: self)).lineSegment2(\(segment))"
         }
     }
 

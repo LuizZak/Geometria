@@ -2,7 +2,7 @@ import Geometria
 
 /// A parametric geometry that is defined by an underlying set of vertices from a
 /// ``LinePolygon2`` shape.
-public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
+public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
     public typealias Contour = Parametric2Contour<Vector>
@@ -37,6 +37,10 @@ public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geomet
                 endPeriod: endPeriod
             )
         }
+    }
+
+    public var description: String {
+        "\(type(of: self))(linePolygon2: \(linePolygon2), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
     }
 
     public init(

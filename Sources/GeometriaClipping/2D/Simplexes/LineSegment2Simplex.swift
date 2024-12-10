@@ -1,7 +1,7 @@
 import Geometria
 
 /// A 2-dimensional simplex composed of a line segment.
-public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simplex, Equatable {
+public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simplex, Equatable, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
 
     /// The line segment associated with this simplex.
@@ -32,6 +32,10 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
     @inlinable
     public var bounds: AABB2<Vector> {
         lineSegment.bounds
+    }
+
+    public var description: String {
+        "\(type(of: self))(start: \(start), end: \(end), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
     }
 
     /// Initializes a new line segment simplex value with a line segment that spans

@@ -1,7 +1,7 @@
 import Geometria
 
 /// A parametric geometry that is defined by a ``Circle2`` shape.
-public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable {
+public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, Equatable, CustomStringConvertible {
     public typealias Scalar = Vector.Scalar
     public typealias Simplex = Parametric2GeometrySimplex<Vector>
     public typealias Contour = Parametric2Contour<Vector>
@@ -25,6 +25,10 @@ public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, E
     public var radius: Scalar {
         get { circle2.radius }
         set { circle2.radius = newValue }
+    }
+
+    public var description: String {
+        "\(type(of: self))(center: \(center), radius: \(radius), startPeriod: \(startPeriod), endPeriod: \(endPeriod))"
     }
 
     public init(
