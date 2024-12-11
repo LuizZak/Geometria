@@ -23,7 +23,7 @@ extension Simplex2Graph {
                 edge.totalWinding =
                     contourTree
                     .queryPoint(center)
-                    .filter({ $0.index != geometry.shapeIndex && $0.contour.contains(center) })
+                    .filter({ !edge.originalShapeIndices.contains($0.index) && $0.contour.contains(center) })
                     .reduce(edge.winding.value, { $0 + $1.contour.winding.value })
             }
 
@@ -32,7 +32,6 @@ extension Simplex2Graph {
 
         let resultOverall = ContourManager<Vector>()
 
-        var visitedOverall: Set<Node> = []
         var sortedEdges = OrderedSet(edges.sorted(by: { $0.id < $1.id }))
 
         guard let firstEdge = sortedEdges.first(where: computeWindingAndFilter) else {
@@ -43,11 +42,13 @@ extension Simplex2Graph {
         var current = firstEdge.start
 
         func candidateIsAscending(_ lhs: Edge, _ rhs: Edge) -> Bool {
-            if !computeWindingAndFilter(lhs) {
-                return false
-            }
-            if !computeWindingAndFilter(rhs) {
-                return true
+            if computeWindingAndFilter(lhs) != computeWindingAndFilter(rhs) {
+                if !computeWindingAndFilter(lhs) {
+                    return false
+                }
+                if !computeWindingAndFilter(rhs) {
+                    return true
+                }
             }
 
             switch (lhs.references(shapeIndex: currentShapeIndex), rhs.references(shapeIndex: currentShapeIndex)) {
@@ -63,7 +64,7 @@ extension Simplex2Graph {
         }
 
         // Keep visiting nodes on the graph, removing them after each complete visit
-        while visitedOverall.insert(current).inserted {
+        while !sortedEdges.isEmpty {
             let result = resultOverall.beginContour()
             var visited: Set<Node> = []
 
@@ -81,9 +82,7 @@ extension Simplex2Graph {
 
                 current = nextEdge.end
 
-                if nextEdge.subtracting(shapeIndex: nextEdge.shapeIndices[0]) == nil {
-                    sortedEdges.remove(nextEdge)
-                }
+                sortedEdges.remove(nextEdge)
             }
 
             result.endContour(startPeriod: .zero, endPeriod: 1)

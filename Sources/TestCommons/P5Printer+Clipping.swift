@@ -1,7 +1,12 @@
 import Foundation
 import MiniP5Printer
 import Geometria
-import GeometriaClipping
+
+#if DEBUG
+    @testable import GeometriaClipping
+#else
+    import GeometriaClipping
+#endif
 
 extension P5Printer {
     func printPeriodSlider() {
@@ -228,6 +233,16 @@ extension P5Printer {
         }
     }
 
+    #if DEBUG
+
+    func add<Vector: Vector2Real>(_ contourManager: ContourManager<Vector>, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Vector.Scalar: CustomStringConvertible {
+        for contour in contourManager.inputContours {
+            add(contour.contour, category: category, style: style, file: file, line: line)
+        }
+    }
+
+    #endif
+
     func add<Parametric: ParametricClip2Geometry>(_ parametric: Parametric, category: String, style: Style? = nil, file: StaticString = #file, line: UInt = #line) where Parametric.Vector.Scalar: CustomStringConvertible {
         add(parametric.allContours(), category: category, style: style, file: file, line: line)
     }
@@ -372,4 +387,22 @@ extension P5Printer {
 
         printer.printAll()
     }
+
+    static func printContour<Vector>(_ contour: Parametric2Contour<Vector>) where Vector.Scalar: CustomStringConvertible {
+        let printer = P5Printer()
+        printer.add(contour, category: "input")
+
+        printer.printAll()
+    }
+
+    #if DEBUG
+
+    static func printContours<Vector>(_ contourManager: ContourManager<Vector>) where Vector.Scalar: CustomStringConvertible {
+        let printer = P5Printer()
+        printer.add(contourManager, category: "input")
+
+        printer.printAll()
+    }
+
+    #endif
 }

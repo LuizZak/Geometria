@@ -289,6 +289,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             didSet { cacheProperties() }
         }
         public var geometry: [SharedGeometryEntry]
+        public var originalShapeIndices: [Int] = []
 
         @inlinable
         public var shapeIndices: [Int] {
@@ -347,6 +348,7 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             self.end = end
             self.kind = kind
             self.geometry = geometry
+            self.originalShapeIndices = geometry.map(\.shapeIndex)
             self.totalWinding = totalWinding
             self.winding = winding
 
@@ -402,6 +404,19 @@ public struct Simplex2Graph<Vector: Vector2Real & Hashable> {
             }
 
             return false
+        }
+
+        /// Appends a new geometry that this edge references.
+        @inlinable
+        func appending(shapeIndex: Int, startPeriod: Period, endPeriod: Period) {
+            guard !references(shapeIndex: shapeIndex, at: startPeriod) else {
+                return
+            }
+
+            geometry.append(
+                .init(shapeIndex: shapeIndex, startPeriod: startPeriod, endPeriod: endPeriod)
+            )
+            originalShapeIndices.append(shapeIndex)
         }
 
         /// Subtracts a given shape index from the list of referenced shape indices

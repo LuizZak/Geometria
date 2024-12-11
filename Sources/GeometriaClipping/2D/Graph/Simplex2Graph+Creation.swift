@@ -58,6 +58,8 @@ extension Simplex2Graph {
 
         // Compute interferences
         if result.computeInterferences(intersections: intersections, tolerance: tolerance).hasMergedEdges {
+            result.assertIsValid()
+
             // If interferences where found, we need to recompute the contours
             // based on the new edges
             let recombined = result.recombine { edge in
@@ -498,6 +500,17 @@ extension Simplex2Graph {
             } else {
                 // Keep first edge only
                 removeEdges(edges.dropFirst())
+
+                // Merge edge references
+                for nextEdge in edges.dropFirst() {
+                    for geometry in nextEdge.geometry {
+                        edges[0].appending(
+                            shapeIndex: geometry.shapeIndex,
+                            startPeriod: geometry.startPeriod,
+                            endPeriod: geometry.endPeriod
+                        )
+                    }
+                }
             }
 
             hasMergedEdges = true
@@ -522,7 +535,6 @@ extension Simplex2Graph {
 
     @inlinable
     internal func assertIsValid(file: StaticString = #file, line: UInt = #line) {
-        /*
         #if DEBUG
 
         for edge in self.edges {
@@ -531,23 +543,14 @@ extension Simplex2Graph {
         }
 
         for node in self.nodes {
-            if node.isIntersection {
-                let indegree = self.indegree(of: node)
-                let outdegree = self.outdegree(of: node)
+            let indegree = self.indegree(of: node)
+            let outdegree = self.outdegree(of: node)
 
-                assert(indegree == 2, "intersection.indegree == 2", file: file, line: line)
-                assert(outdegree == 2, "intersection.outdegree == 2", file: file, line: line)
-            } else {
-                let indegree = self.indegree(of: node)
-                let outdegree = self.outdegree(of: node)
-
-                assert(indegree > 0, "geometry.indegree > 0", file: file, line: line)
-                assert(outdegree > 0, "geometry.outdegree > 0", file: file, line: line)
-            }
+            assert(indegree > 0, "geometry.indegree > 0", file: file, line: line)
+            assert(outdegree > 0, "geometry.outdegree > 0", file: file, line: line)
         }
 
         #endif
-        */
     }
 
     /// Splits an edge of a given shape index into two sub-edges, covering the
