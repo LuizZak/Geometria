@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "MiniGraphviz",
+        "repositoryURL": "https://github.com/LuizZak/MiniGraphviz.git",
+        "state": {
+          "branch": null,
+          "revision": "aa15c50cf8027dae6dde860a40987c238070d849",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "MiniP5Printer",
         "repositoryURL": "https://github.com/LuizZak/MiniP5Printer",
         "state": {

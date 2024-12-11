@@ -333,6 +333,8 @@ extension Simplex2Graph {
         var hasMergedNodes = false
         var hasMergedEdges = false
 
+        var nodesToMerge: OrderedSet<OrderedSet<Node>> = []
+
         // MARK: Edge-vertex interferences
         for node in nodes {
             let nodeAABB = AABB2(center: node.location, size: .init(repeating: tolerance * 2))
@@ -349,8 +351,10 @@ extension Simplex2Graph {
                     return
                 }
 
-                if distanceSquared.squareRoot() < tolerance {
-                    splitEdge(edge, ratio: ratio)
+                if distanceSquared < tolerance {
+                    let midNode = splitEdge(edge, ratio: ratio)
+
+                    nodesToMerge.append([node, midNode])
                 }
             }
         }
@@ -364,8 +368,6 @@ extension Simplex2Graph {
         func areClose(_ n1: Node, _ n2: Node) -> Bool {
             areClose(n1.location, n2.location)
         }
-
-        var nodesToMerge: OrderedSet<OrderedSet<Node>> = []
 
         for node in nodes {
             let neighbors = nodeTree.nearestNeighbors(
@@ -582,13 +584,17 @@ extension Simplex2Graph {
     ///
     /// If `period` matches the edge's `startPeriod` or `endPeriod`, then the edge
     /// is not split and nothing is done.
+    @discardableResult
     @inlinable
     mutating func splitEdge(
         _ edge: Edge,
         ratio: Scalar
-    ) {
-        guard ratio > 0 && ratio < 1 else {
-            return
+    ) -> Node {
+        guard ratio > 0 else {
+            return edge.start
+        }
+        guard ratio < 1 else {
+            return edge.end
         }
 
         let kind: Node.Kind
@@ -617,6 +623,8 @@ extension Simplex2Graph {
 
         addNode(midNode)
         splitEdge(edge, ratio: ratio, midNode: midNode)
+
+        return midNode
     }
 
     /// Splits an edge into two sub-edges, covering the same period range, but with
@@ -844,9 +852,8 @@ extension Parametric2Contour {
 
         for selfSimplex in self.allSimplexes() {
             for otherSimplex in other.allSimplexes() {
-                atoms.append(
-                    contentsOf: selfSimplex.intersectionPeriods(with: otherSimplex)
-                )
+                let periods = selfSimplex.intersectionPeriods(with: otherSimplex)
+                atoms.append(contentsOf: periods)
             }
         }
 

@@ -9,6 +9,12 @@ public struct Angle<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cust
     /// Gets the radian value associated with this angle.
     public let radians: Scalar
 
+    /// Gets the degrees value associated with this angle.
+    @inlinable
+    public var degrees: Scalar {
+        radians * (180 / .pi)
+    }
+
     public var description: String {
         "\(type(of: self))(radians: \(radians))"
     }
