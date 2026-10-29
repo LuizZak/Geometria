@@ -64,8 +64,7 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
         return results
     }
 
-    /// Returns all possible subdivision paths within this k-d tree that contain
-    /// a point.
+    /// Returns all subdivision paths within this k-d tree.
     public func subdivisionPaths() -> [SubdivisionPath] {
         guard let root else { return [] }
 
@@ -129,30 +128,14 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
             return
         }
 
-        let path = subdivisionPath(forInserting: element)
-        let reversed = path.reversed
-
-        root.inserting(element, path: reversed.asPath)
+        root.inserting(element: element, depth: 0)
     }
 
     /// If `element` is contained within this k-d tree, it is removed in-place.
     public mutating func remove(_ element: Element) where Element: Equatable {
         ensureUnique()
 
-        var allNearest: [Subdivision] = []
-        root?.nearestSubdivisions(
-            to: element.location,
-            distanceSquared: .zero,
-            onMatch: { if $0.element == element { allNearest.append($0) } }
-        )
-
-        for nearest in allNearest {
-            guard let path = self.root?.findPath(to: nearest) else {
-                return
-            }
-
-            remove(at: .init(path: path))
-        }
+        root = root?.removing(element: element, depth: 0).0
     }
 
     /// Removes an element at a given index in this k-d tree.
@@ -209,11 +192,11 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
         /// Returns the inverse subdivision path from this path.
         /// The reversed path can be used to navigate, starting from a `root`
         /// subdivision, deeper into a subdivision tree.
-        var reversed: InvertedSubdivisionPath {
+        var reversed: Path {
             _reversed({ .self })
         }
 
-        private func _reversed(_ child: () -> InvertedSubdivisionPath) -> InvertedSubdivisionPath {
+        private func _reversed(_ child: () -> Path) -> Path {
             switch self {
             case .root:
                 return child()
@@ -223,43 +206,6 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
 
             case .right(let parent):
                 return parent._reversed({ .right(child()) })
-            }
-        }
-    }
-
-    /// An inverted subdivision path better fit for top-to-bottom accesses of
-    /// a k-d tree.
-    enum InvertedSubdivisionPath: Hashable, CustomStringConvertible {
-        /// Path ends at the current node.
-        case `self`
-
-        /// Path branches to the left, traveling with the remaining path.
-        indirect case left(InvertedSubdivisionPath)
-
-        /// Path branches to the right, traveling with the remaining path.
-        indirect case right(InvertedSubdivisionPath)
-
-        var description: String {
-            switch self {
-            case .self:
-                return "leaf"
-            case .left(let child):
-                return "left.\(child)"
-            case .right(let child):
-                return "right.\(child)"
-            }
-        }
-
-        fileprivate var asPath: Path {
-            switch self {
-            case .self:
-                return .self
-
-            case .left(let inner):
-                return .left(inner.asPath)
-
-            case .right(let inner):
-                return .right(inner.asPath)
             }
         }
     }
@@ -324,10 +270,8 @@ public struct KDTree<Element: KDTreeLocatable> where Element.Vector: VectorCompa
         /// Recursively traverses this subdivision, collecting all elements into
         /// a given array.
         func collectElements(to result: inout [Element]) {
-            result.append(element)
-
-            forEachSubdivision { subdivision in
-                subdivision.collectElements(to: &result)
+            applyToTreeDepthFirst { subdivision in
+                result.append(subdivision.element)
             }
         }
 
@@ -849,8 +793,7 @@ extension KDTree.Subdivision {
         )
     }
 
-    /// Returns a copy of this subdivision, with a new point inserted at a
-    /// given subdivision path.
+    /// Inserts a given element within this subdivision at the given path.
     func inserting(_ element: Element, path: KDTree.Path) {
         let point = element.location
 
@@ -896,6 +839,107 @@ extension KDTree.Subdivision {
         }
     }
 
+    /// Inserts the given element in this subdivision.
+    func inserting(element: Element, depth: Int) {
+        state.totalItemCount += 1
+
+        let onLeft = isOnLeft(element.location)
+
+        if onLeft {
+            if let left {
+                left.inserting(element: element, depth: depth + 1)
+            } else {
+                left = .init(
+                    state: .empty(
+                        element: element,
+                        dimension: (depth + 1) % element.location.scalarCount,
+                        totalItemCount: 1,
+                        absolutePath: absolutePath.left
+                    )
+                )
+            }
+        } else {
+            if let right {
+                right.inserting(element: element, depth: depth + 1)
+            } else {
+                right = .init(
+                    state: .empty(
+                        element: element,
+                        dimension: (depth + 1) % element.location.scalarCount,
+                        totalItemCount: 1,
+                        absolutePath: absolutePath.right
+                    )
+                )
+            }
+        }
+    }
+
+    /// Removes a given k-d tree element, returning the new subdivision to replace
+    /// in case a removal has taken place.
+    func removing(element: Element, depth: Int) -> (KDTree.Subdivision?, didRemove: Bool) where Element: Equatable {
+        state.totalItemCount -= 1
+
+        if state.element == element {
+            switch (left, right) {
+            case (nil, nil):
+                return (nil, true)
+
+            case (let left?, nil):
+                var elements: [Element] = []
+                left.collectElements(to: &elements)
+
+                return (.create(
+                    elements,
+                    absolutePath: absolutePath,
+                    dimensionCount: element.location.scalarCount,
+                    depth: depth
+                ), true)
+
+            case (nil, let right?):
+                var elements: [Element] = []
+                right.collectElements(to: &elements)
+
+                return (.create(
+                    elements,
+                    absolutePath: absolutePath,
+                    dimensionCount: element.location.scalarCount,
+                    depth: depth
+                ), true)
+
+            case (let left?, let right?):
+                var elements: [Element] = []
+                left.collectElements(to: &elements)
+                right.collectElements(to: &elements)
+
+                return (.create(
+                    elements,
+                    absolutePath: absolutePath,
+                    dimensionCount: element.location.scalarCount,
+                    depth: depth
+                ), true)
+            }
+        }
+
+        let onLeft = isOnLeft(element.location)
+        var didRemove = false
+
+        if onLeft {
+            if let l = left {
+                (left, didRemove) = l.removing(element: element, depth: depth + 1)
+            }
+        } else {
+            if let r = right {
+                (right, didRemove) = r.removing(element: element, depth: depth + 1)
+            }
+        }
+
+        if didRemove {
+            state.totalItemCount -= 1
+        }
+
+        return (self, didRemove)
+    }
+
     /// Removes a k-d tree element at a given path, returning the new subdivision
     /// to replace in case a removal has taken place.
     func removing(at path: KDTree.Path) -> KDTree.Subdivision? {
@@ -918,13 +962,13 @@ extension KDTree.Subdivision {
                 self.right = right.removing(at: path)
 
             case (let left?, _):
-                let min = left.min { sub in
+                let max = left.max { sub in
                     sub.element.location[dimension]
                 }
-                guard let path = self.findPath(to: min) else {
+                guard let path = self.findPath(to: max) else {
                     return self
                 }
-                self.state.element = min.element
+                self.state.element = max.element
                 self.left = left.removing(at: path)
             }
 
