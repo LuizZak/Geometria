@@ -150,7 +150,7 @@ class CircleArc2Tests: XCTestCase {
 
         XCTAssertTrue(sut.contains(Angle.pi / 4.0))
         XCTAssertTrue(sut.contains(Angle.pi / 2.0))
-        XCTAssertTrue(sut.contains(.pi / 4 + .pi / 3))
+        XCTAssertTrue(sut.contains(Angle.pi / 4.0 + Angle.pi / 3.0))
         XCTAssertFalse(sut.contains((.pi / 4).nextDown))
         XCTAssertFalse(sut.contains((.pi / 4 + .pi / 3).nextUp))
         XCTAssertFalse(sut.contains(Double.pi))
@@ -202,7 +202,7 @@ class CircleArc2Tests: XCTestCase {
         XCTAssertTrue(sut.contains(Angle.pi * 1.2))
         XCTAssertTrue(sut.contains(Angle.pi * 1.8))
         XCTAssertTrue(sut.contains(Angle.pi * 2.0))
-        XCTAssertTrue(sut.contains(.pi * 1.2 + .pi * 1.5))
+        XCTAssertTrue(sut.contains(Angle.pi * 1.2 + Angle.pi * 1.5))
         XCTAssertFalse(sut.contains((.pi * 1.2).nextDown))
         XCTAssertFalse(sut.contains((.pi * 1.2 + .pi * 1.5).nextUp))
         XCTAssertFalse(sut.contains(Double.pi))
@@ -235,9 +235,9 @@ class CircleArc2Tests: XCTestCase {
 
         XCTAssertTrue(sut.contains(0.0))
         XCTAssertTrue(sut.contains(Double.pi / 4))
-        XCTAssertTrue(sut.contains(.pi / 4 - .pi / 2))
+        XCTAssertTrue(sut.contains(Angle.pi / 4.0 - Angle.pi / 2.0))
         XCTAssertFalse(sut.contains((Double.pi / 4).nextUp))
-        XCTAssertFalse(sut.contains((.pi / 4 - .pi / 2) - 0.01)) // .nextDown rounds up due to floating-point imprecision
+        XCTAssertFalse(sut.contains((Double.pi / 4 - Double.pi / 2) - 0.01)) // .nextDown rounds up due to floating-point imprecision
         XCTAssertFalse(sut.contains(Double.pi))
     }
 
