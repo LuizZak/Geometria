@@ -877,8 +877,6 @@ extension KDTree.Subdivision {
     /// Removes a given k-d tree element, returning the new subdivision to replace
     /// in case a removal has taken place.
     func removing(element: Element, depth: Int) -> (KDTree.Subdivision?, didRemove: Bool) where Element: Equatable {
-        state.totalItemCount -= 1
-
         if state.element == element {
             switch (left, right) {
             case (nil, nil):

@@ -99,6 +99,19 @@ class KDTreeTests: XCTestCase {
             )
     }
 
+    func testRemove_updatesTotalItemCount() {
+        let points: [Vector2D] = [
+            Vector2D(x: 0, y: 0),
+            Vector2D(x: -1, y: 0),
+            Vector2D(x: 0, y: -1),
+        ]
+        var sut = KDTree(elements: points)
+
+        sut.remove(Vector2D(x: -1, y: 0))
+
+        XCTAssertEqual(sut.count, 2)
+    }
+
     func testRemove_pointCloudPartition_2D() {
         let points = makePointCloud(count: 50)
         var sut = KDTree(elements: points)
