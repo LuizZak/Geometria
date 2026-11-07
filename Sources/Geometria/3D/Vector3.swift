@@ -44,6 +44,7 @@ public struct Vector3<Scalar>: Vector3Type {
     }
 }
 
+extension Vector3: Sendable where Scalar: Sendable { }
 extension Vector3: Equatable where Scalar: Equatable { }
 extension Vector3: Hashable where Scalar: Hashable { }
 extension Vector3: Encodable where Scalar: Encodable { }

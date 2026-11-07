@@ -26,6 +26,7 @@ public struct LineIntersectionPointNormal<Vector: VectorFloatingPoint>: Geometri
     }
 }
 
+extension LineIntersectionPointNormal: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension LineIntersectionPointNormal: Equatable where Vector: Equatable { }
 extension LineIntersectionPointNormal: Hashable where Vector: Hashable { }
 

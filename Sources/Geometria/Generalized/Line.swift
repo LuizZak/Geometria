@@ -25,6 +25,7 @@ public struct Line<Vector: VectorType>: LineType {
     }
 }
 
+extension Line: Sendable where Vector: Sendable { }
 extension Line: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }

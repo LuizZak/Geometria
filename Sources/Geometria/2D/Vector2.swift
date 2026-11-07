@@ -41,6 +41,7 @@ public struct Vector2<Scalar>: Vector2Type {
     }
 }
 
+extension Vector2: Sendable where Scalar: Sendable { }
 extension Vector2: Equatable where Scalar: Equatable { }
 extension Vector2: Hashable where Scalar: Hashable { }
 extension Vector2: Encodable where Scalar: Encodable { }
@@ -433,26 +434,9 @@ extension Vector2: Vector2Real where Scalar: DivisibleArithmetic & Real {
     ///
     /// The order of operations are: scaling -> rotation -> translation
     @inlinable
-    @available(*, deprecated, message: "Use matrix(scale: Self, rotate angle: Angle<Scalar>, translate: Self) instead.")
     public static func matrix(
         scale: Self = .one,
-        rotate angle: Scalar = 0,
-        translate: Self = Self(x: 0, y: 0)
-    ) -> Matrix3x2<Scalar> {
-
-        Matrix3x2<Scalar>.transformation(
-            xScale: scale.x,
-            yScale: scale.y,
-            angle: angle,
-            xOffset: translate.x,
-            yOffset: translate.y
-        )
-    }
-
-    @inlinable
-    public static func matrix(
-        scale: Self = .one,
-        rotate angle: Angle<Scalar>,
+        rotate angle: Angle<Scalar> = Angle<Scalar>.zero,
         translate: Self = Self(x: 0, y: 0)
     ) -> Matrix3x2<Scalar> {
 

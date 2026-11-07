@@ -1,6 +1,6 @@
-/// Specifies configurations for the order of rotations when creating a 
+/// Specifies configurations for the order of rotations when creating a
 /// ``RotationMatrix3`` from a set of axial rotations.
-public enum RotationOrder3: Hashable {
+public enum RotationOrder3: Hashable, Sendable {
     // MARK: Tait–Bryan angles
 
     /// Rotation is created by rotating around the X-axis, Y-axis, and finally

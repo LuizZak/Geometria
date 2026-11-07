@@ -10,16 +10,16 @@
 public struct NCapsule<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
-    
+
     /// Gets the starting point of this capsule's geometry.
     public var start: Vector
-    
+
     /// Gets the end point of this capsule's geometry.
     public var end: Vector
-    
+
     /// The radius of this capsule.
     public var radius: Scalar
-    
+
     @_transparent
     public init(start: Vector, end: Vector, radius: Scalar) {
         self.start = start
@@ -28,6 +28,7 @@ public struct NCapsule<Vector: VectorType>: GeometricType {
     }
 }
 
+extension NCapsule: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension NCapsule: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension NCapsule: Hashable where Vector: Hashable, Scalar: Hashable { }
 
@@ -38,14 +39,14 @@ public extension NCapsule {
     var asLineSegment: LineSegment<Vector> {
         LineSegment(start: start, end: end)
     }
-    
+
     /// Returns the ``NSphere`` that represents the top- or start, section of
     /// this N-capsule, centered around ``start`` with a radius of ``radius``.
     @_transparent
     var startAsSphere: NSphere<Vector> {
         .init(center: start, radius: radius)
     }
-    
+
     /// Returns the ``NSphere`` that represents the bottom- or end, section of
     /// this N-capsule, centered around ``start`` with a radius of ``radius``.
     @_transparent
@@ -86,7 +87,7 @@ extension NCapsule: VolumetricType where Vector: VectorFloatingPoint {
     public func contains(_ vector: Vector) -> Bool {
         // NOTE: Doing this in separate statements to ease long compilation times in Xcode 12
         let radSquare: Scalar = radius * radius
-        
+
         return asLineSegment.distanceSquared(to: vector) <= radSquare
     }
 }
@@ -99,17 +100,17 @@ extension NCapsule: PointProjectableType where Vector: VectorFloatingPoint {
     /// outer surface of the capsule is returned, instead.
     public func project(_ vector: Vector) -> Vector {
         let line = asLineSegment
-        
+
         var projected = line.project(vector)
-        
+
         // If the vector is along the line exactly, pick a different point to
         // create the projective line with.
         if projected == vector {
             projected += .one
         }
-        
+
         let projectedLine = LineSegment(start: projected, end: vector)
-        
+
         return projectedLine.projectedMagnitude(radius)
     }
 }

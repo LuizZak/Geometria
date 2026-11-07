@@ -49,6 +49,7 @@ public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
     }
 }
 
+extension DirectionalRay: Sendable where Vector: Sendable { }
 extension DirectionalRay: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension DirectionalRay: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension DirectionalRay: Encodable where Vector: Encodable, Scalar: Encodable { }

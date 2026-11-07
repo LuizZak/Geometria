@@ -59,6 +59,7 @@ public struct LinePolygon<Vector: VectorType>: GeometricType {
     }
 }
 
+extension LinePolygon: Sendable where Vector: Sendable { }
 extension LinePolygon: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension LinePolygon: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension LinePolygon: Encodable where Vector: Encodable, Scalar: Encodable { }

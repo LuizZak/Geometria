@@ -24,8 +24,11 @@ public struct PointNormal<Vector: VectorFloatingPoint>: GeometricType, CustomStr
     }
 }
 
+extension PointNormal: Sendable where Vector: Sendable { }
 extension PointNormal: Equatable where Vector: Equatable { }
 extension PointNormal: Hashable where Vector: Hashable { }
+extension PointNormal: Encodable where Vector: Encodable, Vector.Scalar: Encodable { }
+extension PointNormal: Decodable where Vector: Decodable, Vector.Scalar: Decodable { }
 
 extension PointNormal: PlaneType where Vector: VectorFloatingPoint {
     @_transparent

@@ -39,6 +39,7 @@ public struct LineSegment<Vector: VectorType>: LineType, CustomStringConvertible
     }
 }
 
+extension LineSegment: Sendable where Vector: Sendable { }
 extension LineSegment: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }

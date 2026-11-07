@@ -723,6 +723,7 @@ public struct Matrix3x2<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, 
 
 // MARK: Conformances
 
+extension Matrix3x2: Sendable where Scalar: Sendable { }
 extension Matrix3x2: Encodable where Scalar: Encodable { }
 extension Matrix3x2: Decodable where Scalar: Decodable { }
 

@@ -6,16 +6,16 @@
 public struct Disk3<Vector: Vector3FloatingPoint>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
-    
+
     /// The center point of the disk.
     public var center: Vector
-    
+
     /// The normal of the disk's surface.
     @UnitVector public var normal: Vector
-    
+
     /// The radius of the disk.
     public var radius: Scalar
-    
+
     @_transparent
     public init(center: Vector, normal: Vector, radius: Scalar) {
         self.center = center
@@ -24,6 +24,7 @@ public struct Disk3<Vector: Vector3FloatingPoint>: GeometricType {
     }
 }
 
+extension Disk3: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension Disk3: Equatable where Vector: Equatable { }
 extension Disk3: Hashable where Vector: Hashable { }
 
@@ -44,15 +45,15 @@ extension Disk3: BoundableType {
         if cross.lengthSquared == 0 {
             cross = normal.cross(.unitY)
         }
-        
+
         let normCross = cross.normalized() * radius
         let otherAxis = normCross.cross(normal).normalized() * radius
-        
+
         let a = center - normCross
         let b = center + normCross
         let c = center - otherAxis
         let d = center + otherAxis
-        
+
         return .init(of: a, b, c, d)
     }
 }
@@ -62,13 +63,13 @@ extension Disk3: PointProjectableType {
     public func project(_ vector: Vector) -> Vector {
         let plane = asPointNormalPlane
         let pointOnPlane = plane.project(vector)
-        
+
         if pointOnPlane.distanceSquared(to: center) <= radius * radius {
             return pointOnPlane
         }
-        
+
         let direction = (pointOnPlane - center).normalized()
-        
+
         return center + direction * radius
     }
 }
@@ -83,7 +84,7 @@ extension Disk3: SignedDistanceMeasurableType {
 extension Disk3: LineIntersectablePlaneType {
     @_transparent
     public var pointOnPlane: Vector { center }
-    
+
     @usableFromInline
     func normalMagnitude<Line: LineFloatingPoint>(
         _ line: Line
@@ -93,11 +94,11 @@ extension Disk3: LineIntersectablePlaneType {
         if abs(denom) <= .leastNonzeroMagnitude {
             return nil
         }
-        
+
         let num = normal.dot(pointOnPlane - line.a)
         return num / denom
     }
-    
+
     /// Returns the normalized magnitude for a line's intersection point on this
     /// disk.
     ///
@@ -108,19 +109,19 @@ extension Disk3: LineIntersectablePlaneType {
     public func unclampedNormalMagnitudeForIntersection<Line: LineFloatingPoint>(
         with line: Line
     ) -> Vector.Scalar? where Line.Vector == Vector {
-        
+
         guard let magnitude = normalMagnitude(line) else {
             return nil
         }
-        
+
         let point = line.projectedNormalizedMagnitude(magnitude)
         guard point.distanceSquared(to: center) <= radius * radius else {
             return nil
         }
-        
+
         return magnitude
     }
-    
+
     /// Returns the result of a line intersection on this disk.
     ///
     /// Result is `nil` if intersection is not within the line's limits, the
@@ -130,19 +131,19 @@ extension Disk3: LineIntersectablePlaneType {
     public func intersection<Line: LineFloatingPoint>(
         with line: Line
     ) -> Vector? where Line.Vector == Vector {
-        
+
         guard let magnitude = normalMagnitude(line) else {
             return nil
         }
         guard line.containsProjectedNormalizedMagnitude(magnitude) else {
             return nil
         }
-        
+
         let point = line.projectedNormalizedMagnitude(magnitude)
         guard point.distanceSquared(to: center) <= radius * radius else {
             return nil
         }
-        
+
         return point
     }
 }

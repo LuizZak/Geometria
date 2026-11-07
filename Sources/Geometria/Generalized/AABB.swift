@@ -26,6 +26,7 @@ public struct AABB<Vector: VectorType>: GeometricType {
     }
 }
 
+extension AABB: Sendable where Vector: Sendable { }
 extension AABB: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension AABB: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension AABB: Encodable where Vector: Encodable, Scalar: Encodable { }

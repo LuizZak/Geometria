@@ -23,6 +23,7 @@ public struct Ray<Vector: VectorType>: GeometricType {
     }
 }
 
+extension Ray: Sendable where Vector: Sendable { }
 extension Ray: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Ray: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Ray: Encodable where Vector: Encodable, Scalar: Encodable { }

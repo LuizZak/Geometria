@@ -76,5 +76,6 @@ public enum PairLineIntersection<Vector: VectorFloatingPoint> {
     }
 }
 
+extension PairLineIntersection: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension PairLineIntersection: Equatable where Vector: Equatable { }
 extension PairLineIntersection: Hashable where Vector: Hashable { }

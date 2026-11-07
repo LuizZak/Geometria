@@ -193,3 +193,5 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
         return (normalStart, normalStop)
     }
 }
+
+extension AngleSweep: Sendable where Scalar: Sendable { }

@@ -18,6 +18,7 @@ public struct Ellipsoid<Vector: VectorType>: GeometricType {
     }
 }
 
+extension Ellipsoid: Sendable where Vector: Sendable { }
 extension Ellipsoid: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Ellipsoid: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension Ellipsoid: Encodable where Vector: Encodable, Scalar: Encodable { }
@@ -60,7 +61,7 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
     public func intersection<Line>(
         with line: Line
     ) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
-        
+
         let axisToKeep = radius.minimalComponent
         let scale = axisToKeep / radius
 

@@ -116,3 +116,5 @@ public struct Capsule2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, 
         return copy
     }
 }
+
+extension Capsule2Parametric: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }

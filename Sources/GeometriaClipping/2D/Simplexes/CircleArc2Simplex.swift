@@ -486,6 +486,8 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
     }
 }
 
+extension CircleArc2Simplex: Sendable where Vector: Sendable, Scalar: Sendable { }
+
 extension CircleArc2Simplex {
     /// Returns an array of `CircleArc2Simplex` instances that span the given arc
     /// with a given period, with the least number of arcs that are have a sweep

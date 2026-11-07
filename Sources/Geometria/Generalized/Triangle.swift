@@ -23,6 +23,10 @@ public struct Triangle<Vector: VectorType>: GeometricType {
     }
 }
 
+extension Triangle: Sendable where Vector: Sendable { }
+extension Triangle: Equatable where Vector: Equatable { }
+extension Triangle: Hashable where Vector: Hashable { }
+
 public extension Triangle {
     /// Returns a line segment for the edge between the points ``a`` `->` ``b``.
     @_transparent

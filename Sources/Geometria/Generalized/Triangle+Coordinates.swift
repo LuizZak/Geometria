@@ -5,13 +5,13 @@ public extension Triangle where Scalar: Equatable {
     struct Coordinates: Equatable {
         /// Normalized weight of vertex ``Triangle/a``.
         public var wa: Scalar
-        
+
         /// Normalized weight of vertex ``Triangle/b``.
         public var wb: Scalar
-        
+
         /// Normalized weight of vertex ``Triangle/c``.
         public var wc: Scalar
-        
+
         @_transparent
         public init(wa: Scalar, wb: Scalar, wc: Scalar) {
             self.wa = wa
@@ -20,6 +20,8 @@ public extension Triangle where Scalar: Equatable {
         }
     }
 }
+
+extension Triangle.Coordinates: Sendable where Vector.Scalar: Sendable { }
 
 public extension Triangle.Coordinates where Vector.Scalar: AdditiveArithmetic {
     /// Returns zeroed-out barycentric coordinates.
@@ -34,7 +36,7 @@ extension Triangle where Vector: VectorMultiplicative {
         let pa = proj.wa * a
         let pb = proj.wb * b
         let pc = proj.wc * c
-        
+
         return pa + pb + pc
     }
 }

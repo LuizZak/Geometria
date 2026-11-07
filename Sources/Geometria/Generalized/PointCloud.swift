@@ -16,6 +16,12 @@ public struct PointCloud<Vector: VectorType> {
     }
 }
 
+extension PointCloud: Sendable where Vector: Sendable { }
+extension PointCloud: Equatable where Vector: Equatable { }
+extension PointCloud: Hashable where Vector: Hashable { }
+extension PointCloud: Encodable where Vector: Encodable { }
+extension PointCloud: Decodable where Vector: Decodable { }
+
 public extension PointCloud where Vector: VectorAdditive {
     /// Returns a copy of this point cloud, offset in space by `offset`.
     @inlinable

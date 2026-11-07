@@ -263,7 +263,7 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
         simplexes[simplexIndex...simplexIndex] = [left, right]
     }
 
-    public enum Winding {
+    public enum Winding: Sendable {
         case clockwise
         case counterClockwise
 
@@ -292,6 +292,8 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
         }
     }
 }
+
+extension Parametric2Contour: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 
 extension Parametric2Contour {
     @inlinable

@@ -441,6 +441,8 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     }
 }
 
+extension Parametric2GeometrySimplex: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
+
 extension Sequence {
     /// Returns the result of clamping all simplexes within this sequence to be
     /// within a given range.

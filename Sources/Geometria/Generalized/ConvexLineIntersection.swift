@@ -107,5 +107,7 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
     }
 }
 
+extension ConvexLineIntersection: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
+extension ConvexLineIntersection.LineIntersectionPointNormalKind: Sendable where Vector: Sendable { }
 extension ConvexLineIntersection: Equatable where Vector: Equatable { }
 extension ConvexLineIntersection: Hashable where Vector: Hashable { }

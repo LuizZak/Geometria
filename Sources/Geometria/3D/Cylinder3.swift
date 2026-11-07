@@ -37,6 +37,7 @@ public struct Cylinder3<Vector: Vector3Type>: GeometricType {
     }
 }
 
+extension Cylinder3: Sendable where Vector: Sendable, Scalar: Sendable { }
 extension Cylinder3: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Cylinder3: Hashable where Vector: Hashable, Scalar: Hashable { }
 
