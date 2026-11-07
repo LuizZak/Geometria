@@ -60,10 +60,10 @@ public struct LinePolygon<Vector: VectorType>: GeometricType {
 }
 
 extension LinePolygon: Sendable where Vector: Sendable { }
-extension LinePolygon: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension LinePolygon: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension LinePolygon: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension LinePolygon: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension LinePolygon: Equatable where Vector: Equatable { }
+extension LinePolygon: Hashable where Vector: Hashable { }
+extension LinePolygon: Encodable where Vector: Encodable { }
+extension LinePolygon: Decodable where Vector: Decodable { }
 
 extension LinePolygon: BoundableType where Vector: VectorAdditive & VectorComparable {
     /// Returns the minimal ``AABB`` capable of containing all points from this

@@ -41,10 +41,10 @@ public struct NRectangle<Vector: VectorType>: ConstructableRectangleType {
 }
 
 extension NRectangle: Sendable where Vector: Sendable { }
-extension NRectangle: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension NRectangle: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension NRectangle: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension NRectangle: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension NRectangle: Equatable where Vector: Equatable { }
+extension NRectangle: Hashable where Vector: Hashable { }
+extension NRectangle: Encodable where Vector: Encodable { }
+extension NRectangle: Decodable where Vector: Decodable { }
 
 extension NRectangle: AdditiveRectangleType where Vector: VectorAdditive {
     /// Returns an empty rectangle

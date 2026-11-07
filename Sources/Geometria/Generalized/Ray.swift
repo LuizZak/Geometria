@@ -24,10 +24,10 @@ public struct Ray<Vector: VectorType>: GeometricType {
 }
 
 extension Ray: Sendable where Vector: Sendable { }
-extension Ray: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension Ray: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension Ray: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension Ray: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension Ray: Equatable where Vector: Equatable { }
+extension Ray: Hashable where Vector: Hashable { }
+extension Ray: Encodable where Vector: Encodable { }
+extension Ray: Decodable where Vector: Decodable { }
 
 public extension Ray {
     /// Returns a `Line` representation of this ray, where `line.a` matches

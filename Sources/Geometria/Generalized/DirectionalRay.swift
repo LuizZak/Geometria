@@ -50,10 +50,10 @@ public struct DirectionalRay<Vector: VectorFloatingPoint>: GeometricType {
 }
 
 extension DirectionalRay: Sendable where Vector: Sendable { }
-extension DirectionalRay: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension DirectionalRay: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension DirectionalRay: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension DirectionalRay: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension DirectionalRay: Equatable where Vector: Equatable { }
+extension DirectionalRay: Hashable where Vector: Hashable { }
+extension DirectionalRay: Encodable where Vector: Encodable { }
+extension DirectionalRay: Decodable where Vector: Decodable { }
 
 extension DirectionalRay: LineType {
     /// Equivalent to ``start``.

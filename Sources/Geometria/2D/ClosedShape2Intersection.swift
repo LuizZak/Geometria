@@ -140,8 +140,10 @@ public enum ClosedShape2Intersection<Vector: Vector2FloatingPoint> {
     }
 }
 
+extension ClosedShape2Intersection.Pair: Sendable where Vector: Sendable { }
 extension ClosedShape2Intersection.Pair: Equatable where Vector: Equatable { }
 extension ClosedShape2Intersection.Pair: Hashable where Vector: Hashable { }
 
+extension ClosedShape2Intersection: Sendable where Vector: Sendable { }
 extension ClosedShape2Intersection: Equatable where Vector: Equatable { }
 extension ClosedShape2Intersection: Hashable where Vector: Hashable { }

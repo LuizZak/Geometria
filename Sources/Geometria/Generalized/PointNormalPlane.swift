@@ -32,8 +32,8 @@ public struct PointNormalPlane<Vector: VectorFloatingPoint>: GeometricType, Cust
 extension PointNormalPlane: Sendable where Vector: Sendable { }
 extension PointNormalPlane: Equatable where Vector: Equatable { }
 extension PointNormalPlane: Hashable where Vector: Hashable { }
-extension PointNormalPlane: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension PointNormalPlane: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension PointNormalPlane: Encodable where Vector: Encodable { }
+extension PointNormalPlane: Decodable where Vector: Decodable { }
 
 public extension PointNormalPlane {
     /// Returns a ``PointNormal`` value initialized with this plane's parameters.

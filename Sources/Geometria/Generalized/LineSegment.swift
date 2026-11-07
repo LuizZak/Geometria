@@ -40,10 +40,10 @@ public struct LineSegment<Vector: VectorType>: LineType, CustomStringConvertible
 }
 
 extension LineSegment: Sendable where Vector: Sendable { }
-extension LineSegment: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension LineSegment: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension LineSegment: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension LineSegment: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension LineSegment: Equatable where Vector: Equatable { }
+extension LineSegment: Hashable where Vector: Hashable { }
+extension LineSegment: Encodable where Vector: Encodable { }
+extension LineSegment: Decodable where Vector: Decodable { }
 
 public extension LineSegment {
     /// Returns a ``Line`` representation of this line segment, where the
