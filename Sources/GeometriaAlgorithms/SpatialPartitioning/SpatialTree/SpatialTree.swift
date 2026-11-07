@@ -160,14 +160,13 @@ public struct SpatialTree<Element: BoundableType>: SpatialTreeType where Element
             depth: 0
         )
 
+        let insertContext = Subdivision.InsertionContext(
+            maxSubdivisions: maxSubdivisions,
+            maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
+        )
+
         for element in existing {
-            root.insert(
-                element: element,
-                .init(
-                    maxSubdivisions: maxSubdivisions,
-                    maxElementsPerLevelBeforeSplit: maxElementsPerLevelBeforeSplit
-                )
-            )
+            root.insert(element: element, insertContext)
         }
     }
 
