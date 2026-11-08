@@ -205,9 +205,9 @@
             },
         },
 
-        "cSpell.enableFiletypes": [
-            "swift"
-        ],
+        "cSpell.enabledFileTypes": {
+            "swift": true,
+        },
         "cSpell.words": [
             "aabb",
             "AABB",
