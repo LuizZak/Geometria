@@ -142,7 +142,7 @@
                 <a class="nav-group-task-link" href="Extensions.html#/s:Sf">Float</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions.html#/s:s7Float80V">Float80</a>
+                <a class="nav-group-task-link" href="Extensions.html#/Float80">Float80</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions.html#/s:9Geometria11Hyperplane2a">Hyperplane2</a>
@@ -1047,6 +1047,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ClosedShape2Intersection</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Vector2FloatingPoint.html">Vector2FloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClosedShape2Intersection</span><span class="p">:</span> <span class="kt">Sendable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Sendable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClosedShape2Intersection</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ClosedShape2Intersection</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
@@ -1105,7 +1106,7 @@ of a vector space in 3 dimensions.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Orientation3</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Orientation3</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Sendable</span></code></pre>
 
                         </div>
                       </div>
@@ -1153,7 +1154,7 @@ of a vector space in 3 dimensions.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Specifies configurations for the order of rotations when creating a 
+                        <p>Specifies configurations for the order of rotations when creating a
 <code><a href="Typealiases.html#/s:9Geometria15RotationMatrix3a">RotationMatrix3</a></code> from a set of axial rotations.</p>
 
                         <a href="Enums/RotationOrder3.html" class="slightly-smaller">See more</a>
@@ -1162,7 +1163,7 @@ of a vector space in 3 dimensions.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RotationOrder3</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">RotationOrder3</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">Sendable</span></code></pre>
 
                         </div>
                       </div>
@@ -1219,6 +1220,7 @@ of a vector space in 3 dimensions.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ConvexLineIntersection</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ConvexLineIntersection</span><span class="p">:</span> <span class="kt">Sendable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Sendable</span><span class="p">,</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Sendable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ConvexLineIntersection</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ConvexLineIntersection</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
@@ -1250,6 +1252,7 @@ line, specialized for storing at most two intersection points at a time.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PairLineIntersection</span><span class="o">&lt;</span><span class="kt">Vector</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Vector</span> <span class="p">:</span> <span class="kt"><a href="Protocols/VectorFloatingPoint.html">VectorFloatingPoint</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PairLineIntersection</span><span class="p">:</span> <span class="kt">Sendable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Sendable</span><span class="p">,</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt">Scalar</span><span class="p">:</span> <span class="kt">Sendable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PairLineIntersection</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PairLineIntersection</span><span class="p">:</span> <span class="kt">Hashable</span> <span class="k">where</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
@@ -1266,7 +1269,7 @@ line, specialized for storing at most two intersection points at a time.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2024-12-11)</p>
+      <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-11-08)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
