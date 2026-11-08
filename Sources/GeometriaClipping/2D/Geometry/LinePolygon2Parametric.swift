@@ -121,3 +121,5 @@ public struct LinePolygon2Parametric<Vector: Vector2Real>: ParametricClip2Geomet
         )
     }
 }
+
+extension LinePolygon2Parametric: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }

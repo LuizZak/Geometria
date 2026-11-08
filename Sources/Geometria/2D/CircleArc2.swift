@@ -150,6 +150,7 @@ public struct CircleArc2<Vector: Vector2Real>: GeometricType, CustomStringConver
     }
 }
 
+extension CircleArc2: Sendable where Vector: Sendable, Scalar: Sendable { }
 extension CircleArc2: Equatable where Vector: Equatable { }
 extension CircleArc2: Hashable where Vector: Hashable { }
 

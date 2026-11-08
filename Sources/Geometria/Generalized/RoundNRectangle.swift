@@ -3,10 +3,10 @@
 public struct RoundNRectangle<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     public var rectangle: NRectangle<Vector>
     public var radius: Vector
-    
+
     @_transparent
     public init(rectangle: NRectangle<Vector>, radius: Vector) {
         self.rectangle = rectangle
@@ -14,10 +14,11 @@ public struct RoundNRectangle<Vector: VectorType>: GeometricType {
     }
 }
 
-extension RoundNRectangle: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension RoundNRectangle: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension RoundNRectangle: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension RoundNRectangle: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension RoundNRectangle: Sendable where Vector: Sendable { }
+extension RoundNRectangle: Equatable where Vector: Equatable { }
+extension RoundNRectangle: Hashable where Vector: Hashable { }
+extension RoundNRectangle: Encodable where Vector: Encodable { }
+extension RoundNRectangle: Decodable where Vector: Decodable { }
 
 extension RoundNRectangle: BoundableType where Vector: VectorAdditive {
     /// Returns the minimal ``AABB`` capable of containing this round rectangle's

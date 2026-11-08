@@ -35,6 +35,7 @@ public struct Hyperplane<Vector: VectorFloatingPoint>: GeometricType, CustomStri
     }
 }
 
+extension Hyperplane: Sendable where Vector: Sendable { }
 extension Hyperplane: Equatable where Vector: Equatable { }
 extension Hyperplane: Hashable where Vector: Hashable { }
 
@@ -67,7 +68,7 @@ extension Hyperplane: ConvexType {
     public func intersection<Line: LineFloatingPoint>(
         with line: Line
     ) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
-        
+
         let magnitude = unclampedNormalMagnitudeForIntersection(with: line)
         guard let magnitude = magnitude, line.containsProjectedNormalizedMagnitude(magnitude) else {
             // No intersection:

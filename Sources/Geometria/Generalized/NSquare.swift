@@ -3,20 +3,20 @@
 public struct NSquare<Vector: VectorType>: GeometricType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     /// The location of this box, corresponding to the minimal coordinate of the
     /// box's bounds.
     public var location: Vector
-    
+
     /// The length of the side edges of this square.
     public var sideLength: Scalar
-    
+
     /// Returns a rectangle with the same boundaries as this square.
     @_transparent
     public var asRectangle: NRectangle<Vector> {
         NRectangle(location: location, size: Vector(repeating: sideLength))
     }
-    
+
     @_transparent
     public init(location: Vector, sideLength: Scalar) {
         self.location = location
@@ -24,8 +24,11 @@ public struct NSquare<Vector: VectorType>: GeometricType {
     }
 }
 
+extension NSquare: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension NSquare: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension NSquare: Hashable where Vector: Hashable, Scalar: Hashable { }
+extension NSquare: Encodable where Vector: Encodable, Scalar: Encodable { }
+extension NSquare: Decodable where Vector: Decodable, Scalar: Decodable { }
 
 extension NSquare: RectangleType & BoundableType where Vector: VectorAdditive {
     /// Returns the span of this ``NSquare``.
@@ -33,7 +36,7 @@ extension NSquare: RectangleType & BoundableType where Vector: VectorAdditive {
     public var size: Vector {
         Vector(repeating: sideLength)
     }
-    
+
     /// Returns the minimal ``AABB`` capable of containing this ``NSquare``.
     @_transparent
     public var bounds: AABB<Vector> {
@@ -110,11 +113,11 @@ extension NSquare: ConvexType where Vector: VectorFloatingPoint {
 
         bounds.intersects(line: line)
     }
-    
+
     public func intersection<Line>(
         with line: Line
     ) -> ConvexLineIntersection<Vector> where Line : LineFloatingPoint, Vector == Line.Vector {
-        
+
         bounds.intersection(with: line)
     }
 }

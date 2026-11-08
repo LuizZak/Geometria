@@ -18,10 +18,11 @@ public struct Ellipsoid<Vector: VectorType>: GeometricType {
     }
 }
 
-extension Ellipsoid: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension Ellipsoid: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension Ellipsoid: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension Ellipsoid: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension Ellipsoid: Sendable where Vector: Sendable { }
+extension Ellipsoid: Equatable where Vector: Equatable { }
+extension Ellipsoid: Hashable where Vector: Hashable { }
+extension Ellipsoid: Encodable where Vector: Encodable { }
+extension Ellipsoid: Decodable where Vector: Decodable { }
 
 extension Ellipsoid: BoundableType where Vector: VectorAdditive {
     /// Returns the minimal ``AABB`` capable of containing this ellipsoid.
@@ -60,7 +61,7 @@ extension Ellipsoid: ConvexType where Vector: VectorReal {
     public func intersection<Line>(
         with line: Line
     ) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
-        
+
         let axisToKeep = radius.minimalComponent
         let scale = axisToKeep / radius
 

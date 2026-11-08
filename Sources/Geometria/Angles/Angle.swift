@@ -112,6 +112,7 @@ public struct Angle<Scalar: FloatingPoint & ElementaryFunctions>: Hashable, Cust
     }
 }
 
+extension Angle: Sendable where Scalar: Sendable { }
 extension Angle: Encodable where Scalar: Encodable { }
 extension Angle: Decodable where Scalar: Decodable { }
 

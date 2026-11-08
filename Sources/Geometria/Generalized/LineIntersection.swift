@@ -44,6 +44,8 @@ public struct LineIntersection<Vector: VectorFloatingPoint> {
     }
 }
 
+extension LineIntersection: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
+extension LineIntersection.Intersection: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension LineIntersection.Intersection: Equatable where Vector: Equatable { }
 extension LineIntersection.Intersection: Hashable where Vector: Hashable { }
 extension LineIntersection: Equatable where Vector: Equatable { }

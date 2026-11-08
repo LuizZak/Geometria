@@ -5,23 +5,23 @@
 public struct PointNormalPlane<Vector: VectorFloatingPoint>: GeometricType, CustomStringConvertible {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     public var description: String {
         "PointNormalPlane(point: \(point), normal: \(normal))"
     }
-    
+
     /// A point on this plane.
     public var point: Vector
-    
+
     /// The normal of the plane's surface.
     @UnitVector public var normal: Vector
-    
+
     @_transparent
     public init(point: Vector, normal: Vector) {
         self.point = point
         self.normal = normal
     }
-    
+
     /// Creates a ``PointNormalPlane`` that wraps the given plane object.
     @_transparent
     public init<Plane: PlaneType>(_ plane: Plane) where Plane.Vector == Vector {
@@ -29,8 +29,11 @@ public struct PointNormalPlane<Vector: VectorFloatingPoint>: GeometricType, Cust
     }
 }
 
+extension PointNormalPlane: Sendable where Vector: Sendable { }
 extension PointNormalPlane: Equatable where Vector: Equatable { }
 extension PointNormalPlane: Hashable where Vector: Hashable { }
+extension PointNormalPlane: Encodable where Vector: Encodable { }
+extension PointNormalPlane: Decodable where Vector: Decodable { }
 
 public extension PointNormalPlane {
     /// Returns a ``PointNormal`` value initialized with this plane's parameters.
@@ -46,9 +49,9 @@ extension PointNormalPlane: PlaneType {
 }
 
 extension PointNormalPlane: PointProjectablePlaneType {
-    
+
 }
 
 extension PointNormalPlane: LineIntersectablePlaneType {
-    
+
 }

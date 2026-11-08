@@ -362,3 +362,5 @@ public struct LineSegment2Simplex<Vector: Vector2FloatingPoint>: Parametric2Simp
         return .notCoincident
     }
 }
+
+extension LineSegment2Simplex: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }

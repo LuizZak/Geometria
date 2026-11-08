@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:6.2
 import PackageDescription
 import class Foundation.ProcessInfo
 
@@ -30,7 +30,9 @@ let testCommons: Target = .target(
 let geometriaTarget: Target = .target(
     name: "Geometria",
     dependencies: geometriaDependencies,
-    swiftSettings: []
+    swiftSettings: [
+        .strictMemorySafety(),
+    ]
 )
 let geometriaTestsTarget: Target = .testTarget(
     name: "GeometriaTests",
@@ -44,7 +46,9 @@ let geometriaAlgorithmsTarget: Target = .target(
     dependencies: geometriaDependencies + [
         "Geometria",
     ],
-    swiftSettings: []
+    swiftSettings: [
+        .strictMemorySafety(),
+    ]
 )
 let geometriaAlgorithmsTestTarget: Target = .testTarget(
     name: "GeometriaAlgorithmsTests",
@@ -64,7 +68,9 @@ let geometriaClippingTarget: Target = .target(
         .product(name: "MiniDigraph", package: "MiniDigraph"),
         .product(name: "OrderedCollections", package: "swift-collections"),
     ],
-    swiftSettings: []
+    swiftSettings: [
+        .strictMemorySafety(),
+    ]
 )
 let geometriaClippingTestTarget: Target = .testTarget(
     name: "GeometriaClippingTests",
@@ -94,9 +100,9 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
-        .package(url: "https://github.com/LuizZak/MiniP5Printer.git", .exactItem("0.0.2")),
-        .package(url: "https://github.com/LuizZak/MiniDigraph.git", .exactItem("0.8.1")),
-        .package(url: "https://github.com/LuizZak/MiniGraphviz.git", .exactItem("0.1.0")),
+        .package(url: "https://github.com/LuizZak/MiniP5Printer.git", exact: "0.0.2"),
+        .package(url: "https://github.com/LuizZak/MiniDigraph.git", exact: "0.8.1"),
+        .package(url: "https://github.com/LuizZak/MiniGraphviz.git", exact: "0.1.0"),
     ],
     targets: [
         geometriaTarget.applyReportBuildTime(),
@@ -106,7 +112,8 @@ let package = Package(
         geometriaClippingTarget.applyReportBuildTime(),
         geometriaClippingTestTarget.applyReportBuildTime(),
         testCommons,
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )
 
 extension Target {

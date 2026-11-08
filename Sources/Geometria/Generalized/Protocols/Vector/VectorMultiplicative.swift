@@ -3,7 +3,7 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// A unit-value `VectorType` value where each component corresponds to its
     /// representation of `1`.
     static var one: Self { get }
-    
+
     /// Returns the length squared of this `VectorType`.
     ///
     /// Performs the computation `x0 * x0 + x1 * x1 + ... + xN * xN` for any
@@ -11,13 +11,13 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// the origin of the vector space, or the ``dot(_:)`` product of the vector
     /// with itself.
     var lengthSquared: Scalar { get }
-    
+
     /// Returns the squared distance between this `VectorType` and another
     /// `VectorType`.
     ///
     /// Equivalent to `(vec - self).distanceSquared`.
     func distanceSquared(to vec: Self) -> Scalar
-    
+
     /// Calculates the [dot product](http://en.wikipedia.org/wiki/Dot_product)
     /// between this vector and another.
     ///
@@ -31,7 +31,7 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// print(v1.dot(v2)) // Prints "-6.5"
     /// ```
     func dot(_ other: Self) -> Scalar
-    
+
     /// Performs a linear interpolation between two vectors.
     ///
     /// Passing `amount` a value of 0 will cause `start` to be returned; a value
@@ -41,15 +41,15 @@ public protocol VectorMultiplicative: VectorAdditive where Scalar: Numeric {
     /// - Parameter end: End point.
     /// - Parameter amount: Value between 0 and 1 indicating the weight of `end`.
     static func lerp(start: Self, end: Self, amount: Scalar) -> Self
-    
+
     static func * (lhs: Self, rhs: Self) -> Self
-    
+
     static func * (lhs: Self, rhs: Scalar) -> Self
-    
+
     static func * (lhs: Scalar, rhs: Self) -> Self
-    
+
     static func *= (lhs: inout Self, rhs: Self)
-    
+
     static func *= (lhs: inout Self, rhs: Scalar)
 }
 
@@ -64,13 +64,13 @@ public extension VectorMultiplicative {
     }
 
     #endif // #if !ENABLE_SIMD
-    
+
     /// Returns the length squared of this `VectorType`
     @_transparent
     var lengthSquared: Scalar {
         self.dot(self)
     }
-    
+
     /// Returns the squared distance between this `VectorType` and another
     /// `VectorType`.
     ///
@@ -79,7 +79,16 @@ public extension VectorMultiplicative {
     func distanceSquared(to vec: Self) -> Scalar {
         (self - vec).lengthSquared
     }
-    
+
+    @inlinable
+    func dot(_ other: Self) -> Scalar {
+        var acc = Scalar.zero
+        for i in 0..<scalarCount {
+            acc += self[i] * other[i]
+        }
+        return acc
+    }
+
     /// Performs a linear interpolation between two points.
     ///
     /// Passing `amount` a value of 0 will cause `start` to be returned; a value
@@ -94,7 +103,7 @@ public extension VectorMultiplicative {
         let sf: Scalar = 1 - amount
         let s: Self = start * sf
         let e: Self = end * amount
-        
+
         return s + e
     }
 
@@ -102,7 +111,7 @@ public extension VectorMultiplicative {
     static func *= (lhs: inout Self, rhs: Self) {
         lhs = lhs * rhs
     }
-    
+
     @inlinable
     static func *= (lhs: inout Self, rhs: Scalar) {
         lhs = lhs * rhs

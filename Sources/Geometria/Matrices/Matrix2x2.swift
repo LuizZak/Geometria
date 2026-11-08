@@ -217,7 +217,7 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     public func transformPoint<Vector: Vector2FloatingPoint>(
         _ vec: Vector
     ) -> Vector where Vector.Scalar == Scalar {
-        
+
         let px = vec.dot(.init(r0Vec))
         let py = vec.dot(.init(r1Vec))
 
@@ -353,6 +353,8 @@ public struct Matrix2x2<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
         lhs.m == rhs.m
     }
 }
+
+extension Matrix2x2: Sendable where Scalar: Sendable { }
 
 /// Performs an equality check over a tuple of ``Matrix2x2`` values.
 @_transparent

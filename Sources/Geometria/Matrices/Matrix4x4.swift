@@ -736,6 +736,8 @@ public struct Matrix4x4<Scalar: Real & DivisibleArithmetic>: SquareMatrixType, C
     }
 }
 
+extension Matrix4x4: Sendable where Scalar: Sendable { }
+
 /// Performs an equality check over a tuple of ``Matrix4x4`` values.
 @_transparent
 public func == <T>(_ lhs: Matrix4x4<T>.M, _ rhs: Matrix4x4<T>.M) -> Bool {

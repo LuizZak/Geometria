@@ -12,12 +12,12 @@ public typealias EdgeInsets2i = EdgeInsets2<Vector2i>
 public struct EdgeInsets2<Vector: Vector2Type> {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     public var left: Scalar
     public var top: Scalar
     public var right: Scalar
     public var bottom: Scalar
-    
+
     @_transparent
     public init(
         left: Scalar,
@@ -25,13 +25,13 @@ public struct EdgeInsets2<Vector: Vector2Type> {
         right: Scalar,
         bottom: Scalar
     ) {
-        
+
         self.left = left
         self.top = top
         self.right = right
         self.bottom = bottom
     }
-    
+
     @_transparent
     public init(_ value: Scalar) {
         left = value
@@ -41,6 +41,7 @@ public struct EdgeInsets2<Vector: Vector2Type> {
     }
 }
 
+extension EdgeInsets2: Sendable where Vector: Sendable, Scalar: Sendable { }
 extension EdgeInsets2: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension EdgeInsets2: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension EdgeInsets2: Encodable where Vector: Encodable, Scalar: Encodable { }
@@ -51,7 +52,7 @@ public extension EdgeInsets2 where Vector: VectorAdditive {
     static var zero: Self {
         EdgeInsets2(left: .zero, top: .zero, right: .zero, bottom: .zero)
     }
-    
+
     @_transparent
     func inset(rectangle: NRectangle<Vector>) -> NRectangle<Vector> {
         rectangle.inset(self)

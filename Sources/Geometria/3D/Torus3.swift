@@ -21,22 +21,22 @@ public typealias Torus3F = Torus3<Vector3F>
 public struct Torus3<Vector: Vector3FloatingPoint>: GeometricType {
     /// Convenience for `Vector.Scalar`.
     public typealias Scalar = Vector.Scalar
-    
+
     /// The geometric center point of the torus.
     public var center: Vector
-    
+
     /// The axis of revolution of the circle that composes the tube of the torus.
-    /// The major radius of the torus expands from ``center``, perpendicular to 
-    /// this axis by ``majorRadius``, and sweeps around forming the tube of the 
+    /// The major radius of the torus expands from ``center``, perpendicular to
+    /// this axis by ``majorRadius``, and sweeps around forming the tube of the
     /// torus.
     @UnitVector public var axis: Vector
-    
+
     /// The radius from the center of the torus to the center of the tube.
     public var majorRadius: Scalar
-    
+
     /// The radius of the tube of the torus.
     public var minorRadius: Scalar
-    
+
     @_transparent
     public init(center: Vector, axis: Vector, majorRadius: Scalar, minorRadius: Scalar) {
         self.center = center
@@ -46,6 +46,7 @@ public struct Torus3<Vector: Vector3FloatingPoint>: GeometricType {
     }
 }
 
+extension Torus3: Sendable where Vector: Sendable, Scalar: Sendable { }
 extension Torus3: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension Torus3: Hashable where Vector: Hashable, Scalar: Hashable { }
 
@@ -61,12 +62,12 @@ extension Torus3: BoundableType {
         }
 
         let radius = majorRadius + minorRadius
-        
+
         let normCross = cross.normalized() * radius
         let otherAxis = normCross.cross(axis).normalized() * radius
 
         let minorRadiusSpan = axis * minorRadius
-        
+
         let a = center - normCross
         let b = center + normCross
         let c = center - otherAxis
@@ -146,7 +147,7 @@ extension Torus3: PointProjectableType {
 extension Torus3: SignedDistanceMeasurableType where Vector.Scalar: Real {
     public func signedDistance(to point: Vector) -> Vector.Scalar {
         // Distance function derived from: https://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
-        
+
         // Re-orient the vector according to the orientation of the axis of the
         // torus, as the algorithm expects the torus to be lying flat along the
         // Y axis, centered around the origin.
@@ -166,7 +167,7 @@ extension Torus3: SignedDistanceMeasurableType where Vector.Scalar: Real {
                 x: transformed[.x, .z].length - majorRadius,
                 y: transformed.y
             )
-        
+
         return q.length - minorRadius
     }
 }

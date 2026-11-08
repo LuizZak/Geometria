@@ -25,10 +25,11 @@ public struct Line<Vector: VectorType>: LineType {
     }
 }
 
-extension Line: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension Line: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension Line: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension Line: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension Line: Sendable where Vector: Sendable { }
+extension Line: Equatable where Vector: Equatable { }
+extension Line: Hashable where Vector: Hashable { }
+extension Line: Encodable where Vector: Encodable { }
+extension Line: Decodable where Vector: Decodable { }
 
 extension Line: LineAdditive where Vector: VectorAdditive {
     @_transparent

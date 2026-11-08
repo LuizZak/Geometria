@@ -1,6 +1,6 @@
 /// Represents the category for a `LineType`, specifying whether the end points
 /// of the line are open or closed.
-public struct LineCategory: RawRepresentable, Hashable {
+public struct LineCategory: RawRepresentable, Hashable, Sendable {
     private static let startOpenBit = 0b0000_0001
     private static let endOpenBit = 0b0000_0010
 
@@ -34,7 +34,7 @@ public extension LineCategory {
     ///
     /// [geometric ray]: https://en.wikipedia.org/wiki/Line_(geometry)#Ray
     static let ray: Self = Self(rawValue: endOpenBit)
-    
+
     /// Category for a [line segment] that define a closed interval with a start
     /// and end point.
     ///

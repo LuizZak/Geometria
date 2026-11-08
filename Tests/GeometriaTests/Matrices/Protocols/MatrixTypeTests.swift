@@ -1,4 +1,5 @@
 import XCTest
+import RealModule
 import Geometria
 import TestCommons
 
@@ -68,10 +69,10 @@ class MatrixTypeTests: XCTestCase {
     }
 }
 
-private struct TestMatrix4x4: MatrixType {
+private struct TestMatrix4x4: MatrixType, Sendable {
     typealias Scalar = Double
 
-    static var identity: Self = Self()
+    static let identity: Self = Self()
 
     var rowCount: Int = 3
     var columnCount: Int = 4

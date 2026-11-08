@@ -3,24 +3,24 @@
 public struct NRectangle<Vector: VectorType>: ConstructableRectangleType {
     /// Convenience for `Vector.Scalar`
     public typealias Scalar = Vector.Scalar
-    
+
     /// The starting location of this rectangle with the minimal coordinates
     /// contained within the rectangle.
     public var location: Vector
-    
+
     /// The size of this rectangle, which when added to ``location`` produce the
     /// maximal coordinates contained within this rectangle.
     ///
     /// Must be `>= Vector.zero`
     public var size: Vector
-    
+
     /// Initializes a NRectangle with the location + size of a rectangle.
     @_transparent
     public init(location: Vector, size: Vector) {
         self.location = location
         self.size = size
     }
-    
+
     /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,
     /// with the given radius vector describing the dimensions of the corner
     /// arcs.
@@ -28,7 +28,7 @@ public struct NRectangle<Vector: VectorType>: ConstructableRectangleType {
     public func rounded(radius: Vector) -> RoundNRectangle<Vector> {
         RoundNRectangle(rectangle: self, radius: radius)
     }
-    
+
     /// Returns a `RoundNRectangle` which has the same bounds as this rectangle,
     /// with the given radius value describing the dimensions of the corner
     /// arcs.
@@ -40,22 +40,23 @@ public struct NRectangle<Vector: VectorType>: ConstructableRectangleType {
     }
 }
 
-extension NRectangle: Equatable where Vector: Equatable, Scalar: Equatable { }
-extension NRectangle: Hashable where Vector: Hashable, Scalar: Hashable { }
-extension NRectangle: Encodable where Vector: Encodable, Scalar: Encodable { }
-extension NRectangle: Decodable where Vector: Decodable, Scalar: Decodable { }
+extension NRectangle: Sendable where Vector: Sendable { }
+extension NRectangle: Equatable where Vector: Equatable { }
+extension NRectangle: Hashable where Vector: Hashable { }
+extension NRectangle: Encodable where Vector: Encodable { }
+extension NRectangle: Decodable where Vector: Decodable { }
 
 extension NRectangle: AdditiveRectangleType where Vector: VectorAdditive {
     /// Returns an empty rectangle
     @_transparent
     public static var zero: NRectangle { NRectangle(location: .zero, size: .zero) }
-    
+
     /// Returns `true` if the size of this rectangle is zero.
     @_transparent
     public var isSizeZero: Bool {
         size == .zero
     }
-    
+
     /// Minimum point for this rectangle.
     ///
     /// When set, the maximal point on the opposite corner is kept fixed.
@@ -66,12 +67,12 @@ extension NRectangle: AdditiveRectangleType where Vector: VectorAdditive {
         }
         set {
             let diff = newValue - minimum
-            
+
             location = newValue
             size -= diff
         }
     }
-    
+
     /// Maximum point for this rectangle.
     ///
     /// When set, the minimal point on the opposite corner is kept fixed.
@@ -84,20 +85,20 @@ extension NRectangle: AdditiveRectangleType where Vector: VectorAdditive {
             size = newValue - location
         }
     }
-    
+
     /// Returns this `Rectangle` represented as an `AABB`
     @_transparent
     public var asAABB: AABB<Vector> {
         AABB(minimum: minimum, maximum: maximum)
     }
-    
+
     /// Initializes an empty NRectangle instance.
     @_transparent
     public init() {
         location = .zero
         size = .zero
     }
-    
+
     /// Initializes a `NRectangle` instance out of the given minimum and maximum
     /// coordinates.
     ///
@@ -122,7 +123,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     public var isValid: Bool {
         size >= .zero
     }
-    
+
     /// Initializes a NRectangle containing the minimum area capable of containing
     /// all supplied points.
     ///
@@ -131,7 +132,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
     public init(of points: Vector...) {
         self = Self(points: points)
     }
-    
+
     /// Initializes a NRectangle out of a set of points, expanding to the
     /// smallest bounding box capable of fitting each point.
     @inlinable
@@ -141,20 +142,20 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
             size = .zero
             return
         }
-        
+
         location = first
         size = .zero
-        
+
         expand(toInclude: points)
     }
-    
+
     /// Expands the bounding box of this NRectangle to include the given point.
     @_transparent
     public mutating func expand(toInclude point: Vector) {
         minimum = Vector.pointwiseMin(minimum, point)
         maximum = Vector.pointwiseMax(maximum, point)
     }
-    
+
     /// Expands the bounding box of this NRectangle to include the given set of
     /// points.
     ///
@@ -169,7 +170,7 @@ extension NRectangle: VolumetricType where Vector: VectorAdditive & VectorCompar
             expand(toInclude: p)
         }
     }
-    
+
     /// Returns whether a given point is contained within this bounding box.
     ///
     /// Points at the perimeter of the N-rectangle (distance to nearest edge ==
@@ -187,7 +188,7 @@ extension NRectangle: SelfIntersectableRectangleType where Vector: VectorAdditiv
     public func contains(_ other: Self) -> Bool {
         other.minimum >= minimum && other.maximum <= maximum
     }
-    
+
     /// Returns whether this NRectangle intersects the given NRectangle instance.
     /// This check is inclusive, so the edges of the bounding box are considered
     /// to intersect the other bounding box's edges as well.
@@ -195,14 +196,14 @@ extension NRectangle: SelfIntersectableRectangleType where Vector: VectorAdditiv
     public func intersects(_ other: Self) -> Bool {
         minimum <= other.maximum && maximum >= other.minimum
     }
-    
+
     /// Returns a NRectangle which is the minimum NRectangle that can fit this
     /// NRectangle with another given NRectangle.
     @_transparent
     public func union(_ other: Self) -> Self {
         Self.union(self, other)
     }
-    
+
     /// Creates a rectangle which is equal to the positive area shared between
     /// this rectangle and `other`.
     ///
@@ -212,14 +213,14 @@ extension NRectangle: SelfIntersectableRectangleType where Vector: VectorAdditiv
     public func intersection(_ other: Self) -> Self? {
         let min = Vector.pointwiseMax(minimum, other.minimum)
         let max = Vector.pointwiseMin(maximum, other.maximum)
-        
+
         if min > max {
             return nil
         }
-        
+
         return Self(minimum: min, maximum: max)
     }
-    
+
     /// Returns a NRectangle which is the minimum NRectangle that can fit two
     /// given Rectangles.
     @_transparent
@@ -237,7 +238,7 @@ public extension NRectangle where Vector: VectorMultiplicative {
     static var unit: Self {
         Self(location: .zero, size: .one)
     }
-    
+
     /// Returns a NRectangle with the same position as this NRectangle, with its
     /// size multiplied by the coordinates of the given vector.
     @inlinable
@@ -247,7 +248,7 @@ public extension NRectangle where Vector: VectorMultiplicative {
 }
 
 extension NRectangle: DivisibleRectangleType where Vector: VectorDivisible & VectorComparable {
-    
+
     /// Subdivides this rectangle into `2 ^ D` (where `D` is the dimensional size
     /// of `Self.Vector`) rectangles that occupy the same area as this rectangle
     /// but subdivide it into equally-sized rectangles.
@@ -279,12 +280,12 @@ extension NRectangle: ConvexType where Vector: VectorFloatingPoint {
 
         bounds.intersects(line: line)
     }
-    
+
     @_transparent
     public func intersection<Line>(
         with line: Line
     ) -> ConvexLineIntersection<Vector> where Line: LineFloatingPoint, Vector == Line.Vector {
-        
+
         bounds.intersection(with: line)
     }
 }

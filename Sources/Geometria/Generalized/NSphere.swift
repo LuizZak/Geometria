@@ -22,6 +22,7 @@ public struct NSphere<Vector: VectorType>: GeometricType, CustomStringConvertibl
     }
 }
 
+extension NSphere: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
 extension NSphere: Equatable where Vector: Equatable, Scalar: Equatable { }
 extension NSphere: Hashable where Vector: Hashable, Scalar: Hashable { }
 extension NSphere: Encodable where Vector: Encodable, Scalar: Encodable { }

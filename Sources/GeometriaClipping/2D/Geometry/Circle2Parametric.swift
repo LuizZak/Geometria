@@ -141,3 +141,5 @@ public struct Circle2Parametric<Vector: Vector2Real>: ParametricClip2Geometry, E
         return copy
     }
 }
+
+extension Circle2Parametric: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
