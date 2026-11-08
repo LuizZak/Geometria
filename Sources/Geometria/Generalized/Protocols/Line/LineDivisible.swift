@@ -19,10 +19,10 @@ public protocol LineDivisible: LineMultiplicative where Vector: VectorDivisible 
 public extension LineDivisible {
     @inlinable
     func projectAsScalar(_ vector: Vector) -> Magnitude {
-        let relEnd = lineSlope
-        let relVec = vector - a
+        let relEnd: Vector = lineSlope
+        let relVec: Vector = vector - a
 
-        let proj = relVec.dot(relEnd) / relEnd.lengthSquared
+        let proj: Vector.Scalar = relVec.dot(relEnd) / relEnd.lengthSquared
 
         return proj
     }

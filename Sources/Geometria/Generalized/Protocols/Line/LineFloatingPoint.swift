@@ -65,8 +65,8 @@ public protocol LineFloatingPoint: LineDivisible, PointProjectableType, SignedDi
 public extension LineFloatingPoint {
     @inlinable
     func mirror(point: Vector) -> Vector {
-        let projected = projectUnclamped(point)
-        let result = point + (projected - point) * 2
+        let projected: Vector = projectUnclamped(point)
+        let result: Vector = point + (projected - point) * 2
 
         return result
     }
