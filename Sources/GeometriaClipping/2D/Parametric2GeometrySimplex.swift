@@ -1,4 +1,5 @@
 import Geometria
+import RealModule
 
 /// The parametric simplex type produced by a `ParametricClip2Geometry`.
 public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex, Equatable, CustomStringConvertible {
@@ -65,6 +66,28 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
         switch self {
         case .circleArc2(let arc): return "\(type(of: self)).circleArc2(\(arc))"
         case .lineSegment2(let segment): return "\(type(of: self)).lineSegment2(\(segment))"
+        }
+    }
+
+    @inlinable
+    func updatingPeriod(startPeriod: Period, endPeriod: Period) -> Self {
+        var copy = self
+        copy.updatePeriod(startPeriod: startPeriod, endPeriod: endPeriod)
+        return copy
+    }
+
+    @inlinable
+    mutating func updatePeriod(startPeriod: Period, endPeriod: Period) {
+        switch self {
+        case .circleArc2(var simplex):
+            simplex.startPeriod = startPeriod
+            simplex.endPeriod = endPeriod
+            self = .circleArc2(simplex)
+
+        case .lineSegment2(var simplex):
+            simplex.startPeriod = startPeriod
+            simplex.endPeriod = endPeriod
+            self = .lineSegment2(simplex)
         }
     }
 
@@ -493,32 +516,19 @@ extension Collection {
         }
 
         let periodLength = endPeriod - startPeriod
+        let revPerimeter = perimeter.reciprocal ?? 1 / perimeter
 
         var currentLength: Scalar = .zero
-        let relativeSegments: [(periodRange: Range<Scalar>, simplex: Element)] = perimeterSequence.map { (length, simplex) in
+        return perimeterSequence.map { (length, simplex) in
             defer { currentLength += length }
 
-            let relativeStart = currentLength / perimeter
-            let relativeEnd = (currentLength + length) / perimeter
+            let relativeStart = currentLength * revPerimeter
+            let relativeEnd = (currentLength + length) * revPerimeter
 
             let periodStart = startPeriod + periodLength * relativeStart
             let periodEnd = startPeriod + periodLength * relativeEnd
 
-            return (periodStart..<periodEnd, simplex)
-        }
-
-        return relativeSegments.map { (range, simplex) in
-            switch simplex {
-            case .circleArc2(var arc):
-                arc.startPeriod = range.lowerBound
-                arc.endPeriod = range.upperBound
-                return .circleArc2(arc)
-
-            case .lineSegment2(var line):
-                line.startPeriod = range.lowerBound
-                line.endPeriod = range.upperBound
-                return .lineSegment2(line)
-            }
+            return simplex.updatingPeriod(startPeriod: periodStart, endPeriod: periodEnd)
         }
     }
 }

@@ -54,7 +54,8 @@ public struct CircleArc2Simplex<Vector: Vector2Real>: Parametric2Simplex, Equata
 
     @inlinable
     var lengthSquared: Scalar {
-        circleArc.arcLength * circleArc.arcLength
+        let arcLength = circleArc.arcLength
+        return arcLength * arcLength
     }
 
     @inlinable
