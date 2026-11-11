@@ -183,11 +183,11 @@ public struct AngleSweep<Scalar: FloatingPoint & ElementaryFunctions>: Hashable 
     @_specialize(exported: true, kind: full, where Scalar == Double)
     @_specialize(exported: true, kind: full, where Scalar == Float)
     func normalizedStartStop(from lowerBound: Scalar) -> (normalStart: Scalar, normalStop: Scalar) {
-        var normalStart = start.normalized(from: lowerBound)
-        var normalStop = (start + sweep).normalized(from: lowerBound)
+        let normalStart = start.normalized(from: lowerBound)
+        let normalStop = (start + sweep).normalized(from: lowerBound)
 
         if sweep.radians < .zero {
-            swap(&normalStart, &normalStop)
+            return (normalStop, normalStart)
         }
 
         return (normalStart, normalStop)
