@@ -224,7 +224,7 @@ class AngleTests: XCTestCase {
     func testAsinh() {
         let sut = Sut(radians: .pi / 4.0)
 
-        assertEqual(sut.asinh, 0.7212254887267798)
+        assertEqual(sut.asinh, 0.7212254887267797)
     }
 
     func testAtanh() {
