@@ -1,5 +1,4 @@
 import OrderedCollections
-import MiniDigraph
 
 internal extension OrderedSet {
     /// Performs a minimization of the inputs sets contained within this set by
@@ -8,30 +7,25 @@ internal extension OrderedSet {
     /// as the sets within `self`.
     @inlinable
     func minimized<T>() -> [OrderedSet<T>] where Element == OrderedSet<T> {
-        var graph = DirectedGraph<Int>()
+        var result: [OrderedSet<T>] = []
 
-        graph.addNodes(0..<self.count)
+        var queue: [OrderedSet<T>] = Array(self)
 
-        for (current, currentSet) in self.enumerated() {
-            for (next, nextSet) in self.enumerated().dropFirst(current + 1) {
-                if !currentSet.isDisjoint(with: nextSet) {
-                    graph.addEdge(from: current, to: next)
+        outer:
+        while !queue.isEmpty {
+            let next = queue.removeFirst()
+
+            for (i, current) in result.enumerated() {
+                if !current.isDisjoint(with: next) {
+                    result.remove(at: i)
+                    queue.append(current.union(next))
+                    continue outer
                 }
             }
+
+            result.append(next)
         }
 
-        var minimalSets: [OrderedSet<T>] = []
-
-        for component in graph.connectedComponents() {
-            var minimalSet: OrderedSet<T> = []
-
-            for index in component.sorted() {
-                minimalSet.formUnion(self[index])
-            }
-
-            minimalSets.append(minimalSet)
-        }
-
-        return minimalSets
+        return result
     }
 }

@@ -26,6 +26,16 @@ class Set_ExtTests: XCTestCase {
         )
     }
 
+    func testMinimized_partiallyDisjoint() {
+        let sut: Set<Set<Int>> = [[0, 1, 2], [2, 3, 4], [5, 6]]
+
+        assertEqualUnordered(
+            sut.minimized(),
+            [[0, 1, 2, 3, 4], [5, 6]],
+            compare: ==
+        )
+    }
+
     func testMinimized_common_across_2() {
         let sut: Set<Set<Int>> = [[0, 1, 2], [2, 3, 4]]
 
@@ -48,6 +58,16 @@ class Set_ExtTests: XCTestCase {
 
     func testMinimized_common_across_3_skip_one() {
         let sut: Set<Set<Int>> = [[0, 1, 2], [2, 3, 4], [5, 6, 0]]
+
+        assertEqualUnordered(
+            sut.minimized(),
+            [[0, 1, 2, 3, 4, 5, 6]],
+            compare: ==
+        )
+    }
+
+    func testMinimized_common_across_many() {
+        let sut: Set<Set<Int>> = [[0, 1], [1, 2], [2, 3], [2, 3, 4], [5, 6], [6, 0]]
 
         assertEqualUnordered(
             sut.minimized(),

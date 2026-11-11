@@ -1,5 +1,3 @@
-import MiniDigraph
-
 internal extension Set {
     /// Performs a minimization of the inputs sets contained within this set by
     /// combining sets with common elements, such that all contained sets in the
@@ -7,31 +5,25 @@ internal extension Set {
     /// as the sets within `self`.
     @inlinable
     func minimized<T>() -> [Set<T>] where Element == Set<T> {
-        var graph = DirectedGraph<Int>()
+        var result: [Set<T>] = []
 
-        graph.addNodes(0..<self.count)
+        var queue: [Set<T>] = Array(self)
 
-        let ordered = Array(self)
-        for (current, currentSet) in ordered.enumerated() {
-            for (next, nextSet) in ordered.enumerated().dropFirst(current + 1) {
-                if !currentSet.isDisjoint(with: nextSet) {
-                    graph.addEdge(from: current, to: next)
+        outer:
+        while !queue.isEmpty {
+            let next = queue.removeFirst()
+
+            for (i, current) in result.enumerated() {
+                if !current.isDisjoint(with: next) {
+                    result.remove(at: i)
+                    queue.append(current.union(next))
+                    continue outer
                 }
             }
+
+            result.append(next)
         }
 
-        var minimalSets: [Set<T>] = []
-
-        for component in graph.connectedComponents() {
-            var minimalSet: Set<T> = []
-
-            for index in component {
-                minimalSet.formUnion(ordered[index])
-            }
-
-            minimalSets.append(minimalSet)
-        }
-
-        return minimalSets
+        return result
     }
 }
