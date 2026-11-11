@@ -98,8 +98,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-numerics.git", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-collections.git", from: "1.1.2"),
+        .package(url: "https://github.com/apple/swift-numerics.git", from: "1.1.1"),
+        .package(url: "https://github.com/apple/swift-collections.git", from: "1.7.6"),
         .package(url: "https://github.com/LuizZak/MiniP5Printer.git", exact: "0.0.2"),
         .package(url: "https://github.com/LuizZak/MiniDigraph.git", exact: "0.8.1"),
         .package(url: "https://github.com/LuizZak/MiniGraphviz.git", exact: "0.1.0"),
