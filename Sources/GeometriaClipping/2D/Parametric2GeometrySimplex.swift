@@ -196,10 +196,6 @@ public enum Parametric2GeometrySimplex<Vector: Vector2Real>: Parametric2Simplex,
     /// instead.
     @inlinable
     public func clamped(in range: Range<Period>) -> Self? {
-        if startPeriod >= range.upperBound || endPeriod <= range.lowerBound {
-            return nil
-        }
-
         switch self {
         case .lineSegment2(let lineSegment):
             guard let lineSegment = lineSegment.clamped(in: range) else {
