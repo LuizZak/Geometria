@@ -116,9 +116,6 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         with line: Line
     ) -> ConvexLineIntersection<Vector> where Line.Vector == Vector {
 
-        func normal(at point: Vector, inverted: Bool) -> Vector {
-            (inverted ? center - point : point - center).normalized()
-        }
         func makePointNormal(
             at point: Vector,
             normalizedMagnitude: Scalar,
@@ -127,7 +124,7 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
             .init(
                 normalizedMagnitude: normalizedMagnitude,
                 point: point,
-                normal: normal(at: point, inverted: inverted)
+                normal: (inverted ? center - point : point - center).normalized()
             )
         }
 
@@ -166,10 +163,13 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
             return .enterExit(makePointNormal(at: t0p, normalizedMagnitude: t0), makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
+
         case (true, false):
             return .enter(makePointNormal(at: t0p, normalizedMagnitude: t0))
+
         case (false, true):
             return .exit(makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
+
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }
@@ -207,10 +207,13 @@ extension NSphere: ConvexType & PointProjectableType where Vector: VectorFloatin
         switch (line.containsProjectedNormalizedMagnitude(t0), line.containsProjectedNormalizedMagnitude(t1)) {
         case (true, true):
             return .enterExit(makePointNormal(at: t0p, normalizedMagnitude: t0), makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
+
         case (true, false):
             return .enter(makePointNormal(at: t0p, normalizedMagnitude: t0))
+
         case (false, true):
             return .exit(makePointNormal(at: t1p, normalizedMagnitude: t1, inverted: true))
+
         case (false, false):
             return t0.sign == t1.sign ? .noIntersection : .contained
         }

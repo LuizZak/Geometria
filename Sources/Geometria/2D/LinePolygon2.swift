@@ -58,10 +58,15 @@ extension LinePolygon2 where Vector: Vector2Multiplicative, Vector.Scalar: Divis
     /// Returns the squared perimeter of this 2D polygon.
     @inlinable
     public func perimeterSquared() -> Vector.Scalar {
-        var total: Scalar = .zero
+        guard var last = vertices.last else {
+            return .zero
+        }
 
-        for segment in lineSegments() {
-            total += segment.lengthSquared
+        var total: Scalar = .zero
+        for next in vertices {
+            total += last.distanceSquared(to: next)
+
+            last = next
         }
 
         return total
@@ -138,7 +143,7 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
 
         /// Records a signed value to derive the sign flips from.
         ///
-        /// Also returns whether the sign has been flipped two or more times.
+        /// Also returns whether the sign has been flipped three or more times.
         mutating func recordValue(_ value: Scalar) -> Bool {
             if value > Scalar.zero {
                 if sign == .indeterminate {
@@ -162,13 +167,9 @@ extension LinePolygon2 where Vector: Vector2Multiplicative & VectorComparable {
         }
 
         /// Returns `true` when the sign of a scalar value has flipped at least
-        /// two times.
+        /// three times.
         func hasFlippedTwice() -> Bool {
-            if flips > 2 {
-                return true
-            }
-
-            return false
+            return flips > 2
         }
 
         mutating func finish() {

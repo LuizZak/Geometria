@@ -100,7 +100,7 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
     /// Parameter passed along point normals in ``mappingPointNormals(_:)`` and
     /// ``replacingPointNormals(_:)`` to specify to the closure which kind of point
     /// normal was provided.
-    public enum LineIntersectionPointNormalKind {
+    public enum LineIntersectionPointNormalKind: Sendable {
         case singlePoint
         case enter
         case exit
@@ -108,6 +108,5 @@ public enum ConvexLineIntersection<Vector: VectorFloatingPoint> {
 }
 
 extension ConvexLineIntersection: Sendable where Vector: Sendable, Vector.Scalar: Sendable { }
-extension ConvexLineIntersection.LineIntersectionPointNormalKind: Sendable where Vector: Sendable { }
 extension ConvexLineIntersection: Equatable where Vector: Equatable { }
 extension ConvexLineIntersection: Hashable where Vector: Hashable { }
