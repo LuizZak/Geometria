@@ -80,14 +80,6 @@ extension Parametric2Simplex {
     }
 }
 
-public enum SimplexWinding {
-    /// A clockwise winding.
-    case clockwise
-
-    /// A counter-clockwise winding.
-    case counterClockwise
-}
-
 public enum SimplexCoincidenceRelationship<Period: Hashable>: Hashable {
     /// Edges are not coincident.
     case notCoincident
