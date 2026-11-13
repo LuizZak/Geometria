@@ -260,7 +260,7 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
 
         let (left, right) = simplex.split(at: period)
 
-        simplexes.insert(right, at: simplexIndex)
+        simplexes[simplexIndex] = right
         simplexes.insert(left, at: simplexIndex)
     }
 
