@@ -260,7 +260,8 @@ public struct Parametric2Contour<Vector: Vector2Real>: BoundableType, CustomStri
 
         let (left, right) = simplex.split(at: period)
 
-        simplexes[simplexIndex...simplexIndex] = [left, right]
+        simplexes.insert(right, at: simplexIndex)
+        simplexes.insert(left, at: simplexIndex)
     }
 
     public enum Winding: Sendable {
